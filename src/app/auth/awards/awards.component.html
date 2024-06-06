@@ -1,1 +1,66 @@
-<p>awards works!</p>
+<div class="container px-5 my-5">
+  <div class="row align-items-center">
+    <div class="col pl-4">
+      <main class="form-awards w-100 m-auto">
+        <form>
+          <h1>3. Adjudicación</h1>
+          <div class="form-floating mb-3">
+            <input
+              type="text"
+              class="form-control"
+              id="floatingInput"
+              placeholder="Indentificador de la adjudicación"
+              data-sb-validations="required"
+            />
+            <label for="floatingInput"
+              >Indentificador de la adjudicación *</label
+            >
+          </div>
+          <div class="form-floating mb-3">
+            <input
+              class="form-control"
+              id="titulo"
+              type="text"
+              placeholder="Título"
+              data-sb-validations="required"
+            />
+            <label for="titulo">Título</label>
+            <div class="invalid-feedback" data-sb-feedback="titulo:required">
+              Título is required.
+            </div>
+          </div>
+          <div class="form-floating mb-3">
+            <textarea
+              class="form-control"
+              id="descripcion"
+              type="text"
+              placeholder="Descripción"
+              style="height: 10rem"
+              data-sb-validations=""
+            ></textarea>
+            <label for="descripcion">Descripción</label>
+          </div>
+          <div class="form-floating mb-3">
+            <textarea
+              class="form-control"
+              id="justificacion"
+              type="text"
+              placeholder="Justificación"
+              style="height: 10rem"
+            ></textarea>
+            <label for="justificacion">Justificación</label>
+          </div>
+          <div class="d-grid">
+            <button
+              class="btn btn-primary btn-lg disabled"
+              id="submitButton"
+              type="submit"
+            >
+              Enviar
+            </button>
+          </div>
+        </form>
+      </main>
+    </div>
+  </div>
+</div>
