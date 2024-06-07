@@ -8,13 +8,11 @@
             <input
               type="text"
               class="form-control"
-              id="floatingInput"
+              id="awardID"
               placeholder="Indentificador de la adjudicación"
               data-sb-validations="required"
             />
-            <label for="floatingInput"
-              >Indentificador de la adjudicación *</label
-            >
+            <label for="awardID">Indentificador de la adjudicación *</label>
           </div>
           <div class="form-floating mb-3">
             <input
@@ -50,14 +48,66 @@
             ></textarea>
             <label for="justificacion">Justificación</label>
           </div>
-          <div class="d-grid">
-            <button
-              class="btn btn-primary btn-lg disabled"
-              id="submitButton"
-              type="submit"
-            >
-              Enviar
-            </button>
+          <div class="row ustify-content-center align-items-center g-2">
+            <div class="form-floating mb-3 col-md-6">
+              <select class="form-select" id="status" aria-label="award status">
+                <option value="default">Seleccione un opción</option>
+                <option value="pending">Pendiente</option>
+                <option value="active">Activo</option>
+                <option value="cancelled">Cancelado</option>
+                <option value="unsuccessful">Sin Éxito</option>
+              </select>
+              <label for="status">Estado de la adjudicación</label>
+            </div>
+
+            <div class="form-floating mb-3 col-md-6">
+              <input
+                type="date"
+                class="form-control"
+                id="awardDate"
+                placeholder="Fecha de la adjudicación"
+              />
+              <label for="awardDate">Fecha de la adjudicación</label>
+            </div>
+          </div>
+          <div class="row ustify-content-center align-items-center g-2">
+            <div class="form-floating mb-3 col-md-6">
+              <input
+                type="text"
+                class="form-control"
+                id="awardValue"
+                placeholder="Monto total de la adjudicación *"
+              />
+              <label for="awardValue">Monto total de la adjudicación *</label>
+            </div>
+            <div class="form-floating mb-3 col-md-6">
+              <select class="form-select" id="currency" aria-label="moneda">
+                <option value="default">Seleccione el tipo de moneda</option>
+                <option value="mxn">MXN</option>
+                <option value="usd">USD</option>
+              </select>
+              <label for="currency">Moneda</label>
+            </div>
+          </div>
+          <div class="row ustify-content-center align-items-center g-2">
+            <div class="col-md-2">
+              <button
+                class="btn btn-primary btn-lg"
+                id="submitButton"
+                type="submit"
+              >
+                Guardar
+              </button>
+            </div>
+            <div class="col-md-2">
+              <button
+                class="btn btn-danger btn-lg disabled"
+                id="deleteButton"
+                type="button"
+              >
+                Eliminar
+              </button>
+            </div>
           </div>
         </form>
       </main>
