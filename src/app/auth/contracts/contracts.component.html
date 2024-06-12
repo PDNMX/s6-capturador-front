@@ -1,1 +1,312 @@
-<p>contracts works!</p>
+<div class="container">
+  <div class="row">
+    <div class="col">
+      <main class="form-awards w-100 m-auto">
+        <form>
+          <div class="row">
+            <br><br>
+            <div class="col">
+              <h1 class="text-center">4. Contratos</h1>
+            </div>
+            <div class="col">
+              <label class="my-1 mr-2" for="inlineFormCustomSelectPref">Estatus: </label>
+              <select class="custom-select my-1 mr-sm-2" id="inlineFormCustomSelectPref">
+                <option selected>Seleccione... </option>
+                <option value="1">uno</option>
+                <option value="2">dos</option>
+                <option value="3">tres</option>
+              </select>
+            </div>
+          </div><!-- Titulo "Contratos 4" -->
+          <div class="row">
+            <div class="col">
+              <button type="button"class="btn btn-primary float-right"> Documentos </button>
+            </div>
+            <div class="col">
+              <button type="button"class="btn btn-primary float-right"> Items del contrato </button>
+            </div>
+            <div class="col">
+              <button type="button"class="btn btn-primary float-right"> Modificaciones </button>
+            </div>
+            <div class="col">
+              <button type="button"class="btn btn-primary float-right"> Garantías</button>
+            </div>
+          </div><!-- row botones azules -->
+          <div class="row"><!-- "Cuerpo principal del contrato" -->
+            <div class="col">
+              <div class="row"><!-- "Elementos que tienen un solo "col" -->
+                <div class="col">
+                  <label for="identficadorContrato">Identificador del contrato</label>
+                  <input type="text" class="form-control" id="identficadorContrato" placeholder="Número de contrato">
+                  <label for="IdentificadorAdjudicacion ">Identificador de la adjudicación</label>
+                  <input type="text" class="form-control" id="IdentificadorAdjudicacion" placeholder="Número de la adjudicación">
+                  <label for="tituloDeContrato">Título del contrato</label>
+                  <input type="text" class="form-control" id="tituloDeContrato" placeholder="Título del contrato">
+                  <label for="objetoContrato">Objeto del contrato</label>
+                  <textarea class="form-control" id="objetoContrato" placeholder="Objeto del contrato"></textarea>
+                  <label for="mecanismoVigilancia">Mecanismo de vigilancia</label>
+                  <input type="text" class="form-control" id="mecanismoVigilancia" placeholder="Mecanismo de vigilancia">
+                </div>
+              </div><!-- "Elementos que tienen un solo "col" -->
+              <div class="row">
+                <div class="col">
+                  <h2>Vigencia</h2>
+                    <label for="fechaInicio">Fecha de inicio</label>
+                    <input type="date" class="form-control" id="fechaInicio" placeholder="Fecha de inicio">
+                    <label for="fechaFin">Fecha de fin</label>
+                    <input type="date" class="form-control" id="fechaFin" placeholder="Fecha de fin">
+                  <h2>Valor</h2>
+                    <label for="montoSinImpuestos">Monto sin impuestos</label>
+                    <input type="text" class="form-control" id="montoSinImpuestos" placeholder="Valor del contrato">
+                    <label for="montoTotal">Monto total</label>
+                    <input type="text" class="form-control" id="montoTotal" placeholder="Valor de la adjudicación">
+                    <label for="moneda">Moneda</label>
+                    <input type="text" class="form-control" id="moneda" placeholder="Valor pagado">
+                  <h2>Tasa de cambio</h2>
+                    <label for="tasa">Tasa</label>
+                    <input type="text" class="form-control" id="tasa" placeholder="Tasa de cambio">
+                    <label for="montoMxn">monto en MXN</label>
+                    <input type="date" class="form-control" id="montoMxn" placeholder="Fecha de la tasa">
+                    <label class="my-1 mr-2" for="fuente">Fuente: </label>
+                    <select class="custom-select my-1 mr-sm-2" id="fuente">
+                      <option selected>Seleccione... </option>
+                      <option value="1">uno</option>
+                      <option value="2">dos</option>
+                      <option value="3">tres</option>
+                    </select>
+                    <label class="my-1 mr-2" for="fechaTasaCambio">Fecha de la tasa de cambio </label>
+                    <input type="date" class="form-control" id="fechaTasaCambio" placeholder="Fecha de la tasa">
+                    <label class="my-1 mr-2" for="fechaFirmaContrato">Fecha de la firma del contrato </label>
+                    <input type="date" class="form-control" id="fechaFirmaContrato" placeholder="Fecha de la tasa">
+                </div>
+              </div><!-- "Elementos que tienen un solo "col" -->
+              <div class="row"><!--  Botones fin del forulario-->
+                <div class="col">
+                  <button type="button"class="btn btn-primary float-right"> Guardar </button>
+                </div>
+                <div class="col">
+                  <button type="button"class="btn btn-primary float-right"> Importar datos </button>
+                </div>
+                <div class="col">
+                  <button type="button"class="btn btn-danger float-right"> Eliminar </button>
+                </div>
+              </div><!--  Botones fin del forulario-->
+            </div>
+          </div><!-- "Cuerpo principal del contrato" -->
+
+        </form>
+      </main>
+    </div>
+  </div>
+</div>
+<div class="container"><!-- container de  la modal con el mapa -->
+  <div class="row">
+    <div class="col">
+      <h2>Ítem</h2>
+    </div>
+  </div>
+  <div class="row">
+    <label for="descripcion">Descripción</label>
+    <input type="text" class="form-control" id="descripcion" placeholder="Descripción">
+  </div>
+  <div class="row"><!-- row "Cantidad por tipo bien, servicio u obra pública" -->
+    <div class="col">
+      <h2>Clasificación aplicable al bien, servicio u obra pública</h2>
+      <label class="my-1 mr-2" for="esquemaMapa">Esquema: </label>
+      <select class="custom-select my-1 mr-sm-2" id="esquemaMapa">
+        <option selected>Clasifiacador Único de las Contrataciones Públicas (CUCOP) </option>
+        <option value="1">uno</option>
+        <option value="2">dos</option>
+        <option value="3">tres</option>
+      </select>
+      <label for="identificadormapa">Identificador</label>
+      <input type="text" class="form-control" id="identificadormapa" placeholder="Descripción">
+      <label for="descripcionMapa">Descripción</label>
+      <input type="text" class="form-control" id="descripcionMapa" placeholder="Descripción">
+      <label for="cantidadMapa">Cantidad por tipo bien, servicio u obra pública</label>
+      <input type="text" class="form-control" id="cantidadMapa" placeholder="Descripción">
+    </div>
+  </div><!-- row "Cantidad por tipo bien, servicio u obra pública" -->
+  <div class="row"> <!-- div "Unidad de medida en la que se especifíca la cantidad de bienes, servicios u obras públicas" -->
+    <div class="col">
+      <h2> Unidad de medida en la que se especifíca la cantidad de bienes, servicios u obras públicas</h2>
+        <label for="identificadorMapa">Identificador</label>
+        <input type="text" class="form-control" id="identificadormapa" placeholder="Nombre">
+    </div>
+  </div><!-- div "Unidad de medida en la que se especifíca la cantidad de bienes, servicios u obras públicas" -->
+  <div class="row"> <!-- div valor -->
+    <h2>Valor</h2>
+    <div class="col">
+         <label for="monto">Monto sin inpuestos</label>
+        <input type="text" class="form-control" id="identificadormapa" placeholder="Monto sin inpuestos">
+    </div>
+    <div class="col">
+      <label for="montoTotalMapa">Monto total</label>
+      <input type="text" class="form-control" id="montoTotalMapa" placeholder="Monto total">
+  </div>
+  <div class="col">
+    <label for="monedaMapa">Moneda</label>
+    <input type="text" class="form-control" id="monedaMapa" placeholder="Moneda">
+  </div>
+  </div>
+  <!-- div valor -->
+  <div class="row"><!-- row del mapa -->
+    <div class="col">
+        <h1>Mapa con Bootstrap 5</h1>
+        <div id="map-container"></div>
+    </div>
+  </div><!-- row del mapa -->
+  <div class="row"><!-- row codigo postal -->
+    <div class="col">
+      <label for="codigoPostal">Código postal</label>
+      <input type="text" class="form-control" id="codigoPostal" placeholder="Código postal">
+      <button type="button"class="btn btn-primary float-right"> Guardar </button>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col">
+      <button type="button"class="btn btn-danger float-right"> Cerrar </button>
+    </div>
+  </div>
+</div><!-- fin container de  la modal con el mapa -->
+<!-- container documento -->
+<div class="container">
+  <div class="row">
+    <div class="col">
+      <h2>Documento</h2>
+    </div>
+  </div>
+  <div class="row"><!-- row -->
+    <label for="tipoDocumento">Tipo de documento</label>
+    <input type="text" class="form-control" id="tipoDocumento" placeholder="Tipo de documento">
+    <label for="titulo">Titulo</label>
+    <input type="text" class="form-control" id="titulo" placeholder="Titulo">
+    <label for="descripcionDocumento">Descripción </label>
+    <textarea class="form-control" id="descripcionDocumento" placeholder="Descripción del documento"></textarea>
+    <label for="url">Url</label>
+    <input type="text" class="form-control" id="urlDocumento" placeholder="Url de documento">
+  </div><!-- fin row -->
+  <div class="row">
+    <div class="col">
+      <label for="tipoDocumento">Fecha de publicación</label>
+      <input type="date" class="form-control" id="fechaPublicacion" placeholder="fechaPublicacion">
+    </div>
+    <div class="col">
+      <label for="tipoDocumento">Fecha de última modificación</label>
+      <input type="date" class="form-control" id="fechaModificacion" placeholder="fechaModificacion">
+    </div>
+  </div>
+  <div class="row">
+    <div class="col">
+      <label for="Formato">Formato</label>
+      <input type="text" class="form-control" id="formato" placeholder="Formato">
+      <label class="my-1 mr-2" for="idioma">Idioma: </label>
+      <select class="custom-select my-1 mr-sm-2" id="idioma">
+        <option selected>Spanish; Castilian - es </option>
+        <option value="1">uno</option>
+        <option value="2">dos</option>
+        <option value="3">tres</option>
+      </select>
+      <button type="button"class="btn btn-primary float-right"> Guardar </button>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col">
+      <button type="button"class="btn btn-danger float-right"> Cerrar </button>
+    </div>
+  </div>
+</div>
+<!-- fin container documento -->
+<div class="container"><!--  Container nueva modificacion -->
+  <div class="row">
+    <div class="col">
+      <h2> Nueva modificacion</h2>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col">
+      <label for="fechaModificacionModal">Fecha de modificación</label>
+      <input type="date" class="form-control" id="fechaModificacionModal" placeholder="fechaModificacion">
+      <label for="JustificacionModal">Justificacion</label>
+      <textarea class="form-control" id="JustificacionModal" placeholder="Justificacion"></textarea>
+      <label for="identificadorModal">Identificador</label>
+      <input type="text" class="form-control" id="identificadorModal" placeholder="Identificador">
+      <label for="descripcionModal">Descripción</label>
+      <textarea class="form-control" id="descripcionModal" placeholder="Descripción"></textarea>
+      <button type="button"class="btn btn-primary float-right"> Guardar </button>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col">
+      <button type="button"class="btn btn-danger float-right"> Cerrar </button>
+    </div>
+  </div>
+</div><!--  Container nueva modificacion -->
+<div class="container"><!-- containder de garantía -->
+  <div class="row">
+    <div class="col">
+      <h2> Garantía</h2>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col">
+      <label class="my-1 mr-2" for="formaGarantia">Forma de garantía </label>
+        <select class="custom-select my-1 mr-sm-2" id="formaGarantia">
+          <option selected>Seleccione una opción</option>
+          <option value="1">uno</option>
+          <option value="2">dos</option>
+          <option value="3">tres</option>
+        </select>
+      <label for="fechagarantia">Fecha de la garantía</label>
+      <input type="date" class="form-control" id="fechagarantia" placeholder="Fecha de la garantía">
+      <label class="my-1 mr-2" for="obligacionesGarantiadas">Obligaciones garantizadas</label>
+        <select class="custom-select my-1 mr-sm-2" id="obligacionesGarantiadas">
+          <option selected>Seleccione una opción</option>
+          <option value="1">uno</option>
+          <option value="2">dos</option>
+          <option value="3">tres</option>
+        </select>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col">
+      <label for="valorGarantia">Valor de la garantía</label>
+      <input type="text" class="form-control" id="valorGarantia" placeholder="Valor de la garantía">
+      <label for="monedaGarantia">Moneda</label>
+      <input type="text" class="form-control" id="monedaGarantia" placeholder="Moneda">
+    </div>
+  </div>
+  <div class="row">
+    <div class="col">
+      <label class="my-1 mr-2" for="obligacionesGarantiadas">Institucion que expide la garantía</label>
+        <select class="custom-select my-1 mr-sm-2" id="obligacionesGarantiadas">
+          <option selected>Seleccione una opción</option>
+          <option value="1">uno</option>
+          <option value="2">dos</option>
+          <option value="3">tres</option>
+        </select>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col">
+      <h2>Periodo de la garantía</h2>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col">
+      <label for="fechaInicioGarantia">Fecha de inicio</label>
+      <input type="date" class="form-control" id="fechaInicioGarantia" placeholder="Fecha de inicio">
+      <label for="fechaFinGarantia">Fecha de término</label>
+      <input type="date" class="form-control" id="fechaFinGarantia" placeholder="Fecha de fin">
+    </div>
+    <div class="row">
+      <div class="col">
+        <button type="button"class="btn btn-primary float-right"> Guardar </button>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col">
+        <button type="button"class="btn btn-danger float-right"> Cerrar </button>
+      </div>
+    </div>
+</div><!-- fin del containder de garantía -->
