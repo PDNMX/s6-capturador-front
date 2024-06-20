@@ -1,119 +1,202 @@
-<div class="container px-5 my-5">
-  <div class="row align-items-center">
-    <div class="col pl-4">
-      <main class="form-awards w-100 m-auto">
-        <form>
-          <h1>3. Adjudicación</h1>
-          <div class="row ustify-content-center align-items-center g-2">
-            <div class="form-floating mb-3 col-md-6">
-              <input
-                type="text"
-                class="form-control"
-                id="awardID"
-                placeholder="Indentificador de la adjudicación"
-                data-sb-validations="required"
-              />
-              <label for="awardID">Indentificador de la adjudicación *</label>
-            </div>
-            <div class="form-floating mb-3 col-md-6">
-              <input
-                class="form-control"
-                id="titulo"
-                type="text"
-                placeholder="Título"
-                data-sb-validations="required"
-              />
-              <label for="titulo">Título</label>
-              <div class="invalid-feedback" data-sb-feedback="titulo:required">
-                Título is required.
+<div class="content">
+  <div class="container">
+    <div class="row align-items-stretch no-gutters menu-wrap">
+      <div class="col-md-3 g-0">
+        <div class="menu-info h-100">
+          <h3>3. Adjudicación</h3>
+          <ul class="list-unstyled">
+            <li class="d-flex">
+              <span class="mr-3">▼ </span>
+              <span class="text">&nbsp;&nbsp;Proveedores</span>
+            </li>
+            <li class="d-flex">
+              <span class="mr-3">▤ </span>
+              <span class="text">&nbsp;&nbsp;Documentos</span>
+            </li>
+            <li class="d-flex">
+              <span class="mr-3">♕ </span>
+              <span class="text"> &nbsp;Enmiendas</span>
+            </li>
+            <li class="d-flex">
+              <span class="mr-3">℘ </span>
+              <span class="text">&nbsp;&nbsp;Elementos</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div class="col-md-9 g-0">
+        <div class="form h-100">
+          <h3>Adjudicación</h3>
+          <form
+            class="mb-5"
+            method="post"
+            id="awards-form"
+            name="awards-form"
+            novalidate="novalidate"
+          >
+            <div class="row">
+              <div class="form-floating form-group col-md-6 mb-5">
+                <input
+                  type="text"
+                  class="form-control"
+                  id="awardID"
+                  placeholder="Indentificador de la adjudicación"
+                  data-sb-validations="required"
+                />
+                <label for="awardID">Indentificador de la adjudicación *</label>
+              </div>
+              <div class="form-floating form-group col-md-6 mb-5">
+                <select
+                  class="form-select"
+                  id="status"
+                  aria-label="award status"
+                >
+                  <option value="default">Seleccione un opción</option>
+                  <option value="pending">Pendiente</option>
+                  <option value="active">Activo</option>
+                  <option value="cancelled">Cancelado</option>
+                  <option value="unsuccessful">Sin Éxito</option>
+                </select>
+                <label for="status">Estado de la adjudicación</label>
               </div>
             </div>
-          </div>
-          <div class="row ustify-content-center align-items-center g-2">
-            <div class="form-floating mb-3 col-md-6">
-              <textarea
-                class="form-control"
-                id="descripcion"
-                type="text"
-                placeholder="Descripción"
-                style="height: 10rem"
-                data-sb-validations=""
-              ></textarea>
-              <label for="descripcion">Descripción</label>
+            <div class="row">
+              <div class="form-floating col-md-12 mb-5">
+                <input
+                  class="form-control"
+                  id="titulo"
+                  type="text"
+                  placeholder="Título"
+                  data-sb-validations="required"
+                />
+                <label for="titulo">Título de la adjudicación.</label>
+                <div
+                  class="invalid-feedback"
+                  data-sb-feedback="titulo:required"
+                >
+                  Título is required.
+                </div>
+              </div>
             </div>
-            <div class="form-floating mb-3 col-md-6">
-              <textarea
-                class="form-control"
-                id="Rationale"
-                type="text"
-                placeholder="Justificación"
-                style="height: 10rem"
-                data-sb-validations=""
-              ></textarea>
-              <label for="Rationale">Justificación</label>
+            <div class="row">
+              <div class="form-floating col-md-12 mb-5">
+                <textarea
+                  class="form-control"
+                  id="descripcion"
+                  type="text"
+                  placeholder="Descripción"
+                  style="height: 10rem"
+                  data-sb-validations=""
+                ></textarea>
+                <label for="descripcion">Descripción de la adjudicación.</label>
+              </div>
             </div>
-          </div>
-          <div class="row ustify-content-center align-items-center g-2">
-            <div class="form-floating mb-3 col-md-3">
-              <select class="form-select" id="status" aria-label="award status">
-                <option value="default">Seleccione un opción</option>
-                <option value="pending">Pendiente</option>
-                <option value="active">Activo</option>
-                <option value="cancelled">Cancelado</option>
-                <option value="unsuccessful">Sin Éxito</option>
-              </select>
-              <label for="status">Estado de la adjudicación</label>
+            <div class="row">
+              <div class="form-floating col-md-12 mb-5">
+                <textarea
+                  class="form-control"
+                  id="Rationale"
+                  type="text"
+                  placeholder="Justificación"
+                  style="height: 10rem"
+                  data-sb-validations=""
+                ></textarea>
+                <label for="Rationale">Justificación</label>
+              </div>
             </div>
-
-            <div class="form-floating mb-3 col-md-3">
-              <input
-                type="date"
-                class="form-control"
-                id="awardDate"
-                placeholder="Fecha de la adjudicación"
-              />
-              <label for="awardDate">Fecha de la adjudicación</label>
+            <div class="row">
+              <div class="form-floating col-md-4 mb-5">
+                <input
+                  type="date"
+                  class="form-control"
+                  id="awardDate"
+                  placeholder="Fecha de la adjudicación"
+                />
+                <label for="awardDate">Fecha de la adjudicación</label>
+              </div>
             </div>
-            <div class="form-floating mb-3 col-md-3">
-              <input
-                type="text"
-                class="form-control"
-                id="awardValue"
-                placeholder="Monto total de la adjudicación *"
-              />
-              <label for="awardValue">Monto total de la adjudicación *</label>
+            <div class="row">
+              <h3>Valor</h3>
             </div>
-            <div class="form-floating mb-3 col-md-3">
-              <select class="form-select" id="currency" aria-label="moneda">
-                <option value="default">Seleccione el tipo de moneda</option>
-                <option value="mxn">MXN</option>
-                <option value="usd">USD</option>
-              </select>
-              <label for="currency">Moneda</label>
+            <div class="row">
+              <div class="form-floating form-group col-md-6 mb-5">
+                <input
+                  type="text"
+                  class="form-control"
+                  id="awardValue"
+                  placeholder="Monto total de la adjudicación *"
+                />
+                <label for="awardValue">Monto total de la adjudicación *</label>
+              </div>
+              <div class="form-floating form-group col-md-6 mb-5">
+                <select class="form-select" id="currency" aria-label="moneda">
+                  <option value="default">Seleccione el tipo de moneda</option>
+                  <option value="mxn">MXN</option>
+                  <option value="usd">USD</option>
+                </select>
+                <label for="currency">Moneda</label>
+              </div>
             </div>
-          </div>
-          <div class="row ustify-content-center align-items-center g-2">
-            <div class="col-md-3">
-              <button
-                class="btn btn-primary btn-lg"
-                id="submitButton"
-                type="submit"
-              >
-                Guardar
-              </button>
+            <div class="row">
+              <h3>Periodo del contrato</h3>
             </div>
-            <div class="col-md-3">
-              <button
-                class="btn btn-danger btn-lg disabled"
-                id="deleteButton"
-                type="button"
-              >
-                Eliminar
-              </button>
+            <div class="row">
+              <div class="form-floating form-group col-md-3 mb-5">
+                <input
+                  type="date"
+                  class="form-control"
+                  id="startDate"
+                  placeholder="Fecha de inicio del contrato"
+                />
+                <label for="startDate">Fecha de inicio</label>
+              </div>
+              <div class="form-floating form-group col-md-3 mb-5">
+                <input
+                  type="date"
+                  class="form-control"
+                  id="endDate"
+                  placeholder="Fecha de la adjudicación"
+                />
+                <label for="endDate">Fecha de término</label>
+              </div>
+              <div class="form-floating form-group col-md-3 mb-5">
+                <input
+                  type="date"
+                  class="form-control"
+                  id="maxExtentDate"
+                  placeholder="Fecha de la adjudicación"
+                />
+                <label for="maxExtentDate">Extensión máxima</label>
+              </div>
+              <div class="form-floating form-group col-md-3 mb-5">
+                <input
+                  type="number"
+                  class="form-control"
+                  id="durationInDays"
+                  placeholder="Duración en dias"
+                />
+                <label for="durationInDays">Duración (días)</label>
+              </div>
             </div>
-          </div>
-        </form>
-      </main>
+            <div class="row">
+              <div class="col-md-6 form-group d-flex justify-content-between">
+                <input
+                  type="submit"
+                  value="Guardar"
+                  class="btn btn-primary rounded-0 py-2 px-4"
+                />
+                <span class="Guardar"></span>
+                <input
+                  type="submit"
+                  value="Eliminar"
+                  class="btn btn-danger rounded-0 py-2 px-4"
+                />
+                <span class="Guardar"></span>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
     </div>
   </div>
 </div>
