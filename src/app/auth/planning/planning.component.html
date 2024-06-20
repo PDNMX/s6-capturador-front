@@ -28,15 +28,14 @@
           </ul>
         </div>
       </div>
-      <div class="col-md-9">
+      <div class="col-md-9 g-0">
         <div class="form h-100">
           <h3>Bienvenido</h3>
           <form class="mb-5" method="post" id="planning-Form-start" name="planning-Form-start" novalidate="novalidate">
             <div class="row">
-              <div class="col-md-12 form-group mb-5">
-                <label for="message" class="col-form-label">Justificación *</label>
-                <textarea class="form-control" name="justificacion" id="message" cols="30" rows="4"
-                  placeholder="Escriba la justificación de la contratación"></textarea>
+              <div class="form-floating col-md-12  mb-5">
+                <textarea class="form-control"  id="justificacion" type="text"  placeholder="Escriba la justificación de la contratación" data-sb-validations=""></textarea>
+                <label for="justificacion">Justificación *</label>
               </div>
             </div>
             <div class="row">
@@ -67,6 +66,36 @@
                 <input type="text" class="form-control" name="UnidadAdministrativaContratante" id="UAContratante" placeholder="Nombre">
               </div>
             </div>
+
+
+            <div class="row">
+              <div class="col-md-6 form-group">
+
+              </div>
+              <div class="col-md-6  form-group d-flex justify-content-between">
+                <input type="submit" value="Guardar" class="btn btn-primary rounded-0 py-2 px-4">
+                <span class="Guardar"></span>
+                <input type="submit" value="Importar datos" class="btn btn-primary rounded-0 py-2 px-4">
+                <span class="Guardar"></span>
+              </div>
+            </div>
+            <div id="form-message-warning mt-4"></div>
+            <div id="form-message-success"> Los campos fueron guardados, Gracias </div>
+          </form>
+
+
+          <form class="mb-5" method="post" id="planning-Form-documentos" name="planning-Form-documentos" novalidate="novalidate">
+            <div class="row">
+              <h3>Documentos</h3>
+            </div>
+            <div class="row">
+              <div class="col-md-12 form-group mb-5">
+                <label for="message" class="col-form-label">Tipo de documento</label>
+                <textarea class="form-control" name="justificacion" id="message" cols="30" rows="4"
+                  placeholder="Escriba la justificación de la contratación"></textarea>
+              </div>
+            </div>
+            
 
 
             <div class="row">
