@@ -1,1 +1,1122 @@
-<p>contracts works!</p>
+#primero
+<div class="content">
+  <div class="container">
+    <div class="row align-items-stretch no-gutters menu-wrap">
+      <div class="col-md-3 g-0">
+        <div class="menu-info h-100">
+          <h3>4. Contrato</h3>
+          <ul class="list-unstyled">
+            <li class="d-flex">
+              <span class=" mr-3">▼ </span><!-- Falta la sección en donde apareceran los contratos agregados  -->
+              <span class="text">&nbsp;&nbsp;Agregar contrato</span>
+            </li>
+            <li class="d-flex">
+              <span class=" mr-3">▤ </span>
+              <span class="text">&nbsp;&nbsp;Documentos</span>
+            </li>
+            <li class="d-flex">
+              <span class="mr-3">$ </span>
+              <span class="text">&nbsp;&nbsp;&nbsp;Ítems del contrato</span>
+            </li>
+            <li class="d-flex">
+              <span class="mr-3">♕ </span>
+              <span class="text"> &nbsp;Modificaciones</span>
+            </li>
+            <li class="d-flex">
+              <span class="mr-3">℘ </span>
+              <span class="text">&nbsp;&nbsp;Garantías</span>
+            </li>
+          </ul>
+        </div>
+      </div><!-- termina col-md-3 -->
+      <!-- Formulario lado derecho -->
+      <div class="col col-md-9">
+        <!-- Datos generales del contrato -->
+        <div class="form h-100">
+          <h3>Datos del contrato #</h3><!-- Cambiar por el número de contrato a guardar -->
+          <form class="mb-3" method="post" id="planning-Form-start" name="planning-Form-start" novalidate="novalidate">
+            <div class="row">
+              <div class="col-md-12 form-group mb-3">
+                <div class="form-floating">
+                  <select class="form-select" id="estatuscontrato" aria-label="estatus">
+                      <option value="1">1</option>
+                      <option value="2">2</option>
+                      <option value="3">3</option>
+                      <option value="4">4</option>
+                      <option value="5">5</option>
+                  </select>
+                  <label for="estatuscontrato"> Estatus del contrato: </label>
+              </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col col-md-12">
+                <div class="form-floating mb-3">
+                  <input type="text" class="form-control" id="idContrato" placeholder="Identificador del contrato">
+                  <label for="idContrato">Identificador del contrato</label>
+                </div>
+                <div class="form-floating mb-3">
+                  <input type="text" class="form-control" id="idAdjudicacion" placeholder="Identificador de la adjudicacion">
+                  <label for="idAdjudicacion">Identificador de la adjudicación</label>
+                </div>
+                <div class="form-floating mb-3">
+                  <input type="text" class="form-control" id="tituloContrato" placeholder="Titulo del contrato">
+                  <label for="tituloContrato">Titulo del contrato</label>
+                </div>
+                <div class="form-floating mb-3">
+                  <textarea class="form-control" id="desContrato" type="text" placeholder="New Field 11" style="height: 10rem;" data-sb-validations="required"></textarea>
+                  <label for="desContrato">Descripción del contrato</label>
+                  <div class="invalid-feedback" data-sb-feedback="desContrato:required">La descripción del contratoes requerida.</div>
+              </div>
+              <div class="row">
+                <h2>Vigencia (Periodo)</h2>
+                <div class="col-md-3">
+                  <div class="form-floating mb-3">
+                    <input class="form-control" id="fechaInicio" type="date" placeholder="fechaInicio" data-sb-validations="required" />
+                    <label for="fechaInicio">Fecha de inicio</label>
+                    <div class="invalid-feedback" data-sb-feedback="fechaInicio:required">La fecha de inicio is required.</div>
+                </div>
+                </div>
+                <div class="col-md-3">
+                  <div class="form-floating mb-3">
+                    <input class="form-control" id="fechaFin" type="date" placeholder="New Field 13" data-sb-validations="required" />
+                    <label for="fechaFin">Fecha de final</label>
+                    <div class="invalid-feedback" data-sb-feedback="fechaFin:required">New Field 13 is required.</div>
+                </div>
+              </div>
+              <div class="col-md-3">
+                <div class="form-floating mb-3">
+                  <input class="form-control" id="duracion" type="text" placeholder="Duracion en días" data-sb-validations="required" />
+                  <label for="duracion">Duracion en días</label>
+                  <div class="invalid-feedback" data-sb-feedback="duracion:required">Duracion en días es requerida.</div>
+                </div>
+              </div>
+              <div class="col-md-3">
+                  <div class="form-floating mb-3">
+                  <input class="form-control" id="extension" type="text" placeholder="Extension máxima" data-sb-validations="required" />
+                  <label for="extension">Extension máxima</label>
+                  <div class="invalid-feedback" data-sb-feedback="extension:required">Extension máxima es requerida.</div>
+                  </div>
+              </div>
+              </div><!-- Termina row vigencia-->
+              <div class="row">
+                <h2>Valor</h2>
+                <div class="col-md-4">
+                  <div class="form-floating mb-3">
+                    <input class="form-control" id="montoSinImpuestos" type="text" placeholder="Monto sin impuestos" data-sb-validations="required" />
+                    <label for="montoSinImpuestos">Monto sin impuestos</label>
+                    <div class="invalid-feedback" data-sb-feedback="newField13:required">Monto sin impuestos es requerido.</div>
+                </div>
+                </div>
+                <div class="col-md-4">
+                  <div class="form-floating mb-3">
+                    <input class="form-control" id="montoTotal" type="text" placeholder="Monto total" data-sb-validations="required" />
+                    <label for="montoTotal">Monto total</label>
+                    <div class="invalid-feedback" data-sb-feedback="montoTotal:required">Monto total es requerido.</div>
+                </div>
+              </div>
+                <div class="col-md-4">
+                  <div class="form-floating mb-3">
+                    <input class="form-control" id="moneda" type="text" placeholder="Moneda" data-sb-validations="required" />
+                    <label for="moneda">Moneda</label>
+                    <div class="invalid-feedback" data-sb-feedback="newField13:required">Moneda es requerido.</div>
+                  </div>
+                </div>
+              </div><!-- Termina row -->
+             <!--  <div class="row">
+                <h2>Tasa de cambio</h2>
+                <div class="col-md-4">
+                  <div class="form-floating mb-3">
+                    <input class="form-control" id="tasa" type="text" placeholder="Tasa de cambio" data-sb-validations="required" />
+                    <label for="tasa">Tasa</label>
+                    <div class="invalid-feedback" data-sb-feedback="tasa:required">Tasa de cambio es requerido.</div>
+                </div>
+                </div>
+                <div class="col-md-4">
+                  <div class="form-floating mb-3">
+                    <input class="form-control" id="montoMxn" type="text" placeholder="New Field 13" data-sb-validations="required" />
+                    <label for="montoMxn">Monto en MXN</label>
+                    <div class="invalid-feedback" data-sb-feedback="montoMxn:required">Monto en MXN es requerido.</div>
+                </div>                </div>
+                <div class="col-md-4">
+                  <div class="form-floating mb-3">
+                    <input class="form-control" id="monedaNw" type="text" placeholder="New Field 13" data-sb-validations="required" />
+                    <label for="monedaNw">Moneda</label>
+                    <div class="invalid-feedback" data-sb-feedback="monedaNw:required">Moneda es requerido.</div>
+                  </div>
+                </div>
+              </div> --><!-- Termina row de 4-->
+              <!-- Tasa de cambio -->
+              <!-- <div class="row">
+                <div class="col-md-6">
+                  <div class="form-floating mb-3">
+                    <select class="form-select" id="fuente" aria-label="New Field 14">
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                    </select>
+                    <label for="fuente">Fuente</label>
+                </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="form-floating mb-3">
+                    <input class="form-control" id="fechaTasaCambio" type="date" placeholder="New Field 13" data-sb-validations="required" />
+                    <label for="fechaTasaCambio">Fecha de la tasa de cambio</label>
+                    <div class="invalid-feedback" data-sb-feedback="fechaTasaCambio:required">New Field 13 is required.</div>
+                </div>
+              </div>
+              </div> --><!-- Termina row de 6 -->
+
+              <div class="row"><!-- Fecha firma del contrato -->
+                <div class="col-md-12">
+                  <div class="form-floating mb-3">
+                    <input class="form-control" id="fechaFirma" type="text" placeholder="New Field 13" data-sb-validations="required" />
+                    <label for="fechaFirma">Fecha de firma del contrato</label>
+                    <div class="invalid-feedback" data-sb-feedback="fechaFirma:required">Folio es requerido.</div>
+                  </div>
+                </div>
+                <div class="form-floating mb-3"><!-- para que sirve el siguiente campo?, de donde sale? -->
+                  <select class="form-select" id="mecanismoVigilancia" aria-label="New Field 12">
+                      <option value="1">1</option>
+                      <option value="2">2</option>
+                      <option value="3">3</option>
+                      <option value="4">4</option>
+                      <option value="5">5</option>
+                  </select>
+                  <label for="mecanismoVigilancia">Mecanismos de vigilancia:</label>
+              </div>
+                </div> <!-- termina col col-md-12 -->
+              </div><!-- Termina row -->
+              <div class="row">
+                <div class="col-md-4">
+                  <button type="button" class="btn btn-primary">Guardar</button>
+                </div>
+                <div class="col-md-4">
+                  <button type="button" class="btn btn-primary">Importar datos</button>
+                </div>
+                <div class="col-md-4">
+                  <button type="button" class="btn btn-danger">Eliminar</button>
+                </div>
+              </div><!-- Termina row de botones -->
+            </div>
+          </form>
+        </div>
+
+      </div> <!-- termina col-md-9 -->
+
+<!-- Falta la sección en donde apareceran los contratos agregados  -->
+ <!-- Comienza items -->
+ <div class="content">
+  <div class="container">
+    <div class="row align-items-stretch no-gutters menu-wrap">
+      <div class="col-md-3 g-0">
+        <div class="menu-info h-100">
+          <h3>4. Contrato</h3>
+          <ul class="list-unstyled">
+            <li class="d-flex">
+              <span class=" mr-3">▼ </span><!-- Falta la sección en donde apareceran los contratos agregados  -->
+              <span class="text">&nbsp;&nbsp;Agregar contrato</span>
+            </li>
+            <li class="d-flex">
+              <span class=" mr-3">▤ </span>
+              <span class="text">&nbsp;&nbsp;Documentos</span>
+            </li>
+            <li class="d-flex">
+              <span class="mr-3">$ </span>
+              <span class="text">&nbsp;&nbsp;&nbsp;Ítems del contrato</span>
+            </li>
+            <li class="d-flex">
+              <span class="mr-3">♕ </span>
+              <span class="text"> &nbsp;Modificaciones</span>
+            </li>
+            <li class="d-flex">
+              <span class="mr-3">℘ </span>
+              <span class="text">&nbsp;&nbsp;Garantías</span>
+            </li>
+          </ul>
+        </div>
+      </div><!-- termina col-md-3 -->
+      <!-- Formulario lado derecho -->
+      <div class="col col-md-9">
+        <!-- Datos generales del contrato -->
+        <div class="form h-100">
+          <h3>Datos del contrato # Sección ítems</h3><!-- Cambiar por el número de contrato a guardar -->
+          <form class="mb-3" method="post" id="planning-Form-start" name="planning-Form-start" novalidate="novalidate">
+            <div class="row">
+              <div class="col-md-12 form-group mb-3">
+                                <!-- Seccion/container de items -->
+                                <h2>Ítems contratados</h2>
+                                <div class="row"><!-- Comienza primera fila de items del contrato -->
+                                  <div class="col-md-6">
+                                    <div class="form-floating mb-3">
+                                      <input class="form-control" id="item" type="text" placeholder="Item" data-sb-validations="required" />
+                                      <label for="item">Identificador del ítem</label>
+                                      <div class="invalid-feedback" data-sb-feedback="item:required">Item es requerido.</div>
+                                    </div>
+                                  </div>
+                                  <div class="col-md-6">
+                                    <div class="form-floating mb-3">
+                                      <input class="form-control" id="descripcionItem" type="text" placeholder="descripcionItem" data-sb-validations="required" />
+                                      <label for="descripcionItem">Descripción del ítem</label>
+                                      <div class="invalid-feedback" data-sb-feedback="descripcionItem:required">La descripcion del item es requerida.</div>
+                                    </div>
+                                  </div>
+                                </div><!-- Termina primera fila de items del contrato -->
+                                <div class="row"> <!-- Comienza segunda fila de items del contrato -->
+                                  <h4>Clasificación</h4>
+                                  <div class="col-md-4">
+                                    <div class="form-floating mb-3">
+                                      <select class="form-select" id="Esquema" aria-label="Esquema">
+                                          <option value="1">Clasificador Único de las Contrataciones Públicas CUCOP</option>
+                                          <option value="2">2</option>
+                                          <option value="3">3</option>
+                                          <option value="4">4</option>
+                                          <option value="5">5</option>
+                                      </select>
+                                      <label for="Esquema">Esquema: </label>
+                                    </div>
+                                  </div>
+                                  <div class="col-md-4">
+                                  <!-- input id clasificacion -->
+                                   <div class="form-floating mb-3">
+                                      <input class="form-control" id="idClasificacion" type="text" placeholder="Id de la clasificación" data-sb-validations="required" />
+                                      <label for="idClasificacion">Id de la clasificación</label>
+                                      <div class="invalid-feedback" data-sb-feedback="idClasificacion:required">Id de la clasificación es requerida.</div>
+                                   </div>
+                                  </div>
+                                  <div class="col-md-4">
+                                    <div class="form-floating mb-3">
+                                      <input class="form-control" id="url" type="text" placeholder="URL" data-sb-validations="required" />
+                                      <label for="url">URL</label>
+                                      <div class="invalid-feedback" data-sb-feedback="url:required">URL es requerida.</div>
+                                  </div>
+                                  </div>
+                                </div>
+                                <div class="row">
+                                  <div class="col-md-12">
+                                    <div class="form-floating mb-3">
+                                      <textarea class="form-control" id="descripcionClasificacion" type="text" placeholder="Descripción de la clasificación" style="height: 10rem;" data-sb-validations="required"></textarea>
+                                      <label for="descripcionClasificacion">Descripción de la clasificación</label>
+                                      <div class="invalid-feedback" data-sb-feedback="descripcionClasificacion:required">La descripción de la clasificación Fes requerida</div>
+                                    </div>
+                                  </div>
+                                </div>
+                                <!-- Termina segunda fila de items del contrato -->
+                                <div class="row">
+                                  <div class="col-md-12">
+                                    <button type="button" class="btn btn-primary mb-3">
+                                      Agregar Clasificación
+                                    </button>
+                                  </div>
+                                </div>
+                                <div class="row">
+                                  <div class="col-md-12">
+                                    <div class="form-floating mb-3">
+                                      <input class="form-control" id="cantidad" type="text" placeholder="Cantidad" data-sb-validations="required" />
+                                      <label for="cantidad">Cantidad</label>
+                                      <div class="invalid-feedback" data-sb-feedback="cantidad:required">La cantidad es requerida.</div>
+                                  </div>
+                                  </div>
+                                </div>
+                                <div class="row">
+                                  <h2> Unidad</h2>
+                                  <div class="col-md-3">
+                                    <div class="form-floating mb-3">
+                                      <select class="form-select" id="esquemaClasificacion" aria-label="Esquema de la clasificación">
+                                          <option value="1">UNCEFACT</option>
+                                          <option value="2">2</option>
+                                          <option value="3">3</option>
+                                          <option value="4">4</option>
+                                          <option value="5">5</option>
+                                      </select>
+                                      <label for="esquemaClasificacion">Esquema de la clasificación.</label>
+                                  </div>
+                                  </div>
+                                  <div class="col-md-3">
+                                    <div class="form-floating mb-3">
+                                      <input class="form-control" id="idUnidad" type="text" placeholder="Id de la unidad" data-sb-validations="required" />
+                                      <label for="idUnidad">Id de la unidad</label>
+                                      <div class="invalid-feedback" data-sb-feedback="idUnidad:required">Id de la unidad es requerida.</div>
+                                      </div>
+                                  </div>
+                                  <div class="col-md-3">
+                                    <div class="form-floating mb-3">
+                                      <input class="form-control" id="nombreUnidad" type="text" placeholder="Nombre de la unidad" data-sb-validations="required" />
+                                      <label for="nombreUnidad">Nombre de la unidad</label>
+                                      <div class="invalid-feedback" data-sb-feedback="nombreUnidad:required">Nombre de la unidad es requerida.</div>
+                                      </div>
+                                  </div>
+                                  <div class="col-md-3">
+                                    <div class="form-floating mb-3">
+                                      <input class="form-control" id="url" type="text" placeholder="URL" data-sb-validations="required" />
+                                      <label for="url">URL</label>
+                                      <div class="invalid-feedback" data-sb-feedback="url:required">URL es requerida.</div>
+                                  </div>
+                                  </div>
+                                </div>
+                                <div class="row">
+                                  <h3>Valor por unidad</h3>
+                                  <div class="col-md-6">
+                                    <div class="form-floating mb-3">
+                                      <input class="form-control" id="montoUnitario" type="text" placeholder="Monto unitario" data-sb-validations="required" />
+                                      <label for="montoUnitario">Monto unitario</label>
+                                      <div class="invalid-feedback" data-sb-feedback="montoUnitario:required">Monto unitario es requerido.</div>
+                                      </div>
+                                  </div>
+                                  <div class="col-md-6">
+                                    <div class="form-floating mb-3">
+                                      <input class="form-control" id="moneda" type="text" placeholder="Moneda" data-sb-validations="required" />
+                                      <label for="moneda">Moneda</label>
+                                      <div class="invalid-feedback" data-sb-feedback="moneda:required">Moneda es requerida.</div>
+                                    </div>
+                                  </div>
+                                  <div class="row">
+                                    <h3>Ubicación de entrega</h3>
+                                    <div class="col-md-6">
+                                      <div class="form-floating mb-3">
+                                        <input class="form-control" id="coordenadas" type="text" placeholder="coordenadas" data-sb-validations="required" />
+                                        <label for="coordenadas">coordenadas</label>
+                                        <div class="invalid-feedback" data-sb-feedback="coordenadas:required">coordenadas es requerida.</div>
+                                      </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                      <div class="form-floating mb-3">
+                                        <input class="form-control" id="tipoDeDireccion" type="text" placeholder="tipoDeDireccion" data-sb-validations="required" />
+                                        <label for="tipoDeDireccion">Tipo de direccion</label>
+                                        <div class="invalid-feedback" data-sb-feedback="tipoDeDireccion:required">Tipo de direccion es requerida.</div>
+                                      </div>
+                                    </div>
+                                  </div>
+                                  <div class="row">
+                                    <div class="col-md-6">
+                                      <div class="form-floating mb-3">
+                                        <input class="form-control" id="esquema" type="text" placeholder="esquema" data-sb-validations="required" />
+                                        <label for="esquema">Esquema</label>
+                                        <div class="invalid-feedback" data-sb-feedback="esquema:required">Esquema es requerida.</div>
+                                      </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                      <div class="form-floating mb-3">
+                                        <input class="form-control" id="diccionarioGeografico" type="text" placeholder="diccionarioGeografico" data-sb-validations="required" />
+                                        <label for="diccionarioGeografico">Id del diccionario geografico</label>
+                                        <div class="invalid-feedback" data-sb-feedback="diccionarioGeografico:required">El id del diccionario geografico es requerido.</div>
+                                      </div>
+                                    </div>
+                                  </div>
+                                  <div class="row">
+                                    <div class="col-md-12">
+                                      <div class="form-floating mb-3">
+                                        <input class="form-control" id="descripcionLocalidad" type="text" placeholder="Descripcion de la localidad" data-sb-validations="required" />
+                                        <label for="descripcionLocalidad">Descripcion de la localidad</label>
+                                        <div class="invalid-feedback" data-sb-feedback="descripcionLocalidad:required">La descripcion de la localidad es requerida.</div>
+                                      </div>
+                                    </div>
+                                  </div>
+                                  <div class="row">
+                                    <div class="col-md-6">
+                                      <div class="form-floating mb-3">
+                                        <input class="form-control" id="URL" type="text" placeholder="URL" data-sb-validations="required" />
+                                        <label for="URL">URL</label>
+                                        <div class="invalid-feedback" data-sb-feedback="URL:required">URL es requerido.</div>
+                                      </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                      <div class="form-floating mb-3">
+                                        <input class="form-control" id="pais" type="text" placeholder="pais" data-sb-validations="required" />
+                                        <label for="pais">Pais</label>
+                                        <div class="invalid-feedback" data-sb-feedback="pais:required">Pais es requerido.</div>
+                                      </div>
+                                    </div>
+                                    </div>
+                                    <div class="row">
+                                      <div class="col-md-6">
+                                        <div class="form-floating mb-3">
+                                          <input class="form-control" id="estado" type="text" placeholder="estado" data-sb-validations="required" />
+                                          <label for="estado">Estado</label>
+                                          <div class="invalid-feedback" data-sb-feedback="estado:required">Estado es requerido.</div>
+                                        </div>
+                                      </div>
+                                      <div class="col-md-6">
+                                        <div class="form-floating mb-3">
+                                          <input class="form-control" id="municipio" type="text" placeholder="municipio" data-sb-validations="required" />
+                                          <label for="municipio">Municipio</label>
+                                          <div class="invalid-feedback" data-sb-feedback="municipio:required">Municipio es requerido.</div>
+                                        </div>
+                                      </div>
+                                     </div>
+                                      <div class="row">
+                                        <div class="col-md-6">
+                                          <div class="form-floating mb-3">
+                                            <input class="form-control" id="localidad" type="text" placeholder="localidad" data-sb-validations="required" />
+                                            <label for="localidad">Localidad</label>
+                                            <div class="invalid-feedback" data-sb-feedback="localidad:required">Localidad es requerida.</div>
+                                          </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                          <div class="form-floating mb-3">
+                                            <input class="form-control" id="codigoPostal" type="text" placeholder="codigoPostal" data-sb-validations="required" />
+                                            <label for="codigoPostal">Código postal</label>
+                                            <div class="invalid-feedback" data-sb-feedback="codigoPostal:required">Código postal es requerido.</div>
+                                          </div>
+                                        </div>
+                                      </div>
+                                </div>
+                                <div class="row">
+                                  <div class="col-md-4">
+                                    <button type="button" class="btn btn-primary">Guardar</button>
+                                  </div>
+                                  <div class="col-md-4">
+                                    <button type="button" class="btn btn-primary">Importar datos</button>
+                                  </div>
+                                  <div class="col-md-4">
+                                    <button type="button" class="btn btn-danger">Eliminar</button>
+
+                                  </div>
+                                </div><!-- Termina row  -->
+                  <!-- termina clasificacion -->
+              </div>
+            </div>
+            </form>
+        </div>
+      </div> <!-- termina col-md-9 -->
+    </div>
+  </div>
+</div>
+ <!-- Termina items -->
+
+ <!-- Comienza garantias -->
+ <div class="content">
+  <div class="container">
+    <div class="row align-items-stretch no-gutters menu-wrap">
+      <div class="col-md-3 g-0">
+        <div class="menu-info h-100">
+          <h3>4. Contrato</h3>
+          <ul class="list-unstyled">
+            <li class="d-flex">
+              <span class=" mr-3">▼ </span><!-- Falta la sección en donde apareceran los contratos agregados  -->
+              <span class="text">&nbsp;&nbsp;Agregar contrato</span>
+            </li>
+            <li class="d-flex">
+              <span class=" mr-3">▤ </span>
+              <span class="text">&nbsp;&nbsp;Documentos</span>
+            </li>
+            <li class="d-flex">
+              <span class="mr-3">$ </span>
+              <span class="text">&nbsp;&nbsp;&nbsp;Ítems del contrato</span>
+            </li>
+            <li class="d-flex">
+              <span class="mr-3">♕ </span>
+              <span class="text"> &nbsp;Modificaciones</span>
+            </li>
+            <li class="d-flex">
+              <span class="mr-3">℘ </span>
+              <span class="text">&nbsp;&nbsp;Garantías</span>
+            </li>
+          </ul>
+        </div>
+      </div><!-- termina col-md-3 -->
+      <!-- Formulario lado derecho -->
+      <div class="col col-md-9">
+        <!-- Datos generales del contrato -->
+        <div class="form h-100">
+          <h3>Datos del contrato # Seccion de garantías</h3><!-- Cambiar por el número de contrato a guardar -->
+          <form class="mb-3" method="post" id="planning-Form-start" name="planning-Form-start" novalidate="novalidate">
+            <div class="row">
+              <div class="col-md-12 form-group mb-3">
+                </div>
+              </div>
+              <div class="row"> <!-- comienza primer row -->
+                <div class="col-md-3">
+                  <div class="form-floating mb-3">
+                    <input class="form-control" id="idGarantia" type="text" placeholder="Id de la garantía" data-sb-validations="required" />
+                    <label for="idGarantia">Id de la garantía</label>
+                    <div class="invalid-feedback" data-sb-feedback="idGarantia:required">Id de la garantía es requerido.</div>
+                  </div>
+                </div>
+                <div class="col-md-3">
+                  <div class="form-floating mb-3">
+                    <input class="form-control" id="tipoGarantia" type="text" placeholder="Tipo de garantía" data-sb-validations="required" />
+                    <label for="tipoGarantia">Tipo de garantía</label>
+                    <div class="invalid-feedback" data-sb-feedback="tipoGarantia:required">Tipo de garantía es requerido.</div>
+                  </div>
+                </div>
+                <div class="col-md-3">
+                  <div class="form-floating mb-3">
+                    <input class="form-control" id="fechaGarantia" type="text" placeholder="Fecha de la garantía" data-sb-validations="required" />
+                    <label for="fechaGarantia">Fecha de la garantía</label>
+                    <div class="invalid-feedback" data-sb-feedback="fechaGarantia:required">Fecha de la garantía es requerido.</div>
+                  </div>
+                </div>
+                <div class="col-md-3">
+                  <div class="form-floating mb-3">
+                    <input class="form-control" id="obligacionesDeLaGarantia" type="text" placeholder="Obligaciones de la garantía" data-sb-validations="required" />
+                    <label for="obligacionesDeLaGarantia">Obligaciones de la garantía</label>
+                    <div class="invalid-feedback" data-sb-feedback="obligacionesDeLaGarantia:required">Obligaciones de la garantía son requeridas.</div>
+                  </div>
+                </div>
+              </div><!-- termina primer row -->
+              <div class="row">
+                <h3>Valor de la garantía</h3>
+                <div class="col-md-6">
+                  <div class="form-floating mb-3">
+                    <input class="form-control" id="montoGarantia" type="text" placeholder="Monto de la garantía" data-sb-validations="required" />
+                    <label for="montoGarantia">Monto de la garantía</label>
+                    <div class="invalid-feedback" data-sb-feedback="montoGarantia:required">Monto de la garantía es requerido.</div>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="form-floating mb-3">
+                    <input class="form-control" id="moneda" type="text" placeholder="Moneda" data-sb-validations="required" />
+                    <label for="moneda">Moneda</label>
+                    <div class="invalid-feedback" data-sb-feedback="moneda:required">Moneda es requerida.</div>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <h3>Fiador</h3>
+                <div class="col-md-6">
+                  <div class="form-floating mb-3">
+                    <input class="form-control" id="idFiador" type="text" placeholder="Id del fiador" data-sb-validations="required" />
+                    <label for="idFiador">Id del fiador</label>
+                    <div class="invalid-feedback" data-sb-feedback="idFiador:required">Id del fiador es requerido.</div>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="form-floating mb-3">
+                    <input class="form-control" id="nombreFiador" type="text" placeholder="Nombre del fiador" data-sb-validations="required" />
+                    <label for="nombreFiador">Nombre del fiador</label>
+                    <div class="invalid-feedback" data-sb-feedback="nombreFiador:required">Nombre del fiador es requerido.</div>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <h3>Periodo de garantía</h3>
+                <div class="col-md-3">
+                  <div class="form-floating mb-3">
+                    <input class="form-control" id="fechaInicioGarantia" type="date" placeholder="Fecha de inicio de garantía" data-sb-validations="required" />
+                    <label for="fechaInicioGarantia">Fecha de inicio de garantía</label>
+                    <div class="invalid-feedback" data-sb-feedback="fechaInicioGarantia:required">Fecha de inicio de garantía es requerida.</div>
+                  </div>
+                </div>
+                <div class="col-md-3">
+                  <div class="form-floating mb-3">
+                    <input class="form-control" id="fechaFinGarantia" type="date" placeholder="Fecha de fin de garantía" data-sb-validations="required" />
+                    <label for="fechaFinGarantia">Fecha de fin de garantía</label>
+                    <div class="invalid-feedback" data-sb-feedback="fechaFinGarantia:required">Fecha de fin de garantía es requerida.</div>
+                  </div>
+                </div>
+                <div class="col-md-3">
+                  <div class="form-floating mb-3">
+                    <input class="form-control" id="duracionGarantia" type="text" placeholder="Duración de la garantía" data-sb-validations="required" />
+                    <label for="duracionGarantia">Duración de la garantía</label>
+                    <div class="invalid-feedback" data-sb-feedback="duracionGarantia:required">Duración de la garantía es requerida.</div>
+                  </div>
+                  </div>
+                  <div class="col-md-3">
+                    <div class="form-floating mb-3">
+                      <input class="form-control" id="extensionGarantia" type="text" placeholder="Extensión de la garantía" data-sb-validations="required" />
+                      <label for="extensionGarantia">Extensión de la garantía</label>
+                      <div class="invalid-feedback" data-sb-feedback="extensionGarantia:required">Extensión de la garantía es requerida.</div>
+                    </div>
+                  </div>
+              </div>
+              <div class="row">
+                <div class="col-md-4">
+                  <button type="button" class="btn btn-primary">Guardar</button>
+                </div>
+                <div class="col-md-4">
+                  <button type="button" class="btn btn-primary">Importar datos</button>
+                </div>
+                <div class="col-md-4">
+                  <button type="button" class="btn btn-danger">Eliminar</button>
+
+                </div>
+              </div>
+          </form>
+        </div>
+      </div> <!-- termina col-md-9 -->
+    </div>
+  </div>
+</div>
+<!-- termina garantias -->
+
+<!-- Comienza garantías -->
+  <!-- Comienza documentos -->
+  <div class="content">
+    <div class="container">
+      <div class="row align-items-stretch no-gutters menu-wrap">
+        <div class="col-md-3 g-0">
+          <div class="menu-info h-100">
+            <h3>4. Contrato</h3>
+            <ul class="list-unstyled">
+              <li class="d-flex">
+                <span class=" mr-3">▼ </span><!-- Falta la sección en donde apareceran los contratos agregados  -->
+                <span class="text">&nbsp;&nbsp;Agregar contrato</span>
+              </li>
+              <li class="d-flex">
+                <span class=" mr-3">▤ </span>
+                <span class="text">&nbsp;&nbsp;Documentos</span>
+              </li>
+              <li class="d-flex">
+                <span class="mr-3">$ </span>
+                <span class="text">&nbsp;&nbsp;&nbsp;Ítems del contrato</span>
+              </li>
+              <li class="d-flex">
+                <span class="mr-3">♕ </span>
+                <span class="text"> &nbsp;Modificaciones</span>
+              </li>
+              <li class="d-flex">
+                <span class="mr-3">℘ </span>
+                <span class="text">&nbsp;&nbsp;Garantías</span>
+              </li>
+            </ul>
+          </div>
+        </div><!-- termina col-md-3 -->
+        <!-- Formulario lado derecho -->
+        <div class="col col-md-9">
+          <!-- Datos generales del contrato -->
+          <div class="form h-100">
+            <h3>Datos del contrato # Seccion de documentos</h3><!-- Cambiar por el número de contrato a guardar -->
+            <form class="mb-3" method="post" id="planning-Form-start" name="planning-Form-start" novalidate="novalidate">
+              <div class="row">
+                <div class="col-md-12 form-group mb-3">
+                  </div>
+                </div>
+                <div class="row"> <!-- comienza primer row -->
+                  <div class="col-md-4">
+                    <div class="form-floating mb-3">
+                      <input class="form-control" id="idDocumento" type="text" placeholder="Id del documento" data-sb-validations="required" />
+                      <label for="idDocumento">Id del documento</label>
+                      <div class="invalid-feedback" data-sb-feedback="idDocumento:required">Id del documento es requerido.</div>
+                    </div>
+                  </div>
+                  <div class="col-md-4">
+                    <div class="form-floating mb-3">
+                      <input class="form-control" id="tipoDocumento" type="text" placeholder="Tipo de documento" data-sb-validations="required" />
+                      <label for="tipoDocumento">Tipo de documento</label>
+                      <div class="invalid-feedback" data-sb-feedback="tipoDocumento:required">Tipo de documento es requerido.</div>
+                    </div>
+                  </div>
+                  <div class="col-md-4">
+                    <div class="form-floating mb-3">
+                      <input class="form-control" id="tituloDocumento" type="text" placeholder="Titulo del documento" data-sb-validations="required" />
+                      <label for="tituloDocumento">Titulo del documento</label>
+                      <div class="invalid-feedback" data-sb-feedback="tituloDocumento:required">El titulo del documento es requerido.</div>
+                    </div>
+                  </div>
+                  <!-- termina primer row -->
+                  <div class="row">
+                    <div class="col-md-4">
+                      <div class="form-floating mb-3">
+                        <input class="form-control" id="urlDocumento" type="text" placeholder="URL del documento" data-sb-validations="required" />
+                        <label for="urlDocumento">URL del documento</label>
+                        <div class="invalid-feedback" data-sb-feedback="urlDocumento:required">La url del documento es requerida.</div>
+                      </div>
+                    </div>
+                    <div class="col-md-4">
+                      <div class="form-floating mb-3">
+                        <input class="form-control" id="formato" type="text" placeholder="Formato del documento" data-sb-validations="required" />
+                        <label for="formato">Formato del documento</label>
+                        <div class="invalid-feedback" data-sb-feedback="formato:required">Formato del documento es requerido.</div>
+                      </div>
+                    </div>
+                    <div class="col-md-4">
+                      <div class="form-floating mb-3">
+                        <input class="form-control" id="idioma" type="text" placeholder="Idioma del documento" data-sb-validations="required" />
+                        <label for="idioma">Idioma del documento</label>
+                        <div class="invalid-feedback" data-sb-feedback="idioma:required">Idioma del documento es requerido.</div>
+                      </div>
+                    </div>
+                  </div>
+                    <div class="row">
+                      <!-- continuar aqui documentos de contrato -->
+                      <div class="col-md-6">
+                        <div class="form-floating mb-3">
+                          <input class="form-control" id="fechaDocumentoModificada" type="text" placeholder="Fecha modificacion del documento" data-sb-validations="required" />
+                          <label for="fechaDocumentoModificada">Fecha de modificación del documento</label>
+                          <div class="invalid-feedback" data-sb-feedback="fechaDocumentoModificada:required">Fecha de modificación del documento es requerido.</div>
+                        </div>
+                      </div>
+                      <div class="col-md-6">
+                        <div class="form-floating mb-3">
+                          <input class="form-control" id="fechaDocumentoPublicada" type="text" placeholder="Fecha del documento" data-sb-validations="required" />
+                          <label for="fechaDocumentoPublicada">Fecha publicada del documento</label>
+                          <div class="invalid-feedback" data-sb-feedback="fechaDocumentoPublicada:required">Fecha publicada del documento es requerido.</div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-md-4">
+                      <button type="button" class="btn btn-primary">Guardar</button>
+                    </div>
+                    <div class="col-md-4">
+                      <button type="button" class="btn btn-primary">Importar datos</button>
+                    </div>
+                    <div class="col-md-4">
+                      <button type="button" class="btn btn-danger">Eliminar</button>
+                    </div>
+                  </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+<!-- termina documentos -->
+
+<!-- Comienza procesos relacionados -->
+<div class="content">
+  <div class="container">
+    <div class="row align-items-stretch no-gutters menu-wrap">
+      <div class="col-md-3 g-0">
+        <div class="menu-info h-100">
+          <h3>4. Contrato</h3>
+          <ul class="list-unstyled">
+            <li class="d-flex">
+              <span class=" mr-3">▼ </span><!-- Falta la sección en donde apareceran los contratos agregados  -->
+              <span class="text">&nbsp;&nbsp;Agregar contrato</span>
+            </li>
+            <li class="d-flex">
+              <span class=" mr-3">▤ </span>
+              <span class="text">&nbsp;&nbsp;Documentos</span>
+            </li>
+            <li class="d-flex">
+              <span class="mr-3">$ </span>
+              <span class="text">&nbsp;&nbsp;&nbsp;Ítems del contrato</span>
+            </li>
+            <li class="d-flex">
+              <span class="mr-3">♕ </span>
+              <span class="text"> &nbsp;Modificaciones</span>
+            </li>
+            <li class="d-flex">
+              <span class="mr-3">℘ </span>
+              <span class="text">&nbsp;&nbsp;Garantías</span>
+            </li>
+          </ul>
+        </div>
+      </div><!-- termina col-md-3 -->
+      <!-- Formulario lado derecho -->
+      <div class="col col-md-9">
+        <!-- Datos generales del contrato -->
+        <div class="form h-100">
+          <h3>Datos del contrato # Seccion de procesos relacionados</h3><!-- Cambiar por el número de contrato a guardar -->
+          <form class="mb-3" method="post" id="planning-Form-start" name="planning-Form-start" novalidate="novalidate">
+            <div class="row">
+              <div class="col-md-12 form-group mb-3">
+                </div>
+              </div>
+              <div class="row"> <!-- comienza primer row -->
+                <div class="col-md-4">
+                  <div class="form-floating mb-3">
+                    <input class="form-control" id="idProcesoRelacionado" type="text" placeholder="Id del proceso relacionado" data-sb-validations="required" />
+                    <label for="idProcesoRelacionado">Id del proceso relacionado</label>
+                    <div class="invalid-feedback" data-sb-feedback="idProcesoRelacionado:required">Id del proceso relacionado es requerido.</div>
+                  </div>
+                </div>
+                <div class="col-md-4">
+                  <div class="form-floating mb-3">
+                    <input class="form-control" id="tipoProcesoRelacionado" type="text" placeholder="Tipo de proceso relacionado" data-sb-validations="required" />
+                    <label for="tipoProcesoRelacionado">Tipo de proceso relacionado</label>
+                    <div class="invalid-feedback" data-sb-feedback="tipoProcesoRelacionado:required">Tipo de proceso relacionado es requerido.</div>
+                  </div>
+                </div>
+                <div class="col-md-4">
+                  <div class="form-floating mb-3">
+                    <select class="form-select" id="relacion" aria-label="Relación">
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                    </select>
+                    <label for="newField6">Relación</label>
+                </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="form-floating mb-3">
+                    <input class="form-control" id="tituloProcesoRelacionado" type="text" placeholder="Titulo del proceso relacionado" data-sb-validations="required" />
+                    <label for="tituloProcesoRelacionado">Titulo del proceso relacionado</label>
+                    <div class="invalid-feedback" data-sb-feedback="tituloProcesoRelacionado:required">Titulo del proceso relacionado es requerido.</div>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="form-floating mb-3">
+                    <select class="form-select" id="esquemaRelacion" aria-label="Esquema de la relación: ">
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                    </select>
+                    <label for="esquemaRelacion">Esquema de la relación: </label>
+                </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="form-floating mb-3">
+                    <input class="form-control" id="idetificadorRelacion" type="text" placeholder="Identificador de la relación" data-sb-validations="required" />
+                    <label for="idetificadorRelacion">Identificador de la relación</label>
+                    <div class="invalid-feedback" data-sb-feedback="idetificadorRelacion:required">Identificador de la relación es requerido.</div>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="form-floating mb-3">
+                    <input class="form-control" id="urlProcesoRelacionado" type="text" placeholder="URL del proceso relacionado" data-sb-validations="required" />
+                    <label for="urlProcesoRelacionado">URL del proceso relacionado</label>
+                    <div class="invalid-feedback" data-sb-feedback="urlProcesoRelacionado:required">URL del proceso relacionado es requerido.</div>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-4">
+                  <button type="button" class="btn btn-primary">Guardar</button>
+                </div>
+                <div class="col-md-4">
+                  <button type="button" class="btn btn-primary">Importar datos</button>
+                </div>
+                <div class="col-md-4">
+                  <button type="button" class="btn btn-danger">Eliminar</button>
+                </div>
+              </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- termina procesos relacionados -->
+
+<!-- Comienza Hitos -->
+<div class="content">
+  <div class="container">
+    <div class="row align-items-stretch no-gutters menu-wrap">
+      <div class="col-md-3 g-0">
+        <div class="menu-info h-100">
+          <h3>4. Contrato</h3>
+          <ul class="list-unstyled">
+            <li class="d-flex">
+              <span class=" mr-3">▼ </span><!-- Falta la sección en donde apareceran los contratos agregados  -->
+              <span class="text">&nbsp;&nbsp;Agregar contrato</span>
+            </li>
+            <li class="d-flex">
+              <span class=" mr-3">▤ </span>
+              <span class="text">&nbsp;&nbsp;Documentos</span>
+            </li>
+            <li class="d-flex">
+              <span class="mr-3">$ </span>
+              <span class="text">&nbsp;&nbsp;&nbsp;Ítems del contrato</span>
+            </li>
+            <li class="d-flex">
+              <span class="mr-3">♕ </span>
+              <span class="text"> &nbsp;Modificaciones</span>
+            </li>
+            <li class="d-flex">
+              <span class="mr-3">℘ </span>
+              <span class="text">&nbsp;&nbsp;Garantías</span>
+            </li>
+          </ul>
+        </div>
+      </div><!-- termina col-md-3 -->
+      <!-- Formulario lado derecho -->
+      <div class="col col-md-9">
+        <!-- Datos generales del contrato -->
+        <div class="form h-100">
+          <h3>Datos del contrato # Seccion de hitos del proceso</h3><!-- Cambiar por el número de contrato a guardar -->
+          <form class="mb-3" method="post" id="planning-Form-start" name="planning-Form-start" novalidate="novalidate">
+            <div class="row">
+              <div class="col-md-12 form-group mb-3">
+                </div>
+              </div>
+              <div class="row"> <!-- comienza primer row -->
+                <div class="col-md-4">
+                  <div class="form-floating mb-3">
+                    <input class="form-control" id="idHito" type="text" placeholder="Id del hito" data-sb-validations="required" />
+                    <label for="idHito">Id del hito</label>
+                    <div class="invalid-feedback" data-sb-feedback="idHito:required">Id del hito es requerido.</div>
+                  </div>
+                </div>
+                <div class="col-md-4">
+                  <div class="form-floating mb-3">
+                    <input class="form-control" id="tituloDelHito" type="text" placeholder="Titulo del hito" data-sb-validations="required" />
+                    <label for="tituloDelHito">Titulo del hito</label>
+                    <div class="invalid-feedback" data-sb-feedback="tituloDelHito:required">Titulo del hito es requerido.</div>
+                  </div>
+                </div>
+                <div class="col-md-4">
+                  <div class="form-floating mb-3">
+                    <input class="form-control" id="tipoDelHito" type="text" placeholder="Tipo del hito" data-sb-validations="required" />
+                    <label for="tipoDelHito">Tipo del hito</label>
+                    <div class="invalid-feedback" data-sb-feedback="tipoDelHito:required">Tipo del hito es requerido.</div>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-4">
+                  <div class="form-floating mb-3">
+                    <input class="form-control" id="descripcionDelHito" type="text" placeholder="Descripción del hito" data-sb-validations="required" />
+                    <label for="descripcionDelHito">Descripción del hito</label>
+                    <div class="invalid-feedback" data-sb-feedback="descripcionDelHito:required">Descripción del hito es requerido.</div>
+                  </div>
+                </div>
+                <div class="col-md-4">
+                  <div class="form-floating mb-3">
+                    <input class="form-control" id="estatusDelHito" type="text" placeholder="Estado del hito" data-sb-validations="required" />
+                    <label for="estatusDelHito">Estado del hito</label>
+                    <div class="invalid-feedback" data-sb-feedback="estatusDelHito:required">Estado del hito es requerido.</div>
+                  </div>
+                </div>
+                <div class="col-md-4">
+                  <div class="form-floating mb-3">
+                    <input class="form-control" id="codigoDelHito" type="text" placeholder="Codigo del hito" data-sb-validations="required" />
+                    <label for="codigoDelHito">Codigo del hito</label>
+                    <div class="invalid-feedback" data-sb-feedback="codigoDelHito:required">Codigo del hito es requerido.</div>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="form-floating mb-3">
+                    <input class="form-control" id="fechaDelHito" type="text" placeholder="La fecha enq ue debe ser cumplido el hito" data-sb-validations="required" />
+                    <label for="fechaDelHito">La fecha enq ue debe ser cumplido el hito</label>
+                    <div class="invalid-feedback" data-sb-feedback="fechaDelHito:required">La fecha enq ue debe ser cumplido el hito es requerido.</div>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="form-floating mb-3">
+                    <input class="form-control" id="fechaDelHito" type="text" placeholder="La fecha enq ue debe ser cumplido el hito" data-sb-validations="required" />
+                    <label for="fechaDelHito">La fecha enq ue debe ser cumplido el hito</label>
+                    <div class="invalid-feedback" data-sb-feedback="fechaDelHito:required">La fecha enq ue debe ser cumplido el hito es requerido.</div>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-4">
+                  <button type="button" class="btn btn-primary">Guardar</button>
+                </div>
+                <div class="col-md-4">
+                  <button type="button" class="btn btn-primary">Importar datos</button>
+                </div>
+                <div class="col-md-4">
+                  <button type="button" class="btn btn-danger">Eliminar</button>
+
+                </div>
+              </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Termina hitos -->
+
+<!-- Comienza enmiendas  -->
+<div class="content">
+  <div class="container">
+    <div class="row align-items-stretch no-gutters menu-wrap">
+      <div class="col-md-3 g-0">
+        <div class="menu-info h-100">
+          <h3>4. Contrato</h3>
+          <ul class="list-unstyled">
+            <li class="d-flex">
+              <span class=" mr-3">▼ </span><!-- Falta la sección en donde apareceran los contratos agregados  -->
+              <span class="text">&nbsp;&nbsp;Agregar contrato</span>
+            </li>
+            <li class="d-flex">
+              <span class=" mr-3">▤ </span>
+              <span class="text">&nbsp;&nbsp;Documentos</span>
+            </li>
+            <li class="d-flex">
+              <span class="mr-3">$ </span>
+              <span class="text">&nbsp;&nbsp;&nbsp;Ítems del contrato</span>
+            </li>
+            <li class="d-flex">
+              <span class="mr-3">♕ </span>
+              <span class="text"> &nbsp;Modificaciones</span>
+            </li>
+            <li class="d-flex">
+              <span class="mr-3">℘ </span>
+              <span class="text">&nbsp;&nbsp;Garantías</span>
+            </li>
+          </ul>
+        </div>
+      </div><!-- termina col-md-3 -->
+      <!-- Formulario lado derecho -->
+      <div class="col col-md-9">
+        <div class="form h-100">
+          <h3>Datos del contrato # Seccion de enmiendas</h3>
+          <form class="mb-3" method="post" id="planning-Form-start" name="planning-Form-start" novalidate="novalidate">
+            <div class="row">
+              <div class="col-md-12 form-group mb-3">
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-4">
+                  <div class="form-floating mb-3">
+                    <input class="form-control" id="idEnmienda" type="text" placeholder="Id de la enmienda" data-sb-validations="required" />
+                    <label for="idEnmienda">Id de la enmienda</label>
+                    <div class="invalid-feedback" data-sb-feedback="idEnmienda:required">Id de la enmienda es requerido.</div>
+                  </div>
+                </div>
+                <div class="col-md-4">
+                  <div class="form-floating mb-3">
+                    <input class="form-control" id="tituloEnmienda" type="text" placeholder="Titulo de la enmienda" data-sb-validations="required" />
+                    <label for="tituloEnmienda">Titulo de la enmienda</label>
+                    <div class="invalid-feedback" data-sb-feedback="tituloEnmienda:required">Titulo de la enmienda es requerido.</div>
+                  </div>
+                </div>
+                <div class="col-md-4">
+                  <div class="form-floating mb-3">
+                    <input class="form-control" id="justificacionEnmienda" type="text" placeholder="Justificación de la enmienda" data-sb-validations="required" />
+                    <label for="justificacionEnmienda">Justificación de la enmienda</label>
+                    <div class="invalid-feedback" data-sb-feedback="justificacionEnmienda:required">La justificación de la enmienda es requerida.</div>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-4">
+                  <div class="form-floating mb-3">
+                    <input class="form-control" id="descripcionEnmienda" type="text" placeholder="Descripción de la enmienda" data-sb-validations="required" />
+                    <label for="descripcionEnmienda">Descripción de la enmienda</label>
+                    <div class="invalid-feedback" data-sb-feedback="descripcionEnmienda:required">Descripción de la enmienda es requerida.</div>
+                  </div>
+                </div>
+                <div class="col-md-4">
+                  <div class="form-floating mb-3">
+                    <input class="form-control" id="IdentificadorLiberacion" type="text" placeholder="Liberación modificada de la enmienda" data-sb-validations="required" />
+                    <label for="IdentificadorLiberacion">Liberación modificada de la enmienda</label>
+                    <div class="invalid-feedback" data-sb-feedback="IdentificadorLiberacion:required">Liberación modificada de la enmienda es requerida.</div>
+                  </div>
+                </div>
+                <div class="col-md-4">
+                  <div class="form-floating mb-3">
+                    <input class="form-control" id="modificacionEnmienda" type="text" placeholder="Modificacion de la enmienda" data-sb-validations="required" />
+                    <label for="modificacionEnmienda">Modificacion de la enmienda</label>
+                    <div class="invalid-feedback" data-sb-feedback="modificacionEnmienda:required">Modificacion de la enmienda es requerida.</div>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-4">
+                  <button type="button" class="btn btn-primary">Guardar</button>
+                </div>
+                <div class="col-md-4">
+                  <button type="button" class="btn btn-primary">Importar datos</button>
+                </div>
+                <div class="col-md-4">
+                  <button type="button" class="btn btn-danger">Eliminar</button>
+
+                </div>
+              </div>
+          </form>
+        </div>
+        </div>
+    </div>
+  </div>
+</div>
+<!-- Termina enmiendas -->
