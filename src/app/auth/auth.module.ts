@@ -8,6 +8,8 @@ import { PlanningComponent } from './planning/planning.component';
 import { TenderComponent } from './tender/tender.component';
 import { AwardsComponent } from './awards/awards.component';
 import { ContractsComponent } from './contracts/contracts.component';
+import { LayoutsComponent } from './layouts/layouts.component';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -17,8 +19,9 @@ import { ContractsComponent } from './contracts/contracts.component';
     TenderComponent,
     AwardsComponent,
     ContractsComponent,
+    LayoutsComponent,
   ],
-  imports: [CommonModule, AuthRoutingModule],
+  imports: [CommonModule, AuthRoutingModule, ReactiveFormsModule],
   exports: [
     PartiesComponent,
     BuyerComponent,
@@ -26,6 +29,7 @@ import { ContractsComponent } from './contracts/contracts.component';
     TenderComponent,
     AwardsComponent,
     ContractsComponent,
+    LayoutsComponent,
   ],
 })
 export class AuthModule {}
