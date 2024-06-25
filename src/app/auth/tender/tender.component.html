@@ -1,1 +1,234 @@
-<p>tender works!</p>
+<!-- tender-form.component.html -->
+<form [formGroup]="tenderForm" (ngSubmit)="onSubmit()">
+  <div class="container mt-3">
+    <div class="row mb-3">
+      <div class="form-floating col-md-6">
+        <label for="title" class="form-label">Title</label>
+        <input type="text" class="form-control" id="title" formControlName="title">
+      </div>
+      <div class="form-floating col-md-6">
+        <label for="additionalProcurementCategories" class="form-label">Additional Procurement Categories</label>
+        <input type="text" class="form-control" id="additionalProcurementCategories" formControlName="additionalProcurementCategories">
+      </div>
+    </div>
+
+    <div class="row mb-3">
+      <div class="form-floating col-md-6">
+        <label for="awardCriteria" class="form-label">Award Criteria</label>
+        <input type="text" class="form-control" id="awardCriteria" formControlName="awardCriteria">
+      </div>
+      <div class="form-floating col-md-6">
+        <label for="awardCriteriaDetails" class="form-label">Award Criteria Details</label>
+        <textarea class="form-control" id="awardCriteriaDetails" rows="3" formControlName="awardCriteriaDetails"></textarea>
+      </div>
+    </div>
+
+    <fieldset class="border p-3 mb-3" formGroupName="awardPeriod">
+      <legend class="w-auto px-2">Award Period</legend>
+      <div class="row mb-3">
+        <div class="col-md-3">
+          <label for="awardPeriodStartDate" class="form-label">Start Date</label>
+          <input type="date" class="form-control" id="awardPeriodStartDate" formControlName="startDate">
+        </div>
+        <div class="col-md-3">
+          <label for="awardPeriodEndDate" class="form-label">End Date</label>
+          <input type="date" class="form-control" id="awardPeriodEndDate" formControlName="endDate">
+        </div>
+        <div class="col-md-3">
+          <label for="awardPeriodMaxExtentDate" class="form-label">Max Extent Date</label>
+          <input type="date" class="form-control" id="awardPeriodMaxExtentDate" formControlName="maxExtentDate">
+        </div>
+        <div class="col-md-3">
+          <label for="awardPeriodDurationInDays" class="form-label">Duration in Days</label>
+          <input type="number" class="form-control" id="awardPeriodDurationInDays" formControlName="durationInDays">
+        </div>
+      </div>
+    </fieldset>
+
+    <fieldset class="border p-3 mb-3" formGroupName="contractPeriod">
+      <legend class="w-auto px-2">Contract Period</legend>
+      <div class="row mb-3">
+        <div class="col-md-3">
+          <label for="contractPeriodStartDate" class="form-label">Start Date</label>
+          <input type="date" class="form-control" id="contractPeriodStartDate" formControlName="startDate">
+        </div>
+        <div class="col-md-3">
+          <label for="contractPeriodEndDate" class="form-label">End Date</label>
+          <input type="date" class="form-control" id="contractPeriodEndDate" formControlName="endDate">
+        </div>
+        <div class="col-md-3">
+          <label for="contractPeriodMaxExtentDate" class="form-label">Max Extent Date</label>
+          <input type="date" class="form-control" id="contractPeriodMaxExtentDate" formControlName="maxExtentDate">
+        </div>
+        <div class="col-md-3">
+          <label for="contractPeriodDurationInDays" class="form-label">Duration in Days</label>
+          <input type="number" class="form-control" id="contractPeriodDurationInDays" formControlName="durationInDays">
+        </div>
+      </div>
+    </fieldset>
+
+    <div class="row mb-3">
+      <div class="col-md-12">
+        <label for="description" class="form-label">Description</label>
+        <textarea class="form-control" id="description" rows="3" formControlName="description"></textarea>
+      </div>
+    </div>
+
+    <div class="row mb-3">
+      <div class="col-md-12">
+        <label for="eligibilityCriteria" class="form-label">Eligibility Criteria</label>
+        <textarea class="form-control" id="eligibilityCriteria" rows="3" formControlName="eligibilityCriteria"></textarea>
+      </div>
+    </div>
+
+    <fieldset class="border p-3 mb-3" formGroupName="enquiryPeriod">
+      <legend class="w-auto px-2">Enquiry Period</legend>
+      <div class="row mb-3">
+        <div class="col-md-3">
+          <label for="enquiryPeriodStartDate" class="form-label">Start Date</label>
+          <input type="date" class="form-control" id="enquiryPeriodStartDate" formControlName="startDate">
+        </div>
+        <div class="col-md-3">
+          <label for="enquiryPeriodEndDate" class="form-label">End Date</label>
+          <input type="date" class="form-control" id="enquiryPeriodEndDate" formControlName="endDate">
+        </div>
+        <div class="col-md-3">
+          <label for="enquiryPeriodMaxExtentDate" class="form-label">Max Extent Date</label>
+          <input type="date" class="form-control" id="enquiryPeriodMaxExtentDate" formControlName="maxExtentDate">
+        </div>
+        <div class="col-md-3">
+          <label for="enquiryPeriodDurationInDays" class="form-label">Duration in Days</label>
+          <input type="number" class="form-control" id="enquiryPeriodDurationInDays" formControlName="durationInDays">
+        </div>
+      </div>
+    </fieldset>
+
+    <div class="row mb-3">
+      <div class="col-md-6">
+        <label for="hasEnquiries" class="form-label">Has Enquiries</label>
+        <input type="text" class="form-control" id="hasEnquiries" formControlName="hasEnquiries">
+      </div>
+      <div class="col-md-6">
+        <label for="id" class="form-label">ID</label>
+        <input type="text" class="form-control" id="id" formControlName="id">
+      </div>
+    </div>
+
+    <div class="row mb-3">
+      <div class="col-md-6">
+        <label for="mainProcurementCategory" class="form-label">Main Procurement Category</label>
+        <input type="text" class="form-control" id="mainProcurementCategory" formControlName="mainProcurementCategory">
+      </div>
+    </div>
+
+    <fieldset class="border p-3 mb-3" formGroupName="minValue">
+      <legend class="w-auto px-2">Min Value</legend>
+      <div class="row mb-3">
+        <div class="col-md-6">
+          <label for="minValueAmount" class="form-label">Amount</label>
+          <input type="number" class="form-control" id="minValueAmount" formControlName="amount">
+        </div>
+        <div class="col-md-6">
+          <label for="minValueCurrency" class="form-label">Currency</label>
+          <input type="text" class="form-control" id="minValueCurrency" formControlName="currency">
+        </div>
+      </div>
+    </fieldset>
+
+    <div class="row mb-3">
+      <div class="col-md-6">
+        <label for="numberOfTenderers" class="form-label">Number of Tenderers</label>
+        <input type="number" class="form-control" id="numberOfTenderers" formControlName="numberOfTenderers">
+      </div>
+      <div class="col-md-6">
+        <label for="procurementMethod" class="form-label">Procurement Method</label>
+        <input type="text" class="form-control" id="procurementMethod" formControlName="procurementMethod">
+      </div>
+    </div>
+
+    <div class="row mb-3">
+      <div class="col-md-6">
+        <label for="procurementMethodDetails" class="form-label">Procurement Method Details</label>
+        <input type="text" class="form-control" id="procurementMethodDetails" formControlName="procurementMethodDetails">
+      </div>
+      <div class="col-md-6">
+        <label for="procurementMethodRationale" class="form-label">Procurement Method Rationale</label>
+        <input type="text" class="form-control" id="procurementMethodRationale" formControlName="procurementMethodRationale">
+      </div>
+    </div>
+
+    <fieldset class="border p-3 mb-3" formGroupName="procuringEntity">
+      <legend class="w-auto px-2">Procuring Entity</legend>
+      <div class="row mb-3">
+        <div class="col-md-6">
+          <label for="procuringEntityId" class="form-label">ID</label>
+          <input type="text" class="form-control" id="procuringEntityId" formControlName="id">
+        </div>
+        <div class="col-md-6">
+          <label for="procuringEntityName" class="form-label">Name</label>
+          <input type="text" class="form-control" id="procuringEntityName" formControlName="name">
+        </div>
+      </div>
+    </fieldset>
+
+    <div class="row mb-3">
+      <div class="col-md-6">
+        <label for="status" class="form-label">Status</label>
+        <input type="text" class="form-control" id="status" formControlName="status">
+      </div>
+      <div class="col-md-6">
+        <label for="submissionMethod" class="form-label">Submission Method</label>
+        <input type="text" class="form-control" id="submissionMethod" formControlName="submissionMethod">
+      </div>
+    </div>
+
+    <div class="row mb-3">
+      <div class="col-md-6">
+        <label for="submissionMethodDetails" class="form-label">Submission Method Details</label>
+        <input type="text" class="form-control" id="submissionMethodDetails" formControlName="submissionMethodDetails">
+      </div>
+    </div>
+
+    <fieldset class="border p-3 mb-3" formGroupName="tenderPeriod">
+      <legend class="w-auto px-2">Tender Period</legend>
+      <div class="row mb-3">
+        <div class="col-md-3">
+          <label for="tenderPeriodStartDate" class="form-label">Start Date</label>
+          <input type="date" class="form-control" id="tenderPeriodStartDate" formControlName="startDate">
+        </div>
+        <div class="col-md-3">
+          <label for="tenderPeriodEndDate" class="form-label">End Date</label>
+          <input type="date" class="form-control" id="tenderPeriodEndDate" formControlName="endDate">
+        </div>
+        <div class="col-md-3">
+          <label for="tenderPeriodMaxExtentDate" class="form-label">Max Extent Date</label>
+          <input type="date" class="form-control" id="tenderPeriodMaxExtentDate" formControlName="maxExtentDate">
+        </div>
+        <div class="col-md-3">
+          <label for="tenderPeriodDurationInDays" class="form-label">Duration in Days</label>
+          <input type="number" class="form-control" id="tenderPeriodDurationInDays" formControlName="durationInDays">
+        </div>
+      </div>
+    </fieldset>
+
+    <fieldset class="border p-3 mb-3" formGroupName="value">
+      <legend class="w-auto px-2">Value</legend>
+      <div class="row mb-3">
+        <div class="col-md-6">
+          <label for="valueAmount" class="form-label">Amount</label>
+          <input type="number" class="form-control" id="valueAmount" formControlName="amount">
+        </div>
+        <div class="col-md-6">
+          <label for="valueCurrency" class="form-label">Currency</label>
+          <input type="text" class="form-control" id="valueCurrency" formControlName="currency">
+        </div>
+      </div>
+    </fieldset>
+
+    <div class="row mb-3">
+      <div class="col-md-12">
+        <button type="submit" class="btn btn-primary">Submit</button>
+      </div>
+    </div>
+  </div>
+</form>
