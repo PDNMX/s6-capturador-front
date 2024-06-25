@@ -45,7 +45,7 @@
                 />
                 <label for="awardID">Indentificador de la adjudicación *</label>
               </div>
-              <div class="form-floating form-group col-md-6 mb-5">
+              <div class="form-floating col-md-6 mb-5">
                 <select
                   class="form-select"
                   id="status"
@@ -85,7 +85,6 @@
                   id="descripcion"
                   type="text"
                   placeholder="Descripción"
-                  style="height: 10rem"
                   data-sb-validations=""
                 ></textarea>
                 <label for="descripcion">Descripción de la adjudicación.</label>
@@ -98,7 +97,6 @@
                   id="Rationale"
                   type="text"
                   placeholder="Justificación"
-                  style="height: 10rem"
                   data-sb-validations=""
                 ></textarea>
                 <label for="Rationale">Justificación</label>
@@ -121,7 +119,7 @@
             <div class="row">
               <div class="form-floating form-group col-md-6 mb-5">
                 <input
-                  type="text"
+                  type="number"
                   class="form-control"
                   id="awardValue"
                   placeholder="Monto total de la adjudicación *"
@@ -192,6 +190,314 @@
                   class="btn btn-danger rounded-0 py-2 px-4"
                 />
                 <span class="Guardar"></span>
+              </div>
+            </div>
+          </form>
+          <hr class="solid" />
+          <form
+            class="mb-5"
+            method="post"
+            id="awards-form"
+            name="awards-form"
+            novalidate="novalidate"
+          >
+            <div class="row">
+              <h3>Proveedor</h3>
+            </div>
+            <div class="row">
+              <div class="form-floating col-md-6">
+                <input
+                  class="form-control"
+                  id="supplierID"
+                  type="text"
+                  placeholder="Id Proveedor"
+                />
+                <label for="supplierID">Indentificador del proveedor</label>
+              </div>
+              <div class="form-floating col-md-6">
+                <input
+                  class="form-control"
+                  id="supplierName"
+                  type="text"
+                  placeholder="Nombre Proveedor"
+                />
+                <label for="supplierName">Nombre del proveedor</label>
+              </div>
+            </div>
+          </form>
+          <hr class="solid" />
+          <form
+            class="mb-5"
+            method="post"
+            id="awards-form"
+            name="awards-form"
+            novalidate="novalidate"
+          >
+            <div class="row">
+              <h3>Artículos</h3>
+            </div>
+            <div class="row mb-5">
+              <small>
+                Los bienes y servicios adjudicados en esta adjudicación,
+                desglosados en tipos de artículos de una clasificación
+                preexistente cuando sea posible. Los artículos no deberían de
+                estar duplicados, sino se debe especificar la cantidad.
+              </small>
+            </div>
+            <div class="row">
+              <div class="form-floating col-md-4 mb-5">
+                <input
+                  class="form-control"
+                  id="itemID"
+                  type="text"
+                  placeholder="Id del Artículo"
+                />
+                <label for="supplierID">Indentificador del artículo</label>
+              </div>
+              <div class="form-floating col-md-4 mb-5">
+                <input
+                  class="form-control"
+                  id="description"
+                  type="text"
+                  placeholder="Descripción del Artículo"
+                />
+                <label for="supplierName">Descripción del articulo</label>
+              </div>
+              <div class="form-floating col-md-4 mb-5">
+                <input
+                  class="form-control"
+                  id="quantity"
+                  type="number"
+                  placeholder="Cantidad de unidades"
+                />
+                <label for="supplierName">Cantidad de unidades</label>
+              </div>
+            </div>
+            <div class="row">
+              <h3>Unidad</h3>
+            </div>
+            <div class="row mb-5">
+              <small
+                >Una descripción de la unidad en la cual los suministros,
+                servicios o trabajos están provistos (ej. horas, kilos) y el
+                precio por unidad.</small
+              >
+            </div>
+            <div class="row">
+              <div class="form-floating col-md-6 mb-5">
+                <input
+                  class="form-control"
+                  id="unitID"
+                  type="text"
+                  placeholder="Identificador de la unidad"
+                />
+                <label for="classificationID"
+                  >Identificador de la unidad de medida</label
+                >
+              </div>
+              <div class="form-floating form-group col-md-6 mb-5">
+                <select class="form-select" id="scheme" aria-label="scheme">
+                  <option value="default">Seleccione una opción</option>
+                  <option value="mxn">opcion 1</option>
+                  <option value="usd">opcion 2</option>
+                  <option value="usd">opcion 3</option>
+                  <option value="usd">opcion 4</option>
+                  <option value="usd">opcion 5</option>
+                </select>
+                <label for="scheme">Esquema de unidades de medida</label>
+              </div>
+            </div>
+            <div class="row">
+              <div class="form-floating col-md-6 mb-5">
+                <input
+                  class="form-control"
+                  id="nameUnit"
+                  type="text"
+                  placeholder="Nombre de la unidad de medida"
+                />
+                <label for="description">Unidad de medida</label>
+              </div>
+              <div class="form-floating col-md-6 mb-5">
+                <input
+                  class="form-control"
+                  id="uri"
+                  type="text"
+                  placeholder="URI de la unidad de medida, dada por el esquema"
+                />
+                <label for="uri">URI</label>
+              </div>
+            </div>
+            <div class="row">
+              <h3>Valor</h3>
+            </div>
+            <div class="row">
+              <div class="form-floating form-group col-md-6 mb-5">
+                <input
+                  type="number"
+                  class="form-control"
+                  id="awardValue"
+                  placeholder="Monto total de la adjudicación *"
+                />
+                <label for="awardValue">Monto *</label>
+              </div>
+              <div class="form-floating form-group col-md-6 mb-5">
+                <select class="form-select" id="currency" aria-label="moneda">
+                  <option value="default">Seleccione el tipo de moneda</option>
+                  <option value="mxn">MXN</option>
+                  <option value="usd">USD</option>
+                </select>
+                <label for="currency">Moneda</label>
+              </div>
+            </div>
+            <div class="row">
+              <h3>Clasificación</h3>
+            </div>
+            <div class="row">
+              <div class="form-floating col-md-6 mb-5">
+                <input
+                  class="form-control"
+                  id="classificationID"
+                  type="text"
+                  placeholder="Identificador de la Clasificación"
+                />
+                <label for="classificationID">Código de la clasificación</label>
+              </div>
+              <div class="form-floating form-group col-md-6 mb-5">
+                <select class="form-select" id="scheme" aria-label="scheme">
+                  <option value="default">Seleccione una opción</option>
+                  <option value="mxn">opcion 1</option>
+                  <option value="usd">opcion 2</option>
+                  <option value="usd">opcion 3</option>
+                  <option value="usd">opcion 4</option>
+                  <option value="usd">opcion 5</option>
+                </select>
+                <label for="scheme">Esquema</label>
+              </div>
+            </div>
+            <div class="row">
+              <div class="form-floating col-md-6 mb-5">
+                <input
+                  class="form-control"
+                  id="description"
+                  type="text"
+                  placeholder="Descripción del Artículo"
+                />
+                <label for="description">Descripción</label>
+              </div>
+              <div class="form-floating col-md-6 mb-5">
+                <input
+                  class="form-control"
+                  id="uri"
+                  type="text"
+                  placeholder="URI de la clasificación"
+                />
+                <label for="uri">URI</label>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-6 form-group d-flex justify-content-between">
+                <input
+                  type="submit"
+                  value="Guardar"
+                  class="btn btn-primary rounded-0 py-2 px-4"
+                />
+                <span class="Guardar"></span>
+                <input
+                  type="submit"
+                  value="Eliminar"
+                  class="btn btn-danger rounded-0 py-2 px-4"
+                />
+                <span class="Guardar"></span>
+              </div>
+            </div>
+          </form>
+          <hr class="solid" />
+          <form
+            class="mb-5"
+            method="post"
+            id="awards-form"
+            name="awards-form"
+            novalidate="novalidate"
+          >
+            <div class="row">
+              <h3>Documento</h3>
+            </div>
+            <div class="row">
+              <div class="form-floating col-md-4 mb5">
+                <input
+                  class="form-control"
+                  id="documentID"
+                  type="text"
+                  placeholder="Idenficador del Documento"
+                />
+                <label for="description">Identificador del Documento</label>
+              </div>
+              <div class="form-floating form-group col-md-4 mb-5">
+                <select
+                  class="form-select"
+                  id="documentType"
+                  aria-label="scheme"
+                >
+                  <option value="default">Seleccione una opción</option>
+                  <option value="awardNotice">Aviso de adjudicación</option>
+                  <option value="contractDraft">Borrador de contrato</option>
+                  <option value="contractArrangements">
+                    Arreglos para finalizar un contrato
+                  </option>
+                  <option value="contractSchedule">
+                    Calendario del contrato
+                  </option>
+                  <option value="winningBid">Oferta ganadora</option>
+                  <option value="complaints">Quejas y decisiones</option>
+                  <option value="conflictOfInterest">
+                    Conflicto de interés
+                  </option>
+                  <option value="submissionDocuments">
+                    Documentos de presentación de oferta
+                  </option>
+                  <option value="cancellationDetails">
+                    Detalles de cancelación
+                  </option>
+                </select>
+                <label for="documentType">Tipo de Documento</label>
+              </div>
+              <div class="form-floating col-md-4 mb-5">
+                <input
+                  class="form-control"
+                  id="title"
+                  type="text"
+                  placeholder="Título del documento"
+                />
+                <label for="title">Título del Documento</label>
+              </div>
+              <div class="row">
+                <div class="form-floating col-md-4 mb-5">
+                  <input
+                    class="form-control"
+                    id="description"
+                    type="text"
+                    placeholder="Descripción del documento"
+                  />
+                  <label for="description">Descripción del Documento</label>
+                </div>
+                <div class="form-floating col-md-4 mb-5">
+                  <input
+                    class="form-control"
+                    id="url"
+                    type="text"
+                    placeholder="Url del documento"
+                  />
+                  <label for="url">URL</label>
+                </div>
+                <div class="form-floating col-md-4 mb-5">
+                  <input
+                    class="form-control"
+                    id="date"
+                    type="date"
+                    placeholder="Fecha de publicación del documento"
+                  />
+                  <label for="date">Fecha de publicación</label>
+                </div>
               </div>
             </div>
           </form>
