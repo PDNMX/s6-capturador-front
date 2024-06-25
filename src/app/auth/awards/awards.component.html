@@ -15,11 +15,11 @@
             </li>
             <li class="d-flex">
               <span class="mr-3">♕ </span>
-              <span class="text"> &nbsp;Enmiendas</span>
+              <span class="text"> &nbsp;Artículos</span>
             </li>
             <li class="d-flex">
               <span class="mr-3">℘ </span>
-              <span class="text">&nbsp;&nbsp;Elementos</span>
+              <span class="text">&nbsp;&nbsp;Enmiendas</span>
             </li>
           </ul>
         </div>
@@ -39,11 +39,11 @@
                 <input
                   type="text"
                   class="form-control"
-                  id="awardID"
+                  id="id"
                   placeholder="Indentificador de la adjudicación"
                   data-sb-validations="required"
                 />
-                <label for="awardID">Indentificador de la adjudicación *</label>
+                <label for="id">Indentificador de la adjudicación *</label>
               </div>
               <div class="form-floating col-md-6 mb-5">
                 <select
@@ -64,12 +64,12 @@
               <div class="form-floating col-md-12 mb-5">
                 <input
                   class="form-control"
-                  id="titulo"
+                  id="title"
                   type="text"
                   placeholder="Título"
                   data-sb-validations="required"
                 />
-                <label for="titulo">Título de la adjudicación.</label>
+                <label for="title">Título de la adjudicación.</label>
                 <div
                   class="invalid-feedback"
                   data-sb-feedback="titulo:required"
@@ -82,24 +82,24 @@
               <div class="form-floating col-md-12 mb-5">
                 <textarea
                   class="form-control"
-                  id="descripcion"
+                  id="description"
                   type="text"
                   placeholder="Descripción"
                   data-sb-validations=""
                 ></textarea>
-                <label for="descripcion">Descripción de la adjudicación.</label>
+                <label for="description">Descripción de la adjudicación.</label>
               </div>
             </div>
             <div class="row">
               <div class="form-floating col-md-12 mb-5">
                 <textarea
                   class="form-control"
-                  id="Rationale"
+                  id="rationale"
                   type="text"
                   placeholder="Justificación"
                   data-sb-validations=""
                 ></textarea>
-                <label for="Rationale">Justificación</label>
+                <label for="rationale">Justificación</label>
               </div>
             </div>
             <div class="row">
@@ -107,10 +107,10 @@
                 <input
                   type="date"
                   class="form-control"
-                  id="awardDate"
+                  id="date"
                   placeholder="Fecha de la adjudicación"
                 />
-                <label for="awardDate">Fecha de la adjudicación</label>
+                <label for="date">Fecha de la adjudicación</label>
               </div>
             </div>
             <div class="row">
@@ -121,10 +121,10 @@
                 <input
                   type="number"
                   class="form-control"
-                  id="awardValue"
+                  id="value"
                   placeholder="Monto total de la adjudicación *"
                 />
-                <label for="awardValue">Monto total de la adjudicación *</label>
+                <label for="value">Monto total de la adjudicación *</label>
               </div>
               <div class="form-floating form-group col-md-6 mb-5">
                 <select class="form-select" id="currency" aria-label="moneda">
@@ -208,20 +208,20 @@
               <div class="form-floating col-md-6">
                 <input
                   class="form-control"
-                  id="supplierID"
+                  id="id"
                   type="text"
-                  placeholder="Id Proveedor"
+                  placeholder="Identificador del Proveedor"
                 />
-                <label for="supplierID">Indentificador del proveedor</label>
+                <label for="id">Indentificador del proveedor</label>
               </div>
               <div class="form-floating col-md-6">
                 <input
                   class="form-control"
-                  id="supplierName"
+                  id="name"
                   type="text"
-                  placeholder="Nombre Proveedor"
+                  placeholder="Nombre del Proveedor"
                 />
-                <label for="supplierName">Nombre del proveedor</label>
+                <label for="name">Nombre del proveedor</label>
               </div>
             </div>
           </form>
@@ -248,11 +248,11 @@
               <div class="form-floating col-md-4 mb-5">
                 <input
                   class="form-control"
-                  id="itemID"
+                  id="id"
                   type="text"
                   placeholder="Id del Artículo"
                 />
-                <label for="supplierID">Indentificador del artículo</label>
+                <label for="id">Indentificador del artículo</label>
               </div>
               <div class="form-floating col-md-4 mb-5">
                 <input
@@ -432,7 +432,7 @@
                 />
                 <label for="description">Identificador del Documento</label>
               </div>
-              <div class="form-floating form-group col-md-4 mb-5">
+              <div class="form-floating col-md-4 mb-5">
                 <select
                   class="form-select"
                   id="documentType"
@@ -470,34 +470,346 @@
                 />
                 <label for="title">Título del Documento</label>
               </div>
-              <div class="row">
-                <div class="form-floating col-md-4 mb-5">
-                  <input
-                    class="form-control"
-                    id="description"
-                    type="text"
-                    placeholder="Descripción del documento"
-                  />
-                  <label for="description">Descripción del Documento</label>
-                </div>
-                <div class="form-floating col-md-4 mb-5">
-                  <input
-                    class="form-control"
-                    id="url"
-                    type="text"
-                    placeholder="Url del documento"
-                  />
-                  <label for="url">URL</label>
-                </div>
-                <div class="form-floating col-md-4 mb-5">
-                  <input
-                    class="form-control"
-                    id="date"
-                    type="date"
-                    placeholder="Fecha de publicación del documento"
-                  />
-                  <label for="date">Fecha de publicación</label>
-                </div>
+            </div>
+            <div class="row">
+              <div class="form-floating col-md-4 mb-5">
+                <input
+                  class="form-control"
+                  id="description"
+                  type="text"
+                  placeholder="Descripción del documento"
+                />
+                <label for="description">Descripción del Documento</label>
+              </div>
+              <div class="form-floating col-md-4 mb-5">
+                <input
+                  class="form-control"
+                  id="url"
+                  type="text"
+                  placeholder="Url del documento"
+                />
+                <label for="url">URL</label>
+              </div>
+              <div class="form-floating col-md-4 mb-5">
+                <input
+                  class="form-control"
+                  id="datePublished"
+                  type="date"
+                  placeholder="Fecha de publicación del documento"
+                />
+                <label for="datePublished">Fecha de publicación</label>
+              </div>
+            </div>
+            <div class="row">
+              <div class="form-floating col-md-4 mb-5">
+                <input
+                  class="form-control"
+                  id="dateModified"
+                  type="date"
+                  placeholder="Fecha de modificación del documento"
+                />
+                <label for="dateModified">Fecha de modificación</label>
+              </div>
+              <div class="form-floating col-md-4 mb-5">
+                <input
+                  class="form-control"
+                  id="format"
+                  type="text"
+                  placeholder="Formato del documento"
+                />
+                <label for="format">Formato del Documento</label>
+              </div>
+              <div class="form-floating col-md-4 mb-5">
+                <select class="form-select" id="language" aria-label="scheme">
+                  <option value="default">Elige una opción</option>
+                  <option value="ab">Abkhazian</option>
+                  <option value="aa">Afar</option>
+                  <option value="af">Afrikaans</option>
+                  <option value="ak">Akan</option>
+                  <option value="sq">Albanian</option>
+                  <option value="am">Amharic</option>
+                  <option value="ar">Arabic</option>
+                  <option value="an">Aragonese</option>
+                  <option value="hy">Armenian</option>
+                  <option value="as">Assamese</option>
+                  <option value="av">Avaric</option>
+                  <option value="ae">Avestan</option>
+                  <option value="ay">Aymara</option>
+                  <option value="az">Azerbaijani</option>
+                  <option value="bm">Bambara</option>
+                  <option value="ba">Bashkir</option>
+                  <option value="eu">Basque</option>
+                  <option value="be">Belarusian</option>
+                  <option value="bn">Bengali</option>
+                  <option value="bh">Bihari</option>
+                  <option value="bi">Bislama</option>
+                  <option value="bs">Bosnian</option>
+                  <option value="br">Breton</option>
+                  <option value="bg">Bulgarian</option>
+                  <option value="my">Burmese</option>
+                  <option value="ca">Catalan</option>
+                  <option value="ch">Chamorro</option>
+                  <option value="ce">Chechen</option>
+                  <option value="ny">Chichewa</option>
+                  <option value="zh">Chinese</option>
+                  <option value="cu">Church Slavic</option>
+                  <option value="cv">Chuvash</option>
+                  <option value="kw">Cornish</option>
+                  <option value="co">Corsican</option>
+                  <option value="cr">Cree</option>
+                  <option value="hr">Croatian</option>
+                  <option value="cs">Czech</option>
+                  <option value="da">Danish</option>
+                  <option value="dv">Divehi</option>
+                  <option value="nl">Dutch</option>
+                  <option value="dz">Dzongkha</option>
+                  <option value="en">English</option>
+                  <option value="eo">Esperanto</option>
+                  <option value="et">Estonian</option>
+                  <option value="ee">Ewe</option>
+                  <option value="fo">Faroese</option>
+                  <option value="fj">Fijian</option>
+                  <option value="fi">Finnish</option>
+                  <option value="fr">French</option>
+                  <option value="ff">Fulah</option>
+                  <option value="gl">Galician</option>
+                  <option value="ka">Georgian</option>
+                  <option value="de">German</option>
+                  <option value="el">Greek</option>
+                  <option value="gn">Guarani</option>
+                  <option value="gu">Gujarati</option>
+                  <option value="ht">Haitian</option>
+                  <option value="ha">Hausa</option>
+                  <option value="he">Hebrew</option>
+                  <option value="hz">Herero</option>
+                  <option value="hi">Hindi</option>
+                  <option value="ho">Hiri Motu</option>
+                  <option value="hu">Hungarian</option>
+                  <option value="ia">Interlingua</option>
+                  <option value="id">Indonesian</option>
+                  <option value="ie">Interlingue</option>
+                  <option value="ga">Irish</option>
+                  <option value="ig">Igbo</option>
+                  <option value="ik">Inupiaq</option>
+                  <option value="io">Ido</option>
+                  <option value="is">Icelandic</option>
+                  <option value="it">Italian</option>
+                  <option value="iu">Inuktitut</option>
+                  <option value="ja">Japanese</option>
+                  <option value="jv">Javanese</option>
+                  <option value="kl">Kalaallisut</option>
+                  <option value="kn">Kannada</option>
+                  <option value="kr">Kanuri</option>
+                  <option value="ks">Kashmiri</option>
+                  <option value="kk">Kazakh</option>
+                  <option value="km">Khmer</option>
+                  <option value="ki">Kikuyu</option>
+                  <option value="rw">Kinyarwanda</option>
+                  <option value="ky">Kirghiz</option>
+                  <option value="kv">Komi</option>
+                  <option value="kg">Kongo</option>
+                  <option value="ko">Korean</option>
+                  <option value="kj">Kuanyama</option>
+                  <option value="ku">Kurdish</option>
+                  <option value="lo">Lao</option>
+                  <option value="la">Latin</option>
+                  <option value="lv">Latvian</option>
+                  <option value="li">Limburgan</option>
+                  <option value="ln">Lingala</option>
+                  <option value="lt">Lithuanian</option>
+                  <option value="lu">Luba-Katanga</option>
+                  <option value="lb">Luxembourgish</option>
+                  <option value="mk">Macedonian</option>
+                  <option value="mg">Malagasy</option>
+                  <option value="ms">Malay</option>
+                  <option value="ml">Malayalam</option>
+                  <option value="mt">Maltese</option>
+                  <option value="gv">Manx</option>
+                  <option value="mi">Maori</option>
+                  <option value="mr">Marathi</option>
+                  <option value="mh">Marshallese</option>
+                  <option value="mn">Mongolian</option>
+                  <option value="na">Nauru</option>
+                  <option value="nv">Navajo</option>
+                  <option value="nd">North Ndebele</option>
+                  <option value="nr">South Ndebele</option>
+                  <option value="ng">Ndonga</option>
+                  <option value="ne">Nepali</option>
+                  <option value="no">Norwegian</option>
+                  <option value="nb">Norwegian Bokmål</option>
+                  <option value="nn">Norwegian Nynorsk</option>
+                  <option value="ii">Sichuan Yi</option>
+                  <option value="oc">Occitan</option>
+                  <option value="oj">Ojibwa</option>
+                  <option value="or">Oriya</option>
+                  <option value="om">Oromo</option>
+                  <option value="os">Ossetian</option>
+                  <option value="pi">Pali</option>
+                  <option value="pa">Panjabi</option>
+                  <option value="ps">Pashto</option>
+                  <option value="fa">Persian</option>
+                  <option value="pl">Polish</option>
+                  <option value="pt">Portuguese</option>
+                  <option value="qu">Quechua</option>
+                  <option value="ro">Romanian</option>
+                  <option value="rm">Romansh</option>
+                  <option value="rn">Rundi</option>
+                  <option value="ru">Russian</option>
+                  <option value="sm">Samoan</option>
+                  <option value="sg">Sango</option>
+                  <option value="sa">Sanskrit</option>
+                  <option value="sc">Sardinian</option>
+                  <option value="sr">Serbian</option>
+                  <option value="sn">Shona</option>
+                  <option value="sd">Sindhi</option>
+                  <option value="si">Sinhala</option>
+                  <option value="sk">Slovak</option>
+                  <option value="sl">Slovenian</option>
+                  <option value="so">Somali</option>
+                  <option value="st">Southern Sotho</option>
+                  <option value="es">Spanish</option>
+                  <option value="su">Sundanese</option>
+                  <option value="sw">Swahili</option>
+                  <option value="ss">Swati</option>
+                  <option value="sv">Swedish</option>
+                  <option value="tl">Tagalog</option>
+                  <option value="ty">Tahitian</option>
+                  <option value="tg">Tajik</option>
+                  <option value="ta">Tamil</option>
+                  <option value="tt">Tatar</option>
+                  <option value="te">Telugu</option>
+                  <option value="th">Thai</option>
+                  <option value="bo">Tibetan</option>
+                  <option value="ti">Tigrinya</option>
+                  <option value="to">Tonga</option>
+                  <option value="ts">Tsonga</option>
+                  <option value="tn">Tswana</option>
+                  <option value="tr">Turkish</option>
+                  <option value="tk">Turkmen</option>
+                  <option value="tw">Twi</option>
+                  <option value="ug">Uighur</option>
+                  <option value="uk">Ukrainian</option>
+                  <option value="ur">Urdu</option>
+                  <option value="uz">Uzbek</option>
+                  <option value="ve">Venda</option>
+                  <option value="vi">Vietnamese</option>
+                  <option value="vo">Volapük</option>
+                  <option value="wa">Walloon</option>
+                  <option value="cy">Welsh</option>
+                  <option value="wo">Wolof</option>
+                  <option value="xh">Xhosa</option>
+                  <option value="yi">Yiddish</option>
+                  <option value="yo">Yoruba</option>
+                  <option value="za">Zhuang</option>
+                  <option value="zu">Zulu</option>
+                </select>
+                <label for="language">Idioma del Documento</label>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-6 form-group d-flex justify-content-between">
+                <input
+                  type="submit"
+                  value="Guardar"
+                  class="btn btn-primary rounded-0 py-2 px-4"
+                />
+                <span class="Guardar"></span>
+                <input
+                  type="submit"
+                  value="Eliminar"
+                  class="btn btn-danger rounded-0 py-2 px-4"
+                />
+                <span class="Guardar"></span>
+              </div>
+            </div>
+          </form>
+          <hr class="solid" />
+          <form
+            class="mb-5"
+            method="post"
+            id="awards-form"
+            name="awards-form"
+            novalidate="novalidate"
+          >
+            <div class="row">
+              <h3>Enmiendas</h3>
+            </div>
+            <div class="row">
+              <div class="form-floating col-md-4 mb5">
+                <input
+                  class="form-control"
+                  id="id"
+                  type="text"
+                  placeholder="Identificador de la Enmienda"
+                />
+                <label for="id">Identificador de la Enmienda</label>
+              </div>
+              <div class="form-floating col-md-4 mb-5">
+                <input
+                  class="form-control"
+                  id="datePublished"
+                  type="date"
+                  placeholder="Fecha de publicación del documento"
+                />
+                <label for="datePublished">Fecha de publicación</label>
+              </div>
+              <div class="form-floating col-md-4 mb-5">
+                <input
+                  class="form-control"
+                  id="rationale"
+                  type="text"
+                  placeholder="Justificación de la Enmienda"
+                />
+                <label for="rationale">Justificación de la Enmienda</label>
+              </div>
+            </div>
+            <div class="row">
+              <div class="form-floating col-md-4 mb-5">
+                <input
+                  class="form-control"
+                  id="description"
+                  type="text"
+                  placeholder="Descripción de los cambios hechos en la enmienda"
+                />
+                <label for="description">Descripción de los cambios</label>
+              </div>
+              <div class="form-floating col-md-4 mb-5">
+                <input
+                  class="form-control"
+                  id="amendsReleaseID"
+                  type="text"
+                  placeholder="Entrega enmendada"
+                />
+                <label for="amendsReleaseID"
+                  >Entrega enmendada (Identificador)</label
+                >
+              </div>
+              <div class="form-floating col-md-4 mb-5">
+                <input
+                  class="form-control"
+                  id="releaseID"
+                  type="text"
+                  placeholder="Entrega de enmienda"
+                />
+                <label for="releaseID"
+                  >Entrega de enmienda (dentificador)</label
+                >
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-6 form-group d-flex justify-content-between">
+                <input
+                  type="submit"
+                  value="Guardar"
+                  class="btn btn-primary rounded-0 py-2 px-4"
+                />
+                <span class="Guardar"></span>
+                <input
+                  type="submit"
+                  value="Eliminar"
+                  class="btn btn-danger rounded-0 py-2 px-4"
+                />
+                <span class="Guardar"></span>
               </div>
             </div>
           </form>
