@@ -1,1 +1,122 @@
-<p>planning works!</p>
+<div class="content">
+  <div class="container">
+    <div class="row align-items-stretch no-gutters menu-wrap">
+      <div class="col-md-3 g-0">
+        <div class="menu-info h-100">
+          <h3>1. Planeación</h3>
+          <ul class="list-unstyled">
+            <li class="d-flex">
+              <span class=" mr-3">▼ </span>
+              <span class="text">&nbsp;&nbsp;Inicio</span>
+            </li>
+            <li class="d-flex">
+              <span class=" mr-3">▤ </span>
+              <span class="text">&nbsp;&nbsp;Documentos</span>
+            </li>
+            <li class="d-flex">
+              <span class="mr-3">$ </span>
+              <span class="text">&nbsp;&nbsp;&nbsp;Solicitudes de cotización</span>
+            </li>
+            <li class="d-flex">
+              <span class="mr-3">♕ </span>
+              <span class="text"> &nbsp;Cotizaciones</span>
+            </li>
+            <li class="d-flex">
+              <span class="mr-3">℘ </span>
+              <span class="text">&nbsp;&nbsp;Desglose del presupuesto</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div class="col-md-9 g-0">
+        <div class="form h-100">
+          <h3>Bienvenido</h3>
+          <form class="mb-5" method="post" id="planning-Form-start" name="planning-Form-start" novalidate="novalidate">
+            <div class="row">
+              <div class="form-floating col-md-12  mb-5">
+                <textarea class="form-control"  id="justificacion" type="text"  placeholder="Escriba la justificación de la contratación" data-sb-validations=""></textarea>
+                <label for="justificacion">Justificación *</label>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-6 form-group mb-5">
+                <label for="" class="col-form-label">¿Hubo cotizaciones?</label>
+                <div class="form-check">
+                  <input class="form-check-input" type="radio" name="radiocotizaciones" id="radiocotizaciones1">
+                  <label class="form-check-label" for="radiocotizaciones1">Sí</label>
+                </div>
+                <div class="form-check">
+                  <input class="form-check-input" type="radio" name="radiocotizaciones" id="radiocotizaciones0"
+                    checked="">
+                  <label class="form-check-label" for="radiocotizaciones2">No</label>
+                </div>
+              </div>
+              <div class="col-md-6 form-group mb-5">
+                <label for="" class="col-form-label">Unidad Adminstrativa responsable de la ejecución *</label>
+                <input type="text" class="form-control" name="UnidadAdministrativaEjecucion" id="UAejecucion" placeholder="Unidad administrativa">
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-6 form-group mb-5">
+                <label for="" class="col-form-label">Unidad administrativa requiriente *</label>
+                <input type="text" class="form-control" name="UnidadAdministrativaRequiriente" id="UArequiriente" placeholder="Nombre">
+              </div>
+              <div class="col-md-6 form-group mb-5">
+                <label for="" class="col-form-label">Unidad Administrativa contratante *</label>
+                <input type="text" class="form-control" name="UnidadAdministrativaContratante" id="UAContratante" placeholder="Nombre">
+              </div>
+            </div>
+
+
+            <div class="row">
+              <div class="col-md-6 form-group">
+
+              </div>
+              <div class="col-md-6  form-group d-flex justify-content-between">
+                <input type="submit" value="Guardar" class="btn btn-primary rounded-0 py-2 px-4">
+                <span class="Guardar"></span>
+                <input type="submit" value="Importar datos" class="btn btn-primary rounded-0 py-2 px-4">
+                <span class="Guardar"></span>
+              </div>
+            </div>
+            <div id="form-message-warning mt-4"></div>
+            <div id="form-message-success"> Los campos fueron guardados, Gracias </div>
+          </form>
+
+
+          <form class="mb-5" method="post" id="planning-Form-documentos" name="planning-Form-documentos" novalidate="novalidate">
+            <div class="row">
+              <h3>Documentos</h3>
+            </div>
+            <div class="row">
+              <div class="col-md-12 form-group mb-5">
+                <label for="message" class="col-form-label">Tipo de documento</label>
+                <textarea class="form-control" name="justificacion" id="message" cols="30" rows="4"
+                  placeholder="Escriba la justificación de la contratación"></textarea>
+              </div>
+            </div>
+            
+
+
+            <div class="row">
+              <div class="col-md-6 form-group">
+
+              </div>
+              <div class="col-md-6  form-group d-flex justify-content-between">
+                <input type="submit" value="Guardar" class="btn btn-primary rounded-0 py-2 px-4">
+                <span class="Guardar"></span>
+                <input type="submit" value="Importar datos" class="btn btn-primary rounded-0 py-2 px-4">
+                <span class="Guardar"></span>
+              </div>
+            </div>
+            <div id="form-message-warning mt-4"></div>
+            <div id="form-message-success"> Los campos fueron guardados, Gracias </div>
+          </form>
+
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
