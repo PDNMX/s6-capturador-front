@@ -7,105 +7,348 @@
           <ul class="list-unstyled">
             <li class="d-flex">
               <span class=" mr-3">▼ </span>
-              <span class="text">&nbsp;&nbsp;Inicio</span>
+              <span class="text">&nbsp;&nbsp;Información general</span>
+            </li>
+
+            <li class="d-flex">
+              <span class=" mr-3">▤ </span>
+              <span class="text">&nbsp;&nbsp;Presupuesto</span>
             </li>
             <li class="d-flex">
               <span class=" mr-3">▤ </span>
               <span class="text">&nbsp;&nbsp;Documentos</span>
             </li>
             <li class="d-flex">
-              <span class="mr-3">$ </span>
-              <span class="text">&nbsp;&nbsp;&nbsp;Solicitudes de cotización</span>
-            </li>
-            <li class="d-flex">
               <span class="mr-3">♕ </span>
               <span class="text"> &nbsp;Cotizaciones</span>
             </li>
             <li class="d-flex">
-              <span class="mr-3">℘ </span>
-              <span class="text">&nbsp;&nbsp;Desglose del presupuesto</span>
+              <span class=" mr-3">▤ </span>
+              <span class="text">&nbsp;&nbsp;Hitos</span>
             </li>
           </ul>
         </div>
       </div>
       <div class="col-md-9 g-0">
         <div class="form h-100">
-          <h3>Bienvenido</h3>
+
+
+
           <form class="mb-5" method="post" id="planning-Form-start" name="planning-Form-start" novalidate="novalidate">
             <div class="row">
+              <h3>Información general</h3>
+              <hr>
+            </div>
+            <div class="row">
               <div class="form-floating col-md-12  mb-5">
-                <textarea class="form-control"  id="justificacion" type="text"  placeholder="Escriba la justificación de la contratación" data-sb-validations=""></textarea>
-                <label for="justificacion">Justificación *</label>
+                <textarea class="form-control" id="rationale" type="text"
+                  placeholder="Escriba la justificación de la contratación" data-sb-validations=""></textarea>
+                <label for="rationale">Justificación *</label>
               </div>
             </div>
             <div class="row">
-              <div class="col-md-6 form-group mb-5">
-                <label for="" class="col-form-label">¿Hubo cotizaciones?</label>
-                <div class="form-check">
-                  <input class="form-check-input" type="radio" name="radiocotizaciones" id="radiocotizaciones1">
-                  <label class="form-check-label" for="radiocotizaciones1">Sí</label>
+              <div class="col-md-4 form-group mb-5">
+                <label for="hasQuotes" class="form-label d-block">¿Hubo cotizaciones?</label>
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input" type="radio" name="huboCotizaciones" id="hasQuotes1"
+                    data-sb-validations="required">
+                  <label class="form-check-label" for="hasQuotes1">Sí</label>
                 </div>
-                <div class="form-check">
-                  <input class="form-check-input" type="radio" name="radiocotizaciones" id="radiocotizaciones0"
-                    checked="">
-                  <label class="form-check-label" for="radiocotizaciones2">No</label>
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input" type="radio" name="huboCotizaciones" id="hasQuotes0"
+                    data-sb-validations="required">
+                  <label class="form-check-label" for="hasQuotes0">No</label>
                 </div>
+                <div class="invalid-feedback" data-sb-feedback="huboCotizaciones:required">Se requiere una opción.</div>
               </div>
-              <div class="col-md-6 form-group mb-5">
-                <label for="" class="col-form-label">Unidad Adminstrativa responsable de la ejecución *</label>
-                <input type="text" class="form-control" name="UnidadAdministrativaEjecucion" id="UAejecucion" placeholder="Unidad administrativa">
+              <div class="form-floating col-md-8 form-group mb-5">
+                <input class="form-control" id="contractingUnits" type="text"
+                  placeholder="Unidad Administrativa responsable de la ejecución *" data-sb-validations="required" />
+                <label for="contractingUnits">Unidad Administrativa responsable de la
+                  ejecución *</label>
+                <div class="invalid-feedback" data-sb-feedback="contractingUnits:required">
+                  Unidad Administrativa responsable de la ejecución * es requerido.</div>
               </div>
             </div>
             <div class="row">
-              <div class="col-md-6 form-group mb-5">
-                <label for="" class="col-form-label">Unidad administrativa requiriente *</label>
-                <input type="text" class="form-control" name="UnidadAdministrativaRequiriente" id="UArequiriente" placeholder="Nombre">
+              <div class="form-floating col-md-6 form-group mb-5">
+                <input class="form-control" id="requestingUnits" type="text"
+                  placeholder="Unidad Administrativa requiriente *" data-sb-validations="required" />
+                <label for="requestingUnits">Unidad Administrativa requiriente *</label>
+                <div class="invalid-feedback" data-sb-feedback="requestingUnits:required">
+                  Unidad Administrativa requiriente * es requerido.</div>
               </div>
-              <div class="col-md-6 form-group mb-5">
-                <label for="" class="col-form-label">Unidad Administrativa contratante *</label>
-                <input type="text" class="form-control" name="UnidadAdministrativaContratante" id="UAContratante" placeholder="Nombre">
-              </div>
-            </div>
-
-
-            <div class="row">
-              <div class="col-md-6 form-group">
-
-              </div>
-              <div class="col-md-6  form-group d-flex justify-content-between">
-                <input type="submit" value="Guardar" class="btn btn-primary rounded-0 py-2 px-4">
-                <span class="Guardar"></span>
-                <input type="submit" value="Importar datos" class="btn btn-primary rounded-0 py-2 px-4">
-                <span class="Guardar"></span>
+              <div class="form-floating col-md-6 form-group mb-5">
+                <input class="form-control" id="responsibleUnits" type="text"
+                  placeholder="Unidad Administrativa contratante" data-sb-validations="required" />
+                <label for="responsibleUnits">Unidad Administrativa contratante *</label>
+                <div class="invalid-feedback" data-sb-feedback="responsibleUnits:required">Unidad
+                  Administrativa contratante es requerido.</div>
               </div>
             </div>
             <div id="form-message-warning mt-4"></div>
             <div id="form-message-success"> Los campos fueron guardados, Gracias </div>
           </form>
 
+          <form class="mb-5" method="post" id="planning-Form-presupuesto" name="planning-Form-presupuesto"
+            novalidate="novalidate">
+            <div class="row">
+              <h3>Presupuesto</h3>
+              <hr>
+            </div>
 
-          <form class="mb-5" method="post" id="planning-Form-documentos" name="planning-Form-documentos" novalidate="novalidate">
+            <div class="row">
+              <div class="col-md-4 form-floating mb-3">
+                <input type="text" class="form-control" id="txtID" name="txtID" placeholder="p. ej. 1" value=""
+                  title="Un identificador para la partida presupuestaria que provee fondos para este proceso de contratación. Este identificador debe de poder hacer una referencia cruzada contra la fuente de datos."
+                  aria-describedby="spanID">
+                <label for="txtID">ID</label>
+                <span class="form-error" data-form-error-for="txtID" id="spanID" role="alert">
+                  Campo requerido, verifica el formato de tu registro.
+                </span>
+              </div>
+              <div class="col-md-4 form-floating mb-3">
+                <input type="text" class="form-control" id="txtPROJECT_ID" name="txtPROJECT_ID" placeholder="p. ej. 1"
+                  value=""
+                  title="Un identificador externo para el proyecto del que forma parte este proceso de contratación o a través del cual está financiado (si aplica). Algunas organizaciones mantienen un registro de proyectos y los datos deben usar el identificador del registro de proyectos relevante."
+                  aria-describedby="spanPROJECT_ID">
+                <label for="txtPROJECT_ID">Identificador de proyecto</label>
+                <span class="form-error" data-form-error-for="txtPROJECT_ID" id="spanPROJECT_ID" role="alert">
+                  Campo requerido, verifica el formato de tu registro.
+                </span>
+              </div>
+              <div class="col-md-4 form-floating mb-3">
+                <input type="text" class="form-control" id="txtPROJECT" name="txtPROJECT"
+                  placeholder="p. ej. Título del proyecto" value=""
+                  title="El nombre del proyecto a través del cual el proceso de contrataciones está financiado (si aplica). Algunas organizaciones mantienen un registro de proyectos, y los datos deben de usar el nombre por el cual se conoce al proyecto en ese registro. No se ofrece una opción de traducción para esta cadena, ya que los valores traducidos pueden darse en datos de terceros, ligados a la fuente de datos anteriormente presentada."
+                  aria-describedby="spanPROJECT">
+                <label for="txtPROJECT">Título del proyecto</label>
+                <span class="form-error" data-form-error-for="txtPROJECT" id="spanPROJECT" role="alert">
+                  Campo requerido, verifica el formato de tu registro.
+                </span>
+              </div>
+            </div>
+            <div class="row">
+
+              <div class="col-md-6 form-floating mb-3">
+                <input type="text" class="form-control" id="txtDESCRIPTION" name="txtDESCRIPTION"
+                  placeholder="p. ej. Descripción breve de la fuente del presupuesto" value=""
+                  title="Un texto descriptivo breve de la fuente del presupuesto. Puede usarse para proveer el título del la partida presupuestaria o el programa usado para financiar este proyecto."
+                  aria-describedby="spanDESCRIPTION">
+                <label for="txtDESCRIPTION">Fuente del Presupuesto</label>
+                <span class="form-error" data-form-error-for="txtDESCRIPTION" id="spanDESCRIPTION" role="alert">
+                  Campo requerido, verifica el formato de tu registro.
+                </span>
+              </div>
+              <div class="col-md-6 form-floating mb-3">
+                <input type="text" class="form-control" id="txtSOURCE" name="txtSOURCE" placeholder="p. ej. www.url.com"
+                  value="www.datos.com" pattern="url"
+                  title="Usado para apuntar a un Paquete de Datos de Presupuesto, o una fuente legible por computadora o por un humano donde los usuarios puedan obtener mï¿½s información sobre los identificadores de partida presupuestaria o identificadores de proyectos, provistos aquí."
+                  aria-describedby="spanSOURCE">
+                <label for="txtSOURCE">Fuente de los Datos</label>
+                <span class="form-error" data-form-error-for="txtSOURCE" id="spanSOURCE" role="alert">
+                  Campo requerido, verifica el formato de tu registro.
+                </span>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-12 form-floating mb-3">
+                <fieldset class="fieldset cell">
+                  <legend>Monto</legend>
+                  <div class="grid-margin-x grid-x">
+                    <div class="form-floating mb-3 cell medium-6">
+                      <input type="number" class="form-control" id="txtAMOUNT" name="txtAMOUNT" placeholder="p. ej. 0"
+                        min="0" value="4324.0" title="Monto como una cifra." aria-describedby="spanAMOUNT">
+                      <label for="txtAMOUNT">Monto</label>
+                      <span class="form-error" data-form-error-for="txtAMOUNT" id="spanAMOUNT" role="alert">
+                        Campo requerido, verifica el formato de tu registro.
+                      </span>
+                    </div>
+                    <div class="form-floating mb-3 cell medium-6">
+                      <select class="form-control" id="txtCURRENCY" name="txtCURRENCY"
+                        title="La moneda del monto, de la lista de código cerrada." aria-describedby="spanCURRENCY">
+                        <option value="">--Elige una opción--</option>
+                        <option value="MXN">Peso mexicano</option>
+                        <option value="USD">Dólar estadounidense</option>
+                      </select>
+                      <label for="txtCURRENCY">Moneda</label>
+                      <span class="form-error" data-form-error-for="txtCURRENCY" id="spanCURRENCY" role="alert">
+                        Elige una opción.
+                      </span>
+                    </div>
+                  </div>
+                </fieldset>
+              </div>
+            </div>
+
+          </form>
+
+          <form class="mb-5" method="post" id="planning-Form-document" name="planning-Form-document"
+            novalidate="novalidate">
             <div class="row">
               <h3>Documentos</h3>
+              <hr>
             </div>
             <div class="row">
-              <div class="col-md-12 form-group mb-5">
-                <label for="message" class="col-form-label">Tipo de documento</label>
-                <textarea class="form-control" name="justificacion" id="message" cols="30" rows="4"
-                  placeholder="Escriba la justificación de la contratación"></textarea>
+              <div class="col-md-6 form-floating mb-5">
+                <input class="form-control" id="title" type="text" placeholder="Título"
+                  data-sb-validations="required" />
+                <label for="title">Título *</label>
+                <div class="invalid-feedback" data-sb-feedback="title:required">Título es requerido.</div>
+              </div>
+              <div class="col-md-6 form-floating mb-3">
+                <select class="form-select" id="documentType" aria-label="Tipo de documento">
+                  <option value="Aviso de compra planeada">Aviso de compra planeada</option>
+                  <option value="Cláusulas para el manejo de riesgos y responsabilidades">Cláusulas para el manejo de
+                    riesgos y responsabilidades</option>
+                  <option value="Estudio de factibilidad">Estudio de factibilidad</option>
+                  <option value="Estudios de mercado">Estudios de mercado</option>
+                  <option value="Evaluación de los activos y responsabilidades del gobierno">Evaluación de los activos y
+                    responsabilidades del gobierno</option>
+                  <option value="Evaluación de necesidades">Evaluación de necesidades</option>
+                  <option value="Impacto medioambiental">Impacto medioambiental</option>
+                  <option value="Plan de adquisiciones">Plan de adquisiciones</option>
+                  <option value="Plan de proyecto">Plan de proyecto</option>
+                </select>
+                <label for="documentType">Tipo de documento</label>
               </div>
             </div>
-            
-
-
             <div class="row">
-              <div class="col-md-6 form-group">
+              <div class="form-floating col-md-12  mb-5">
+                <textarea class="form-control" id="description" type="text" placeholder=""
+                  data-sb-validations="">Escriba la justificación de la contratación</textarea>
+                <label for="description">Descripción *</label>
+              </div>
+            </div>
+            <div class="row">
+              <div class="form-floating col-md-6  mb-5">
+                <input class="form-control" id="url" type="text" placeholder="" data-sb-validations="required" />
+                <label for="url">URL *</label>
+                <div class="invalid-feedback" data-sb-feedback="url:required">URL es requerido.</div>
+              </div>
+              <div class="col-md-6 form-floating mb-3">
+                <select class="form-select" id="language" aria-label="idioma">
+                  <option id="english" value="ES" selected="selected">Español</option>
+                  <option id="spanish" value="EN">Inglés</option>
+                </select>
+                <label for="idioma">Idioma</label>
+              </div>
+            </div>
+            <div class="row">
+              <div class="form-floating col-md-4 mb-5">
+                <input type="date" class="form-control" id="datePublished" placeholder="Fecha de publicación" />
+                <label for="datePublished">Fecha de publicación</label>
+              </div>
+              <div class="form-floating col-md-4 mb-5">
+                <input type="date" class="form-control" id="dateModified" placeholder="Fecha de modificación" />
+                <label for="dateModified">Fecha de modificación</label>
+              </div>
+              <div class="form-floating col-md-4 mb-5">
+                <input type="text" class="form-control" id="format" placeholder="Formato" value="text/html" />
+                <label for="format">Formato</label>
+              </div>
+            </div>
+          </form>
+
+          <form class="mb-5" method="post" id="planning-Form-cotizacion" name="planning-Form-cotizacion"
+            novalidate="novalidate">
+            <div class="row">
+              <h3>Cotizaciones</h3>
+              <hr>
+            </div>
+            <div class="row">
+              <h5>Solicitud de cotización</h5>
+            </div>
+            <div class="row">
+              <div class="col-md-12 form-floating mb-5">
+                <input class="form-control" id="title" type="text" placeholder="Título"
+                  data-sb-validations="required" />
+                <label for="title">Título *</label>
+                <div class="invalid-feedback" data-sb-feedback="title:required">Título es requerido.</div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="form-floating col-md-12  mb-5">
+                <textarea class="form-control" id="description" type="text" placeholder=""
+                  data-sb-validations=""></textarea>
+                <label for="description">Descripción</label>
+              </div>
+            </div>
+            <div class="row">
+              <h5>Periodo para recibir cotizaciones</h5>
+            </div>
+            <div class="row">
+              <div class="form-floating col-md-3 mb-5">
+                <input type="date" class="form-control" id="startDate" placeholder="Fecha de inicio" />
+                <label for="startDate">Fecha de inicio</label>
+              </div>
+              <div class="form-floating col-md-3 mb-5">
+                <input type="date" class="form-control" id="endDate" placeholder="Fecha de término" />
+                <label for="endDate">Fecha de término</label>
+              </div>
+              <div class="form-floating col-md-6 mb-3">
+                <select class="form-select" id="invitedSuppliers" aria-label="idioma">
+                  <option id="" value="" selected="selected">Proveedor invitado 1</option>
+                  <option id="" value="">Proveedor invitado 2</option>
+                </select>
+                <label for="invitedSuppliers">Proveedores invitados</label>
+              </div>
+              <div class="row">
 
               </div>
-              <div class="col-md-6  form-group d-flex justify-content-between">
+            </div>
+            <div class="row">
+              <h5>Ítems a ser cotizados</h5>
+            </div>
+            <div class="row">
+              <div class="form-floating col-md-1 mb-5">
+                <button class="btn btn-primary" type="button">+</button>
+              </div>
+              <div class="form-floating col-md-8 mb-5">
+                <input class="form-control" id="descriptionItem" type="text" placeholder="Bien o servicio"
+                  data-sb-validations="required" />
+                <label for="descriptionItem">Bien o servicio *</label>
+                <div class="invalid-feedback" data-sb-feedback="descriptionItem:required">Bien o servicio es requerido.
+                </div>
+              </div>
+              <div class="form-floating col-md-3 mb-5">
+                <input class="form-control" id="quantityItem" type="number" placeholder="Cantidad"
+                  data-sb-validations="required" />
+                <label for="quantityItem">Cantidad *</label>
+                <div class="invalid-feedback" data-sb-feedback="quantityItem:required">Cantidad es requerido.</div>
+              </div>
+              <hr>
+            </div>
+            <div class="row">
+              <div class="col-md-12">
+                <table class="table">
+                  <thead>
+                    <tr>
+                      <th scope="col">#</th>
+                      <th scope="col">Bien o servicio</th>
+                      <th scope="col">Cantidad</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <th>1</th>
+                      <td>Mark</td>
+                      <td></td>
+                    </tr>
+                    <tr>
+                      <th>3</th>
+                      <td>@twitter</td>
+                      <td></td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+              <hr>
+            </div>
+
+            <div class="row">
+              <div class="col-md-12  form-group d-flex justify-content-between">
                 <input type="submit" value="Guardar" class="btn btn-primary rounded-0 py-2 px-4">
-                <span class="Guardar"></span>
-                <input type="submit" value="Importar datos" class="btn btn-primary rounded-0 py-2 px-4">
                 <span class="Guardar"></span>
               </div>
             </div>
@@ -113,10 +356,76 @@
             <div id="form-message-success"> Los campos fueron guardados, Gracias </div>
           </form>
 
+          <form class="mb-5" method="post" id="planning-Form-hitos" name="planning-Form-hitos" novalidate="novalidate">
+            <div class="row">
+              <h3>Hitos</h3>
+              <hr>
+            </div>
+
+            <div class="row">
+              <div class="col-md-4 form-floating mb-3">
+                <input type="text" class="form-control" id="txtMILESTONE_ID" placeholder="p. ej. 1" required>
+                <label for="txtMILESTONE_ID">ID</label>
+              </div>
+              <div class="col-md-4 form-floating mb-3">
+                <select class="form-control" id="cmbMILESTONE_TYPE">
+                  <option value="">--Elige una opción--</option>
+                  <option value="approval">Hitos de aprobación</option>
+                  <option value="delivery">Hitos de entrega</option>
+                  <option value="financing">Hitos de financiamiento</option>
+                  <option value="assessment">Hitos de la evaluación</option>
+                  <option value="engagement">Hitos de participación</option>
+                  <option value="reporting">Hitos de reporte</option>
+                  <option value="preProcurement">Hitos previos a la contratación</option>
+                </select>
+                <label for="cmbMILESTONE_TYPE">Tipo de hito</label>
+              </div>
+              <div class="col-md-4 form-floating mb-3">
+                <input type="text" class="form-control" id="txtMILESTONE_TITLE" placeholder="p. ej. Título del hito">
+                <label for="txtMILESTONE_TITLE">Título</label>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-4 form-floating mb-3">
+                <input type="text" class="form-control" id="txtMILESTONE_DESCRIPTION"
+                  placeholder="p. ej. Descripción del hito">
+                <label for="txtMILESTONE_DESCRIPTION">Descripción</label>
+              </div>
+              <div class="col-md-4 form-floating mb-3">
+                <input type="text" class="form-control" id="txtMILESTONE_CODE" placeholder="p. ej. Código de hito">
+                <label for="txtMILESTONE_CODE">Código de hito</label>
+              </div>
+              <div class="col-md-4 form-floating mb-3">
+                <input type="date" class="form-control" id="txtMILESTONE_DUE_DATE" pattern="fecha">
+                <label for="txtMILESTONE_DUE_DATE">Fecha límite</label>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-md-4 form-floating mb-3">
+                <input type="date" class="form-control" id="txtMILESTONE_DATE_MET" pattern="fecha">
+                <label for="txtMILESTONE_DATE_MET">Fecha de cumplimiento</label>
+              </div>
+              <div class="col-md-4 form-floating mb-3">
+                <input type="date" class="form-control" id="txtMILESTONE_DATE_MODIFIED" pattern="fecha">
+                <label for="txtMILESTONE_DATE_MODIFIED">Fecha de modificación</label>
+              </div>
+              <div class="col-md-4 form-floating mb-3">
+                <select class="form-control" id="cmbMILESTONE_STATUS">
+                  <option value="">--Elige una opción--</option>
+                  <option value="met">Cumplido</option>
+                  <option value="partiallyMet">Ha sido parcialmente alcanzado</option>
+                  <option value="notMet">No ha sido alcanzado</option>
+                  <option value="scheduled">Programada</option>
+                </select>
+                <label for="cmbMILESTONE_STATUS">Estado</label>
+              </div>
+            </div>
+
+          </form>
 
         </div>
       </div>
     </div>
   </div>
 </div>
-
