@@ -1,0 +1,119 @@
+<div class="content">
+  <div class="container">
+    <div class="row align-items-stretch no-gutters menu-wrap">
+      <div class="col-md-3 g-0">
+        <div class="menu-info h-100">
+          <h3>5. Ejecución</h3>
+          <ul class="list-unstyled">
+            <li class="d-flex">
+              <span class="mr-3">▼ </span>
+              <span class="text">&nbsp;&nbsp;Información general</span>
+            </li>
+
+            <li class="d-flex">
+              <span class="mr-3">▤ </span>
+              <span class="text">&nbsp;&nbsp;Presupuesto</span>
+            </li>
+            <li class="d-flex">
+              <span class="mr-3">▤ </span>
+              <span class="text">&nbsp;&nbsp;Documentos</span>
+            </li>
+            <li class="d-flex">
+              <span class="mr-3">♕ </span>
+              <span class="text"> &nbsp;Cotizaciones</span>
+            </li>
+            <li class="d-flex">
+              <span class="mr-3">▤ </span>
+              <span class="text">&nbsp;&nbsp;Hitos</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div class="col-md-9 g-0">
+        <div class="form h-100">
+          <form
+            class="mb-5"
+            method="post"
+            id="planning-Form-start"
+            name="planning-Form-start"
+            novalidate="novalidate"
+          >
+            <div class="row">
+              <h3>Ejecución</h3>
+              <hr />
+            </div>
+            <div class="row">
+              <div class="form-floating col-md-6 mb-5">
+                <select
+                  class="form-select"
+                  id="status"
+                  aria-label="award status"
+                >
+                  <option value="default">Seleccione un opción</option>
+                  <option value="finish">Finalizado</option>
+                  <option value="process">En proceso</option>
+                  <option value="cancelled">Cancelado</option>
+                  <option value="unsuccessful">Sin Éxito</option>
+                </select>
+                <label for="status">Estado de la ejecución</label>
+              </div>
+            </div>
+            <!--  Transactions Fieldset -->
+            <fieldset class="border p-3 mb-3">
+              <legend class="w-auto px-2">Transacciones</legend>
+              <div class="row mb-3">
+                <div class="form-floating col-md-6">
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="TransactionsId"
+                    placeholder="Identificador de la transacción"
+                    formControlName="id"
+                  />
+                  <label for="ClassificationsId" class="form-label"
+                    >Identificador de la transacción</label
+                  >
+                </div>
+                <div class="form-floating col-md-6">
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="TransactionsSource"
+                    placeholder="Fuente de datos"
+                    formControlName="description"
+                  />
+                  <label for="TransactionsSource" class="form-label"
+                    >Fuente de datos</label
+                  >
+                </div>
+              </div>
+              <div class="row mb-3">
+                <div class="form-floating col-md-6">
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="TransactionsPaymentMethod"
+                    placeholder="Método de pago"
+                    formControlName="description"
+                  />
+                  <label for="TransactionsPaymentMethod" class="form-label"
+                    >Método de pago</label
+                  >
+                </div>
+                <div class="form-floating col-md-6">
+                  <label for="ClassificationsUri" class="form-label">URI</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="ClassificationsUri"
+                    formControlName="uri"
+                  />
+                </div>
+              </div>
+            </fieldset>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
