@@ -172,3 +172,17 @@ background-repeat: no-repeat;
 background-position: center center;
 margin: 0 0 80px 0;
 }
+
+
+.login .container {
+  background: rgb(255,255,255);
+background: linear-gradient(90deg, rgba(255,255,255,1) 54%, rgba(75,165,203,1) 54%, rgba(105,199,238,1) 100%);
+  max-width: 80vh;
+  padding: 70px;
+  border-radius: 9px;
+  border: 1px solid #dee2e6;
+}
+
+.login h3 {
+  margin-right: 90px;
+}
