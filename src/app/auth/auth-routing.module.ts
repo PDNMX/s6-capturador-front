@@ -6,6 +6,7 @@ import { PlanningComponent } from './planning/planning.component';
 import { TenderComponent } from './tender/tender.component';
 import { AwardsComponent } from './awards/awards.component';
 import { ContractsComponent } from './contracts/contracts.component';
+import { ImplementationComponent } from './implementation/implementation.component';
 
 const routes: Routes = [
   { path: 'parties', component: PartiesComponent },
@@ -14,6 +15,7 @@ const routes: Routes = [
   { path: 'tender', component: TenderComponent },
   { path: 'awards', component: AwardsComponent },
   { path: 'contracts', component: ContractsComponent },
+  { path: 'implementation', component: ImplementationComponent },
 ];
 
 @NgModule({
