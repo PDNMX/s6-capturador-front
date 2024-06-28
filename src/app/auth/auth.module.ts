@@ -10,6 +10,7 @@ import { AwardsComponent } from './awards/awards.component';
 import { ContractsComponent } from './contracts/contracts.component';
 import { LayoutsComponent } from './layouts/layouts.component';
 import { ReactiveFormsModule } from '@angular/forms';
+import { ImplementationComponent } from './implementation/implementation.component';
 
 @NgModule({
   declarations: [
@@ -20,6 +21,7 @@ import { ReactiveFormsModule } from '@angular/forms';
     AwardsComponent,
     ContractsComponent,
     LayoutsComponent,
+    ImplementationComponent,
   ],
   imports: [CommonModule, AuthRoutingModule, ReactiveFormsModule],
   exports: [
@@ -30,6 +32,7 @@ import { ReactiveFormsModule } from '@angular/forms';
     AwardsComponent,
     ContractsComponent,
     LayoutsComponent,
+    ImplementationComponent,
   ],
 })
 export class AuthModule {}
