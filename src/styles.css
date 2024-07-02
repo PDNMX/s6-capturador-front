@@ -175,14 +175,80 @@ margin: 0 0 80px 0;
 
 
 .login .container {
-  background: rgb(255,255,255);
-background: linear-gradient(90deg, rgba(255,255,255,1) 54%, rgba(75,165,203,1) 54%, rgba(105,199,238,1) 100%);
-  max-width: 80vh;
-  padding: 70px;
-  border-radius: 9px;
-  border: 1px solid #dee2e6;
+  /* background: rgb(75, 165, 203); */
+  /* background: linear-gradient(90deg, rgba(75, 165, 203, 1) 0%, rgba(105, 199, 238, 1) 100%); */
+  /* border-radius: 9px;
+  border: 1px solid #dee2e6; */
+  display: flex;
 }
 
 .login h3 {
-  margin-right: 90px;
+  /* margin-right: 90px; */
+  color: #fff;
+}
+
+
+.login .texto {
+  padding: 40px;
+  /* background: rgb(75, 165, 203); 
+  background: linear-gradient(90deg, rgba(75, 165, 203, 1) 0%, rgba(105, 199, 238, 1) 100%);  */
+}
+
+
+.gradient {
+  background: linear-gradient(90deg, rgba(75, 165, 203, 1) 0%, rgba(105, 199, 238, 1) 100%);
+  border-radius: 0 .3rem .3rem 0;
+}
+
+
+.icon {
+  display: inline-block;
+  width: 70px;
+  height: 70px;
+  background-size: cover;
+}
+
+.icon-S6 {
+  background-image: url(./assets/icons/icon-s6.svg);
+  filter: invert(100%) sepia(100%) saturate(0%) hue-rotate(8deg) brightness(101%) contrast(104%);
+}
+
+.icon-S6:hover,
+.icon-S6:focus {
+  filter: invert(100%) sepia(100%) saturate(0%) hue-rotate(8deg) brightness(101%) contrast(104%);
+}
+
+.icon-PDN {
+  background-image: url(./assets/logoPDN-2024.svg);
+  height: 25px;
+  margin-top: 20px;
+}
+.login-S6 {
+  background-image: url(./assets/imgs/loginS6.svg);
+  background-repeat: no-repeat;
+  /* background-attachment: fixed; */
+  background-position: center center;
+  height: 100%;
+  display: block;
+  background-size: 63%;
+  /* width: 100%; */
+}
+
+.login {
+  height: 100vh;
+  background:#fafafa;
+  text-align: center;
+}
+
+.login .imagen {
+  height: 46vh;
+}
+
+.login-footer a {
+  color: #55b1d7;
+  text-decoration: none;
+}
+
+.login-footer a:hover {
+  text-decoration: underline;
 }
