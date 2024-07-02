@@ -1,12 +1,12 @@
 <div class="login">
-  <div class="container py-5 h-100">
-    <div class="row d-flex justify-content-center align-items-center h-100">
-      <div class="col-xl-10">
-        <div class="card rounded-3 text-black">
+  <div class="container py-5 h-100 d-flex justify-content-center">
+    <div class="d-flex justify-content-center  h-100">
+      <div class="col-xl-10 d-flex align-content-between flex-wrap justify-content-center">
+        <div class="card rounded-3 text-black mt-5">
           <div class="row g-0">
             <div class="col-lg-6">
 
-              <div class="imagen">
+              <div class="imagen mt-5">
                 <span class="login-S6"></span>
               </div>
             </div>
@@ -14,11 +14,11 @@
               <div>
                 <span class="icon icon-S6"></span>
               </div>
-              <h3>Herramienta de captura del Sistema de información pública de contrataciones </h3>
-              <main class="form-signin w-100 m-auto">
+              <h3 class="mt-4">Herramienta de captura del Sistema de información pública de contrataciones </h3>
+              <main class="form-signin w-100 m-auto pt-4 mb-4">
                 <form>
                   <h1 class="h3 mb-3 fw-normal"></h1>
-                  <div class="form-floating my-3">
+                  <div class="form-floating my-3 mt-4">
                     <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com" />
                     <label for="floatingInput">Correo electrónico</label>
                   </div>
@@ -34,16 +34,24 @@
                     </label>
                   </div>
                   <button class="btn btn-primary w-100 py-2" type="submit" [routerLink]="'/'"
-                  [routerLinkActive]="'active'">Ingresar</button>
+                    [routerLinkActive]="'active'">Ingresar</button>
                 </form>
               </main>
             </div>
           </div>
 
         </div>
-        <div class="icon icon-PDN"></div>
-        <div class="text-black-50">
-          Plataforma Digital Nacional
+        <div class="container d-block login-footer">
+          <div class="d-flex justify-content-between align-items-end">
+            <div><a href="https://www.plataformadigitalnacional.org" target="_blank">plataformadigital.org.mx</a></div>
+            <div>
+              <div class="icon icon-PDN"></div>
+              <div class="text-black-50">
+                Plataforma Digital Nacional
+              </div>
+            </div>
+            <div><a href="https://www.sna.org.mx/" target="_blank">sna.org.mx</a></div>
+          </div>
         </div>
       </div>
 
