@@ -31,25 +31,28 @@
             class="mb-5"
             method="post"
             id="awards-form"
-            name="awards-form"
-            novalidate="novalidate"
+            [formGroup]="Awards"
+            (ngSubmit)="onSubmit()"
           >
             <div class="row">
-              <div class="form-floating form-group col-md-6 mb-5">
+              <div class="form-floating col-md-6 mb-5">
                 <input
                   type="text"
                   class="form-control"
-                  id="id"
+                  id="AwardsId"
                   placeholder="Indentificador de la adjudicación"
-                  data-sb-validations="required"
+                  formControlName="id"
                 />
-                <label for="id">Indentificador de la adjudicación *</label>
+                <label for="AwardsId"
+                  >Indentificador de la adjudicación *</label
+                >
               </div>
               <div class="form-floating col-md-6 mb-5">
                 <select
                   class="form-select"
-                  id="status"
+                  id="AwardsStatus"
                   aria-label="award status"
+                  formControlName="status"
                 >
                   <option value="default">Seleccione un opción</option>
                   <option value="pending">Pendiente</option>
@@ -57,19 +60,19 @@
                   <option value="cancelled">Cancelado</option>
                   <option value="unsuccessful">Sin Éxito</option>
                 </select>
-                <label for="status">Estado de la adjudicación</label>
+                <label for="AwardsStatus">Estado de la adjudicación</label>
               </div>
             </div>
             <div class="row">
               <div class="form-floating col-md-12 mb-5">
                 <input
                   class="form-control"
-                  id="title"
+                  id="AwardsTitle"
                   type="text"
                   placeholder="Título"
-                  data-sb-validations="required"
+                  formControlName="title"
                 />
-                <label for="title">Título de la adjudicación.</label>
+                <label for="AwardsTitle">Título de la adjudicación.</label>
                 <div
                   class="invalid-feedback"
                   data-sb-feedback="titulo:required"
@@ -82,24 +85,26 @@
               <div class="form-floating col-md-12 mb-5">
                 <textarea
                   class="form-control"
-                  id="description"
+                  id="AwardsDescription"
                   type="text"
                   placeholder="Descripción"
-                  data-sb-validations=""
+                  formControlName="description"
                 ></textarea>
-                <label for="description">Descripción de la adjudicación.</label>
+                <label for="AwardsDescription"
+                  >Descripción de la adjudicación.</label
+                >
               </div>
             </div>
             <div class="row">
               <div class="form-floating col-md-12 mb-5">
                 <textarea
                   class="form-control"
-                  id="rationale"
+                  id="AwardsRationale"
                   type="text"
                   placeholder="Justificación"
-                  data-sb-validations=""
+                  formControlName="rationale"
                 ></textarea>
-                <label for="rationale">Justificación</label>
+                <label for="AwardsRationale">Justificación</label>
               </div>
             </div>
             <div class="row">
@@ -107,73 +112,90 @@
                 <input
                   type="date"
                   class="form-control"
-                  id="date"
+                  id="AwardsDate"
                   placeholder="Fecha de la adjudicación"
+                  formControlName="date"
                 />
-                <label for="date">Fecha de la adjudicación</label>
+                <label for="AwardsDate">Fecha de la adjudicación</label>
               </div>
             </div>
             <div class="row">
               <h3>Valor</h3>
             </div>
-            <div class="row">
+            <div class="row" formGroupName="value">
               <div class="form-floating form-group col-md-6 mb-5">
                 <input
                   type="number"
                   class="form-control"
-                  id="value"
+                  id="AwardsValueAmount"
                   placeholder="Monto total de la adjudicación *"
+                  formControlName="amount"
                 />
-                <label for="value">Monto total de la adjudicación *</label>
+                <label for="AwardsValueAmount"
+                  >Monto total de la adjudicación *</label
+                >
               </div>
               <div class="form-floating form-group col-md-6 mb-5">
-                <select class="form-select" id="currency" aria-label="moneda">
+                <select
+                  class="form-select"
+                  id="AwardsValueCurrency"
+                  aria-label="moneda"
+                  formControlName="currency"
+                >
                   <option value="default">Seleccione el tipo de moneda</option>
                   <option value="mxn">MXN</option>
                   <option value="usd">USD</option>
                 </select>
-                <label for="currency">Moneda</label>
+                <label for="AwardsValueCurrency">Moneda</label>
               </div>
             </div>
             <div class="row">
               <h3>Periodo del contrato</h3>
             </div>
-            <div class="row">
+            <div class="row" formGroupName="contractPeriod">
               <div class="form-floating form-group col-md-3 mb-5">
                 <input
                   type="date"
                   class="form-control"
-                  id="startDate"
+                  id="ContractPeriodStartDate"
                   placeholder="Fecha de inicio del contrato"
+                  formControlName="startDate"
                 />
-                <label for="startDate">Fecha de inicio</label>
+                <label for="ContractPeriodStartDate">Fecha de inicio</label>
               </div>
               <div class="form-floating form-group col-md-3 mb-5">
                 <input
                   type="date"
                   class="form-control"
-                  id="endDate"
+                  id="ContractPeriodendDate"
                   placeholder="Fecha de la adjudicación"
+                  formControlName="endDate"
                 />
-                <label for="endDate">Fecha de término</label>
+                <label for="ContractPeriodendDate">Fecha de término</label>
               </div>
               <div class="form-floating form-group col-md-3 mb-5">
                 <input
                   type="date"
                   class="form-control"
-                  id="maxExtentDate"
+                  id="ContractPeriodMaxExtentDate"
                   placeholder="Fecha de la adjudicación"
+                  formControlName="maxExtentDate"
                 />
-                <label for="maxExtentDate">Extensión máxima</label>
+                <label for="ContractPeriodMaxExtentDate"
+                  >Extensión máxima</label
+                >
               </div>
               <div class="form-floating form-group col-md-3 mb-5">
                 <input
                   type="number"
                   class="form-control"
-                  id="durationInDays"
+                  id="ContractPeriodDurationInDays"
                   placeholder="Duración en dias"
+                  formControlName="durationInDays"
                 />
-                <label for="durationInDays">Duración (días)</label>
+                <label for="ContractPeriodDurationInDays"
+                  >Duración (días)</label
+                >
               </div>
             </div>
             <div class="row">
@@ -194,13 +216,7 @@
             </div>
           </form>
           <hr class="solid" />
-          <form
-            class="mb-5"
-            method="post"
-            id="awards-form"
-            name="awards-form"
-            novalidate="novalidate"
-          >
+          <form class="mb-5" method="post" id="awards-form" name="awards-form" [formGroup]="AwardsSuppliers" (ngSubmit)="onSubmit()">
             <div class="row">
               <h3>Proveedor</h3>
             </div>
