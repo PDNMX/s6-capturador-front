@@ -216,28 +216,55 @@
             </div>
           </form>
           <hr class="solid" />
-          <form class="mb-5" method="post" id="awards-form" name="awards-form" [formGroup]="AwardsSuppliers" (ngSubmit)="onSubmit()">
+          <form
+            class="mb-5"
+            method="post"
+            id="AwardsSuppliersForm"
+            name="AwardsSuppliersForm"
+            [formGroup]="AwardsSuppliers"
+            (ngSubmit)="onSubmitSuppliers()"
+          >
             <div class="row">
               <h3>Proveedor</h3>
             </div>
-            <div class="row">
-              <div class="form-floating col-md-6">
+            <div class="row" formGroupName="suppliers">
+              <div class="form-floating col-md-6 mb-5">
                 <input
                   class="form-control"
-                  id="id"
+                  id="AwardsSuppliersId"
                   type="text"
                   placeholder="Identificador del Proveedor"
+                  formControlName="id"
                 />
-                <label for="id">Indentificador del proveedor</label>
+                <label for="AwardsSuppliersId"
+                  >Indentificador del proveedor</label
+                >
               </div>
-              <div class="form-floating col-md-6">
+              <div class="form-floating col-md-6 mb-5">
                 <input
                   class="form-control"
-                  id="name"
+                  id="AwardsSuppliersName"
                   type="text"
                   placeholder="Nombre del Proveedor"
+                  formControlName="name"
                 />
-                <label for="name">Nombre del proveedor</label>
+                <label for="AwardsSuppliersName">Nombre del proveedor</label>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-6 form-group d-flex justify-content-between">
+                <input
+                  type="submit"
+                  value="Guardar"
+                  class="btn btn-primary rounded-0 py-2 px-4"
+                />
+                <span class="Guardar"></span>
+                <input
+                  type="submit"
+                  value="Eliminar"
+                  class="btn btn-danger rounded-0 py-2 px-4"
+                />
+                <span class="Guardar"></span>
               </div>
             </div>
           </form>
@@ -245,9 +272,10 @@
           <form
             class="mb-5"
             method="post"
-            id="awards-form"
-            name="awards-form"
-            novalidate="novalidate"
+            id="AwardsItemsForm"
+            name="AwardsItemsForm"
+            [formGroup]="AwardsItems"
+            (ngSubmit)="onSubmitItems()"
           >
             <div class="row">
               <h3>Artículos</h3>
@@ -260,156 +288,255 @@
                 estar duplicados, sino se debe especificar la cantidad.
               </small>
             </div>
-            <div class="row">
+            <div class="row" formGroupName="items">
               <div class="form-floating col-md-4 mb-5">
                 <input
                   class="form-control"
-                  id="id"
+                  id="AwardsItemsId"
                   type="text"
                   placeholder="Id del Artículo"
+                  formControlName="id"
                 />
-                <label for="id">Indentificador del artículo</label>
+                <label for="AwardsItemsId">Indentificador del artículo</label>
               </div>
               <div class="form-floating col-md-4 mb-5">
                 <input
                   class="form-control"
-                  id="description"
+                  id="AwardsItemsDescription"
                   type="text"
                   placeholder="Descripción del Artículo"
+                  formControlName="description"
                 />
-                <label for="supplierName">Descripción del articulo</label>
-              </div>
-              <div class="form-floating col-md-4 mb-5">
-                <input
-                  class="form-control"
-                  id="quantity"
-                  type="number"
-                  placeholder="Cantidad de unidades"
-                />
-                <label for="supplierName">Cantidad de unidades</label>
-              </div>
-            </div>
-            <div class="row">
-              <h3>Unidad</h3>
-            </div>
-            <div class="row mb-5">
-              <small
-                >Una descripción de la unidad en la cual los suministros,
-                servicios o trabajos están provistos (ej. horas, kilos) y el
-                precio por unidad.</small
-              >
-            </div>
-            <div class="row">
-              <div class="form-floating col-md-6 mb-5">
-                <input
-                  class="form-control"
-                  id="unitID"
-                  type="text"
-                  placeholder="Identificador de la unidad"
-                />
-                <label for="classificationID"
-                  >Identificador de la unidad de medida</label
+                <label for="AwardsItemsDescription"
+                  >Descripción del articulo</label
                 >
               </div>
-              <div class="form-floating form-group col-md-6 mb-5">
-                <select class="form-select" id="scheme" aria-label="scheme">
-                  <option value="default">Seleccione una opción</option>
-                  <option value="mxn">opcion 1</option>
-                  <option value="usd">opcion 2</option>
-                  <option value="usd">opcion 3</option>
-                  <option value="usd">opcion 4</option>
-                  <option value="usd">opcion 5</option>
-                </select>
-                <label for="scheme">Esquema de unidades de medida</label>
-              </div>
-            </div>
-            <div class="row">
-              <div class="form-floating col-md-6 mb-5">
+              <div class="form-floating col-md-4 mb-5">
                 <input
                   class="form-control"
-                  id="nameUnit"
-                  type="text"
-                  placeholder="Nombre de la unidad de medida"
-                />
-                <label for="description">Unidad de medida</label>
-              </div>
-              <div class="form-floating col-md-6 mb-5">
-                <input
-                  class="form-control"
-                  id="uri"
-                  type="text"
-                  placeholder="URI de la unidad de medida, dada por el esquema"
-                />
-                <label for="uri">URI</label>
-              </div>
-            </div>
-            <div class="row">
-              <h3>Valor</h3>
-            </div>
-            <div class="row">
-              <div class="form-floating form-group col-md-6 mb-5">
-                <input
+                  id="AwardsItemsQuantity"
                   type="number"
-                  class="form-control"
-                  id="awardValue"
-                  placeholder="Monto total de la adjudicación *"
+                  placeholder="Cantidad de unidades"
+                  formControlName="quantity"
                 />
-                <label for="awardValue">Monto *</label>
-              </div>
-              <div class="form-floating form-group col-md-6 mb-5">
-                <select class="form-select" id="currency" aria-label="moneda">
-                  <option value="default">Seleccione el tipo de moneda</option>
-                  <option value="mxn">MXN</option>
-                  <option value="usd">USD</option>
-                </select>
-                <label for="currency">Moneda</label>
+                <label for="AwardsItemsQuantity">Cantidad de unidades</label>
               </div>
             </div>
-            <div class="row">
-              <h3>Clasificación</h3>
-            </div>
-            <div class="row">
-              <div class="form-floating col-md-6 mb-5">
-                <input
-                  class="form-control"
-                  id="classificationID"
-                  type="text"
-                  placeholder="Identificador de la Clasificación"
-                />
-                <label for="classificationID">Código de la clasificación</label>
+            <div formGroupName="unit">
+            <fieldset class="border p-3 mb-3">
+              <legend class="w-auto px-2">Unidad</legend>
+              <div class="row mb-5">
+                <small
+                  >Una descripción de la unidad en la cual los suministros,
+                  servicios o trabajos están provistos (ej. horas, kilos) y el
+                  precio por unidad.</small
+                >
               </div>
-              <div class="form-floating form-group col-md-6 mb-5">
-                <select class="form-select" id="scheme" aria-label="scheme">
-                  <option value="default">Seleccione una opción</option>
-                  <option value="mxn">opcion 1</option>
-                  <option value="usd">opcion 2</option>
-                  <option value="usd">opcion 3</option>
-                  <option value="usd">opcion 4</option>
-                  <option value="usd">opcion 5</option>
-                </select>
-                <label for="scheme">Esquema</label>
+              <div class="row">
+                <div class="form-floating col-md-6 mb-5">
+                  <input
+                    class="form-control"
+                    id="ItemsUnitId"
+                    type="text"
+                    placeholder="Identificador de la unidad"
+                    formControlName="id"
+                  />
+                  <label for="ItemsUnitId"
+                    >Identificador de la unidad de medida</label
+                  >
+                </div>
+                <div class="form-floating form-group col-md-6 mb-5">
+                  <select
+                    class="form-select"
+                    id="ItemsUnitScheme"
+                    aria-label="scheme"
+                    formControlName="scheme"
+                  >
+                    <option value="default">Seleccione una opción</option>
+                    <option value="mxn">opcion 1</option>
+                    <option value="usd">opcion 2</option>
+                    <option value="usd">opcion 3</option>
+                    <option value="usd">opcion 4</option>
+                    <option value="usd">opcion 5</option>
+                  </select>
+                  <label for="ItemsUnitScheme"
+                    >Esquema de unidades de medida</label
+                  >
+                </div>
               </div>
-            </div>
-            <div class="row">
-              <div class="form-floating col-md-6 mb-5">
-                <input
-                  class="form-control"
-                  id="description"
-                  type="text"
-                  placeholder="Descripción del Artículo"
-                />
-                <label for="description">Descripción</label>
+              <div class="row">
+                <div class="form-floating col-md-6 mb-5">
+                  <input
+                    class="form-control"
+                    id="ItemesUnitName"
+                    type="text"
+                    placeholder="Nombre de la unidad de medida"
+                    formControlName="name"
+                  />
+                  <label for="description">Unidad de medida</label>
+                </div>
+                <div class="form-floating col-md-6 mb-5">
+                  <input
+                    class="form-control"
+                    id="uri"
+                    type="text"
+                    placeholder="URI de la unidad de medida, dada por el esquema"
+                    formControlName="uri"
+                  />
+                  <label for="uri">URI</label>
+                </div>
               </div>
-              <div class="form-floating col-md-6 mb-5">
-                <input
-                  class="form-control"
-                  id="uri"
-                  type="text"
-                  placeholder="URI de la clasificación"
-                />
-                <label for="uri">URI</label>
+            </fieldset>
+            <fieldset class="border p-3 mb-3" formGroupName="value">
+              <legend class="w-auto px-2">Valor</legend>
+              <div class="row">
+                <div class="form-floating form-group col-md-6 mb-5">
+                  <input
+                    type="number"
+                    class="form-control"
+                    id="UnitValueAmount"
+                    placeholder="Monto total de la adjudicación *"
+                    formControlName="amount"
+                  />
+                  <label for="UnitValueAmount">Monto *</label>
+                </div>
+                <div class="form-floating form-group col-md-6 mb-5">
+                  <select
+                    class="form-select"
+                    id="UnitValueCurrency"
+                    aria-label="moneda"
+                    formControlName="currency"
+                  >
+                    <option value="default">
+                      Seleccione el tipo de moneda
+                    </option>
+                    <option value="mxn">MXN</option>
+                    <option value="usd">USD</option>
+                  </select>
+                  <label for="currency">Moneda</label>
+                </div>
               </div>
-            </div>
+            </fieldset>
+          </div>
+            <fieldset class="border p-3 mb-3" formGroupName="classification">
+              <legend class="w-auto px-2">Clasificación</legend>
+              <div class="row">
+                <div class="form-floating col-md-6 mb-5">
+                  <input
+                    class="form-control"
+                    id="ItemsClassificationID"
+                    type="text"
+                    placeholder="Identificador de la Clasificación"
+                    formControlName="id"
+                  />
+                  <label for="ItemsClassificationID"
+                    >Código de la clasificación</label
+                  >
+                </div>
+                <div class="form-floating form-group col-md-6 mb-5">
+                  <select
+                    class="form-select"
+                    id="ItemsClassificationScheme"
+                    aria-label="scheme"
+                    formControlName="scheme"
+                  >
+                    <option value="default">Seleccione una opción</option>
+                    <option value="mxn">opcion 1</option>
+                    <option value="usd">opcion 2</option>
+                    <option value="usd">opcion 3</option>
+                    <option value="usd">opcion 4</option>
+                    <option value="usd">opcion 5</option>
+                  </select>
+                  <label for="ItemsClassificationScheme">Esquema</label>
+                </div>
+              </div>
+              <div class="row">
+                <div class="form-floating col-md-6 mb-5">
+                  <input
+                    class="form-control"
+                    id="ItemsClassificationDescription"
+                    type="text"
+                    placeholder="Descripción del Artículo"
+                    formControlName="description"
+                  />
+                  <label for="ItemsClassificationDescription"
+                    >Descripción</label
+                  >
+                </div>
+                <div class="form-floating col-md-6 mb-5">
+                  <input
+                    class="form-control"
+                    id="ItemsClassificationUri"
+                    type="text"
+                    placeholder="URI de la clasificación"
+                    formControlName="uri"
+                  />
+                  <label for="ItemsClassificationUri">URI</label>
+                </div>
+              </div>
+            </fieldset>
+            <fieldset
+              class="border p-3 mb-3"
+              formGroupName="additionalClassifications"
+            >
+              <legend class="w-auto px-2">Clasificaciones Adicionales</legend>
+              <div class="row">
+                <div class="form-floating col-md-6 mb-5">
+                  <input
+                    class="form-control"
+                    id="additionalClassificationsID"
+                    type="text"
+                    placeholder="Identificador de la Clasificación"
+                    formControlName="id"
+                  />
+                  <label for="AdditionalClassificationsID"
+                    >Código de la clasificación adicional</label
+                  >
+                </div>
+                <div class="form-floating form-group col-md-6 mb-5">
+                  <select
+                    class="form-select"
+                    id="AdditionalClassificationsScheme"
+                    aria-label="scheme"
+                    formControlName="scheme"
+                  >
+                    <option value="default">Seleccione una opción</option>
+                    <option value="mxn">opcion 1</option>
+                    <option value="usd">opcion 2</option>
+                    <option value="usd">opcion 3</option>
+                    <option value="usd">opcion 4</option>
+                    <option value="usd">opcion 5</option>
+                  </select>
+                  <label for="AdditionalClassificationsScheme">Esquema</label>
+                </div>
+              </div>
+              <div class="row">
+                <div class="form-floating col-md-6 mb-5">
+                  <input
+                    class="form-control"
+                    id="AdditionalClassificationsDescription"
+                    type="text"
+                    placeholder="Descripción del Artículo"
+                    formControlName="description"
+                  />
+                  <label for="AdditionalClassificationsDescription"
+                    >Descripción</label
+                  >
+                </div>
+                <div class="form-floating col-md-6 mb-5">
+                  <input
+                    class="form-control"
+                    id="AdditionalClassificationsDescriptionUri"
+                    type="text"
+                    placeholder="URI de la clasificación"
+                    formControlName="uri"
+                  />
+                  <label for="AdditionalClassificationsDescriptionUri"
+                    >URI</label
+                  >
+                </div>
+              </div>
+            </fieldset>
             <div class="row">
               <div class="col-md-6 form-group d-flex justify-content-between">
                 <input
