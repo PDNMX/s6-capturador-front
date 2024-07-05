@@ -3,6 +3,9 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl } from '@angular/forms';
 import { Validators, FormBuilder } from '@angular/forms';
 import { Title } from '@angular/platform-browser';
+//import { HttpClient } from '@angular/common/http';
+import { ApiService } from 'src/app/api.service';
+import { Contract } from './contract.model';
 
 @Component({
   selector: 'app-contracts',
@@ -11,14 +14,156 @@ import { Title } from '@angular/platform-browser';
 })
 
 export class ContractsComponent implements OnInit{
-
+  /* Lo que regresan los endpoint's */
+  data: any;
+  data1: any;
+  data2: any;
+  data3: any;
+  data4: any;
+  /* Datos de ejemplo */
+dataToSend = {
+  name: 'John Doe',
+  email: 'john.doe@example.com'
+};
+id: string = '1';
+dataToUpdate = {
+  name: 'Updated Name',
+  email: 'updated.email@example.com'
+};
   //contractsData:FormGroup;implements OnInit
-
-
-  constructor(private fb: FormBuilder) { }
-  ngOnInit() {
-
+constructor(private fb: FormBuilder, private apiService: ApiService ){}//, private http: HttpClient) { }
+  ngOnInit():void {
+    this.getMethod();
+    this.getMethodId();
+    this.postMethod();
+    this.putMethod();
+    this.deleteMethod();
+    /*
+    this.getMethodId(); */
   }
+
+  // Para jsonplaceholder
+  getMethod():void{
+    this.apiService.getMethod('/todos').subscribe(
+      data => this.data = data,
+      error => console.error('Error fetching data:', error
+    ));
+  }
+
+  getMethodId():void{
+    this.apiService.getMethod('/todos/1').subscribe(
+      data4 => this.data4 = data4,
+      error => console.error('Error fetching data:', error
+    ));
+  }
+
+  postMethod(){
+    this.apiService.postMethod<any>(this.dataToSend, 'posts')
+    .subscribe(
+      (data1: any) => {
+        console.log('Data returned successfully:', data1);
+        this.data1 = data1;
+        // Handle successful response (e.g., update UI)
+      },
+      (error) => {
+        console.error('Error returning data:', error.message);
+        // Handle error (e.g., display error message to user)
+      }
+    );
+  }
+
+  putMethod(){
+    this.apiService.putMethod<any>(this.id, this.dataToUpdate, '/posts/1')
+    .subscribe(
+      (data2: any) => {
+        console.log('Data updated successfully:', data2);
+        this.data2 = data2;
+        // Handle successful response (e.g., update UI)
+      },
+      (error) => {
+        console.error('Error updating data:', error.message);
+        // Handle error (e.g., display error message to user)
+      }
+    );
+  }
+
+  deleteMethod(){
+    this.apiService.deleteMethod<any>(this.id, '/posts/${id}')
+    .subscribe(
+      (data3: any) => {
+        console.log('Data deleted successfully:', data3);
+        this.data3 = data3;
+        // Handle successful response (e.g., update UI)
+      },
+      (error) => {
+        console.error('Error deleting data:', error.message);
+        // Handle error (e.g., display error message to user)
+      }
+    );
+  }
+
+  //Funcionando para httpbin
+  /* getMethod():void{
+    this.apiService.getMethod('get').subscribe(
+      data => this.data = data,
+      error => console.error('Error fetching data:', error
+    ));
+  }
+
+  getMethodId():void{
+    this.apiService.getMethod('get?id=1').subscribe(
+      data4 => this.data4 = data4,
+      error => console.error('Error fetching data:', error
+    ));
+  }
+
+  postMethod(){
+    this.apiService.postMethod<any>(this.dataToSend, 'post')
+    .subscribe(
+      (data1: any) => {
+        console.log('Data returned successfully:', data1);
+        this.data1 = data1;
+        // Handle successful response (e.g., update UI)
+      },
+      (error) => {
+        console.error('Error returning data:', error.message);
+        // Handle error (e.g., display error message to user)
+      }
+    );
+  }
+
+  putMethod(){
+    this.apiService.putMethod<any>(this.id, this.dataToUpdate, 'put')
+    .subscribe(
+      (data2: any) => {
+        console.log('Data updated successfully:', data2);
+        this.data2 = data2;
+        // Handle successful response (e.g., update UI)
+      },
+      (error) => {
+        console.error('Error updating data:', error.message);
+        // Handle error (e.g., display error message to user)
+      }
+    );
+  }
+
+  deleteMethod(){
+    this.apiService.deleteMethod<any>(this.id, 'delete')
+    .subscribe(
+      (data3: any) => {
+        console.log('Data deleted successfully:', data3);
+        this.data3 = data3;
+        // Handle successful response (e.g., update UI)
+      },
+      (error) => {
+        console.error('Error deleting data:', error.message);
+        // Handle error (e.g., display error message to user)
+      }
+    );
+  }
+     */
+
+  // Para ser usado con el constructor private fb: Formbuilder
 
   contracts = this.fb.group({
     id : ['', Validators.required],
@@ -153,13 +298,9 @@ export class ContractsComponent implements OnInit{
       releaseID: ['', Validators.required],
     });
 
-  // Para ser usado con el constructor vacio
-/*
-contractsData = new FormGroup({
-    status: new FormControl('status')
-  }); */
+/* Mostrar en consolo el contenido de los formularios */
   onSubmit() {
-    console.log(this.contracts.value);
+   console.log(this.contracts.value);
   }
   onSubmit2() {
     console.log(this.items.value);
