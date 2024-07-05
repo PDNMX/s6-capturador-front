@@ -41,29 +41,28 @@ export class AwardsComponent implements OnInit {
       id: ['', Validators.required],
       description: ['', Validators.required],
       quantity: ['', Validators.required],
-    }),
-    unit: this.fb.group({
-      id: [''],
-      scheme: [''],
-      name: [''],
-      uri: [''],
-      value: this.fb.group({
-        amount: [''],
-        currency: [''],
+      unit: this.fb.group({
+        id: [''],
+        scheme: [''],
+        name: [''],
+        uri: [''],
+        value: this.fb.group({
+          amount: [''],
+          currency: [''],
+        }),
       }),
-    }),
-    
-    classification: this.fb.group({
-      id: ['', Validators.required],
-      description: ['', Validators.required],
-      scheme: [''],
-      uri: [''],
-    }),
-    additionalClassifications: this.fb.group({
-      id: ['', Validators.required],
-      description: ['', Validators.required],
-      scheme: [''],
-      uri: [''],
+      classification: this.fb.group({
+        id: ['', Validators.required],
+        description: ['', Validators.required],
+        scheme: [''],
+        uri: [''],
+      }),
+      additionalClassifications: this.fb.group({
+        id: ['', Validators.required],
+        description: ['', Validators.required],
+        scheme: [''],
+        uri: [''],
+      }),
     }),
   });
 
