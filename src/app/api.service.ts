@@ -12,10 +12,10 @@ export class ApiService {
 
    constructor(private http: HttpClient) { }
 
-   //private base_url = 'https://httpbin.org'; //'172.20.30.75:4004/back/'//http://localhost:4200/contracts
-     private base_url = 'https://jsonplaceholder.typicode.com'
-   //hacer funciones para los metodos de los endpoints
-//endpoint, id, data
+  //private base_url = 'https://httpbin.org'; //'172.20.30.75:4004/back/'//http://localhost:4200/contracts
+    //private base_url = 'https://jsonplaceholder.typicode.com'
+/* Usar esta url para hacer peticiones al api, solo se debe de cambiar la ip por la del equipo en la que se tiene el api en ejecución */
+    private base_url = 'http://172.20.30.75:4004/back'
 
 /* Método para hacer llamadas por get all*/
  getMethod(endpoint: string): Observable<any> {
