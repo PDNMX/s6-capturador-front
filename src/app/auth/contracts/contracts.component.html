@@ -23,46 +23,46 @@
   <!-- Formulario principal de contratos -->
   <div class="container">
     <div class="row align-items-stretch no-gutters menu-wrap">
+
       <div class="col-md-3 g-0">
         <div class="menu-info h-100">
           <h3>4. Contrato</h3>
-          <ul class="nav nav-pills flex-column" id="v-pills-tab" role="tablist" aria-orientation="vertical">
-            <li class="nav-item" role="presentation">
-              <button class="nav-link active" id="v-pills-contrato-tab" data-bs-toggle="pill" data-bs-target="#v-pills-contrato" type="button" role="tab" aria-controls="v-pills-contrato" aria-selected="true">
-                ▼ Agregar contrato
-              </button>
-            </li>
-            <li class="nav-item" role="presentation">
-              <button class="nav-link" id="v-pills-documentos-tab" data-bs-toggle="pill" data-bs-target="#v-pills-documentos" type="button" role="tab" aria-controls="v-pills-documentos" aria-selected="false">
-                ▤ Documentos
-              </button>
-            </li>
-            <li class="nav-item" role="presentation">
-              <button class="nav-link" id="v-pills-items-tab" data-bs-toggle="pill" data-bs-target="#v-pills-items" type="button" role="tab" aria-controls="v-pills-items" aria-selected="false">
-                $ Ítems del contrato
-              </button>
-            </li>
-            <li class="nav-item" role="presentation">
-              <button class="nav-link" id="v-pills-garantias-tab" data-bs-toggle="pill" data-bs-target="#v-pills-garantias" type="button" role="tab" aria-controls="v-pills-garantias" aria-selected="false">
-                ♕ Garantías
-              </button>
-            </li>
-            <li class="nav-item" role="presentation">
-              <button class="nav-link" id="v-pills-procesos-tab" data-bs-toggle="pill" data-bs-target="#v-pills-procesos" type="button" role="tab" aria-controls="v-pills-procesos" aria-selected="false">
-                ℘ Procesos relacionados
-              </button>
-            </li>
-            <li class="nav-item" role="presentation">
-              <button class="nav-link" id="v-pills-enmiendas-tab" data-bs-toggle="pill" data-bs-target="#v-pills-hitos" type="button" role="tab" aria-controls="v-pills-hitos" aria-selected="false">
-                ℘  Hitos
-              </button>
-            </li>
-            <li class="nav-item" role="presentation">
-              <button class="nav-link" id="v-pills-enmiendas-tab" data-bs-toggle="pill" data-bs-target="#v-pills-enmiendas" type="button" role="tab" aria-controls="v-pills-enmiendas" aria-selected="false">
-                $ Enmiendas
-              </button>
-            </li>
-          </ul>
+
+<div class="nav flex-column nav-pills me-3" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+  <button class="nav-link active" id="v-pills-contrato-tab" data-bs-toggle="pill" data-bs-target="#v-pills-contrato" type="button" role="tab" aria-controls="v-pills-contrato" aria-selected="true">
+    ▼ Agregar contrato
+  </button>
+
+
+  <button class="nav-link" id="v-pills-documentos-tab" data-bs-toggle="pill" data-bs-target="#v-pills-documentos" type="button" role="tab" aria-controls="v-pills-documentos" aria-selected="false">
+    ▤ Documentos
+  </button>
+
+
+  <button class="nav-link" id="v-pills-items-tab" data-bs-toggle="pill" data-bs-target="#v-pills-items" type="button" role="tab" aria-controls="v-pills-items" aria-selected="false">
+    $ Ítems del contrato
+  </button>
+
+
+  <button class="nav-link" id="v-pills-garantias-tab" data-bs-toggle="pill" data-bs-target="#v-pills-garantias" type="button" role="tab" aria-controls="v-pills-garantias" aria-selected="false">
+    ♕ Garantías
+  </button>
+
+
+  <button class="nav-link" id="v-pills-procesos-tab" data-bs-toggle="pill" data-bs-target="#v-pills-procesos" type="button" role="tab" aria-controls="v-pills-procesos" aria-selected="false">
+    ℘ Procesos relacionados
+  </button>
+
+
+  <button class="nav-link" id="v-pills-enmiendas-tab" data-bs-toggle="pill" data-bs-target="#v-pills-hitos" type="button" role="tab" aria-controls="v-pills-hitos" aria-selected="false">
+    ℘  Hitos
+  </button>
+
+
+  <button class="nav-link" id="v-pills-enmiendas-tab" data-bs-toggle="pill" data-bs-target="#v-pills-enmiendas" type="button" role="tab" aria-controls="v-pills-enmiendas" aria-selected="false">
+    $ Enmiendas
+  </button>
+</div>
         </div>
       </div>
       <!-- termina col-md-3 -->
@@ -70,84 +70,91 @@
       <div class="col col-md-9">
         <div class="tab-content" id="v-pills-tabContent">
           <!-- Datos generales del contrato -->
-          <div class="tab-pane fade show active" id="v-pills-contrato" role="tabpanel" aria-labelledby="v-pills-contrato-tab">
+          <div class="tab-pane fade show active" id="v-pills-contrato" role="tabpanel" aria-labelledby="v-pills-contrato-tab" tabindex="0">
             <!-- Contenido de Agregar contrato -->
         <div class="form h-100">
           <h3>Datos generales del contrato #</h3>
           <!-- Cambiar por el número de contrato a guardar -->
           <form [formGroup]="contracts" (ngSubmit)="onSubmit()">
-            <div class="row">
-              <div class="col-md-12 form-group mb-3">
-                <div class="form-floating">
-                  <select
-                    class="form-select"
-                    id="status"
-                    aria-label="Estatus del contrato"
-                    formControlName="status"
-                  >
-                    <option value="1">1</option>
-                    <option value="2">2</option>
-                    <option value="3">3</option>
-                    <option value="4">4</option>
-                    <option value="5">5</option>
-                  </select>
-                  <label for="status"> Estatus del contrato: </label>
-                </div>
-              </div>
-            </div>
-            <div class="row">
-              <div class="col col-md-12">
-                <div class="form-floating mb-3">
-                  <input
-                    type="text"
-                    class="form-control"
-                    id="idContract"
-                    placeholder="Identificador del contrato"
-                    formControlName="id"
-                  />
-                  <label for="idContract">Identificador del contrato</label>
-                </div>
-                <div class="form-floating mb-3">
-                  <input
-                    type="text"
-                    class="form-control"
-                    id="awardID"
-                    placeholder="Identificador de la adjudicacion"
-                    formControlName="awardID"
-                  />
-                  <label for="awardID">Identificador de la adjudicación</label>
-                </div>
-                <div class="form-floating mb-3">
-                  <input
-                    type="text"
-                    class="form-control"
-                    id="title"
-                    placeholder="Titulo del contrato"
-                    formControlName="title"
-                  />
-                  <label for="title">Titulo del contrato</label>
-                </div>
-                <div class="form-floating mb-3">
-                  <textarea
-                    class="form-control"
-                    id="descripcion"
-                    type="text"
-                    placeholder="Descripción del contrato"
-                    style="height: 10rem"
-                    data-sb-validations="required"
-                    formControlName="description"
-                  ></textarea>
-                  <label for="descripcion">Descripción del contrato</label>
-                  <div
-                    class="invalid-feedback"
-                    data-sb-feedback="descripcion:required"
-                  >
-                    La descripción del contratoes requerida.
-                  </div>
-                </div>
+            <fieldset class="border p-3 mb-3">
+              <legend class="w-auto px-2">Clasificación</legend>
+  <div class="row">
+    <div class="col-md-12 form-group mb-3">
+      <div class="form-floating">
+        <select
+          class="form-select"
+          id="status"
+          aria-label="Estatus del contrato"
+          formControlName="status"
+        >
+          <option value="1">1</option>
+          <option value="2">2</option>
+          <option value="3">3</option>
+          <option value="4">4</option>
+          <option value="5">5</option>
+        </select>
+        <label for="status"> Estatus del contrato: </label>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col col-md-12">
+      <div class="form-floating mb-3">
+        <input
+          type="text"
+          class="form-control"
+          id="idContract"
+          placeholder="Identificador del contrato"
+          formControlName="id"
+        />
+        <label for="idContract">Identificador del contrato</label>
+      </div>
+      <div class="form-floating mb-3">
+        <input
+          type="text"
+          class="form-control"
+          id="awardID"
+          placeholder="Identificador de la adjudicacion"
+          formControlName="awardID"
+        />
+        <label for="awardID">Identificador de la adjudicación</label>
+      </div>
+      <div class="form-floating mb-3">
+        <input
+          type="text"
+          class="form-control"
+          id="title"
+          placeholder="Titulo del contrato"
+          formControlName="title"
+        />
+        <label for="title">Titulo del contrato</label>
+      </div>
+      <div class="form-floating mb-3">
+        <textarea
+          class="form-control"
+          id="descripcion"
+          type="text"
+          placeholder="Descripción del contrato"
+          style="height: 10rem"
+          data-sb-validations="required"
+          formControlName="description"
+        ></textarea>
+        <label for="descripcion">Descripción del contrato</label>
+        <div
+          class="invalid-feedback"
+          data-sb-feedback="descripcion:required"
+        >
+          La descripción del contratoes requerida.
+        </div>
+      </div>
+
                 <div formGroupName="period">
+<fieldset class="border p-3 mb-3">
+  <legend>
+    Vigencia (Periodo)
+  </legend>
                   <div class="row">
-                    <h4>Vigencia (Periodo)</h4>
                     <div class="col-md-3">
                       <div class="form-floating mb-3">
                         <input
@@ -225,10 +232,12 @@
                       </div>
                     </div>
                   </div>
+                </fieldset>
                 </div>
                 <div formGroupName="value">
+                  <fieldset class="border p-3 mb-3">
+                    <legend>Valor</legend>
                   <div class="row">
-                    <h4>Valor</h4>
                     <div class="col-md-4">
                       <div class="form-floating mb-3">
                         <input
@@ -289,6 +298,7 @@
                       </div>
                     </div>
                   </div>
+                </fieldset>
                 </div>
                 <!-- Tasa de cambio-->
                 <!--  <div class="row">
@@ -392,6 +402,7 @@
                 </div>
               </div>
             </div>
+          </fieldset>
           </form>
         </div>
           </div>
@@ -403,6 +414,7 @@
               <h3>Datos generales del contrato (Sección de documentos)</h3>
               <!-- Cambiar por el número de contrato a guardar -->
               <form [formGroup]="documents" (ngSubmit)="onSubmit4()">
+                <fieldset class="border p-3 mb-3">
                 <div class="row">
                   <div class="col-md-3">
                     <div class="form-floating mb-3">
@@ -593,12 +605,12 @@
                     <button type="button" class="btn btn-danger">Eliminar</button>
                   </div>
                 </div>
+              </fieldset>
               </form>
             </div>
           </div>
           <div class="tab-pane fade" id="v-pills-items" role="tabpanel" aria-labelledby="v-pills-items-tab">
             <div class="form h-100">
-              <h3>Datos del contrato (Sección de Ítems contratados)</h3>
               <!-- Cambiar por el número de contrato a guardar -->
               <form
                 [formGroup]="items"
@@ -606,6 +618,10 @@
                 id="planning-Form-start"
                 name="planning-Form-start"
               >
+              <fieldset class="border p-3 mb-3">
+                <legend>
+                  Datos del contrato (Sección de Ítems contratados)
+                </legend>
                 <div class="row">
                   <div class="col-md-4">
                     <div class="form-floating mb-3">
@@ -666,8 +682,10 @@
                   </div>
                 </div>
                 <div formGroupName="clasification">
+<fieldset class="border p-3 mb-3">
+  <legend> Clasificación del ítem</legend>
+
                   <div class="row">
-                    <h4>Clasificación del ítem</h4>
                     <div class="col-md-4">
                       <div class="form-floating mb-3">
                         <select
@@ -755,88 +773,92 @@
                       </div>
                     </div>
                   </div>
+                </fieldset>
                 </div>
                 <div formGroupName="unit">
-                  <h4>Unidad</h4>
-                  <div class="row">
-                    <div class="col-md-3">
-                      <div class="form-floating mb-3">
-                        <select
-                          class="form-select"
-                          id="esquemaClasificacion"
-                          aria-label="Esquema de la clasificación"
-                          formControlName="scheme"
-                        >
-                          <option value="1">UNCEFACT</option>
-                          <option value="2">2</option>
-                          <option value="3">3</option>
-                          <option value="4">4</option>
-                          <option value="5">5</option>
-                        </select>
-                        <label for="esquemaClasificacion"
-                          >Esquema de la clasificación.</label
-                        >
-                      </div>
-                    </div>
-                    <div class="col-md-3">
-                      <div class="form-floating mb-3">
-                        <input
-                          class="form-control"
-                          id="idUnidad"
-                          type="text"
-                          placeholder="Id de la unidad"
-                          data-sb-validations="required"
-                          formControlName="id"
-                        />
-                        <label for="idUnidad">Id de la unidad</label>
-                        <div
-                          class="invalid-feedback"
-                          data-sb-feedback="idUnidad:required"
-                        >
-                          Id de la unidad es requerida.
-                        </div>
-                      </div>
-                    </div>
-                    <div class="col-md-3">
-                      <div class="form-floating mb-3">
-                        <input
-                          class="form-control"
-                          id="nombreUnidad"
-                          type="text"
-                          placeholder="Nombre de la unidad"
-                          data-sb-validations="required"
-                          formControlName="name"
-                        />
-                        <label for="nombreUnidad">Nombre de la unidad</label>
-                        <div
-                          class="invalid-feedback"
-                          data-sb-feedback="nombreUnidad:required"
-                        >
-                          Nombre de la unidad es requerida.
-                        </div>
-                      </div>
-                    </div>
-                    <div class="col-md-3">
-                      <div class="form-floating mb-3">
-                        <input
-                          class="form-control"
-                          id="url"
-                          type="text"
-                          placeholder="URL"
-                          data-sb-validations="required"
-                          formControlName="url"
-                        />
-                        <label for="url">URL</label>
-                        <div
-                          class="invalid-feedback"
-                          data-sb-feedback="url:required"
-                        >
-                          URL es requerida.
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  <h4>Valor por unidad</h4>
+ <fieldset class="border p-3 mb-3">
+<legend>Unidad</legend>
+  <div class="row">
+    <div class="col-md-3">
+      <div class="form-floating mb-3">
+        <select
+          class="form-select"
+          id="esquemaClasificacion"
+          aria-label="Esquema de la clasificación"
+          formControlName="scheme"
+        >
+          <option value="1">UNCEFACT</option>
+          <option value="2">2</option>
+          <option value="3">3</option>
+          <option value="4">4</option>
+          <option value="5">5</option>
+        </select>
+        <label for="esquemaClasificacion"
+          >Esquema de la clasificación.</label
+        >
+      </div>
+    </div>
+    <div class="col-md-3">
+      <div class="form-floating mb-3">
+        <input
+          class="form-control"
+          id="idUnidad"
+          type="text"
+          placeholder="Id de la unidad"
+          data-sb-validations="required"
+          formControlName="id"
+        />
+        <label for="idUnidad">Id de la unidad</label>
+        <div
+          class="invalid-feedback"
+          data-sb-feedback="idUnidad:required"
+        >
+          Id de la unidad es requerida.
+        </div>
+      </div>
+    </div>
+    <div class="col-md-3">
+      <div class="form-floating mb-3">
+        <input
+          class="form-control"
+          id="nombreUnidad"
+          type="text"
+          placeholder="Nombre de la unidad"
+          data-sb-validations="required"
+          formControlName="name"
+        />
+        <label for="nombreUnidad">Nombre de la unidad</label>
+        <div
+          class="invalid-feedback"
+          data-sb-feedback="nombreUnidad:required"
+        >
+          Nombre de la unidad es requerida.
+        </div>
+      </div>
+    </div>
+    <div class="col-md-3">
+      <div class="form-floating mb-3">
+        <input
+          class="form-control"
+          id="url"
+          type="text"
+          placeholder="URL"
+          data-sb-validations="required"
+          formControlName="url"
+        />
+        <label for="url">URL</label>
+        <div
+          class="invalid-feedback"
+          data-sb-feedback="url:required"
+        >
+          URL es requerida.
+        </div>
+      </div>
+    </div>
+  </div>
+ </fieldset>
+<fieldset class="border p-3 mb-3">
+  <legend>Valor por unidad</legend>
                   <div formGroupName="value">
                     <div class="row">
                       <div class="col-md-6">
@@ -879,88 +901,135 @@
                       </div>
                     </div>
                   </div>
+                </fieldset>
                 </div>
                 <div formGroupName="deliveryLocation">
-                  <h4>Ubicación de entrega</h4>
-                  <div class="row">
-                    <div class="col-md-6">
-                      <div class="form-floating mb-3">
-                        <input
-                          class="form-control"
-                          id="uri"
-                          type="text"
-                          placeholder="URL"
-                          data-sb-validations="required"
-                          formControlName="uri"
-                        />
-                        <label for="URL">URL</label>
-                        <div
-                          class="invalid-feedback"
-                          data-sb-feedback="URL:required"
-                        >
-                          URL es requerido.
-                        </div>
-                      </div>
-                    </div>
-                    <div class="col-md-6">
-                      <div class="form-floating mb-3">
-                        <input
-                          class="form-control"
-                          id="descriptionDelivery"
-                          type="text"
-                          placeholder="description"
-                          data-sb-validations="required"
-                          formControlName="description"
-                        />
-                        <label for="description">Descrpción de direccion</label>
-                        <div
-                          class="invalid-feedback"
-                          data-sb-feedback="description:required"
-                        >
-                          Tipo de direccion es requerida.
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  <div formGroupName="geometry">
+                  <fieldset class="border p-3 mb-3">
+                    <legend>
+                      Ubicación de entrega
+                    </legend>
                     <div class="row">
-                      <div class="col-md-12">
+                      <div class="col-md-6">
                         <div class="form-floating mb-3">
                           <input
                             class="form-control"
-                            id="tipo"
+                            id="uri"
                             type="text"
-                            placeholder="Tipo"
+                            placeholder="URL"
                             data-sb-validations="required"
-                            formControlName="type"
+                            formControlName="uri"
                           />
-                          <label for="tipo">Tipo</label>
+                          <label for="URL">URL</label>
                           <div
                             class="invalid-feedback"
-                            data-sb-feedback="tipo:required"
+                            data-sb-feedback="URL:required"
                           >
-                            Tipo es requerido.
+                            URL es requerido.
                           </div>
                         </div>
                       </div>
-                      <div formGroupName="coordinates">
+                      <div class="col-md-6">
+                        <div class="form-floating mb-3">
+                          <input
+                            class="form-control"
+                            id="descriptionDelivery"
+                            type="text"
+                            placeholder="description"
+                            data-sb-validations="required"
+                            formControlName="description"
+                          />
+                          <label for="description">Descrpción de direccion</label>
+                          <div
+                            class="invalid-feedback"
+                            data-sb-feedback="description:required"
+                          >
+                            Tipo de direccion es requerida.
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div formGroupName="geometry">
+                      <div class="row">
+                        <div class="col-md-12">
+                          <div class="form-floating mb-3">
+                            <input
+                              class="form-control"
+                              id="tipo"
+                              type="text"
+                              placeholder="Tipo"
+                              data-sb-validations="required"
+                              formControlName="type"
+                            />
+                            <label for="tipo">Tipo</label>
+                            <div
+                              class="invalid-feedback"
+                              data-sb-feedback="tipo:required"
+                            >
+                              Tipo es requerido.
+                            </div>
+                          </div>
+                        </div>
+                        <div formGroupName="coordinates">
+                          <div class="row">
+                            <div class="col-md-6">
+                              <div class="form-floating mb-3">
+                                <input
+                                  class="form-control"
+                                  id="latitud"
+                                  type="text"
+                                  placeholder="Latitud"
+                                  data-sb-validations="required"
+                                  formControlName="latitude"
+                                />
+                                <label for="latitud">Latitud</label>
+                                <div
+                                  class="invalid-feedback"
+                                  data-sb-feedback="latitud:required"
+                                >
+                                  Latitud es requerida.
+                                </div>
+                              </div>
+                            </div>
+                            <div class="col-md-6">
+                              <div class="form-floating mb-3">
+                                <input
+                                  class="form-control"
+                                  id="longitud"
+                                  type="text"
+                                  placeholder="Longitud"
+                                  data-sb-validations="required"
+                                  formControlName="longitude"
+                                />
+                                <label for="longitud">Longitud</label>
+                                <div
+                                  class="invalid-feedback"
+                                  data-sb-feedback="longitud:required"
+                                >
+                                  Longitud es requerida.
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div formGroupName="gazetteer">
                         <div class="row">
                           <div class="col-md-6">
                             <div class="form-floating mb-3">
                               <input
                                 class="form-control"
-                                id="latitud"
+                                id="esquema"
                                 type="text"
-                                placeholder="Latitud"
+                                placeholder="esquema"
                                 data-sb-validations="required"
-                                formControlName="latitude"
+                                formControlName="scheme"
                               />
-                              <label for="latitud">Latitud</label>
+                              <label for="esquema">Esquema</label>
                               <div
                                 class="invalid-feedback"
-                                data-sb-feedback="latitud:required"
+                                data-sb-feedback="esquema:required"
                               >
-                                Latitud es requerida.
+                                Esquema es requerido.
                               </div>
                             </div>
                           </div>
@@ -968,211 +1037,173 @@
                             <div class="form-floating mb-3">
                               <input
                                 class="form-control"
-                                id="longitud"
+                                id="diccionarioGeografico"
                                 type="text"
-                                placeholder="Longitud"
+                                placeholder="diccionarioGeografico"
                                 data-sb-validations="required"
-                                formControlName="longitude"
+                                formControlName="identifiers"
                               />
-                              <label for="longitud">Longitud</label>
+                              <label for="diccionarioGeografico"
+                                >Id del diccionario geografico</label
+                              >
                               <div
                                 class="invalid-feedback"
-                                data-sb-feedback="longitud:required"
+                                data-sb-feedback="diccionarioGeografico:required"
                               >
-                                Longitud es requerida.
+                                El id del diccionario geografico es requerido.
                               </div>
                             </div>
                           </div>
                         </div>
                       </div>
                     </div>
-                    <div formGroupName="gazetteer">
-                      <div class="row">
-                        <div class="col-md-6">
-                          <div class="form-floating mb-3">
-                            <input
-                              class="form-control"
-                              id="esquema"
-                              type="text"
-                              placeholder="esquema"
-                              data-sb-validations="required"
-                              formControlName="scheme"
-                            />
-                            <label for="esquema">Esquema</label>
-                            <div
-                              class="invalid-feedback"
-                              data-sb-feedback="esquema:required"
-                            >
-                              Esquema es requerido.
-                            </div>
-                          </div>
-                        </div>
-                        <div class="col-md-6">
-                          <div class="form-floating mb-3">
-                            <input
-                              class="form-control"
-                              id="diccionarioGeografico"
-                              type="text"
-                              placeholder="diccionarioGeografico"
-                              data-sb-validations="required"
-                              formControlName="identifiers"
-                            />
-                            <label for="diccionarioGeografico"
-                              >Id del diccionario geografico</label
-                            >
-                            <div
-                              class="invalid-feedback"
-                              data-sb-feedback="diccionarioGeografico:required"
-                            >
-                              El id del diccionario geografico es requerido.
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
+                  </fieldset>
                 </div>
                 <div formGroupName="deliveryAddress">
-                  <h4>Dirección de entrega</h4>
-                  <div class="row">
-                    <div class="col-md-6">
-                      <div class="form-floating mb-3">
-                        <input
-                          class="form-control"
-                          id="uri"
-                          type="text"
-                          placeholder="URL"
-                          data-sb-validations="required"
-                          formControlName="uri"
-                        />
-                        <label for="URL">URL</label>
-                        <div
-                          class="invalid-feedback"
-                          data-sb-feedback="URL:required"
-                        >
-                          URL es requerido.
-                        </div>
-                      </div>
-                    </div>
-                    <div class="col-md-6">
-                      <div class="form-floating mb-3">
-                        <input
-                          class="form-control"
-                          id="descriptionDelivery"
-                          type="text"
-                          placeholder="description"
-                          data-sb-validations="required"
-                          formControlName="description"
-                        />
-                        <label for="description">Descrpción de direccion</label>
-                        <div
-                          class="invalid-feedback"
-                          data-sb-feedback="description:required"
-                        >
-                          Tipo de direccion es requerida.
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="row">
-                    <div class="col-md-6">
-                      <div class="form-floating mb-3">
-                        <input
-                          class="form-control"
-                          id="calle"
-                          type="text"
-                          placeholder="Calle"
-                          data-sb-validations="required"
-                          formControlName="streetAddress"
-                        />
-                        <label for="calle">Calle</label>
-                        <div
-                          class="invalid-feedback"
-                          data-sb-feedback="calle:required"
-                        >
-                          Calle es requerida.
-                        </div>
-                      </div>
-                    </div>
-                    <div class="col-md-6">
-                      <div class="form-floating mb-3">
-                        <input
-                          class="form-control"
-                          id="localidad"
-                          type="text"
-                          placeholder="Localidad"
-                          data-sb-validations="required"
-                          formControlName="locality"
-                        />
-                        <label for="localidad">Localidad</label>
-                        <div
-                          class="invalid-feedback"
-                          data-sb-feedback="localidad:required"
-                        >
-                          La localidad es requerida.
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="row">
-                    <div class="col-md-4">
-                      <div class="form-floating mb-3">
-                        <input
-                          class="form-control"
-                          id="codigoPostal"
-                          type="text"
-                          placeholder="Código postal"
-                          data-sb-validations="required"
-                          formControlName="postalCode"
-                        />
-                        <label for="codigoPostal">Código postal</label>
-                        <div
-                          class="invalid-feedback"
-                          data-sb-feedback="codigoPostal:required"
-                        >
-                          Código postal es requerido.
-                        </div>
-                      </div>
-                    </div>
-                    <div class="col-md-4">
-                      <div class="form-floating mb-3">
-                        <input
-                          class="form-control"
-                          id="region"
-                          type="text"
-                          placeholder="Región"
-                          data-sb-validations="required"
-                          formControlName="region"
-                        />
-                        <label for="region">Región</label>
-                        <div
-                          class="invalid-feedback"
-                          data-sb-feedback="region:required"
-                        >
-                          Región es requerida.
-                        </div>
-                      </div>
-                    </div>
-                    <div class="col-md-4">
-                      <div class="form-floating mb-3">
-                        <input
-                          class="form-control"
-                          id="pais"
-                          type="text"
-                          placeholder="País"
-                          data-sb-validations="required"
-                          formControlName="countryName"
-                        />
-                        <label for="pais">País</label>
-                        <div
-                          class="invalid-feedback"
-                          data-sb-feedback="pais:required"
-                        >
-                          País es requerido.
-                        </div>
-                      </div>
-                    </div>
-                  </div>
+<fieldset class="border p-3 mb-3">
+  <legend>
+    Dirección de entrega
+  </legend>
+  <div class="row">
+    <div class="col-md-6">
+      <div class="form-floating mb-3">
+        <input
+          class="form-control"
+          id="uri"
+          type="text"
+          placeholder="URL"
+          data-sb-validations="required"
+          formControlName="uri"
+        />
+        <label for="URL">URL</label>
+        <div
+          class="invalid-feedback"
+          data-sb-feedback="URL:required"
+        >
+          URL es requerido.
+        </div>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="form-floating mb-3">
+        <input
+          class="form-control"
+          id="descriptionDelivery"
+          type="text"
+          placeholder="description"
+          data-sb-validations="required"
+          formControlName="description"
+        />
+        <label for="description">Descrpción de direccion</label>
+        <div
+          class="invalid-feedback"
+          data-sb-feedback="description:required"
+        >
+          Tipo de direccion es requerida.
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-6">
+      <div class="form-floating mb-3">
+        <input
+          class="form-control"
+          id="calle"
+          type="text"
+          placeholder="Calle"
+          data-sb-validations="required"
+          formControlName="streetAddress"
+        />
+        <label for="calle">Calle</label>
+        <div
+          class="invalid-feedback"
+          data-sb-feedback="calle:required"
+        >
+          Calle es requerida.
+        </div>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="form-floating mb-3">
+        <input
+          class="form-control"
+          id="localidad"
+          type="text"
+          placeholder="Localidad"
+          data-sb-validations="required"
+          formControlName="locality"
+        />
+        <label for="localidad">Localidad</label>
+        <div
+          class="invalid-feedback"
+          data-sb-feedback="localidad:required"
+        >
+          La localidad es requerida.
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-4">
+      <div class="form-floating mb-3">
+        <input
+          class="form-control"
+          id="codigoPostal"
+          type="text"
+          placeholder="Código postal"
+          data-sb-validations="required"
+          formControlName="postalCode"
+        />
+        <label for="codigoPostal">Código postal</label>
+        <div
+          class="invalid-feedback"
+          data-sb-feedback="codigoPostal:required"
+        >
+          Código postal es requerido.
+        </div>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="form-floating mb-3">
+        <input
+          class="form-control"
+          id="region"
+          type="text"
+          placeholder="Región"
+          data-sb-validations="required"
+          formControlName="region"
+        />
+        <label for="region">Región</label>
+        <div
+          class="invalid-feedback"
+          data-sb-feedback="region:required"
+        >
+          Región es requerida.
+        </div>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="form-floating mb-3">
+        <input
+          class="form-control"
+          id="pais"
+          type="text"
+          placeholder="País"
+          data-sb-validations="required"
+          formControlName="countryName"
+        />
+        <label for="pais">País</label>
+        <div
+          class="invalid-feedback"
+          data-sb-feedback="pais:required"
+        >
+          País es requerido.
+        </div>
+      </div>
+    </div>
+  </div>
+</fieldset>
                 </div>
                 <div class="row">
                   <div class="col-md-4">
@@ -1187,14 +1218,18 @@
                     <button type="button" class="btn btn-danger">Eliminar</button>
                   </div>
                 </div>
+                </fieldset>
               </form>
             </div>
           </div>
           <div class="tab-pane fade" id="v-pills-garantias" role="tabpanel" aria-labelledby="v-pills-garantias-tab">
             <div class="form h-100">
-              <h3>Datos generales del contrato (Sección de garantías)</h3>
               <!-- Cambiar por el número de contrato a guardar -->
               <form [formGroup]="guarantees" (ngSubmit)="onSubmit3()">
+                <fieldset class="border p-3 mb-3">
+                  <legend>
+                    Datos generales del contrato (Sección de garantías)
+                  </legend>
                 <div class="row">
                  <div class="col-md-6">
                   <div class="form-floating mb-3">
@@ -1318,130 +1353,134 @@
                   </div>
                 </div>
                 <div formGroupName="guarantor">
-                  <h4>Fiador</h4>
-                  <div class="row">
-                    <div class="col-md-6">
-                      <div class="form-floating mb-3">
-                        <input
-                          class="form-control"
-                          id="idGarante"
-                          type="text"
-                          placeholder="Id del garante"
-                          data-sb-validations="required"
-                          formControlName="id"
-                        />
-                        <label for="idGarante">Id del fiador</label>
-                        <div
-                          class="invalid-feedback"
-                          data-sb-feedback="idGarante:required"
-                        >
-                          Id del garante es requerido.
+                  <fieldset class="border p-3 mb-3">
+                    <legend>Fiador</legend>
+                    <div class="row">
+                      <div class="col-md-6">
+                        <div class="form-floating mb-3">
+                          <input
+                            class="form-control"
+                            id="idGarante"
+                            type="text"
+                            placeholder="Id del garante"
+                            data-sb-validations="required"
+                            formControlName="id"
+                          />
+                          <label for="idGarante">Id del fiador</label>
+                          <div
+                            class="invalid-feedback"
+                            data-sb-feedback="idGarante:required"
+                          >
+                            Id del garante es requerido.
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-md-6">
+                        <div class="form-floating mb-3">
+                          <input
+                            class="form-control"
+                            id="nombreGarante"
+                            type="text"
+                            placeholder="Nombre del garante"
+                            data-sb-validations="required"
+                            formControlName="name"
+                          />
+                          <label for="nombreGarante">Nombre del fiador</label>
+                          <div
+                            class="invalid-feedback"
+                            data-sb-feedback="nombreGarante:required"
+                          >
+                            Nombre del fiador es requerido.
+                          </div>
                         </div>
                       </div>
                     </div>
-                    <div class="col-md-6">
-                      <div class="form-floating mb-3">
-                        <input
-                          class="form-control"
-                          id="nombreGarante"
-                          type="text"
-                          placeholder="Nombre del garante"
-                          data-sb-validations="required"
-                          formControlName="name"
-                        />
-                        <label for="nombreGarante">Nombre del fiador</label>
-                        <div
-                          class="invalid-feedback"
-                          data-sb-feedback="nombreGarante:required"
-                        >
-                          Nombre del fiador es requerido.
-                        </div>
-                      </div>
-                    </div>
-                  </div>
+                  </fieldset>
                 </div>
                 <div formGroupName="period">
-                  <h4>Periodo de la garantía</h4>
-                  <div class="row">
-                    <div class="col-md-6">
-                      <div class="form-floating mb-3">
-                        <input
-                          class="form-control"
-                          id="fechaInicio"
-                          type="date"
-                          placeholder="Fecha de inicio"
-                          data-sb-validations="required"
-                          formControlName="startDate"
-                        />
-                        <label for="fechaInicio">Fecha de inicio</label>
-                        <div
-                          class="invalid-feedback"
-                          data-sb-feedback="fechaInicio:required"
-                        >
-                          Fecha de inicio es requerida.
-                        </div>
-                      </div>
-                    </div>
-                    <div class="col-md-6">
-                      <div class="form-floating mb-3">
-                        <input
-                          class="form-control"
-                          id="fechaFin"
-                          type="date"
-                          placeholder="Fecha de fin"
-                          data-sb-validations="required"
-                          formControlName="endDate"
-                        />
-                        <label for="fechaFin">Fecha de fin</label>
-                        <div
-                          class="invalid-feedback"
-                          data-sb-feedback="fechaFin:required"
-                        >
-                          Fecha de fin es requerida.
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="row">
-                    <div class="col-md-6">
-                      <div class="form-floating mb-3">
-                        <input
-                          class="form-control"
-                          id="dias"
-                          type="text"
-                          placeholder="Días"
-                          data-sb-validations="required"
-                          formControlName="durationInDays"
-                        />
-                        <label for="dias">Duración en días</label>
-                        <div
-                          class="invalid-feedback"
-                          data-sb-feedback="dias:required"
-                        >
-                        Duración en días es requerido.
-                        </div>
-                      </div>
-                    </div>
-                    <div class="col-md-6">
-                      <div class="form-floating mb-3">
-                        <input
-                          class="form-control"
-                          id="maxExtentDate"
-                          type="date"
-                          placeholder="maxExtentDate"
-                          data-sb-validations="required"
-                          formControlName="maxExtentDate"
-                        />
-                        <label for="maxExtentDate">Fecha maxima de extension </label>
-                        <div
-                          class="invalid-feedback"
-                          data-sb-feedback="maxExtentDate:required"
-                        >
-                        Fecha maxima de extension es requerida.
-                        </div>
-                      </div>
-                    </div>
-                  </div>
+<fieldset class="border p-3 mb-3">
+  <legend> Periodo de la garantía</legend>
+  <div class="row">
+    <div class="col-md-6">
+      <div class="form-floating mb-3">
+        <input
+          class="form-control"
+          id="fechaInicio"
+          type="date"
+          placeholder="Fecha de inicio"
+          data-sb-validations="required"
+          formControlName="startDate"
+        />
+        <label for="fechaInicio">Fecha de inicio</label>
+        <div
+          class="invalid-feedback"
+          data-sb-feedback="fechaInicio:required"
+        >
+          Fecha de inicio es requerida.
+        </div>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="form-floating mb-3">
+        <input
+          class="form-control"
+          id="fechaFin"
+          type="date"
+          placeholder="Fecha de fin"
+          data-sb-validations="required"
+          formControlName="endDate"
+        />
+        <label for="fechaFin">Fecha de fin</label>
+        <div
+          class="invalid-feedback"
+          data-sb-feedback="fechaFin:required"
+        >
+          Fecha de fin es requerida.
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-6">
+      <div class="form-floating mb-3">
+        <input
+          class="form-control"
+          id="dias"
+          type="text"
+          placeholder="Días"
+          data-sb-validations="required"
+          formControlName="durationInDays"
+        />
+        <label for="dias">Duración en días</label>
+        <div
+          class="invalid-feedback"
+          data-sb-feedback="dias:required"
+        >
+        Duración en días es requerido.
+        </div>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="form-floating mb-3">
+        <input
+          class="form-control"
+          id="maxExtentDate"
+          type="date"
+          placeholder="maxExtentDate"
+          data-sb-validations="required"
+          formControlName="maxExtentDate"
+        />
+        <label for="maxExtentDate">Fecha maxima de extension </label>
+        <div
+          class="invalid-feedback"
+          data-sb-feedback="maxExtentDate:required"
+        >
+        Fecha maxima de extension es requerida.
+        </div>
+      </div>
+    </div>
+  </div>
+</fieldset>
                 </div>
                 <div class="row">
                   <div class="col-md-4">
@@ -1456,14 +1495,18 @@
                     <button type="button" class="btn btn-danger">Eliminar</button>
                   </div>
                 </div>
+                </fieldset>
               </form>
             </div>
           </div>
           <div class="tab-pane fade" id="v-pills-procesos" role="tabpanel" aria-labelledby="v-pills-procesos-tab">
             <div class="form h-100">
-              <h3>Datos generales del contrato (Sección de procesos relacionados)</h3>
               <!-- Cambiar por el número de contrato a guardar -->
               <form [formGroup]="relatedProcesses" (ngSubmit)="onSubmit4()">
+                <fieldset class="border p-3 mb-3">
+                  <legend>
+                    Datos generales del contrato (Sección de procesos relacionados)
+                  </legend>
                 <div class="row">
                   <div class="col-md-4">
                     <div class="form-floating mb-3">
@@ -1588,14 +1631,18 @@
                     <button type="button" class="btn btn-danger">Eliminar</button>
                   </div>
                 </div>
+                </fieldset>
               </form>
             </div>
           </div>
           <div class="tab-pane fade" id="v-pills-hitos" role="tabpanel" aria-labelledby="v-pills-hitos-tab">
             <div class="form h-100">
-              <h3>Datos generales del contrato (Sección de hitos)</h3>
               <!-- Cambiar por el número de contrato a guardar -->
               <form [formGroup]="milestones" (ngSubmit)="onSubmit5()">
+                <fieldset class="border p-3 mb-3">
+                  <legend>
+                    Datos generales del contrato (Sección de hitos)
+                  </legend>
                 <div class="row">
                   <div class="col-md-4">
                     <div class="form-floating mb-3">
@@ -1788,14 +1835,16 @@
                     <button type="button" class="btn btn-danger">Eliminar</button>
                   </div>
                 </div>
+                </fieldset>
               </form>
             </div>
           </div>
           <div class="tab-pane fade" id="v-pills-enmiendas" role="tabpanel" aria-labelledby="v-pills-enmiendas-tab">
             <div class="form h-100">
-              <h3>Datos generales del contrato (Sección de enmiendas)</h3>
               <!-- Cambiar por el número de contrato a guardar -->
               <form [formGroup]="amendments" (ngSubmit)="onSubmit6()">
+                <h4> Datos generales del contrato (Sección de enmiendas)6</h4>
+                <fieldset class="border p-3 mb-3">
                 <div class="row">
                   <div class="col-md-4">
                     <div class="form-floating mb-3">
@@ -1917,6 +1966,7 @@
                     <button type="button" class="btn btn-danger">Eliminar</button>
                   </div>
                 </div>
+                </fieldset>
               </form>
             </div>
           </div>

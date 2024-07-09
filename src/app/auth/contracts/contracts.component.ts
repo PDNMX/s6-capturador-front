@@ -21,10 +21,7 @@ export class ContractsComponent implements OnInit{
   data3: any;
   data4: any;
   /* Datos de ejemplo */
-dataToSend = {
-  name: 'John Doe',
-  email: 'john.doe@example.com'
-};
+dataToSend = {};
 id: string = '1';
 dataToUpdate = {
   name: 'Updated Name',
@@ -33,17 +30,21 @@ dataToUpdate = {
   //contractsData:FormGroup;implements OnInit
 constructor(private fb: FormBuilder, private apiService: ApiService ){}//, private http: HttpClient) { }
   ngOnInit():void {
-    this.getMethod();
-    this.getMethodId();
+
+    this.postMethod(this.dataToSend);
+
+/*     this.getMethodId();
     this.postMethod();
     this.putMethod();
-    this.deleteMethod();
+    this.deleteMethod(); */
     /*
     this.getMethodId(); */
   }
 
   // Para jsonplaceholder
-  getMethod():void{
+
+
+   getMethod():void{
     this.apiService.getMethod('/todos').subscribe(
       data => this.data = data,
       error => console.error('Error fetching data:', error
@@ -57,8 +58,24 @@ constructor(private fb: FormBuilder, private apiService: ApiService ){}//, priva
     ));
   }
 
-  postMethod(){
+/*   postMethod(){
     this.apiService.postMethod<any>(this.dataToSend, 'posts')
+    .subscribe(
+      (data1: any) => {
+        console.log('Data returned successfully:', data1);
+        this.data1 = data1;
+        // Handle successful response (e.g., update UI)
+      },
+      (error) => {
+        console.error('Error returning data:', error.message);
+        // Handle error (e.g., display error message to user)
+      }
+    );
+  } */
+
+    //Para ser usado con el api del s6
+  postMethod(dataToSend: any){
+    this.apiService.postMethod<any>(this.dataToSend, 'contracts/insert')
     .subscribe(
       (data1: any) => {
         console.log('Data returned successfully:', data1);
@@ -300,7 +317,11 @@ constructor(private fb: FormBuilder, private apiService: ApiService ){}//, priva
 
 /* Mostrar en consolo el contenido de los formularios */
   onSubmit() {
+   this.dataToSend = this.contracts.value;
+   console.log("Mandando datos");
+   this.postMethod(this.contracts);
    console.log(this.contracts.value);
+
   }
   onSubmit2() {
     console.log(this.items.value);
