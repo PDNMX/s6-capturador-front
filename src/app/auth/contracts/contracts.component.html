@@ -561,7 +561,7 @@
                         type="text"
                         placeholder="URL del documento"
                         data-sb-validations="required"
-                        formControlName="url"
+                        formControlName="uri"
                       />
                       <label for="urlDocumento">URL del documento</label>
                       <div
@@ -614,7 +614,7 @@
               <!-- Cambiar por el número de contrato a guardar -->
               <form
                 [formGroup]="items"
-                (ngSubmit)="onSubmit2()"
+                (ngSubmit)="onSubmit3()"
                 id="planning-Form-start"
                 name="planning-Form-start"
               >
@@ -773,8 +773,111 @@
                       </div>
                     </div>
                   </div>
+               <div class="row">
+                <div class="col-md-12">
+                  <div class="center">
+                    <button
+                    type="button"
+                    class="next-button"
+                    (click)=addPassenger()
+                  >
+                    <span>add</span>
+                  </button>
+                  </div>
+                </div>
+               </div>
+
                 </fieldset>
                 </div>
+                 <!-- comienza additionalClassifications -->
+               <div class="row" formGroupName="additionalClassifications">
+                <fieldset class="border p-3 mb-3">
+                  <legend >Clasificaciones adicionales</legend>
+                  <div class="row">
+                    <div class="col-md-3">
+                      <div class="form-floating mb-3">
+                        <select
+                          class="form-select"
+                          id="esquemaClasificacion"
+                          aria-label="Esquema de la clasificación"
+                          formControlName="scheme"
+                        >
+                          <option value="1">UNCEFACT</option>
+                          <option value="2">2</option>
+                          <option value="3">3</option>
+                          <option value="4">4</option>
+                          <option value="5">5</option>
+                        </select>
+                        <label for="esquemaClasificacion"
+                          >Esquema de la clasificación.</label
+                        >
+                      </div>
+                    </div>
+                    <div class="col-md-3">
+                      <div class="form-floating mb-3">
+                        <input
+                          class="form-control"
+                          id="idClasificacion"
+                          type="text"
+                          placeholder="Id de la clasificación"
+                          data-sb-validations="required"
+                          formControlName="id"
+                        />
+                        <label for="idClasificacion"
+                          >Id de la clasificación</label
+                        >
+                        <div
+                          class="invalid-feedback"
+                          data-sb-feedback="idClasificacion:required"
+                        >
+                          Id de la clasificación es requerida.
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-md-3">
+                      <div class="form-floating mb-3">
+                        <input
+                          class="form-control"
+                          id="descripcionClasificacion"
+                          type="text"
+                          placeholder="Descripcion de la clasificación"
+                          data-sb-validations="required"
+                          formControlName="description"
+                        />
+                        <label for="descripcionClasificacion"
+                          >Descripcion de la clasificación</label
+                        >
+                        <div
+                          class="invalid-feedback"
+                          data-sb-feedback="descripcionClasificacion:required"
+                        >
+                          La descripcion de la clasificación es requerida.
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-md-3">
+                      <div class="form-floating mb-3">
+                        <input
+                          class="form-control"
+                          id="uri"
+                          type="text"
+                          placeholder="URL"
+                          data-sb-validations="required"
+                          formControlName="uri"
+                        />
+                        <label for="uri">URL</label>
+                        <div
+                          class="invalid-feedback"
+                          data-sb-feedback="uri:required"
+                        >
+                          URL es requerida.
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </fieldset>
+               </div>
+               <!-- termina additionalClassifications -->
                 <div formGroupName="unit">
  <fieldset class="border p-3 mb-3">
 <legend>Unidad</legend>
@@ -844,7 +947,7 @@
           type="text"
           placeholder="URL"
           data-sb-validations="required"
-          formControlName="url"
+          formControlName="uri"
         />
         <label for="url">URL</label>
         <div
@@ -1977,7 +2080,7 @@
   <!-- Formulario principal de contratos -->
 <!-- Falta la sección en donde apareceran los contratos agregados  -->
   <!-- Termina items -->
-<!--    <pre>
-    {{ guarantees.value | json }}
-  </pre> -->
+   <pre>
+    {{ items.value | json }}
+  </pre>
 </div>
