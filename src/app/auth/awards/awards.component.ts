@@ -66,6 +66,31 @@ export class AwardsComponent implements OnInit {
     }),
   });
 
+  AwardsDocuments = this.fb.group({
+    documents: this.fb.group({
+      id: ['', Validators.required],
+      documentType: ['', Validators.required],
+      title: ['', Validators.required],
+      description: ['', Validators.required],
+      url: ['', Validators.required],
+      datePublished: ['', Validators.required],
+      dateModified: ['', Validators.required],
+      format: ['', Validators.required],
+      language: ['', Validators.required],
+    }),
+  });
+
+  AwardsAmendments = this.fb.group({
+    amendments: this.fb.group({
+      date: ['', Validators.required],
+      rationale: ['', Validators.required],
+      id: ['', Validators.required],
+      description: ['', Validators.required],
+      amendsReleaseID: ['', Validators.required],
+      releaseID: ['', Validators.required],
+    }),
+  });
+
   onSubmit() {
     console.log(this.Awards.value);
   }
@@ -76,5 +101,13 @@ export class AwardsComponent implements OnInit {
 
   onSubmitItems() {
     console.log(this.AwardsItems.value);
+  }
+
+  onSubmitDocuments() {
+    console.log(this.AwardsDocuments.value);
+  }
+
+  onSubmitAwardsAmendments() {
+    console.log(this.AwardsAmendments.value);
   }
 }
