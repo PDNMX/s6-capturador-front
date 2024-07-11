@@ -1,11 +1,12 @@
 
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormControl } from '@angular/forms';
+import { FormGroup, FormControl, FormArray } from '@angular/forms';
 import { Validators, FormBuilder } from '@angular/forms';
 import { Title } from '@angular/platform-browser';
 //import { HttpClient } from '@angular/common/http';
 import { ApiService } from 'src/app/api.service';
 import { Contract } from './contract.model';
+import { AdditionalClassification } from './additionalClassification';
 
 @Component({
   selector: 'app-contracts',
@@ -28,10 +29,10 @@ dataToUpdate = {
   email: 'updated.email@example.com'
 };
   //contractsData:FormGroup;implements OnInit
-constructor(private fb: FormBuilder, private apiService: ApiService ){}//, private http: HttpClient) { }
+constructor(private fb: FormBuilder, private apiService: ApiService){}//, private http: HttpClient) { }
   ngOnInit():void {
-
-    this.postMethod(this.dataToSend);
+    //this.additionalClassifications = new FormControl();
+    //this.postMethod(this.dataToSend);
 
 /*     this.getMethodId();
     this.postMethod();
@@ -205,6 +206,7 @@ constructor(private fb: FormBuilder, private apiService: ApiService ){}//, priva
     }),
     });
 
+
     items = this.fb.group({
       id: ['', Validators.required],
       description: ['', Validators.required],
@@ -214,13 +216,26 @@ constructor(private fb: FormBuilder, private apiService: ApiService ){}//, priva
         uri: ['', Validators.required],
         description: ['', Validators.required]
       }),
-      additionalClassifications: this.fb.group({}),
+/*       additionalClassifications: this.fb.FormArray([
+        this.fb.group({
+          scheme: ['', Validators.required],
+          id: ['', Validators.required],
+          uri: ['', Validators.required],
+          description: ['', Validators.required]
+        })
+      ]), */
+       /* additionalClassifications: this.fb.group({
+        scheme: ['', Validators.required],
+        id: ['', Validators.required],
+        uri: ['', Validators.required],
+        description: ['', Validators.required]
+       }), */
       quantity: ['', Validators.required],
       unit: this.fb.group({
         scheme: ['', Validators.required],
         id: ['', Validators.required],
         name: ['', Validators.required],
-        url: ['', Validators.required],
+        uri: ['', Validators.required],
         value: this.fb.group({
           amount: ['', Validators.required],
           currency: ['', Validators.required]
@@ -278,7 +293,7 @@ constructor(private fb: FormBuilder, private apiService: ApiService ){}//, priva
       documentType: ['', Validators.required],
       title: ['', Validators.required],
       description: ['', Validators.required],
-      url: ['', Validators.required],
+      uri: ['', Validators.required],
       datePublished: ['', Validators.required],
       dateModified: ['', Validators.required],
       format: ['', Validators.required],
@@ -315,20 +330,30 @@ constructor(private fb: FormBuilder, private apiService: ApiService ){}//, priva
       releaseID: ['', Validators.required],
     });
 
+
 /* Mostrar en consolo el contenido de los formularios */
   onSubmit() {
+   console.log(this.contracts.value);
    this.dataToSend = this.contracts.value;
    console.log("Mandando datos");
    this.postMethod(this.contracts);
-   console.log(this.contracts.value);
+
 
   }
   onSubmit2() {
-    console.log(this.items.value);
+    console.log(this.documents.value);
+
   }
+
   onSubmit3() {
     console.log(this.items.value);
+    this.dataToSend = this.items.value;
+    console.log("Mandando datos de items");
+    this.postMethod(this.dataToSend);
   }
+
+  addPassenger(){}
+
   onSubmit4() {
     console.log(this.items.value);
   }
