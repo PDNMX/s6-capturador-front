@@ -6,7 +6,6 @@ import { Title } from '@angular/platform-browser';
 //import { HttpClient } from '@angular/common/http';
 import { ApiService } from 'src/app/api.service';
 import { Contract } from './contract.model';
-import { AdditionalClassification } from './additionalClassification';
 
 @Component({
   selector: 'app-contracts',
