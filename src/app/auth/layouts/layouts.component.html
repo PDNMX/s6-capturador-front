@@ -9,12 +9,17 @@
         <nav>
           <ul class="nav">
             <li class="nav-item">
-              <a class="nav-link text-white" 
-              [routerLink]="'/'"              
+              <a class="nav-link text-white"
+              [routerLink]="'/'"
               [routerLinkActive]="'active'" >Inicio</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link text-white" 
+              <a class="nav-link text-white"
+              [routerLink]="'/login'"
+              [routerLinkActive]="'active'" >Cerrar Sesión</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link text-white"
               [routerLink]="'parties'"
               [routerLinkActive]="'active'"><i class="bi bi-people-fill"></i> Actores</a>
             </li>
@@ -36,7 +41,7 @@
             [routerLink]="'/'"
             [routerLinkActive]="'active'"
             >
-            
+
           </a>
           <button
             class="navbar-toggler"
@@ -48,7 +53,7 @@
             aria-label="Toggle navigation"
           >
             <span class="navbar-toggler-icon">
-              
+
             </span>
           </button>
           <div class="collapse navbar-collapse" id="navbarNav">
@@ -109,7 +114,7 @@
                   Adjudicaciones
                 </a>
               </li>
-              
+
               <li class="nav-item px-3">
                 <a
                   class="nav-link"

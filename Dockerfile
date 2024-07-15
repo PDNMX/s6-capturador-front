@@ -12,8 +12,11 @@ RUN npm run build --prod
 
 FROM nginx:alpine
 
-# Copia los archivos compilados de Angular al directorio de Nginx
+RUN rm /etc/nginx/conf.d/default.conf
+
 COPY --from=build /app/dist/s6-capturador-front /usr/share/nginx/html
+
+COPY nginx.conf /etc/nginx/conf.d/default.conf
 
 EXPOSE 80
 
