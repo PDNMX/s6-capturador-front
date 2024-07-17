@@ -252,3 +252,48 @@ margin: 0 0 80px 0;
 .login-footer a:hover {
   text-decoration: underline;
 }
+
+
+.menu-info > .nav-pills button {
+  text-align: left;
+  color: #fff;
+  border-radius: 0;
+}
+
+.menu-info > .nav-pills button:hover {
+  color: #fff;
+  border-radius: 0;
+  background: #5b7aa3;
+}
+
+.menu-info > .nav-pills button .nav-link.active {
+  border-radius: 0;
+  background: #5b7aa3;
+  
+}
+
+.menu-info > .nav-pills .nav-link {
+  border-bottom: 1px solid #41a5cd;
+  border-radius: 0;
+}
+
+.menu-info > .nav-pills .nav-link.active, .menu-info > .nav-pills .show >.nav-link {
+  background: #5b7aa3;
+  border-bottom: 1px solid #fff;
+  border-radius: 0;
+}
+
+.menu-info > .nav-link:focus, .menu-info > .nav-link:hover {
+  background-color: #244552;
+  border-bottom: 1px solid #fff;
+  border-radius: 0;
+}
+
+.menu-wrap .menu-info {
+  padding: 40px 0;
+}
+
+.menu-wrap > div:nth-child(2) {
+  overflow-y: auto;
+  height: 580px;
+}
