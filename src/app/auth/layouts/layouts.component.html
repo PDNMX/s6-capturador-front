@@ -4,24 +4,19 @@
   <header class="bg-s6 text-white py-0 sticky-top">
     <div class="container py-2 ">
       <div class="d-flex justify-content-between align-items-center">
-        <img class="logo" src ="../../../assets/logo_pdn-transparente.svg" alt="PDN"/>
+        <img class="logo" src="../../../assets/logo_pdn-transparente.svg" alt="PDN" />
         <h5 class="mb-0">Herramienta de captura del Sistema de información pública de contrataciones (S6)</h5>
         <nav>
           <ul class="nav">
             <li class="nav-item">
-              <a class="nav-link text-white"
-              [routerLink]="'/'"
-              [routerLinkActive]="'active'" >Inicio</a>
+              <a class="nav-link text-white" [routerLink]="'/'" [routerLinkActive]="'active'">Inicio</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link text-white"
-              [routerLink]="'/login'"
-              [routerLinkActive]="'active'" >Cerrar Sesión</a>
+              <a class="nav-link text-white" [routerLink]="'/login'" [routerLinkActive]="'active'">Cerrar Sesión</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link text-white"
-              [routerLink]="'parties'"
-              [routerLinkActive]="'active'"><i class="bi bi-people-fill"></i> Actores</a>
+              <a class="nav-link text-white" [routerLink]="'parties'" [routerLinkActive]="'active'"><i
+                  class="bi bi-people-fill"></i> Actores</a>
             </li>
             <!--<li class="nav-item">
               <a class="nav-link text-white" href="#">About</a>
@@ -36,22 +31,11 @@
     <div class="container-fluid  bg-s6-l">
       <div class="d-flex justify-content-center align-items-center">
         <nav class="navbar navbar-expand-lg pt-4">
-          <a
-            class="navbar-brand"
-            [routerLink]="'/'"
-            [routerLinkActive]="'active'"
-            >
+          <a class="navbar-brand" [routerLink]="'/'" [routerLinkActive]="'active'">
 
           </a>
-          <button
-            class="navbar-toggler"
-            type="button"
-            data-toggle="collapse"
-            data-target="#navbarNav"
-            aria-controls="navbarNav"
-            aria-expanded="false"
-            aria-label="Toggle navigation"
-          >
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon">
 
             </span>
@@ -81,59 +65,39 @@
                 </a>
               </li>-->
               <li class="nav-item px-3">
-                <a
-                  class="nav-link"
-                  [routerLink]="'planning'"
-                  [routerLinkActive]="'active'"
-                  >
+                <a class="nav-link" [routerLink]="'planning'" [routerLinkActive]="'active'">
                   <span class="p">
-                    <i><img src ="../../../assets/icons/icon-planeacion.svg" alt="Planeación"/></i>
+                    <i><img src="../../../assets/icons/icon-planeacion.svg" alt="Planeación" /></i>
                   </span>Planeación
                 </a>
               </li>
               <li class="nav-item px-3">
-                <a
-                  class="nav-link"
-                  [routerLink]="'tender'"
-                  [routerLinkActive]="'active'"
-                  >
+                <a class="nav-link" [routerLink]="'tender'" [routerLinkActive]="'active'">
                   <span class="l">
-                    <i><img src ="../../../assets/icons/icon-licitacion.svg" alt="Licitación"/></i>
+                    <i><img src="../../../assets/icons/icon-licitacion.svg" alt="Licitación" /></i>
                   </span>Licitación
                 </a>
               </li>
               <li class="nav-item px-3">
-                <a
-                  class="nav-link"
-                  [routerLink]="'awards'"
-                  [routerLinkActive]="'active'"
-                  >
+                <a class="nav-link" [routerLink]="'awards'" [routerLinkActive]="'active'">
                   <span class="a">
-                    <i><img src ="../../../assets/icons/icon-adjudicaciones.svg" alt="Adjudicaciones"/></i>
+                    <i><img src="../../../assets/icons/icon-adjudicaciones.svg" alt="Adjudicaciones" /></i>
                   </span>
                   Adjudicaciones
                 </a>
               </li>
 
               <li class="nav-item px-3">
-                <a
-                  class="nav-link"
-                  [routerLink]="'contracts'"
-                  [routerLinkActive]="'active'"
-                  >
+                <a class="nav-link" [routerLink]="'contracts'" [routerLinkActive]="'active'">
                   <span class="c">
-                    <i><img src ="../../../assets/icons/icon-contratos.svg" alt="Contratos"/></i>
+                    <i><img src="../../../assets/icons/icon-contratos.svg" alt="Contratos" /></i>
                   </span>Contratos
                 </a>
               </li>
               <li class="nav-item px-3">
-                <a
-                  class="nav-link"
-                  [routerLink]="'implementation'"
-                  [routerLinkActive]="'active'"
-                  >
+                <a class="nav-link" [routerLink]="'implementation'" [routerLinkActive]="'active'">
                   <span class="e">
-                    <i><img src ="../../../assets/icons/icon-ejecucion.svg" alt="Ejecución"/></i>
+                    <i><img src="../../../assets/icons/icon-ejecucion.svg" alt="Ejecución" /></i>
                   </span>Ejecución
                 </a>
               </li>
@@ -155,18 +119,18 @@
   </main>
 
   <!-- Footer Section -->
-  <footer class="bg-s6-footer py-3 mt-auto">
+  <footer class="bg-s6-footer py-1 mt-0">
     <div class="container text-center">
       <div class="row">
-        <div class="col-md-4 mb-3 mb-md-0">
+        <div class="col-md-4 mb-0 mb-md-0">
           <h5>Acerca de la PDN</h5>
-          <p>Conoce más acerca de nosotros.</p>
+          <p class="mb-0 mt-0">Conoce más acerca de nosotros.</p>
         </div>
-        <div class="col-md-4 mb-3 mb-md-0">
+        <div class="col-md-4 mb-0 mb-md-0">
           <h5>Contacto</h5>
-          <p>Correo: info@pdn.com</p>
+          <p class="mb-0 mt-0">Correo: info@pdn.com</p>
         </div>
-        <div class="col-md-4 mb-3 mb-md-0">
+        <div class="col-md-4 mb-0 mb-md-0">
           <h5>Síguenos en nuestras redes</h5>
           <a href="#" class=" me-3">
             <i class="fab fa-facebook-f"></i>
@@ -179,7 +143,7 @@
           </a>
         </div>
       </div>
-      <div class="row mt-3">
+      <div class="row">
         <div class="col-12">
           <p class="mb-0">&copy; 2024 Plataforma Digital Nacional.</p>
         </div>
