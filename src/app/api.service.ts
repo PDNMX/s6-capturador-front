@@ -15,11 +15,11 @@ export class ApiService {
   //private base_url = 'https://httpbin.org'; //'172.20.30.75:4004/back/'//http://localhost:4200/contracts
     //private base_url = 'https://jsonplaceholder.typicode.com'
 /* Usar esta url para hacer peticiones al api, solo se debe de cambiar la ip por la del equipo en la que se tiene el api en ejecución */
-    private base_url = 'http://172.20.30.75:4004/back'
+    private base_url = 'http://192.168.68.107:4004/back'
 
 /* Método para hacer llamadas por get all*/
  getMethod(endpoint: string): Observable<any> {
-    return this.http.get<any>(`${this.base_url}/${endpoint}`)
+    return this.http.get<any>(`${this.base_url}${endpoint}`)
       .pipe(
         tap(_ => console.log('get fetched data')),
         catchError(this.handleError<any>('getData', []))
@@ -28,7 +28,7 @@ export class ApiService {
 
 /* Método para hacer llamadas por post */
  postMethod<T>(body: T, endpoint: string): Observable<T> {
-    return this.http.post<T>(`${this.base_url}/${endpoint}`, body)
+    return this.http.post<T>(`${this.base_url}${endpoint}`, body)
       .pipe(
         tap(_ => console.log('post fetched data')),
         catchError(this.handleError<T>('postData'))
@@ -37,7 +37,7 @@ export class ApiService {
 
 /* Método para hacer llamadas por put */
  putMethod<T>(id: string, body: T, endpoint: string): Observable<T> {
-    return this.http.put<T>(`${this.base_url}/${endpoint}`, body)
+    return this.http.put<T>(`${this.base_url}${endpoint}`, body)
       .pipe(
         tap(_ => console.log('updated data')),
         catchError(this.handleError<T>('putData'))
@@ -46,7 +46,7 @@ export class ApiService {
 
 /* Método para llamadas por delete */
 deleteMethod<T>(id: string, endpoint: string): Observable<T> {
-    return this.http.delete<T>(`${this.base_url}/${endpoint}`)
+    return this.http.delete<T>(`${this.base_url}${endpoint}`)
       .pipe(
         tap(_ => console.log('deleted data')),
         catchError(this.handleError<T>('deleteData'))
