@@ -1,417 +1,257 @@
 <div class="content">
- 
-  <h2>Prueba POST</h2>
-<div *ngIf="data1">
-  <pre>{{ data1 | json }}</pre>
-</div>
-<h2>Prueba GET</h2>
-<div *ngIf="data">
-  <pre>{{ data | json }}</pre>
-</div>
+  <!-- <h2>Prueba POST</h2>
+  <div *ngIf="data1">
+    <pre>{{ data1 | json }}</pre>
+  </div>
+  <h2>Prueba GET</h2>
+  <div *ngIf="data">
+    <pre>{{ data | json }}</pre>
+  </div> -->
   <div class="container">
     <div class="row align-items-stretch no-gutters menu-wrap">
       <div class="col-md-3 g-0">
         <div class="menu-info h-100">
-          <h3>3. Adjudicación</h3>
-          <ul class="list-unstyled">
-            <li class="d-flex">
-              <span class="mr-3">▼ </span>
-              <span class="text">&nbsp;&nbsp;Proveedores</span>
-            </li>
-            <li class="d-flex">
-              <span class="mr-3">▤ </span>
-              <span class="text">&nbsp;&nbsp;Documentos</span>
-            </li>
-            <li class="d-flex">
-              <span class="mr-3">♕ </span>
-              <span class="text"> &nbsp;Artículos</span>
-            </li>
-            <li class="d-flex">
-              <span class="mr-3">℘ </span>
-              <span class="text">&nbsp;&nbsp;Enmiendas</span>
-            </li>
-          </ul>
+          <div
+            class="nav flex-column nav-pills"
+            id="v-pills-tab"
+            role="tablist"
+            aria-orientation="vertical"
+          >
+            <h3
+              class="active text-left"
+              id="v-pills-AwardsDefinition-tab"
+              data-bs-toggle="pill"
+              data-bs-target="#v-pills-AwardsDefinition"
+              type="button"
+              role="tab"
+              aria-controls="v-pills-AwardsDefinition"
+              aria-selected="true"
+            >
+              3. Adjudicación
+            </h3>
+            <button
+              class="nav-link text-left"
+              id="v-pills-AwardGeneral-tab"
+              data-bs-toggle="pill"
+              data-bs-target="#v-pills-AwardGeneral"
+              type="button"
+              role="tab"
+              aria-controls="v-pills-AwardGeneral"
+              aria-selected="false"
+            >
+              <i class="fa fa-folder"></i> Información General
+            </button>
+            <button
+              class="nav-link text-left"
+              id="v-pills-proveedores-tab"
+              data-bs-toggle="pill"
+              data-bs-target="#v-pills-proveedores"
+              type="button"
+              role="tab"
+              aria-controls="v-pills-proveedores"
+              aria-selected="false"
+            >
+              <i class="fa fa-folder"></i> Proveedores
+            </button>
+            <button
+              class="nav-link"
+              id="v-pills-AwardsItems-tab"
+              data-bs-toggle="pill"
+              data-bs-target="#v-pills-AwardsItems"
+              type="button"
+              role="tab"
+              aria-controls="v-pills-AwardsItems"
+              aria-selected="false"
+            >
+              <i class="fa fa-folder"></i> Artículos
+            </button>
+            <button
+              class="nav-link"
+              id="v-pills-AwardsDocumentos-tab"
+              data-bs-toggle="pill"
+              data-bs-target="#v-pills-AwardsDocumentos"
+              type="button"
+              role="tab"
+              aria-controls="v-pills-AwardsDocumentos"
+              aria-selected="false"
+            >
+              <i class="fa fa-folder"></i> Documentos
+            </button>
+            <button
+              class="nav-link"
+              id="v-pills-AwardsAmendments-tab"
+              data-bs-toggle="pill"
+              data-bs-target="#v-pills-AwardsAmendments"
+              type="button"
+              role="tab"
+              aria-controls="v-pills-AwardsAmendments"
+              aria-selected="false"
+            >
+              <i class="fa fa-folder"></i> Modificaciones
+            </button>
+          </div>
         </div>
       </div>
       <div class="col-md-9 g-0">
-        <div class="form h-100">
-          <h3>Adjudicación</h3>
-          <form
-            class="mb-5"
-            method="post"
-            id="awards-form"
-            [formGroup]="Awards"
-            (ngSubmit)="onSubmit()"
+        <div class="tab-content" id="v-pills-tabContent">
+          <div
+            class="tab-pane fade show active"
+            id="v-pills-AwardsDefinition"
+            role="tabpanel"
+            aria-labelledby="v-pills-AwardsDefinition-tab"
+            tabindex="0"
           >
-            <div class="row">
-              <div class="form-floating col-md-6 mb-5">
-                <input
-                  type="text"
-                  class="form-control"
-                  id="AwardsId"
-                  placeholder="Indentificador de la adjudicación"
-                  formControlName="id"
-                />
-                <label for="AwardsId"
-                  >Indentificador de la adjudicación *</label
-                >
-              </div>
-              <div class="form-floating col-md-6 mb-5">
-                <select
-                  class="form-select"
-                  id="AwardsStatus"
-                  aria-label="award status"
-                  formControlName="status"
-                >
-                  <option value="default">Seleccione un opción</option>
-                  <option value="pending">Pendiente</option>
-                  <option value="active">Activo</option>
-                  <option value="cancelled">Cancelado</option>
-                  <option value="unsuccessful">Sin Éxito</option>
-                </select>
-                <label for="AwardsStatus">Estado de la adjudicación</label>
-              </div>
-            </div>
-            <div class="row">
-              <div class="form-floating col-md-12 mb-5">
-                <input
-                  class="form-control"
-                  id="AwardsTitle"
-                  type="text"
-                  placeholder="Título"
-                  formControlName="title"
-                />
-                <label for="AwardsTitle">Título de la adjudicación.</label>
-                <div
-                  class="invalid-feedback"
-                  data-sb-feedback="titulo:required"
-                >
-                  Título is required.
+            <div class="form h-100">
+              <form
+                class=""
+                method="post"
+                id="planning-Form-StartAward"
+                name="planning-Form-StartAward"
+                novalidate="novalidate"
+              >
+                <div class="row imageP"></div>
+                <div class="row">
+                  <h3>Adjudicación</h3>
+                  <hr />
+                  <p>
+                    La fase de Adjudicación consiste en registro del o los
+                    participantes que resultaron ganadores del contrato de
+                    acuerdo con la evaluación de las propuestas.
+                  </p>
                 </div>
-              </div>
+              </form>
             </div>
-            <div class="row">
-              <div class="form-floating col-md-12 mb-5">
-                <textarea
-                  class="form-control"
-                  id="AwardsDescription"
-                  type="text"
-                  placeholder="Descripción"
-                  formControlName="description"
-                ></textarea>
-                <label for="AwardsDescription"
-                  >Descripción de la adjudicación.</label
-                >
-              </div>
-            </div>
-            <div class="row">
-              <div class="form-floating col-md-12 mb-5">
-                <textarea
-                  class="form-control"
-                  id="AwardsRationale"
-                  type="text"
-                  placeholder="Justificación"
-                  formControlName="rationale"
-                ></textarea>
-                <label for="AwardsRationale">Justificación</label>
-              </div>
-            </div>
-            <div class="row">
-              <div class="form-floating col-md-4 mb-5">
-                <input
-                  type="date"
-                  class="form-control"
-                  id="AwardsDate"
-                  placeholder="Fecha de la adjudicación"
-                  formControlName="date"
-                />
-                <label for="AwardsDate">Fecha de la adjudicación</label>
-              </div>
-            </div>
-            <div class="row">
-              <h3>Valor</h3>
-            </div>
-            <div class="row" formGroupName="value">
-              <div class="form-floating form-group col-md-6 mb-5">
-                <input
-                  type="number"
-                  class="form-control"
-                  id="AwardsValueAmount"
-                  placeholder="Monto total de la adjudicación *"
-                  formControlName="amount"
-                />
-                <label for="AwardsValueAmount"
-                  >Monto total de la adjudicación *</label
-                >
-              </div>
-              <div class="form-floating form-group col-md-6 mb-5">
-                <select
-                  class="form-select"
-                  id="AwardsValueCurrency"
-                  aria-label="moneda"
-                  formControlName="currency"
-                >
-                  <option value="default">Seleccione el tipo de moneda</option>
-                  <option value="mxn">MXN</option>
-                  <option value="usd">USD</option>
-                </select>
-                <label for="AwardsValueCurrency">Moneda</label>
-              </div>
-            </div>
-            <div class="row">
-              <h3>Periodo del contrato</h3>
-            </div>
-            <div class="row" formGroupName="contractPeriod">
-              <div class="form-floating form-group col-md-3 mb-5">
-                <input
-                  type="date"
-                  class="form-control"
-                  id="ContractPeriodStartDate"
-                  placeholder="Fecha de inicio del contrato"
-                  formControlName="startDate"
-                />
-                <label for="ContractPeriodStartDate">Fecha de inicio</label>
-              </div>
-              <div class="form-floating form-group col-md-3 mb-5">
-                <input
-                  type="date"
-                  class="form-control"
-                  id="ContractPeriodendDate"
-                  placeholder="Fecha de la adjudicación"
-                  formControlName="endDate"
-                />
-                <label for="ContractPeriodendDate">Fecha de término</label>
-              </div>
-              <div class="form-floating form-group col-md-3 mb-5">
-                <input
-                  type="date"
-                  class="form-control"
-                  id="ContractPeriodMaxExtentDate"
-                  placeholder="Fecha de la adjudicación"
-                  formControlName="maxExtentDate"
-                />
-                <label for="ContractPeriodMaxExtentDate"
-                  >Extensión máxima</label
-                >
-              </div>
-              <div class="form-floating form-group col-md-3 mb-5">
-                <input
-                  type="number"
-                  class="form-control"
-                  id="ContractPeriodDurationInDays"
-                  placeholder="Duración en dias"
-                  formControlName="durationInDays"
-                />
-                <label for="ContractPeriodDurationInDays"
-                  >Duración (días)</label
-                >
-              </div>
-            </div>
-            <div class="row">
-              <div class="col-md-6 form-group d-flex justify-content-between">
-                <input
-                  type="submit"
-                  value="Guardar"
-                  class="btn btn-primary rounded-0 py-2 px-4"
-                />
-                <span class="Guardar"></span>
-                <input
-                  type="submit"
-                  value="Eliminar"
-                  class="btn btn-danger rounded-0 py-2 px-4"
-                />
-                <span class="Guardar"></span>
-              </div>
-            </div>
-          </form>
-          <hr class="solid" />
-          <form
-            class="mb-5"
-            method="post"
-            id="AwardsSuppliersForm"
-            name="AwardsSuppliersForm"
-            [formGroup]="AwardsSuppliers"
-            (ngSubmit)="onSubmitSuppliers()"
+          </div>
+        </div>
+
+        <!-- Inicia formulario de datos generales de la adjudicación -->
+        <div class="tab-content" id="v-pills-tabContent">
+          <div
+            class="tab-pane fade"
+            id="v-pills-AwardGeneral"
+            role="tabpanel"
+            aria-labelledby="v-pills-AwardGeneral-tab"
           >
-            <div class="row">
-              <h3>Proveedor</h3>
-            </div>
-            <div class="row" formGroupName="suppliers">
-              <div class="form-floating col-md-6 mb-5">
-                <input
-                  class="form-control"
-                  id="AwardsSuppliersId"
-                  type="text"
-                  placeholder="Identificador del Proveedor"
-                  formControlName="id"
-                />
-                <label for="AwardsSuppliersId"
-                  >Indentificador del proveedor</label
-                >
-              </div>
-              <div class="form-floating col-md-6 mb-5">
-                <input
-                  class="form-control"
-                  id="AwardsSuppliersName"
-                  type="text"
-                  placeholder="Nombre del Proveedor"
-                  formControlName="name"
-                />
-                <label for="AwardsSuppliersName">Nombre del proveedor</label>
-              </div>
-            </div>
-            <div class="row">
-              <div class="col-md-6 form-group d-flex justify-content-between">
-                <input
-                  type="submit"
-                  value="Guardar"
-                  class="btn btn-primary rounded-0 py-2 px-4"
-                />
-                <span class="Guardar"></span>
-                <input
-                  type="submit"
-                  value="Eliminar"
-                  class="btn btn-danger rounded-0 py-2 px-4"
-                />
-                <span class="Guardar"></span>
-              </div>
-            </div>
-          </form>
-          <hr class="solid" />
-          <form
-            class="mb-5"
-            method="post"
-            id="AwardsItemsForm"
-            name="AwardsItemsForm"
-            [formGroup]="AwardsItems"
-            (ngSubmit)="onSubmitItems()"
-          >
-            <fieldset class="border p-3 mb-3" formGroupName="items">
-              <legend class="w-auto px-2">Artículos</legend>
-              <div class="row mb-5">
-                <small>
-                  Los bienes y servicios adjudicados en esta adjudicación,
-                  desglosados en tipos de artículos de una clasificación
-                  preexistente cuando sea posible. Los artículos no deberían de
-                  estar duplicados, sino se debe especificar la cantidad.
-                </small>
-              </div>
-              <div class="row">
-                <div class="form-floating col-md-4 mb-5">
-                  <input
-                    class="form-control"
-                    id="AwardsItemsId"
-                    type="text"
-                    placeholder="Id del Artículo"
-                    formControlName="id"
-                  />
-                  <label for="AwardsItemsId">Indentificador del artículo</label>
-                </div>
-                <div class="form-floating col-md-4 mb-5">
-                  <input
-                    class="form-control"
-                    id="AwardsItemsDescription"
-                    type="text"
-                    placeholder="Descripción del Artículo"
-                    formControlName="description"
-                  />
-                  <label for="AwardsItemsDescription"
-                    >Descripción del articulo</label
-                  >
-                </div>
-                <div class="form-floating col-md-4 mb-5">
-                  <input
-                    class="form-control"
-                    id="AwardsItemsQuantity"
-                    type="number"
-                    placeholder="Cantidad de unidades"
-                    formControlName="quantity"
-                  />
-                  <label for="AwardsItemsQuantity">Cantidad de unidades</label>
-                </div>
-              </div>
-              <div formGroupName="unit">
+            <div class="form h-100">
+              <form
+                class="mb-5"
+                method="post"
+                id="awards-form"
+                [formGroup]="Awards"
+                (ngSubmit)="onSubmit()"
+              >
                 <fieldset class="border p-3 mb-3">
-                  <legend class="w-auto px-2">Unidad</legend>
-                  <div class="row mb-5">
-                    <small
-                      >Una descripción de la unidad en la cual los suministros,
-                      servicios o trabajos están provistos (ej. horas, kilos) y
-                      el precio por unidad.</small
-                    >
-                  </div>
+                  <h3>Información general</h3>
+                  <hr />
                   <div class="row">
                     <div class="form-floating col-md-6 mb-5">
                       <input
-                        class="form-control"
-                        id="ItemsUnitId"
                         type="text"
-                        placeholder="Identificador de la unidad"
+                        class="form-control"
+                        id="AwardsId"
+                        placeholder="Indentificador de la adjudicación"
                         formControlName="id"
                       />
-                      <label for="ItemsUnitId"
-                        >Identificador de la unidad de medida</label
+                      <label for="AwardsId"
+                        >Indentificador de la adjudicación *</label
                       >
                     </div>
-                    <div class="form-floating form-group col-md-6 mb-5">
+                    <div class="form-floating col-md-6 mb-5">
                       <select
                         class="form-select"
-                        id="ItemsUnitScheme"
-                        aria-label="scheme"
-                        formControlName="scheme"
+                        id="AwardsStatus"
+                        aria-label="award status"
+                        formControlName="status"
                       >
-                        <option value="default">Seleccione una opción</option>
-                        <option value="mxn">opcion 1</option>
-                        <option value="usd">opcion 2</option>
-                        <option value="usd">opcion 3</option>
-                        <option value="usd">opcion 4</option>
-                        <option value="usd">opcion 5</option>
+                        <option value="default">Seleccione un opción</option>
+                        <option value="pending">Pendiente</option>
+                        <option value="active">Activo</option>
+                        <option value="cancelled">Cancelado</option>
+                        <option value="unsuccessful">Sin Éxito</option>
                       </select>
-                      <label for="ItemsUnitScheme"
-                        >Esquema de unidades de medida</label
+                      <label for="AwardsStatus"
+                        >Estado de la adjudicación</label
                       >
                     </div>
                   </div>
                   <div class="row">
-                    <div class="form-floating col-md-6 mb-5">
+                    <div class="form-floating col-md-12 mb-5">
                       <input
                         class="form-control"
-                        id="ItemesUnitName"
+                        id="AwardsTitle"
                         type="text"
-                        placeholder="Nombre de la unidad de medida"
-                        formControlName="name"
+                        placeholder="Título"
+                        formControlName="title"
                       />
-                      <label for="description">Unidad de medida</label>
-                    </div>
-                    <div class="form-floating col-md-6 mb-5">
-                      <input
-                        class="form-control"
-                        id="uri"
-                        type="text"
-                        placeholder="URI de la unidad de medida, dada por el esquema"
-                        formControlName="uri"
-                      />
-                      <label for="uri">URI</label>
+                      <label for="AwardsTitle"
+                        >Título de la adjudicación.</label
+                      >
+                      <div
+                        class="invalid-feedback"
+                        data-sb-feedback="titulo:required"
+                      >
+                        Título is required.
+                      </div>
                     </div>
                   </div>
-                </fieldset>
-                <fieldset class="border p-3 mb-3" formGroupName="value">
-                  <legend class="w-auto px-2">Valor</legend>
                   <div class="row">
+                    <div class="form-floating col-md-12 mb-5">
+                      <textarea
+                        class="form-control"
+                        id="AwardsDescription"
+                        type="text"
+                        placeholder="Descripción"
+                        formControlName="description"
+                      ></textarea>
+                      <label for="AwardsDescription"
+                        >Descripción de la adjudicación.</label
+                      >
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="form-floating col-md-12 mb-5">
+                      <textarea
+                        class="form-control"
+                        id="AwardsRationale"
+                        type="text"
+                        placeholder="Justificación"
+                        formControlName="rationale"
+                      ></textarea>
+                      <label for="AwardsRationale">Justificación</label>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="form-floating col-md-4 mb-5">
+                      <input
+                        type="date"
+                        class="form-control"
+                        id="AwardsDate"
+                        placeholder="Fecha de la adjudicación"
+                        formControlName="date"
+                      />
+                      <label for="AwardsDate">Fecha de la adjudicación</label>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <h3>Valor</h3>
+                  </div>
+                  <div class="row" formGroupName="value">
                     <div class="form-floating form-group col-md-6 mb-5">
                       <input
                         type="number"
                         class="form-control"
-                        id="UnitValueAmount"
+                        id="AwardsValueAmount"
                         placeholder="Monto total de la adjudicación *"
                         formControlName="amount"
                       />
-                      <label for="UnitValueAmount">Monto *</label>
+                      <label for="AwardsValueAmount"
+                        >Monto total de la adjudicación *</label
+                      >
                     </div>
                     <div class="form-floating form-group col-md-6 mb-5">
                       <select
                         class="form-select"
-                        id="UnitValueCurrency"
+                        id="AwardsValueCurrency"
                         aria-label="moneda"
                         formControlName="currency"
                       >
@@ -421,590 +261,950 @@
                         <option value="mxn">MXN</option>
                         <option value="usd">USD</option>
                       </select>
-                      <label for="currency">Moneda</label>
+                      <label for="AwardsValueCurrency">Moneda</label>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <h3>Periodo del contrato</h3>
+                  </div>
+                  <div class="row" formGroupName="contractPeriod">
+                    <div class="form-floating form-group col-md-3 mb-5">
+                      <input
+                        type="date"
+                        class="form-control"
+                        id="ContractPeriodStartDate"
+                        placeholder="Fecha de inicio del contrato"
+                        formControlName="startDate"
+                      />
+                      <label for="ContractPeriodStartDate"
+                        >Fecha de inicio</label
+                      >
+                    </div>
+                    <div class="form-floating form-group col-md-3 mb-5">
+                      <input
+                        type="date"
+                        class="form-control"
+                        id="ContractPeriodendDate"
+                        placeholder="Fecha de la adjudicación"
+                        formControlName="endDate"
+                      />
+                      <label for="ContractPeriodendDate"
+                        >Fecha de término</label
+                      >
+                    </div>
+                    <div class="form-floating form-group col-md-3 mb-5">
+                      <input
+                        type="date"
+                        class="form-control"
+                        id="ContractPeriodMaxExtentDate"
+                        placeholder="Fecha de la adjudicación"
+                        formControlName="maxExtentDate"
+                      />
+                      <label for="ContractPeriodMaxExtentDate"
+                        >Extensión máxima</label
+                      >
+                    </div>
+                    <div class="form-floating form-group col-md-3 mb-5">
+                      <input
+                        type="number"
+                        class="form-control"
+                        id="ContractPeriodDurationInDays"
+                        placeholder="Duración en dias"
+                        formControlName="durationInDays"
+                      />
+                      <label for="ContractPeriodDurationInDays"
+                        >Duración (días)</label
+                      >
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div
+                      class="col-md-6 form-group d-flex justify-content-between"
+                    >
+                      <input
+                        type="submit"
+                        value="Guardar"
+                        class="btn btn-primary rounded-0 py-2 px-4"
+                      />
+                      <span class="Guardar"></span>
+                      <input
+                        type="submit"
+                        value="Eliminar"
+                        class="btn btn-danger rounded-0 py-2 px-4"
+                      />
+                      <span class="Guardar"></span>
                     </div>
                   </div>
                 </fieldset>
-              </div>
-              <fieldset class="border p-3 mb-3" formGroupName="classification">
-                <legend class="w-auto px-2">Clasificación</legend>
-                <div class="row">
-                  <div class="form-floating col-md-6 mb-5">
-                    <input
-                      class="form-control"
-                      id="ItemsClassificationID"
-                      type="text"
-                      placeholder="Identificador de la Clasificación"
-                      formControlName="id"
-                    />
-                    <label for="ItemsClassificationID"
-                      >Código de la clasificación</label
-                    >
-                  </div>
-                  <div class="form-floating form-group col-md-6 mb-5">
-                    <select
-                      class="form-select"
-                      id="ItemsClassificationScheme"
-                      aria-label="scheme"
-                      formControlName="scheme"
-                    >
-                      <option value="default">Seleccione una opción</option>
-                      <option value="mxn">opcion 1</option>
-                      <option value="usd">opcion 2</option>
-                      <option value="usd">opcion 3</option>
-                      <option value="usd">opcion 4</option>
-                      <option value="usd">opcion 5</option>
-                    </select>
-                    <label for="ItemsClassificationScheme">Esquema</label>
-                  </div>
-                </div>
-                <div class="row">
-                  <div class="form-floating col-md-6 mb-5">
-                    <input
-                      class="form-control"
-                      id="ItemsClassificationDescription"
-                      type="text"
-                      placeholder="Descripción del Artículo"
-                      formControlName="description"
-                    />
-                    <label for="ItemsClassificationDescription"
-                      >Descripción</label
-                    >
-                  </div>
-                  <div class="form-floating col-md-6 mb-5">
-                    <input
-                      class="form-control"
-                      id="ItemsClassificationUri"
-                      type="text"
-                      placeholder="URI de la clasificación"
-                      formControlName="uri"
-                    />
-                    <label for="ItemsClassificationUri">URI</label>
-                  </div>
-                </div>
-              </fieldset>
-              <fieldset
-                class="border p-3 mb-3"
-                formGroupName="additionalClassifications"
+              </form>
+            </div>
+          </div>
+        </div>
+
+        <!-- Inicia formulario de agregar uno o varios proveedores -->
+        <div class="tab-content" id="v-pills-tabContent">
+          <div
+            class="tab-pane fade"
+            id="v-pills-proveedores"
+            role="tabpanel"
+            aria-labelledby="v-pills-proveedores-tab"
+          >
+            <div class="form h-100">
+              <form
+                class="mb-5"
+                method="post"
+                id="AwardsSuppliersForm"
+                name="AwardsSuppliersForm"
+                [formGroup]="AwardsSuppliers"
+                (ngSubmit)="onSubmitSuppliers()"
               >
-                <legend class="w-auto px-2">Clasificaciones Adicionales</legend>
-                <div class="row">
-                  <div class="form-floating col-md-6 mb-5">
-                    <input
-                      class="form-control"
-                      id="additionalClassificationsID"
-                      type="text"
-                      placeholder="Identificador de la Clasificación"
-                      formControlName="id"
-                    />
-                    <label for="AdditionalClassificationsID"
-                      >Código de la clasificación adicional</label
-                    >
+                <fieldset class="border p-3 mb-3">
+                  <div class="row">
+                    <h3>Proveedor</h3>
+                    <hr class="solid" />
                   </div>
-                  <div class="form-floating form-group col-md-6 mb-5">
-                    <select
-                      class="form-select"
-                      id="AdditionalClassificationsScheme"
-                      aria-label="scheme"
-                      formControlName="scheme"
-                    >
-                      <option value="default">Seleccione una opción</option>
-                      <option value="mxn">opcion 1</option>
-                      <option value="usd">opcion 2</option>
-                      <option value="usd">opcion 3</option>
-                      <option value="usd">opcion 4</option>
-                      <option value="usd">opcion 5</option>
-                    </select>
-                    <label for="AdditionalClassificationsScheme">Esquema</label>
+                  <div class="row" formGroupName="suppliers">
+                    <div class="form-floating col-md-6 mb-5">
+                      <input
+                        class="form-control"
+                        id="AwardsSuppliersId"
+                        type="text"
+                        placeholder="Identificador del Proveedor"
+                        formControlName="id"
+                      />
+                      <label for="AwardsSuppliersId"
+                        >Indentificador del proveedor</label
+                      >
+                    </div>
+                    <div class="form-floating col-md-6 mb-5">
+                      <input
+                        class="form-control"
+                        id="AwardsSuppliersName"
+                        type="text"
+                        placeholder="Nombre del Proveedor"
+                        formControlName="name"
+                      />
+                      <label for="AwardsSuppliersName"
+                        >Nombre del proveedor</label
+                      >
+                    </div>
                   </div>
-                </div>
-                <div class="row">
-                  <div class="form-floating col-md-6 mb-5">
-                    <input
-                      class="form-control"
-                      id="AdditionalClassificationsDescription"
-                      type="text"
-                      placeholder="Descripción del Artículo"
-                      formControlName="description"
-                    />
-                    <label for="AdditionalClassificationsDescription"
-                      >Descripción</label
+                  <div class="row">
+                    <div
+                      class="col-md-6 form-group d-flex justify-content-between"
                     >
+                      <input
+                        type="submit"
+                        value="Guardar"
+                        class="btn btn-primary rounded-0 py-2 px-4"
+                      />
+                      <span class="Guardar"></span>
+                      <input
+                        type="submit"
+                        value="Eliminar"
+                        class="btn btn-danger rounded-0 py-2 px-4"
+                      />
+                      <span class="Guardar"></span>
+                    </div>
                   </div>
-                  <div class="form-floating col-md-6 mb-5">
-                    <input
-                      class="form-control"
-                      id="AdditionalClassificationsDescriptionUri"
-                      type="text"
-                      placeholder="URI de la clasificación"
-                      formControlName="uri"
-                    />
-                    <label for="AdditionalClassificationsDescriptionUri"
-                      >URI</label
-                    >
-                  </div>
-                </div>
-              </fieldset>
-              <div class="row">
-                <div class="col-md-6 form-group d-flex justify-content-between">
-                  <input
-                    type="submit"
-                    value="Guardar"
-                    class="btn btn-primary rounded-0 py-2 px-4"
-                  />
-                  <span class="Guardar"></span>
-                  <input
-                    type="submit"
-                    value="Eliminar"
-                    class="btn btn-danger rounded-0 py-2 px-4"
-                  />
-                  <span class="Guardar"></span>
-                </div>
-              </div>
-            </fieldset>
-          </form>
-          <hr class="solid" />
-          <form
-            class="mb-5"
-            method="post"
-            id="AwardsDocumentsForm"
-            name="AwardsDocumentsForm"
-            [formGroup]="AwardsDocuments"
-            (ngSubmit)="onSubmitDocuments()"
+                </fieldset>
+              </form>
+            </div>
+          </div>
+        </div>
+
+        <!-- Inicia formulario Items -->
+        <div class="tab-content" id="v-pills-tabContent">
+          <div
+            class="tab-pane fade"
+            id="v-pills-AwardsItems"
+            role="tabpanel"
+            aria-labelledby="v-pills-AwardsItems-tab"
           >
-            <fieldset class="border p-3 mb-3" formGroupName="documents">
-              <legend class="w-auto px-2">Documentos</legend>
-              <div class="row">
-                <div class="form-floating col-md-4 mb5">
-                  <input
-                    class="form-control"
-                    id="AwardsDocumentsId"
-                    type="text"
-                    placeholder="Idenficador del Documento"
-                    formControlName="id"
-                  />
-                  <label for="AwardsDocumentsId"
-                    >Identificador del Documento</label
+            <div class="form h-100">
+              <form
+                class="mb-5"
+                method="post"
+                id="AwardsItemsForm"
+                name="AwardsItemsForm"
+                [formGroup]="AwardsItems"
+                (ngSubmit)="onSubmitItems()"
+              >
+                <fieldset class="border p-3 mb-3" formGroupName="items">
+                  <h3>Artículos</h3>
+                  <hr class="solid" />
+                  <div class="row mb-5">
+                    <small>
+                      Los bienes y servicios adjudicados en esta adjudicación,
+                      desglosados en tipos de artículos de una clasificación
+                      preexistente cuando sea posible. Los artículos no deberían
+                      de estar duplicados, sino se debe especificar la cantidad.
+                    </small>
+                  </div>
+                  <div class="row">
+                    <div class="form-floating col-md-4 mb-5">
+                      <input
+                        class="form-control"
+                        id="AwardsItemsId"
+                        type="text"
+                        placeholder="Id del Artículo"
+                        formControlName="id"
+                      />
+                      <label for="AwardsItemsId"
+                        >Indentificador del artículo</label
+                      >
+                    </div>
+                    <div class="form-floating col-md-4 mb-5">
+                      <input
+                        class="form-control"
+                        id="AwardsItemsDescription"
+                        type="text"
+                        placeholder="Descripción del Artículo"
+                        formControlName="description"
+                      />
+                      <label for="AwardsItemsDescription"
+                        >Descripción del articulo</label
+                      >
+                    </div>
+                    <div class="form-floating col-md-4 mb-5">
+                      <input
+                        class="form-control"
+                        id="AwardsItemsQuantity"
+                        type="number"
+                        placeholder="Cantidad de unidades"
+                        formControlName="quantity"
+                      />
+                      <label for="AwardsItemsQuantity"
+                        >Cantidad de unidades</label
+                      >
+                    </div>
+                  </div>
+                  <div formGroupName="unit">
+                    <fieldset class="border p-3 mb-3">
+                      <legend class="w-auto px-2">Unidad</legend>
+                      <div class="row mb-5">
+                        <small
+                          >Una descripción de la unidad en la cual los
+                          suministros, servicios o trabajos están provistos (ej.
+                          horas, kilos) y el precio por unidad.</small
+                        >
+                      </div>
+                      <div class="row">
+                        <div class="form-floating col-md-6 mb-5">
+                          <input
+                            class="form-control"
+                            id="ItemsUnitId"
+                            type="text"
+                            placeholder="Identificador de la unidad"
+                            formControlName="id"
+                          />
+                          <label for="ItemsUnitId"
+                            >Identificador de la unidad de medida</label
+                          >
+                        </div>
+                        <div class="form-floating form-group col-md-6 mb-5">
+                          <select
+                            class="form-select"
+                            id="ItemsUnitScheme"
+                            aria-label="scheme"
+                            formControlName="scheme"
+                          >
+                            <option value="default">
+                              Seleccione una opción
+                            </option>
+                            <option value="mxn">opcion 1</option>
+                            <option value="usd">opcion 2</option>
+                            <option value="usd">opcion 3</option>
+                            <option value="usd">opcion 4</option>
+                            <option value="usd">opcion 5</option>
+                          </select>
+                          <label for="ItemsUnitScheme"
+                            >Esquema de unidades de medida</label
+                          >
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="form-floating col-md-6 mb-5">
+                          <input
+                            class="form-control"
+                            id="ItemesUnitName"
+                            type="text"
+                            placeholder="Nombre de la unidad de medida"
+                            formControlName="name"
+                          />
+                          <label for="description">Unidad de medida</label>
+                        </div>
+                        <div class="form-floating col-md-6 mb-5">
+                          <input
+                            class="form-control"
+                            id="uri"
+                            type="text"
+                            placeholder="URI de la unidad de medida, dada por el esquema"
+                            formControlName="uri"
+                          />
+                          <label for="uri">URI</label>
+                        </div>
+                      </div>
+                    </fieldset>
+                    <fieldset class="border p-3 mb-3" formGroupName="value">
+                      <legend class="w-auto px-2">Valor</legend>
+                      <div class="row">
+                        <div class="form-floating form-group col-md-6 mb-5">
+                          <input
+                            type="number"
+                            class="form-control"
+                            id="UnitValueAmount"
+                            placeholder="Monto total de la adjudicación *"
+                            formControlName="amount"
+                          />
+                          <label for="UnitValueAmount">Monto *</label>
+                        </div>
+                        <div class="form-floating form-group col-md-6 mb-5">
+                          <select
+                            class="form-select"
+                            id="UnitValueCurrency"
+                            aria-label="moneda"
+                            formControlName="currency"
+                          >
+                            <option value="default">
+                              Seleccione el tipo de moneda
+                            </option>
+                            <option value="mxn">MXN</option>
+                            <option value="usd">USD</option>
+                          </select>
+                          <label for="currency">Moneda</label>
+                        </div>
+                      </div>
+                    </fieldset>
+                  </div>
+                  <fieldset
+                    class="border p-3 mb-3"
+                    formGroupName="classification"
                   >
-                </div>
-                <div class="form-floating col-md-4 mb-5">
-                  <select
-                    class="form-select"
-                    id="AwardsDocumentsType"
-                    aria-label="scheme"
-                    formControlName="documentType"
+                    <legend class="w-auto px-2">Clasificación</legend>
+                    <div class="row">
+                      <div class="form-floating col-md-6 mb-5">
+                        <input
+                          class="form-control"
+                          id="ItemsClassificationID"
+                          type="text"
+                          placeholder="Identificador de la Clasificación"
+                          formControlName="id"
+                        />
+                        <label for="ItemsClassificationID"
+                          >Código de la clasificación</label
+                        >
+                      </div>
+                      <div class="form-floating form-group col-md-6 mb-5">
+                        <select
+                          class="form-select"
+                          id="ItemsClassificationScheme"
+                          aria-label="scheme"
+                          formControlName="scheme"
+                        >
+                          <option value="default">Seleccione una opción</option>
+                          <option value="mxn">opcion 1</option>
+                          <option value="usd">opcion 2</option>
+                          <option value="usd">opcion 3</option>
+                          <option value="usd">opcion 4</option>
+                          <option value="usd">opcion 5</option>
+                        </select>
+                        <label for="ItemsClassificationScheme">Esquema</label>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="form-floating col-md-6 mb-5">
+                        <input
+                          class="form-control"
+                          id="ItemsClassificationDescription"
+                          type="text"
+                          placeholder="Descripción del Artículo"
+                          formControlName="description"
+                        />
+                        <label for="ItemsClassificationDescription"
+                          >Descripción</label
+                        >
+                      </div>
+                      <div class="form-floating col-md-6 mb-5">
+                        <input
+                          class="form-control"
+                          id="ItemsClassificationUri"
+                          type="text"
+                          placeholder="URI de la clasificación"
+                          formControlName="uri"
+                        />
+                        <label for="ItemsClassificationUri">URI</label>
+                      </div>
+                    </div>
+                  </fieldset>
+                  <fieldset
+                    class="border p-3 mb-3"
+                    formGroupName="additionalClassifications"
                   >
-                    <option value="default">Seleccione una opción</option>
-                    <option value="awardNotice">Aviso de adjudicación</option>
-                    <option value="contractDraft">Borrador de contrato</option>
-                    <option value="contractArrangements">
-                      Arreglos para finalizar un contrato
-                    </option>
-                    <option value="contractSchedule">
-                      Calendario del contrato
-                    </option>
-                    <option value="winningBid">Oferta ganadora</option>
-                    <option value="complaints">Quejas y decisiones</option>
-                    <option value="conflictOfInterest">
-                      Conflicto de interés
-                    </option>
-                    <option value="submissionDocuments">
-                      Documentos de presentación de oferta
-                    </option>
-                    <option value="cancellationDetails">
-                      Detalles de cancelación
-                    </option>
-                  </select>
-                  <label for="AwardsDocumentsType">Tipo de Documento</label>
-                </div>
-                <div class="form-floating col-md-4 mb-5">
-                  <input
-                    class="form-control"
-                    id="AwardsDocumentsTitle"
-                    type="text"
-                    placeholder="Título del documento"
-                    formControlName="title"
-                  />
-                  <label for="AwardsDocumentsTitle">Título del Documento</label>
-                </div>
-              </div>
-              <div class="row">
-                <div class="form-floating col-md-4 mb-5">
-                  <input
-                    class="form-control"
-                    id="AwardsDocumentsDescription"
-                    type="text"
-                    placeholder="Descripción del documento"
-                    formControlName="description"
-                  />
-                  <label for="AwardsDocumentsDescription"
-                    >Descripción del Documento</label
-                  >
-                </div>
-                <div class="form-floating col-md-4 mb-5">
-                  <input
-                    class="form-control"
-                    id="AwardsDocumentsUrl"
-                    type="text"
-                    placeholder="Url del documento"
-                    formControlName="url"
-                  />
-                  <label for="AwardsDocumentsUrl">URL</label>
-                </div>
-                <div class="form-floating col-md-4 mb-5">
-                  <input
-                    class="form-control"
-                    id="AwardsDocumentsDatePublished"
-                    type="date"
-                    placeholder="Fecha de publicación del documento"
-                    formControlName="datePublished"
-                  />
-                  <label for="AwardsDocumentsDatePublished"
-                    >Fecha de publicación</label
-                  >
-                </div>
-              </div>
-              <div class="row">
-                <div class="form-floating col-md-4 mb-5">
-                  <input
-                    class="form-control"
-                    id="AwardsDocumentsDateModified"
-                    type="date"
-                    placeholder="Fecha de modificación del documento"
-                    formControlName="dateModified"
-                  />
-                  <label for="AwardsDocumentsDateModified"
-                    >Fecha de modificación</label
-                  >
-                </div>
-                <div class="form-floating col-md-4 mb-5">
-                  <input
-                    class="form-control"
-                    id="AwardsDocumentsFormat"
-                    type="text"
-                    placeholder="Formato del documento"
-                    formControlName="format"
-                  />
-                  <label for="AwardsDocumentsFormat"
-                    >Formato del Documento</label
-                  >
-                </div>
-                <div class="form-floating col-md-4 mb-5">
-                  <select
-                    class="form-select"
-                    id="AwardsDocumentslanguage"
-                    aria-label="scheme"
-                    formControlName="language"
-                  >
-                    <option value="default">Elige una opción</option>
-                    <option value="ab">Abkhazian</option>
-                    <option value="aa">Afar</option>
-                    <option value="af">Afrikaans</option>
-                    <option value="ak">Akan</option>
-                    <option value="sq">Albanian</option>
-                    <option value="am">Amharic</option>
-                    <option value="ar">Arabic</option>
-                    <option value="an">Aragonese</option>
-                    <option value="hy">Armenian</option>
-                    <option value="as">Assamese</option>
-                    <option value="av">Avaric</option>
-                    <option value="ae">Avestan</option>
-                    <option value="ay">Aymara</option>
-                    <option value="az">Azerbaijani</option>
-                    <option value="bm">Bambara</option>
-                    <option value="ba">Bashkir</option>
-                    <option value="eu">Basque</option>
-                    <option value="be">Belarusian</option>
-                    <option value="bn">Bengali</option>
-                    <option value="bh">Bihari</option>
-                    <option value="bi">Bislama</option>
-                    <option value="bs">Bosnian</option>
-                    <option value="br">Breton</option>
-                    <option value="bg">Bulgarian</option>
-                    <option value="my">Burmese</option>
-                    <option value="ca">Catalan</option>
-                    <option value="ch">Chamorro</option>
-                    <option value="ce">Chechen</option>
-                    <option value="ny">Chichewa</option>
-                    <option value="zh">Chinese</option>
-                    <option value="cu">Church Slavic</option>
-                    <option value="cv">Chuvash</option>
-                    <option value="kw">Cornish</option>
-                    <option value="co">Corsican</option>
-                    <option value="cr">Cree</option>
-                    <option value="hr">Croatian</option>
-                    <option value="cs">Czech</option>
-                    <option value="da">Danish</option>
-                    <option value="dv">Divehi</option>
-                    <option value="nl">Dutch</option>
-                    <option value="dz">Dzongkha</option>
-                    <option value="en">English</option>
-                    <option value="eo">Esperanto</option>
-                    <option value="et">Estonian</option>
-                    <option value="ee">Ewe</option>
-                    <option value="fo">Faroese</option>
-                    <option value="fj">Fijian</option>
-                    <option value="fi">Finnish</option>
-                    <option value="fr">French</option>
-                    <option value="ff">Fulah</option>
-                    <option value="gl">Galician</option>
-                    <option value="ka">Georgian</option>
-                    <option value="de">German</option>
-                    <option value="el">Greek</option>
-                    <option value="gn">Guarani</option>
-                    <option value="gu">Gujarati</option>
-                    <option value="ht">Haitian</option>
-                    <option value="ha">Hausa</option>
-                    <option value="he">Hebrew</option>
-                    <option value="hz">Herero</option>
-                    <option value="hi">Hindi</option>
-                    <option value="ho">Hiri Motu</option>
-                    <option value="hu">Hungarian</option>
-                    <option value="ia">Interlingua</option>
-                    <option value="id">Indonesian</option>
-                    <option value="ie">Interlingue</option>
-                    <option value="ga">Irish</option>
-                    <option value="ig">Igbo</option>
-                    <option value="ik">Inupiaq</option>
-                    <option value="io">Ido</option>
-                    <option value="is">Icelandic</option>
-                    <option value="it">Italian</option>
-                    <option value="iu">Inuktitut</option>
-                    <option value="ja">Japanese</option>
-                    <option value="jv">Javanese</option>
-                    <option value="kl">Kalaallisut</option>
-                    <option value="kn">Kannada</option>
-                    <option value="kr">Kanuri</option>
-                    <option value="ks">Kashmiri</option>
-                    <option value="kk">Kazakh</option>
-                    <option value="km">Khmer</option>
-                    <option value="ki">Kikuyu</option>
-                    <option value="rw">Kinyarwanda</option>
-                    <option value="ky">Kirghiz</option>
-                    <option value="kv">Komi</option>
-                    <option value="kg">Kongo</option>
-                    <option value="ko">Korean</option>
-                    <option value="kj">Kuanyama</option>
-                    <option value="ku">Kurdish</option>
-                    <option value="lo">Lao</option>
-                    <option value="la">Latin</option>
-                    <option value="lv">Latvian</option>
-                    <option value="li">Limburgan</option>
-                    <option value="ln">Lingala</option>
-                    <option value="lt">Lithuanian</option>
-                    <option value="lu">Luba-Katanga</option>
-                    <option value="lb">Luxembourgish</option>
-                    <option value="mk">Macedonian</option>
-                    <option value="mg">Malagasy</option>
-                    <option value="ms">Malay</option>
-                    <option value="ml">Malayalam</option>
-                    <option value="mt">Maltese</option>
-                    <option value="gv">Manx</option>
-                    <option value="mi">Maori</option>
-                    <option value="mr">Marathi</option>
-                    <option value="mh">Marshallese</option>
-                    <option value="mn">Mongolian</option>
-                    <option value="na">Nauru</option>
-                    <option value="nv">Navajo</option>
-                    <option value="nd">North Ndebele</option>
-                    <option value="nr">South Ndebele</option>
-                    <option value="ng">Ndonga</option>
-                    <option value="ne">Nepali</option>
-                    <option value="no">Norwegian</option>
-                    <option value="nb">Norwegian Bokmål</option>
-                    <option value="nn">Norwegian Nynorsk</option>
-                    <option value="ii">Sichuan Yi</option>
-                    <option value="oc">Occitan</option>
-                    <option value="oj">Ojibwa</option>
-                    <option value="or">Oriya</option>
-                    <option value="om">Oromo</option>
-                    <option value="os">Ossetian</option>
-                    <option value="pi">Pali</option>
-                    <option value="pa">Panjabi</option>
-                    <option value="ps">Pashto</option>
-                    <option value="fa">Persian</option>
-                    <option value="pl">Polish</option>
-                    <option value="pt">Portuguese</option>
-                    <option value="qu">Quechua</option>
-                    <option value="ro">Romanian</option>
-                    <option value="rm">Romansh</option>
-                    <option value="rn">Rundi</option>
-                    <option value="ru">Russian</option>
-                    <option value="sm">Samoan</option>
-                    <option value="sg">Sango</option>
-                    <option value="sa">Sanskrit</option>
-                    <option value="sc">Sardinian</option>
-                    <option value="sr">Serbian</option>
-                    <option value="sn">Shona</option>
-                    <option value="sd">Sindhi</option>
-                    <option value="si">Sinhala</option>
-                    <option value="sk">Slovak</option>
-                    <option value="sl">Slovenian</option>
-                    <option value="so">Somali</option>
-                    <option value="st">Southern Sotho</option>
-                    <option value="es">Spanish</option>
-                    <option value="su">Sundanese</option>
-                    <option value="sw">Swahili</option>
-                    <option value="ss">Swati</option>
-                    <option value="sv">Swedish</option>
-                    <option value="tl">Tagalog</option>
-                    <option value="ty">Tahitian</option>
-                    <option value="tg">Tajik</option>
-                    <option value="ta">Tamil</option>
-                    <option value="tt">Tatar</option>
-                    <option value="te">Telugu</option>
-                    <option value="th">Thai</option>
-                    <option value="bo">Tibetan</option>
-                    <option value="ti">Tigrinya</option>
-                    <option value="to">Tonga</option>
-                    <option value="ts">Tsonga</option>
-                    <option value="tn">Tswana</option>
-                    <option value="tr">Turkish</option>
-                    <option value="tk">Turkmen</option>
-                    <option value="tw">Twi</option>
-                    <option value="ug">Uighur</option>
-                    <option value="uk">Ukrainian</option>
-                    <option value="ur">Urdu</option>
-                    <option value="uz">Uzbek</option>
-                    <option value="ve">Venda</option>
-                    <option value="vi">Vietnamese</option>
-                    <option value="vo">Volapük</option>
-                    <option value="wa">Walloon</option>
-                    <option value="cy">Welsh</option>
-                    <option value="wo">Wolof</option>
-                    <option value="xh">Xhosa</option>
-                    <option value="yi">Yiddish</option>
-                    <option value="yo">Yoruba</option>
-                    <option value="za">Zhuang</option>
-                    <option value="zu">Zulu</option>
-                  </select>
-                  <label for="AwardsDocumentslanguage"
-                    >Idioma del Documento</label
-                  >
-                </div>
-              </div>
-              <div class="row">
-                <div class="col-md-6 form-group d-flex justify-content-between">
-                  <input
-                    type="submit"
-                    value="Guardar"
-                    class="btn btn-primary rounded-0 py-2 px-4"
-                  />
-                  <span class="Guardar"></span>
-                  <input
-                    type="submit"
-                    value="Eliminar"
-                    class="btn btn-danger rounded-0 py-2 px-4"
-                  />
-                  <span class="Guardar"></span>
-                </div>
-              </div>
-            </fieldset>
-          </form>
-          <hr class="solid" />
-          <form
-            class="mb-5"
-            method="post"
-            id="awards-form"
-            name="awards-form"
-            novalidate="novalidate"
-            [formGroup]="AwardsAmendments"
-            (ngSubmit)="onSubmitAwardsAmendments()"
+                    <legend class="w-auto px-2">
+                      Clasificaciones Adicionales
+                    </legend>
+                    <div class="row">
+                      <div class="form-floating col-md-6 mb-5">
+                        <input
+                          class="form-control"
+                          id="additionalClassificationsID"
+                          type="text"
+                          placeholder="Identificador de la Clasificación"
+                          formControlName="id"
+                        />
+                        <label for="AdditionalClassificationsID"
+                          >Código de la clasificación adicional</label
+                        >
+                      </div>
+                      <div class="form-floating form-group col-md-6 mb-5">
+                        <select
+                          class="form-select"
+                          id="AdditionalClassificationsScheme"
+                          aria-label="scheme"
+                          formControlName="scheme"
+                        >
+                          <option value="default">Seleccione una opción</option>
+                          <option value="mxn">opcion 1</option>
+                          <option value="usd">opcion 2</option>
+                          <option value="usd">opcion 3</option>
+                          <option value="usd">opcion 4</option>
+                          <option value="usd">opcion 5</option>
+                        </select>
+                        <label for="AdditionalClassificationsScheme"
+                          >Esquema</label
+                        >
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="form-floating col-md-6 mb-5">
+                        <input
+                          class="form-control"
+                          id="AdditionalClassificationsDescription"
+                          type="text"
+                          placeholder="Descripción del Artículo"
+                          formControlName="description"
+                        />
+                        <label for="AdditionalClassificationsDescription"
+                          >Descripción</label
+                        >
+                      </div>
+                      <div class="form-floating col-md-6 mb-5">
+                        <input
+                          class="form-control"
+                          id="AdditionalClassificationsDescriptionUri"
+                          type="text"
+                          placeholder="URI de la clasificación"
+                          formControlName="uri"
+                        />
+                        <label for="AdditionalClassificationsDescriptionUri"
+                          >URI</label
+                        >
+                      </div>
+                    </div>
+                  </fieldset>
+                  <div class="row">
+                    <div
+                      class="col-md-6 form-group d-flex justify-content-between"
+                    >
+                      <input
+                        type="submit"
+                        value="Guardar"
+                        class="btn btn-primary rounded-0 py-2 px-4"
+                      />
+                      <span class="Guardar"></span>
+                      <input
+                        type="submit"
+                        value="Eliminar"
+                        class="btn btn-danger rounded-0 py-2 px-4"
+                      />
+                      <span class="Guardar"></span>
+                    </div>
+                  </div>
+                </fieldset>
+              </form>
+            </div>
+          </div>
+        </div>
+
+        <!-- Inicia formulario Documentos -->
+        <div class="tab-content" id="v-pills-tabContent">
+          <div
+            class="tab-pane fade"
+            id="v-pills-AwardsDocumentos"
+            role="tabpanel"
+            aria-labelledby="v-pills-AwardsDocumentos-tab"
           >
-            <fieldset class="border p-3 mb-3" formGroupName="amendments">
-              <legend class="w-auto px-2">Enmiendas</legend>
-              <div class="row">
-                <div class="form-floating col-md-4 mb5">
-                  <input
-                    class="form-control"
-                    id="AmendmentsId"
-                    type="text"
-                    placeholder="Identificador de la Enmienda"
-                    formControlName="id"
-                  />
-                  <label for="AmendmentsId">Identificador de la Enmienda</label>
-                </div>
-                <div class="form-floating col-md-4 mb-5">
-                  <input
-                    class="form-control"
-                    id="AwardsAmendmentsDatePublished"
-                    type="date"
-                    placeholder="Fecha de publicación del documento"
-                    formControlName="date"
-                  />
-                  <label for="AwardsAmendmentsDatePublished"
-                    >Fecha de publicación</label
-                  >
-                </div>
-                <div class="form-floating col-md-4 mb-5">
-                  <input
-                    class="form-control"
-                    id="AwardsAmendmentsRationale"
-                    type="text"
-                    placeholder="Justificación de la Enmienda"
-                    formControlName="rationale"
-                  />
-                  <label for="AwardsAmendmentsRationale"
-                    >Justificación de la Enmienda</label
-                  >
-                </div>
-              </div>
-              <div class="row">
-                <div class="form-floating col-md-4 mb-5">
-                  <input
-                    class="form-control"
-                    id="AwardsAmendmentsDescription"
-                    type="text"
-                    placeholder="Descripción de los cambios hechos en la enmienda"
-                    formControlName="description"
-                  />
-                  <label for="AwardsAmendmentsDescription"
-                    >Descripción de los cambios</label
-                  >
-                </div>
-                <div class="form-floating col-md-4 mb-5">
-                  <input
-                    class="form-control"
-                    id="AwardsAmendsReleaseID"
-                    type="text"
-                    placeholder="Entrega enmendada"
-                    formControlName="amendsReleaseID"
-                  />
-                  <label for="AwardsAmendsReleaseID"
-                    >Entrega enmendada (Identificador)</label
-                  >
-                </div>
-                <div class="form-floating col-md-4 mb-5">
-                  <input
-                    class="form-control"
-                    id="AwardsAmendmentsReleaseID"
-                    type="text"
-                    placeholder="Entrega de enmienda"
-                    formControlName="releaseID"
-                  />
-                  <label for="AwardsAmendmentsReleaseID"
-                    >Entrega de enmienda (dentificador)</label
-                  >
-                </div>
-              </div>
-              <div class="row">
-                <div class="col-md-6 form-group d-flex justify-content-between">
-                  <input
-                    type="submit"
-                    value="Guardar"
-                    class="btn btn-primary rounded-0 py-2 px-4"
-                  />
-                  <span class="Guardar"></span>
-                  <input
-                    type="submit"
-                    value="Eliminar"
-                    class="btn btn-danger rounded-0 py-2 px-4"
-                  />
-                  <span class="Guardar"></span>
-                </div>
-              </div>
-            </fieldset>
-          </form>
+            <div class="form h-100">
+              <form
+                class="mb-5"
+                method="post"
+                id="AwardsDocumentsForm"
+                name="AwardsDocumentsForm"
+                [formGroup]="AwardsDocuments"
+                (ngSubmit)="onSubmitDocuments()"
+              >
+                <fieldset class="border p-3 mb-3" formGroupName="documents">
+                  <h3>Documentos</h3>
+                  <hr class="solid" />
+                  <div class="row">
+                    <div class="form-floating col-md-4 mb5">
+                      <input
+                        class="form-control"
+                        id="AwardsDocumentsId"
+                        type="text"
+                        placeholder="Idenficador del Documento"
+                        formControlName="id"
+                      />
+                      <label for="AwardsDocumentsId"
+                        >Identificador del Documento</label
+                      >
+                    </div>
+                    <div class="form-floating col-md-4 mb-5">
+                      <select
+                        class="form-select"
+                        id="AwardsDocumentsType"
+                        aria-label="scheme"
+                        formControlName="documentType"
+                      >
+                        <option value="default">Seleccione una opción</option>
+                        <option value="awardNotice">
+                          Aviso de adjudicación
+                        </option>
+                        <option value="contractDraft">
+                          Borrador de contrato
+                        </option>
+                        <option value="contractArrangements">
+                          Arreglos para finalizar un contrato
+                        </option>
+                        <option value="contractSchedule">
+                          Calendario del contrato
+                        </option>
+                        <option value="winningBid">Oferta ganadora</option>
+                        <option value="complaints">Quejas y decisiones</option>
+                        <option value="conflictOfInterest">
+                          Conflicto de interés
+                        </option>
+                        <option value="submissionDocuments">
+                          Documentos de presentación de oferta
+                        </option>
+                        <option value="cancellationDetails">
+                          Detalles de cancelación
+                        </option>
+                      </select>
+                      <label for="AwardsDocumentsType">Tipo de Documento</label>
+                    </div>
+                    <div class="form-floating col-md-4 mb-5">
+                      <input
+                        class="form-control"
+                        id="AwardsDocumentsTitle"
+                        type="text"
+                        placeholder="Título del documento"
+                        formControlName="title"
+                      />
+                      <label for="AwardsDocumentsTitle"
+                        >Título del Documento</label
+                      >
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="form-floating col-md-4 mb-5">
+                      <input
+                        class="form-control"
+                        id="AwardsDocumentsDescription"
+                        type="text"
+                        placeholder="Descripción del documento"
+                        formControlName="description"
+                      />
+                      <label for="AwardsDocumentsDescription"
+                        >Descripción del Documento</label
+                      >
+                    </div>
+                    <div class="form-floating col-md-4 mb-5">
+                      <input
+                        class="form-control"
+                        id="AwardsDocumentsUrl"
+                        type="text"
+                        placeholder="Url del documento"
+                        formControlName="url"
+                      />
+                      <label for="AwardsDocumentsUrl">URL</label>
+                    </div>
+                    <div class="form-floating col-md-4 mb-5">
+                      <input
+                        class="form-control"
+                        id="AwardsDocumentsDatePublished"
+                        type="date"
+                        placeholder="Fecha de publicación del documento"
+                        formControlName="datePublished"
+                      />
+                      <label for="AwardsDocumentsDatePublished"
+                        >Fecha de publicación</label
+                      >
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="form-floating col-md-4 mb-5">
+                      <input
+                        class="form-control"
+                        id="AwardsDocumentsDateModified"
+                        type="date"
+                        placeholder="Fecha de modificación del documento"
+                        formControlName="dateModified"
+                      />
+                      <label for="AwardsDocumentsDateModified"
+                        >Fecha de modificación</label
+                      >
+                    </div>
+                    <div class="form-floating col-md-4 mb-5">
+                      <input
+                        class="form-control"
+                        id="AwardsDocumentsFormat"
+                        type="text"
+                        placeholder="Formato del documento"
+                        formControlName="format"
+                      />
+                      <label for="AwardsDocumentsFormat"
+                        >Formato del Documento</label
+                      >
+                    </div>
+                    <div class="form-floating col-md-4 mb-5">
+                      <select
+                        class="form-select"
+                        id="AwardsDocumentslanguage"
+                        aria-label="scheme"
+                        formControlName="language"
+                      >
+                        <option value="default">Elige una opción</option>
+                        <option value="ab">Abkhazian</option>
+                        <option value="aa">Afar</option>
+                        <option value="af">Afrikaans</option>
+                        <option value="ak">Akan</option>
+                        <option value="sq">Albanian</option>
+                        <option value="am">Amharic</option>
+                        <option value="ar">Arabic</option>
+                        <option value="an">Aragonese</option>
+                        <option value="hy">Armenian</option>
+                        <option value="as">Assamese</option>
+                        <option value="av">Avaric</option>
+                        <option value="ae">Avestan</option>
+                        <option value="ay">Aymara</option>
+                        <option value="az">Azerbaijani</option>
+                        <option value="bm">Bambara</option>
+                        <option value="ba">Bashkir</option>
+                        <option value="eu">Basque</option>
+                        <option value="be">Belarusian</option>
+                        <option value="bn">Bengali</option>
+                        <option value="bh">Bihari</option>
+                        <option value="bi">Bislama</option>
+                        <option value="bs">Bosnian</option>
+                        <option value="br">Breton</option>
+                        <option value="bg">Bulgarian</option>
+                        <option value="my">Burmese</option>
+                        <option value="ca">Catalan</option>
+                        <option value="ch">Chamorro</option>
+                        <option value="ce">Chechen</option>
+                        <option value="ny">Chichewa</option>
+                        <option value="zh">Chinese</option>
+                        <option value="cu">Church Slavic</option>
+                        <option value="cv">Chuvash</option>
+                        <option value="kw">Cornish</option>
+                        <option value="co">Corsican</option>
+                        <option value="cr">Cree</option>
+                        <option value="hr">Croatian</option>
+                        <option value="cs">Czech</option>
+                        <option value="da">Danish</option>
+                        <option value="dv">Divehi</option>
+                        <option value="nl">Dutch</option>
+                        <option value="dz">Dzongkha</option>
+                        <option value="en">English</option>
+                        <option value="eo">Esperanto</option>
+                        <option value="et">Estonian</option>
+                        <option value="ee">Ewe</option>
+                        <option value="fo">Faroese</option>
+                        <option value="fj">Fijian</option>
+                        <option value="fi">Finnish</option>
+                        <option value="fr">French</option>
+                        <option value="ff">Fulah</option>
+                        <option value="gl">Galician</option>
+                        <option value="ka">Georgian</option>
+                        <option value="de">German</option>
+                        <option value="el">Greek</option>
+                        <option value="gn">Guarani</option>
+                        <option value="gu">Gujarati</option>
+                        <option value="ht">Haitian</option>
+                        <option value="ha">Hausa</option>
+                        <option value="he">Hebrew</option>
+                        <option value="hz">Herero</option>
+                        <option value="hi">Hindi</option>
+                        <option value="ho">Hiri Motu</option>
+                        <option value="hu">Hungarian</option>
+                        <option value="ia">Interlingua</option>
+                        <option value="id">Indonesian</option>
+                        <option value="ie">Interlingue</option>
+                        <option value="ga">Irish</option>
+                        <option value="ig">Igbo</option>
+                        <option value="ik">Inupiaq</option>
+                        <option value="io">Ido</option>
+                        <option value="is">Icelandic</option>
+                        <option value="it">Italian</option>
+                        <option value="iu">Inuktitut</option>
+                        <option value="ja">Japanese</option>
+                        <option value="jv">Javanese</option>
+                        <option value="kl">Kalaallisut</option>
+                        <option value="kn">Kannada</option>
+                        <option value="kr">Kanuri</option>
+                        <option value="ks">Kashmiri</option>
+                        <option value="kk">Kazakh</option>
+                        <option value="km">Khmer</option>
+                        <option value="ki">Kikuyu</option>
+                        <option value="rw">Kinyarwanda</option>
+                        <option value="ky">Kirghiz</option>
+                        <option value="kv">Komi</option>
+                        <option value="kg">Kongo</option>
+                        <option value="ko">Korean</option>
+                        <option value="kj">Kuanyama</option>
+                        <option value="ku">Kurdish</option>
+                        <option value="lo">Lao</option>
+                        <option value="la">Latin</option>
+                        <option value="lv">Latvian</option>
+                        <option value="li">Limburgan</option>
+                        <option value="ln">Lingala</option>
+                        <option value="lt">Lithuanian</option>
+                        <option value="lu">Luba-Katanga</option>
+                        <option value="lb">Luxembourgish</option>
+                        <option value="mk">Macedonian</option>
+                        <option value="mg">Malagasy</option>
+                        <option value="ms">Malay</option>
+                        <option value="ml">Malayalam</option>
+                        <option value="mt">Maltese</option>
+                        <option value="gv">Manx</option>
+                        <option value="mi">Maori</option>
+                        <option value="mr">Marathi</option>
+                        <option value="mh">Marshallese</option>
+                        <option value="mn">Mongolian</option>
+                        <option value="na">Nauru</option>
+                        <option value="nv">Navajo</option>
+                        <option value="nd">North Ndebele</option>
+                        <option value="nr">South Ndebele</option>
+                        <option value="ng">Ndonga</option>
+                        <option value="ne">Nepali</option>
+                        <option value="no">Norwegian</option>
+                        <option value="nb">Norwegian Bokmål</option>
+                        <option value="nn">Norwegian Nynorsk</option>
+                        <option value="ii">Sichuan Yi</option>
+                        <option value="oc">Occitan</option>
+                        <option value="oj">Ojibwa</option>
+                        <option value="or">Oriya</option>
+                        <option value="om">Oromo</option>
+                        <option value="os">Ossetian</option>
+                        <option value="pi">Pali</option>
+                        <option value="pa">Panjabi</option>
+                        <option value="ps">Pashto</option>
+                        <option value="fa">Persian</option>
+                        <option value="pl">Polish</option>
+                        <option value="pt">Portuguese</option>
+                        <option value="qu">Quechua</option>
+                        <option value="ro">Romanian</option>
+                        <option value="rm">Romansh</option>
+                        <option value="rn">Rundi</option>
+                        <option value="ru">Russian</option>
+                        <option value="sm">Samoan</option>
+                        <option value="sg">Sango</option>
+                        <option value="sa">Sanskrit</option>
+                        <option value="sc">Sardinian</option>
+                        <option value="sr">Serbian</option>
+                        <option value="sn">Shona</option>
+                        <option value="sd">Sindhi</option>
+                        <option value="si">Sinhala</option>
+                        <option value="sk">Slovak</option>
+                        <option value="sl">Slovenian</option>
+                        <option value="so">Somali</option>
+                        <option value="st">Southern Sotho</option>
+                        <option value="es">Spanish</option>
+                        <option value="su">Sundanese</option>
+                        <option value="sw">Swahili</option>
+                        <option value="ss">Swati</option>
+                        <option value="sv">Swedish</option>
+                        <option value="tl">Tagalog</option>
+                        <option value="ty">Tahitian</option>
+                        <option value="tg">Tajik</option>
+                        <option value="ta">Tamil</option>
+                        <option value="tt">Tatar</option>
+                        <option value="te">Telugu</option>
+                        <option value="th">Thai</option>
+                        <option value="bo">Tibetan</option>
+                        <option value="ti">Tigrinya</option>
+                        <option value="to">Tonga</option>
+                        <option value="ts">Tsonga</option>
+                        <option value="tn">Tswana</option>
+                        <option value="tr">Turkish</option>
+                        <option value="tk">Turkmen</option>
+                        <option value="tw">Twi</option>
+                        <option value="ug">Uighur</option>
+                        <option value="uk">Ukrainian</option>
+                        <option value="ur">Urdu</option>
+                        <option value="uz">Uzbek</option>
+                        <option value="ve">Venda</option>
+                        <option value="vi">Vietnamese</option>
+                        <option value="vo">Volapük</option>
+                        <option value="wa">Walloon</option>
+                        <option value="cy">Welsh</option>
+                        <option value="wo">Wolof</option>
+                        <option value="xh">Xhosa</option>
+                        <option value="yi">Yiddish</option>
+                        <option value="yo">Yoruba</option>
+                        <option value="za">Zhuang</option>
+                        <option value="zu">Zulu</option>
+                      </select>
+                      <label for="AwardsDocumentslanguage"
+                        >Idioma del Documento</label
+                      >
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div
+                      class="col-md-6 form-group d-flex justify-content-between"
+                    >
+                      <input
+                        type="submit"
+                        value="Guardar"
+                        class="btn btn-primary rounded-0 py-2 px-4"
+                      />
+                      <span class="Guardar"></span>
+                      <input
+                        type="submit"
+                        value="Eliminar"
+                        class="btn btn-danger rounded-0 py-2 px-4"
+                      />
+                      <span class="Guardar"></span>
+                    </div>
+                  </div>
+                </fieldset>
+              </form>
+            </div>
+          </div>
+        </div>
+
+        <!-- Inicia formulario Enmiendas -->
+        <div class="tab-content" id="v-pills-tabContent">
+          <div
+            class="tab-pane fade"
+            id="v-pills-AwardsAmendments"
+            role="tabpanel"
+            aria-labelledby="v-pills-AwardsAmendments-tab"
+          >
+            <div class="form h-100">
+              <form
+                class="mb-5"
+                method="post"
+                id="awards-form"
+                name="awards-form"
+                novalidate="novalidate"
+                [formGroup]="AwardsAmendments"
+                (ngSubmit)="onSubmitAwardsAmendments()"
+              >
+                <fieldset class="border p-3 mb-3" formGroupName="amendments">
+                  <h3>Enmiendas</h3>
+                  <hr class="solid" />
+                  <div class="row">
+                    <div class="form-floating col-md-4 mb5">
+                      <input
+                        class="form-control"
+                        id="AmendmentsId"
+                        type="text"
+                        placeholder="Identificador de la Enmienda"
+                        formControlName="id"
+                      />
+                      <label for="AmendmentsId"
+                        >Identificador de la Enmienda</label
+                      >
+                    </div>
+                    <div class="form-floating col-md-4 mb-5">
+                      <input
+                        class="form-control"
+                        id="AwardsAmendmentsDatePublished"
+                        type="date"
+                        placeholder="Fecha de publicación del documento"
+                        formControlName="date"
+                      />
+                      <label for="AwardsAmendmentsDatePublished"
+                        >Fecha de publicación</label
+                      >
+                    </div>
+                    <div class="form-floating col-md-4 mb-5">
+                      <input
+                        class="form-control"
+                        id="AwardsAmendmentsRationale"
+                        type="text"
+                        placeholder="Justificación de la Enmienda"
+                        formControlName="rationale"
+                      />
+                      <label for="AwardsAmendmentsRationale"
+                        >Justificación de la Enmienda</label
+                      >
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="form-floating col-md-4 mb-5">
+                      <input
+                        class="form-control"
+                        id="AwardsAmendmentsDescription"
+                        type="text"
+                        placeholder="Descripción de los cambios hechos en la enmienda"
+                        formControlName="description"
+                      />
+                      <label for="AwardsAmendmentsDescription"
+                        >Descripción de los cambios</label
+                      >
+                    </div>
+                    <div class="form-floating col-md-4 mb-5">
+                      <input
+                        class="form-control"
+                        id="AwardsAmendsReleaseID"
+                        type="text"
+                        placeholder="Entrega enmendada"
+                        formControlName="amendsReleaseID"
+                      />
+                      <label for="AwardsAmendsReleaseID"
+                        >Entrega enmendada (Identificador)</label
+                      >
+                    </div>
+                    <div class="form-floating col-md-4 mb-5">
+                      <input
+                        class="form-control"
+                        id="AwardsAmendmentsReleaseID"
+                        type="text"
+                        placeholder="Entrega de enmienda"
+                        formControlName="releaseID"
+                      />
+                      <label for="AwardsAmendmentsReleaseID"
+                        >Entrega de enmienda (dentificador)</label
+                      >
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div
+                      class="col-md-6 form-group d-flex justify-content-between"
+                    >
+                      <input
+                        type="submit"
+                        value="Guardar"
+                        class="btn btn-primary rounded-0 py-2 px-4"
+                      />
+                      <span class="Guardar"></span>
+                      <input
+                        type="submit"
+                        value="Eliminar"
+                        class="btn btn-danger rounded-0 py-2 px-4"
+                      />
+                      <span class="Guardar"></span>
+                    </div>
+                  </div>
+                </fieldset>
+              </form>
+            </div>
+          </div>
         </div>
       </div>
     </div>
