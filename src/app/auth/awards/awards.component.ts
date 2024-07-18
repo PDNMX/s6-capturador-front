@@ -1,3 +1,4 @@
+import { ApiService } from './../../api.service';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
@@ -7,8 +8,36 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
   styleUrls: ['./awards.component.css'],
 })
 export class AwardsComponent implements OnInit {
-  constructor(private fb: FormBuilder) {}
-  ngOnInit() {}
+  data: any;
+  data1: any;
+  sendAwards: any = {};
+
+  constructor(private fb: FormBuilder, private apiService: ApiService) {}
+  ngOnInit(): void {
+    this.obtenerDatos();
+    this.postMethod();
+  }
+
+  obtenerDatos() {
+    this.apiService.getMethod('/albums').subscribe((data) => {
+      this.data = data;
+      console.log(this.data);
+    });
+  }
+
+  postMethod(): void {
+    this.apiService.postMethod<any>(this.sendAwards, 'posts').subscribe(
+      (data1: any) => {
+        console.log('Datos devueltos correctamente:', data1);
+        this.data1 = data1;
+        // Handle successful response (e.g., update UI)
+      },
+      (error) => {
+        console.error('Error al devolver los datos:', error.message);
+        // Handle error (e.g., display error message to user)
+      }
+    );
+  }
 
   Awards = this.fb.group({
     id: ['', Validators.required],
