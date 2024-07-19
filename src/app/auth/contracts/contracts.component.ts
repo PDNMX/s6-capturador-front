@@ -6,7 +6,6 @@ import { Title } from '@angular/platform-browser';
 //import { HttpClient } from '@angular/common/http';
 import { ApiService } from 'src/app/api.service';
 import { Contract } from './contract.model';
-import { AdditionalClassification } from './additionalClassification';
 
 @Component({
   selector: 'app-contracts',
@@ -28,11 +27,13 @@ dataToUpdate = {
   name: 'Updated Name',
   email: 'updated.email@example.com'
 };
+
   //contractsData:FormGroup;implements OnInit
 constructor(private fb: FormBuilder, private apiService: ApiService){}//, private http: HttpClient) { }
   ngOnInit():void {
     //this.additionalClassifications = new FormControl();
     //this.postMethod(this.dataToSend);
+    //this.getMethod();
 
 /*     this.getMethodId();
     this.postMethod();
@@ -46,8 +47,8 @@ constructor(private fb: FormBuilder, private apiService: ApiService){}//, privat
 
 
    getMethod():void{
-    this.apiService.getMethod('/todos').subscribe(
-      data => this.data = data,
+    this.apiService.getMethod('/get').subscribe(
+      data => {this.data = data; console.log("data recibida por la funcion", data);},
       error => console.error('Error fetching data:', error
     ));
   }
@@ -76,7 +77,7 @@ constructor(private fb: FormBuilder, private apiService: ApiService){}//, privat
 
     //Para ser usado con el api del s6
   postMethod(dataToSend: any){
-    this.apiService.postMethod<any>(this.dataToSend, 'contracts/insert')
+    this.apiService.postMethod<any>(this.dataToSend, '/contracts/insert')
     .subscribe(
       (data1: any) => {
         console.log('Data returned successfully:', data1);
@@ -224,12 +225,12 @@ constructor(private fb: FormBuilder, private apiService: ApiService){}//, privat
           description: ['', Validators.required]
         })
       ]), */
-       /* additionalClassifications: this.fb.group({
+        additionalClassifications: this.fb.group({
         scheme: ['', Validators.required],
         id: ['', Validators.required],
         uri: ['', Validators.required],
         description: ['', Validators.required]
-       }), */
+       }),
       quantity: ['', Validators.required],
       unit: this.fb.group({
         scheme: ['', Validators.required],
