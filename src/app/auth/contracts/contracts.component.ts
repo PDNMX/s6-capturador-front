@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, FormArray } from '@angular/forms';
 import { Validators, FormBuilder } from '@angular/forms';
 import { Title } from '@angular/platform-browser';
+import { Observable, throwError } from 'rxjs';
+import { map, catchError } from 'rxjs/operators';
 //import { HttpClient } from '@angular/common/http';
 import { ApiService } from 'src/app/api.service';
 //import { Contract } from './contract.model';
@@ -11,12 +13,10 @@ import { ApiService } from 'src/app/api.service';
   templateUrl: './contracts.component.html',
   styleUrls: ['./contracts.component.css'],
 })
-
-
 export class ContractsComponent implements OnInit {
   /* Lo que regresan los endpoint's */
   registros: any[] = [];
-  registroPorId: any;
+  registroPorId = {};
   data: any;
   data1: any;
   data2: any;
@@ -26,38 +26,37 @@ export class ContractsComponent implements OnInit {
   id: string = '';
   dataToSend = {};
   dataToUpdate = {};
-  private datacontract  = {};
-
+  private datacontract = {};
+contractData: any;
   /* Constructor para inicializar el formbuilder y el servicio el api */
   constructor(private fb: FormBuilder, private apiService: ApiService) {} //, private http: HttpClient) { }
-  ngOnInit(){
+  ngOnInit() {
     this.getMethod();
-
   }
 
   /* Construyendo el objeto de contracts con formbuilder */
-    contracts = this.fb.group({
-      id: ['', Validators.required],
-      status: ['', Validators.required],
-      awardID: ['', Validators.required],
-      title: ['', Validators.required],
-      description: ['', Validators.required],
-      surveillanceMechanisms: ['', Validators.required],
-      period: this.fb.group({
-        startDate: ['', Validators.required],
-        endDate: ['', Validators.required],
-        durationInDays: ['', Validators.required],
-        maxExtentDate: ['', Validators.required],
-      }),
-      value: this.fb.group({
-        amount: ['', Validators.required],
-        amountNet: ['', Validators.required],
-        currency: ['', Validators.required],
-      }),
-      dateSignedContracts: this.fb.group({
-        dateSigned: ['', Validators.required],
-      }),
-    });
+  contracts = this.fb.group({
+    id: ['', Validators.required],
+    status: ['', Validators.required],
+    awardID: ['', Validators.required],
+    title: ['', Validators.required],
+    description: ['', Validators.required],
+    surveillanceMechanisms: ['', Validators.required],
+    period: this.fb.group({
+      startDate: ['', Validators.required],
+      endDate: ['', Validators.required],
+      durationInDays: ['', Validators.required],
+      maxExtentDate: ['', Validators.required],
+    }),
+    value: this.fb.group({
+      amount: ['', Validators.required],
+      amountNet: ['', Validators.required],
+      currency: ['', Validators.required],
+    }),
+    dateSignedContracts: this.fb.group({
+      dateSigned: ['', Validators.required],
+    }),
+  });
 
   items = this.fb.group({
     id: ['', Validators.required],
@@ -195,6 +194,24 @@ export class ContractsComponent implements OnInit {
     );
   }
 
+  getMethodById(id: string): Observable<any> {
+    return this.apiService.getMethodById<any>(id, '/contracts/getById/').pipe(
+      map((data1:any) => {
+        if (data1 && data1.record && data1.record.contract) {
+          const contract = data1.record.contract;
+          this.registroPorId = contract;
+          console.log('Data returned successfully by getMethodId:', this.registroPorId);
+          return contract;
+        }
+        return null;
+      }),
+      catchError((error) => {
+        console.error('Error returning data by getMethodId:', error.message);
+        return throwError(error);
+      })
+    );
+  }
+
   postMethod(dataToSend: any) {
     this.apiService.postMethod<any>(dataToSend, '/contracts/insert').subscribe(
       (data1: any) => {
@@ -221,18 +238,6 @@ export class ContractsComponent implements OnInit {
           // Handle error (e.g., display error message to user)
         }
       );
-  }
-
-  getMethodById(id: string) {
-    this.apiService.getMethodById<any>(id, '/contracts/getById/').subscribe(
-      (data1: any) => {
-        this.registroPorId = data1;
-        console.log('Data returned successfully by getMethodId:', this.registroPorId);
-      },
-      (error) => {
-        console.error('Error returning data by getMethodId:', error.message);
-      }
-    );
   }
 
   deleteMethod() {
@@ -284,7 +289,7 @@ export class ContractsComponent implements OnInit {
           relatedProcesses,
           milestones,
           amendments,
-        }
+        },
       },
     };
     alert(this.datacontract);
@@ -293,11 +298,35 @@ export class ContractsComponent implements OnInit {
 
   /* Funciones para el formulario */
   /* Ver */
-  viewElement(registroId:string) {
+
+  viewElement(registroId: string) {
     alert('Elemento visto ' + registroId);
-console.log('Elemento visto', registroId);
-this.registroPorId =  this.getMethodById(registroId);
-console.log('Elemento visto desde mongoDB', this.registroPorId);
+    console.log('Elemento visto', registroId);
+    console.log('registro por id');
+
+    this.getMethodById(registroId).subscribe(
+      (contract) => {
+        if (contract) {
+          this.contractData = contract;
+          console.log('registro por id', this.contractData);
+          console.log('Se mira algo?');
+          this.contracts.patchValue({
+            id: this.contractData.id,
+            status: this.contractData.status,
+            awardID: this.contractData.awardID,
+            title: this.contractData.title,
+            description: this.contractData.description,
+            surveillanceMechanisms: this.contractData.surveillanceMechanisms,
+            period: this.contractData.period,
+            value: this.contractData.value,
+            dateSignedContracts: this.contractData.dateSignedContracts,
+          });
+        }
+      },
+      (error) => {
+        console.error('Error al obtener el contrato:', error);
+      }
+    );
   }
   /* Guardar */
   onSubmit() {
@@ -309,6 +338,5 @@ console.log('Elemento visto desde mongoDB', this.registroPorId);
     let letrero: any = {};
     letrero = this.postMethod(this.datacontract);
     this.getMethod();
-  };
-
+  }
 }

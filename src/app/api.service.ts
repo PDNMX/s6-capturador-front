@@ -26,7 +26,8 @@ export class ApiService {
 
 /* Método para hacer llamadas por getId */
 getMethodById<T>(id: string, endpoint: string): Observable<T> {
-  return this.http.get<T>(`${this.base_url}${endpoint}/${id}`)
+  const body = { id: id };
+  return this.http.post<T>(`${this.base_url}${endpoint}`, body)
     .pipe(
       tap(_ => console.log(`fetched data with id=${id}`)),
       catchError(this.handleError<T>(`getById id=${id}`))
