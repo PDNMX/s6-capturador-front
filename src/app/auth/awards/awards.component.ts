@@ -1,4 +1,4 @@
-import { ApiService } from './../../api.service';
+import { ApiService } from 'src/app/api.service';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
@@ -10,36 +10,17 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 export class AwardsComponent implements OnInit {
   data: any;
   data1: any;
-  sendAwards: any = {};
+  /* Datos de ejemplo */
+  dataToSend = {};
+/*   id: string = '1';
+  dataToUpdate = {}; */
 
   constructor(private fb: FormBuilder, private apiService: ApiService) {}
   ngOnInit(): void {
-    this.obtenerDatos();
-    this.postMethod();
+    this.getMethod();
   }
 
-  obtenerDatos() {
-    this.apiService.getMethod('/albums').subscribe((data) => {
-      this.data = data;
-      console.log(this.data);
-    });
-  }
-
-  postMethod(): void {
-    this.apiService.postMethod<any>(this.sendAwards, 'posts').subscribe(
-      (data1: any) => {
-        console.log('Datos devueltos correctamente:', data1);
-        this.data1 = data1;
-        // Handle successful response (e.g., update UI)
-      },
-      (error) => {
-        console.error('Error al devolver los datos:', error.message);
-        // Handle error (e.g., display error message to user)
-      }
-    );
-  }
-
-  Awards = this.fb.group({
+  awards = this.fb.group({
     id: ['', Validators.required],
     status: ['', Validators.required],
     title: ['', Validators.required],
@@ -57,6 +38,46 @@ export class AwardsComponent implements OnInit {
       durationInDays: ['', Validators.required],
     }),
   });
+
+  //Para ser usado con el api del s6
+  postMethod(dataToSend: any) {
+    this.apiService.postMethod<any>(dataToSend, '/awards/insert').subscribe(
+      (data1: any) => {
+        console.log('Data returned successfully:', data1);
+        this.data1 = data1;
+        // Handle successful response (e.g., update UI)
+      },
+      (error) => {
+        console.error('Error returning data:', error.message);
+        // Handle error (e.g., display error message to user)
+      }
+    );
+  }
+
+  // Método para ser usado con el api del s6
+  getMethod(): void {
+    this.apiService.getMethod('/get').subscribe(
+      (data) => {
+        this.data = data;
+        console.log('data recibida por la funcion', data);
+      },
+      (error) => console.error('Error fetching data:', error)
+    );
+  }
+  /* Mostrar en consolo el contenido de los formularios */
+  onSubmit() {
+    console.log(this.awards.value);
+    let dataaward: any = {
+      id: this.awards.value.id,
+      data: {
+        award: this.awards.value,
+      },
+    };
+    console.log('Mandando datos');
+    console.log(dataaward);
+    let letrero: any = {};
+    letrero = this.postMethod(dataaward);
+  }
 
   AwardsSuppliers = this.fb.group({
     suppliers: this.fb.group({
@@ -119,10 +140,6 @@ export class AwardsComponent implements OnInit {
       releaseID: ['', Validators.required],
     }),
   });
-
-  onSubmit() {
-    console.log(this.Awards.value);
-  }
 
   onSubmitSuppliers() {
     console.log(this.AwardsSuppliers.value);
