@@ -12,32 +12,13 @@ export class AwardsComponent implements OnInit {
   data1: any;
   /* Datos de ejemplo */
   dataToSend = {};
-/*   id: string = '1';
+  /*   id: string = '1';
   dataToUpdate = {}; */
 
   constructor(private fb: FormBuilder, private apiService: ApiService) {}
   ngOnInit(): void {
     this.getMethod();
   }
-
-  awards = this.fb.group({
-    id: ['', Validators.required],
-    status: ['', Validators.required],
-    title: ['', Validators.required],
-    description: ['', Validators.required],
-    rationale: ['', Validators.required],
-    date: ['', Validators.required],
-    value: this.fb.group({
-      amount: ['', Validators.required],
-      currency: ['', Validators.required],
-    }),
-    contractPeriod: this.fb.group({
-      startDate: ['', Validators.required],
-      endDate: ['', Validators.required],
-      maxExtentDate: ['', Validators.required],
-      durationInDays: ['', Validators.required],
-    }),
-  });
 
   //Para ser usado con el api del s6
   postMethod(dataToSend: any) {
@@ -65,6 +46,80 @@ export class AwardsComponent implements OnInit {
     );
   }
   /* Mostrar en consolo el contenido de los formularios */
+
+  awards = this.fb.group({
+    id: ['', Validators.required],
+    status: ['', Validators.required],
+    title: ['', Validators.required],
+    description: ['', Validators.required],
+    rationale: ['', Validators.required],
+    date: ['', Validators.required],
+    value: this.fb.group({
+      amount: ['', Validators.required],
+      currency: ['', Validators.required],
+    }),
+    contractPeriod: this.fb.group({
+      startDate: ['', Validators.required],
+      endDate: ['', Validators.required],
+      maxExtentDate: ['', Validators.required],
+      durationInDays: ['', Validators.required],
+    }),
+  });
+
+  suppliers = this.fb.group({
+    id: ['', Validators.required],
+    name: ['', Validators.required],
+  });
+
+  items = this.fb.group({
+    id: ['', Validators.required],
+    description: ['', Validators.required],
+    quantity: ['', Validators.required],
+    unit: this.fb.group({
+      id: [''],
+      scheme: [''],
+      name: [''],
+      uri: [''],
+      value: this.fb.group({
+        amount: [''],
+        currency: [''],
+      }),
+    }),
+    classification: this.fb.group({
+      id: ['', Validators.required],
+      description: ['', Validators.required],
+      scheme: [''],
+      uri: [''],
+    }),
+    additionalClassifications: this.fb.group({
+      id: ['', Validators.required],
+      description: ['', Validators.required],
+      scheme: [''],
+      uri: [''],
+    }),
+  });
+
+  documents = this.fb.group({
+    id: ['', Validators.required],
+    documentType: ['', Validators.required],
+    title: ['', Validators.required],
+    description: ['', Validators.required],
+    url: ['', Validators.required],
+    datePublished: ['', Validators.required],
+    dateModified: ['', Validators.required],
+    format: ['', Validators.required],
+    language: ['', Validators.required],
+  });
+
+  amendments = this.fb.group({
+    date: ['', Validators.required],
+    rationale: ['', Validators.required],
+    id: ['', Validators.required],
+    description: ['', Validators.required],
+    amendsReleaseID: ['', Validators.required],
+    releaseID: ['', Validators.required],
+  });
+
   onSubmit() {
     console.log(this.awards.value);
     let dataaward: any = {
@@ -75,85 +130,30 @@ export class AwardsComponent implements OnInit {
     };
     console.log('Mandando datos');
     console.log(dataaward);
-    let letrero: any = {};
-    letrero = this.postMethod(dataaward);
+    this.postMethod(dataaward);
   }
 
-  AwardsSuppliers = this.fb.group({
-    suppliers: this.fb.group({
-      id: [''],
-      name: [''],
-    }),
-  });
-
-  AwardsItems = this.fb.group({
-    items: this.fb.group({
-      id: ['', Validators.required],
-      description: ['', Validators.required],
-      quantity: ['', Validators.required],
-      unit: this.fb.group({
-        id: [''],
-        scheme: [''],
-        name: [''],
-        uri: [''],
-        value: this.fb.group({
-          amount: [''],
-          currency: [''],
-        }),
-      }),
-      classification: this.fb.group({
-        id: ['', Validators.required],
-        description: ['', Validators.required],
-        scheme: [''],
-        uri: [''],
-      }),
-      additionalClassifications: this.fb.group({
-        id: ['', Validators.required],
-        description: ['', Validators.required],
-        scheme: [''],
-        uri: [''],
-      }),
-    }),
-  });
-
-  AwardsDocuments = this.fb.group({
-    documents: this.fb.group({
-      id: ['', Validators.required],
-      documentType: ['', Validators.required],
-      title: ['', Validators.required],
-      description: ['', Validators.required],
-      url: ['', Validators.required],
-      datePublished: ['', Validators.required],
-      dateModified: ['', Validators.required],
-      format: ['', Validators.required],
-      language: ['', Validators.required],
-    }),
-  });
-
-  AwardsAmendments = this.fb.group({
-    amendments: this.fb.group({
-      date: ['', Validators.required],
-      rationale: ['', Validators.required],
-      id: ['', Validators.required],
-      description: ['', Validators.required],
-      amendsReleaseID: ['', Validators.required],
-      releaseID: ['', Validators.required],
-    }),
-  });
-
   onSubmitSuppliers() {
-    console.log(this.AwardsSuppliers.value);
+    console.log(this.suppliers.value);
+    let datasupplier: any = {
+      data: {
+        supplier: this.suppliers.value,
+      },
+    };
+    console.log('mandando datos de supplier');
+    console.log(datasupplier);
+    this.postMethod(datasupplier);
   }
 
   onSubmitItems() {
-    console.log(this.AwardsItems.value);
+    console.log(this.items.value);
   }
 
   onSubmitDocuments() {
-    console.log(this.AwardsDocuments.value);
+    console.log(this.documents.value);
   }
 
   onSubmitAwardsAmendments() {
-    console.log(this.AwardsAmendments.value);
+    console.log(this.amendments.value);
   }
 }
