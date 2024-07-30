@@ -96,6 +96,7 @@
           id = "status"
           aria-label = "Estatus del contrato"
           formControlName = "status"
+          [ngClass]="{'readonly': isReadOnly}"
         >
           <option value = "pending">Pending</option>
           <option value = "active">Active</option>
@@ -116,6 +117,7 @@
           id = "idContract"
           placeholder = "Identificador del contrato"
           formControlName = "id"
+          [ngClass]="{'readonly': isReadOnly}"
         />
         <label for = "idContract">Identificador del contrato</label>
       </div>
@@ -126,6 +128,7 @@
           id = "awardID"
           placeholder = "Identificador de la adjudicacion"
           formControlName = "awardID"
+          [ngClass]="{'readonly': isReadOnly}"
         />
         <label for = "awardID">Identificador de la adjudicación</label>
       </div>
@@ -136,6 +139,7 @@
           id = "title"
           placeholder = "Titulo del contrato"
           formControlName = "title"
+          [ngClass]="{'readonly': isReadOnly}"
         />
         <label for = "title">Titulo del contrato</label>
       </div>
@@ -148,6 +152,7 @@
           style = "height: 10rem"
           data-sb-validations = "required"
           formControlName = "description"
+          [ngClass]="{'readonly': isReadOnly}"
         ></textarea>
         <label for = "descripcion">Descripción del contrato</label>
         <div
@@ -173,6 +178,7 @@
                           placeholder = "fechaInicio"
                           data-sb-validations = "required"
                           formControlName = "startDate"
+                          [ngClass]="{'readonly': isReadOnly}"
                         />
                         <label for = "fechaInicio">Fecha inicio</label>
                         <div
@@ -192,6 +198,7 @@
                           placeholder = "Fecha final"
                           data-sb-validations = "required"
                           formControlName = "endDate"
+                          [ngClass]="{'readonly': isReadOnly}"
                         />
                         <label for = "fechaFin">Fecha final</label>
                         <div
@@ -211,6 +218,7 @@
                           placeholder = "Duracion en días"
                           data-sb-validations = "required"
                           formControlName = "durationInDays"
+                          [ngClass]="{'readonly': isReadOnly}"
                         />
                         <label for = "duracion">Duracion en días</label>
                         <div
@@ -230,6 +238,7 @@
                           placeholder = "Extension máxima"
                           data-sb-validations = "required"
                           formControlName = "maxExtentDate"
+                          [ngClass]="{'readonly': isReadOnly}"
                         />
                         <label for = "extension">Extension máxima</label>
                         <div
@@ -256,6 +265,7 @@
                           placeholder = "Monto sin impuestos"
                           data-sb-validations = "required"
                           formControlName = "amountNet"
+                          [ngClass]="{'readonly': isReadOnly}"
                         />
                         <label for = "montoSinImpuestos"
                           >Monto sin impuestos</label
@@ -277,6 +287,7 @@
                           placeholder = "Monto total"
                           data-sb-validations = "required"
                           formControlName = "amount"
+                          [ngClass]="{'readonly': isReadOnly}"
                         />
                         <label for = "montoTotal">Monto total</label>
                         <div
@@ -296,6 +307,7 @@
                           placeholder = "Moneda"
                           data-sb-validations = "required"
                           formControlName = "currency"
+                          [ngClass]="{'readonly': isReadOnly}"
                         />
                         <label for = "moneda">Moneda</label>
                         <div
@@ -366,6 +378,7 @@
                         placeholder = "Fecha de firma del contrato"
                         data-sb-validations = "required"
                         formControlName = "dateSigned"
+                        [ngClass]="{'readonly': isReadOnly}"
                       />
                       <label for = "fechaFirma"
                         >Fecha de firma del contrato</label
@@ -384,6 +397,7 @@
                       id = "mecanismoVigilancia"
                       aria-label = "Mecanismos de vigilancia"
                       formControlName = "surveillanceMechanisms"
+                      [ngClass]="{'readonly': isReadOnly}"
                     >
                       <option value = "1">1</option>
                       <option value = "2">2</option>
@@ -402,12 +416,12 @@
                   <button (click) = "addElementToObject()" class = "btn btn-primary">Siguiente</button>
                 </div>
                 <div class = "col-md-4">
-                  <button (click) = "onSubmit()" class = "btn btn-primary">
+                  <button (click) = "onSubmit()" class = "btn btn-primary" [ngClass]="{'readonly': isReadOnly}">
                     Guardar
                   </button>
                 </div>
                 <div class = "col-md-4">
-                  <button type = "button" class = "btn btn-danger">Eliminar</button>
+                  <button type = "button" class = "btn btn-danger" [ngClass]="{'readonly': isReadOnly}">Eliminar</button>
                 </div>
               </div>
             </div>
@@ -434,6 +448,7 @@
                         placeholder = "Id del documento"
                         data-sb-validations = "required"
                         formControlName = "id"
+                        [ngClass]="{'readonly': isReadOnly}"
                       />
                       <label for = "idDocumento">Id del documento</label>
                       <div
@@ -453,6 +468,7 @@
                         placeholder = "Titulo del documento"
                         data-sb-validations = "required"
                         formControlName = "title"
+                        [ngClass]="{'readonly': isReadOnly}"
                       />
                       <label for = "nombreDocumento">Titulo del documento</label>
                       <div
@@ -472,6 +488,7 @@
                         placeholder = "Tipo de documento"
                         data-sb-validations = "required"
                         formControlName = "documentType"
+                        [ngClass]="{'readonly': isReadOnly}"
                       />
                       <label for = "tipoDocumento">Tipo de documento</label>
                       <div
@@ -491,6 +508,7 @@
                         placeholder = "Formato del documento"
                         data-sb-validations = "required"
                         formControlName = "format"
+                        [ngClass]="{'readonly': isReadOnly}"
                       />
                       <label for = "formatoDocumento">Formato del documento</label>
                       <div
@@ -512,6 +530,7 @@
                         placeholder = "Descripción del documento"
                         data-sb-validations = "required"
                         formControlName = "description"
+                        [ngClass]="{'readonly': isReadOnly}"
                       />
                       <label for = "descripcionDocumento">Descripción del documento</label>
                       <div
@@ -533,6 +552,7 @@
                         placeholder = "Fecha del documento"
                         data-sb-validations = "required"
                         formControlName = "datePublished"
+                        [ngClass]="{'readonly': isReadOnly}"
                       />
                       <label for = "datePublished">Fecha publicada del documento</label>
                       <div
@@ -552,6 +572,7 @@
                         placeholder = "Fecha del documento"
                         data-sb-validations = "required"
                         formControlName = "dateModified"
+                        [ngClass]="{'readonly': isReadOnly}"
                       />
                       <label for = "dateModified">Fecha de modificación del documento</label>
                       <div
@@ -571,6 +592,7 @@
                         placeholder = "URL del documento"
                         data-sb-validations = "required"
                         formControlName = "uri"
+                        [ngClass]="{'readonly': isReadOnly}"
                       />
                       <label for = "urlDocumento">URL del documento</label>
                       <div
@@ -590,6 +612,7 @@
                         placeholder = "Idioma del documento"
                         data-sb-validations = "required"
                         formControlName = "language"
+                        [ngClass]="{'readonly': isReadOnly}"
                       />
                       <label for = "language">Idioma del documento</label>
                       <div
@@ -606,12 +629,12 @@
                     <button (click) = "addElementToObject()" class = "btn btn-primary">Siguiente</button>
                   </div>
                   <div class = "col-md-4">
-                    <button (click) = "onSubmit()" class = "btn btn-primary">
+                    <button (click) = "onSubmit()" class = "btn btn-primary" [ngClass]="{'readonly': isReadOnly}">
                       Guardar
                     </button>
                   </div>
                   <div class = "col-md-4">
-                    <button type = "button" class = "btn btn-danger">Eliminar</button>
+                    <button type = "button" class = "btn btn-danger" [ngClass]="{'readonly': isReadOnly}">Eliminar</button>
                   </div>
                 </div>
               </fieldset>
@@ -640,6 +663,7 @@
                         placeholder = "Item"
                         data-sb-validations = "required"
                         formControlName = "id"
+                        [ngClass]="{'readonly': isReadOnly}"
                       />
                       <label for = "item">Identificador del ítem</label>
                       <div
@@ -659,6 +683,7 @@
                         placeholder = "descripcionItem"
                         data-sb-validations = "required"
                         formControlName = "description"
+                        [ngClass]="{'readonly': isReadOnly}"
                       />
                       <label for = "descripcionItem">Descripción del ítem</label>
                       <div
@@ -678,6 +703,7 @@
                         placeholder = "Cantidad"
                         data-sb-validations = "required"
                         formControlName = "quantity"
+                        [ngClass]="{'readonly': isReadOnly}"
                       />
                       <label for = "cantidad">Cantidad</label>
                       <div
@@ -701,6 +727,7 @@
                           id = "Esquema"
                           aria-label = "Esquema"
                           formControlName = "scheme"
+                          [ngClass]="{'readonly': isReadOnly}"
                         >
                           <option value = "1">
                             Clasificador Único de las Contrataciones Públicas
@@ -723,6 +750,7 @@
                           placeholder = "Id de la clasificación"
                           data-sb-validations = "required"
                           formControlName = "id"
+                          [ngClass]="{'readonly': isReadOnly}"
                         />
                         <label for = "idClasificacion"
                           >Id de la clasificación</label
@@ -745,6 +773,7 @@
                           placeholder = "URL"
                           data-sb-validations = "required"
                           formControlName = "uri"
+                          [ngClass]="{'readonly': isReadOnly}"
                         />
                         <label for = "uri">URL</label>
                         <div
@@ -767,6 +796,7 @@
                           style = "height: 10rem"
                           data-sb-validations = "required"
                           formControlName = "description"
+                          [ngClass]="{'readonly': isReadOnly}"
                         ></textarea>
                         <label for = "descripcionClasificacion"
                           >Descripción de la clasificación</label
@@ -808,6 +838,7 @@
                           id = "esquemaClasificacion"
                           aria-label = "Esquema de la clasificación"
                           formControlName = "scheme"
+                          [ngClass]="{'readonly': isReadOnly}"
                         >
                           <option value = "1">UNCEFACT</option>
                           <option value = "2">2</option>
@@ -829,6 +860,7 @@
                           placeholder = "Id de la clasificación"
                           data-sb-validations = "required"
                           formControlName = "id"
+                          [ngClass]="{'readonly': isReadOnly}"
                         />
                         <label for = "idClasificacion"
                           >Id de la clasificación</label
@@ -850,6 +882,7 @@
                           placeholder = "Descripcion de la clasificación"
                           data-sb-validations = "required"
                           formControlName = "description"
+                          [ngClass]="{'readonly': isReadOnly}"
                         />
                         <label for = "descripcionClasificacion"
                           >Descripcion de la clasificación</label
@@ -871,6 +904,7 @@
                           placeholder = "URL"
                           data-sb-validations = "required"
                           formControlName = "uri"
+                          [ngClass]="{'readonly': isReadOnly}"
                         />
                         <label for = "uri">URL</label>
                         <div
@@ -896,6 +930,7 @@
           id = "esquemaClasificacion"
           aria-label = "Esquema de la clasificación"
           formControlName = "scheme"
+          [ngClass]="{'readonly': isReadOnly}"
         >
           <option value = "1">UNCEFACT</option>
           <option value = "2">2</option>
@@ -917,6 +952,7 @@
           placeholder = "Id de la unidad"
           data-sb-validations = "required"
           formControlName = "id"
+          [ngClass]="{'readonly': isReadOnly}"
         />
         <label for = "idUnidad">Id de la unidad</label>
         <div
@@ -936,6 +972,7 @@
           placeholder = "Nombre de la unidad"
           data-sb-validations = "required"
           formControlName = "name"
+          [ngClass]="{'readonly': isReadOnly}"
         />
         <label for = "nombreUnidad">Nombre de la unidad</label>
         <div
@@ -955,6 +992,7 @@
           placeholder = "URL"
           data-sb-validations = "required"
           formControlName = "uri"
+          [ngClass]="{'readonly': isReadOnly}"
         />
         <label for = "url">URL</label>
         <div
@@ -980,6 +1018,7 @@
                             placeholder = "Monto unitario"
                             data-sb-validations = "required"
                             formControlName = "amount"
+                            [ngClass]="{'readonly': isReadOnly}"
                           />
                           <label for = "montoUnitario">Montos unitario</label>
                           <div
@@ -999,6 +1038,7 @@
                             placeholder = "Moneda"
                             data-sb-validations = "required"
                             formControlName = "currency"
+                            [ngClass]="{'readonly': isReadOnly}"
                           />
                           <label for = "moneda">Moneda</label>
                           <div
@@ -1028,6 +1068,7 @@
                             placeholder = "URL"
                             data-sb-validations = "required"
                             formControlName = "uri"
+                            [ngClass]="{'readonly': isReadOnly}"
                           />
                           <label for = "URL">URL</label>
                           <div
@@ -1047,6 +1088,7 @@
                             placeholder = "description"
                             data-sb-validations = "required"
                             formControlName = "description"
+                            [ngClass]="{'readonly': isReadOnly}"
                           />
                           <label for = "description">Descrpción de direccion</label>
                           <div
@@ -1069,6 +1111,7 @@
                               placeholder = "Tipo"
                               data-sb-validations = "required"
                               formControlName = "type"
+                              [ngClass]="{'readonly': isReadOnly}"
                             />
                             <label for = "tipo">Tipo</label>
                             <div
@@ -1090,6 +1133,7 @@
                                   placeholder = "Latitud"
                                   data-sb-validations = "required"
                                   formControlName = "latitude"
+                                  [ngClass]="{'readonly': isReadOnly}"
                                 />
                                 <label for = "latitud">Latitud</label>
                                 <div
@@ -1109,6 +1153,7 @@
                                   placeholder = "Longitud"
                                   data-sb-validations = "required"
                                   formControlName = "longitude"
+                                  [ngClass]="{'readonly': isReadOnly}"
                                 />
                                 <label for = "longitud">Longitud</label>
                                 <div
@@ -1133,6 +1178,7 @@
                                 placeholder = "esquema"
                                 data-sb-validations = "required"
                                 formControlName = "scheme"
+                                [ngClass]="{'readonly': isReadOnly}"
                               />
                               <label for = "esquema">Esquema</label>
                               <div
@@ -1152,6 +1198,7 @@
                                 placeholder = "diccionarioGeografico"
                                 data-sb-validations = "required"
                                 formControlName = "identifiers"
+                                [ngClass]="{'readonly': isReadOnly}"
                               />
                               <label for = "diccionarioGeografico"
                                 >Id del diccionario geografico</label
@@ -1184,6 +1231,7 @@
           placeholder = "URL"
           data-sb-validations = "required"
           formControlName = "uri"
+          [ngClass]="{'readonly': isReadOnly}"
         />
         <label for = "URL">URL</label>
         <div
@@ -1203,6 +1251,7 @@
           placeholder = "description"
           data-sb-validations = "required"
           formControlName = "description"
+          [ngClass]="{'readonly': isReadOnly}"
         />
         <label for = "description">Descrpción de direccion</label>
         <div
@@ -1224,6 +1273,7 @@
           placeholder = "Calle"
           data-sb-validations = "required"
           formControlName = "streetAddress"
+          [ngClass]="{'readonly': isReadOnly}"
         />
         <label for = "calle">Calle</label>
         <div
@@ -1243,6 +1293,7 @@
           placeholder = "Localidad"
           data-sb-validations = "required"
           formControlName = "locality"
+          [ngClass]="{'readonly': isReadOnly}"
         />
         <label for = "localidad">Localidad</label>
         <div
@@ -1264,6 +1315,7 @@
           placeholder = "Código postal"
           data-sb-validations = "required"
           formControlName = "postalCode"
+          [ngClass]="{'readonly': isReadOnly}"
         />
         <label for = "codigoPostal">Código postal</label>
         <div
@@ -1283,6 +1335,7 @@
           placeholder = "Región"
           data-sb-validations = "required"
           formControlName = "region"
+          [ngClass]="{'readonly': isReadOnly}"
         />
         <label for = "region">Región</label>
         <div
@@ -1302,6 +1355,7 @@
           placeholder = "País"
           data-sb-validations = "required"
           formControlName = "countryName"
+          [ngClass]="{'readonly': isReadOnly}"
         />
         <label for = "pais">País</label>
         <div
@@ -1320,12 +1374,12 @@
                     <button (click) = "addElementToObject()" class = "btn btn-primary">Siguiente</button>
                   </div>
                   <div class = "col-md-4">
-                    <button (click) = "onSubmit()" class = "btn btn-primary">
+                    <button (click) = "onSubmit()" class = "btn btn-primary" [ngClass]="{'readonly': isReadOnly}">
                       Guardar
                     </button>
                   </div>
                   <div class = "col-md-4">
-                    <button type = "button" class = "btn btn-danger">Eliminar</button>
+                    <button type = "button" class = "btn btn-danger" [ngClass]="{'readonly': isReadOnly}">Eliminar</button>
                   </div>
                 </div>
                 </fieldset>
@@ -1350,6 +1404,7 @@
                       placeholder = "Id de la garantía"
                       data-sb-validations = "required"
                       formControlName = "id"
+                      [ngClass]="{'readonly': isReadOnly}"
                     />
                     <label for = "idGarantia">Id de la garantía</label>
                     <div
@@ -1369,6 +1424,7 @@
                       placeholder = "Tipo de garantía"
                       data-sb-validations = "required"
                       formControlName = "type"
+                      [ngClass]="{'readonly': isReadOnly}"
                     />
                     <label for = "tipoGarantia">Tipo de garantía</label>
                     <div
@@ -1390,6 +1446,7 @@
                         placeholder = "Fecha de la garantía"
                         data-sb-validations = "required"
                         formControlName = "date"
+                        [ngClass]="{'readonly': isReadOnly}"
                       />
                       <label for = "fechaGarantia">Fecha de la garantía</label>
                       <div
@@ -1409,6 +1466,7 @@
                         placeholder = "obligaciones de la garantía"
                         data-sb-validations = "required"
                         formControlName = "obligations"
+                        [ngClass]="{'readonly': isReadOnly}"
                       />
                       <label for = "obligacionesGarantia">obligaciones de la garantía</label>
                       <div
@@ -1431,6 +1489,7 @@
                           placeholder = "Monto de la garantía"
                           data-sb-validations = "required"
                           formControlName = "amount"
+                          [ngClass]="{'readonly': isReadOnly}"
                         />
                         <label for = "montoGarantia">Monto de la garantía</label>
                         <div
@@ -1450,6 +1509,7 @@
                           placeholder = "Moneda de la garantía"
                           data-sb-validations = "required"
                           formControlName = "currency"
+                          [ngClass]="{'readonly': isReadOnly}"
                         />
                         <label for = "monedaGarantia">Moneda de la garantía</label>
                         <div
@@ -1475,6 +1535,7 @@
                             placeholder = "Id del garante"
                             data-sb-validations = "required"
                             formControlName = "id"
+                            [ngClass]="{'readonly': isReadOnly}"
                           />
                           <label for = "idGarante">Id del fiador</label>
                           <div
@@ -1494,6 +1555,7 @@
                             placeholder = "Nombre del garante"
                             data-sb-validations = "required"
                             formControlName = "name"
+                            [ngClass]="{'readonly': isReadOnly}"
                           />
                           <label for = "nombreGarante">Nombre del fiador</label>
                           <div
@@ -1520,6 +1582,7 @@
           placeholder = "Fecha de inicio"
           data-sb-validations = "required"
           formControlName = "startDate"
+          [ngClass]="{'readonly': isReadOnly}"
         />
         <label for = "fechaInicio">Fecha de inicio</label>
         <div
@@ -1539,6 +1602,7 @@
           placeholder = "Fecha de fin"
           data-sb-validations = "required"
           formControlName = "endDate"
+          [ngClass]="{'readonly': isReadOnly}"
         />
         <label for = "fechaFin">Fecha de fin</label>
         <div
@@ -1560,6 +1624,7 @@
           placeholder = "Días"
           data-sb-validations = "required"
           formControlName = "durationInDays"
+          [ngClass]="{'readonly': isReadOnly}"
         />
         <label for = "dias">Duración en días</label>
         <div
@@ -1579,6 +1644,7 @@
           placeholder = "maxExtentDate"
           data-sb-validations = "required"
           formControlName = "maxExtentDate"
+          [ngClass]="{'readonly': isReadOnly}"
         />
         <label for = "maxExtentDate">Fecha maxima de extension </label>
         <div
@@ -1597,12 +1663,12 @@
                     <button (click) = "addElementToObject()" class = "btn btn-primary">Siguiente</button>
                   </div>
                   <div class = "col-md-4">
-                    <button (click) = "onSubmit()" class = "btn btn-primary">
+                    <button (click) = "onSubmit()" class = "btn btn-primary" [ngClass]="{'readonly': isReadOnly}">
                       Guardar
                     </button>
                   </div>
                   <div class = "col-md-4">
-                    <button type = "button" class = "btn btn-danger">Eliminar</button>
+                    <button type = "button" class = "btn btn-danger" [ngClass]="{'readonly': isReadOnly}">Eliminar</button>
                   </div>
                 </div>
                 </fieldset>
@@ -1611,7 +1677,6 @@
           </div>
           <div class = "tab-pane fade" id = "v-pills-procesos" role = "tabpanel" aria-labelledby = "v-pills-procesos-tab">
             <div class = "form h-100">
-              <!-- Cambiar por el número de contrato a Siguiente -->
               <form [formGroup] = "relatedProcesses" >
                 <fieldset class = "border p-3 mb-3">
                   <legend>
@@ -1628,6 +1693,7 @@
                         placeholder = "Id del proceso relacionado"
                         data-sb-validations = "required"
                         formControlName = "id"
+                        [ngClass]="{'readonly': isReadOnly}"
                       />
                       <label for = "idProcesoRelacionado">Id del proceso relacionado</label>
                       <div
@@ -1647,6 +1713,7 @@
                         placeholder = "Tipo del proceso relacionado"
                         data-sb-validations = "required"
                         formControlName = "relationship"
+                        [ngClass]="{'readonly': isReadOnly}"
                       />
                       <label for = "tipoProcesoRelacionado">Relacion del proceso relacionado</label>
                       <div
@@ -1666,6 +1733,7 @@
                         placeholder = "Id del proceso"
                         data-sb-validations = "required"
                         formControlName = "identifier"
+                        [ngClass]="{'readonly': isReadOnly}"
                       />
                       <label for = "idProceso">Identificador del proceso</label>
                       <div
@@ -1687,6 +1755,7 @@
                         placeholder = "Nombre del proceso"
                         data-sb-validations = "required"
                         formControlName = "title"
+                        [ngClass]="{'readonly': isReadOnly}"
                       />
                       <label for = "nombreProceso">Titulo del proceso</label>
                       <div
@@ -1699,7 +1768,7 @@
                   </div>
                   <div class = "col-md-4">
                     <div class = "form-floating mb-3">
-                      <select class = "form-select" id = "scheme" aria-label = "Esquema" formControlName = "scheme">
+                      <select class = "form-select" id = "scheme" aria-label = "Esquema" formControlName = "scheme" [ngClass]="{'readonly': isReadOnly}">
                           <option value = "1">1</option>
                           <option value = "2">2</option>
                           <option value = "3">3</option>
@@ -1718,6 +1787,7 @@
                         placeholder = "URL del proceso"
                         data-sb-validations = "required"
                         formControlName = "uri"
+                        [ngClass]="{'readonly': isReadOnly}"
                       />
                       <label for = "urlProceso">URL del proceso</label>
                       <div
@@ -1734,12 +1804,12 @@
                     <button (click) = "addElementToObject()" class = "btn btn-primary">Siguiente</button>
                   </div>
                   <div class = "col-md-4">
-                    <button (click) = "onSubmit()" class = "btn btn-primary">
+                    <button (click) = "onSubmit()" class = "btn btn-primary" [ngClass]="{'readonly': isReadOnly}">
                       Guardar
                     </button>
                   </div>
                   <div class = "col-md-4">
-                    <button type = "button" class = "btn btn-danger">Eliminar</button>
+                    <button type = "button" class = "btn btn-danger" [ngClass]="{'readonly': isReadOnly}">Eliminar</button>
                   </div>
                 </div>
                 </fieldset>
@@ -1748,7 +1818,6 @@
           </div>
           <div class = "tab-pane fade" id = "v-pills-hitos" role = "tabpanel" aria-labelledby = "v-pills-hitos-tab">
             <div class = "form h-100">
-              <!-- Cambiar por el número de contrato a Siguiente -->
               <form [formGroup] = "milestones">
                 <fieldset class = "border p-3 mb-3">
                   <legend>
@@ -1764,6 +1833,7 @@
                         placeholder = "Id del hito"
                         data-sb-validations = "required"
                         formControlName = "id"
+                        [ngClass]="{'readonly': isReadOnly}"
                       />
                       <label for = "idHito">Id del hito</label>
                       <div
@@ -1783,6 +1853,7 @@
                         placeholder = "Nombre del hito"
                         data-sb-validations = "required"
                         formControlName = "title"
+                        [ngClass]="{'readonly': isReadOnly}"
                       />
                       <label for = "nombreHito">Titulo del hito</label>
                       <div
@@ -1802,6 +1873,7 @@
                         placeholder = "Tipo del hito"
                         data-sb-validations = "required"
                         formControlName = "type"
+                        [ngClass]="{'readonly': isReadOnly}"
                       />
                       <label for = "tipoHito">Tipo del hito</label>
                       <div
@@ -1823,6 +1895,7 @@
                         placeholder = "Descripción del hito"
                         data-sb-validations = "required"
                         formControlName = "description"
+                        [ngClass]="{'readonly': isReadOnly}"
                       />
                       <label for = "descripcionHito">Descripción del hito</label>
                       <div
@@ -1844,6 +1917,7 @@
                         placeholder = "Código del hito"
                         data-sb-validations = "required"
                         formControlName = "code"
+                        [ngClass]="{'readonly': isReadOnly}"
                       />
                       <label for = "codeHito">Código del hito</label>
                       <div
@@ -1863,6 +1937,7 @@
                         placeholder = "Estatus del hito"
                         data-sb-validations = "required"
                         formControlName = "status"
+                        [ngClass]="{'readonly': isReadOnly}"
                       />
                       <label for = "statusHito">Estatus del hito</label>
                       <div
@@ -1884,6 +1959,7 @@
                         placeholder = "Fecha de vencimiento"
                         data-sb-validations = "required"
                         formControlName = "dueDate"
+                        [ngClass]="{'readonly': isReadOnly}"
                       />
                       <label for = "vencimientoHito">Fecha de vencimiento</label>
                       <div
@@ -1903,6 +1979,7 @@
                         placeholder = "Fecha de vencimiento"
                         data-sb-validations = "required"
                         formControlName = "dateMet"
+                        [ngClass]="{'readonly': isReadOnly}"
                       />
                       <label for = "fechaCumplimiento">Fecha de cumplimiento</label>
                       <div
@@ -1922,6 +1999,7 @@
                         placeholder = "Fecha de modificación"
                         data-sb-validations = "required"
                         formControlName = "dateModified"
+                        [ngClass]="{'readonly': isReadOnly}"
                       />
                       <label for = "fechaModificaionHito">Fecha de modificación</label>
                       <div
@@ -1938,12 +2016,12 @@
                     <button (click) = "addElementToObject()" class = "btn btn-primary">Siguiente</button>
                   </div>
                   <div class = "col-md-4">
-                    <button (click) = "onSubmit()" class = "btn btn-primary">
+                    <button (click) = "onSubmit()" class = "btn btn-primary" [ngClass]="{'readonly': isReadOnly}">
                       Guardar
                     </button>
                   </div>
                   <div class = "col-md-4">
-                    <button type = "button" class = "btn btn-danger">Eliminar</button>
+                    <button type = "button" class = "btn btn-danger" [ngClass]="{'readonly': isReadOnly}">Eliminar</button>
                   </div>
                 </div>
                 </fieldset>
@@ -1965,6 +2043,7 @@
                         placeholder = "Id de la enmienda"
                         data-sb-validations = "required"
                         formControlName = "id"
+                        [ngClass]="{'readonly': isReadOnly}"
                       />
                       <label for = "idEnmienda">Id de la enmienda</label>
                       <div
@@ -1984,6 +2063,7 @@
                         placeholder = "Fecha de enmienda"
                         data-sb-validations = "required"
                         formControlName = "date"
+                        [ngClass]="{'readonly': isReadOnly}"
                       />
                       <label for = "fechaEnmienda">Fecha de enmienda</label>
                       <div
@@ -2003,6 +2083,7 @@
                         placeholder = "Justificación de la enmienda"
                         data-sb-validations = "required"
                         formControlName = "rationale"
+                        [ngClass]="{'readonly': isReadOnly}"
                       />
                       <label for = "justificacionEnmienda">Justificación de la enmienda</label>
                       <div
@@ -2024,6 +2105,7 @@
                         placeholder = "Id de liberación de la enmienda"
                         data-sb-validations = "required"
                         formControlName = "amendsReleaseID"
+                        [ngClass]="{'readonly': isReadOnly}"
                       />
                       <label for = "idReleaseEnmienda">Id de liberación de la enmienda</label>
                       <div
@@ -2043,6 +2125,7 @@
                         placeholder = "Id final de liberación de la enmienda"
                         data-sb-validations = "required"
                         formControlName = "releaseID"
+                        [ngClass]="{'readonly': isReadOnly}"
                       />
                       <label for = "releaseID">Id final de liberación de la enmienda</label>
                       <div
@@ -2057,7 +2140,16 @@
                 <div class = "row">
                   <div class = "col-md-12">
                     <div class = "form-floating mb-3">
-                      <textarea class = "form-control" id = "amendmentDescription" type = "text" placeholder = "Descripción" style = "height: 10rem;" data-sb-validations = "required" formControlName = "description"></textarea>
+                      <textarea
+                      class = "form-control"
+                      id = "amendmentDescription"
+                      type = "text"
+                      placeholder = "Descripción"
+                      style = "height: 10rem;"
+                      data-sb-validations = "required"
+                      formControlName = "description"
+                      [ngClass]="{'readonly': isReadOnly}"
+                      ></textarea>
                       <label for = "amendmentDescription">Descripción</label>
                       <div class = "invalid-feedback" data-sb-feedback = "amendmentDescription:required">Descripción is required.</div>
                   </div>
@@ -2068,12 +2160,12 @@
                     <button (click) = "addElementToObject()" class = "btn btn-primary">Siguiente</button>
                   </div>
                   <div class = "col-md-4">
-                    <button (click) = "onSubmit()" class = "btn btn-primary">
+                    <button (click) = "onSubmit()" class = "btn btn-primary" [ngClass]="{'readonly': isReadOnly}">
                       Guardar
                     </button>
                   </div>
                   <div class = "col-md-4">
-                    <button type = "button" class = "btn btn-danger">Eliminar</button>
+                    <button type = "button" class = "btn btn-danger" [ngClass]="{'readonly': isReadOnly}">Eliminar</button>
                   </div>
                 </div>
                 </fieldset>

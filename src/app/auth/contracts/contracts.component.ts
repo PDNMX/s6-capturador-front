@@ -15,6 +15,7 @@ import { ApiService } from 'src/app/api.service';
 })
 export class ContractsComponent implements OnInit {
   /* Lo que regresan los endpoint's */
+  isReadOnly: boolean = false;
   registros: any[] = [];
   registroPorId = {};
   data: any;
@@ -303,7 +304,7 @@ contractData: any;
     alert('Elemento visto ' + registroId);
     console.log('Elemento visto', registroId);
     console.log('registro por id');
-
+    this.isReadOnly = true;
     this.getMethodById(registroId).subscribe(
       (contract) => {
         if (contract) {
