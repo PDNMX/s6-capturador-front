@@ -4,209 +4,60 @@ import { Validators, FormBuilder } from '@angular/forms';
 import { Title } from '@angular/platform-browser';
 //import { HttpClient } from '@angular/common/http';
 import { ApiService } from 'src/app/api.service';
-import { Contract } from './contract.model';
+//import { Contract } from './contract.model';
 
 @Component({
   selector: 'app-contracts',
   templateUrl: './contracts.component.html',
   styleUrls: ['./contracts.component.css'],
 })
+
+
 export class ContractsComponent implements OnInit {
   /* Lo que regresan los endpoint's */
+  registros: any[] = [];
+  registroPorId: any;
   data: any;
   data1: any;
   data2: any;
   data3: any;
   data4: any;
-  /* Datos de ejemplo */
+  /* Datos para enviar al api */
+  id: string = '';
   dataToSend = {};
-  id: string = '1';
   dataToUpdate = {};
+  private datacontract  = {};
 
-  //contractsData:FormGroup;implements OnInit
+  /* Constructor para inicializar el formbuilder y el servicio el api */
   constructor(private fb: FormBuilder, private apiService: ApiService) {} //, private http: HttpClient) { }
-  ngOnInit(): void {
+  ngOnInit(){
     this.getMethod();
-    //this.getMethodId();
+
   }
 
-  contracts = this.fb.group({
-    id: ['', Validators.required],
-    status: ['', Validators.required],
-    awardID: ['', Validators.required],
-    title: ['', Validators.required],
-    description: ['', Validators.required],
-    surveillanceMechanisms: ['', Validators.required],
-    period: this.fb.group({
-      startDate: ['', Validators.required],
-      endDate: ['', Validators.required],
-      durationInDays: ['', Validators.required],
-      maxExtentDate: ['', Validators.required],
-    }),
-    value: this.fb.group({
-      amount: ['', Validators.required],
-      amountNet: ['', Validators.required],
-      currency: ['', Validators.required],
-    }),
-    dateSignedContracts: this.fb.group({
-      dateSigned: ['', Validators.required],
-    }),
-  });
-
-  //Para ser usado con el api del s6
-  postMethod(dataToSend: any) {
-    this.apiService.postMethod<any>(dataToSend, '/contracts/insert').subscribe(
-      (data1: any) => {
-        console.log('Data returned successfully:', data1);
-        this.data1 = data1;
-        // Handle successful response (e.g., update UI)
-      },
-      (error) => {
-        console.error('Error returning data:', error.message);
-        // Handle error (e.g., display error message to user)
-      }
-    );
-  }
-
-  // Método para ser usado con el api del s6
-  getMethod(): void {
-    this.apiService.getMethod('/get').subscribe(
-      (data) => {
-        this.data = data;
-        console.log('data recibida por la funcion', data);
-      },
-      (error) => console.error('Error fetching data:', error)
-    );
-  }
-  /* Mostrar en consolo el contenido de los formularios */
-  onSubmit() {
-    console.log(this.contracts.value);
-    let datacontract: any = {
-      id: this.contracts.value.id,
-      data: {
-        contract: this.contracts.value,
-      },
-    };
-    console.log('Mandando datos');
-    console.log(datacontract);
-    let letrero: any = {};
-    letrero = this.postMethod(datacontract);
-  }
-
-  getMethodId(): void {
-    this.apiService.getMethod('/todos/1').subscribe(
-      (data4) => (this.data4 = data4),
-      (error) => console.error('Error fetching data:', error)
-    );
-  }
-
-  /*   postMethod(){
-    this.apiService.postMethod<any>(this.dataToSend, 'posts')
-    .subscribe(
-      (data1: any) => {
-        console.log('Data returned successfully:', data1);
-        this.data1 = data1;
-        // Handle successful response (e.g., update UI)
-      },
-      (error) => {
-        console.error('Error returning data:', error.message);
-        // Handle error (e.g., display error message to user)
-      }
-    );
-  } */
-
-  putMethod() {
-    this.apiService
-      .putMethod<any>(this.id, this.dataToUpdate, '/posts/1')
-      .subscribe(
-        (data2: any) => {
-          console.log('Data updated successfully:', data2);
-          this.data2 = data2;
-          // Handle successful response (e.g., update UI)
-        },
-        (error) => {
-          console.error('Error updating data:', error.message);
-          // Handle error (e.g., display error message to user)
-        }
-      );
-  }
-
-  deleteMethod() {
-    this.apiService.deleteMethod<any>(this.id, '/posts/${id}').subscribe(
-      (data3: any) => {
-        console.log('Data deleted successfully:', data3);
-        this.data3 = data3;
-        // Handle successful response (e.g., update UI)
-      },
-      (error) => {
-        console.error('Error deleting data:', error.message);
-        // Handle error (e.g., display error message to user)
-      }
-    );
-  }
-
-  //Funcionando para httpbin
-  /* getMethod():void{
-    this.apiService.getMethod('get').subscribe(
-      data => this.data = data,
-      error => console.error('Error fetching data:', error
-    ));
-  }
-
-  getMethodId():void{
-    this.apiService.getMethod('get?id=1').subscribe(
-      data4 => this.data4 = data4,
-      error => console.error('Error fetching data:', error
-    ));
-  }
-
-  postMethod(){
-    this.apiService.postMethod<any>(this.dataToSend, 'post')
-    .subscribe(
-      (data1: any) => {
-        console.log('Data returned successfully:', data1);
-        this.data1 = data1;
-        // Handle successful response (e.g., update UI)
-      },
-      (error) => {
-        console.error('Error returning data:', error.message);
-        // Handle error (e.g., display error message to user)
-      }
-    );
-  }
-
-  putMethod(){
-    this.apiService.putMethod<any>(this.id, this.dataToUpdate, 'put')
-    .subscribe(
-      (data2: any) => {
-        console.log('Data updated successfully:', data2);
-        this.data2 = data2;
-        // Handle successful response (e.g., update UI)
-      },
-      (error) => {
-        console.error('Error updating data:', error.message);
-        // Handle error (e.g., display error message to user)
-      }
-    );
-  }
-
-  deleteMethod(){
-    this.apiService.deleteMethod<any>(this.id, 'delete')
-    .subscribe(
-      (data3: any) => {
-        console.log('Data deleted successfully:', data3);
-        this.data3 = data3;
-        // Handle successful response (e.g., update UI)
-      },
-      (error) => {
-        console.error('Error deleting data:', error.message);
-        // Handle error (e.g., display error message to user)
-      }
-    );
-  }
-     */
-
-  // Para ser usado con el constructor private fb: Formbuilder
+  /* Construyendo el objeto de contracts con formbuilder */
+    contracts = this.fb.group({
+      id: ['', Validators.required],
+      status: ['', Validators.required],
+      awardID: ['', Validators.required],
+      title: ['', Validators.required],
+      description: ['', Validators.required],
+      surveillanceMechanisms: ['', Validators.required],
+      period: this.fb.group({
+        startDate: ['', Validators.required],
+        endDate: ['', Validators.required],
+        durationInDays: ['', Validators.required],
+        maxExtentDate: ['', Validators.required],
+      }),
+      value: this.fb.group({
+        amount: ['', Validators.required],
+        amountNet: ['', Validators.required],
+        currency: ['', Validators.required],
+      }),
+      dateSignedContracts: this.fb.group({
+        dateSigned: ['', Validators.required],
+      }),
+    });
 
   items = this.fb.group({
     id: ['', Validators.required],
@@ -331,26 +182,133 @@ export class ContractsComponent implements OnInit {
     releaseID: ['', Validators.required],
   });
 
-  onSubmit2() {
-    console.log(this.documents.value);
+  /* Métodos para llamar al api */
+
+  getMethod(): void {
+    this.apiService.getMethod('/contracts/getAll').subscribe(
+      (response: any) => {
+        this.data = response;
+        this.registros = response.results;
+        console.log('data recibida por la funcion', this.registros);
+      },
+      (error) => console.error('Error fetching data:', error)
+    );
   }
 
-  onSubmit3() {
-    console.log(this.items.value);
-    this.dataToSend = this.items.value;
-    console.log('Mandando datos de items');
-    this.postMethod(this.dataToSend);
+  postMethod(dataToSend: any) {
+    this.apiService.postMethod<any>(dataToSend, '/contracts/insert').subscribe(
+      (data1: any) => {
+        console.log('Data returned successfully:', data1);
+        this.data1 = data1;
+      },
+      (error) => {
+        console.error('Error returning data:', error.message);
+      }
+    );
   }
 
-  addPassenger() {}
+  putMethod() {
+    this.apiService
+      .putMethod<any>(this.id, this.dataToUpdate, '/posts/1')
+      .subscribe(
+        (data2: any) => {
+          console.log('Data updated successfully:', data2);
+          this.data2 = data2;
+          // Handle successful response (e.g., update UI)
+        },
+        (error) => {
+          console.error('Error updating data:', error.message);
+          // Handle error (e.g., display error message to user)
+        }
+      );
+  }
 
-  onSubmit4() {
-    console.log(this.items.value);
+  getMethodById(id: string) {
+    this.apiService.getMethodById<any>(id, '/contracts/getById/').subscribe(
+      (data1: any) => {
+        this.registroPorId = data1;
+        console.log('Data returned successfully by getMethodId:', this.registroPorId);
+      },
+      (error) => {
+        console.error('Error returning data by getMethodId:', error.message);
+      }
+    );
   }
-  onSubmit5() {
-    console.log(this.milestones.value);
+
+  deleteMethod() {
+    this.apiService.deleteMethod<any>(this.id, '/posts/${id}').subscribe(
+      (data3: any) => {
+        console.log('Data deleted successfully:', data3);
+        this.data3 = data3;
+        // Handle successful response (e.g., update UI)
+      },
+      (error) => {
+        console.error('Error deleting data:', error.message);
+        // Handle error (e.g., display error message to user)
+      }
+    );
   }
-  onSubmit6() {
-    console.log(this.amendments.value);
+  /* Métodos para llamar al api */
+
+  /* Funciones para el formulario */
+  addClasification() {
+    alert('Clasificación agregada');
   }
+
+  addElementToObject() {
+    alert('Elemento agregado');
+    let contractSend = this.contracts.value;
+    let items = this.items.value;
+    let guarantees = this.guarantees.value;
+    let documents = this.documents.value;
+    let relatedProcesses = this.relatedProcesses.value;
+    let milestones = this.milestones.value;
+    let amendments = this.amendments.value;
+
+    this.datacontract = {
+      id: this.id,
+      data: {
+        contract: {
+          id: contractSend.id,
+          status: contractSend.status,
+          awardID: contractSend.awardID,
+          title: contractSend.title,
+          description: contractSend.description,
+          surveillanceMechanisms: contractSend.surveillanceMechanisms,
+          period: contractSend.period,
+          value: contractSend.value,
+          dateSignedContracts: contractSend.dateSignedContracts,
+          items,
+          guarantees,
+          documents,
+          relatedProcesses,
+          milestones,
+          amendments,
+        }
+      },
+    };
+    alert(this.datacontract);
+    console.log('this.datacontract', this.datacontract);
+  }
+
+  /* Funciones para el formulario */
+  /* Ver */
+  viewElement(registroId:string) {
+    alert('Elemento visto ' + registroId);
+console.log('Elemento visto', registroId);
+this.registroPorId =  this.getMethodById(registroId);
+console.log('Elemento visto desde mongoDB', this.registroPorId);
+  }
+  /* Guardar */
+  onSubmit() {
+    console.log('holi desde funcion principal onsubmit');
+    alert('Formulario enviado');
+    console.log('Mandando datos');
+    alert(this.datacontract);
+    console.log(this.datacontract);
+    let letrero: any = {};
+    letrero = this.postMethod(this.datacontract);
+    this.getMethod();
+  };
+
 }

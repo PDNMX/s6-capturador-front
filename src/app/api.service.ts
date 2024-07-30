@@ -3,8 +3,8 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
 import { Observable, of, throwError } from 'rxjs';
 import { catchError, tap } from 'rxjs/operators';
-import { Contract } from './auth/contracts/contract.model'; // Importa la interfaz
-
+/* import { Contract } from './auth/contracts/contract.model'; // Importa la interfaz
+ */
 @Injectable({
   providedIn: 'root'
 })
@@ -12,8 +12,6 @@ export class ApiService {
 
    constructor(private http: HttpClient) { }
 
-  //private base_url = 'https://httpbin.org'; //'172.20.30.75:4004/back/'//http://localhost:4200/contracts
-    //private base_url = 'https://jsonplaceholder.typicode.com'
 /* Usar esta url para hacer peticiones al api, solo se debe de cambiar la ip por la del equipo en la que se tiene el api en ejecución */
     private base_url = 'http://172.20.30.75:4004/back'
 
@@ -25,6 +23,15 @@ export class ApiService {
         catchError(this.handleError<any>('getData', []))
       );
   }
+
+/* Método para hacer llamadas por getId */
+getMethodById<T>(id: string, endpoint: string): Observable<T> {
+  return this.http.get<T>(`${this.base_url}${endpoint}/${id}`)
+    .pipe(
+      tap(_ => console.log(`fetched data with id=${id}`)),
+      catchError(this.handleError<T>(`getById id=${id}`))
+    );
+}
 
 /* Método para hacer llamadas por post */
  postMethod<T>(body: T, endpoint: string): Observable<T> {
