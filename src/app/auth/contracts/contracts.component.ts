@@ -298,8 +298,104 @@ contractData: any;
   }
 
   /* Funciones para el formulario */
+  /* Editar */
+  editElement(registroId: string) {
+    if(this.isReadOnly == true)
+    {
+      this.isReadOnly = false;
+    }
+    else{
+      this.isReadOnly = false;
+    }
+    alert('Elemento editado ' + registroId);
+    console.log('Elemento editado', registroId);
+    this.isReadOnly = false;
+    this.getMethodById(registroId).subscribe(
+      (contract) => {
+        if (contract) {
+          this.contractData = contract;
+          console.log('registro por id', this.contractData);
+          console.log('Se mira algo?');
+          this.contracts.patchValue({
+            id: this.contractData.id,
+            status: this.contractData.status,
+            awardID: this.contractData.awardID,
+            title: this.contractData.title,
+            description: this.contractData.description,
+            surveillanceMechanisms: this.contractData.surveillanceMechanisms,
+            period: {
+              startDate: this.contractData.period.startDate,
+              endDate: this.contractData.period.endDate,
+              durationInDays: this.contractData.period.durationInDays,
+              maxExtentDate: this.contractData.period.maxExtentDate
+            },
+            value: this.contractData.value,
+            dateSignedContracts: this.contractData.dateSignedContracts,
+          });
+          this.items.patchValue({
+            id: this.contractData.items.id,
+            description: this.contractData.items.description,
+            clasification: this.contractData.items.clasification,
+            additionalClassifications: this.contractData.items.additionalClassifications,
+            quantity: this.contractData.items.quantity,
+            unit: this.contractData.items.unit,
+            deliveryLocation: this.contractData.items.deliveryLocation,
+            deliveryAddress: this.contractData.items.deliveryAddress,
+          });
+          this.guarantees.patchValue({
+            id: this.contractData.guarantees.id,
+            type: this.contractData.guarantees.type,
+            date: this.contractData.guarantees.date,
+            obligations: this.contractData.guarantees.obligations,
+            value: this.contractData.guarantees.value,
+            guarantor: this.contractData.guarantees.guarantor,
+            period: this.contractData.guarantees.period,
+          });
+          this.documents.patchValue({
+            id: this.contractData.documents.id,
+            documentType: this.contractData.documents.documentType,
+            title: this.contractData.documents.title,
+            description: this.contractData.documents.description,
+            uri: this.contractData.documents.uri,
+            datePublished: this.contractData.documents.datePublished,
+            dateModified: this.contractData.documents.dateModified,
+            format: this.contractData.documents.format,
+          });
+          this.relatedProcesses.patchValue({
+            id: this.contractData.relatedProcesses.id,
+            relationship: this.contractData.relatedProcesses.relationship,
+            title: this.contractData.relatedProcesses.title,
+            scheme: this.contractData.relatedProcesses.scheme,
+            identifier: this.contractData.relatedProcesses.identifier,
+            uri: this.contractData.relatedProcesses.uri,
+          });
+          this.milestones.patchValue({
+            id: this.contractData.milestones.id,
+            title: this.contractData.milestones.title,
+            type: this.contractData.milestones.type,
+            description: this.contractData.milestones.description,
+            code: this.contractData.milestones.code,
+            dueDate: this.contractData.milestones.dueDate,
+            dateMet: this.contractData.milestones.dateMet,
+            dateModified: this.contractData.milestones.dateModified,
+            status: this.contractData.milestones.status,
+          });
+          this.amendments.patchValue({
+            id: this.contractData.amendments.id,
+            date: this.contractData.amendments.date,
+            rationale: this.contractData.amendments.rationale,
+            description: this.contractData.amendments.description,
+            amendsReleaseID: this.contractData.amendments.amendsReleaseID,
+            releaseID: this.contractData.amendments.releaseID,
+          });
+        }
+      },
+      (error) => {
+        console.error('Error al obtener el contrato:', error);
+      }
+    );
+  }
   /* Ver */
-
   viewElement(registroId: string) {
     alert('Elemento visto ' + registroId);
     console.log('Elemento visto', registroId);
@@ -318,9 +414,70 @@ contractData: any;
             title: this.contractData.title,
             description: this.contractData.description,
             surveillanceMechanisms: this.contractData.surveillanceMechanisms,
-            period: this.contractData.period,
+            period:{
+              startDate: this.contractData.period.startDate,
+              endDate: this.contractData.period.endDate,
+              durationInDays: this.contractData.period.durationInDays,
+              maxExtentDate: this.contractData.period.maxExtentDate
+            },
             value: this.contractData.value,
             dateSignedContracts: this.contractData.dateSignedContracts,
+          });
+          this.items.patchValue({
+            id: this.contractData.items.id,
+            description: this.contractData.items.description,
+            clasification: this.contractData.items.clasification,
+            additionalClassifications: this.contractData.items.additionalClassifications,
+            quantity: this.contractData.items.quantity,
+            unit: this.contractData.items.unit,
+            deliveryLocation: this.contractData.items.deliveryLocation,
+            deliveryAddress: this.contractData.items.deliveryAddress,
+          });
+          this.guarantees.patchValue({
+            id: this.contractData.guarantees.id,
+            type: this.contractData.guarantees.type,
+            date: this.contractData.guarantees.date,
+            obligations: this.contractData.guarantees.obligations,
+            value: this.contractData.guarantees.value,
+            guarantor: this.contractData.guarantees.guarantor,
+            period: this.contractData.guarantees.period,
+          });
+          this.documents.patchValue({
+            id: this.contractData.documents.id,
+            documentType: this.contractData.documents.documentType,
+            title: this.contractData.documents.title,
+            description: this.contractData.documents.description,
+            uri: this.contractData.documents.uri,
+            datePublished: this.contractData.documents.datePublished,
+            dateModified: this.contractData.documents.dateModified,
+            format: this.contractData.documents.format,
+          });
+          this.relatedProcesses.patchValue({
+            id: this.contractData.relatedProcesses.id,
+            relationship: this.contractData.relatedProcesses.relationship,
+            title: this.contractData.relatedProcesses.title,
+            scheme: this.contractData.relatedProcesses.scheme,
+            identifier: this.contractData.relatedProcesses.identifier,
+            uri: this.contractData.relatedProcesses.uri,
+          });
+          this.milestones.patchValue({
+            id: this.contractData.milestones.id,
+            title: this.contractData.milestones.title,
+            type: this.contractData.milestones.type,
+            description: this.contractData.milestones.description,
+            code: this.contractData.milestones.code,
+            dueDate: this.contractData.milestones.dueDate,
+            dateMet: this.contractData.milestones.dateMet,
+            dateModified: this.contractData.milestones.dateModified,
+            status: this.contractData.milestones.status,
+          });
+          this.amendments.patchValue({
+            id: this.contractData.amendments.id,
+            date: this.contractData.amendments.date,
+            rationale: this.contractData.amendments.rationale,
+            description: this.contractData.amendments.description,
+            amendsReleaseID: this.contractData.amendments.amendsReleaseID,
+            releaseID: this.contractData.amendments.releaseID,
           });
         }
       },
@@ -331,13 +488,12 @@ contractData: any;
   }
   /* Guardar */
   onSubmit() {
-    console.log('holi desde funcion principal onsubmit');
     alert('Formulario enviado');
     console.log('Mandando datos');
     alert(this.datacontract);
     console.log(this.datacontract);
     let letrero: any = {};
-    letrero = this.postMethod(this.datacontract);
+    this.postMethod(this.datacontract);
     this.getMethod();
   }
 }
