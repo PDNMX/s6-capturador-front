@@ -153,7 +153,7 @@ export class AwardsComponent implements OnInit {
 
   onSubmitDocuments() {
     console.log(this.documents.value);
-    this.tempAwards.documents.push(this.items.value);
+    this.tempAwards.documents.push(this.documents.value);
     this.showSavingMessage();
     this.documents.reset();
   }
