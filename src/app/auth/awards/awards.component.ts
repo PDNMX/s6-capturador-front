@@ -19,8 +19,11 @@ export class AwardsComponent implements OnInit {
 
   //Almacenar los datos temporalmente para cada sección
   tempAwards: any = {
-  suppliers: [],
-  }
+    suppliers: [],
+    items: [],
+    documents: [],
+    amendments: [],
+  };
 
   constructor(private fb: FormBuilder, private apiService: ApiService) {}
   ngOnInit(): void {
@@ -129,7 +132,7 @@ export class AwardsComponent implements OnInit {
 
   onSubmit() {
     console.log(this.awards.value);
-    this.tempAwards = {...this.tempAwards, ...this.awards.value};
+    this.tempAwards = { ...this.tempAwards, ...this.awards.value };
     this.showSavingMessage();
     this.awards.reset();
   }
@@ -143,14 +146,23 @@ export class AwardsComponent implements OnInit {
 
   onSubmitItems() {
     console.log(this.items.value);
+    this.tempAwards.items.push(this.items.value);
+    this.showSavingMessage();
+    this.items.reset();
   }
 
   onSubmitDocuments() {
     console.log(this.documents.value);
+    this.tempAwards.documents.push(this.items.value);
+    this.showSavingMessage();
+    this.documents.reset();
   }
 
   onSubmitAwardsAmendments() {
     console.log(this.amendments.value);
+    this.tempAwards.amendments.push(this.amendments.value);
+    this.showSavingMessage();
+    this.documents.reset();
   }
 
   //Metodo del mensaje guardando
@@ -168,11 +180,11 @@ export class AwardsComponent implements OnInit {
     const finalData = {
       id: this.tempAwards.id,
       data: {
-        award:{
+        award: {
           ...this.tempAwards,
-          suppliers:this.tempAwards.suppliers,
-        }
-      }
+          suppliers: this.tempAwards.suppliers,
+        },
+      },
     };
     console.log('Enviando todos los datos', finalData);
     this.postMethod(finalData);
