@@ -16,11 +16,11 @@ export class ApiService {
     private base_url = 'http://172.20.30.75:4004/back'
 
 /* Método para hacer llamadas por get all*/
- getMethod(endpoint: string): Observable<any> {
-    return this.http.get<any>(`${this.base_url}${endpoint}`)
+ getMethod<T>(endpoint: string): Observable<any> {
+    return this.http.post<T>(`${this.base_url}${endpoint}`,'')
       .pipe(
         tap(_ => console.log('get fetched data')),
-        catchError(this.handleError<any>('getData', []))
+        catchError(this.handleError<any>('getData'))
       );
   }
 

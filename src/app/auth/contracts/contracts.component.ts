@@ -185,10 +185,13 @@ contractData: any;
   /* Métodos para llamar al api */
 
   getMethod(): void {
-    this.apiService.getMethod('/contracts/getAll').subscribe(
+    this.apiService.getMethod('/contracts/query').subscribe(
       (response: any) => {
         this.data = response;
         this.registros = response.results;
+        console.log("------------------------------------------------------------------------");
+        console.log('data recibida', this.data);
+        console.log("------------------------------------------------------------------------");
         console.log('data recibida por la funcion', this.registros);
       },
       (error) => console.error('Error fetching data:', error)
