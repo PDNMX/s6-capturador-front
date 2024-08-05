@@ -15,6 +15,7 @@ import { ApiService } from 'src/app/api.service';
 })
 export class ContractsComponent implements OnInit {
   /* Lo que regresan los endpoint's */
+  idGlobal: string = '66ad14627ebc3aae1c4b1534';
   isReadOnly: boolean = false;
   registros: any[] = [];
   registroPorId = {};
@@ -228,9 +229,9 @@ contractData: any;
     );
   }
 
-  putMethod() {
+  putMethod( dataToUpdate: any) {
     this.apiService
-      .putMethod<any>(this.id, this.dataToUpdate, '/posts/1')
+      .putMethod<any>(this.dataToUpdate, '/contracts/update')
       .subscribe(
         (data2: any) => {
           console.log('Data updated successfully:', data2);
@@ -275,7 +276,7 @@ contractData: any;
     let amendments = this.amendments.value;
 
     this.datacontract = {
-      id: this.id,
+      id: this.idGlobal,
       data: {
         contract: {
           id: contractSend.id,
@@ -300,19 +301,20 @@ contractData: any;
     console.log('this.datacontract', this.datacontract);
   }
 
-  /* Funciones para el formulario */
-  /* Editar */
-  editElement(registroId: string) {
-    if(this.isReadOnly == true)
-    {
-      this.isReadOnly = false;
-    }
-    else{
-      this.isReadOnly = false;
-    }
-    alert('Elemento editado ' + registroId);
-    console.log('Elemento editado', registroId);
-    this.isReadOnly = false;
+  resetForm() {
+    // Resetea el formulario principal
+    this.contracts.reset();
+
+    // Resetea los subformularios
+    this.items.reset();
+    this.guarantees.reset();
+    this.documents.reset();
+    this.relatedProcesses.reset();
+    this.milestones.reset();
+    this.amendments.reset();
+  }
+
+  refillElemet(registroId: string) {
     this.getMethodById(registroId).subscribe(
       (contract) => {
         if (contract) {
@@ -398,99 +400,31 @@ contractData: any;
       }
     );
   }
+  /* Funciones para el formulario */
+  /* Editar */
+  editElement(registroId: string) {
+    if(this.isReadOnly == true)
+    {
+      this.isReadOnly = false;
+    }
+    else{
+      this.isReadOnly = false;
+    }
+    alert('Elemento editado ' + registroId);
+    console.log('Elemento editado', registroId);
+    this.isReadOnly = false;
+    this.refillElemet(registroId);
+  }
   /* Ver */
   viewElement(registroId: string) {
     alert('Elemento visto ' + registroId);
     console.log('Elemento visto', registroId);
     console.log('registro por id');
     this.isReadOnly = true;
-    this.getMethodById(registroId).subscribe(
-      (contract) => {
-        if (contract) {
-          this.contractData = contract;
-          console.log('registro por id', this.contractData);
-          console.log('Se mira algo?');
-          this.contracts.patchValue({
-            id: this.contractData.id,
-            status: this.contractData.status,
-            awardID: this.contractData.awardID,
-            title: this.contractData.title,
-            description: this.contractData.description,
-            surveillanceMechanisms: this.contractData.surveillanceMechanisms,
-            period:{
-              startDate: this.contractData.period.startDate,
-              endDate: this.contractData.period.endDate,
-              durationInDays: this.contractData.period.durationInDays,
-              maxExtentDate: this.contractData.period.maxExtentDate
-            },
-            value: this.contractData.value,
-            dateSignedContracts: this.contractData.dateSignedContracts,
-          });
-          this.items.patchValue({
-            id: this.contractData.items.id,
-            description: this.contractData.items.description,
-            clasification: this.contractData.items.clasification,
-            additionalClassifications: this.contractData.items.additionalClassifications,
-            quantity: this.contractData.items.quantity,
-            unit: this.contractData.items.unit,
-            deliveryLocation: this.contractData.items.deliveryLocation,
-            deliveryAddress: this.contractData.items.deliveryAddress,
-          });
-          this.guarantees.patchValue({
-            id: this.contractData.guarantees.id,
-            type: this.contractData.guarantees.type,
-            date: this.contractData.guarantees.date,
-            obligations: this.contractData.guarantees.obligations,
-            value: this.contractData.guarantees.value,
-            guarantor: this.contractData.guarantees.guarantor,
-            period: this.contractData.guarantees.period,
-          });
-          this.documents.patchValue({
-            id: this.contractData.documents.id,
-            documentType: this.contractData.documents.documentType,
-            title: this.contractData.documents.title,
-            description: this.contractData.documents.description,
-            uri: this.contractData.documents.uri,
-            datePublished: this.contractData.documents.datePublished,
-            dateModified: this.contractData.documents.dateModified,
-            format: this.contractData.documents.format,
-          });
-          this.relatedProcesses.patchValue({
-            id: this.contractData.relatedProcesses.id,
-            relationship: this.contractData.relatedProcesses.relationship,
-            title: this.contractData.relatedProcesses.title,
-            scheme: this.contractData.relatedProcesses.scheme,
-            identifier: this.contractData.relatedProcesses.identifier,
-            uri: this.contractData.relatedProcesses.uri,
-          });
-          this.milestones.patchValue({
-            id: this.contractData.milestones.id,
-            title: this.contractData.milestones.title,
-            type: this.contractData.milestones.type,
-            description: this.contractData.milestones.description,
-            code: this.contractData.milestones.code,
-            dueDate: this.contractData.milestones.dueDate,
-            dateMet: this.contractData.milestones.dateMet,
-            dateModified: this.contractData.milestones.dateModified,
-            status: this.contractData.milestones.status,
-          });
-          this.amendments.patchValue({
-            id: this.contractData.amendments.id,
-            date: this.contractData.amendments.date,
-            rationale: this.contractData.amendments.rationale,
-            description: this.contractData.amendments.description,
-            amendsReleaseID: this.contractData.amendments.amendsReleaseID,
-            releaseID: this.contractData.amendments.releaseID,
-          });
-        }
-      },
-      (error) => {
-        console.error('Error al obtener el contrato:', error);
-      }
-    );
+    this.refillElemet(registroId);
   }
   /* Guardar */
-  onSubmit() {
+/*   onSubmit() {
     alert('Formulario enviado');
     console.log('Mandando datos');
     alert(this.datacontract);
@@ -498,5 +432,32 @@ contractData: any;
     let letrero: any = {};
     this.postMethod(this.datacontract);
     this.getMethod();
+  } */
+  onSubmit(idGlobal: string) {
+    alert('Formulario enviado');
+    let encontrado = false;
+    this.registroPorId = this.getMethodById(idGlobal).subscribe(
+      (contract) => {
+        if (this.registroPorId) {
+          this.addElementToObject()
+          this.dataToUpdate = this.datacontract;
+          console.log('data to update', this.dataToUpdate);
+          this.putMethod(this.dataToUpdate);
+          encontrado = true;
+          this.getMethod();
+          this.resetForm();
+         }
+         else{
+          console.log('No se encontró el registro');
+          alert('No se encontró el registro, intente más tarde');
+         }
+      }
+    )
+
+       /*     if (this.registroPorId) {
+      this.dataToUpdate = this.datacontract;
+      this.putMethod(this.dataToUpdate);
+      encontrado = true;
+    } */
   }
 }

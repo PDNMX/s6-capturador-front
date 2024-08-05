@@ -44,8 +44,8 @@ getMethodById<T>(id: string, endpoint: string): Observable<T> {
   }
 
 /* Método para hacer llamadas por put */
- putMethod<T>(id: string, body: T, endpoint: string): Observable<T> {
-    return this.http.put<T>(`${this.base_url}${endpoint}`, body)
+ putMethod<T>( body: T, endpoint: string): Observable<T> {
+    return this.http.post<T>(`${this.base_url}${endpoint}`, body)
       .pipe(
         tap(_ => console.log('updated data')),
         catchError(this.handleError<T>('putData'))
