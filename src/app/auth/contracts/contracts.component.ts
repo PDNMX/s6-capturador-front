@@ -24,12 +24,13 @@ export class ContractsComponent implements OnInit {
   data2: any;
   data3: any;
   data4: any;
+regreso:any;
   /* Datos para enviar al api */
   id: string = '';
   dataToSend = {};
   dataToUpdate = {};
   private datacontract = {};
-contractData: any;
+  contractData: any;
   /* Constructor para inicializar el formbuilder y el servicio el api */
   constructor(private fb: FormBuilder, private apiService: ApiService) {} //, private http: HttpClient) { }
   ngOnInit() {
@@ -190,9 +191,13 @@ contractData: any;
       (response: any) => {
         this.data = response;
         this.registros = response.results;
-        console.log("------------------------------------------------------------------------");
+        console.log(
+          '------------------------------------------------------------------------'
+        );
         console.log('data recibida', this.data);
-        console.log("------------------------------------------------------------------------");
+        console.log(
+          '------------------------------------------------------------------------'
+        );
         console.log('data recibida por la funcion', this.registros);
       },
       (error) => console.error('Error fetching data:', error)
@@ -201,11 +206,14 @@ contractData: any;
 
   getMethodById(id: string): Observable<any> {
     return this.apiService.getMethodById<any>(id, '/contracts/getById/').pipe(
-      map((data1:any) => {
+      map((data1: any) => {
         if (data1 && data1.record && data1.record.contract) {
           const contract = data1.record.contract;
           this.registroPorId = contract;
-          console.log('Data returned successfully by getMethodId:', this.registroPorId);
+          console.log(
+            'Data returned successfully by getMethodId:',
+            this.registroPorId
+          );
           return contract;
         }
         return null;
@@ -218,7 +226,9 @@ contractData: any;
   }
 
   postMethod(dataToSend: any) {
-    this.apiService.postMethod<any>(dataToSend, '/contracts/insert').subscribe(
+    this.apiService
+    .postMethod<any>(dataToSend, '/contracts/insert')
+    .subscribe(
       (data1: any) => {
         console.log('Data returned successfully:', data1);
         this.data1 = data1;
@@ -229,9 +239,9 @@ contractData: any;
     );
   }
 
-  putMethod( dataToUpdate: any) {
+  putMethod(dataToUpdate: any) {
     this.apiService
-      .putMethod<any>(this.dataToUpdate, '/contracts/update')
+      .putMethod(dataToUpdate, '/contracts/update')
       .subscribe(
         (data2: any) => {
           console.log('Data updated successfully:', data2);
@@ -332,7 +342,7 @@ contractData: any;
               startDate: this.contractData.period.startDate,
               endDate: this.contractData.period.endDate,
               durationInDays: this.contractData.period.durationInDays,
-              maxExtentDate: this.contractData.period.maxExtentDate
+              maxExtentDate: this.contractData.period.maxExtentDate,
             },
             value: this.contractData.value,
             dateSignedContracts: this.contractData.dateSignedContracts,
@@ -341,7 +351,8 @@ contractData: any;
             id: this.contractData.items.id,
             description: this.contractData.items.description,
             clasification: this.contractData.items.clasification,
-            additionalClassifications: this.contractData.items.additionalClassifications,
+            additionalClassifications:
+              this.contractData.items.additionalClassifications,
             quantity: this.contractData.items.quantity,
             unit: this.contractData.items.unit,
             deliveryLocation: this.contractData.items.deliveryLocation,
@@ -403,11 +414,9 @@ contractData: any;
   /* Funciones para el formulario */
   /* Editar */
   editElement(registroId: string) {
-    if(this.isReadOnly == true)
-    {
+    if (this.isReadOnly == true) {
       this.isReadOnly = false;
-    }
-    else{
+    } else {
       this.isReadOnly = false;
     }
     alert('Elemento editado ' + registroId);
@@ -424,7 +433,7 @@ contractData: any;
     this.refillElemet(registroId);
   }
   /* Guardar */
-/*   onSubmit() {
+  /*   onSubmit() {
     alert('Formulario enviado');
     console.log('Mandando datos');
     alert(this.datacontract);
@@ -436,25 +445,23 @@ contractData: any;
   onSubmit(idGlobal: string) {
     alert('Formulario enviado');
     let encontrado = false;
-    this.registroPorId = this.getMethodById(idGlobal).subscribe(
-      (contract) => {
-        if (this.registroPorId) {
-          this.addElementToObject()
-          this.dataToUpdate = this.datacontract;
-          console.log('data to update', this.dataToUpdate);
-          this.putMethod(this.dataToUpdate);
-          encontrado = true;
-          this.getMethod();
-          this.resetForm();
-         }
-         else{
-          console.log('No se encontró el registro');
-          alert('No se encontró el registro, intente más tarde');
-         }
-      }
-    )
 
-       /*     if (this.registroPorId) {
+    this.registroPorId = this.getMethodById(idGlobal).subscribe((contract) => {
+      if (this.registroPorId) {
+        this.addElementToObject();
+        this.dataToUpdate = this.datacontract;
+        console.log('data to update', this.dataToUpdate);
+        this.putMethod(this.dataToUpdate);
+        encontrado = true;
+        this.resetForm();
+        this.getMethod();
+      } else {
+        console.log('No se encontró el registro');
+        alert('No se encontró el registro, intente más tarde');
+      }
+    });
+
+    /*     if (this.registroPorId) {
       this.dataToUpdate = this.datacontract;
       this.putMethod(this.dataToUpdate);
       encontrado = true;

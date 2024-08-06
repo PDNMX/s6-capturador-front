@@ -1,3 +1,5 @@
+environment.production.ts
+environment.ts
 # Logs
 logs
 *.log
