@@ -423,7 +423,7 @@
                   </button>
                 </div>
                 <div class = "col-md-4">
-                  <button type = "button" class = "btn btn-danger" [ngClass]="{'readonly': isReadOnly}">Eliminar</button>
+                  <button class = "btn btn-danger" [ngClass]="{'readonly': isReadOnly}">Eliminar</button>
                 </div>
               </div>
             </div>
@@ -2184,15 +2184,15 @@
                     <button (click) = "addContractToArray()" class = "btn btn-primary">Agregar contrato</button>
                   </div> -->
                   <div class = "col-md-4">
-                    <button (click) = "addContracttoArraycontracts()" class = "btn btn-primary">Agregar nuevo contrato</button>
+                    <div (click) = "addContracttoArraycontracts()" class = "btn btn-primary">Agregar nuevo contrato</div>
                   </div>
                   <div class = "col-md-4">
-                    <button (click) ="onSubmit(idGlobal)" class = "btn btn-primary" [ngClass]="{'readonly': isReadOnly}">
+                    <div (click) ="onSubmit(idGlobal)" class = "btn btn-primary" [ngClass]="{'readonly': isReadOnly}">
                       Guardar y salir
-                    </button>
+                    </div>
                   </div>
                   <div class = "col-md-4">
-                    <button (click)="resetForm()" type = "button" class = "btn btn-danger">Limpiar datos del formulario</button>
+                    <div (click)="resetForm()" class = "btn btn-danger">Limpiar datos del formulario</div>
                   </div>
                 </div>
                 </fieldset>

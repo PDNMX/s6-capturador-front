@@ -27,7 +27,7 @@ export class ContractsComponent implements OnInit {
       },
     },
   };
-  contractsArrayToSend = [];
+  contractsArrayToSend: any[] = [];
 
   registros: any[] = [];
   registroPorId = {};
@@ -51,7 +51,7 @@ regreso:any;
     en caso de que exista un contrato con ese id,
     almacenar el contrato en un arreglo
     */
-    this.getMethod();
+    //this.getMethod();
   }
 
   /* Construyendo el objeto de contracts con formbuilder */
@@ -372,7 +372,7 @@ addItemsToArray() {
     }
   };
 
-  console.log('Documento agregado al array', this.datacontract);
+  console.log('Ítem agregado al array', this.datacontract);
 }
 
 /* Sección de garantías */
@@ -401,7 +401,7 @@ addGuaranteesToArray() {
       }
     };
 
-    console.log('Documento agregado al array', this.datacontract);
+    console.log('Gaarntía agregada al array', this.datacontract);
   }
 
 /* Sección de procesos relacionados */
@@ -430,7 +430,7 @@ addRelatedProcessesToArray() {
       }
     };
 
-    console.log('Documento agregado al array', this.datacontract);
+    console.log('Proceso agregado al array', this.datacontract);
   }
 
 /* Sección de hitos */
@@ -459,7 +459,7 @@ addMilestonesToArray() {
       }
     };
 
-    console.log('Documento agregado al array', this.datacontract);
+    console.log('Hito agregado al array', this.datacontract);
   }
 
 /* Sección de modificaciones */
@@ -488,7 +488,7 @@ addAmendmentsToArray() {
       }
     };
 
-    console.log('Documento agregado al array', this.datacontract);
+    console.log('Enmienda agregado al array', this.datacontract);
   }
 
   /* Termina sección de métodos para construir el objeto por subseccion */
@@ -527,8 +527,8 @@ addAmendmentsToArray() {
         },
       },
     };
-    alert(this.datacontract);
-    console.log('this.datacontract', this.datacontract);
+    //alert(this.datacontract);
+    console.log('datos contenidos en this.datacontract = ', this.datacontract);
   }
 
   resetForm() {
@@ -664,10 +664,13 @@ addAmendmentsToArray() {
 
     /* Agregar contrato al array de contratos */
     addContracttoArraycontracts() {
-      alert('Contrato agregado al array de contratos');
-      console.log('Contrato agregado al array');
-      
-     };
+      alert('Contrato...');
+      //console.log('Contrato agregado al array');
+      this.addElementToObject();
+      this.contractsArrayToSend.push(this.contracts.value);
+      console.log('Contrato agregado al array', this.contractsArrayToSend);
+
+    };
 
   onSubmit(idGlobal: string) {
     alert('Formulario enviado');
