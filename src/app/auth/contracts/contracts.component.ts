@@ -14,9 +14,21 @@ import { ApiService } from 'src/app/api.service';
   styleUrls: ['./contracts.component.css'],
 })
 export class ContractsComponent implements OnInit {
-  /* Lo que regresan los endpoint's */
+  /* Variable que contiene el objectId o id del mongo a actualizar */
   idGlobal: string = '66ad14627ebc3aae1c4b1534';
+  /* Variable que contiene la propiedad para cambiar
+   a editable o no los input que contienen la clase de readOnly */
   isReadOnly: boolean = false;
+  /* Objeto que contiene los datos del formulario que se está capturando */
+  datacontract = {
+    id: '',
+    data: {
+      contract: {
+      },
+    },
+  };
+  contractsArrayToSend = [];
+
   registros: any[] = [];
   registroPorId = {};
   data: any;
@@ -29,11 +41,16 @@ regreso:any;
   id: string = '';
   dataToSend = {};
   dataToUpdate = {};
-  private datacontract = {};
   contractData: any;
   /* Constructor para inicializar el formbuilder y el servicio el api */
   constructor(private fb: FormBuilder, private apiService: ApiService) {} //, private http: HttpClient) { }
   ngOnInit() {
+    /* Cambiar por método getById para cargar una vez
+    el contenido del ObjectId del ocid
+    y llenar los campos del formulario con los datos del contrato
+    en caso de que exista un contrato con ese id,
+    almacenar el contrato en un arreglo
+    */
     this.getMethod();
   }
 
@@ -268,12 +285,215 @@ regreso:any;
       }
     );
   }
-  /* Métodos para llamar al api */
+
+/* Comienza sección de métodos para construir el objeto por subseccion */
+
+/* Seccion general de contracts */
+  addGeneralContractToArray(){
+    alert('Contrato agregado al array');
+    console.log('Contrato agregado al array');
+    let contractSend = this.contracts.value;
+
+    this.datacontract = {
+      id: this.idGlobal,
+      data: {
+        contract: {
+          id: contractSend.id,
+          status: contractSend.status,
+          awardID: contractSend.awardID,
+          title: contractSend.title,
+          description: contractSend.description,
+          surveillanceMechanisms: contractSend.surveillanceMechanisms,
+          period: contractSend.period,
+          value: contractSend.value,
+          dateSignedContracts: contractSend.dateSignedContracts,
+          ...this.datacontract.data.contract,
+        }
+
+      }
+    };
+    console.log('Contrato agregado al array', this.datacontract);
+  }
+
+/*  Sección de documentos */
+addDocumentsToArray() {
+  console.log('Agregando documento al array');
+  let documents = this.documents.value;
+
+  // Si datacontract aún no existe, inicialízalo
+  if (!this.datacontract) {
+    this.datacontract = {
+      id: this.idGlobal,
+      data: {
+        contract: {}
+      }
+    };
+  }
+
+  // Actualiza o agrega el nodo 'documents' manteniendo el resto de la información
+  this.datacontract = {
+    ...this.datacontract,
+    data: {
+      ...this.datacontract.data,
+      contract: {
+        ...this.datacontract.data.contract,
+        documents
+      }
+    }
+  };
+
+  console.log('Documento agregado al array', this.datacontract);
+}
+
+/* Sección de items */
+addItemsToArray() {
+  console.log('Agregando item al array');
+  let items = this.items.value;
+
+  // Si datacontract aún no existe, inicialízalo
+  if (!this.datacontract) {
+    this.datacontract = {
+      id: this.idGlobal,
+      data: {
+        contract: {}
+      }
+    };
+  }
+
+  // Actualiza o agrega el nodo 'documents' manteniendo el resto de la información
+  this.datacontract = {
+    ...this.datacontract,
+    data: {
+      ...this.datacontract.data,
+      contract: {
+        ...this.datacontract.data.contract,
+        items
+      }
+    }
+  };
+
+  console.log('Documento agregado al array', this.datacontract);
+}
+
+/* Sección de garantías */
+addGuaranteesToArray() {
+  console.log('Agregando garantía al array');
+  let guarantees = this.guarantees.value;
+    // Si datacontract aún no existe, inicialízalo
+    if (!this.datacontract) {
+      this.datacontract = {
+        id: this.idGlobal,
+        data: {
+          contract: {}
+        }
+      };
+    }
+
+    // Actualiza o agrega el nodo 'documents' manteniendo el resto de la información
+    this.datacontract = {
+      ...this.datacontract,
+      data: {
+        ...this.datacontract.data,
+        contract: {
+          ...this.datacontract.data.contract,
+          guarantees
+        }
+      }
+    };
+
+    console.log('Documento agregado al array', this.datacontract);
+  }
+
+/* Sección de procesos relacionados */
+addRelatedProcessesToArray() {
+  console.log('Agregando proceso relacionado al array');
+  let relatedProcesses = this.relatedProcesses.value;
+    // Si datacontract aún no existe, inicialízalo
+    if (!this.datacontract) {
+      this.datacontract = {
+        id: this.idGlobal,
+        data: {
+          contract: {}
+        }
+      };
+    }
+
+    // Actualiza o agrega el nodo 'documents' manteniendo el resto de la información
+    this.datacontract = {
+      ...this.datacontract,
+      data: {
+        ...this.datacontract.data,
+        contract: {
+          ...this.datacontract.data.contract,
+          relatedProcesses
+        }
+      }
+    };
+
+    console.log('Documento agregado al array', this.datacontract);
+  }
+
+/* Sección de hitos */
+addMilestonesToArray() {
+  console.log('Agregando hito al array');
+  let milestones = this.milestones.value;
+    // Si datacontract aún no existe, inicialízalo
+    if (!this.datacontract) {
+      this.datacontract = {
+        id: this.idGlobal,
+        data: {
+          contract: {}
+        }
+      };
+    }
+
+    // Actualiza o agrega el nodo 'documents' manteniendo el resto de la información
+    this.datacontract = {
+      ...this.datacontract,
+      data: {
+        ...this.datacontract.data,
+        contract: {
+          ...this.datacontract.data.contract,
+          milestones
+        }
+      }
+    };
+
+    console.log('Documento agregado al array', this.datacontract);
+  }
+
+/* Sección de modificaciones */
+addAmendmentsToArray() {
+  console.log('Agregando modificación al array');
+  let amendments = this.amendments.value;
+    // Si datacontract aún no existe, inicialízalo
+    if (!this.datacontract) {
+      this.datacontract = {
+        id: this.idGlobal,
+        data: {
+          contract: {}
+        }
+      };
+    }
+
+    // Actualiza o agrega el nodo 'documents' manteniendo el resto de la información
+    this.datacontract = {
+      ...this.datacontract,
+      data: {
+        ...this.datacontract.data,
+        contract: {
+          ...this.datacontract.data.contract,
+          amendments
+        }
+      }
+    };
+
+    console.log('Documento agregado al array', this.datacontract);
+  }
+
+  /* Termina sección de métodos para construir el objeto por subseccion */
 
   /* Funciones para el formulario */
-  addClasification() {
-    alert('Clasificación agregada');
-  }
 
   addElementToObject() {
     alert('Elemento agregado');
@@ -314,7 +534,6 @@ regreso:any;
   resetForm() {
     // Resetea el formulario principal
     this.contracts.reset();
-
     // Resetea los subformularios
     this.items.reset();
     this.guarantees.reset();
@@ -442,6 +661,14 @@ regreso:any;
     this.postMethod(this.datacontract);
     this.getMethod();
   } */
+
+    /* Agregar contrato al array de contratos */
+    addContracttoArraycontracts() {
+      alert('Contrato agregado al array de contratos');
+      console.log('Contrato agregado al array');
+      
+     };
+
   onSubmit(idGlobal: string) {
     alert('Formulario enviado');
     let encontrado = false;
