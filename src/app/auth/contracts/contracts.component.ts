@@ -2,17 +2,18 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, FormArray } from '@angular/forms';
 import { Validators, FormBuilder } from '@angular/forms';
 import { Title } from '@angular/platform-browser';
-import { Observable, throwError } from 'rxjs';
-import { map, catchError } from 'rxjs/operators';
+import { map, Observable, of, tap, catchError, throwError } from 'rxjs';
 //import { HttpClient } from '@angular/common/http';
 import { ApiService } from 'src/app/api.service';
 //import { Contract } from './contract.model';
+import { v4 as uuidv4 } from 'uuid';
 
 @Component({
   selector: 'app-contracts',
   templateUrl: './contracts.component.html',
   styleUrls: ['./contracts.component.css'],
 })
+
 export class ContractsComponent implements OnInit {
   /* Variable que contiene el objectId o id del mongo a actualizar */
   idGlobal: string = '66ad14627ebc3aae1c4b1534';
@@ -20,38 +21,36 @@ export class ContractsComponent implements OnInit {
    a editable o no los input que contienen la clase de readOnly */
   isReadOnly: boolean = false;
   /* Objeto que contiene los datos del formulario que se está capturando */
-  datacontract = {
-    id: '',
-    data: {
-      contract: {
-      },
-    },
-  };
+  datacontract: any = {};
   contractsArrayToSend: any[] = [];
-
-  registros: any[] = [];
-  registroPorId = {};
+  /* Variable que contendrá el registro devuelto por el findbyId */
+  registroPorId: any;
   data: any;
-  data1: any;
+
+  //validar uso de las siguientes variables
+
+  /* borrar eventualmente */
+
+  data1:any
   data2: any;
-  data3: any;
   data4: any;
-regreso:any;
+  regreso: any;
   /* Datos para enviar al api */
   id: string = '';
   dataToSend = {};
   dataToUpdate = {};
   contractData: any;
+
   /* Constructor para inicializar el formbuilder y el servicio el api */
   constructor(private fb: FormBuilder, private apiService: ApiService) {} //, private http: HttpClient) { }
   ngOnInit() {
-    /* Cambiar por método getById para cargar una vez
-    el contenido del ObjectId del ocid
-    y llenar los campos del formulario con los datos del contrato
-    en caso de que exista un contrato con ese id,
-    almacenar el contrato en un arreglo
-    */
     //this.getMethod();
+    this.getMethodById(this.idGlobal);
+  }
+
+  /* Método para generar un id para cada contrato agregado al arreglo de contratos del OCID */
+  generarId(): string {
+    return uuidv4();
   }
 
   /* Construyendo el objeto de contracts con formbuilder */
@@ -201,302 +200,171 @@ regreso:any;
     releaseID: ['', Validators.required],
   });
 
-  /* Métodos para llamar al api */
-
+  /* Métodos para llamar al api desde el servicio */
+  /* No usado */
   getMethod(): void {
     this.apiService.getMethod('/contracts/query').subscribe(
       (response: any) => {
-        this.data = response;
-        this.registros = response.results;
+        this.data1 = response;
+        //this.registros = response.results;
         console.log(
           '------------------------------------------------------------------------'
         );
-        console.log('data recibida', this.data);
+        console.log('data1 recibida', this.data1);
         console.log(
           '------------------------------------------------------------------------'
         );
-        console.log('data recibida por la funcion', this.registros);
+        // console.log('data recibida por la funcion', this.registros);
       },
       (error) => console.error('Error fetching data:', error)
     );
   }
 
-  getMethodById(id: string): Observable<any> {
-    return this.apiService.getMethodById<any>(id, '/contracts/getById/').pipe(
-      map((data1: any) => {
-        if (data1 && data1.record && data1.record.contract) {
-          const contract = data1.record.contract;
-          this.registroPorId = contract;
-          console.log(
-            'Data returned successfully by getMethodId:',
-            this.registroPorId
-          );
-          return contract;
-        }
-        return null;
-      }),
-      catchError((error) => {
-        console.error('Error returning data by getMethodId:', error.message);
-        return throwError(error);
-      })
-    );
-  }
-
-  postMethod(dataToSend: any) {
-    this.apiService
-    .postMethod<any>(dataToSend, '/contracts/insert')
-    .subscribe(
-      (data1: any) => {
-        console.log('Data returned successfully:', data1);
-        this.data1 = data1;
+  /* Obtener el registro de la colección correspondiente al OCID en curso */
+  getMethodById(id: string): void {
+    this.apiService.getMethodById<any>(id, '/contracts/getById').subscribe(
+      (data) => {
+        this.registroPorId = data;
+        console.log('Datos obtenidos:', this.registroPorId.record);
       },
       (error) => {
-        console.error('Error returning data:', error.message);
+        console.error('Error al obtener data:', error);
       }
     );
   }
 
-  putMethod(dataToUpdate: any) {
-    this.apiService
-      .putMethod(dataToUpdate, '/contracts/update')
-      .subscribe(
-        (data2: any) => {
-          console.log('Data updated successfully:', data2);
-          this.data2 = data2;
-          // Handle successful response (e.g., update UI)
-        },
-        (error) => {
-          console.error('Error updating data:', error.message);
-          // Handle error (e.g., display error message to user)
-        }
-      );
-  }
+/* Con un observable */
+/* getMethodById(id: string): Observable<any> {
+  return this.apiService.getMethodById<any>(id, '/contracts/getById').pipe(
+    tap((data1) => {
+      this.registroPorId = data1;
+      console.log('data1 obtenidos:', this.registroPorId);
+    }),
+    catchError((error) => {
+      console.error('Error al obtener data1:', error);
+      return throwError(error);
+    })
+  );
+} */
 
-  deleteMethod() {
-    this.apiService.deleteMethod<any>(this.id, '/posts/${id}').subscribe(
-      (data3: any) => {
-        console.log('Data deleted successfully:', data3);
-        this.data3 = data3;
+/* Método para llamar el servicio y actualizar */
+  putMethod(dataToUpdate: any) {
+    this.apiService.putMethod(dataToUpdate, '/contracts/update').subscribe(
+      (data2: any) => {
+        console.log('Data updated successfully:', data2);
+        this.data2 = data2;
         // Handle successful response (e.g., update UI)
       },
       (error) => {
-        console.error('Error deleting data:', error.message);
+        console.error('Error updating data:', error.message);
         // Handle error (e.g., display error message to user)
       }
     );
   }
 
-/* Comienza sección de métodos para construir el objeto por subseccion */
-
-/* Seccion general de contracts */
-  addGeneralContractToArray(){
-    alert('Contrato agregado al array');
-    console.log('Contrato agregado al array');
+  /* Comienza sección de métodos para construir el objeto por subseccion */
+  /* Seccion general de contracts */
+  addGeneralContractToArray() {
     let contractSend = this.contracts.value;
 
     this.datacontract = {
-      id: this.idGlobal,
-      data: {
-        contract: {
-          id: contractSend.id,
-          status: contractSend.status,
-          awardID: contractSend.awardID,
-          title: contractSend.title,
-          description: contractSend.description,
-          surveillanceMechanisms: contractSend.surveillanceMechanisms,
-          period: contractSend.period,
-          value: contractSend.value,
-          dateSignedContracts: contractSend.dateSignedContracts,
-          ...this.datacontract.data.contract,
-        }
-
-      }
+      _id: this.generarId(),
+      id: contractSend.id,
+      status: contractSend.status,
+      awardID: contractSend.awardID,
+      title: contractSend.title,
+      description: contractSend.description,
+      surveillanceMechanisms: contractSend.surveillanceMechanisms,
+      period: contractSend.period,
+      value: contractSend.value,
+      dateSignedContracts: contractSend.dateSignedContracts,
+      ...this.datacontract.contract,
     };
     console.log('Contrato agregado al array', this.datacontract);
   }
 
-/*  Sección de documentos */
-addDocumentsToArray() {
-  console.log('Agregando documento al array');
-  let documents = this.documents.value;
-
-  // Si datacontract aún no existe, inicialízalo
-  if (!this.datacontract) {
-    this.datacontract = {
-      id: this.idGlobal,
-      data: {
-        contract: {}
-      }
-    };
-  }
-
-  // Actualiza o agrega el nodo 'documents' manteniendo el resto de la información
-  this.datacontract = {
-    ...this.datacontract,
-    data: {
-      ...this.datacontract.data,
-      contract: {
-        ...this.datacontract.data.contract,
-        documents
-      }
-    }
-  };
-
-  console.log('Documento agregado al array', this.datacontract);
-}
-
-/* Sección de items */
-addItemsToArray() {
-  console.log('Agregando item al array');
-  let items = this.items.value;
-
-  // Si datacontract aún no existe, inicialízalo
-  if (!this.datacontract) {
-    this.datacontract = {
-      id: this.idGlobal,
-      data: {
-        contract: {}
-      }
-    };
-  }
-
-  // Actualiza o agrega el nodo 'documents' manteniendo el resto de la información
-  this.datacontract = {
-    ...this.datacontract,
-    data: {
-      ...this.datacontract.data,
-      contract: {
-        ...this.datacontract.data.contract,
-        items
-      }
-    }
-  };
-
-  console.log('Ítem agregado al array', this.datacontract);
-}
-
-/* Sección de garantías */
-addGuaranteesToArray() {
-  console.log('Agregando garantía al array');
-  let guarantees = this.guarantees.value;
-    // Si datacontract aún no existe, inicialízalo
-    if (!this.datacontract) {
-      this.datacontract = {
-        id: this.idGlobal,
-        data: {
-          contract: {}
-        }
-      };
-    }
-
+  /*  Sección de documentos */
+  addDocumentsToArray() {
+    console.log('Agregando documento al array');
+    let documents = this.documents.value;
     // Actualiza o agrega el nodo 'documents' manteniendo el resto de la información
     this.datacontract = {
       ...this.datacontract,
-      data: {
-        ...this.datacontract.data,
-        contract: {
-          ...this.datacontract.data.contract,
-          guarantees
-        }
-      }
+      documents,
+    };
+
+    console.log('Documento agregado al array', this.datacontract);
+  }
+
+  /* Sección de items */
+  addItemsToArray() {
+    console.log('Agregando item al array');
+    let items = this.items.value;
+    // Actualiza o agrega el nodo 'documents' manteniendo el resto de la información
+    this.datacontract = {
+      ...this.datacontract,
+      items,
+    };
+
+    console.log('Ítem agregado al array', this.datacontract);
+  }
+
+  /* Sección de garantías */
+  addGuaranteesToArray() {
+    console.log('Agregando garantía al array');
+    let guarantees = this.guarantees.value;
+    // Actualiza o agrega el nodo 'documents' manteniendo el resto de la información
+    this.datacontract = {
+      ...this.datacontract,
+      guarantees,
     };
 
     console.log('Gaarntía agregada al array', this.datacontract);
   }
 
-/* Sección de procesos relacionados */
-addRelatedProcessesToArray() {
-  console.log('Agregando proceso relacionado al array');
-  let relatedProcesses = this.relatedProcesses.value;
-    // Si datacontract aún no existe, inicialízalo
-    if (!this.datacontract) {
-      this.datacontract = {
-        id: this.idGlobal,
-        data: {
-          contract: {}
-        }
-      };
-    }
-
+  /* Sección de procesos relacionados */
+  addRelatedProcessesToArray() {
+    console.log('Agregando proceso relacionado al array');
+    let relatedProcesses = this.relatedProcesses.value;
     // Actualiza o agrega el nodo 'documents' manteniendo el resto de la información
     this.datacontract = {
       ...this.datacontract,
-      data: {
-        ...this.datacontract.data,
-        contract: {
-          ...this.datacontract.data.contract,
-          relatedProcesses
-        }
-      }
+      relatedProcesses,
     };
 
     console.log('Proceso agregado al array', this.datacontract);
   }
 
-/* Sección de hitos */
-addMilestonesToArray() {
-  console.log('Agregando hito al array');
-  let milestones = this.milestones.value;
-    // Si datacontract aún no existe, inicialízalo
-    if (!this.datacontract) {
-      this.datacontract = {
-        id: this.idGlobal,
-        data: {
-          contract: {}
-        }
-      };
-    }
-
+  /* Sección de hitos */
+  addMilestonesToArray() {
+    console.log('Agregando hito al array');
+    let milestones = this.milestones.value;
     // Actualiza o agrega el nodo 'documents' manteniendo el resto de la información
     this.datacontract = {
       ...this.datacontract,
-      data: {
-        ...this.datacontract.data,
-        contract: {
-          ...this.datacontract.data.contract,
-          milestones
-        }
-      }
+      milestones,
     };
-
     console.log('Hito agregado al array', this.datacontract);
   }
 
-/* Sección de modificaciones */
-addAmendmentsToArray() {
-  console.log('Agregando modificación al array');
-  let amendments = this.amendments.value;
-    // Si datacontract aún no existe, inicialízalo
-    if (!this.datacontract) {
-      this.datacontract = {
-        id: this.idGlobal,
-        data: {
-          contract: {}
-        }
-      };
-    }
-
+  /* Sección de modificaciones */
+  addAmendmentsToArray() {
+    console.log('Agregando modificación al array');
+    let amendments = this.amendments.value;
     // Actualiza o agrega el nodo 'documents' manteniendo el resto de la información
     this.datacontract = {
       ...this.datacontract,
-      data: {
-        ...this.datacontract.data,
-        contract: {
-          ...this.datacontract.data.contract,
-          amendments
-        }
-      }
+      amendments,
     };
-
     console.log('Enmienda agregado al array', this.datacontract);
   }
 
   /* Termina sección de métodos para construir el objeto por subseccion */
 
   /* Funciones para el formulario */
-
+  /* Función implementada unicamente para desarrollo, el objeto se construye por sección */
   addElementToObject() {
-    alert('Elemento agregado');
+    //alert('Elemento agregado');
     let contractSend = this.contracts.value;
     let items = this.items.value;
     let guarantees = this.guarantees.value;
@@ -506,31 +374,76 @@ addAmendmentsToArray() {
     let amendments = this.amendments.value;
 
     this.datacontract = {
-      id: this.idGlobal,
-      data: {
-        contract: {
-          id: contractSend.id,
-          status: contractSend.status,
-          awardID: contractSend.awardID,
-          title: contractSend.title,
-          description: contractSend.description,
-          surveillanceMechanisms: contractSend.surveillanceMechanisms,
-          period: contractSend.period,
-          value: contractSend.value,
-          dateSignedContracts: contractSend.dateSignedContracts,
-          items,
-          guarantees,
-          documents,
-          relatedProcesses,
-          milestones,
-          amendments,
-        },
+      _id: this.generarId(),
+      id: contractSend.id,
+      status: contractSend.status,
+      awardID: contractSend.awardID,
+      title: contractSend.title,
+      description: contractSend.description,
+      surveillanceMechanisms: contractSend.surveillanceMechanisms,
+      period: contractSend.period,
+      value: contractSend.value,
+      dateSignedContracts: contractSend.dateSignedContracts,
+      items: {
+        id: items.id,
+        description: items.description,
+        clasification: items.clasification,
+        additionalClassifications: items.additionalClassifications,
+        quantity: items.quantity,
+        unit: items.unit,
+        deliveryLocation: items.deliveryLocation,
+        deliveryAddress: items.deliveryAddress,
+      },
+      guarantees: {
+        id: guarantees.id,
+        type: guarantees.type,
+        date: guarantees.date,
+        obligations: guarantees.obligations,
+        value: guarantees.value,
+        guarantor: guarantees.guarantor,
+        period: guarantees.period,
+      },
+      documents: {
+        id: documents.id,
+        documentType: documents.documentType,
+        title: documents.title,
+        description: documents.description,
+        uri: documents.uri,
+        datePublished: documents.datePublished,
+        dateModified: documents.dateModified,
+        format: documents.format,
+      },
+      relatedProcesses: {
+        id: relatedProcesses.id,
+        relationship: relatedProcesses.relationship,
+        title: relatedProcesses.title,
+        scheme: relatedProcesses.scheme,
+        identifier: relatedProcesses.identifier,
+        uri: relatedProcesses.uri,
+      },
+      milestones: {
+        id: milestones.id,
+        title: milestones.title,
+        type: milestones.type,
+        description: milestones.description,
+        code: milestones.code,
+        dueDate: milestones.dueDate,
+        dateMet: milestones.dateMet,
+        dateModified: milestones.dateModified,
+        status: milestones.status,
+      },
+      amendments: {
+        id: amendments.id,
+        date: amendments.date,
+        rationale: amendments.rationale,
+        description: amendments.description,
+        amendsReleaseID: amendments.amendsReleaseID,
+        releaseID: amendments.releaseID,
       },
     };
-    //alert(this.datacontract);
-    console.log('datos contenidos en this.datacontract = ', this.datacontract);
   }
 
+  /* Quitar valores capturados de los input(formbuilder) */
   resetForm() {
     // Resetea el formulario principal
     this.contracts.reset();
@@ -543,143 +456,192 @@ addAmendmentsToArray() {
     this.amendments.reset();
   }
 
-  refillElemet(registroId: string) {
-    this.getMethodById(registroId).subscribe(
-      (contract) => {
-        if (contract) {
-          this.contractData = contract;
-          console.log('registro por id', this.contractData);
-          console.log('Se mira algo?');
-          this.contracts.patchValue({
-            id: this.contractData.id,
-            status: this.contractData.status,
-            awardID: this.contractData.awardID,
-            title: this.contractData.title,
-            description: this.contractData.description,
-            surveillanceMechanisms: this.contractData.surveillanceMechanisms,
-            period: {
-              startDate: this.contractData.period.startDate,
-              endDate: this.contractData.period.endDate,
-              durationInDays: this.contractData.period.durationInDays,
-              maxExtentDate: this.contractData.period.maxExtentDate,
-            },
-            value: this.contractData.value,
-            dateSignedContracts: this.contractData.dateSignedContracts,
-          });
-          this.items.patchValue({
-            id: this.contractData.items.id,
-            description: this.contractData.items.description,
-            clasification: this.contractData.items.clasification,
-            additionalClassifications:
-              this.contractData.items.additionalClassifications,
-            quantity: this.contractData.items.quantity,
-            unit: this.contractData.items.unit,
-            deliveryLocation: this.contractData.items.deliveryLocation,
-            deliveryAddress: this.contractData.items.deliveryAddress,
-          });
-          this.guarantees.patchValue({
-            id: this.contractData.guarantees.id,
-            type: this.contractData.guarantees.type,
-            date: this.contractData.guarantees.date,
-            obligations: this.contractData.guarantees.obligations,
-            value: this.contractData.guarantees.value,
-            guarantor: this.contractData.guarantees.guarantor,
-            period: this.contractData.guarantees.period,
-          });
-          this.documents.patchValue({
-            id: this.contractData.documents.id,
-            documentType: this.contractData.documents.documentType,
-            title: this.contractData.documents.title,
-            description: this.contractData.documents.description,
-            uri: this.contractData.documents.uri,
-            datePublished: this.contractData.documents.datePublished,
-            dateModified: this.contractData.documents.dateModified,
-            format: this.contractData.documents.format,
-          });
-          this.relatedProcesses.patchValue({
-            id: this.contractData.relatedProcesses.id,
-            relationship: this.contractData.relatedProcesses.relationship,
-            title: this.contractData.relatedProcesses.title,
-            scheme: this.contractData.relatedProcesses.scheme,
-            identifier: this.contractData.relatedProcesses.identifier,
-            uri: this.contractData.relatedProcesses.uri,
-          });
-          this.milestones.patchValue({
-            id: this.contractData.milestones.id,
-            title: this.contractData.milestones.title,
-            type: this.contractData.milestones.type,
-            description: this.contractData.milestones.description,
-            code: this.contractData.milestones.code,
-            dueDate: this.contractData.milestones.dueDate,
-            dateMet: this.contractData.milestones.dateMet,
-            dateModified: this.contractData.milestones.dateModified,
-            status: this.contractData.milestones.status,
-          });
-          this.amendments.patchValue({
-            id: this.contractData.amendments.id,
-            date: this.contractData.amendments.date,
-            rationale: this.contractData.amendments.rationale,
-            description: this.contractData.amendments.description,
-            amendsReleaseID: this.contractData.amendments.amendsReleaseID,
-            releaseID: this.contractData.amendments.releaseID,
-          });
-        }
+  refillElemet(contrato_id: string, )
+ {
+  alert('registro por id');
+  console.log('registro por id');
+  console.log('contrato_id: ',contrato_id);
+  this.contracts.patchValue({
+    id: this.registroPorId.record.id,
+    status: this.registroPorId.record.status,
+    awardID: this.registroPorId.record.awardID,
+    title: this.registroPorId.record.title,
+    description: this.registroPorId.record.description,
+    surveillanceMechanisms: this.registroPorId.record.surveillanceMechanisms,
+    period: {
+      startDate: this.registroPorId.record.period.startDate,
+      endDate: this.registroPorId.record.period.endDate,
+      durationInDays: this.registroPorId.record.period.durationInDays,
+      maxExtentDate: this.registroPorId.record.period.maxExtentDate,
+    },
+    value: {
+      amount: this.registroPorId.record.value.amount,
+      amountNet: this.registroPorId.record.value.amountNet,
+      currency: this.registroPorId.record.value.currency,
+    },
+    dateSignedContracts: {
+      dateSigned: this.registroPorId.record.dateSignedContracts.dateSigned,
+    },
+  });
+  this.items.patchValue({
+    id: this.registroPorId.record.items.id,
+    description: this.registroPorId.record.items.description,
+    clasification: {
+      scheme: this.registroPorId.record.items.clasification.scheme,
+      id: this.registroPorId.record.items.clasification.id,
+      uri: this.registroPorId.record.items.clasification.uri,
+      description: this.registroPorId.record.items.clasification.description,
+    },
+    additionalClassifications: {
+      scheme: this.registroPorId.record.items.additionalClassifications.scheme,
+      id: this.registroPorId.record.items.additionalClassifications.id,
+      uri: this.registroPorId.record.items.additionalClassifications.uri,
+      description: this.registroPorId.record.items.additionalClassifications.description,
+    },
+    quantity: this.registroPorId.record.items.quantity,
+    unit: {
+      scheme: this.registroPorId.record.items.unit.scheme,
+      id: this.registroPorId.record.items.unit.id,
+      name: this.registroPorId.record.items.unit.name,
+      uri: this.registroPorId.record.items.unit.uri,
+      value: {
+        amount: this.registroPorId.record.items.unit.value.amount,
+        currency: this.registroPorId.record.items.unit.value.currency,
       },
-      (error) => {
-        console.error('Error al obtener el contrato:', error);
-      }
-    );
-  }
+    },
+    deliveryLocation: {
+      uri: this.registroPorId.record.items.deliveryLocation.uri,
+      description: this.registroPorId.record.items.deliveryLocation.description,
+      geometry: {
+        type: this.registroPorId.record.items.deliveryLocation.geometry.type,
+        coordinates: {
+          latitude: this.registroPorId.record.items.deliveryLocation.geometry.coordinates.latitude,
+          longitude: this.registroPorId.record.items.deliveryLocation.geometry.coordinates.longitude,
+        },
+        gazetteer: {
+          scheme: this.registroPorId.record.items.deliveryLocation.geometry.gazetteer.scheme,
+          identifiers: this.registroPorId.record.items.deliveryLocation.geometry.gazetteer.identifiers,
+        },
+      },
+    },
+    deliveryAddress: {
+      uri: this.registroPorId.record.items.deliveryAddress.uri,
+      description: this.registroPorId.record.items.deliveryAddress.description,
+      streetAddress: this.registroPorId.record.items.deliveryAddress.streetAddress,
+      locality: this.registroPorId.record.items.deliveryAddress.locality,
+      region: this.registroPorId.record.items.deliveryAddress.region,
+      postalCode: this.registroPorId.record.items.deliveryAddress.postalCode,
+      countryName: this.registroPorId.record.items.deliveryAddress.countryName,
+    },
+  });
+  this.guarantees.patchValue({
+    id: this.registroPorId.record.guarantees.id,
+    type: this.registroPorId.record.guarantees.type,
+    date: this.registroPorId.record.guarantees.date,
+    obligations: this.registroPorId.record.guarantees.obligations,
+    value: {
+      amount: this.registroPorId.record.guarantees.value.amount,
+      currency: this.registroPorId.record.guarantees.value.currency,
+    },
+    guarantor: {
+      id: this.registroPorId.record.guarantees.guarantor.id,
+      name: this.registroPorId.record.guarantees.guarantor.name,
+    },
+    period: {
+      startDate: this.registroPorId.record.guarantees.period.startDate,
+      endDate: this.registroPorId.record.guarantees.period.endDate,
+      durationInDays: this.registroPorId.record.guarantees.period.durationInDays,
+      maxExtentDate: this.registroPorId.record.guarantees.period.maxExtentDate,
+    },
+  });
+  this.documents.patchValue({
+    id: this.registroPorId.record.documents.id,
+    documentType: this.registroPorId.record.documents.documentType,
+    title: this.registroPorId.record.documents.title,
+    description: this.registroPorId.record.documents.description,
+    uri: this.registroPorId.record.documents.uri,
+    datePublished: this.registroPorId.record.documents.datePublished,
+    dateModified: this.registroPorId.record.documents.dateModified,
+    format: this.registroPorId.record.documents.format,
+  });
+  this.relatedProcesses.patchValue({
+    id: this.registroPorId.record.relatedProcesses.id,
+    relationship: this.registroPorId.record.relatedProcesses.relationship,
+    title: this.registroPorId.record.relatedProcesses.title,
+    scheme: this.registroPorId.record.relatedProcesses.scheme,
+    identifier: this.registroPorId.record.relatedProcesses.identifier,
+    uri: this.registroPorId.record.relatedProcesses.uri,
+  });
+  this.milestones.patchValue({
+    id: this.registroPorId.record.milestones.id,
+    title: this.registroPorId.record.milestones.title,
+    type: this.registroPorId.record.milestones.type,
+    description: this.registroPorId.record.milestones.description,
+    code: this.registroPorId.record.milestones.code,
+    dueDate: this.registroPorId.record.milestones.dueDate,
+    dateMet: this.registroPorId.record.milestones.dateMet,
+    dateModified: this.registroPorId.record.milestones.dateModified,
+    status: this.registroPorId.record.milestones.status,
+  });
+  this.amendments.patchValue({
+    id: this.registroPorId.record.amendments.id,
+    date: this.registroPorId.record.amendments.date,
+    rationale: this.registroPorId.record.amendments.rationale,
+    description: this.registroPorId.record.amendments.description,
+    amendsReleaseID: this.registroPorId.record.amendments.amendsReleaseID,
+    releaseID: this.registroPorId.record.amendments.releaseID,
+  });
+
+
+  //console.log(this.registroPorId.record);
+ }
+
   /* Funciones para el formulario */
   /* Editar */
-  editElement(registroId: string) {
+  editElement(contrato_id: string) {
     if (this.isReadOnly == true) {
       this.isReadOnly = false;
     } else {
       this.isReadOnly = false;
     }
-    alert('Elemento editado ' + registroId);
-    console.log('Elemento editado', registroId);
+    alert('Elemento editado ' + contrato_id);
+    console.log('Elemento editado', contrato_id);
     this.isReadOnly = false;
-    this.refillElemet(registroId);
+    this.refillElemet(contrato_id);
   }
+
   /* Ver */
-  viewElement(registroId: string) {
+/*   viewElement(registroId: string) {
     alert('Elemento visto ' + registroId);
     console.log('Elemento visto', registroId);
     console.log('registro por id');
     this.isReadOnly = true;
     this.refillElemet(registroId);
-  }
-  /* Guardar */
-  /*   onSubmit() {
-    alert('Formulario enviado');
-    console.log('Mandando datos');
-    alert(this.datacontract);
-    console.log(this.datacontract);
-    let letrero: any = {};
-    this.postMethod(this.datacontract);
-    this.getMethod();
   } */
 
-    /* Agregar contrato al array de contratos */
-    addContracttoArraycontracts() {
-      alert('Contrato...');
-      //console.log('Contrato agregado al array');
-      this.addElementToObject();
-      this.contractsArrayToSend.push(this.contracts.value);
-      console.log('Contrato agregado al array', this.contractsArrayToSend);
+  /* Agregar contrato al array de contratos */
+  addContracttoArraycontracts() {
+    //alert('Contrato agregado al array...');
+    this.addElementToObject();
+    this.contractsArrayToSend.push(this.datacontract);
+    this.resetForm();
+    console.log('Contrato agregado al array', this.contractsArrayToSend);
+  }
 
-    };
-
-  onSubmit(idGlobal: string) {
+/*   onSubmit(idGlobal: string) {
     alert('Formulario enviado');
     let encontrado = false;
-
+    this.addElementToObject();
     this.registroPorId = this.getMethodById(idGlobal).subscribe((contract) => {
       if (this.registroPorId) {
-        this.addElementToObject();
-        this.dataToUpdate = this.datacontract;
+        //modificar lo que se va a enviar al api
+        //this.dataToUpdate = this.contractsArrayToSend;
+        this.dataToUpdate = {
+          id: this.idGlobal,
+          data: {
+            contract: [this.contractsArrayToSend],
+          },
+        };
         console.log('data to update', this.dataToUpdate);
         this.putMethod(this.dataToUpdate);
         encontrado = true;
@@ -690,11 +652,59 @@ addAmendmentsToArray() {
         alert('No se encontró el registro, intente más tarde');
       }
     });
+  } */
 
-    /*     if (this.registroPorId) {
-      this.dataToUpdate = this.datacontract;
-      this.putMethod(this.dataToUpdate);
-      encontrado = true;
-    } */
+onSubmit(idGlobal: string)
+{
+  let encontrado = false;
+ /* crear el objeto usando todo el formbuild  */
+  this.addElementToObject();
+/* Crear nuevo arreglo para ser enviado al método update  */
+this.dataToUpdate = {
+  id: this.idGlobal,
+  data: {
+    ...this.registroPorId.record.contracts,
+    contracts: this.contractsArrayToSend,
+  },
+};
+
+//console.log('data to update', this.dataToUpdate);
+
+if(this.registroPorId.record)
+{
+  encontrado = true;
+  this.putMethod(this.dataToUpdate);
+  this.resetForm();
+  //this.getMethod();
+} else {
+    console.log('No se encontró el registro');
+    alert('No se encontró el registro, intente más tarde');
   }
+}
+
+/* onSubmit(idGlobal: string)
+{
+  //alert('Formulario enviado');
+  let encontrado = false;
+  this.addElementToObject();
+  this.registroPorId = this.getMethodById(idGlobal);
+  if (this.registroPorId.record) {
+    //modificar lo que se va a enviar al api
+    //this.dataToUpdate = this.contractsArrayToSend;
+    this.dataToUpdate = {
+      id: this.idGlobal,
+      data: {
+        contracts: [this.contractsArrayToSend],
+      },
+    };
+    console.log('data to update', this.dataToUpdate);
+/*     this.putMethod(this.dataToUpdate);
+    encontrado = true;
+    this.resetForm();
+    this.getMethod(); */
+  /*} else {
+    console.log('No se encontró el registro');
+    alert('No se encontró el registro, intente más tarde');
+  }
+} */
 }

@@ -14,8 +14,7 @@ export class AwardsComponent implements OnInit {
 
   constructor(private fb: FormBuilder, private apiService: ApiService) {}
   ngOnInit(): void {
-    this.obtenerDatos();
-    this.postMethod();
+    
   }
 
   obtenerDatos() {

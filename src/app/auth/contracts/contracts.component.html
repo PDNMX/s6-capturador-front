@@ -3,29 +3,28 @@
     <div class="contractsArray">
       <div class="row">
         <div class="col-md-12">
-          <table class="table" *ngIf="registros && registros.length > 0">
+          <table class="table" *ngIf="registroPorId">
           <thead>
             <tr>
+              <th>_ID</th>
               <th>ID</th>
               <th>Título</th>
-              <th>Descripción</th>
-              <th>Opciones</th>
+              <th>Editar</th>
+              <th>Visualizar</th>
              </tr>
           </thead>
           <tbody>
-            <tr *ngFor="let registro of registros; let i = index">
-              <td>{{ registro._id }}</td>
-              <td>{{ registro.contract.title }}</td>
-              <td>{{ registro.contract.description }}</td>
-          <td>
-            <svg (click)="viewElement(registro._id)" xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 0 24 24" width="24px" fill="#5f6368"><path d="M0 0h24v24H0z" fill="none"/><path d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"/></svg>
-            Ver
-            <svg (click)="editElement(registro._id)" xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 0 24 24" width="24px" fill="#5f6368"><path d="M0 0h24v24H0z" fill="none"/><path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04c.39-.39.39-1.02 0-1.41l-2.34-2.34c-.39-.39-1.02-.39-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z"/></svg>
-            Editar
-          </td>
+            <tr *ngFor="let contract of registroPorId.record.contracts">
+              <td>{{ contract._id }}  </td>
+              <td>{{ contract.id }}</td>
+              <td>{{ contract.title }}</td>
+              <!-- (click)="editElement(contract._id)" -->
+              <td><svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 0 24 24" width="24px" fill="#5f6368"><path d="M0 0h24v24H0z" fill="none"/><path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04c.39-.39.39-1.02 0-1.41l-2.34-2.34c-.39-.39-1.02-.39-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z"/></svg> Editar</td>
+              <td><svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 0 24 24" width="24px" fill="#5f6368"><path d="M0 0h24v24H0z" fill="none"/><path d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"/></svg> Visualizar</td>
             </tr>
           </tbody>
         </table>
+
         </div>
       </div>
     </div>
@@ -418,12 +417,12 @@
                   <button (click) = "addElementToObject()" class = "btn btn-primary">Siguiente</button>
                 </div> -->
                 <div class = "col-md-4">
-                  <button (click) = "addGeneralContractToArray()" class = "btn btn-primary" [ngClass]="{'readonly': isReadOnly}">
+                  <div (click) = "addGeneralContractToArray()" class = "btn btn-primary" [ngClass]="{'readonly': isReadOnly}">
                     Guardar sección
-                  </button>
+                  </div>
                 </div>
                 <div class = "col-md-4">
-                  <button class = "btn btn-danger" [ngClass]="{'readonly': isReadOnly}">Eliminar</button>
+                  <button (click)="resetForm()" class = "btn btn-danger" [ngClass]="{'readonly': isReadOnly}">Eliminar</button>
                 </div>
               </div>
             </div>
@@ -2183,15 +2182,21 @@
 <!--                   <div class = "col-md-4">
                     <button (click) = "addContractToArray()" class = "btn btn-primary">Agregar contrato</button>
                   </div> -->
-                  <div class = "col-md-4">
-                    <div (click) = "addContracttoArraycontracts()" class = "btn btn-primary">Agregar nuevo contrato</div>
+                  <div class = "col-md-3">
+                    <div (click) = "addContracttoArraycontracts()" class = "btn btn-primary">
+                      Agregar nuevo contrato</div>
                   </div>
-                  <div class = "col-md-4">
+                  <div class="col-md-3">
+                    <div class="btn btn-primary">
+                      Guardar cambios
+                    </div>
+                  </div>
+                  <div class = "col-md-3">
                     <div (click) ="onSubmit(idGlobal)" class = "btn btn-primary" [ngClass]="{'readonly': isReadOnly}">
                       Guardar y salir
                     </div>
                   </div>
-                  <div class = "col-md-4">
+                  <div class = "col-md-3">
                     <div (click)="resetForm()" class = "btn btn-danger">Limpiar datos del formulario</div>
                   </div>
                 </div>
@@ -2206,7 +2211,13 @@
   <!-- Formulario principal de contratos -->
   <!-- Falta la sección en donde apareceran los contratos agregados  -->
   <!-- Termina items -->
+
   <pre>
-    {{ contracts.value | json }}
+    {{contracts.value | json}}
+    {{items.value | json}}
+    {{guarantees.value | json}}
+    {{relatedProcesses.value | json}}
+    {{milestones.value | json}}
+    {{amendments.value | json}}
   </pre>
 </div>

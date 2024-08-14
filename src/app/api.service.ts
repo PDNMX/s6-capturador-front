@@ -7,7 +7,7 @@ import {
 } from '@angular/common/http';
 import { Observable, of, throwError } from 'rxjs';
 import { catchError, tap } from 'rxjs/operators';
-import { environment } from 'src/environment';
+//import { environment } from 'src/environment';
 /* import { Contract } from './auth/contracts/contract.model'; // Importa la interfaz
  */
 @Injectable({
@@ -17,8 +17,8 @@ export class ApiService {
   constructor(private http: HttpClient) {}
 
   /* Usar esta url para hacer peticiones al api, solo se debe de cambiar la ip por la del equipo en la que se tiene el api en ejecución */
-  //   private base_url = 'http://172.20.30.75:4004/back'
-  private base_url = environment.BaseUrl;
+  private base_url = 'http://172.20.30.75:4004/back'
+  //private base_url = environment.BaseUrl;
   /* Método para hacer llamadas por get all*/
   getMethod<T>(endpoint: string): Observable<any> {
     return this.http.get<T>(`${this.base_url}${endpoint}`).pipe(
