@@ -7,15 +7,24 @@ import { TenderComponent } from './tender/tender.component';
 import { AwardsComponent } from './awards/awards.component';
 import { ContractsComponent } from './contracts/contracts.component';
 import { ImplementationComponent } from './implementation/implementation.component';
+import { authGuard } from '../guards/auth.guard';
 
 const routes: Routes = [
-  { path: 'parties', component: PartiesComponent },
-  { path: 'buyer', component: BuyerComponent },
-  { path: 'planning', component: PlanningComponent },
-  { path: 'tender', component: TenderComponent },
-  { path: 'awards', component: AwardsComponent },
-  { path: 'contracts', component: ContractsComponent },
-  { path: 'implementation', component: ImplementationComponent },
+  { path: 'parties', component: PartiesComponent, canActivate: [authGuard] },
+  { path: 'buyer', component: BuyerComponent, canActivate: [authGuard] },
+  { path: 'planning', component: PlanningComponent, canActivate: [authGuard] },
+  { path: 'tender', component: TenderComponent, canActivate: [authGuard] },
+  { path: 'awards', component: AwardsComponent, canActivate: [authGuard] },
+  {
+    path: 'contracts',
+    component: ContractsComponent,
+    canActivate: [authGuard],
+  },
+  {
+    path: 'implementation',
+    component: ImplementationComponent,
+    canActivate: [authGuard],
+  },
 ];
 
 @NgModule({
