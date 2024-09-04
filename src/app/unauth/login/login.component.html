@@ -15,7 +15,7 @@
               </div>
               <h3 class="mt-4">Herramienta de captura del Sistema de información pública de contrataciones </h3>
               <main class="form-signin w-100 m-auto pt-4 mb-4">
-                <form [formGroup]="loginForm" (ngsubmit)="onSubmit()">
+                <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
                   <h1 class="h3 mb-3 fw-normal"></h1>
                   <div class="form-floating my-3 mt-4">
                     <input type="email" class="form-control" id="username" formControlName="username" placeholder="name@example.com" [ngClass]="{'is-invalid': loginForm.get('username')?.invalid && loginForm.get('username')?.touched}" />
@@ -38,7 +38,13 @@
                       Recuérdame
                     </label>
                   </div> -->
+                  <div class="form-floating my-3">
+                    <div  *ngIf="error_message">
+                      {{ error_message }}
+                    </div>
+                  </div>
                   <button class="btn btn-primary w-100 py-2" type="submit" [disabled]="loginForm.invalid">Ingresar</button>
+
                 </form>
               </main>
             </div>
