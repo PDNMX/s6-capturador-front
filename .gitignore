@@ -170,3 +170,7 @@ testem.log
 # System files
 .DS_Store
 Thumbs.db
+
+# no sync environments prod
+environment.ts
+environment.development.ts

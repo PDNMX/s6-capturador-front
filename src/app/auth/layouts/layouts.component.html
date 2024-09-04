@@ -12,7 +12,7 @@
               <a class="nav-link text-white" [routerLink]="'/'" [routerLinkActive]="'active'">Inicio</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link text-white" [routerLink]="'/login'" [routerLinkActive]="'active'">Cerrar Sesión</a>
+              <a class="nav-link text-white" [style]="{cursor:'pointer'}" (click)="logout()">Cerrar Sesión</a>
             </li>
             <li class="nav-item">
               <a class="nav-link text-white" [routerLink]="'parties'" [routerLinkActive]="'active'"><i
