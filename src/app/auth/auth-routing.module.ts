@@ -8,8 +8,10 @@ import { AwardsComponent } from './awards/awards.component';
 import { ContractsComponent } from './contracts/contracts.component';
 import { ImplementationComponent } from './implementation/implementation.component';
 import { authGuard } from '../guards/auth.guard';
+import { RecordsComponent } from './records/records.component';
 
 const routes: Routes = [
+  { path: '', component: RecordsComponent, canActivate: [authGuard] },
   { path: 'parties', component: PartiesComponent, canActivate: [authGuard] },
   { path: 'buyer', component: BuyerComponent, canActivate: [authGuard] },
   { path: 'planning', component: PlanningComponent, canActivate: [authGuard] },

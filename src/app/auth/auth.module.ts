@@ -11,6 +11,7 @@ import { ContractsComponent } from './contracts/contracts.component';
 import { LayoutsComponent } from './layouts/layouts.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { ImplementationComponent } from './implementation/implementation.component';
+import { RecordsComponent } from './records/records.component';
 
 @NgModule({
   declarations: [
@@ -22,6 +23,7 @@ import { ImplementationComponent } from './implementation/implementation.compone
     ContractsComponent,
     LayoutsComponent,
     ImplementationComponent,
+    RecordsComponent,
   ],
   imports: [CommonModule, AuthRoutingModule, ReactiveFormsModule],
   exports: [
