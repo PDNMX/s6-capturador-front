@@ -4,9 +4,8 @@ import { Validators, FormBuilder } from '@angular/forms';
 import { Title } from '@angular/platform-browser';
 import { map, Observable, of, tap, catchError, throwError } from 'rxjs';
 //import { HttpClient } from '@angular/common/http';
-import { ApiService } from 'src/app/api.service';
-//import { Contract } from './contract.model';
-import { v4 as uuidv4 } from 'uuid';
+import { ApiService } from 'src/app/services/api.service';
+import { Contract } from './contract.model';
 
 @Component({
   selector: 'app-contracts',
