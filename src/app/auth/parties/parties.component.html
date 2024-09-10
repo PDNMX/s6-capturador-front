@@ -878,127 +878,21 @@
                 <h4>Rol o roles de la parte involucrada</h4>
               </div>
               <div class="row">
-                <div class="form-check form-switch col-md-4 mb-5">
+                <div
+                  class="form-check form-switch col-md-4 mb-5"
+                  *ngFor="let role of rolesList"
+                >
                   <input
                     class="form-check-input"
                     type="checkbox"
                     role="switch"
-                    id="buyer"
-                    formControlName="buyer"
+                    [id]="role.id"
+                    [formControlName]="role.id"
+                    (change)="onRoleChange()"
                   />
-                  <label class="form-check-label" for="buyer">Comprador</label>
-                </div>
-                <div class="form-check form-switch col-md-4 mb-5">
-                  <input
-                    class="form-check-input"
-                    type="checkbox"
-                    role="switch"
-                    id="procuringEntity"
-                    formControlName="procuringEntity"
-                  />
-                  <label class="form-check-label" for="procuringEntity"
-                    >Entidad contratante</label
-                  >
-                </div>
-                <div class="form-check form-switch col-md-4 mb-5">
-                  <input
-                    class="form-check-input"
-                    type="checkbox"
-                    role="switch"
-                    id="supplier"
-                    formControlName="supplier"
-                  />
-                  <label class="form-check-label" for="supplier"
-                    >Proveedor</label
-                  >
-                </div>
-              </div>
-              <div class="row">
-                <div class="form-check form-switch col-md-4 mb-5">
-                  <input
-                    class="form-check-input"
-                    type="checkbox"
-                    role="switch"
-                    id="tenderer"
-                    formControlName="tenderer"
-                  />
-                  <label class="form-check-label" for="tenderer"
-                    >Licitante</label
-                  >
-                </div>
-                <div class="form-check form-switch col-md-4 mb-5">
-                  <input
-                    class="form-check-input"
-                    type="checkbox"
-                    role="switch"
-                    id="funder"
-                    formControlName="funder"
-                  />
-                  <label class="form-check-label" for="funder"
-                    >Financiador</label
-                  >
-                </div>
-                <div class="form-check form-switch col-md-4 mb-5">
-                  <input
-                    class="form-check-input"
-                    type="checkbox"
-                    role="switch"
-                    id="enquirer"
-                    formControlName="enquirer"
-                  />
-                  <label class="form-check-label" for="enquirer"
-                    >Persona que solicita información</label
-                  >
-                </div>
-              </div>
-              <div class="row">
-                <div class="form-check form-switch col-md-4 mb-5">
-                  <input
-                    class="form-check-input"
-                    type="checkbox"
-                    role="switch"
-                    id="payer"
-                    formControlName="payer"
-                  />
-                  <label class="form-check-label" for="payer">Pagador</label>
-                </div>
-                <div class="form-check form-switch col-md-4 mb-5">
-                  <input
-                    class="form-check-input"
-                    type="checkbox"
-                    role="switch"
-                    id="payee"
-                    formControlName="payee"
-                  />
-                  <label class="form-check-label" for="payee"
-                    >Beneficiario</label
-                  >
-                </div>
-                <div class="form-check form-switch col-md-4 mb-5">
-                  <input
-                    class="form-check-input"
-                    type="checkbox"
-                    role="switch"
-                    id="reviewBody"
-                    formControlName="reviewBody"
-                  />
-                  <label class="form-check-label" for="reviewBody"
-                    >Órgano de revisión</label
-                  >
-                </div>
-              </div>
-              <div class="row">
-                <div class="form-check form-switch col-md-4 mb-5">
-                  <input
-                    class="form-check-input"
-                    type="checkbox"
-                    role="switch"
-                    id="interestedParty"
-                    formControlName="interestedParty"
-                  />
-                  <label class="form-check-label" for="interestedParty"
-                    >Parte interesada</label
-                  >
+                  <label class="form-check-label" [for]="role.id">{{
+                    role.label
+                  }}</label>
                 </div>
               </div>
             </fieldset>
@@ -1186,18 +1080,22 @@
                 </fieldset>
               </div>
             </fieldset>
+
             <fieldset class="border p-3 mb-3" formGroupName="details">
               <h4>¿Cotiza en el mercado regulado?</h4>
-              <div class="row" formControlName="listedOnRegulatedMarket">
+              <div class="row">
                 <div class="form-check m-3">
                   <input
                     class="form-check-input"
                     type="radio"
-                    name="listedOnRegulatedMarket"
-                    id="listedOnRegulatedMarketTrue"
                     formControlName="listedOnRegulatedMarket"
+                    id="listedOnRegulatedMarketTrue"
+                    [value]="true"
                   />
-                  <label class="form-check-label" for="true">
+                  <label
+                    class="form-check-label"
+                    for="listedOnRegulatedMarketTrue"
+                  >
                     Sí
                   </label>
                 </div>
@@ -1205,12 +1103,14 @@
                   <input
                     class="form-check-input"
                     type="radio"
-                    name="listedOnRegulatedMarket"
-                    id="listedOnRegulatedMarketFalse"
-                    checked
                     formControlName="listedOnRegulatedMarket"
+                    id="listedOnRegulatedMarketFalse"
+                    [value]="false"
                   />
-                  <label class="form-check-label" for="false">
+                  <label
+                    class="form-check-label"
+                    for="listedOnRegulatedMarketFalse"
+                  >
                     No
                   </label>
                 </div>

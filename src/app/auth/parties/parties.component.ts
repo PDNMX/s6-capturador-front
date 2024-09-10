@@ -1,16 +1,36 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
+interface RoleOption {
+  id:string;
+  label: string;
+}
 @Component({
   selector: 'app-parties',
   templateUrl: './parties.component.html',
   styleUrls: ['./parties.component.css'],
 })
 export class PartiesComponent implements OnInit {
-  constructor(private fb: FormBuilder) {}
-  ngOnInit(): void {}
+  Parties!: FormGroup;
+  rolesList: RoleOption[] = [
+    { id: 'buyer', label: 'Comprador' },
+    { id: 'procuringEntity', label: 'Entidad contratante' },
+    { id: 'supplier', label: 'Proveedor' },
+    { id: 'tenderer', label: 'Licitante' },
+    { id: 'funder', label: 'Financiador' },
+    { id: 'enquirer', label: 'Persona que solicita información' },
+    { id: 'payer', label: 'Pagador' },
+    { id: 'payee', label: 'Beneficiario' },
+    { id: 'reviewBody', label: 'Órgano de revisión' },
+    { id: 'interestedParty', label: 'Parte interesada' }
+  ];
 
-  Parties = this.fb.group({
+  constructor(private fb: FormBuilder) {}
+  ngOnInit(): void {
+    this.initForm();
+  }
+initForm(): void {
+  this.Parties = this.fb.group({
     id: ['', Validators.required],
     name: ['', Validators.required],
     position: ['', Validators.required],
@@ -61,18 +81,12 @@ export class PartiesComponent implements OnInit {
       url: [''],
       availableLanguage: [''],
     }),
-    roles: this.fb.group({
-      buyer: [''],
-      procuringEntity: [''],
-      supplier: [''],
-      tenderer: [''],
-      funder: [''],
-      enquirer: [''],
-      payer: [''],
-      payee: [''],
-      reviewBody: [''],
-      interestedParty: [''],
-    }),
+    roles: this.fb.group(
+      this.rolesList.reduce<Record<string, boolean>>((acc, role) => {
+        acc[role.id] = false;
+        return acc;
+      }, {})
+    ),
     memberOf: this.fb.group({
       id: [''],
       name: [''],
@@ -96,12 +110,34 @@ export class PartiesComponent implements OnInit {
         countryName: [''],
       }),
     }),
-   /*  details: this.fb.group({
-      listedOnRegulatedMarket: ['false'],
-    }), */
+     details: this.fb.group({
+      listedOnRegulatedMarket: [false],
+    }),
   });
+}
 
+onRoleChange(): void {
+  const rolesFormGroup = this.Parties.get('roles');
+  if (rolesFormGroup) {
+    const selectedRoles = Object.keys(rolesFormGroup.value)
+    .filter(key => rolesFormGroup.value[key])
+    .map(key => key);
+
+  console.log('Roles seleccionados:', selectedRoles);
+  }
+
+}
   onSubmit() {
-    console.log(this.Parties.value);
+    if (this.Parties.valid)  {
+      const formValue = this.Parties.value;
+      const selectedRoles = Object.keys(formValue.roles)
+      .filter(key => formValue.roles[key])
+      .map(key => key);
+      formValue.roles = selectedRoles;
+      console.log(formValue);
+    } else {
+      console.log('Form is invalid');
+    }
+
   }
 }
