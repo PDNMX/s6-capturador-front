@@ -16,6 +16,8 @@
 
 .row > .form-floating > label { 	margin-left:0.75em; }
 
+.row > .form-floating > label { 	margin-left:0.75em; }
+
 .menu-wrap .menu-info {
   background: #106785;
 }
@@ -45,7 +47,7 @@
   padding: 15px 20px;
   border: none;
 }
-  
+
 .btn.btn-danger {
   background: #f60a39;
   color: #fff;
