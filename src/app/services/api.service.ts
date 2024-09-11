@@ -8,6 +8,7 @@ import { Observable, of, throwError } from 'rxjs';
 import { catchError, tap } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
 import { AuthService } from './auth.service';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root',
@@ -15,7 +16,11 @@ import { AuthService } from './auth.service';
 export class ApiService {
   private base_url = environment.BACKEND_API;
 
-  constructor(private http: HttpClient, private auth: AuthService) {}
+  constructor(
+    private http: HttpClient,
+    private auth: AuthService,
+    private router: Router
+  ) {}
 
   private getHeaders(): HttpHeaders {
     const isAuth = this.auth.isAuth();
@@ -62,6 +67,11 @@ export class ApiService {
     return (err: HttpErrorResponse): Observable<T> => {
       console.error('ERROR BACKEND', operation, err); // Log the error to the console
 
+      if (err.error.message === 'El token ha expirado.') {
+        alert('su sesion ha expirado');
+        this.auth.logout();
+        this.router.navigate(['/login']);
+      }
       return of({
         error: true,
         message: `${err.error.code} - ${err.error.message}`,
