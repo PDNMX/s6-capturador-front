@@ -1,5 +1,6 @@
-import { Component } from '@angular/core';
-import { Router } from '@angular/router';
+import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
+import { filter } from 'rxjs';
 import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
@@ -7,10 +8,30 @@ import { AuthService } from 'src/app/services/auth.service';
   templateUrl: './layouts.component.html',
   styleUrls: ['./layouts.component.css'],
 })
-export class LayoutsComponent {
-  token: string;
-  constructor(private auth: AuthService, private router: Router) {
-    this.token = auth.getToken();
+export class LayoutsComponent implements OnInit {
+  showMenuRecord: boolean = false;
+  contractID: string | null = '';
+
+  constructor(
+    private auth: AuthService,
+    private router: Router,
+    private route: ActivatedRoute
+  ) {}
+
+  ngOnInit(): void {
+    this.router.events
+      .pipe(filter((event) => event instanceof NavigationEnd))
+      .subscribe(() => {
+        if (this.router.url === '/') {
+          this.showMenuRecord = false;
+        } else {
+          this.showMenuRecord = true;
+        }
+      });
+
+    this.route.firstChild?.paramMap.subscribe((params) => {
+      this.contractID = params.get('id');
+    });
   }
 
   logout(): void {
