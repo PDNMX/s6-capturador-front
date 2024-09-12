@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { catchError, map, of } from 'rxjs';
 import { ApiService } from 'src/app/services/api.service';
 
@@ -7,15 +8,45 @@ import { ApiService } from 'src/app/services/api.service';
   templateUrl: './records.component.html',
   styleUrls: ['./records.component.css'],
 })
-export class RecordsComponent {
-  constructor(private api: ApiService) {}
+export class RecordsComponent implements OnInit {
+  records: any = [];
+  constructor(private api: ApiService, private router: Router) {}
+
+  getAllRecords() {
+    this.api.getMethod('/records').subscribe((r: any) => {
+      this.records = r.results;
+    });
+  }
+
+  ngOnInit(): void {
+    this.getAllRecords();
+  }
 
   num = [0, 1, 2, 3];
-  addRecord(): void {
-    const records_data = this.api.getMethod('/records').subscribe((r: any) => {
-      console.log('r: ', r);
+
+  deleteRecord(id: string): void {
+    this.api.deleteMethod(id, `/records/${id}`).subscribe((r: any) => {
+      if (r.err) {
+        console.log('r: ', r);
+      } else {
+        this.getAllRecords();
+      }
     });
-    console.log('records_data: ', records_data);
-    console.log('agregar record');
+  }
+
+  addRecord(): void {
+    this.api.postMethod({}, '/records').subscribe((r: any) => {
+      if (r.err) {
+        console.log('r: ', r);
+      } else {
+        const id = r.data._id;
+        this.router.navigate([`/planning/${id}`]);
+      }
+    });
+  }
+
+  editRecord(id: string): void {
+    localStorage.setItem('record', id);
+    this.router.navigate([`/planning/${id}`]);
   }
 }
