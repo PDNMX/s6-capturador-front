@@ -12,6 +12,7 @@ import { LayoutsComponent } from './layouts/layouts.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { ImplementationComponent } from './implementation/implementation.component';
 import { RecordsComponent } from './records/records.component';
+import { MenuSuperiorComponent } from './layouts/menu-superior/menu-superior.component';
 
 @NgModule({
   declarations: [
@@ -24,6 +25,7 @@ import { RecordsComponent } from './records/records.component';
     LayoutsComponent,
     ImplementationComponent,
     RecordsComponent,
+    MenuSuperiorComponent,
   ],
   imports: [CommonModule, AuthRoutingModule, ReactiveFormsModule],
   exports: [

@@ -12,11 +12,7 @@ export class LayoutsComponent implements OnInit {
   showMenuRecord: boolean = false;
   contractID: string | null = '';
 
-  constructor(
-    private auth: AuthService,
-    private router: Router,
-    private route: ActivatedRoute
-  ) {}
+  constructor(private auth: AuthService, private router: Router) {}
 
   ngOnInit(): void {
     this.router.events
@@ -29,9 +25,10 @@ export class LayoutsComponent implements OnInit {
         }
       });
 
-    this.route.firstChild?.paramMap.subscribe((params) => {
-      this.contractID = params.get('id');
-    });
+    const recordID = localStorage.getItem('record');
+
+    // en caso de refresh valida mostrar el menu superior
+    if (recordID) this.showMenuRecord = true;
   }
 
   logout(): void {

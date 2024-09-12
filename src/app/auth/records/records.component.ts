@@ -20,6 +20,7 @@ export class RecordsComponent implements OnInit {
 
   ngOnInit(): void {
     this.getAllRecords();
+    localStorage.removeItem('record');
   }
 
   num = [0, 1, 2, 3];
