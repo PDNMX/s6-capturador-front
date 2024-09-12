@@ -137,7 +137,7 @@
                 class="mb-5"
                 method="post"
                 id="awards-form"
-                [formGroup]="Awards"
+                [formGroup]="awards"
                 (ngSubmit)="onSubmit()"
               >
                 <fieldset class="border p-3 mb-3">
@@ -323,7 +323,7 @@
                     >
                       <input
                         type="submit"
-                        value="Guardar"
+                        value="Siguiente"
                         class="btn btn-primary rounded-0 py-2 px-4"
                       />
                       <span class="Guardar"></span>
@@ -355,7 +355,7 @@
                 method="post"
                 id="AwardsSuppliersForm"
                 name="AwardsSuppliersForm"
-                [formGroup]="AwardsSuppliers"
+                [formGroup]="suppliers"
                 (ngSubmit)="onSubmitSuppliers()"
               >
                 <fieldset class="border p-3 mb-3">
@@ -363,31 +363,29 @@
                     <h3>Proveedor</h3>
                     <hr class="solid" />
                   </div>
-                  <div class="row" formGroupName="suppliers">
-                    <div class="form-floating col-md-6 mb-5">
-                      <input
-                        class="form-control"
-                        id="AwardsSuppliersId"
-                        type="text"
-                        placeholder="Identificador del Proveedor"
-                        formControlName="id"
-                      />
-                      <label for="AwardsSuppliersId"
-                        >Indentificador del proveedor</label
-                      >
-                    </div>
-                    <div class="form-floating col-md-6 mb-5">
-                      <input
-                        class="form-control"
-                        id="AwardsSuppliersName"
-                        type="text"
-                        placeholder="Nombre del Proveedor"
-                        formControlName="name"
-                      />
-                      <label for="AwardsSuppliersName"
-                        >Nombre del proveedor</label
-                      >
-                    </div>
+                  <div class="form-floating col-md-6 mb-5">
+                    <input
+                      class="form-control"
+                      id="AwardsSuppliersId"
+                      type="text"
+                      placeholder="Identificador del Proveedor"
+                      formControlName="id"
+                    />
+                    <label for="AwardsSuppliersId"
+                      >Indentificador del proveedor</label
+                    >
+                  </div>
+                  <div class="form-floating col-md-6 mb-5">
+                    <input
+                      class="form-control"
+                      id="AwardsSuppliersName"
+                      type="text"
+                      placeholder="Nombre del Proveedor"
+                      formControlName="name"
+                    />
+                    <label for="AwardsSuppliersName"
+                      >Nombre del proveedor</label
+                    >
                   </div>
                   <div class="row">
                     <div
@@ -395,7 +393,7 @@
                     >
                       <input
                         type="submit"
-                        value="Guardar"
+                        value="Siguiente"
                         class="btn btn-primary rounded-0 py-2 px-4"
                       />
                       <span class="Guardar"></span>
@@ -427,10 +425,10 @@
                 method="post"
                 id="AwardsItemsForm"
                 name="AwardsItemsForm"
-                [formGroup]="AwardsItems"
+                [formGroup]="items"
                 (ngSubmit)="onSubmitItems()"
               >
-                <fieldset class="border p-3 mb-3" formGroupName="items">
+                <fieldset class="border p-3 mb-3">
                   <h3>Artículos</h3>
                   <hr class="solid" />
                   <div class="row mb-5">
@@ -502,21 +500,23 @@
                             >Identificador de la unidad de medida</label
                           >
                         </div>
-                        <div class="form-floating form-group col-md-6 mb-5">
+                        <div class="form-floating cell col-md-6 mb-5">
                           <select
                             class="form-select"
                             id="ItemsUnitScheme"
                             aria-label="scheme"
                             formControlName="scheme"
                           >
-                            <option value="default">
-                              Seleccione una opción
+                            <option value="" selected>
+                              -- Seleccione una opción --
                             </option>
-                            <option value="mxn">opcion 1</option>
-                            <option value="usd">opcion 2</option>
-                            <option value="usd">opcion 3</option>
-                            <option value="usd">opcion 4</option>
-                            <option value="usd">opcion 5</option>
+                            <option value="UNCEFACT">
+                              UN/CEFACT Recommendation 20
+                            </option>
+                            <option value="QUDT">
+                              Ontologías de Cantidades, Unidades, Dimensiones y
+                              Tipos de Datos
+                            </option>
                           </select>
                           <label for="ItemsUnitScheme"
                             >Esquema de unidades de medida</label
@@ -566,8 +566,8 @@
                             aria-label="moneda"
                             formControlName="currency"
                           >
-                            <option value="default">
-                              Seleccione el tipo de moneda
+                            <option value="" selected>
+                              -- Seleccione el tipo de moneda --
                             </option>
                             <option value="mxn">MXN</option>
                             <option value="usd">USD</option>
@@ -602,12 +602,37 @@
                           aria-label="scheme"
                           formControlName="scheme"
                         >
-                          <option value="default">Seleccione una opción</option>
-                          <option value="mxn">opcion 1</option>
-                          <option value="usd">opcion 2</option>
-                          <option value="usd">opcion 3</option>
-                          <option value="usd">opcion 4</option>
-                          <option value="usd">opcion 5</option>
+                          <option value="" selected>
+                            -- Seleccione una opción --
+                          </option>
+                          <option value="CPC">
+                            Central Product Classification
+                          </option>
+                          <option value="CUCOP">
+                            Clasificador Único Mexicano de Contrataciones
+                            Públicas
+                          </option>
+                          <option value="CPV">
+                            EC Common Procurement Vocabulary
+                          </option>
+                          <option value="CPVS">
+                            EC Common Procurement Vocabulary - Listas de Códigos
+                            Suplementarias
+                          </option>
+                          <option value="GSIN">
+                            Goods and Services Identification Number
+                          </option>
+                          <option value="OKDP">
+                            Russian National Classification of Products by
+                            Economic Activity (1994)
+                          </option>
+                          <option value="OKPD">
+                            Russian National Classification of Products by
+                            Economic Activity (2014)
+                          </option>
+                          <option value="UNSPSC">
+                            United Nations Standard Products and Services Code
+                          </option>
                         </select>
                         <label for="ItemsClassificationScheme">Esquema</label>
                       </div>
@@ -664,12 +689,37 @@
                           aria-label="scheme"
                           formControlName="scheme"
                         >
-                          <option value="default">Seleccione una opción</option>
-                          <option value="mxn">opcion 1</option>
-                          <option value="usd">opcion 2</option>
-                          <option value="usd">opcion 3</option>
-                          <option value="usd">opcion 4</option>
-                          <option value="usd">opcion 5</option>
+                          <option value="" selected>
+                            -- Seleccione una opción --
+                          </option>
+                          <option value="CPC">
+                            Central Product Classification
+                          </option>
+                          <option value="CUCOP">
+                            Clasificador Único Mexicano de Contrataciones
+                            Públicas
+                          </option>
+                          <option value="CPV">
+                            EC Common Procurement Vocabulary
+                          </option>
+                          <option value="CPVS">
+                            EC Common Procurement Vocabulary - Listas de Códigos
+                            Suplementarias
+                          </option>
+                          <option value="GSIN">
+                            Goods and Services Identification Number
+                          </option>
+                          <option value="OKDP">
+                            Russian National Classification of Products by
+                            Economic Activity (1994)
+                          </option>
+                          <option value="OKPD">
+                            Russian National Classification of Products by
+                            Economic Activity (2014)
+                          </option>
+                          <option value="UNSPSC">
+                            United Nations Standard Products and Services Code
+                          </option>
                         </select>
                         <label for="AdditionalClassificationsScheme"
                           >Esquema</label
@@ -709,7 +759,7 @@
                     >
                       <input
                         type="submit"
-                        value="Guardar"
+                        value="Siguiente"
                         class="btn btn-primary rounded-0 py-2 px-4"
                       />
                       <span class="Guardar"></span>
@@ -741,10 +791,10 @@
                 method="post"
                 id="AwardsDocumentsForm"
                 name="AwardsDocumentsForm"
-                [formGroup]="AwardsDocuments"
+                [formGroup]="documents"
                 (ngSubmit)="onSubmitDocuments()"
               >
-                <fieldset class="border p-3 mb-3" formGroupName="documents">
+                <fieldset class="border p-3 mb-3">
                   <h3>Documentos</h3>
                   <hr class="solid" />
                   <div class="row">
@@ -1068,7 +1118,7 @@
                     >
                       <input
                         type="submit"
-                        value="Guardar"
+                        value="Siguiente"
                         class="btn btn-primary rounded-0 py-2 px-4"
                       />
                       <span class="Guardar"></span>
@@ -1101,10 +1151,10 @@
                 id="awards-form"
                 name="awards-form"
                 novalidate="novalidate"
-                [formGroup]="AwardsAmendments"
+                [formGroup]="amendments"
                 (ngSubmit)="onSubmitAwardsAmendments()"
               >
-                <fieldset class="border p-3 mb-3" formGroupName="amendments">
+                <fieldset class="border p-3 mb-3">
                   <h3>Enmiendas</h3>
                   <hr class="solid" />
                   <div class="row">
@@ -1189,7 +1239,7 @@
                     >
                       <input
                         type="submit"
-                        value="Guardar"
+                        value="Siguiente"
                         class="btn btn-primary rounded-0 py-2 px-4"
                       />
                       <span class="Guardar"></span>
@@ -1204,6 +1254,25 @@
                 </fieldset>
               </form>
             </div>
+          </div>
+        </div>
+        <!-- Mensaje de guardando -->
+        <div class="row">
+          <div class="col-md-12 text-center mt-5">
+            <div *ngIf="isSaving" class="alert alert-info">
+              {{ savingMessage }}
+            </div>
+          </div>
+        </div>
+        <!-- Botón para enviar todos los datos -->
+        <div class="row">
+          <div class="col-md-12 text-center mt-5">
+            <button
+              (click)="submitAllSections()"
+              class="btn btn-success rounded-0 py-2 px-4"
+            >
+              Guardar Adjudicación
+            </button>
           </div>
         </div>
       </div>
