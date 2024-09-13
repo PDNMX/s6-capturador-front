@@ -2,21 +2,42 @@
 <div class="d-flex flex-column min-vh-100">
   <!-- Header Section -->
   <header class="bg-s6 text-white py-0 sticky-top">
-    <div class="container py-2 ">
+    <div class="container py-2">
       <div class="d-flex justify-content-between align-items-center">
-        <img class="logo" src="../../../assets/logo_pdn-transparente.svg" alt="PDN" />
-        <h5 class="mb-0">Herramienta de captura del Sistema de información pública de contrataciones (S6)</h5>
+        <img
+          class="logo"
+          src="../../../assets/logo_pdn-transparente.svg"
+          alt="PDN"
+        />
+        <h5 class="mb-0">
+          Herramienta de captura del Sistema de información pública de
+          contrataciones (S6)
+        </h5>
         <nav>
           <ul class="nav">
             <li class="nav-item">
-              <a class="nav-link text-white" [routerLink]="'/'" [routerLinkActive]="'active'">Inicio</a>
+              <a
+                class="nav-link text-white"
+                [routerLink]="'/'"
+                [routerLinkActive]="'active'"
+                >Inicio</a
+              >
             </li>
             <li class="nav-item">
-              <a class="nav-link text-white" [style]="{cursor:'pointer'}" (click)="logout()">Cerrar Sesión</a>
+              <a
+                class="nav-link text-white"
+                [style]="{ cursor: 'pointer' }"
+                (click)="logout()"
+                >Cerrar Sesión</a
+              >
             </li>
             <li class="nav-item">
-              <a class="nav-link text-white" [routerLink]="'parties'" [routerLinkActive]="'active'"><i
-                  class="bi bi-people-fill"></i> Actores</a>
+              <a
+                class="nav-link text-white"
+                [routerLink]="'parties'"
+                [routerLinkActive]="'active'"
+                ><i class="bi bi-people-fill"></i> Actores</a
+              >
             </li>
             <!--<li class="nav-item">
               <a class="nav-link text-white" href="#">About</a>
@@ -28,93 +49,14 @@
         </nav>
       </div>
     </div>
-    <div class="container-fluid  bg-s6-l">
-      <div class="d-flex justify-content-center align-items-center">
-        <nav class="navbar navbar-expand-lg pt-4">
-          <a class="navbar-brand" [routerLink]="'/'" [routerLinkActive]="'active'">
-
-          </a>
-          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
-            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon">
-
-            </span>
-          </button>
-          <div class="collapse navbar-collapse" id="navbarNav">
-            <ul class="navbar-nav px-4">
-              <!--<li class="nav-item px-3">
-                <a
-                  class="nav-link"
-                  [routerLink]="'parties'"
-                  [routerLinkActive]="'active'"
-                  >
-                  <span>
-                    <i class="bi bi-people-fill"></i>
-                  </span>Actores
-                </a>
-              </li>
-              <li class="nav-item px-3">
-                <a
-                  class="nav-link"
-                  [routerLink]="'buyer'"
-                  [routerLinkActive]="'active'"
-                  >
-                  <span>
-                    <i class="bi bi-person-circle"></i>
-                  </span>Buyer
-                </a>
-              </li>-->
-              <li class="nav-item px-3">
-                <a class="nav-link" [routerLink]="'planning'" [routerLinkActive]="'active'">
-                  <span class="p">
-                    <i><img src="../../../assets/icons/icon-planeacion.svg" alt="Planeación" /></i>
-                  </span>Planeación
-                </a>
-              </li>
-              <li class="nav-item px-3">
-                <a class="nav-link" [routerLink]="'tender'" [routerLinkActive]="'active'">
-                  <span class="l">
-                    <i><img src="../../../assets/icons/icon-licitacion.svg" alt="Licitación" /></i>
-                  </span>Licitación
-                </a>
-              </li>
-              <li class="nav-item px-3">
-                <a class="nav-link" [routerLink]="'awards'" [routerLinkActive]="'active'">
-                  <span class="a">
-                    <i><img src="../../../assets/icons/icon-adjudicaciones.svg" alt="Adjudicaciones" /></i>
-                  </span>
-                  Adjudicaciones
-                </a>
-              </li>
-
-              <li class="nav-item px-3">
-                <a class="nav-link" [routerLink]="'contracts'" [routerLinkActive]="'active'">
-                  <span class="c">
-                    <i><img src="../../../assets/icons/icon-contratos.svg" alt="Contratos" /></i>
-                  </span>Contratos
-                </a>
-              </li>
-              <li class="nav-item px-3">
-                <a class="nav-link" [routerLink]="'implementation'" [routerLinkActive]="'active'">
-                  <span class="e">
-                    <i><img src="../../../assets/icons/icon-ejecucion.svg" alt="Ejecución" /></i>
-                  </span>Ejecución
-                </a>
-              </li>
-            </ul>
-          </div>
-        </nav>
-      </div>
-    </div>
+    <app-menu-superior *ngIf="showMenuRecord"></app-menu-superior>
   </header>
 
   <!-- Content Section -->
   <main class="flex-grow-1 my-3">
     <div class="container">
       <router-outlet></router-outlet>
-      <div>
-
-      </div>
+      <div></div>
     </div>
   </main>
 
@@ -128,14 +70,14 @@
         </div>
         <div class="col-md-4 mb-0 mb-md-0">
           <h5>Contacto</h5>
-          <p class="mb-0 mt-0">{{"Correo: info@pdn.com"}}</p>
+          <p class="mb-0 mt-0">{{ "Correo: info@pdn.com" }}</p>
         </div>
         <div class="col-md-4 mb-0 mb-md-0">
           <h5>Síguenos en nuestras redes</h5>
-          <a href="#" class=" me-3">
+          <a href="#" class="me-3">
             <i class="fab fa-facebook-f"></i>
           </a>
-          <a href="#" class=" me-3">
+          <a href="#" class="me-3">
             <i class="fab fa-twitter"></i>
           </a>
           <a href="#" class="me-3">

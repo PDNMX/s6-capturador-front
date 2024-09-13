@@ -12,18 +12,26 @@ import { RecordsComponent } from './records/records.component';
 
 const routes: Routes = [
   { path: '', component: RecordsComponent, canActivate: [authGuard] },
-  { path: 'parties', component: PartiesComponent, canActivate: [authGuard] },
-  { path: 'buyer', component: BuyerComponent, canActivate: [authGuard] },
-  { path: 'planning', component: PlanningComponent, canActivate: [authGuard] },
-  { path: 'tender', component: TenderComponent, canActivate: [authGuard] },
-  { path: 'awards', component: AwardsComponent, canActivate: [authGuard] },
   {
-    path: 'contracts',
+    path: 'parties/:id',
+    component: PartiesComponent,
+    canActivate: [authGuard],
+  },
+  { path: 'buyer/:id', component: BuyerComponent, canActivate: [authGuard] },
+  {
+    path: 'planning/:id',
+    component: PlanningComponent,
+    canActivate: [authGuard],
+  },
+  { path: 'tender/:id', component: TenderComponent, canActivate: [authGuard] },
+  { path: 'awards/:id', component: AwardsComponent, canActivate: [authGuard] },
+  {
+    path: 'contracts/:id',
     component: ContractsComponent,
     canActivate: [authGuard],
   },
   {
-    path: 'implementation',
+    path: 'implementation/:id',
     component: ImplementationComponent,
     canActivate: [authGuard],
   },

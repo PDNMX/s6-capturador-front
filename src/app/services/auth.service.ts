@@ -14,7 +14,7 @@ interface IToken {
 })
 export class AuthService {
   private oauth_api: string = environment.OAUTH_API;
-  private oauth_client_id: string = environment.OAUTH_ClIENT_ID;
+  private OAUTH_CLIENT_ID: string = environment.OAUTH_CLIENT_ID;
   private oauth_client_secret: string = environment.OAUTH_CLIENT_SECRET;
 
   constructor(private http: HttpClient) {}
@@ -25,7 +25,7 @@ export class AuthService {
       .set('username', username)
       .set('password', password)
       .set('scope', 'read')
-      .set('client_id', this.oauth_client_id)
+      .set('client_id', this.OAUTH_CLIENT_ID)
       .set('client_secret', this.oauth_client_secret);
 
     return this.http
@@ -60,6 +60,6 @@ export class AuthService {
   }
 
   logout(): void {
-    localStorage.clear();
+    localStorage.removeItem('token');
   }
 }
