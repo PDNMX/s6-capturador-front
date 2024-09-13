@@ -12,7 +12,6 @@ import { Contract } from './contract.model';
   templateUrl: './contracts.component.html',
   styleUrls: ['./contracts.component.css'],
 })
-
 export class ContractsComponent implements OnInit {
   /* Variable que contiene el objectId o id del mongo a actualizar */
   idGlobal: string = '66ad14627ebc3aae1c4b1534';
@@ -25,15 +24,20 @@ export class ContractsComponent implements OnInit {
   /* Variable que contendrá el registro devuelto por el findbyId */
   registroPorId: any;
   data: any;
+  banderaEditar: boolean = false;
+  contratoId: string = '';
+
+  // para construir el objeto de contratos a actualizar en su respectivo globalId
+  contract: any;
 
   //validar uso de las siguientes variables
 
   /* borrar eventualmente */
-
-  data1:any
+  data1: any;
   data2: any;
   data4: any;
   regreso: any;
+
   /* Datos para enviar al api */
   id: string = '';
   dataToSend = {};
@@ -45,6 +49,8 @@ export class ContractsComponent implements OnInit {
   ngOnInit() {
     //this.getMethod();
     this.getMethodById(this.idGlobal);
+    console.log('registro de la base de datos obtenido por el id lgobal');
+    console.log(this.registroPorId);
   }
 
   /* Método para generar un id para cada contrato agregado al arreglo de contratos del OCID */
@@ -232,8 +238,8 @@ export class ContractsComponent implements OnInit {
     );
   }
 
-/* Con un observable */
-/* getMethodById(id: string): Observable<any> {
+  /* Con un observable */
+  /* getMethodById(id: string): Observable<any> {
   return this.apiService.getMethodById<any>(id, '/contracts/getById').pipe(
     tap((data1) => {
       this.registroPorId = data1;
@@ -246,7 +252,7 @@ export class ContractsComponent implements OnInit {
   );
 } */
 
-/* Método para llamar el servicio y actualizar */
+  /* Método para llamar el servicio y actualizar */
   putMethod(dataToUpdate: any) {
     this.apiService.putMethod(dataToUpdate, '/contracts/update').subscribe(
       (data2: any) => {
@@ -455,162 +461,197 @@ export class ContractsComponent implements OnInit {
     this.amendments.reset();
   }
 
-  refillElemet(contrato_id: string, )
- {
-  alert('registro por id');
-  console.log('registro por id');
-  console.log('contrato_id: ',contrato_id);
-  this.contracts.patchValue({
-    id: this.registroPorId.record.id,
-    status: this.registroPorId.record.status,
-    awardID: this.registroPorId.record.awardID,
-    title: this.registroPorId.record.title,
-    description: this.registroPorId.record.description,
-    surveillanceMechanisms: this.registroPorId.record.surveillanceMechanisms,
-    period: {
-      startDate: this.registroPorId.record.period.startDate,
-      endDate: this.registroPorId.record.period.endDate,
-      durationInDays: this.registroPorId.record.period.durationInDays,
-      maxExtentDate: this.registroPorId.record.period.maxExtentDate,
-    },
-    value: {
-      amount: this.registroPorId.record.value.amount,
-      amountNet: this.registroPorId.record.value.amountNet,
-      currency: this.registroPorId.record.value.currency,
-    },
-    dateSignedContracts: {
-      dateSigned: this.registroPorId.record.dateSignedContracts.dateSigned,
-    },
-  });
-  this.items.patchValue({
-    id: this.registroPorId.record.items.id,
-    description: this.registroPorId.record.items.description,
-    clasification: {
-      scheme: this.registroPorId.record.items.clasification.scheme,
-      id: this.registroPorId.record.items.clasification.id,
-      uri: this.registroPorId.record.items.clasification.uri,
-      description: this.registroPorId.record.items.clasification.description,
-    },
-    additionalClassifications: {
-      scheme: this.registroPorId.record.items.additionalClassifications.scheme,
-      id: this.registroPorId.record.items.additionalClassifications.id,
-      uri: this.registroPorId.record.items.additionalClassifications.uri,
-      description: this.registroPorId.record.items.additionalClassifications.description,
-    },
-    quantity: this.registroPorId.record.items.quantity,
-    unit: {
-      scheme: this.registroPorId.record.items.unit.scheme,
-      id: this.registroPorId.record.items.unit.id,
-      name: this.registroPorId.record.items.unit.name,
-      uri: this.registroPorId.record.items.unit.uri,
+  refillElemet(contratoId: string) {
+    alert('registro por id');
+    console.log('registro por id');
+    console.log('contratoId: ', contratoId);
+    this.contracts.patchValue({
+      id: this.registroPorId.record.contracts.id,
+      status: this.registroPorId.record.contracts.status,
+      awardID: this.registroPorId.record.contracts.awardID,
+      title: this.registroPorId.record.contracts.title,
+      description: this.registroPorId.record.contracts.description,
+      surveillanceMechanisms:
+        this.registroPorId.record.contracts.surveillanceMechanisms,
+      period: {
+        startDate: this.registroPorId.record.contracts.period.startDate,
+        endDate: this.registroPorId.record.contracts.period.endDate,
+        durationInDays:
+          this.registroPorId.record.contracts.period.durationInDays,
+        maxExtentDate: this.registroPorId.record.contracts.period.maxExtentDate,
+      },
       value: {
-        amount: this.registroPorId.record.items.unit.value.amount,
-        currency: this.registroPorId.record.items.unit.value.currency,
+        amount: this.registroPorId.record.contracts.value.amount,
+        amountNet: this.registroPorId.record.contracts.value.amountNet,
+        currency: this.registroPorId.record.contracts.value.currency,
       },
-    },
-    deliveryLocation: {
-      uri: this.registroPorId.record.items.deliveryLocation.uri,
-      description: this.registroPorId.record.items.deliveryLocation.description,
-      geometry: {
-        type: this.registroPorId.record.items.deliveryLocation.geometry.type,
-        coordinates: {
-          latitude: this.registroPorId.record.items.deliveryLocation.geometry.coordinates.latitude,
-          longitude: this.registroPorId.record.items.deliveryLocation.geometry.coordinates.longitude,
-        },
-        gazetteer: {
-          scheme: this.registroPorId.record.items.deliveryLocation.geometry.gazetteer.scheme,
-          identifiers: this.registroPorId.record.items.deliveryLocation.geometry.gazetteer.identifiers,
+      dateSignedContracts: {
+        dateSigned:
+          this.registroPorId.record.contracts.dateSignedContracts.dateSigned,
+      },
+    });
+    this.items.patchValue({
+      id: this.registroPorId.record.contracts.items.id,
+      description: this.registroPorId.record.contracts.items.description,
+      clasification: {
+        scheme: this.registroPorId.record.contracts.items.clasification.scheme,
+        id: this.registroPorId.record.contracts.items.clasification.id,
+        uri: this.registroPorId.record.contracts.items.clasification.uri,
+        description:
+          this.registroPorId.record.contracts.items.clasification.description,
+      },
+      additionalClassifications: {
+        scheme:
+          this.registroPorId.record.contracts.items.additionalClassifications
+            .scheme,
+        id: this.registroPorId.record.contracts.items.additionalClassifications
+          .id,
+        uri: this.registroPorId.record.contracts.items.additionalClassifications
+          .uri,
+        description:
+          this.registroPorId.record.contracts.items.additionalClassifications
+            .description,
+      },
+      quantity: this.registroPorId.record.contracts.items.quantity,
+      unit: {
+        scheme: this.registroPorId.record.contracts.items.unit.scheme,
+        id: this.registroPorId.record.contracts.items.unit.id,
+        name: this.registroPorId.record.contracts.items.unit.name,
+        uri: this.registroPorId.record.contracts.items.unit.uri,
+        value: {
+          amount: this.registroPorId.record.contracts.items.unit.value.amount,
+          currency:
+            this.registroPorId.record.contracts.items.unit.value.currency,
         },
       },
-    },
-    deliveryAddress: {
-      uri: this.registroPorId.record.items.deliveryAddress.uri,
-      description: this.registroPorId.record.items.deliveryAddress.description,
-      streetAddress: this.registroPorId.record.items.deliveryAddress.streetAddress,
-      locality: this.registroPorId.record.items.deliveryAddress.locality,
-      region: this.registroPorId.record.items.deliveryAddress.region,
-      postalCode: this.registroPorId.record.items.deliveryAddress.postalCode,
-      countryName: this.registroPorId.record.items.deliveryAddress.countryName,
-    },
-  });
-  this.guarantees.patchValue({
-    id: this.registroPorId.record.guarantees.id,
-    type: this.registroPorId.record.guarantees.type,
-    date: this.registroPorId.record.guarantees.date,
-    obligations: this.registroPorId.record.guarantees.obligations,
-    value: {
-      amount: this.registroPorId.record.guarantees.value.amount,
-      currency: this.registroPorId.record.guarantees.value.currency,
-    },
-    guarantor: {
-      id: this.registroPorId.record.guarantees.guarantor.id,
-      name: this.registroPorId.record.guarantees.guarantor.name,
-    },
-    period: {
-      startDate: this.registroPorId.record.guarantees.period.startDate,
-      endDate: this.registroPorId.record.guarantees.period.endDate,
-      durationInDays: this.registroPorId.record.guarantees.period.durationInDays,
-      maxExtentDate: this.registroPorId.record.guarantees.period.maxExtentDate,
-    },
-  });
-  this.documents.patchValue({
-    id: this.registroPorId.record.documents.id,
-    documentType: this.registroPorId.record.documents.documentType,
-    title: this.registroPorId.record.documents.title,
-    description: this.registroPorId.record.documents.description,
-    uri: this.registroPorId.record.documents.uri,
-    datePublished: this.registroPorId.record.documents.datePublished,
-    dateModified: this.registroPorId.record.documents.dateModified,
-    format: this.registroPorId.record.documents.format,
-  });
-  this.relatedProcesses.patchValue({
-    id: this.registroPorId.record.relatedProcesses.id,
-    relationship: this.registroPorId.record.relatedProcesses.relationship,
-    title: this.registroPorId.record.relatedProcesses.title,
-    scheme: this.registroPorId.record.relatedProcesses.scheme,
-    identifier: this.registroPorId.record.relatedProcesses.identifier,
-    uri: this.registroPorId.record.relatedProcesses.uri,
-  });
-  this.milestones.patchValue({
-    id: this.registroPorId.record.milestones.id,
-    title: this.registroPorId.record.milestones.title,
-    type: this.registroPorId.record.milestones.type,
-    description: this.registroPorId.record.milestones.description,
-    code: this.registroPorId.record.milestones.code,
-    dueDate: this.registroPorId.record.milestones.dueDate,
-    dateMet: this.registroPorId.record.milestones.dateMet,
-    dateModified: this.registroPorId.record.milestones.dateModified,
-    status: this.registroPorId.record.milestones.status,
-  });
-  this.amendments.patchValue({
-    id: this.registroPorId.record.amendments.id,
-    date: this.registroPorId.record.amendments.date,
-    rationale: this.registroPorId.record.amendments.rationale,
-    description: this.registroPorId.record.amendments.description,
-    amendsReleaseID: this.registroPorId.record.amendments.amendsReleaseID,
-    releaseID: this.registroPorId.record.amendments.releaseID,
-  });
-
-
-  //console.log(this.registroPorId.record);
- }
+      deliveryLocation: {
+        uri: this.registroPorId.record.contracts.items.deliveryLocation.uri,
+        description:
+          this.registroPorId.record.contracts.items.deliveryLocation
+            .description,
+        geometry: {
+          type: this.registroPorId.record.contracts.items.deliveryLocation
+            .geometry.type,
+          coordinates: {
+            latitude:
+              this.registroPorId.record.contracts.items.deliveryLocation
+                .geometry.coordinates.latitude,
+            longitude:
+              this.registroPorId.record.contracts.items.deliveryLocation
+                .geometry.coordinates.longitude,
+          },
+          gazetteer: {
+            scheme:
+              this.registroPorId.record.contracts.items.deliveryLocation
+                .geometry.gazetteer.scheme,
+            identifiers:
+              this.registroPorId.record.contracts.items.deliveryLocation
+                .geometry.gazetteer.identifiers,
+          },
+        },
+      },
+      deliveryAddress: {
+        uri: this.registroPorId.record.contracts.items.deliveryAddress.uri,
+        description:
+          this.registroPorId.record.contracts.items.deliveryAddress.description,
+        streetAddress:
+          this.registroPorId.record.contracts.items.deliveryAddress
+            .streetAddress,
+        locality:
+          this.registroPorId.record.contracts.items.deliveryAddress.locality,
+        region:
+          this.registroPorId.record.contracts.items.deliveryAddress.region,
+        postalCode:
+          this.registroPorId.record.contracts.items.deliveryAddress.postalCode,
+        countryName:
+          this.registroPorId.record.contracts.items.deliveryAddress.countryName,
+      },
+    });
+    this.guarantees.patchValue({
+      id: this.registroPorId.record.contracts.guarantees.id,
+      type: this.registroPorId.record.contracts.guarantees.type,
+      date: this.registroPorId.record.contracts.guarantees.date,
+      obligations: this.registroPorId.record.contracts.guarantees.obligations,
+      value: {
+        amount: this.registroPorId.record.contracts.guarantees.value.amount,
+        currency: this.registroPorId.record.contracts.guarantees.value.currency,
+      },
+      guarantor: {
+        id: this.registroPorId.record.contracts.guarantees.guarantor.id,
+        name: this.registroPorId.record.contracts.guarantees.guarantor.name,
+      },
+      period: {
+        startDate:
+          this.registroPorId.record.contracts.guarantees.period.startDate,
+        endDate: this.registroPorId.record.contracts.guarantees.period.endDate,
+        durationInDays:
+          this.registroPorId.record.contracts.guarantees.period.durationInDays,
+        maxExtentDate:
+          this.registroPorId.record.contracts.guarantees.period.maxExtentDate,
+      },
+    });
+    this.documents.patchValue({
+      id: this.registroPorId.record.contracts.documents.id,
+      documentType: this.registroPorId.record.contracts.documents.documentType,
+      title: this.registroPorId.record.contracts.documents.title,
+      description: this.registroPorId.record.contracts.documents.description,
+      uri: this.registroPorId.record.contracts.documents.uri,
+      datePublished:
+        this.registroPorId.record.contracts.documents.datePublished,
+      dateModified: this.registroPorId.record.contracts.documents.dateModified,
+      format: this.registroPorId.record.contracts.documents.format,
+    });
+    this.relatedProcesses.patchValue({
+      id: this.registroPorId.record.contracts.relatedProcesses.id,
+      relationship:
+        this.registroPorId.record.contracts.relatedProcesses.relationship,
+      title: this.registroPorId.record.contracts.relatedProcesses.title,
+      scheme: this.registroPorId.record.contracts.relatedProcesses.scheme,
+      identifier:
+        this.registroPorId.record.contracts.relatedProcesses.identifier,
+      uri: this.registroPorId.record.contracts.relatedProcesses.uri,
+    });
+    this.milestones.patchValue({
+      id: this.registroPorId.record.contracts.milestones.id,
+      title: this.registroPorId.record.contracts.milestones.title,
+      type: this.registroPorId.record.contracts.milestones.type,
+      description: this.registroPorId.record.contracts.milestones.description,
+      code: this.registroPorId.record.contracts.milestones.code,
+      dueDate: this.registroPorId.record.contracts.milestones.dueDate,
+      dateMet: this.registroPorId.record.contracts.milestones.dateMet,
+      dateModified: this.registroPorId.record.contracts.milestones.dateModified,
+      status: this.registroPorId.record.contracts.milestones.status,
+    });
+    this.amendments.patchValue({
+      id: this.registroPorId.record.contracts.amendments.id,
+      date: this.registroPorId.record.contracts.amendments.date,
+      rationale: this.registroPorId.record.contracts.amendments.rationale,
+      description: this.registroPorId.record.contracts.amendments.description,
+      amendsReleaseID:
+        this.registroPorId.record.contracts.amendments.amendsReleaseID,
+      releaseID: this.registroPorId.record.contracts.amendments.releaseID,
+    });
+    //console.log(this.registroPorId.record);
+  }
 
   /* Funciones para el formulario */
   /* Editar */
-  editElement(contrato_id: string) {
+  editElement(contratoId: string) {
+    this.banderaEditar = true;
+    this.contratoId = contratoId;
     if (this.isReadOnly == true) {
       this.isReadOnly = false;
     } else {
       this.isReadOnly = false;
     }
-    alert('Elemento editado ' + contrato_id);
-    console.log('Elemento editado', contrato_id);
     this.isReadOnly = false;
-    this.refillElemet(contrato_id);
+    this.refillElemet(contratoId);
+    console.log('Hola desde la función editar');
+    console.log('Elemento editado', contratoId);
   }
 
   /* Ver */
-/*   viewElement(registroId: string) {
+  /*   viewElement(registroId: string) {
     alert('Elemento visto ' + registroId);
     console.log('Elemento visto', registroId);
     console.log('registro por id');
@@ -624,86 +665,104 @@ export class ContractsComponent implements OnInit {
     this.addElementToObject();
     this.contractsArrayToSend.push(this.datacontract);
     this.resetForm();
+    this.banderaEditar == false;
     console.log('Contrato agregado al array', this.contractsArrayToSend);
   }
 
-/*   onSubmit(idGlobal: string) {
-    alert('Formulario enviado');
-    let encontrado = false;
-    this.addElementToObject();
-    this.registroPorId = this.getMethodById(idGlobal).subscribe((contract) => {
-      if (this.registroPorId) {
-        //modificar lo que se va a enviar al api
-        //this.dataToUpdate = this.contractsArrayToSend;
-        this.dataToUpdate = {
-          id: this.idGlobal,
-          data: {
-            contract: [this.contractsArrayToSend],
-          },
-        };
-        console.log('data to update', this.dataToUpdate);
+/*   onSubmit(idGlobal: string, idArrayObject?: string) {
+    if (this.banderaEditar === true && this.registroPorId) {
+      alert('editar:' + this.contratoId);
+      this.resetForm();
+      this.getMethodById(this.idGlobal);
+      console.log(this.registroPorId.record.contracts);
+      //let array = [1, 2, 3, 4, 5];
+      let array = this.registroPorId.record.contracts;
+      for (let i = 0; i < array.length; i++) {
+        console.log('desde la version de editar contrato');
+        console.log(array[i]);
+        if (array[i]._id == this.contratoId) {
+          //console.log("arreglo: ");
+          //console.log(array[i]);
+          this.addElementToObject();
+          console.log('nuevo arreglo');
+          let _id = array[i]._id;
+          console.log(_id);
+          console.log('nuevo objeto en el array');
+          console.log(this.contracts);
+          //array[i] = this.contracts;
+          //array[i]._id = _id;
+        }
+        //console.log("encontrado: ", array[i]);
+      }
+    } else {
+      alert('agregar');
+      let encontrado = false; // Esta variable no se usa
+      this.addElementToObject();
+      this.dataToUpdate = {
+        id: this.idGlobal,
+        data: {
+          ...this.registroPorId.record.contracts,
+          contracts: this.contractsArrayToSend,
+        },
+      };
+
+      if (this.registroPorId.record) {
         this.putMethod(this.dataToUpdate);
-        encontrado = true;
         this.resetForm();
-        this.getMethod();
+        this.getMethodById(this.idGlobal);
       } else {
         console.log('No se encontró el registro');
         alert('No se encontró el registro, intente más tarde');
       }
-    });
+    }
   } */
+    onSubmit(idGlobal: string) {
+      if (this.banderaEditar) {
+        // Crear un nuevo objeto con los datos actualizados
+        let updatedContract = {
+          _id: this.contratoId,
+          ...this.contracts.value,
+          items: this.items.value,
+          guarantees: this.guarantees.value,
+          documents: this.documents.value,
+          relatedProcesses: this.relatedProcesses.value,
+          milestones: this.milestones.value,
+          amendments: this.amendments.value
+        };
 
-onSubmit(idGlobal: string)
-{
-  let encontrado = false;
- /* crear el objeto usando todo el formbuild  */
-  this.addElementToObject();
-/* Crear nuevo arreglo para ser enviado al método update  */
-this.dataToUpdate = {
-  id: this.idGlobal,
-  data: {
-    ...this.registroPorId.record.contracts,
-    contracts: this.contractsArrayToSend,
-  },
-};
+        // Encontrar el índice del contrato a actualizar
+        let index = this.contractsArrayToSend.findIndex(c => c._id === this.contratoId);
 
-//console.log('data to update', this.dataToUpdate);
+        if (index !== -1) {
+          // Actualizar el contrato en el array
+          this.contractsArrayToSend[index] = updatedContract;
+        } else {
+          console.error('No se encontró el contrato para editar');
+          return;
+        }
+      } else {
+        // Si no se está editando, agregar un nuevo contrato
+        this.addElementToObject();
+        this.contractsArrayToSend.push(this.datacontract);
+      }
 
-if(this.registroPorId.record)
-{
-  encontrado = true;
-  this.putMethod(this.dataToUpdate);
-  this.resetForm();
-  //this.getMethod();
-} else {
-    console.log('No se encontró el registro');
-    alert('No se encontró el registro, intente más tarde');
-  }
-}
+      // Preparar datos para enviar al API
+      this.dataToUpdate = {
+        id: this.idGlobal,
+        data: {
+          contracts: this.contractsArrayToSend
+        }
+      };
 
-/* onSubmit(idGlobal: string)
-{
-  //alert('Formulario enviado');
-  let encontrado = false;
-  this.addElementToObject();
-  this.registroPorId = this.getMethodById(idGlobal);
-  if (this.registroPorId.record) {
-    //modificar lo que se va a enviar al api
-    //this.dataToUpdate = this.contractsArrayToSend;
-    this.dataToUpdate = {
-      id: this.idGlobal,
-      data: {
-        contracts: [this.contractsArrayToSend],
-      },
-    };
-    console.log('data to update', this.dataToUpdate);
-/*     this.putMethod(this.dataToUpdate);
-    encontrado = true;
-    this.resetForm();
-    this.getMethod(); */
-  /*} else {
-    console.log('No se encontró el registro');
-    alert('No se encontró el registro, intente más tarde');
-  }
-} */
+      // Enviar datos al API
+      this.putMethod(this.dataToUpdate);
+
+      // Resetear el formulario y obtener datos actualizados
+      this.resetForm();
+      this.getMethodById(this.idGlobal);
+
+      // Resetear la bandera de edición
+      this.banderaEditar = false;
+      this.contratoId = '';
+    }
 }
