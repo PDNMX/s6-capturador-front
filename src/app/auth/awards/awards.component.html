@@ -140,102 +140,97 @@
                 [formGroup]="awards"
                 (ngSubmit)="onSubmit()"
               >
-                <fieldset class="border p-3 mb-3">
-                  <h3>Información general</h3>
-                  <hr />
-                  <div class="row">
-                    <div class="form-floating col-md-6 mb-5">
-                      <input
-                        type="text"
-                        class="form-control"
-                        id="AwardsId"
-                        placeholder="Indentificador de la adjudicación"
-                        formControlName="id"
-                      />
-                      <label for="AwardsId"
-                        >Indentificador de la adjudicación *</label
-                      >
-                    </div>
-                    <div class="form-floating col-md-6 mb-5">
-                      <select
-                        class="form-select"
-                        id="AwardsStatus"
-                        aria-label="award status"
-                        formControlName="status"
-                      >
-                        <option value="default">Seleccione un opción</option>
-                        <option value="pending">Pendiente</option>
-                        <option value="active">Activo</option>
-                        <option value="cancelled">Cancelado</option>
-                        <option value="unsuccessful">Sin Éxito</option>
-                      </select>
-                      <label for="AwardsStatus"
-                        >Estado de la adjudicación</label
-                      >
-                    </div>
+                <h3>Información general</h3>
+                <hr />
+                <div class="row">
+                  <div class="form-floating col-md-6 mb-5">
+                    <input
+                      type="text"
+                      class="form-control"
+                      id="AwardsId"
+                      placeholder="Indentificador de la adjudicación"
+                      formControlName="id"
+                    />
+                    <label for="AwardsId"
+                      >Indentificador de la adjudicación *</label
+                    >
                   </div>
-                  <div class="row">
-                    <div class="form-floating col-md-12 mb-5">
-                      <input
-                        class="form-control"
-                        id="AwardsTitle"
-                        type="text"
-                        placeholder="Título"
-                        formControlName="title"
-                      />
-                      <label for="AwardsTitle"
-                        >Título de la adjudicación.</label
-                      >
-                      <div
-                        class="invalid-feedback"
-                        data-sb-feedback="titulo:required"
-                      >
-                        Título is required.
-                      </div>
+                  <div class="form-floating col-md-6 mb-5">
+                    <select
+                      class="form-select"
+                      id="AwardsStatus"
+                      aria-label="award status"
+                      formControlName="status"
+                    >
+                      <option value="default">Seleccione un opción</option>
+                      <option value="pending">Pendiente</option>
+                      <option value="active">Activo</option>
+                      <option value="cancelled">Cancelado</option>
+                      <option value="unsuccessful">Sin Éxito</option>
+                    </select>
+                    <label for="AwardsStatus">Estado de la adjudicación</label>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="form-floating col-md-12 mb-5">
+                    <input
+                      class="form-control"
+                      id="AwardsTitle"
+                      type="text"
+                      placeholder="Título"
+                      formControlName="title"
+                    />
+                    <label for="AwardsTitle">Título de la adjudicación.</label>
+                    <div
+                      class="invalid-feedback"
+                      data-sb-feedback="titulo:required"
+                    >
+                      Título is required.
                     </div>
                   </div>
-                  <div class="row">
-                    <div class="form-floating col-md-12 mb-5">
-                      <textarea
-                        class="form-control"
-                        id="AwardsDescription"
-                        type="text"
-                        placeholder="Descripción"
-                        formControlName="description"
-                      ></textarea>
-                      <label for="AwardsDescription"
-                        >Descripción de la adjudicación.</label
-                      >
-                    </div>
+                </div>
+                <div class="row">
+                  <div class="form-floating col-md-12 mb-5">
+                    <textarea
+                      class="form-control"
+                      id="AwardsDescription"
+                      type="text"
+                      placeholder="Descripción"
+                      formControlName="description"
+                    ></textarea>
+                    <label for="AwardsDescription"
+                      >Descripción de la adjudicación.</label
+                    >
                   </div>
-                  <div class="row">
-                    <div class="form-floating col-md-12 mb-5">
-                      <textarea
-                        class="form-control"
-                        id="AwardsRationale"
-                        type="text"
-                        placeholder="Justificación"
-                        formControlName="rationale"
-                      ></textarea>
-                      <label for="AwardsRationale">Justificación</label>
-                    </div>
+                </div>
+                <div class="row">
+                  <div class="form-floating col-md-12 mb-5">
+                    <textarea
+                      class="form-control"
+                      id="AwardsRationale"
+                      type="text"
+                      placeholder="Justificación"
+                      formControlName="rationale"
+                    ></textarea>
+                    <label for="AwardsRationale">Justificación</label>
                   </div>
-                  <div class="row">
-                    <div class="form-floating col-md-4 mb-5">
-                      <input
-                        type="date"
-                        class="form-control"
-                        id="AwardsDate"
-                        placeholder="Fecha de la adjudicación"
-                        formControlName="date"
-                      />
-                      <label for="AwardsDate">Fecha de la adjudicación</label>
-                    </div>
+                </div>
+                <div class="row">
+                  <div class="form-floating col-md-4 mb-5">
+                    <input
+                      type="date"
+                      class="form-control"
+                      id="AwardsDate"
+                      placeholder="Fecha de la adjudicación"
+                      formControlName="date"
+                    />
+                    <label for="AwardsDate">Fecha de la adjudicación</label>
                   </div>
+                </div>
+                <!-- fieldset value -->
+                <fieldset class="border p-3 mb-3" formGroupName="value">
+                  <legend class="w-auto px-2">Valor</legend>
                   <div class="row">
-                    <h3>Valor</h3>
-                  </div>
-                  <div class="row" formGroupName="value">
                     <div class="form-floating form-group col-md-6 mb-5">
                       <input
                         type="number"
@@ -255,18 +250,21 @@
                         aria-label="moneda"
                         formControlName="currency"
                       >
-                        <option value="default">
-                          Seleccione el tipo de moneda
+                        <option value="" selected>
+                          -- Seleccione el tipo de moneda --
                         </option>
-                        <option value="mxn">MXN</option>
-                        <option value="usd">USD</option>
+                        <option value="mxn">Peso mexicano</option>
+                        <option value="usd">Dólar estadounidense</option>
                       </select>
                       <label for="AwardsValueCurrency">Moneda</label>
                     </div>
                   </div>
-                  <div class="row">
-                    <h3>Periodo del contrato</h3>
-                  </div>
+                </fieldset>
+                <!-- End fieldset value -->
+
+                <!-- fieldset contracts period -->
+                <fieldset class="border p-3 mb-3">
+                  <legend class="w-auto px-2">Periodo del contrato</legend>
                   <div class="row" formGroupName="contractPeriod">
                     <div class="form-floating form-group col-md-3 mb-5">
                       <input
@@ -317,25 +315,26 @@
                       >
                     </div>
                   </div>
-                  <div class="row">
-                    <div
-                      class="col-md-6 form-group d-flex justify-content-between"
-                    >
-                      <input
-                        type="submit"
-                        value="Siguiente"
-                        class="btn btn-primary rounded-0 py-2 px-4"
-                      />
-                      <span class="Guardar"></span>
-                      <input
-                        type="submit"
-                        value="Eliminar"
-                        class="btn btn-danger rounded-0 py-2 px-4"
-                      />
-                      <span class="Guardar"></span>
-                    </div>
-                  </div>
                 </fieldset>
+                <!-- End fieldset contracts period -->
+                <div class="row">
+                  <div
+                    class="col-md-6 form-group d-flex justify-content-between"
+                  >
+                    <input
+                      type="submit"
+                      value="Siguiente"
+                      class="btn btn-primary rounded-0 py-2 px-4"
+                    />
+                    <span class="Guardar"></span>
+                    <input
+                      type="submit"
+                      value="Eliminar"
+                      class="btn btn-danger rounded-0 py-2 px-4"
+                    />
+                    <span class="Guardar"></span>
+                  </div>
+                </div>
               </form>
             </div>
           </div>
@@ -510,8 +509,11 @@
                             <option value="" selected>
                               -- Seleccione una opción --
                             </option>
-                            <option value="UNCEFACT">
+                            <!-- <option value="UNCEFACT">
                               UN/CEFACT Recommendation 20
+                            </option> -->
+                            <option value="UNCEFACT">
+                              Recomendación 20 de la UN/CEFACT
                             </option>
                             <option value="QUDT">
                               Ontologías de Cantidades, Unidades, Dimensiones y
@@ -569,8 +571,8 @@
                             <option value="" selected>
                               -- Seleccione el tipo de moneda --
                             </option>
-                            <option value="mxn">MXN</option>
-                            <option value="usd">USD</option>
+                            <option value="mxn">Peso mexicano</option>
+                            <option value="usd">Dólar estadounidense</option>
                           </select>
                           <label for="currency">Moneda</label>
                         </div>
@@ -605,17 +607,17 @@
                           <option value="" selected>
                             -- Seleccione una opción --
                           </option>
-                          <option value="CPC">
+                          <!-- <option value="CPC">
                             Central Product Classification
-                          </option>
+                          </option> -->
                           <option value="CUCOP">
                             Clasificador Único Mexicano de Contrataciones
-                            Públicas
+                            Públicas (CUCOP)
                           </option>
-                          <option value="CPV">
+                          <!-- <option value="CPV">
                             EC Common Procurement Vocabulary
-                          </option>
-                          <option value="CPVS">
+                          </option> -->
+                          <!-- <option value="CPVS">
                             EC Common Procurement Vocabulary - Listas de Códigos
                             Suplementarias
                           </option>
@@ -632,7 +634,7 @@
                           </option>
                           <option value="UNSPSC">
                             United Nations Standard Products and Services Code
-                          </option>
+                          </option> -->
                         </select>
                         <label for="ItemsClassificationScheme">Esquema</label>
                       </div>
@@ -692,14 +694,14 @@
                           <option value="" selected>
                             -- Seleccione una opción --
                           </option>
-                          <option value="CPC">
+                          <!-- <option value="CPC">
                             Central Product Classification
-                          </option>
+                          </option> -->
                           <option value="CUCOP">
                             Clasificador Único Mexicano de Contrataciones
-                            Públicas
+                            Públicas (CUCOP)
                           </option>
-                          <option value="CPV">
+                          <!-- <option value="CPV">
                             EC Common Procurement Vocabulary
                           </option>
                           <option value="CPVS">
@@ -719,7 +721,7 @@
                           </option>
                           <option value="UNSPSC">
                             United Nations Standard Products and Services Code
-                          </option>
+                          </option> -->
                         </select>
                         <label for="AdditionalClassificationsScheme"
                           >Esquema</label
@@ -1252,6 +1254,17 @@
                     </div>
                   </div>
                 </fieldset>
+                <!-- Botón para enviar todos los datos -->
+                <div class="row">
+                  <div class="col-md-12 text-center mt-5">
+                    <button
+                      (click)="submitAllSections()"
+                      class="btn btn-success rounded-0 py-2 px-4"
+                    >
+                      Guardar Adjudicación
+                    </button>
+                  </div>
+                </div>
               </form>
             </div>
           </div>
@@ -1262,17 +1275,6 @@
             <div *ngIf="isSaving" class="alert alert-info">
               {{ savingMessage }}
             </div>
-          </div>
-        </div>
-        <!-- Botón para enviar todos los datos -->
-        <div class="row">
-          <div class="col-md-12 text-center mt-5">
-            <button
-              (click)="submitAllSections()"
-              class="btn btn-success rounded-0 py-2 px-4"
-            >
-              Guardar Adjudicación
-            </button>
           </div>
         </div>
       </div>

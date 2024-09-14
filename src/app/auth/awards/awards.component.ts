@@ -32,7 +32,7 @@ export class AwardsComponent implements OnInit {
 
   //Para ser usado con el api del s6
   postMethod(dataToSend: any) {
-    this.apiService.postMethod<any>(dataToSend, 'awards/insert').subscribe(
+    this.apiService.postMethod<any>(dataToSend, '/awards/insert').subscribe(
       (data1: any) => {
         console.log('Data returned successfully:', data1);
         this.data1 = data1;
@@ -133,47 +133,47 @@ export class AwardsComponent implements OnInit {
   onSubmit() {
     console.log(this.awards.value);
     this.tempAwards = { ...this.tempAwards, ...this.awards.value };
-    this.showSavingMessage();
-    this.awards.reset();
+    //this.showSavingMessage();
+    //this.awards.reset();
   }
 
   onSubmitSuppliers() {
     console.log(this.suppliers.value);
     this.tempAwards.suppliers.push(this.suppliers.value);
-    this.showSavingMessage();
-    this.suppliers.reset();
+    //this.showSavingMessage();
+    //this.suppliers.reset();
   }
 
   onSubmitItems() {
     console.log(this.items.value);
     this.tempAwards.items.push(this.items.value);
-    this.showSavingMessage();
-    this.items.reset();
+    //this.showSavingMessage();
+    //this.items.reset();
   }
 
   onSubmitDocuments() {
     console.log(this.documents.value);
     this.tempAwards.documents.push(this.documents.value);
-    this.showSavingMessage();
-    this.documents.reset();
+    //this.showSavingMessage();
+    //this.documents.reset();
   }
 
   onSubmitAwardsAmendments() {
     console.log(this.amendments.value);
     this.tempAwards.amendments.push(this.amendments.value);
-    this.showSavingMessage();
-    this.documents.reset();
+    //this.showSavingMessage();
+    //this.documents.reset();
   }
 
   //Metodo del mensaje guardando
-  showSavingMessage() {
+/*   showSavingMessage() {
     this.isSaving = true;
     this.savingMessage = 'Guardando...';
     setTimeout(() => {
       this.isSaving = false;
       this.savingMessage = '';
     }, 3000);
-  }
+  } */
 
   //Metodo para combinar y enviar todos los datos
   submitAllSections() {
