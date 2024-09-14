@@ -6,12 +6,14 @@ import { map, Observable, of, tap, catchError, throwError } from 'rxjs';
 //import { HttpClient } from '@angular/common/http';
 import { ApiService } from 'src/app/services/api.service';
 import { Contract } from './contract.model';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-contracts',
   templateUrl: './contracts.component.html',
   styleUrls: ['./contracts.component.css'],
 })
+
 export class ContractsComponent implements OnInit {
   /* Variable que contiene el objectId o id del mongo a actualizar */
   idGlobal: string = '66ad14627ebc3aae1c4b1534';
@@ -45,17 +47,25 @@ export class ContractsComponent implements OnInit {
   contractData: any;
 
   /* Constructor para inicializar el formbuilder y el servicio el api */
-  constructor(private fb: FormBuilder, private apiService: ApiService) {} //, private http: HttpClient) { }
+  constructor(private fb: FormBuilder, private apiService: ApiService, private route: ActivatedRoute) {} //, private http: HttpClient) { }
+
   ngOnInit() {
     //this.getMethod();
-    this.getMethodById(this.idGlobal);
+/*     this.getMethodById(this.idGlobal);
     console.log('registro de la base de datos obtenido por el id lgobal');
-    console.log(this.registroPorId);
+    console.log(this.registroPorId); */
+    this.route.paramMap.subscribe((params) => {
+      const idGlobal = params.get('id');
+      console.log('planning id: ', idGlobal);
+    });
   }
 
   /* Método para generar un id para cada contrato agregado al arreglo de contratos del OCID */
   generarId(): string {
-    return uuidv4();
+    return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+      var r = Math.random() * 16 | 0, v = c == 'x' ? r : (r & 0x3 | 0x8);
+      return v.toString(16);
+    });
   }
 
   /* Construyendo el objeto de contracts con formbuilder */
@@ -227,12 +237,12 @@ export class ContractsComponent implements OnInit {
 
   /* Obtener el registro de la colección correspondiente al OCID en curso */
   getMethodById(id: string): void {
-    this.apiService.getMethodById<any>(id, '/contracts/getById').subscribe(
-      (data) => {
+    this.apiService.getMethod<any>(`/contracts/getById/${id}`).subscribe(
+      (data: any) => {
         this.registroPorId = data;
         console.log('Datos obtenidos:', this.registroPorId.record);
       },
-      (error) => {
+      (error: any) => {
         console.error('Error al obtener data:', error);
       }
     );
@@ -254,13 +264,13 @@ export class ContractsComponent implements OnInit {
 
   /* Método para llamar el servicio y actualizar */
   putMethod(dataToUpdate: any) {
-    this.apiService.putMethod(dataToUpdate, '/contracts/update').subscribe(
-      (data2: any) => {
-        console.log('Data updated successfully:', data2);
-        this.data2 = data2;
+    this.apiService.putMethod(this.idGlobal, dataToUpdate, '/contracts/update').subscribe(
+      (data: any) => {
+        console.log('Data updated successfully:', data);
+        this.data2 = data;
         // Handle successful response (e.g., update UI)
       },
-      (error) => {
+      (error: any) => {
         console.error('Error updating data:', error.message);
         // Handle error (e.g., display error message to user)
       }

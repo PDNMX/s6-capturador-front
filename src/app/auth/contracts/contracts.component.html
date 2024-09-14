@@ -43,39 +43,43 @@
 
       <div class = "col-md-3 g-0">
         <div class = "menu-info h-100">
-          <h3>4. Contrato</h3>
+
 
 <div class = "nav flex-column nav-pills" id = "v-pills-tab" role = "tablist" aria-orientation = "vertical">
-  <button class = "nav-link active" id = "v-pills-contrato-tab" data-bs-toggle = "pill" data-bs-target = "#v-pills-contrato" type = "button" role = "tab" aria-controls = "v-pills-contrato" aria-selected = "true">
-    ▼  Datos generales del contrato
+  <button class="nav-link active" id="v-pills-contrato-definicion-tab" data-bs-toggle="pill" data-bs-target="#v-pills-contrato-definicion" type="button" role="tab" aria-controls="v-pills-contrato-definicion" aria-selected="true">
+    <h3>4. Contrato</h3>
+  </button>
+
+  <button class = "nav-link" id = "v-pills-contrato-tab" data-bs-toggle = "pill" data-bs-target = "#v-pills-contrato" type = "button" role = "tab" aria-controls = "v-pills-contrato" aria-selected = "false">
+    <!-- ▼ -->  Datos generales del contrato
   </button>
 
   <button class = "nav-link" id = "v-pills-documentos-tab" data-bs-toggle = "pill" data-bs-target = "#v-pills-documentos" type = "button" role = "tab" aria-controls = "v-pills-documentos" aria-selected = "false">
-    ▤  Documentos
+    <!-- ▤ -->  Documentos
   </button>
 
   <button class = "nav-link" id = "v-pills-items-tab" data-bs-toggle = "pill" data-bs-target = "#v-pills-items" type = "button" role = "tab" aria-controls = "v-pills-items" aria-selected = "false">
-    $  Ítems del contrato
+    <!-- $ -->  Ítems del contrato
   </button>
 
   <button class = "nav-link" id = "v-pills-garantias-tab" data-bs-toggle = "pill" data-bs-target = "#v-pills-garantias" type = "button" role = "tab" aria-controls = "v-pills-garantias" aria-selected = "false">
-    ♕  Garantías
+    <!-- ♕ -->  Garantías
   </button>
 
   <button class = "nav-link" id = "v-pills-procesos-tab" data-bs-toggle = "pill" data-bs-target = "#v-pills-procesos" type = "button" role = "tab" aria-controls = "v-pills-procesos" aria-selected = "false">
-    ℘ Procesos relacionados
+    <!-- ℘ --> Procesos relacionados
   </button>
 
   <button class = "nav-link" id = "v-pills-hitos-tab" data-bs-toggle = "pill" data-bs-target = "#v-pills-hitos" type = "button" role = "tab" aria-controls = "v-pills-hitos" aria-selected = "false">
-    ℘  Hitos
+    <!-- ℘ -->  Hitos
   </button>
 
   <button class = "nav-link" id = "v-pills-enmiendas-tab" data-bs-toggle = "pill" data-bs-target = "#v-pills-enmiendas" type = "button" role = "tab" aria-controls = "v-pills-enmiendas" aria-selected = "false">
-    $  Enmiendas
+    <!-- $ -->  Enmiendas
   </button>
 
   <button class = "nav-link" id = "v-pills-nuevo-tab" data-bs-toggle = "pill" data-bs-target = "#v-pills-nuevo" type = "button" role = "tab" aria-controls = "v-pills-nuevo" aria-selected = "false">
-    $  Agregar contrato
+    <!-- $ -->  Agregar contrato
   </button>
 
 </div>
@@ -83,10 +87,28 @@
       </div>
       <!-- termina col-md-3 -->
       <!-- Termina Formulario lado derecho -->
+      <div class="col-md-9 g-0">
+        <div class="tab-content" id="v-pills-tabContent">
+          <div class="tab-pane fade show active" id="v-pills-contrato-definicion" role="tabpanel" aria-labelledby="v-pills-contrato-definicion-tab" tabindex="0">
+            <div class="form h-100">
+              <form class="" method="post" id="planning-Form-StartAward" name="planning-Form-StartAward" novalidate="novalidate">
+                <div class="row imageP"></div>
+                <div class="row">
+                  <h3>Contratación</h3>
+                  <hr />
+                  <p>
+                    La fase de Contratación consiste en registro del o los
+                    'items' o servicios que se requieren adquirir en el contrato de
+                    acuerdo con la evaluación de las propuestas.
+                  </p>
+                </div>
+              </form>
+            </div>
+          </div>
       <div class = "col col-md-9">
         <div class = "tab-content" id = "v-pills-tabContent">
           <!-- Datos generales del contrato -->
-          <div class = "tab-pane fade show active" id = "v-pills-contrato" role = "tabpanel" aria-labelledby = "v-pills-contrato-tab" tabindex = "0">
+          <div class = "tab-pane fade " id = "v-pills-contrato" role = "tabpanel" aria-labelledby = "v-pills-contrato-tab" tabindex = "0">
             <!-- Contenido de Agregar contrato -->
         <div class = "form h-100">
           <h3>Datos generales del contrato #</h3>
@@ -2217,12 +2239,12 @@
   <!-- Falta la sección en donde apareceran los contratos agregados  -->
   <!-- Termina items -->
 
-  <pre>
+<!--   <pre>
     {{contracts.value | json}}
     {{items.value | json}}
     {{guarantees.value | json}}
     {{relatedProcesses.value | json}}
     {{milestones.value | json}}
     {{amendments.value | json}}
-  </pre>
+  </pre> -->
 </div>
