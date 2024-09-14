@@ -13,6 +13,8 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { ImplementationComponent } from './implementation/implementation.component';
 import { RecordsComponent } from './records/records.component';
 import { MenuSuperiorComponent } from './layouts/menu-superior/menu-superior.component';
+import { TenderGeneralComponent } from './tender/tender-general/tender-general.component';
+import { TenderItemsComponent } from './tender/tender-items/tender-items.component';
 
 @NgModule({
   declarations: [
@@ -26,6 +28,8 @@ import { MenuSuperiorComponent } from './layouts/menu-superior/menu-superior.com
     ImplementationComponent,
     RecordsComponent,
     MenuSuperiorComponent,
+    TenderGeneralComponent,
+    TenderItemsComponent,
   ],
   imports: [CommonModule, AuthRoutingModule, ReactiveFormsModule],
   exports: [
