@@ -5,7 +5,6 @@
         <div class="card rounded-3 text-black mt-5">
           <div class="row g-0">
             <div class="col-lg-6">
-
               <div class="imagen mt-5">
                 <span class="login-S6"></span>
               </div>
@@ -16,30 +15,40 @@
               </div>
               <h3 class="mt-4">Herramienta de captura del Sistema de información pública de contrataciones </h3>
               <main class="form-signin w-100 m-auto pt-4 mb-4">
-                <form>
+                <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
                   <h1 class="h3 mb-3 fw-normal"></h1>
                   <div class="form-floating my-3 mt-4">
-                    <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com" />
-                    <label for="floatingInput">Correo electrónico</label>
+                    <input type="email" class="form-control" id="username" formControlName="username" placeholder="name@example.com" [ngClass]="{'is-invalid': loginForm.get('username')?.invalid && loginForm.get('username')?.touched}" />
+                    <label for="username">Correo electrónico</label>
+                    <div *ngIf="loginForm.get('username')?.invalid && loginForm.get('username')?.touched" class="invalid-feedback">
+                      Ingresa un correo electrónico válido.
+                    </div>
                   </div>
                   <div class="form-floating my-3">
-                    <input type="password" class="form-control" id="floatingPassword" placeholder="Password" />
-                    <label for="floatingPassword">Contraseña</label>
+                    <input type="password" class="form-control" id="password" formControlName="password" placeholder="Password" [ngClass]="{'is-invalid': loginForm.get('password')?.invalid && loginForm.get('password')?.touched}"/>
+                    <label for="password">Contraseña</label>
+                    <div *ngIf="loginForm.get('password')?.invalid && loginForm.get('password')?.touched" class="invalid-feedback">
+                      La contraseña debe tener al menos 8 caracteres.
+                    </div>
                   </div>
 
-                  <div class="form-check text-start my-3">
+                  <!-- <div class="form-check text-start my-3">
                     <input class="form-check-input" type="checkbox" value="remember-me" id="flexCheckDefault" />
                     <label class="form-check-label" for="flexCheckDefault">
                       Recuérdame
                     </label>
+                  </div> -->
+                  <div class="form-floating my-3">
+                    <div  *ngIf="error_message">
+                      {{ error_message }}
+                    </div>
                   </div>
-                  <button class="btn btn-primary w-100 py-2" type="submit" [routerLink]="'/'"
-                    [routerLinkActive]="'active'">Ingresar</button>
+                  <button class="btn btn-primary w-100 py-2" type="submit" [disabled]="loginForm.invalid">Ingresar</button>
+
                 </form>
               </main>
             </div>
           </div>
-
         </div>
         <div class="container d-block login-footer">
           <div class="d-flex justify-content-between align-items-end">
@@ -54,9 +63,6 @@
           </div>
         </div>
       </div>
-
     </div>
-
-
   </div>
 </div>

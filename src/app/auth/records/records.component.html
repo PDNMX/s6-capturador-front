@@ -1,0 +1,43 @@
+<div class="content">
+  <div class="container">
+    <h2>Procesos de contratación:</h2>
+
+    <hr />
+    <div class="container m-2">
+      <div class="row">
+        <div class="col">
+          <button class="btn btn-success btn-lg m-2" (click)="addRecord()">
+            <i class="bi bi-file-earmark-plus-fill"></i> Nuevo
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <div class="container m-2">
+      <div class="row">
+        <div *ngFor="let n of records" class="col-4 mb-4">
+          <div class="list-records">
+            <div class="card">
+              <div class="card-header">Proceso de compra {{ n.nombre }}</div>
+              <div class="card-body">
+                Detalle {{ n.apellido }} de contratación
+              </div>
+              <div class="card-footer">
+                <button class="btn btn-success m-2" (click)="editRecord(n._id)">
+                  <i class="bi bi-pencil-square"></i> Editar
+                </button>
+                <button
+                  class="btn btn-danger m-2"
+                  (click)="deleteRecord(n._id)"
+                  [disabled]="!n.metadata.canDelete"
+                >
+                  <i class="bi bi-trash3"></i> Eliminar
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

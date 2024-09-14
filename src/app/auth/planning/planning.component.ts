@@ -4,7 +4,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 @Component({
   selector: 'app-planning',
   templateUrl: './planning.component.html',
-  styleUrls: ['./planning.component.css']
+  styleUrls: ['./planning.component.css'],
 })
 export class PlanningComponent implements OnInit {
   savingMessage: string = '';
@@ -215,4 +215,13 @@ export class PlanningComponent implements OnInit {
     this.postMethod(finalData); */
   }
 
+export class PlanningComponent implements OnInit {
+  constructor(private route: ActivatedRoute) {}
+
+  ngOnInit(): void {
+    this.route.paramMap.subscribe((params) => {
+      const id = params.get('id');
+      console.log('planning id: ', id);
+    });
+  }
 }
