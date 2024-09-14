@@ -1,0 +1,205 @@
+<form [formGroup]="itemsForm" (submit)="submitForm()">
+  <div class="container">
+    <div class="row">
+      <div class="col">
+        <h3>Articulos de la licitación</h3>
+        <hr />
+        <p>
+          Los bienes y servicios que se van a comprar, desglosados a líneas de
+          artículos cuando sea posible. Los artículos no deben de duplicarse, y
+          se deben de especificar las cantidades.
+        </p>
+        <table class="table table-hover table-striped mb-10">
+          <thead>
+            <tr>
+              <th scope="col">ID</th>
+              <th scope="col">Descripción</th>
+              <th scope="col">Clasificación</th>
+              <th scope="col">Clasificaciones adicionales</th>
+              <th scope="col">Cantidad</th>
+              <th scope="col">Unidad</th>
+              <th scope="col">Opciones</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let item of items; index as i">
+              <th scope="row">{{ i + 1 }}</th>
+              <td>{{ item.description }}</td>
+              <td>{{ item.classification }}</td>
+              <td>{{ item.additionalClassifications }}</td>
+              <td>{{ item.quantity }}</td>
+              <td>{{ item.unit }}</td>
+              <td>
+                <button class="btn btn-danger" (click)="deleteItem(i)">
+                  Eliminar
+                </button>
+              </td>
+            </tr>
+            <tr *ngIf="items.length === 0">
+              <th scope="row" colspan="7" class="text-center">
+                Sin registros.
+              </th>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="row mb-3">
+      <!-- <div class="form-floating col-2">
+        <input
+          class="form-control"
+          id="id"
+          type="text"
+          data-sb-validations="required"
+          placeholder="ID*"
+        />
+        <label for="id">ID*</label>
+        <div class="invalid-feedback" data-sb-feedback="title:required">
+          ID * es requerido.
+        </div>
+      </div> -->
+      <div class="form-floating col">
+        <input
+          class="form-control"
+          id="description"
+          type="text"
+          data-sb-validations="required"
+          placeholder="ID*"
+          formControlName="description"
+        />
+        <label for="description">Descripción*</label>
+        <div
+          *ngIf="
+            itemsForm.get('description')?.invalid &&
+            itemsForm.get('description')?.touched
+          "
+          class="invalid-feedback"
+          data-sb-feedback="title:required"
+        >
+          Descripción * es requerido.
+        </div>
+      </div>
+    </div>
+    <div class="row mb-3">
+      <div class="form-floating col">
+        <select
+          class="form-select"
+          aria-label="Default select example"
+          formControlName="classification"
+        >
+          <option selected>Seleccione una clasificación</option>
+          <option value="12201-0001">
+            REMUNERACIONES AL PERSONAL EVENTUAL
+          </option>
+          <option value="14104-0001">
+            APORTACIONES DE SEGURIDAD SOCIAL CONTRACTUALES
+          </option>
+          <option value="14401-0001">SEGURO DE VIDA DEL PERSONAL CIVIL</option>
+          <option value="14402-0001">
+            SEGURO DE VIDA DEL PERSONAL MILITAR
+          </option>
+          <option value="14403-0001">
+            SEGURO DE GASTOS MEDICOS DEL PERSONAL CIVIL
+          </option>
+          <option value="14405-0001">
+            CUOTAS PARA EL SEGURO COLECTIVO DE RETIRO
+          </option>
+          <option value="14406-0001">SEGURO DE VIDA</option>
+          <option value="15401-0001">
+            MONEDERO ELECTRONICO PARA EL PAGO DE PRESTACIONES
+          </option>
+          <option value="15401-0002">
+            VALE DE PAPEL PARA EL PAGO DE PRESTACIONES
+          </option>
+          <option value="15401-0003">CANASTILLA PARA BEBE</option>
+          <option value="15401-0004">
+            AYUDA PARA EL TRANSPORTE DEL PERSONAL
+          </option>
+          <option value="15401-0005">MEDALLAS Y ROSETAS</option>
+        </select>
+      </div>
+    </div>
+    <div class="row mb-3">
+      <div class="form-floating col">
+        <select
+          class="form-select"
+          aria-label="Default select example"
+          formControlName="additionalClassifications"
+        >
+          <option selected>Seleccione una clasificación adicional</option>
+          <option value="12201-0001">
+            REMUNERACIONES AL PERSONAL EVENTUAL
+          </option>
+          <option value="14104-0001">
+            APORTACIONES DE SEGURIDAD SOCIAL CONTRACTUALES
+          </option>
+          <option value="14401-0001">SEGURO DE VIDA DEL PERSONAL CIVIL</option>
+          <option value="14402-0001">
+            SEGURO DE VIDA DEL PERSONAL MILITAR
+          </option>
+          <option value="14403-0001">
+            SEGURO DE GASTOS MEDICOS DEL PERSONAL CIVIL
+          </option>
+          <option value="14405-0001">
+            CUOTAS PARA EL SEGURO COLECTIVO DE RETIRO
+          </option>
+          <option value="14406-0001">SEGURO DE VIDA</option>
+          <option value="15401-0001">
+            MONEDERO ELECTRONICO PARA EL PAGO DE PRESTACIONES
+          </option>
+          <option value="15401-0002">
+            VALE DE PAPEL PARA EL PAGO DE PRESTACIONES
+          </option>
+          <option value="15401-0003">CANASTILLA PARA BEBE</option>
+          <option value="15401-0004">
+            AYUDA PARA EL TRANSPORTE DEL PERSONAL
+          </option>
+          <option value="15401-0005">MEDALLAS Y ROSETAS</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="row mb-3">
+      <div class="form-floating col-2">
+        <input
+          class="form-control"
+          id="quantity"
+          type="text"
+          data-sb-validations="required"
+          placeholder="Cantidad*"
+          formControlName="quantity"
+        />
+        <label for="quantity">Cantidad*</label>
+        <div class="invalid-feedback" data-sb-feedback="title:required">
+          Cantidad * es requerido.
+        </div>
+      </div>
+      <div class="form-floating col">
+        <input
+          class="form-control"
+          id="unit"
+          type="text"
+          data-sb-validations="required"
+          placeholder="Unidad*"
+          formControlName="unit"
+        />
+        <label for="unit">Unidad*</label>
+        <div class="invalid-feedback" data-sb-feedback="title:required">
+          Unidad * es requerido.
+        </div>
+      </div>
+    </div>
+    <div class="row mb-3">
+      <div class="col">
+        <button
+          type="submit"
+          class="btn btn-primary"
+          [disabled]="itemsForm.invalid"
+        >
+          Guardar
+        </button>
+      </div>
+    </div>
+  </div>
+</form>

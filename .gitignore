@@ -1,3 +1,5 @@
+environment.production.ts
+environment.ts
 # Logs
 logs
 *.log
@@ -170,7 +172,7 @@ testem.log
 # System files
 .DS_Store
 Thumbs.db
-
+environments
 # no sync environments prod
 environment.ts
 environment.development.ts
