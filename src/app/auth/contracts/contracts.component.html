@@ -126,10 +126,10 @@
           formControlName = "status"
           [ngClass]="{'readonly': isReadOnly}"
         >
-          <option value = "pending">Pending</option>
-          <option value = "active">Active</option>
-          <option value = "cancelled">Cancelled</option>
-          <option value = "terminated">Terminated</option>
+          <option value = "pending">Pendiente</option>
+          <option value = "active">Activo</option>
+          <option value = "cancelled">Cancelado</option>
+          <option value = "terminated">Terminado</option>
         </select>
         <label for = "status"> Estatus del contrato: </label>
       </div>
@@ -197,7 +197,7 @@
     Vigencia (Periodo)
   </legend>
                   <div class = "row">
-                    <div class = "col-md-3">
+                    <div class = "col-md-6">
                       <div class = "form-floating mb-3">
                         <input
                           class = "form-control"
@@ -217,7 +217,7 @@
                         </div>
                       </div>
                     </div>
-                    <div class = "col-md-3">
+                    <div class = "col-md-6">
                       <div class = "form-floating mb-3">
                         <input
                           class = "form-control"
@@ -237,7 +237,10 @@
                         </div>
                       </div>
                     </div>
-                    <div class = "col-md-3">
+
+                  </div>
+                  <div class="row">
+                    <div class = "col-md-6">
                       <div class = "form-floating mb-3">
                         <input
                           class = "form-control"
@@ -257,7 +260,7 @@
                         </div>
                       </div>
                     </div>
-                    <div class = "col-md-3">
+                    <div class = "col-md-6">
                       <div class = "form-floating mb-3">
                         <input
                           class = "form-control"
@@ -419,23 +422,16 @@
                       </div>
                     </div>
                   </div>
-                  <div class = "form-floating mb-3">
-                    <select
-                      class = "form-select"
-                      id = "mecanismoVigilancia"
-                      aria-label = "Mecanismos de vigilancia"
-                      formControlName = "surveillanceMechanisms"
+                  <div class="form-floating mb-3">
+                    <input
+                      type="text"
+                      class="form-control"
+                      id="mecanismoVigilancia"
+                      placeholder="Mecanismos de vigilancia"
+                      formControlName="surveillanceMechanisms"
                       [ngClass]="{'readonly': isReadOnly}"
-                    >
-                      <option value = "1">1</option>
-                      <option value = "2">2</option>
-                      <option value = "3">3</option>
-                      <option value = "4">4</option>
-                      <option value = "5">5</option>
-                    </select>
-                    <label for = "mecanismoVigilancia"
-                      >Mecanismos de vigilancia:</label
-                    >
+                    />
+                    <label for="mecanismoVigilancia">Mecanismos de vigilancia:</label>
                   </div>
                 </div>
               </div>
@@ -467,7 +463,7 @@
               <form [formGroup] = "documents">
                 <fieldset class = "border p-3 mb-3">
                 <div class = "row">
-                  <div class = "col-md-3">
+                  <div class = "col-md-6">
                     <div class = "form-floating mb-3">
                       <input
                         class = "form-control"
@@ -487,7 +483,7 @@
                       </div>
                     </div>
                   </div>
-                  <div class = "col-md-3">
+                  <div class = "col-md-6">
                     <div class = "form-floating mb-3">
                       <input
                         class = "form-control"
@@ -507,7 +503,9 @@
                       </div>
                     </div>
                   </div>
-                  <div class = "col-md-3">
+                </div>
+                <div class="row">
+                  <div class = "col-md-6">
                     <div class = "form-floating mb-3">
                       <input
                         class = "form-control"
@@ -527,7 +525,7 @@
                       </div>
                     </div>
                   </div>
-                  <div class = "col-md-3">
+                  <div class = "col-md-6">
                     <div class = "form-floating mb-3">
                       <input
                         class = "form-control"
@@ -571,7 +569,7 @@
                   </div>
                 </div>
                 <div class = "row">
-                  <div class = "col-md-3">
+                  <div class = "col-md-6">
                     <div class = "form-floating mb-3">
                       <input
                         class = "form-control"
@@ -591,7 +589,7 @@
                       </div>
                     </div>
                   </div>
-                  <div class = "col-md-3">
+                  <div class = "col-md-6">
                     <div class = "form-floating mb-3">
                       <input
                         class = "form-control"
@@ -611,7 +609,9 @@
                       </div>
                     </div>
                   </div>
-                  <div class = "col-md-3">
+                </div>
+                <div class="row">
+                  <div class = "col-md-6">
                     <div class = "form-floating mb-3">
                       <input
                         class = "form-control"
@@ -631,7 +631,7 @@
                       </div>
                     </div>
                   </div>
-                  <div class = "col-md-3">
+                  <div class = "col-md-6">
                     <div class = "form-floating mb-3">
                       <input
                         class = "form-control"
@@ -681,7 +681,7 @@
                   Datos del contrato (Sección de Ítems contratados)
                 </legend>
                 <div class = "row">
-                  <div class = "col-md-4">
+                  <div class = "col-md-6">
                     <div class = "form-floating mb-3">
                       <input
                         class = "form-control"
@@ -701,27 +701,7 @@
                       </div>
                     </div>
                   </div>
-                  <div class = "col-md-4">
-                    <div class = "form-floating mb-3">
-                      <input
-                        class = "form-control"
-                        id = "descripcionItem"
-                        type = "text"
-                        placeholder = "descripcionItem"
-                        data-sb-validations = "required"
-                        formControlName = "description"
-                        [ngClass]="{'readonly': isReadOnly}"
-                      />
-                      <label for = "descripcionItem">Descripción del ítem</label>
-                      <div
-                        class = "invalid-feedback"
-                        data-sb-feedback = "descripcionItem:required"
-                      >
-                        La descripcion del item es requerida.
-                      </div>
-                    </div>
-                  </div>
-                  <div class = "col-md-4">
+                  <div class = "col-md-6">
                     <div class = "form-floating mb-3">
                       <input
                         class = "form-control"
@@ -742,6 +722,28 @@
                     </div>
                   </div>
                 </div>
+                <div class="row">
+                  <div class = "col-md-12">
+                    <div class = "form-floating mb-3">
+                      <input
+                        class = "form-control"
+                        id = "descripcionItem"
+                        type = "text"
+                        placeholder = "descripcionItem"
+                        data-sb-validations = "required"
+                        formControlName = "description"
+                        [ngClass]="{'readonly': isReadOnly}"
+                      />
+                      <label for = "descripcionItem">Descripción del ítem</label>
+                      <div
+                        class = "invalid-feedback"
+                        data-sb-feedback = "descripcionItem:required"
+                      >
+                        La descripcion del item es requerida.
+                      </div>
+                    </div>
+                  </div>
+                </div>
                 <div formGroupName = "clasification">
 <fieldset class = "border p-3 mb-3">
   <legend> Clasificación del ítem</legend>
@@ -756,14 +758,13 @@
                           formControlName = "scheme"
                           [ngClass]="{'readonly': isReadOnly}"
                         >
-                          <option value = "1">
+                          <option value = "CUCOP">
                             Clasificador Único de las Contrataciones Públicas
                             CUCOP
                           </option>
-                          <option value = "2">2</option>
-                          <option value = "3">3</option>
-                          <option value = "4">4</option>
-                          <option value = "5">5</option>
+                          <option value = "NAICS">Sistema de Clasificación de la Industria Norteamericana</option>
+                          <option value = "PSC">Códigos de Productos y Servicios</option>
+                          <option value = "HS">Sistema Armonizado de Descripción y Codificación de Mercancías</option>
                         </select>
                         <label for = "Esquema">Esquema: </label>
                       </div>
@@ -858,7 +859,7 @@
                 <fieldset class = "border p-3 mb-3">
                   <legend >Clasificaciones adicionales</legend>
                   <div class = "row">
-                    <div class = "col-md-3">
+                    <div class = "col-md-6">
                       <div class = "form-floating mb-3">
                         <select
                           class = "form-select"
@@ -867,18 +868,19 @@
                           formControlName = "scheme"
                           [ngClass]="{'readonly': isReadOnly}"
                         >
-                          <option value = "1">UNCEFACT</option>
-                          <option value = "2">2</option>
-                          <option value = "3">3</option>
-                          <option value = "4">4</option>
-                          <option value = "5">5</option>
+                          <!-- <option value = "UNCEFACT"> Códigos para unidades de medida utilizados en el comercio internacional </option> -->
+                          <option value="UNCEFACT">UN/CEFACT Recommendation 20</option>
+                          <option value="QUDT">QUDT</option>
+                          <option value="UNECE">UNECE</option>
+                          <option value="ISO80000">ISO 80000</option>
+                          <option value="UOMo">UOMo</option>
                         </select>
                         <label for = "esquemaClasificacion"
                           >Esquema de la clasificación.</label
                         >
                       </div>
                     </div>
-                    <div class = "col-md-3">
+                    <div class = "col-md-6">
                       <div class = "form-floating mb-3">
                         <input
                           class = "form-control"
@@ -900,7 +902,9 @@
                         </div>
                       </div>
                     </div>
-                    <div class = "col-md-3">
+                  </div>
+                  <div class="row">
+                    <div class = "col-md-6">
                       <div class = "form-floating mb-3">
                         <input
                           class = "form-control"
@@ -922,7 +926,7 @@
                         </div>
                       </div>
                     </div>
-                    <div class = "col-md-3">
+                    <div class = "col-md-6">
                       <div class = "form-floating mb-3">
                         <input
                           class = "form-control"
@@ -950,7 +954,7 @@
  <fieldset class = "border p-3 mb-3">
 <legend>Unidad</legend>
   <div class = "row">
-    <div class = "col-md-3">
+    <div class = "col-md-6">
       <div class = "form-floating mb-3">
         <select
           class = "form-select"
@@ -970,7 +974,7 @@
         >
       </div>
     </div>
-    <div class = "col-md-3">
+    <div class = "col-md-6">
       <div class = "form-floating mb-3">
         <input
           class = "form-control"
@@ -990,7 +994,9 @@
         </div>
       </div>
     </div>
-    <div class = "col-md-3">
+  </div>
+  <div class="row">
+    <div class = "col-md-6">
       <div class = "form-floating mb-3">
         <input
           class = "form-control"
@@ -1010,7 +1016,7 @@
         </div>
       </div>
     </div>
-    <div class = "col-md-3">
+    <div class = "col-md-6">
       <div class = "form-floating mb-3">
         <input
           class = "form-control"
@@ -1194,47 +1200,50 @@
                           </div>
                         </div>
                       </div>
-                      <div formGroupName = "gazetteer">
-                        <div class = "row">
-                          <div class = "col-md-6">
-                            <div class = "form-floating mb-3">
-                              <input
-                                class = "form-control"
-                                id = "esquema"
-                                type = "text"
-                                placeholder = "esquema"
-                                data-sb-validations = "required"
-                                formControlName = "scheme"
+                      <div formGroupName="gazetteer">
+                        <div class="row">
+                          <div class="col-md-6">
+                            <div class="form-floating mb-3">
+                              <select
+                                class="form-select"
+                                id="esquema"
+                                data-sb-validations="required"
+                                formControlName="scheme"
                                 [ngClass]="{'readonly': isReadOnly}"
-                              />
-                              <label for = "esquema">Esquema</label>
+                              >
+                                <option value="">Seleccione un esquema</option>
+                                <option value="INEGI">INEGI (Instituto Nacional de Estadística y Geografía)</option>
+                                <option value="DENUE">DENUE (Directorio Estadístico Nacional de Unidades Económicas)</option>
+                                <option value="AGEE">AGEE (Áreas Geoestadísticas Estatales)</option>
+                                <option value="AGEM">AGEM (Áreas Geoestadísticas Municipales)</option>
+                                <option value="AGEB">AGEB (Áreas Geoestadísticas Básicas)</option>
+                              </select>
+                              <label for="esquema">Esquema</label>
                               <div
-                                class = "invalid-feedback"
-                                data-sb-feedback = "esquema:required"
+                                class="invalid-feedback"
+                                data-sb-feedback="esquema:required"
                               >
                                 Esquema es requerido.
                               </div>
                             </div>
                           </div>
-                          <div class = "col-md-6">
-                            <div class = "form-floating mb-3">
+                          <div class="col-md-6">
+                            <div class="form-floating mb-3">
                               <input
-                                class = "form-control"
-                                id = "diccionarioGeografico"
-                                type = "text"
-                                placeholder = "diccionarioGeografico"
-                                data-sb-validations = "required"
-                                formControlName = "identifiers"
+                                class="form-control"
+                                id="diccionarioGeografico"
+                                type="text"
+                                placeholder="diccionarioGeografico"
+                                data-sb-validations="required"
+                                formControlName="identifiers"
                                 [ngClass]="{'readonly': isReadOnly}"
                               />
-                              <label for = "diccionarioGeografico"
-                                >Id del diccionario geografico</label
-                              >
+                              <label for="diccionarioGeografico">Id del diccionario geográfico</label>
                               <div
-                                class = "invalid-feedback"
-                                data-sb-feedback = "diccionarioGeografico:required"
+                                class="invalid-feedback"
+                                data-sb-feedback="diccionarioGeografico:required"
                               >
-                                El id del diccionario geografico es requerido.
+                                El id del diccionario geográfico es requerido.
                               </div>
                             </div>
                           </div>
@@ -1568,7 +1577,7 @@
                             class = "invalid-feedback"
                             data-sb-feedback = "idGarante:required"
                           >
-                            Id del garante es requerido.
+                            Id del fiador es requerido.
                           </div>
                         </div>
                       </div>
@@ -1710,7 +1719,7 @@
                     relacionados)
                   </legend>
                 <div class = "row">
-                  <div class = "col-md-4">
+                  <div class = "col-md-6">
                     <div class = "form-floating mb-3">
                       <input
                         class = "form-control"
@@ -1730,27 +1739,7 @@
                       </div>
                     </div>
                   </div>
-                  <div class = "col-md-4">
-                    <div class = "form-floating mb-3">
-                      <input
-                        class = "form-control"
-                        id = "tipoProcesoRelacionado"
-                        type = "text"
-                        placeholder = "Tipo del proceso relacionado"
-                        data-sb-validations = "required"
-                        formControlName = "relationship"
-                        [ngClass]="{'readonly': isReadOnly}"
-                      />
-                      <label for = "tipoProcesoRelacionado">Relacion del proceso relacionado</label>
-                      <div
-                        class = "invalid-feedback"
-                        data-sb-feedback = "tipoProcesoRelacionado:required"
-                      >
-                      Relacion del proceso relacionado es requerido.
-                      </div>
-                    </div>
-                  </div>
-                  <div class = "col-md-4">
+                  <div class = "col-md-6">
                     <div class = "form-floating mb-3">
                       <input
                         class = "form-control"
@@ -1767,6 +1756,28 @@
                         data-sb-feedback = "idProceso:required"
                       >
                       Identificador del proceso es requerido.
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class = "col-md-12">
+                    <div class = "form-floating mb-3">
+                      <input
+                        class = "form-control"
+                        id = "tipoProcesoRelacionado"
+                        type = "text"
+                        placeholder = "Tipo del proceso relacionado"
+                        data-sb-validations = "required"
+                        formControlName = "relationship"
+                        [ngClass]="{'readonly': isReadOnly}"
+                      />
+                      <label for = "tipoProcesoRelacionado">Relacion del proceso relacionado</label>
+                      <div
+                        class = "invalid-feedback"
+                        data-sb-feedback = "tipoProcesoRelacionado:required"
+                      >
+                      Relacion del proceso relacionado es requerido.
                       </div>
                     </div>
                   </div>
@@ -1793,18 +1804,32 @@
                     </div>
                   </div>
                   <div class = "col-md-4">
-                    <div class = "form-floating mb-3">
-                      <select class = "form-select" id = "scheme" aria-label = "Esquema" formControlName = "scheme" [ngClass]="{'readonly': isReadOnly}">
-                          <option value = "1">1</option>
-                          <option value = "2">2</option>
-                          <option value = "3">3</option>
-                          <option value = "4">4</option>
-                          <option value = "5">5</option>
+                    <div class="form-floating mb-3">
+                      <select
+                        class="form-select"
+                        id="scheme"
+                        aria-label="Esquema"
+                        formControlName="scheme"
+                        [ngClass]="{'readonly': isReadOnly}"
+                      >
+                        <option value="ocid">OCID (Open Contracting ID)</option>
+                        <option value="compranet">CompraNet (Sistema de Compras Gubernamentales)</option>
+                        <option value="sfp">SFP (Secretaría de la Función Pública)</option>
+                        <option value="rfc">RFC (Registro Federal de Contribuyentes)</option>
+                        <option value="sicom">SICOM (Sistema de Información y Control de Obra Municipal)</option>
                       </select>
-                      <label for = "scheme">Esquema</label>
+                      <label for="scheme">Esquema de identificación del proceso relacionado</label>
+                      <div
+                        class="invalid-feedback"
+                        data-sb-feedback="scheme:required"
+                      >
+                        El esquema de identificación es requerido.
+                      </div>
+                    </div>
                   </div>
-                  </div>
-                  <div class = "col-md-4">
+                </div>
+                <div class="row">
+                  <div class = "col-md-12">
                     <div class = "form-floating mb-3">
                       <input
                         class = "form-control"
@@ -2057,10 +2082,10 @@
           <div class = "tab-pane fade" id = "v-pills-enmiendas" role = "tabpanel" aria-labelledby = "v-pills-enmiendas-tab">
             <div class = "form h-100">
                   <form [formGroup] = "amendments">
-                <h4> Datos generales del contrato (Sección de enmiendas)6</h4>
+                <h4> Datos generales del contrato (Sección de enmiendas)</h4>
                 <fieldset class = "border p-3 mb-3">
                 <div class = "row">
-                  <div class = "col-md-4">
+                  <div class = "col-md-6">
                     <div class = "form-floating mb-3">
                       <input
                         class = "form-control"
@@ -2080,7 +2105,7 @@
                       </div>
                     </div>
                   </div>
-                  <div class = "col-md-4">
+                  <div class = "col-md-6">
                     <div class = "form-floating mb-3">
                       <input
                         class = "form-control"
@@ -2100,7 +2125,9 @@
                       </div>
                     </div>
                   </div>
-                  <div class = "col-md-4">
+                </div>
+                <div class="row">
+                  <div class = "col-md-12">
                     <div class = "form-floating mb-3">
                       <input
                         class = "form-control"
