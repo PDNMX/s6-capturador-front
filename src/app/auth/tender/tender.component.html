@@ -10,14 +10,14 @@
             aria-orientation="vertical"
           >
             <h3
-              class="nav text-left mb-2"
+              class="active text-left mb-2"
               id="licitacion-presentacion-tab"
               data-bs-toggle="pill"
               data-bs-target="#licitacion-presentacion"
               type="button"
               role="tab"
               aria-controls="licitacion-presentacion"
-              aria-selected="false"
+              aria-selected="true"
             >
               &nbsp;&nbsp;2. Licitación
             </h3>
@@ -51,7 +51,7 @@
       <div class="col-md-9 g-0">
         <div class="tab-content" id="licitacion-tabContent">
           <div
-            class="tab-pane fade"
+            class="tab-pane fade show active"
             id="licitacion-presentacion"
             role="tabpanel"
             aria-labelledby="licitacion-presentacion-tab"
@@ -73,23 +73,27 @@
               </div>
             </div>
           </div>
+        </div>
+        <div class="tab-content" id="licitacion-tabContent">
           <div
             class="tab-pane fade"
             id="licitacion-general"
             role="tabpanel"
             aria-labelledby="licitacion-general-tab"
-            tabindex="1"
+            tabindex="0"
           >
             <div class="form">
               <app-tender-general></app-tender-general>
             </div>
           </div>
+        </div>
+        <div class="tab-content" id="licitacion-tabContent">
           <div
-            class="tab-pane fade show active"
+            class="tab-pane fade"
             id="licitacion-items"
             role="tabpanel"
             aria-labelledby="licitacion-items-tab"
-            tabindex="2"
+            tabindex="0"
           >
             <div class="form">
               <app-tender-items></app-tender-items>
