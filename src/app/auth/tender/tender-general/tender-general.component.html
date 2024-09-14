@@ -1,0 +1,91 @@
+<form>
+  <div class="container">
+    <div class="row">
+      <div class="col">
+        <h3>Información general</h3>
+        <hr />
+      </div>
+    </div>
+    <div class="row">
+      <div class="form-floating col mb-5">
+        <select class="form-select" aria-label="Default select example">
+          <option selected>Seleccione un estatus para la licitación</option>
+          <option value="planning">Planeación</option>
+          <option value="planned">Planeado</option>
+          <option value="active">Activo</option>
+          <option value="cancelled">Cancelado</option>
+          <option value="unsuccessful">Sin Éxito</option>
+          <option value="complete">Completo</option>
+          <option value="withdrawn">Retirado</option>
+        </select>
+      </div>
+    </div>
+    <div class="row">
+      <div class="form-floating col mb-5">
+        <input
+          class="form-control"
+          id="title"
+          type="text"
+          data-sb-validations="required"
+          placeholder="Titulo de la licitación*"
+        />
+        <label for="title">Titulo de la licitación*</label>
+        <div class="invalid-feedback" data-sb-feedback="title:required">
+          Titulo de la licitación * es requerido.
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="form-floating col-12 mb-5">
+        <textarea
+          class="form-control"
+          id="description"
+          type="text"
+          placeholder="Descripción*"
+          style="height: 100px"
+        ></textarea>
+        <label for="description">Descripción*</label>
+        <div class="invalid-feedback" data-sb-feedback="description:required">
+          Descripción * es requerido.
+        </div>
+      </div>
+    </div>
+    <fieldset class="border p-3 mb-3">
+      <legend class="w-auto px-1">
+        Entidad que gestiona el proceso de contratación.
+      </legend>
+
+      <div class="row">
+        <div class="form-floating col mb-5">
+          <input
+            class="form-control"
+            id="title"
+            type="text"
+            data-sb-validations="required"
+            placeholder="ID de Organización*"
+          />
+          <label for="title">ID de Organización*</label>
+          <div class="invalid-feedback" data-sb-feedback="title:required">
+            ID de Organización * es requerido.
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="form-floating col mb-5">
+          <input
+            class="form-control"
+            id="title"
+            type="text"
+            data-sb-validations="required"
+            placeholder="Nombre de la Organización*"
+          />
+          <label for="title">Nombre de la Organización*</label>
+          <div class="invalid-feedback" data-sb-feedback="title:required">
+            Nombre de la Organización * es requerido.
+          </div>
+        </div>
+      </div>
+    </fieldset>
+  </div>
+</form>
