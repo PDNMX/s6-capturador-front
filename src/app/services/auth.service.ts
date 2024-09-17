@@ -14,7 +14,7 @@ interface IToken {
 })
 export class AuthService {
   private oauth_api: string = environment.OAUTH_API;
-  private oauth_client_id: string = environment.OAUTH_ClIENT_ID;
+  private oauth_client_id: string = environment.OAUTH_CLIENT_ID;
   private oauth_client_secret: string = environment.OAUTH_CLIENT_SECRET;
 
   constructor(private http: HttpClient) {}
