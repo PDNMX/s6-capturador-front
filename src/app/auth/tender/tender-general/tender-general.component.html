@@ -87,5 +87,367 @@
         </div>
       </div>
     </fieldset>
+    <fieldset class="border p-3 mb-3">
+      <legend class="w-auto px-1">Valor máximo de contratación</legend>
+      <div class="row">
+        <div class="col">
+          <p>
+            El valor estimado de la contratación sin impuestos incluidos. En
+            caso de contrataciones abiertas, se señala el presupuesto máximo que
+            podría ejercerse en la ejecución del contrato.
+          </p>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="form-floating col-4 mb-5">
+          <input
+            class="form-control"
+            id="amount"
+            type="text"
+            data-sb-validations="required"
+            placeholder="ID de Organización*"
+          />
+          <label for="amount">Cantidad*</label>
+          <div class="invalid-feedback" data-sb-feedback="title:required">
+            Cantidas * es requerido.
+          </div>
+        </div>
+        <div class="form-floating col-8 mb-5">
+          <select class="form-select">
+            <label for="currency">Moneda*</label>
+            <option selected>Seleccione un moneda</option>
+            <option *ngFor="let m of monedas" value="{{ m.code }}">
+              {{ m.title }}
+            </option>
+          </select>
+        </div>
+      </div>
+    </fieldset>
+    <fieldset class="border p-3 mb-3">
+      <legend class="w-auto px-1">Valor mínimo de contratación</legend>
+      <div class="row">
+        <div class="col">
+          <p>
+            El valor mínimo estimado de la contratación sin impuestos incluidos.
+            En caso de contrataciones abiertas, se señala el presupuesto mínimo
+            (que debería ejercerse en la ejecución del contrato).
+          </p>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="form-floating col-4 mb-5">
+          <input
+            class="form-control"
+            id="amount"
+            type="text"
+            data-sb-validations="required"
+            placeholder="ID de Organización*"
+          />
+          <label for="amount">Cantidad*</label>
+          <div class="invalid-feedback" data-sb-feedback="title:required">
+            Cantidas * es requerido.
+          </div>
+        </div>
+        <div class="form-floating col-8 mb-5">
+          <select class="form-select">
+            <label for="currency">Moneda*</label>
+            <option selected>Seleccione un moneda</option>
+            <option *ngFor="let m of monedas" value="{{ m.code }}">
+              {{ m.title }}
+            </option>
+          </select>
+        </div>
+      </div>
+    </fieldset>
+    <fieldset class="border p-3 mb-3">
+      <legend class="w-auto px-1">Metodo contratación</legend>
+      <div class="row">
+        <div class="form-floating col mb-5">
+          <select class="form-select">
+            <label for="currency">Metodo*</label>
+            <option selected>Seleccione un metodo</option>
+            <option *ngFor="let m of metodos" value="{{ m.code }}">
+              {{ m.title }}
+            </option>
+          </select>
+        </div>
+      </div>
+      <div class="row">
+        <div class="form-floating col-12 mb-5">
+          <textarea
+            class="form-control"
+            id="detalles"
+            type="text"
+            placeholder="Detalles del método de contratación*"
+            style="height: 100px"
+          ></textarea>
+          <label for="description">Detalles*</label>
+          <div class="invalid-feedback" data-sb-feedback="description:required">
+            Detalles del método de contratación * es requerido.
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="form-floating col-12 mb-5">
+          <textarea
+            class="form-control"
+            id=""
+            type="text"
+            placeholder="Justificación para el método de contratación*"
+            style="height: 100px"
+          ></textarea>
+          <label for="description">Justificación*</label>
+          <div class="invalid-feedback" data-sb-feedback="description:required">
+            Justificación para el método de contratación * es requerido.
+          </div>
+        </div>
+      </div>
+    </fieldset>
+
+    <fieldset class="border p-3 mb-3">
+      <legend class="w-auto px-1">Periodo de licitación</legend>
+
+      <div class="row">
+        <div class="form-floating col-6 mb-5">
+          <input
+            class="form-control"
+            id="amount"
+            type="date"
+            data-sb-validations="required"
+            placeholder="ID de Organización*"
+          />
+          <label for="amount">Fecha de inicio*</label>
+          <div class="invalid-feedback" data-sb-feedback="title:required">
+            Fecha de inicio * es requerido.
+          </div>
+        </div>
+        <div class="form-floating col-6 mb-5">
+          <input
+            class="form-control"
+            id="amount"
+            type="date"
+            data-sb-validations="required"
+            placeholder="ID de Organización*"
+          />
+          <label for="amount">Fecha de termino*</label>
+          <div class="invalid-feedback" data-sb-feedback="title:required">
+            Fecha de termino * es requerido.
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="form-floating col-6 mb-5">
+          <input
+            class="form-control"
+            id="amount"
+            type="date"
+            data-sb-validations="required"
+            placeholder="ID de Organización*"
+          />
+          <label for="amount">Extension máxima*</label>
+          <div class="invalid-feedback" data-sb-feedback="title:required">
+            Extension máxima * es requerido.
+          </div>
+        </div>
+        <div class="form-floating col-6 mb-5">
+          <input
+            class="form-control"
+            id="amount"
+            type="number"
+            data-sb-validations="required"
+            placeholder="ID de Organización*"
+          />
+          <label for="amount">Duración (dias)*</label>
+          <div class="invalid-feedback" data-sb-feedback="title:required">
+            Duración * es requerido.
+          </div>
+        </div>
+      </div>
+    </fieldset>
+
+    <fieldset class="border p-3 mb-3">
+      <legend class="w-auto px-1">Periodo de evaluación y adjudicación</legend>
+
+      <div class="row">
+        <div class="form-floating col-6 mb-5">
+          <input
+            class="form-control"
+            id="amount"
+            type="date"
+            data-sb-validations="required"
+            placeholder="ID de Organización*"
+          />
+          <label for="amount">Fecha de inicio*</label>
+          <div class="invalid-feedback" data-sb-feedback="title:required">
+            Fecha de inicio * es requerido.
+          </div>
+        </div>
+        <div class="form-floating col-6 mb-5">
+          <input
+            class="form-control"
+            id="amount"
+            type="date"
+            data-sb-validations="required"
+            placeholder="ID de Organización*"
+          />
+          <label for="amount">Fecha de termino*</label>
+          <div class="invalid-feedback" data-sb-feedback="title:required">
+            Fecha de termino * es requerido.
+          </div>
+        </div>
+      </div>
+    </fieldset>
+
+    <fieldset class="border p-3 mb-3">
+      <legend class="w-auto px-1">Categoria de contratacion</legend>
+      <div class="row">
+        <div class="form-floating col mb-5">
+          <select class="form-select">
+            <label for="currency">Categoria principal*</label>
+            <option selected>Seleccione una categoria principal</option>
+            <option *ngFor="let c of categoriaCompra" value="{{ c.code }}">
+              {{ c.title }}
+            </option>
+          </select>
+        </div>
+      </div>
+      <div class="row">
+        <div class="form-floating col mb-5">
+          <select class="form-select">
+            <label for="currency">Categoria adicional*</label>
+            <option selected>Seleccione una categoria adicional</option>
+            <option
+              *ngFor="let c of adicionalCategoriaCompra"
+              value="{{ c.code }}"
+            >
+              {{ c.title }}
+            </option>
+          </select>
+        </div>
+      </div>
+    </fieldset>
+    <fieldset class="border p-3 mb-3">
+      <legend class="w-auto px-1">Criterios de adjudicación</legend>
+      <div class="row">
+        <div class="form-floating col mb-5">
+          <select class="form-select">
+            <label for="currency">Criterio de adjudicación*</label>
+            <option selected>Seleccione un criterio de adjudicación</option>
+            <option *ngFor="let c of awardCriteria" value="{{ c.code }}">
+              <strong *ngIf="c.obsoleto">(obsoleto)</strong> {{ c.title }}
+            </option>
+          </select>
+        </div>
+      </div>
+      <div class="row">
+        <div class="form-floating col-12 mb-5">
+          <textarea
+            class="form-control"
+            id="detalles"
+            type="text"
+            placeholder="Detalles del método de contratación*"
+            style="height: 100px"
+          ></textarea>
+          <label for="description">Detalles*</label>
+          <div class="invalid-feedback" data-sb-feedback="description:required">
+            Detalles del método de contratación * es requerido.
+          </div>
+        </div>
+      </div>
+    </fieldset>
+    <fieldset class="border p-3 mb-3">
+      <legend class="w-auto px-1">Metodo de presentación de oferta</legend>
+      <div class="row">
+        <div class="form-floating col mb-5">
+          <select class="form-select">
+            <label for="currency">Metodo de presentación*</label>
+            <option selected>Seleccione un metodo de presentación</option>
+            <option *ngFor="let c of submissionMethod" value="{{ c.code }}">
+              {{ c.title }}
+            </option>
+          </select>
+        </div>
+      </div>
+      <div class="row">
+        <div class="form-floating col-12 mb-5">
+          <textarea
+            class="form-control"
+            id="detalles"
+            type="text"
+            placeholder="Detalles del método de presentación*"
+            style="height: 100px"
+          ></textarea>
+          <label for="description">Detalles*</label>
+          <div class="invalid-feedback" data-sb-feedback="description:required">
+            Detalles del método de presentación* es requerido.
+          </div>
+        </div>
+      </div>
+    </fieldset>
+    <fieldset class="border p-3 mb-3">
+      <legend class="w-auto px-1">Periodo de solicitudes de aclaración</legend>
+
+      <div class="row">
+        <div class="form-floating col-6 mb-5">
+          <input
+            class="form-control"
+            id="amount"
+            type="date"
+            data-sb-validations="required"
+            placeholder="ID de Organización*"
+          />
+          <label for="amount">Fecha de inicio*</label>
+          <div class="invalid-feedback" data-sb-feedback="title:required">
+            Fecha de inicio * es requerido.
+          </div>
+        </div>
+        <div class="form-floating col-6 mb-5">
+          <input
+            class="form-control"
+            id="amount"
+            type="date"
+            data-sb-validations="required"
+            placeholder="ID de Organización*"
+          />
+          <label for="amount">Fecha de termino*</label>
+          <div class="invalid-feedback" data-sb-feedback="title:required">
+            Fecha de termino * es requerido.
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="form-floating col-6 mb-5">
+          <input
+            class="form-control"
+            id="amount"
+            type="date"
+            data-sb-validations="required"
+            placeholder="ID de Organización*"
+          />
+          <label for="amount">Extension máxima*</label>
+          <div class="invalid-feedback" data-sb-feedback="title:required">
+            Extension máxima * es requerido.
+          </div>
+        </div>
+        <div class="form-floating col-6 mb-5">
+          <input
+            class="form-control"
+            id="amount"
+            type="number"
+            data-sb-validations="required"
+            placeholder="ID de Organización*"
+          />
+          <label for="amount">Duración (dias)*</label>
+          <div class="invalid-feedback" data-sb-feedback="title:required">
+            Duración * es requerido.
+          </div>
+        </div>
+      </div>
+    </fieldset>
   </div>
 </form>
