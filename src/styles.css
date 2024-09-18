@@ -190,7 +190,7 @@ margin: 0 0 80px 0;
 
 .login .texto {
   padding: 40px;
-  /* background: rgb(75, 165, 203); 
+  /* background: rgb(75, 165, 203);
   background: linear-gradient(90deg, rgba(75, 165, 203, 1) 0%, rgba(105, 199, 238, 1) 100%);  */
 }
 
@@ -269,7 +269,7 @@ margin: 0 0 80px 0;
 .menu-info > .nav-pills button .nav-link.active {
   border-radius: 0;
   background: #5b7aa3;
-  
+
 }
 
 .menu-info > .nav-pills .nav-link {
@@ -295,5 +295,5 @@ margin: 0 0 80px 0;
 
 .menu-wrap > div:nth-child(2) {
   overflow-y: auto;
-  height: 580px;
+  height: 65lvh;
 }
