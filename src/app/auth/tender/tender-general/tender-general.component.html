@@ -117,7 +117,7 @@
           <select class="form-select">
             <label for="currency">Moneda*</label>
             <option selected>Seleccione un moneda</option>
-            <option *ngFor="let m of monedas" value="{{ m.code }}">
+            <option *ngFor="let m of currency" value="{{ m.code }}">
               {{ m.title }}
             </option>
           </select>
@@ -154,7 +154,7 @@
           <select class="form-select">
             <label for="currency">Moneda*</label>
             <option selected>Seleccione un moneda</option>
-            <option *ngFor="let m of monedas" value="{{ m.code }}">
+            <option *ngFor="let m of currency" value="{{ m.code }}">
               {{ m.title }}
             </option>
           </select>
@@ -168,7 +168,7 @@
           <select class="form-select">
             <label for="currency">Metodo*</label>
             <option selected>Seleccione un metodo</option>
-            <option *ngFor="let m of metodos" value="{{ m.code }}">
+            <option *ngFor="let m of procurementMethod" value="{{ m.code }}">
               {{ m.title }}
             </option>
           </select>
@@ -297,6 +297,97 @@
           <label for="amount">Fecha de termino*</label>
           <div class="invalid-feedback" data-sb-feedback="title:required">
             Fecha de termino * es requerido.
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="form-floating col-6 mb-5">
+          <input
+            class="form-control"
+            id="amount"
+            type="date"
+            data-sb-validations="required"
+            placeholder="ID de Organización*"
+          />
+          <label for="amount">Extension máxima*</label>
+          <div class="invalid-feedback" data-sb-feedback="title:required">
+            Extension máxima * es requerido.
+          </div>
+        </div>
+        <div class="form-floating col-6 mb-5">
+          <input
+            class="form-control"
+            id="amount"
+            type="number"
+            data-sb-validations="required"
+            placeholder="ID de Organización*"
+          />
+          <label for="amount">Duración (dias)*</label>
+          <div class="invalid-feedback" data-sb-feedback="title:required">
+            Duración * es requerido.
+          </div>
+        </div>
+      </div>
+    </fieldset>
+
+    <fieldset class="border p-3 mb-3">
+      <legend class="w-auto px-1">Periodo del contrato</legend>
+
+      <div class="row">
+        <div class="form-floating col-6 mb-5">
+          <input
+            class="form-control"
+            id="amount"
+            type="date"
+            data-sb-validations="required"
+            placeholder="ID de Organización*"
+          />
+          <label for="amount">Fecha de inicio*</label>
+          <div class="invalid-feedback" data-sb-feedback="title:required">
+            Fecha de inicio * es requerido.
+          </div>
+        </div>
+        <div class="form-floating col-6 mb-5">
+          <input
+            class="form-control"
+            id="amount"
+            type="date"
+            data-sb-validations="required"
+            placeholder="ID de Organización*"
+          />
+          <label for="amount">Fecha de termino*</label>
+          <div class="invalid-feedback" data-sb-feedback="title:required">
+            Fecha de termino * es requerido.
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="form-floating col-6 mb-5">
+          <input
+            class="form-control"
+            id="amount"
+            type="date"
+            data-sb-validations="required"
+            placeholder="ID de Organización*"
+          />
+          <label for="amount">Extension máxima*</label>
+          <div class="invalid-feedback" data-sb-feedback="title:required">
+            Extension máxima * es requerido.
+          </div>
+        </div>
+        <div class="form-floating col-6 mb-5">
+          <input
+            class="form-control"
+            id="amount"
+            type="number"
+            data-sb-validations="required"
+            placeholder="ID de Organización*"
+          />
+          <label for="amount">Duración (dias)*</label>
+          <div class="invalid-feedback" data-sb-feedback="title:required">
+            Duración * es requerido.
           </div>
         </div>
       </div>
@@ -449,5 +540,45 @@
         </div>
       </div>
     </fieldset>
+    <div class="row">
+      <p>¿Tiene solicitudes de aclaración?</p>
+      <div class="form-floating col mb-5">
+        <div class="form-check form-check-inline">
+          <input
+            class="form-check-input"
+            type="radio"
+            name="inlineRadioOptions"
+            id="inlineRadio1"
+            value="true"
+          />
+          <label class="form-check-label" for="inlineRadio1">Sí</label>
+        </div>
+        <div class="form-check form-check-inline">
+          <input
+            class="form-check-input"
+            type="radio"
+            name="inlineRadioOptions"
+            id="inlineRadio2"
+            value="false"
+          />
+          <label class="form-check-label" for="inlineRadio2">No</label>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="form-floating col-12 mb-5">
+        <textarea
+          class="form-control"
+          id="detalles"
+          type="text"
+          placeholder="Criterios de elegibilidad*"
+          style="height: 100px"
+        ></textarea>
+        <label for="description">Criterios de elegibilidad*</label>
+        <div class="invalid-feedback" data-sb-feedback="description:required">
+          Criterios de elegibilidad* es requerido.
+        </div>
+      </div>
+    </div>
   </div>
 </form>

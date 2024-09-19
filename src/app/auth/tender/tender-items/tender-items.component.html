@@ -9,39 +9,43 @@
           artículos cuando sea posible. Los artículos no deben de duplicarse, y
           se deben de especificar las cantidades.
         </p>
-        <table class="table table-hover table-striped mb-10">
-          <thead>
-            <tr>
-              <th scope="col">ID</th>
-              <th scope="col">Descripción</th>
-              <th scope="col">Clasificación</th>
-              <th scope="col">Clasificaciones adicionales</th>
-              <th scope="col">Cantidad</th>
-              <th scope="col">Unidad</th>
-              <th scope="col">Opciones</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr *ngFor="let item of items; index as i">
-              <th scope="row">{{ i + 1 }}</th>
-              <td>{{ item.description }}</td>
-              <td>{{ item.classification }}</td>
-              <td>{{ item.additionalClassifications }}</td>
-              <td>{{ item.quantity }}</td>
-              <td>{{ item.unit }}</td>
-              <td>
-                <button class="btn btn-danger" (click)="deleteItem(i)">
-                  Eliminar
-                </button>
-              </td>
-            </tr>
-            <tr *ngIf="items.length === 0">
-              <th scope="row" colspan="7" class="text-center">
-                Sin registros.
-              </th>
-            </tr>
-          </tbody>
-        </table>
+        <div class="table-responsive-sm">
+          <table
+            class="table table-hover table-striped mb-10"
+          >
+            <thead>
+              <tr>
+                <th scope="col">ID</th>
+                <th scope="col">Descripción</th>
+                <th scope="col">Clasificación</th>
+                <th scope="col">Clasificaciones adicionales</th>
+                <th scope="col">Cantidad</th>
+                <th scope="col">Unidad</th>
+                <th scope="col">Opciones</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let item of items; index as i">
+                <th scope="row">{{ i + 1 }}</th>
+                <td>{{ item.description }}</td>
+                <td>{{ item.classification }}</td>
+                <td>{{ item.additionalClassifications }}</td>
+                <td>{{ item.quantity }}</td>
+                <td>{{ item.unit }}</td>
+                <td>
+                  <button class="btn btn-danger" (click)="deleteItem(i)">
+                    Eliminar
+                  </button>
+                </td>
+              </tr>
+              <tr *ngIf="items.length === 0">
+                <th scope="row" colspan="7" class="text-center">
+                  Sin registros.
+                </th>
+              </tr>
+            </tbody>
+          </table>
+        </div>
       </div>
     </div>
 
