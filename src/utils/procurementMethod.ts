@@ -1,4 +1,4 @@
-const Metodos = [
+const ProcurementMethod = [
   {
     code: 'open',
     title: 'Abierta',
@@ -23,4 +23,4 @@ const Metodos = [
   },
 ];
 
-export default Metodos;
+export default ProcurementMethod;

@@ -1,4 +1,4 @@
-const Monedas = [
+const Currency = [
   {
     code: 'MXN',
     title: 'Peso Méxicano',
@@ -16,4 +16,4 @@ const Monedas = [
   },
 ];
 
-export default Monedas;
+export default Currency;

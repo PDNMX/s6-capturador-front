@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { Monedas } from 'src/utils';
 
 @Component({
   selector: 'app-tender',
@@ -9,7 +8,6 @@ import { Monedas } from 'src/utils';
 })
 export class TenderComponent implements OnInit {
   tenderForm!: FormGroup;
-  monedas = Monedas;
 
   constructor(private fb: FormBuilder) {}
 

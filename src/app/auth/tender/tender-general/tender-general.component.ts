@@ -2,9 +2,9 @@ import { Component } from '@angular/core';
 import {
   AdditionalProcurementCategories,
   AwardCriteria,
+  Currency,
   mainProcurementCategory,
-  Metodos,
-  Monedas,
+  ProcurementMethod,
   SubmissionMethod,
 } from 'src/utils';
 
@@ -14,8 +14,8 @@ import {
   styleUrls: ['./tender-general.component.css'],
 })
 export class TenderGeneralComponent {
-  monedas = Monedas;
-  metodos = Metodos;
+  currency = Currency;
+  procurementMethod = ProcurementMethod;
   categoriaCompra = mainProcurementCategory;
   adicionalCategoriaCompra = AdditionalProcurementCategories;
   awardCriteria = AwardCriteria;

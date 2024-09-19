@@ -45,13 +45,73 @@
             >
               Articulos
             </button>
+            <button
+              class="nav-link text-left"
+              id="licitacion-meetings-tab"
+              data-bs-toggle="pill"
+              data-bs-target="#licitacion-meetings"
+              type="button"
+              role="tab"
+              aria-controls="licitacion-meetings"
+              aria-selected="false"
+            >
+              Juntas de aclaraciones
+            </button>
+            <button
+              class="nav-link text-left"
+              id="licitacion-tenderers-tab"
+              data-bs-toggle="pill"
+              data-bs-target="#licitacion-tenderers"
+              type="button"
+              role="tab"
+              aria-controls="licitacion-tenderers"
+              aria-selected="false"
+            >
+              Licitantes
+            </button>
+            <button
+              class="nav-link text-left"
+              id="licitacion-documents-tab"
+              data-bs-toggle="pill"
+              data-bs-target="#licitacion-documents"
+              type="button"
+              role="tab"
+              aria-controls="licitacion-documents"
+              aria-selected="false"
+            >
+              Documentos
+            </button>
+            <button
+              class="nav-link text-left"
+              id="licitacion-milestones-tab"
+              data-bs-toggle="pill"
+              data-bs-target="#licitacion-milestones"
+              type="button"
+              role="tab"
+              aria-controls="licitacion-milestones"
+              aria-selected="false"
+            >
+              Hitos
+            </button>
+            <button
+              class="nav-link text-left"
+              id="licitacion-amendments-tab"
+              data-bs-toggle="pill"
+              data-bs-target="#licitacion-amendments"
+              type="button"
+              role="tab"
+              aria-controls="licitacion-amendments"
+              aria-selected="false"
+            >
+              Modificaciones
+            </button>
           </div>
         </div>
       </div>
       <div class="col-md-9 g-0">
         <div class="tab-content" id="licitacion-tabContent">
           <div
-            class="tab-pane fade show active"
+            class="tab-pane fade"
             id="licitacion-presentacion"
             role="tabpanel"
             aria-labelledby="licitacion-presentacion-tab"
@@ -76,7 +136,7 @@
         </div>
         <div class="tab-content" id="licitacion-tabContent">
           <div
-            class="tab-pane fade show active"
+            class="tab-pane fade"
             id="licitacion-general"
             role="tabpanel"
             aria-labelledby="licitacion-general-tab"
@@ -97,6 +157,75 @@
           >
             <div class="form">
               <app-tender-items></app-tender-items>
+            </div>
+          </div>
+        </div>
+        <div class="tab-content" id="licitacion-tabContent">
+          <div
+            class="tab-pane fade"
+            id="licitacion-meetings"
+            role="tabpanel"
+            aria-labelledby="licitacion-meetings-tab"
+            tabindex="0"
+          >
+            <div class="form">
+              <app-tender-meetings></app-tender-meetings>
+            </div>
+          </div>
+        </div>
+
+        <div class="tab-content" id="licitacion-tabContent">
+          <div
+            class="tab-pane fade"
+            id="licitacion-tenderers"
+            role="tabpanel"
+            aria-labelledby="licitacion-tenderers-tab"
+            tabindex="0"
+          >
+            <div class="form">
+              <app-tender-tenderers></app-tender-tenderers>
+            </div>
+          </div>
+        </div>
+
+        <div class="tab-content" id="licitacion-tabContent">
+          <div
+            class="tab-pane fade show active"
+            id="licitacion-documents"
+            role="tabpanel"
+            aria-labelledby="licitacion-documents-tab"
+            tabindex="0"
+          >
+            <div class="form">
+              <app-tender-documents></app-tender-documents>
+            </div>
+          </div>
+        </div>
+
+        <div class="tab-content" id="licitacion-tabContent">
+          <div
+            class="tab-pane fade show active"
+            id="licitacion-milestones"
+            role="tabpanel"
+            aria-labelledby="licitacion-milestones-tab"
+            tabindex="0"
+          >
+            <div class="form">
+              <app-tender-milestones></app-tender-milestones>
+            </div>
+          </div>
+        </div>
+
+        <div class="tab-content" id="licitacion-tabContent">
+          <div
+            class="tab-pane fade show active"
+            id="licitacion-amendments"
+            role="tabpanel"
+            aria-labelledby="licitacion-amendments-tab"
+            tabindex="0"
+          >
+            <div class="form">
+              <app-tender-amendments></app-tender-amendments>
             </div>
           </div>
         </div>
