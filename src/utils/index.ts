@@ -1,4 +1,4 @@
-import mainProcurementCategory from './mainProcurementCategory';
+import MainProcurementCategory from './mainProcurementCategory';
 import AdditionalProcurementCategories from './additionalProcurementCategories';
 import AwardCriteria from './awardCriteria';
 import SubmissionMethod from './submissionMethod';
@@ -14,7 +14,7 @@ import TenderStatus from './tenderStatus';
 export {
   Currency,
   ProcurementMethod,
-  mainProcurementCategory,
+  MainProcurementCategory,
   AdditionalProcurementCategories,
   AwardCriteria,
   SubmissionMethod,
