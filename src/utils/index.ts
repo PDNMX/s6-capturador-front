@@ -9,6 +9,7 @@ import FormatDocument from './formatDocument';
 import Language from './language';
 import MilestoneType from './milestoneType';
 import MilestoneStatus from './milestoneStatus';
+import TenderStatus from './tenderStatus';
 
 export {
   Currency,
@@ -22,4 +23,5 @@ export {
   Language,
   MilestoneType,
   MilestoneStatus,
+  TenderStatus,
 };
