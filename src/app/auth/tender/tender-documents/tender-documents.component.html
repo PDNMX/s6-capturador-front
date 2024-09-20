@@ -27,14 +27,24 @@
           <tbody>
             <tr *ngFor="let doc of documentsArray; index as i">
               <td scope="row">{{ i + 1 }}</td>
-              <td>ssss</td>
-              <td>aaaa</td>
-              <td>bbb</td>
+              <td>{{ doc.title }}</td>
+              <td>{{ doc.description }}</td>
+              <td>{{ doc.url }}</td>
+              <td>{{ doc.datePublished }}</td>
+              <td>{{ doc.dateModified }}</td>
+              <td>{{ doc.format.name }}</td>
+              <td>{{ doc.languaje.name }}</td>
               <td>
-                <button type="button" class="btn btn-danger">Eliminar</button>
+                <button
+                  type="button"
+                  class="btn btn-danger"
+                  (click)="deleteDocument(i)"
+                >
+                  Eliminar
+                </button>
               </td>
             </tr>
-            <tr *ngIf="[].length === 0">
+            <tr *ngIf="documentsArray.length === 0">
               <th scope="row" colspan="9" class="text-center">
                 Sin registros.
               </th>
@@ -46,103 +56,126 @@
   </div>
   <hr />
 
-  <div class="row">
-    <div class="form-floating col mb-5" [formGroup]="documentForm">
-      <select class="form-select" formControlName="documentType">
-        <option selected>Seleccione un tipo de documento</option>
-        <option *ngFor="let d of documents" [ngValue]="d">
-          {{ d.title }}
-        </option>
-      </select>
-      <br />
-      <p>{{ documentForm.value.documentType.description }}</p>
-    </div>
-  </div>
-  <div class="row">
-    <div class="form-floating col-12 mb-5">
-      <textarea
-        class="form-control"
-        id="description"
-        type="text"
-        placeholder="Descripción*"
-        style="height: 100px"
-      ></textarea>
-      <label for="description">Descripción*</label>
-      <div class="invalid-feedback" data-sb-feedback="description:required">
-        Descripción * es requerido.
+  <form [formGroup]="documentForm">
+    <div class="row">
+      <div class="form-floating col mb-5">
+        <select class="form-select" formControlName="documentType">
+          <option selected>Seleccione un tipo de documento</option>
+          <option *ngFor="let d of documents" [ngValue]="d">
+            {{ d.title }}
+          </option>
+        </select>
+        <br />
+        <p>{{ documentForm.value.documentType.description }}</p>
       </div>
     </div>
-  </div>
-  <div class="row">
-    <div class="form-floating col mb-5">
-      <input
-        class="form-control"
-        id="title"
-        type="text"
-        data-sb-validations="required"
-        placeholder="URL*"
-      />
-      <label for="title">URL*</label>
-      <div class="invalid-feedback" data-sb-feedback="title:required">
-        URL * es requerido.
-      </div>
-    </div>
-  </div>
 
-  <div class="row">
-    <div class="form-floating col-6 mb-5">
-      <input
-        class="form-control"
-        id="amount"
-        type="date"
-        data-sb-validations="required"
-        placeholder="ID de Organización*"
-      />
-      <label for="amount">Fecha de publicación*</label>
-      <div class="invalid-feedback" data-sb-feedback="title:required">
-        Fecha de publicación * es requerido.
+    <div class="row">
+      <div class="form-floating col mb-5">
+        <input
+          class="form-control"
+          id="title"
+          type="text"
+          data-sb-validations="required"
+          placeholder="URL*"
+          formControlName="title"
+        />
+        <label for="title">Titulo*</label>
+        <div class="invalid-feedback" data-sb-feedback="title:required">
+          Titulo * es requerido.
+        </div>
       </div>
     </div>
-    <div class="form-floating col-6 mb-5">
-      <input
-        class="form-control"
-        id="amount"
-        type="date"
-        data-sb-validations="required"
-        placeholder="ID de Organización*"
-      />
-      <label for="amount">Fecha de modificación*</label>
-      <div class="invalid-feedback" data-sb-feedback="title:required">
-        Fecha de modificación * es requerido.
-      </div>
-    </div>
-  </div>
-  <div class="row">
-    <div class="form-floating col mb-5" [formGroup]="documentForm">
-      <select class="form-select" formControlName="format">
-        <option selected>Seleccione un tipo de documento</option>
-        <option *ngFor="let d of formatDocument" [ngValue]="d">
-          {{ d.name }}
-        </option>
-      </select>
-    </div>
-  </div>
-  <div class="row">
-    <div class="form-floating col mb-5" [formGroup]="documentForm">
-      <select class="form-select" formControlName="format">
-        <option selected>Seleccione un tipo de documento</option>
-        <option *ngFor="let d of formatDocument" [ngValue]="d">
-          {{ d.name }}
-        </option>
-      </select>
-    </div>
-  </div>
 
-  <div class="row">
-    <div class="col">
-      <button type="button" class="btn btn-danger" (click)="addDocument()">
-        Agregar
-      </button>
+    <div class="row">
+      <div class="form-floating col-12 mb-5">
+        <textarea
+          class="form-control"
+          id="description"
+          type="text"
+          placeholder="Descripción*"
+          style="height: 100px"
+          formControlName="description"
+        ></textarea>
+        <label for="description">Descripción*</label>
+        <div class="invalid-feedback" data-sb-feedback="description:required">
+          Descripción * es requerido.
+        </div>
+      </div>
     </div>
-  </div>
+
+    <div class="row">
+      <div class="form-floating col mb-5">
+        <input
+          class="form-control"
+          id="URL"
+          type="text"
+          data-sb-validations="required"
+          placeholder="URL*"
+          formControlName="url"
+        />
+        <label for="URL">URL*</label>
+        <div class="invalid-feedback" data-sb-feedback="title:required">
+          URL * es requerido.
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="form-floating col-6 mb-5">
+        <input
+          class="form-control"
+          id="datePublished"
+          type="date"
+          data-sb-validations="required"
+          formControlName="datePublished"
+        />
+        <label for="datePublished">Fecha de publicación*</label>
+        <div class="invalid-feedback" data-sb-feedback="title:required">
+          Fecha de publicación * es requerido.
+        </div>
+      </div>
+      <div class="form-floating col-6 mb-5">
+        <input
+          class="form-control"
+          id="dateModified"
+          type="date"
+          data-sb-validations="required"
+          formControlName="dateModified"
+        />
+        <label for="dateModified">Fecha de modificación*</label>
+        <div class="invalid-feedback" data-sb-feedback="title:required">
+          Fecha de modificación * es requerido.
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="form-floating col mb-5">
+        <select class="form-select" formControlName="format">
+          <option selected>Seleccione un tipo de documento</option>
+          <option *ngFor="let d of formatDocument" [ngValue]="d">
+            {{ d.name }}
+          </option>
+        </select>
+      </div>
+    </div>
+    <div class="row">
+      <div class="form-floating col mb-5">
+        <select class="form-select" formControlName="languaje">
+          <option selected>Seleccione un tipo de documento</option>
+          <option *ngFor="let d of languaje" [ngValue]="d">
+            {{ d.name }}
+          </option>
+        </select>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col">
+        <button type="button" class="btn btn-danger" (click)="addDocument()">
+          Agregar
+        </button>
+      </div>
+    </div>
+  </form>
 </div>
