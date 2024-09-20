@@ -6,6 +6,9 @@ import Currency from './currency';
 import ProcurementMethod from './procurementMethod';
 import getDocumentType from './documentType';
 import FormatDocument from './formatDocument';
+import Language from './language';
+import MilestoneType from './milestoneType';
+import MilestoneStatus from './milestoneStatus';
 
 export {
   Currency,
@@ -16,4 +19,7 @@ export {
   SubmissionMethod,
   getDocumentType,
   FormatDocument,
+  Language,
+  MilestoneType,
+  MilestoneStatus,
 };
