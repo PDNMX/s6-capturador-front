@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { FormatDocument, getDocumentType } from 'src/utils';
+import { FormatDocument, getDocumentType, Language } from 'src/utils';
 
 @Component({
   selector: 'app-tender-documents',
@@ -10,6 +10,7 @@ import { FormatDocument, getDocumentType } from 'src/utils';
 export class TenderDocumentsComponent implements OnInit {
   documents = getDocumentType('tender');
   formatDocument = FormatDocument;
+  languaje = Language;
   documentsArray: Array<any> = [];
   documentForm!: FormGroup;
 
@@ -22,11 +23,22 @@ export class TenderDocumentsComponent implements OnInit {
   initForm(): void {
     this.documentForm = this.fb.group({
       documentType: ['', [Validators.required]],
+      title: ['', [Validators.required]],
+      description: ['', [Validators.required]],
+      url: ['', [Validators.required]],
+      datePublished: ['', [Validators.required]],
+      dateModified: ['', [Validators.required]],
       format: ['', [Validators.required]],
+      languaje: ['', [Validators.required]],
     });
   }
 
   addDocument(): void {
     console.log(this.documentForm.value);
+    this.documentsArray.push(this.documentForm.value);
+  }
+
+  deleteDocument(index: number): void {
+    this.documentsArray = this.documentsArray.filter((d, i) => i !== index);
   }
 }
