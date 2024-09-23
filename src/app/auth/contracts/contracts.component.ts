@@ -16,10 +16,10 @@ import { ActivatedRoute } from '@angular/router';
 
 export class ContractsComponent implements OnInit {
   /* Variable que contiene el objectId o id del mongo a actualizar */
-  idGlobal: string = '66ad14627ebc3aae1c4b1534';
+  idGlobal: string = '66f0bac50f692f7098ac4ba4';
   /* Variable que contiene la propiedad para cambiar
    a editable o no los input que contienen la clase de readOnly */
-  isReadOnly: boolean = false;
+   isReadOnly: boolean = false;
   /* Objeto que contiene los datos del formulario que se está capturando */
   datacontract: any = {};
   contractsArrayToSend: any[] = [];
@@ -50,14 +50,16 @@ export class ContractsComponent implements OnInit {
   constructor(private fb: FormBuilder, private apiService: ApiService, private route: ActivatedRoute) {} //, private http: HttpClient) { }
 
   ngOnInit() {
-    //this.getMethod();
+
+    this.getMethodById(this.idGlobal);
 /*     this.getMethodById(this.idGlobal);
     console.log('registro de la base de datos obtenido por el id lgobal');
     console.log(this.registroPorId); */
-    this.route.paramMap.subscribe((params) => {
-      const idGlobal = params.get('id');
+/*     this.route.paramMap.subscribe((params) => {
+      let idGlobal = params.get('id');
+
       console.log('planning id: ', idGlobal);
-    });
+    }); */
   }
 
   /* Método para generar un id para cada contrato agregado al arreglo de contratos del OCID */
@@ -236,7 +238,7 @@ export class ContractsComponent implements OnInit {
   }
 
   /* Obtener el registro de la colección correspondiente al OCID en curso */
-  getMethodById(id: string): void {
+/*   getMethodById(id: string): void {
     this.apiService.getMethod<any>(`/contracts/getById/${id}`).subscribe(
       (data: any) => {
         this.registroPorId = data;
@@ -246,7 +248,20 @@ export class ContractsComponent implements OnInit {
         console.error('Error al obtener data:', error);
       }
     );
-  }
+  } */
+
+    getMethodById(id: string): void {
+      this.apiService.getMethodById(id, '/contracts/getById').subscribe(
+        (data: any) => {
+          this.registroPorId = data;
+          this.contractsArrayToSend = [...this.registroPorId.record.contracts];
+          console.log('Datos obtenidos:', this.registroPorId);
+        },
+        (error: any) => {
+          console.error('Error al obtener data:', error);
+        }
+      );
+    }
 
   /* Con un observable */
   /* getMethodById(id: string): Observable<any> {
@@ -459,21 +474,19 @@ export class ContractsComponent implements OnInit {
   }
 
   /* Quitar valores capturados de los input(formbuilder) */
-  resetForm() {
-    // Resetea el formulario principal
-    this.contracts.reset();
-    // Resetea los subformularios
-    this.items.reset();
-    this.guarantees.reset();
-    this.documents.reset();
-    this.relatedProcesses.reset();
-    this.milestones.reset();
-    this.amendments.reset();
-  }
 
   refillElemet(contratoId: string) {
-    alert('registro por id');
-    console.log('registro por id');
+    const contracts = this.registroPorId?.record?.contracts;
+    if (!Array.isArray(contracts)) {
+      console.error('contracts no es un array');
+      return;
+    }
+
+    const contract = contracts.find(c => c.id === contratoId);
+    if (!contract) {
+      console.error('Contrato no encontrado');
+      return;
+    }
     console.log('contratoId: ', contratoId);
     this.contracts.patchValue({
       id: this.registroPorId.record.contracts.id,
@@ -646,18 +659,91 @@ export class ContractsComponent implements OnInit {
 
   /* Funciones para el formulario */
   /* Editar */
-  editElement(contratoId: string) {
+/*   editElement(contract: any) {
     this.banderaEditar = true;
-    this.contratoId = contratoId;
-    if (this.isReadOnly == true) {
-      this.isReadOnly = false;
-    } else {
-      this.isReadOnly = false;
-    }
+    this.contratoId = contract._id;
     this.isReadOnly = false;
-    this.refillElemet(contratoId);
-    console.log('Hola desde la función editar');
-    console.log('Elemento editado', contratoId);
+
+    // Llenar el formulario principal
+    this.contracts.patchValue({
+      id: contract.id,
+      status: contract.status,
+      awardID: contract.awardID,
+      title: contract.title,
+      description: contract.description,
+      surveillanceMechanisms: contract.surveillanceMechanisms,
+      period: contract.period,
+      value: contract.value,
+      dateSignedContracts: contract.dateSignedContracts
+    });
+
+    // Llenar los subformularios
+    this.items.patchValue(contract.items);
+    this.guarantees.patchValue(contract.guarantees);
+    this.documents.patchValue(contract.documents);
+    this.relatedProcesses.patchValue(contract.relatedProcesses);
+    this.milestones.patchValue(contract.milestones);
+    this.amendments.patchValue(contract.amendments);
+
+    console.log('Editando contrato:', contract);
+  }
+ */
+  editElement(contract: any) {
+    this.isReadOnly = false;
+    this.banderaEditar = true;
+    this.contratoId = contract._id;
+    this.fillFormWithContractData(contract);
+  }
+
+  /* Visualizar */
+  viewElement(contract: any) {
+    this.isReadOnly = true;
+    this.fillFormWithContractData(contract);
+  }
+  private fillFormWithContractData(contract: any) {
+    this.contracts.patchValue({
+      id: contract.id,
+      status: contract.status,
+      awardID: contract.awardID,
+      title: contract.title,
+      description: contract.description,
+      surveillanceMechanisms: contract.surveillanceMechanisms,
+      period: contract.period,
+      value: contract.value,
+      dateSignedContracts: contract.dateSignedContracts
+    });
+
+    this.items.patchValue(contract.items || {});
+    this.guarantees.patchValue(contract.guarantees || {});
+    this.documents.patchValue(contract.documents || {});
+    this.relatedProcesses.patchValue(contract.relatedProcesses || {});
+    this.milestones.patchValue(contract.milestones || {});
+    this.amendments.patchValue(contract.amendments || {});
+
+    // Desplazarse al formulario
+    const element = document.getElementById('v-pills-contrato');
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth' });
+    }
+
+    // Activar la pestaña del formulario
+    const tabElement = document.getElementById('v-pills-contrato-tab');
+    if (tabElement) {
+      tabElement.click();
+    }
+  }
+
+  resetForm() {
+    this.isReadOnly = false;
+    this.banderaEditar = false;
+    this.contratoId = '';
+    this.contracts.reset();
+    this.items.reset();
+    this.guarantees.reset();
+    this.documents.reset();
+    this.relatedProcesses.reset();
+    this.milestones.reset();
+    this.amendments.reset();
   }
 
   /* Ver */
@@ -726,7 +812,50 @@ export class ContractsComponent implements OnInit {
       }
     }
   } */
+
     onSubmit(idGlobal: string) {
+      if (this.banderaEditar) {
+        // Encontrar el índice del contrato a actualizar
+        const index = this.contractsArrayToSend.findIndex(c => c._id === this.contratoId);
+        if (index !== -1) {
+          // Actualizar el contrato existente
+          this.contractsArrayToSend[index] = {
+            ...this.contractsArrayToSend[index],
+            ...this.contracts.value,
+            items: this.items.value,
+            guarantees: this.guarantees.value,
+            documents: this.documents.value,
+            relatedProcesses: this.relatedProcesses.value,
+            milestones: this.milestones.value,
+            amendments: this.amendments.value
+          };
+        }
+      } else {
+        // Agregar un nuevo contrato
+        this.addElementToObject();
+        this.contractsArrayToSend.push(this.datacontract);
+      }
+
+      // Preparar datos para enviar al API
+      this.dataToUpdate = {
+        id: idGlobal,
+        data: {
+          contracts: this.contractsArrayToSend
+        }
+      };
+
+      // Enviar datos al API
+      this.putMethod(this.dataToUpdate);
+
+      // Resetear el formulario y obtener datos actualizados
+      this.resetForm();
+      this.getMethodById(idGlobal);
+
+      // Resetear la bandera de edición
+      this.banderaEditar = false;
+      this.contratoId = '';
+    }
+/*     onSubmit(idGlobal: string) {
       if (this.banderaEditar) {
         // Crear un nuevo objeto con los datos actualizados
         let updatedContract = {
@@ -774,5 +903,6 @@ export class ContractsComponent implements OnInit {
       // Resetear la bandera de edición
       this.banderaEditar = false;
       this.contratoId = '';
+    } */
+
     }
-}
