@@ -1,0 +1,197 @@
+<div class="container">
+  <div class="row">
+    <div class="col">
+      <h3>Hitos</h3>
+      <hr />
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col">
+      <div class="table-responsive-sm">
+        <table class="table table-hover table-striped mb-10">
+          <thead>
+            <tr>
+              <th scope="col">ID</th>
+              <th scope="col">Titulo</th>
+              <th scope="col">Tipo</th>
+              <th scope="col">Descripción</th>
+              <th scope="col">Codigo</th>
+              <th scope="col">Fecha de vencimiento</th>
+              <th scope="col">Fecha de cumplimiento</th>
+              <th scope="col">Fecha de modificación</th>
+              <th scope="col">Estatus</th>
+
+              <th scope="col">Opciones</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let ele of milestonesArray; index as i">
+              <td scope="row">{{ i + 1 }}</td>
+              <td>{{ ele.title }}</td>
+              <td>{{ ele.type.title }}</td>
+              <td>{{ ele.description }}</td>
+              <td>{{ ele.code }}</td>
+              <td>{{ ele.dueDate }}</td>
+              <td>{{ ele.dateMet }}</td>
+              <td>{{ ele.dateModified }}</td>
+              <td>{{ ele.status.title }}</td>
+              <td>
+                <button
+                  type="button"
+                  class="btn btn-danger"
+                  (click)="deleteMilestone.emit(i)"
+                >
+                  Eliminar
+                </button>
+              </td>
+            </tr>
+            <tr *ngIf="milestonesArray.length === 0">
+              <th scope="row" colspan="10" class="text-center">
+                Sin registros.
+              </th>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+  <hr />
+  <form [formGroup]="milestoneForm">
+    <div class="row">
+      <div class="form-floating col mb-5">
+        <input
+          class="form-control"
+          id="title"
+          type="text"
+          data-sb-validations="required"
+          placeholder="URL*"
+          formControlName="title"
+        />
+        <label for="title">Titulo*</label>
+        <div class="invalid-feedback" data-sb-feedback="title:required">
+          Titulo * es requerido.
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-12">
+        <label for="type">Tipo de hito</label>
+      </div>
+      <div class="form-floating col mb-5">
+        <select class="form-select" formControlName="type">
+          <option *ngFor="let d of milestoneType" [ngValue]="d.code">
+            {{ d.title }}
+          </option>
+        </select>
+        <p>{{ getMilestoneTypeDesc(milestoneForm.value.type) }}</p>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="form-floating col-12 mb-5">
+        <textarea
+          class="form-control"
+          id="description"
+          type="text"
+          placeholder="Descripción*"
+          style="height: 100px"
+          formControlName="description"
+        ></textarea>
+        <label for="description">Descripción*</label>
+        <div class="invalid-feedback" data-sb-feedback="description:required">
+          Descripción * es requerido.
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="form-floating col mb-5">
+        <input
+          class="form-control"
+          id="URL"
+          type="text"
+          data-sb-validations="required"
+          placeholder="URL*"
+          formControlName="code"
+        />
+        <label for="URL">Codigo*</label>
+        <div class="invalid-feedback" data-sb-feedback="title:required">
+          Codigo * es requerido.
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="form-floating col mb-5">
+        <input
+          class="form-control"
+          id="datePublished"
+          type="date"
+          data-sb-validations="required"
+          formControlName="dueDate"
+        />
+        <label for="datePublished">Fecha de vencimiento*</label>
+        <div class="invalid-feedback" data-sb-feedback="title:required">
+          Fecha de vencimiento * es requerido.
+        </div>
+      </div>
+
+      <div class="form-floating col mb-5">
+        <input
+          class="form-control"
+          id="datePublished"
+          type="date"
+          data-sb-validations="required"
+          formControlName="dateMet"
+        />
+        <label for="datePublished">Fecha de cumplimiento*</label>
+        <div class="invalid-feedback" data-sb-feedback="title:required">
+          Fecha de cumplimiento * es requerido.
+        </div>
+      </div>
+
+      <div class="form-floating col mb-5">
+        <input
+          class="form-control"
+          id="dateModified"
+          type="date"
+          data-sb-validations="required"
+          formControlName="dateModified"
+        />
+        <label for="dateModified">Fecha de modificación*</label>
+        <div class="invalid-feedback" data-sb-feedback="title:required">
+          Fecha de modificación * es requerido.
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-12">
+        <label for="status"> Estatus </label>
+      </div>
+      <div class="form-floating col mb-5">
+        <select class="form-select" formControlName="status">
+          <option *ngFor="let d of milestoneStatus" [ngValue]="d.code">
+            {{ d.title }}
+          </option>
+        </select>
+        <p>
+          {{ getMilestoneStatusDesc(milestoneForm.value.status) }}
+        </p>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col">
+        <button
+          type="button"
+          class="btn btn-danger"
+          (click)="addNewMilestone()"
+        >
+          Agregar
+        </button>
+      </div>
+    </div>
+  </form>
+</div>

@@ -25,10 +25,10 @@ export class LayoutsComponent implements OnInit {
         }
       });
 
-    const recordID = localStorage.getItem('record');
+    this.contractID = localStorage.getItem('record');
 
     // en caso de refresh valida mostrar el menu superior
-    if (recordID) this.showMenuRecord = true;
+    if (this.contractID) this.showMenuRecord = true;
   }
 
   logout(): void {

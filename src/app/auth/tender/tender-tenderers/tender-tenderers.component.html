@@ -1,0 +1,53 @@
+<div class="container">
+  <div class="row">
+    <div class="col">
+      <h3>Licitantes</h3>
+      <hr />
+      <p>Todos los actores que presenten una oferta en una licitación.</p>
+    </div>
+    <div class="table-responsive">
+      <table class="table table-striped table-hover align-middle">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Nombre</th>
+            <th>Opciones</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let opt of tenderersArray; index as i">
+            <td scope="row">{{ opt.id }}</td>
+            <td>{{ opt.name }}</td>
+            <td>
+              <button
+                type="button"
+                class="btn btn-danger"
+                (click)="deleteTenderer.emit(i)"
+              >
+                Eliminar
+              </button>
+            </td>
+          </tr>
+          <tr *ngIf="tenderersArray.length === 0">
+            <th scope="row" colspan="7" class="text-center">Sin registros.</th>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <div class="row">
+    <div class="form-floating col-10 mb-5">
+      <select name="select" class="form-select" [(ngModel)]="tenderersValue">
+        <option selected>Seleccione un servidor publico</option>
+        <option *ngFor="let c of tenderers" [ngValue]="c">
+          servidor publico {{ c?.name }}
+        </option>
+      </select>
+    </div>
+    <div class="col-2">
+      <button type="button" class="btn btn-primary" (click)="addNewTenderer()">
+        Agregar
+      </button>
+    </div>
+  </div>
+</div>

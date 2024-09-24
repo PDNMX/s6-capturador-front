@@ -1,0 +1,207 @@
+<div class="container">
+  <div class="row">
+    <div class="col">
+      <h3>Juntas de aclaraciones</h3>
+      <hr />
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col">
+      <div class="table-responsive-sm">
+        <table class="table table-hover table-striped mb-10">
+          <thead>
+            <tr>
+              <th scope="col">ID</th>
+              <th scope="col">Fecha</th>
+              <th scope="col">Asistentes</th>
+              <th scope="col">Servidores Publicos</th>
+              <th scope="col">Opciones</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let meeting of clarificationMeetingsArray; index as i">
+              <td scope="row">{{ i + 1 }}</td>
+              <td>{{ meeting.date }}</td>
+              <td>
+                <ul>
+                  <li *ngFor="let assist of meeting.attendees">
+                    {{ assist.name }}
+                  </li>
+                </ul>
+              </td>
+              <td>
+                <ul>
+                  <li *ngFor="let official of meeting.officials">
+                    {{ official.name }}
+                  </li>
+                </ul>
+              </td>
+              <td>
+                <button
+                  type="button"
+                  class="btn btn-danger"
+                  (click)="deleteClarificationMeeting.emit(i)"
+                >
+                  Eliminar
+                </button>
+              </td>
+            </tr>
+            <tr *ngIf="clarificationMeetingsArray.length === 0">
+              <th scope="row" colspan="5" class="text-center">
+                Sin registros.
+              </th>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+  <hr />
+  <form [formGroup]="meetingForm">
+    <div class="row">
+      <div class="form-floating col-6 mb-5">
+        <input
+          class="form-control"
+          id="amount"
+          type="date"
+          data-sb-validations="required"
+          placeholder="ID de Organización*"
+          formControlName="date"
+        />
+        <label for="amount">Fecha de inicio*</label>
+        <div class="invalid-feedback" data-sb-feedback="title:required">
+          Fecha de inicio * es requerido.
+        </div>
+      </div>
+    </div>
+    <fieldset class="border p-3 mb-3">
+      <legend class="w-auto px-1">Asistentes</legend>
+      <div class="row">
+        <div class="form-floating col-10 mb-5" [formGroup]="attendeesForm">
+          <select class="form-select" formControlName="id">
+            <option selected>Seleccione un asistente</option>
+            <option *ngFor="let c of attendees" [ngValue]="c">
+              asistente {{ c?.name }}
+            </option>
+          </select>
+        </div>
+        <div class="col-2">
+          <button
+            type="button"
+            class="btn btn-primary"
+            (click)="addAttendess()"
+          >
+            Agregar
+          </button>
+        </div>
+      </div>
+      <div class="row">
+        <div class="table-responsive">
+          <table class="table table-hover table-striped mb-10">
+            <thead>
+              <tr>
+                <th scope="col">ID</th>
+                <th scope="col">Nombre</th>
+                <th scope="col">Opciones</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr
+                class=""
+                *ngFor="let assists of meetingForm.value.attendees; index as i"
+              >
+                <td scope="row">{{ assists.id }}</td>
+                <td>{{ assists.name }}</td>
+                <td>
+                  <button
+                    type="button"
+                    class="btn btn-danger"
+                    (click)="deleteAttendess(i)"
+                  >
+                    Eliminar
+                  </button>
+                </td>
+              </tr>
+              <tr *ngIf="meetingForm.value.attendees.length === 0">
+                <th scope="row" colspan="3" class="text-center">
+                  Sin registros.
+                </th>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </fieldset>
+
+    <fieldset class="border p-3 mb-3">
+      <legend class="w-auto px-1">Servidores publicos</legend>
+      <div class="row">
+        <div class="form-floating col-10 mb-5" [formGroup]="officialsForm">
+          <select class="form-select" formControlName="id">
+            <option selected>Seleccione un servidor publico</option>
+            <option *ngFor="let c of officials" [ngValue]="c">
+              servidor publico {{ c?.name }}
+            </option>
+          </select>
+        </div>
+        <div class="col-2">
+          <button
+            type="button"
+            class="btn btn-primary"
+            (click)="addOfficials()"
+          >
+            Agregar
+          </button>
+        </div>
+      </div>
+      <div class="row">
+        <div class="table-responsive">
+          <table class="table table-hover table-striped mb-10">
+            <thead>
+              <tr>
+                <th scope="col">ID</th>
+                <th scope="col">Nombre</th>
+                <th scope="col">Opciones</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr
+                class=""
+                *ngFor="let assists of meetingForm.value.officials; index as i"
+              >
+                <td scope="row">{{ assists.id }}</td>
+                <td>{{ assists.name }}</td>
+                <td>
+                  <button
+                    type="button"
+                    class="btn btn-danger"
+                    (click)="deleteOfficials(i)"
+                  >
+                    Eliminar
+                  </button>
+                </td>
+              </tr>
+              <tr *ngIf="meetingForm.value.officials.length === 0">
+                <th scope="row" colspan="3" class="text-center">
+                  Sin registros.
+                </th>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </fieldset>
+    <div class="row">
+      <div class="col">
+        <button
+          type="button"
+          class="btn btn-danger"
+          (click)="addNewClarificationMeeting()"
+        >
+          Agregar
+        </button>
+      </div>
+    </div>
+  </form>
+</div>
