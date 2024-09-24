@@ -91,6 +91,18 @@ export class TenderGeneralComponent implements OnInit {
         maxExtentDate: ['maxExtentDate', [Validators.required]],
         durationInDays: ['durationInDays', [Validators.required]],
       }),
+      awardPeriod: this.fb.group({
+        startDate: ['startDate', [Validators.required]],
+        endDate: ['endDate', [Validators.required]],
+        maxExtentDate: ['maxExtentDate', [Validators.required]],
+        durationInDays: ['durationInDays', [Validators.required]],
+      }),
+      contractPeriod: this.fb.group({
+        startDate: ['startDate', [Validators.required]],
+        endDate: ['endDate', [Validators.required]],
+        maxExtentDate: ['maxExtentDate', [Validators.required]],
+        durationInDays: ['durationInDays', [Validators.required]],
+      }),
     });
 
     this.additionalProcurementCategoriesForm = this.fb.group({

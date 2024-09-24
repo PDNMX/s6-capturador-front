@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 
 interface IPartie {
   id: number;
@@ -11,7 +11,10 @@ interface IPartie {
   styleUrls: ['./tender-tenderers.component.css'],
 })
 export class TenderTenderersComponent {
-  tenderersArray: Array<any> = [];
+  @Input() tenderersArray: Array<any> = [];
+  @Output() addTenderer = new EventEmitter<any>();
+  @Output() deleteTenderer = new EventEmitter<any>();
+
   tenderersValue!: IPartie;
 
   tenderers = [
@@ -30,11 +33,7 @@ export class TenderTenderersComponent {
     },
   ];
 
-  addTenderers(): void {
-    this.tenderersArray.push({ ...this.tenderersValue });
-  }
-
-  deleteTenderers(index: number): void {
-    this.tenderersArray = this.tenderersArray.filter((t, i) => i !== index);
+  addNewTenderer(): void {
+    this.addTenderer.emit(this.tenderersValue);
   }
 }

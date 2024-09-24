@@ -1,7 +1,7 @@
 <div class="container">
   <div class="row">
     <div class="col">
-      <h3>Juntas de aclaraciones</h3>
+      <h3>Documentos</h3>
       <hr />
     </div>
   </div>
@@ -13,6 +13,7 @@
           <thead>
             <tr>
               <th scope="col">ID</th>
+              <th scope="col">Tipo de documento</th>
               <th scope="col">Titulo</th>
               <th scope="col">Descripción</th>
               <th scope="col">URL</th>
@@ -27,25 +28,26 @@
           <tbody>
             <tr *ngFor="let doc of documentsArray; index as i">
               <td scope="row">{{ i + 1 }}</td>
+              <td>{{ getDocumentTypeTitle(doc.documentType) }}</td>
               <td>{{ doc.title }}</td>
               <td>{{ doc.description }}</td>
               <td>{{ doc.url }}</td>
               <td>{{ doc.datePublished }}</td>
               <td>{{ doc.dateModified }}</td>
-              <td>{{ doc.format.name }}</td>
-              <td>{{ doc.languaje.name }}</td>
+              <td>{{ getFormatDocument(doc.format) }}</td>
+              <td>{{ getLanguaje(doc.languaje) }}</td>
               <td>
                 <button
                   type="button"
                   class="btn btn-danger"
-                  (click)="deleteDocument(i)"
+                  (click)="deleteDocument.emit(i)"
                 >
                   Eliminar
                 </button>
               </td>
             </tr>
             <tr *ngIf="documentsArray.length === 0">
-              <th scope="row" colspan="9" class="text-center">
+              <th scope="row" colspan="10" class="text-center">
                 Sin registros.
               </th>
             </tr>
@@ -58,17 +60,33 @@
 
   <form [formGroup]="documentForm">
     <div class="row">
+      <div class="col-12">
+        <label for="">Tipo de documento</label>
+      </div>
+      <div class="form-floating col mb-5">
+        <select class="form-select" formControlName="documentType">
+          <option *ngFor="let d of documents" [ngValue]="d.code">
+            {{ d.title }}
+          </option>
+        </select>
+        <p>
+          {{ getDocumentTypeDesc(documentForm.value.documentType) }}
+        </p>
+      </div>
+    </div>
+
+    <!-- <div class="row">
       <div class="form-floating col mb-5">
         <select class="form-select" formControlName="documentType">
           <option selected>Seleccione un tipo de documento</option>
-          <option *ngFor="let d of documents" [ngValue]="d">
+          <option *ngFor="let d of documents" [ngValue]="d.code">
             {{ d.title }}
           </option>
         </select>
         <br />
         <p>{{ documentForm.value.documentType.description }}</p>
       </div>
-    </div>
+    </div> -->
 
     <div class="row">
       <div class="form-floating col mb-5">
@@ -150,20 +168,24 @@
       </div>
     </div>
     <div class="row">
+      <div class="col-12">
+        <label for="format">Formato</label>
+      </div>
       <div class="form-floating col mb-5">
         <select class="form-select" formControlName="format">
-          <option selected>Seleccione un tipo de documento</option>
-          <option *ngFor="let d of formatDocument" [ngValue]="d">
+          <option *ngFor="let d of formatDocument" [ngValue]="d.template">
             {{ d.name }}
           </option>
         </select>
       </div>
     </div>
     <div class="row">
+      <div class="col-12">
+        <label for="languaje">Idioma</label>
+      </div>
       <div class="form-floating col mb-5">
         <select class="form-select" formControlName="languaje">
-          <option selected>Seleccione un tipo de documento</option>
-          <option *ngFor="let d of languaje" [ngValue]="d">
+          <option *ngFor="let d of languaje" [ngValue]="d.code">
             {{ d.name }}
           </option>
         </select>
@@ -172,7 +194,7 @@
 
     <div class="row">
       <div class="col">
-        <button type="button" class="btn btn-danger" (click)="addDocument()">
+        <button type="button" class="btn btn-danger" (click)="addNewDocument()">
           Agregar
         </button>
       </div>

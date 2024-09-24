@@ -34,7 +34,7 @@
                 <button
                   type="button"
                   class="btn btn-danger"
-                  (click)="deleteAmendments(i)"
+                  (click)="deleteAmendment.emit(i)"
                 >
                   Eliminar
                 </button>
@@ -138,7 +138,11 @@
 
     <div class="row">
       <div class="col">
-        <button type="button" class="btn btn-danger" (click)="addAmendments()">
+        <button
+          type="button"
+          class="btn btn-danger"
+          (click)="addNewAmendment()"
+        >
           Agregar
         </button>
       </div>
