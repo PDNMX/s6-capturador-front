@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
@@ -7,7 +7,10 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
   styleUrls: ['./tender-amendments.component.css'],
 })
 export class TenderAmendmentsComponent implements OnInit {
-  amendmentsArray: Array<any> = [];
+  @Input() amendmentsArray: Array<any> = [];
+  @Output() addAmendment = new EventEmitter<any>();
+  @Output() deleteAmendment = new EventEmitter<any>();
+
   amendmentsForm!: FormGroup;
 
   constructor(private fb: FormBuilder) {}
@@ -26,12 +29,8 @@ export class TenderAmendmentsComponent implements OnInit {
     });
   }
 
-  addAmendments(): void {
-    this.amendmentsArray.push(this.amendmentsForm.value);
+  addNewAmendment(): void {
+    this.addAmendment.emit(this.amendmentsForm.value);
     this.initForm();
-  }
-
-  deleteAmendments(index: number): void {
-    this.amendmentsArray = this.amendmentsArray.filter((a, i) => i !== index);
   }
 }

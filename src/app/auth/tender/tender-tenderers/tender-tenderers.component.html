@@ -22,7 +22,7 @@
               <button
                 type="button"
                 class="btn btn-danger"
-                (click)="deleteTenderers(i)"
+                (click)="deleteTenderer.emit(i)"
               >
                 Eliminar
               </button>
@@ -45,7 +45,7 @@
       </select>
     </div>
     <div class="col-2">
-      <button type="button" class="btn btn-primary" (click)="addTenderers()">
+      <button type="button" class="btn btn-primary" (click)="addNewTenderer()">
         Agregar
       </button>
     </div>

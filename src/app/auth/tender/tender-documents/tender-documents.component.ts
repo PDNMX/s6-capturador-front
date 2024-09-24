@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { FormatDocument, getDocumentType, Language } from 'src/utils';
 
@@ -8,13 +8,53 @@ import { FormatDocument, getDocumentType, Language } from 'src/utils';
   styleUrls: ['./tender-documents.component.css'],
 })
 export class TenderDocumentsComponent implements OnInit {
+  @Input() documentsArray: Array<any> = [];
+  @Output() addDocument = new EventEmitter<any>();
+  @Output() deleteDocument = new EventEmitter<any>();
+
   documents = getDocumentType('tender');
   formatDocument = FormatDocument;
   languaje = Language;
-  documentsArray: Array<any> = [];
+
   documentForm!: FormGroup;
 
   constructor(private fb: FormBuilder) {}
+
+  getDocumentTypeDesc(code: string): string {
+    let desc = '';
+    this.documents.forEach((d) => {
+      if (d.code === code) desc = d.description;
+    });
+
+    return desc;
+  }
+
+  getDocumentTypeTitle(code: string): string {
+    let desc = '';
+    this.documents.forEach((d) => {
+      if (d.code === code) desc = d.title;
+    });
+
+    return desc;
+  }
+
+  getFormatDocument(code: string): string {
+    let desc = '';
+    this.formatDocument.forEach((d) => {
+      if (d.template === code) desc = d.name;
+    });
+
+    return desc;
+  }
+
+  getLanguaje(code: string): string {
+    let desc = '';
+    this.languaje.forEach((d) => {
+      if (d.code === code) desc = d.name;
+    });
+
+    return desc;
+  }
 
   ngOnInit(): void {
     this.initForm();
@@ -33,12 +73,7 @@ export class TenderDocumentsComponent implements OnInit {
     });
   }
 
-  addDocument(): void {
-    console.log(this.documentForm.value);
-    this.documentsArray.push(this.documentForm.value);
-  }
-
-  deleteDocument(index: number): void {
-    this.documentsArray = this.documentsArray.filter((d, i) => i !== index);
+  addNewDocument(): void {
+    this.addDocument.emit(this.documentForm.value);
   }
 }

@@ -106,6 +106,16 @@
               Modificaciones
             </button>
           </div>
+
+          <div class="d-flex flex-column">
+            <button
+              type="button"
+              class="btn btn-danger text-center p-3"
+              (click)="submit()"
+            >
+              Guardar
+            </button>
+          </div>
         </div>
       </div>
       <div class="col-md-9 g-0">
@@ -136,7 +146,7 @@
         </div>
         <div class="tab-content" id="licitacion-tabContent">
           <div
-            class="tab-pane fade show active"
+            class="tab-pane fade"
             id="licitacion-general"
             role="tabpanel"
             aria-labelledby="licitacion-general-tab"
@@ -149,14 +159,18 @@
         </div>
         <div class="tab-content" id="licitacion-tabContent">
           <div
-            class="tab-pane fade"
+            class="tab-pane fade show active"
             id="licitacion-items"
             role="tabpanel"
             aria-labelledby="licitacion-items-tab"
             tabindex="0"
           >
             <div class="form">
-              <app-tender-items></app-tender-items>
+              <app-tender-items
+                [itemsArray]="tenderForm.value.items"
+                (addItem)="addItem($event)"
+                (deleteItem)="deleteItem($event)"
+              ></app-tender-items>
             </div>
           </div>
         </div>
@@ -169,7 +183,15 @@
             tabindex="0"
           >
             <div class="form">
-              <app-tender-meetings></app-tender-meetings>
+              <app-tender-meetings
+                [clarificationMeetingsArray]="
+                  tenderForm.value.clarificationMeetings
+                "
+                (addClarificationMeeting)="addClarificationMeeting($event)"
+                (deleteClarificationMeeting)="
+                  deleteClarificationMeeting($event)
+                "
+              ></app-tender-meetings>
             </div>
           </div>
         </div>
@@ -183,7 +205,11 @@
             tabindex="0"
           >
             <div class="form">
-              <app-tender-tenderers></app-tender-tenderers>
+              <app-tender-tenderers
+                [tenderersArray]="tenderForm.value.tenderers"
+                (addTenderer)="addTenderer($event)"
+                (deleteTenderer)="deleteTenderer($event)"
+              ></app-tender-tenderers>
             </div>
           </div>
         </div>
@@ -197,7 +223,11 @@
             tabindex="0"
           >
             <div class="form">
-              <app-tender-documents></app-tender-documents>
+              <app-tender-documents
+                [documentsArray]="tenderForm.value.documents"
+                (addDocument)="addDocument($event)"
+                (deleteDocument)="deleteDocument($event)"
+              ></app-tender-documents>
             </div>
           </div>
         </div>
@@ -211,7 +241,11 @@
             tabindex="0"
           >
             <div class="form">
-              <app-tender-milestones></app-tender-milestones>
+              <app-tender-milestones
+                [milestonesArray]="tenderForm.value.milestones"
+                (addMilestone)="addMilestone($event)"
+                (deleteMilestone)="deleteMilestone($event)"
+              ></app-tender-milestones>
             </div>
           </div>
         </div>
@@ -225,7 +259,11 @@
             tabindex="0"
           >
             <div class="form">
-              <app-tender-amendments></app-tender-amendments>
+              <app-tender-amendments
+                [amendmentsArray]="tenderForm.value.amendments"
+                (addAmendment)="addAmendment($event)"
+                (deleteAmendment)="deleteAmendment($event)"
+              ></app-tender-amendments>
             </div>
           </div>
         </div>

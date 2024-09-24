@@ -431,13 +431,149 @@
       </div>
     </fieldset>
 
-    <!-- <div class="row">
+    <fieldset class="border p-3 mb-3" formGroupName="awardPeriod">
+      <legend class="w-auto px-1">Periodo de evaluación y adjudicación</legend>
+
+      <div class="row">
+        <div class="form-floating col-6 mb-5">
+          <input
+            class="form-control"
+            id="startDate"
+            type="date"
+            data-sb-validations="required"
+            formControlName="startDate"
+          />
+          <label for="startDate">Fecha de inicio*</label>
+          <div class="invalid-feedback" data-sb-feedback="startDate:required">
+            Fecha de inicio * es requerido.
+          </div>
+        </div>
+        <div class="form-floating col-6 mb-5">
+          <input
+            class="form-control"
+            id="endDate"
+            type="date"
+            data-sb-validations="required"
+            formControlName="endDate"
+          />
+          <label for="endDate">Fecha de termino*</label>
+          <div class="invalid-feedback" data-sb-feedback="endDate:required">
+            Fecha de termino * es requerido.
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="form-floating col-6 mb-5">
+          <input
+            class="form-control"
+            id="maxExtentDate"
+            type="date"
+            data-sb-validations="required"
+            formControlName="maxExtentDate"
+          />
+          <label for="maxExtentDate">Extension máxima*</label>
+          <div
+            class="invalid-feedback"
+            data-sb-feedback="maxExtentDate:required"
+          >
+            Extension máxima * es requerido.
+          </div>
+        </div>
+        <div class="form-floating col-6 mb-5">
+          <input
+            class="form-control"
+            id="durationInDays"
+            type="number"
+            data-sb-validations="required"
+            formControlName="durationInDays"
+          />
+          <label for="durationInDays">Duración (dias)*</label>
+          <div
+            class="invalid-feedback"
+            data-sb-feedback="durationInDays:required"
+          >
+            Duración * es requerido.
+          </div>
+        </div>
+      </div>
+    </fieldset>
+
+    <fieldset class="border p-3 mb-3" formGroupName="contractPeriod">
+      <legend class="w-auto px-1">Periodo del contrato</legend>
+
+      <div class="row">
+        <div class="form-floating col-6 mb-5">
+          <input
+            class="form-control"
+            id="startDate"
+            type="date"
+            data-sb-validations="required"
+            formControlName="startDate"
+          />
+          <label for="startDate">Fecha de inicio*</label>
+          <div class="invalid-feedback" data-sb-feedback="startDate:required">
+            Fecha de inicio * es requerido.
+          </div>
+        </div>
+        <div class="form-floating col-6 mb-5">
+          <input
+            class="form-control"
+            id="endDate"
+            type="date"
+            data-sb-validations="required"
+            formControlName="endDate"
+          />
+          <label for="endDate">Fecha de termino*</label>
+          <div class="invalid-feedback" data-sb-feedback="endDate:required">
+            Fecha de termino * es requerido.
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="form-floating col-6 mb-5">
+          <input
+            class="form-control"
+            id="maxExtentDate"
+            type="date"
+            data-sb-validations="required"
+            formControlName="maxExtentDate"
+          />
+          <label for="maxExtentDate">Extension máxima*</label>
+          <div
+            class="invalid-feedback"
+            data-sb-feedback="maxExtentDate:required"
+          >
+            Extension máxima * es requerido.
+          </div>
+        </div>
+        <div class="form-floating col-6 mb-5">
+          <input
+            class="form-control"
+            id="durationInDays"
+            type="number"
+            data-sb-validations="required"
+            formControlName="durationInDays"
+          />
+          <label for="durationInDays">Duración (dias)*</label>
+          <div
+            class="invalid-feedback"
+            data-sb-feedback="durationInDays:required"
+          >
+            Duración * es requerido.
+          </div>
+        </div>
+      </div>
+    </fieldset>
+
+    <div class="row m-10">
       <div class="col">
         <button type="button" class="btn btn-danger" (click)="saveForm()">
           Guardar
         </button>
       </div>
-    </div> -->
+    </div>
   </form>
 </div>
 
@@ -558,130 +694,6 @@
           <label for="description">Justificación*</label>
           <div class="invalid-feedback" data-sb-feedback="description:required">
             Justificación para el método de contratación * es requerido.
-          </div>
-        </div>
-      </div>
-    </fieldset>
-
-    <fieldset class="border p-3 mb-3">
-      <legend class="w-auto px-1">Periodo de evaluación y adjudicación</legend>
-
-      <div class="row">
-        <div class="form-floating col-6 mb-5">
-          <input
-            class="form-control"
-            id="amount"
-            type="date"
-            data-sb-validations="required"
-            placeholder="ID de Organización*"
-          />
-          <label for="amount">Fecha de inicio*</label>
-          <div class="invalid-feedback" data-sb-feedback="title:required">
-            Fecha de inicio * es requerido.
-          </div>
-        </div>
-        <div class="form-floating col-6 mb-5">
-          <input
-            class="form-control"
-            id="amount"
-            type="date"
-            data-sb-validations="required"
-            placeholder="ID de Organización*"
-          />
-          <label for="amount">Fecha de termino*</label>
-          <div class="invalid-feedback" data-sb-feedback="title:required">
-            Fecha de termino * es requerido.
-          </div>
-        </div>
-      </div>
-
-      <div class="row">
-        <div class="form-floating col-6 mb-5">
-          <input
-            class="form-control"
-            id="amount"
-            type="date"
-            data-sb-validations="required"
-            placeholder="ID de Organización*"
-          />
-          <label for="amount">Extension máxima*</label>
-          <div class="invalid-feedback" data-sb-feedback="title:required">
-            Extension máxima * es requerido.
-          </div>
-        </div>
-        <div class="form-floating col-6 mb-5">
-          <input
-            class="form-control"
-            id="amount"
-            type="number"
-            data-sb-validations="required"
-            placeholder="ID de Organización*"
-          />
-          <label for="amount">Duración (dias)*</label>
-          <div class="invalid-feedback" data-sb-feedback="title:required">
-            Duración * es requerido.
-          </div>
-        </div>
-      </div>
-    </fieldset>
-
-    <fieldset class="border p-3 mb-3">
-      <legend class="w-auto px-1">Periodo del contrato</legend>
-
-      <div class="row">
-        <div class="form-floating col-6 mb-5">
-          <input
-            class="form-control"
-            id="amount"
-            type="date"
-            data-sb-validations="required"
-            placeholder="ID de Organización*"
-          />
-          <label for="amount">Fecha de inicio*</label>
-          <div class="invalid-feedback" data-sb-feedback="title:required">
-            Fecha de inicio * es requerido.
-          </div>
-        </div>
-        <div class="form-floating col-6 mb-5">
-          <input
-            class="form-control"
-            id="amount"
-            type="date"
-            data-sb-validations="required"
-            placeholder="ID de Organización*"
-          />
-          <label for="amount">Fecha de termino*</label>
-          <div class="invalid-feedback" data-sb-feedback="title:required">
-            Fecha de termino * es requerido.
-          </div>
-        </div>
-      </div>
-
-      <div class="row">
-        <div class="form-floating col-6 mb-5">
-          <input
-            class="form-control"
-            id="amount"
-            type="date"
-            data-sb-validations="required"
-            placeholder="ID de Organización*"
-          />
-          <label for="amount">Extension máxima*</label>
-          <div class="invalid-feedback" data-sb-feedback="title:required">
-            Extension máxima * es requerido.
-          </div>
-        </div>
-        <div class="form-floating col-6 mb-5">
-          <input
-            class="form-control"
-            id="amount"
-            type="number"
-            data-sb-validations="required"
-            placeholder="ID de Organización*"
-          />
-          <label for="amount">Duración (dias)*</label>
-          <div class="invalid-feedback" data-sb-feedback="title:required">
-            Duración * es requerido.
           </div>
         </div>
       </div>
