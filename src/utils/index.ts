@@ -10,6 +10,7 @@ import Language from './language';
 import MilestoneType from './milestoneType';
 import MilestoneStatus from './milestoneStatus';
 import TenderStatus from './tenderStatus';
+import Classifications from './classification';
 
 export {
   Currency,
@@ -24,4 +25,5 @@ export {
   MilestoneType,
   MilestoneStatus,
   TenderStatus,
+  Classifications,
 };
