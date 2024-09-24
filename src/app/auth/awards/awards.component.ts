@@ -42,9 +42,64 @@ export class AwardsComponent implements OnInit {
     //this.getMethod();
     this.loadRecordId();
     this.initForms();
+    if (this.recordId) {
+      this.loadExistingData();
+    }
   }
 
-  //Funciones para Agregar, Eliminar proveedores al arreglo
+  loadRecordId() {
+    const storedId = localStorage.getItem('record');
+    if (storedId) {
+      this.recordId = storedId;
+    } else {
+      console.error('No se encontró el ID del registro');
+    }
+  }
+
+  loadExistingData() {
+    const body = { id: this.recordId };
+    this.apiService.postMethod(body, `/awards/getById`).subscribe(
+      (response: any) => {
+        if (response && response.record && response.record.award) {
+          const awardData = response.record.award;
+          this.populateForm(awardData);
+        } else {
+          console.error('Los datos recibidos no tienen la estructura esperada');
+        }
+      },
+      (error) => {
+        console.error('Error al cargar los datos:', error);
+      }
+    );
+  }
+
+  populateForm(data: any) {
+    console.log('Datos recibidos:', data);
+    // Poblar el formulario principal
+    this.awards.patchValue({
+      id: data.id,
+      status: data.status,
+      title: data.title,
+      description: data.description,
+      rationale: data.rationale,
+      date: data.date ? new Date(data.date) : null,
+      value: data.value,
+      contractPeriod: {
+        startDate: data.contractPeriod?.startDate ? new Date(data.contractPeriod.startDate) : null,
+        endDate: data.contractPeriod?.endDate ? new Date(data.contractPeriod.endDate) : null,
+        maxExtentDate: data.contractPeriod?.maxExtentDate ? new Date(data.contractPeriod.maxExtentDate) : null,
+        durationInDays: data.contractPeriod?.durationInDays
+      }
+    });
+
+    // Poblar los arrays
+    this.tempAwards.suppliers = data.suppliers || [];
+    this.tempAwards.items = data.items || [];
+    this.tempAwards.documents = data.documents || [];
+    this.tempAwards.amendments = data.amendments || [];
+
+    // Aquí puedes agregar lógica adicional si necesitas mostrar estos arrays en la interfaz
+  }
 
   //Para ser usado con el api del s6
   /*  postMethod(dataToSend: any) {
@@ -147,14 +202,6 @@ export class AwardsComponent implements OnInit {
     });
   }
 
-  loadRecordId() {
-    const storedId = localStorage.getItem('record');
-    if (storedId) {
-      this.recordId = storedId;
-    } else {
-      console.error('No se encontró el ID del registro');
-    }
-  }
 
   addSupplier() {
     this.tempAwards.suppliers.push(this.suppliers.value);
