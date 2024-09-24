@@ -1,11 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-planning',
   templateUrl: './planning.component.html',
   styleUrls: ['./planning.component.css'],
 })
+
 export class PlanningComponent implements OnInit {
   savingMessage: string = '';
   isSaving: boolean = false;
@@ -96,7 +98,7 @@ export class PlanningComponent implements OnInit {
     language: ['', Validators.required]
   });
 
-  ;  
+  ;
 
 /**/
     requestForQuotes = this.fb.group ({
@@ -136,7 +138,7 @@ export class PlanningComponent implements OnInit {
         uri: [''],
       }),
     })
-  });   
+  });
 
   milestones = this.fb.group ({
     id: ['', Validators.required],
@@ -144,16 +146,16 @@ export class PlanningComponent implements OnInit {
     type: ['', Validators.required],
     description: ['', Validators.required],
     code: ['', Validators.required],
-    dueDate: ['', Validators.required], 
-    dateMet: ['', Validators.required],  
+    dueDate: ['', Validators.required],
+    dateMet: ['', Validators.required],
     dateModified: ['', Validators.required],
-    status: ['', Validators.required] 
-  });  
-  
-  
+    status: ['', Validators.required]
+  });
 
-  
-  
+
+
+
+
 
   onSubmit(){
     console.log(this.planning.value);
@@ -179,7 +181,7 @@ export class PlanningComponent implements OnInit {
     this.tempPlanning.requestForQuotes.push(this.requestForQuotes.value);
     this.showSavingMessage();
     this.documents.reset();
-  } 
+  }
 
   onSubmitMilestones() {
     console.log(this.milestones.value);
@@ -188,7 +190,7 @@ export class PlanningComponent implements OnInit {
     this.documents.reset();
   }
 
-  
+
 
   //Metodo del mensaje guardando
   showSavingMessage() {
@@ -214,14 +216,15 @@ export class PlanningComponent implements OnInit {
     console.log('Enviando todos los datos', finalData);
     this.postMethod(finalData); */
   }
-
-export class PlanningComponent implements OnInit {
-  constructor(private route: ActivatedRoute) {}
-
-  ngOnInit(): void {
-    this.route.paramMap.subscribe((params) => {
-      const id = params.get('id');
-      console.log('planning id: ', id);
-    });
-  }
 }
+
+// export class PlanningComponent implements OnInit {
+//   constructor(private route: ActivatedRoute) {}
+
+//   ngOnInit(): void {
+//     this.route.paramMap.subscribe((params:any) => {
+//       const id = params.get('id');
+//       console.log('planning id: ', id);
+//     });
+//   }
+// }
