@@ -31,6 +31,16 @@ export class ApiService {
       : new HttpHeaders();
   }
 
+  getMethodById(id: string, endpoint: string): Observable<any> {
+    return this.http.post<any>(
+      `${this.base_url}${endpoint}`,
+      { id: id },  // Enviamos el ID en el cuerpo de la petición
+      { headers: this.getHeaders() }
+    ).pipe(
+      catchError(this.handleError<any>('getMethodById'))
+    );
+  }
+
   /* Método para hacer llamadas por get all*/
   getMethod<T>(endpoint: string): Observable<T> {
     return this.http

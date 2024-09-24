@@ -20,7 +20,7 @@
             </tr>
           </thead>
           <tbody>
-            <tr *ngFor="let meeting of meetingsArray; index as i">
+            <tr *ngFor="let meeting of clarificationMeetingsArray; index as i">
               <td scope="row">{{ i + 1 }}</td>
               <td>{{ meeting.date }}</td>
               <td>
@@ -41,13 +41,13 @@
                 <button
                   type="button"
                   class="btn btn-danger"
-                  (click)="deleteMeeting(i)"
+                  (click)="deleteClarificationMeeting.emit(i)"
                 >
                   Eliminar
                 </button>
               </td>
             </tr>
-            <tr *ngIf="meetingsArray.length === 0">
+            <tr *ngIf="clarificationMeetingsArray.length === 0">
               <th scope="row" colspan="5" class="text-center">
                 Sin registros.
               </th>
@@ -194,7 +194,11 @@
     </fieldset>
     <div class="row">
       <div class="col">
-        <button type="button" class="btn btn-danger" (click)="addMeeting()">
+        <button
+          type="button"
+          class="btn btn-danger"
+          (click)="addNewClarificationMeeting()"
+        >
           Agregar
         </button>
       </div>

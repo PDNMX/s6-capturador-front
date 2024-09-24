@@ -26,7 +26,7 @@
             </tr>
           </thead>
           <tbody>
-            <tr *ngFor="let ele of milestoneArray; index as i">
+            <tr *ngFor="let ele of milestonesArray; index as i">
               <td scope="row">{{ i + 1 }}</td>
               <td>{{ ele.title }}</td>
               <td>{{ ele.type.title }}</td>
@@ -40,13 +40,13 @@
                 <button
                   type="button"
                   class="btn btn-danger"
-                  (click)="deleteMilestone(i)"
+                  (click)="deleteMilestone.emit(i)"
                 >
                   Eliminar
                 </button>
               </td>
             </tr>
-            <tr *ngIf="milestoneArray.length === 0">
+            <tr *ngIf="milestonesArray.length === 0">
               <th scope="row" colspan="10" class="text-center">
                 Sin registros.
               </th>
@@ -76,13 +76,16 @@
     </div>
 
     <div class="row">
+      <div class="col-12">
+        <label for="type">Tipo de hito</label>
+      </div>
       <div class="form-floating col mb-5">
         <select class="form-select" formControlName="type">
-          <option selected>Seleccione un tipo</option>
-          <option *ngFor="let d of milestoneType" [ngValue]="d">
+          <option *ngFor="let d of milestoneType" [ngValue]="d.code">
             {{ d.title }}
           </option>
         </select>
+        <p>{{ getMilestoneTypeDesc(milestoneForm.value.type) }}</p>
       </div>
     </div>
 
@@ -164,19 +167,28 @@
       </div>
     </div>
     <div class="row">
+      <div class="col-12">
+        <label for="status"> Estatus </label>
+      </div>
       <div class="form-floating col mb-5">
         <select class="form-select" formControlName="status">
-          <option selected>Seleccione un estatus</option>
-          <option *ngFor="let d of milestoneStatus" [ngValue]="d">
+          <option *ngFor="let d of milestoneStatus" [ngValue]="d.code">
             {{ d.title }}
           </option>
         </select>
+        <p>
+          {{ getMilestoneStatusDesc(milestoneForm.value.status) }}
+        </p>
       </div>
     </div>
 
     <div class="row">
       <div class="col">
-        <button type="button" class="btn btn-danger" (click)="addMilestone()">
+        <button
+          type="button"
+          class="btn btn-danger"
+          (click)="addNewMilestone()"
+        >
           Agregar
         </button>
       </div>

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
@@ -7,6 +7,10 @@ import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
   styleUrls: ['./tender-meetings.component.css'],
 })
 export class TenderMeetingsComponent implements OnInit {
+  @Input() clarificationMeetingsArray: Array<any> = [];
+  @Output() addClarificationMeeting = new EventEmitter<any>();
+  @Output() deleteClarificationMeeting = new EventEmitter<any>();
+
   meetingsArray: Array<any> = [];
 
   meetingForm!: FormGroup;
@@ -93,12 +97,18 @@ export class TenderMeetingsComponent implements OnInit {
     this.officialsArray.removeAt(index);
   }
 
-  addMeeting(): void {
-    this.meetingsArray.push({ ...this.meetingForm.value });
-    this.initForm();
-  }
+  addNewClarificationMeeting(): void {
+    const attendees = this.attendeesArray;
+    const officials = this.officialsArray;
 
-  deleteMeeting(index: number): void {
-    this.meetingsArray = this.meetingsArray.filter((m, i) => i !== index);
+    const data = {
+      date: this.meetingForm.value.date,
+      attendees,
+      officials,
+    };
+
+    this.addClarificationMeeting.emit(data);
+
+    this.initForm();
   }
 }
