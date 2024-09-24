@@ -1,4 +1,4 @@
-import mainProcurementCategory from './mainProcurementCategory';
+import MainProcurementCategory from './mainProcurementCategory';
 import AdditionalProcurementCategories from './additionalProcurementCategories';
 import AwardCriteria from './awardCriteria';
 import SubmissionMethod from './submissionMethod';
@@ -10,11 +10,12 @@ import Language from './language';
 import MilestoneType from './milestoneType';
 import MilestoneStatus from './milestoneStatus';
 import TenderStatus from './tenderStatus';
+import Classifications from './classification';
 
 export {
   Currency,
   ProcurementMethod,
-  mainProcurementCategory,
+  MainProcurementCategory,
   AdditionalProcurementCategories,
   AwardCriteria,
   SubmissionMethod,
@@ -24,4 +25,5 @@ export {
   MilestoneType,
   MilestoneStatus,
   TenderStatus,
+  Classifications,
 };
