@@ -50,7 +50,10 @@
             <td>{{ item.unit.value.amountNet }}</td>
             <td>{{ item.unit.value.currency }}</td>
             <td>
-              <button class="btn btn-danger" (click)="deleteItem.emit(i)">
+              <button
+                class="btn btn-danger btn-delete"
+                (click)="deleteItem.emit(i)"
+              >
                 Eliminar
               </button>
             </td>
@@ -128,7 +131,7 @@ data-sb-feedback="title:required"
       <div class="col-2">
         <button
           type="button"
-          class="btn btn-danger"
+          class="btn btn-danger btn-add"
           (click)="addAdditionalClassifications()"
         >
           Agregar
@@ -161,7 +164,7 @@ data-sb-feedback="title:required"
               <td>
                 <button
                   type="button"
-                  class="btn btn-danger"
+                  class="btn btn-danger btn-delete"
                   (click)="deleteAdditionalClassifications(i)"
                 >
                   Eliminar
@@ -259,8 +262,12 @@ data-sb-feedback="title:required"
 
   <div class="row">
     <div class="col">
-      <button type="button" class="btn btn-danger" (click)="addNewItem()">
-        Agregar
+      <button
+        type="button"
+        class="btn btn-danger btn-add"
+        (click)="addNewItem()"
+      >
+        Agregar artículo
       </button>
     </div>
   </div>

@@ -39,7 +39,7 @@
               <td>
                 <button
                   type="button"
-                  class="btn btn-danger"
+                  class="btn btn-danger btn-delete"
                   (click)="deleteDocument.emit(i)"
                 >
                   Eliminar
@@ -194,8 +194,12 @@
 
     <div class="row">
       <div class="col">
-        <button type="button" class="btn btn-danger" (click)="addNewDocument()">
-          Agregar
+        <button
+          type="button"
+          class="btn btn-danger btn-add"
+          (click)="addNewDocument()"
+        >
+          Agregar documento
         </button>
       </div>
     </div>

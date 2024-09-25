@@ -40,7 +40,7 @@
               <td>
                 <button
                   type="button"
-                  class="btn btn-danger"
+                  class="btn btn-danger btn-delete"
                   (click)="deleteClarificationMeeting.emit(i)"
                 >
                   Eliminar
@@ -89,7 +89,7 @@
         <div class="col-2">
           <button
             type="button"
-            class="btn btn-primary"
+            class="btn btn-danger btn-add"
             (click)="addAttendess()"
           >
             Agregar
@@ -116,7 +116,7 @@
                 <td>
                   <button
                     type="button"
-                    class="btn btn-danger"
+                    class="btn btn-danger btn-delete"
                     (click)="deleteAttendess(i)"
                   >
                     Eliminar
@@ -148,7 +148,7 @@
         <div class="col-2">
           <button
             type="button"
-            class="btn btn-primary"
+            class="btn btn-danger btn-add"
             (click)="addOfficials()"
           >
             Agregar
@@ -175,7 +175,7 @@
                 <td>
                   <button
                     type="button"
-                    class="btn btn-danger"
+                    class="btn btn-danger btn-delete"
                     (click)="deleteOfficials(i)"
                   >
                     Eliminar
@@ -196,10 +196,10 @@
       <div class="col">
         <button
           type="button"
-          class="btn btn-danger"
+          class="btn btn-danger btn-add"
           (click)="addNewClarificationMeeting()"
         >
-          Agregar
+          Agregar junta de aclaración
         </button>
       </div>
     </div>

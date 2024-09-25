@@ -249,7 +249,7 @@
         <div class="col-2">
           <button
             type="button"
-            class="btn btn-danger"
+            class="btn btn-danger btn-add"
             (click)="addAdditionalProcurementCategories()"
           >
             Agregar
@@ -282,7 +282,7 @@
                   <td>
                     <button
                       type="button"
-                      class="btn btn-danger"
+                      class="btn btn-danger btn-delete"
                       (click)="deleteAdditionalProcurementCategories(i)"
                     >
                       Eliminar
@@ -365,7 +365,7 @@
         <div class="col-2">
           <button
             type="button"
-            class="btn btn-danger"
+            class="btn btn-danger btn-add"
             (click)="addSubmissionMethod()"
           >
             Agregar
@@ -396,7 +396,7 @@
                   <td>
                     <button
                       type="button"
-                      class="btn btn-danger"
+                      class="btn btn-danger btn-delete"
                       (click)="deleteSubmissionMethod(i)"
                     >
                       Eliminar
@@ -737,8 +737,12 @@
 
     <div class="row m-10">
       <div class="col">
-        <button type="button" class="btn btn-danger" (click)="saveForm()">
-          Guardar
+        <button
+          type="button"
+          class="btn btn-danger btn-add"
+          (click)="saveForm()"
+        >
+          Guardar sección
         </button>
       </div>
     </div>
