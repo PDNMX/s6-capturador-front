@@ -195,6 +195,7 @@ export class AwardsComponent implements OnInit {
     });
   }
 
+
   addSupplier() {
     this.tempAwards.suppliers.push(this.suppliers.value);
     this.suppliers.reset();
