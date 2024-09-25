@@ -82,14 +82,9 @@ export class AwardsComponent implements OnInit {
       title: data.title,
       description: data.description,
       rationale: data.rationale,
-      date: data.date ? new Date(data.date) : null,
+      date: data.date,
       value: data.value,
-      contractPeriod: {
-        startDate: data.contractPeriod?.startDate ? new Date(data.contractPeriod.startDate) : null,
-        endDate: data.contractPeriod?.endDate ? new Date(data.contractPeriod.endDate) : null,
-        maxExtentDate: data.contractPeriod?.maxExtentDate ? new Date(data.contractPeriod.maxExtentDate) : null,
-        durationInDays: data.contractPeriod?.durationInDays
-      }
+      contractPeriod: data.contractPeriod,
     });
 
     // Poblar los arrays
@@ -97,8 +92,6 @@ export class AwardsComponent implements OnInit {
     this.tempAwards.items = data.items || [];
     this.tempAwards.documents = data.documents || [];
     this.tempAwards.amendments = data.amendments || [];
-
-    // Aquí puedes agregar lógica adicional si necesitas mostrar estos arrays en la interfaz
   }
 
   //Para ser usado con el api del s6
@@ -220,7 +213,7 @@ export class AwardsComponent implements OnInit {
     console.log(this.awards.value);
     this.tempAwards = { ...this.tempAwards, ...this.awards.value };
     this.showSavingMessage();
-    this.awards.reset();
+    //this.awards.reset();
   }
 
   /*   onSubmitSuppliers() {
@@ -234,32 +227,32 @@ export class AwardsComponent implements OnInit {
     console.log(this.items.value);
     this.tempAwards.items.push(this.items.value);
     this.showSavingMessage();
-    this.items.reset();
+    //this.items.reset();
   }
 
   onSubmitDocuments() {
     console.log(this.documents.value);
     this.tempAwards.documents.push(this.documents.value);
     this.showSavingMessage();
-    this.documents.reset();
+    //this.documents.reset();
   }
 
   onSubmitAwardsAmendments() {
     console.log(this.amendments.value);
     this.tempAwards.amendments.push(this.amendments.value);
     this.showSavingMessage();
-    this.documents.reset();
+    //this.documents.reset();
   }
 
   //Metodo del mensaje guardando
-     showSavingMessage() {
+  showSavingMessage() {
     this.isSaving = true;
     this.savingMessage = 'Guardando...';
     setTimeout(() => {
       this.isSaving = false;
       this.savingMessage = '';
-    }, 2000);
-  } 
+    }, 1500);
+  }
 
   //Metodo para combinar y enviar todos los datos
   /*   submitAllSections() {
@@ -276,11 +269,6 @@ export class AwardsComponent implements OnInit {
     this.postMethod(finalData);
   } */
   submitAllSections() {
-    /*  if (!this.awards.valid) {
-        console.error('Formulario inválido');
-        return;
-      } */
-
     const awardData = {
       ...this.awards.value,
       suppliers: this.tempAwards.suppliers,
