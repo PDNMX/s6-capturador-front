@@ -410,7 +410,7 @@
                             placeholder="Monto total del presupuesto"
                             formControlName="amount"
                           />
-                          <label for="BudgetValueAmount">Monto</label>
+                          <label for="BudgetValueAmount">Monto presupuesto</label>
                         </div>
                         <div class="form-floating cell medium-6">
                           <select
@@ -438,6 +438,16 @@
                 </div>
                 <div>
                   <div class="row" formGroupName="budgetBreakdown">
+                    <div class="col-md-12 form-floating mb-3">
+                      <input
+                        type="text"
+                        class="form-control"
+                        id="BudgetBreakdownProject"
+                        placeholder="Proyecto"
+                        formControlName="project"
+                      />
+                      <label for="BudgetBreakdownProject">Proyecto</label>
+                    </div>
                     <div class="col-md-2 form-floating mb-3">
                       <input
                         type="text"
@@ -552,46 +562,50 @@
                         >
                       </div>
                     </div>
+
+                    <div class="row" formGroupName="value">
+                      <div class="col-md-12 form-floating mb-3">
+                        
+                          <legend>Valor actor</legend>
+                          <div class="grid-margin-x grid-x">
+                            <div class="form-floating mb-3 cell medium-6">
+                              <input
+                                type="number"
+                                class="form-control"
+                                id="BudgetBreakdownValueAmount"
+                                placeholder="Monto total del presupuesto"
+                                formControlName="amount"
+                              />
+                              <label for="BudgetBreakdownValueAmount"
+                                >Monto</label
+                              >
+                            </div>
+                            <div class="form-floating cell medium-6">
+                              <select
+                                class="form-select"
+                                id="BudgetBreakdownValueCurrency"
+                                aria-label="moneda"
+                                formControlName="currency"
+                              >
+                                <option value="default">
+                                  Seleccione el tipo de moneda
+                                </option>
+                                <option value="mxn">MXN</option>
+                                <option value="usd">USD</option>
+                              </select>
+                              <label for="BudgetBreakdownValueCurrency"
+                                >Moneda</label
+                              >
+                            </div>
+                          </div>
+                        
+                      </div>
+                    </div>
+
                   </div>
 
-                  <div class="row" formGroupName="value">
-                    <div class="col-md-12 form-floating mb-3">
-                      <fieldset class="fieldset cell">
-                        <legend>Valor</legend>
-                        <div class="grid-margin-x grid-x">
-                          <div class="form-floating mb-3 cell medium-6">
-                            <input
-                              type="number"
-                              class="form-control"
-                              id="BudgetBreakdownValueAmount"
-                              placeholder="Monto total del presupuesto"
-                              formControlName="amount"
-                            />
-                            <label for="BudgetBreakdownValueAmount"
-                              >Monto</label
-                            >
-                          </div>
-                          <div class="form-floating cell medium-6">
-                            <select
-                              class="form-select"
-                              id="BudgetBreakdownValueCurrency"
-                              aria-label="moneda"
-                              formControlName="currency"
-                            >
-                              <option value="default">
-                                Seleccione el tipo de moneda
-                              </option>
-                              <option value="mxn">MXN</option>
-                              <option value="usd">USD</option>
-                            </select>
-                            <label for="BudgetBreakdownValueCurrency"
-                              >Moneda</label
-                            >
-                          </div>
-                        </div>
-                      </fieldset>
-                    </div>
-                  </div>
+                  
+                  
 
                   <div class="row">
                     <h5>Líneas Presupuestarias</h5>
@@ -855,6 +869,29 @@ Escriba la justificación de la contratación</textarea
                     <label for="PlanningDocumentsformat">Formato</label>
                   </div>
                 </div>
+                <div class="row">
+                  <div
+                    class="col-md-6 form-group d-flex justify-content-between"
+                  >
+                    <input
+                      type="submit"
+                      value="Siguiente"
+                      class="btn btn-primary rounded-0 py-2 px-4"
+                    />
+                    <span class="Guardar"></span>
+                    <input
+                      type="submit"
+                      value="Eliminar"
+                      class="btn btn-danger rounded-0 py-2 px-4"
+                    />
+                    <span class="Guardar"></span>
+                    <input
+                      type="submit"
+                      value="Guardar"
+                      class="btn btn-primary rounded-0 py-2 px-4"
+                    />
+                  </div>
+                </div>
               </form>
             </div>
           </div>
@@ -884,7 +921,17 @@ Escriba la justificación de la contratación</textarea
                   <h5>Solicitud de cotización</h5>
                 </div>
                 <div class="row">
-                  <div class="col-md-12 form-floating mb-5">
+                  <div class="col-md-2 form-floating mb-5">
+                    <input
+                      type="text"
+                      class="form-control"
+                      id="RequestForQuotesId"
+                      placeholder="ID"
+                      formControlName="id"
+                    />
+                    <label for="RequestForQuotesId">ID *</label>
+                  </div>
+                  <div class="col-md-10 form-floating mb-5">
                     <input
                       type="text"
                       class="form-control"
@@ -1512,6 +1559,24 @@ Escriba la justificación de la contratación</textarea
                       <option value="scheduled">Programada</option>
                     </select>
                     <label for="PlanningMilestonesStatus">Estado</label>
+                  </div>
+                </div>
+                <div class="row">
+                  <div
+                    class="col-md-6 form-group d-flex justify-content-between"
+                  >
+                    <input
+                      type="submit"
+                      value="Guardar"
+                      class="btn btn-primary rounded-0 py-2 px-4"
+                    />
+                    <span class="Guardar"></span>
+                    <input
+                      type="submit"
+                      value="Eliminar"
+                      class="btn btn-danger rounded-0 py-2 px-4"
+                    />
+                    <span class="Guardar"></span>
                   </div>
                 </div>
               </form>
