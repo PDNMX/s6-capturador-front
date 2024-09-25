@@ -23,8 +23,6 @@ export class TenderGeneralComponent implements OnInit {
   procurementMethod = ProcurementMethod;
   mainProcurementCategory = MainProcurementCategory;
   additionalProcurementCategories = AdditionalProcurementCategories;
-  additionalProcurementCategoriesArray: Array<string> = [];
-  submissionMethodArray: Array<string> = [];
 
   awardCriteria = AwardCriteria;
   submissionMethod = SubmissionMethod;
@@ -75,32 +73,32 @@ export class TenderGeneralComponent implements OnInit {
       additionalProcurementCategories: this.fb.array([]),
       awardCriteria: ['', [Validators.required]],
       awardCriteriaDetails: ['', [Validators.required]],
-      submissionMethod: ['', [Validators.required]],
+      submissionMethod: this.fb.array([]),
       submissionMethodDetails: ['', [Validators.required]],
       tenderPeriod: this.fb.group({
         startDate: ['', [Validators.required]],
         endDate: ['', [Validators.required]],
         maxExtentDate: ['', [Validators.required]],
-        durationInDays: ['', [Validators.required]],
+        durationInDays: [0, [Validators.required]],
       }),
       enquiryPeriod: this.fb.group({
         startDate: ['', [Validators.required]],
         endDate: ['', [Validators.required]],
         maxExtentDate: ['', [Validators.required]],
-        durationInDays: ['', [Validators.required]],
+        durationInDays: [0, [Validators.required]],
       }),
       hasEnquiries: [false, [Validators.required]],
       awardPeriod: this.fb.group({
         startDate: ['', [Validators.required]],
         endDate: ['', [Validators.required]],
         maxExtentDate: ['', [Validators.required]],
-        durationInDays: ['', [Validators.required]],
+        durationInDays: [0, [Validators.required]],
       }),
       contractPeriod: this.fb.group({
         startDate: ['', [Validators.required]],
         endDate: ['', [Validators.required]],
         maxExtentDate: ['', [Validators.required]],
-        durationInDays: ['', [Validators.required]],
+        durationInDays: [0, [Validators.required]],
       }),
 
       eligibilityCriteria: ['', [Validators.required]],
@@ -117,35 +115,35 @@ export class TenderGeneralComponent implements OnInit {
   }
 
   saveForm(): void {
-    const data = {
-      ...this.generalForm.value,
-      additionalProcurementCategories:
-        this.additionalProcurementCategoriesArray,
-      submissionMethod: this.submissionMethodArray,
-    };
-
     this.saveGeneralData.emit(this.generalForm.controls);
+  }
+
+  get additionalProcurementCategoriesArray() {
+    return this.generalForm.controls[
+      'additionalProcurementCategories'
+    ] as FormArray;
   }
 
   addAdditionalProcurementCategories(): void {
     const opt: string = this.additionalProcurementCategoriesForm.value.data;
-    this.additionalProcurementCategoriesArray.push(opt);
+    this.additionalProcurementCategoriesArray.push(this.fb.control(opt));
   }
 
   deleteAdditionalProcurementCategories(index: number): void {
-    this.additionalProcurementCategoriesArray =
-      this.additionalProcurementCategoriesArray.filter((a, i) => i !== index);
+    this.additionalProcurementCategoriesArray.removeAt(index);
+  }
+
+  get submissionMethodArray() {
+    return this.generalForm.controls['submissionMethod'] as FormArray;
   }
 
   addSubmissionMethod(): void {
     const opt: string = this.submissionMethodForm.value.data;
-    this.submissionMethodArray.push(opt);
+    this.submissionMethodArray.push(this.fb.control(opt));
   }
 
   deleteSubmissionMethod(index: number): void {
-    this.submissionMethodArray = this.submissionMethodArray.filter(
-      (e, i) => i !== index
-    );
+    this.submissionMethodArray.removeAt(index);
   }
 
   // submissionMethod
