@@ -16,7 +16,7 @@ import { ActivatedRoute } from '@angular/router';
 
 export class ContractsComponent implements OnInit {
   /* Variable que contiene el objectId o id del mongo a actualizar */
-  idGlobal: string = '66f0bac50f692f7098ac4ba4';
+  idGlobal: string = '';
   /* Variable que contiene la propiedad para cambiar
    a editable o no los input que contienen la clase de readOnly */
    isReadOnly: boolean = false;
@@ -52,6 +52,13 @@ export class ContractsComponent implements OnInit {
   ngOnInit() {
 
     this.getMethodById(this.idGlobal);
+    
+    this.route.paramMap.subscribe((params:any) => 
+      {
+        const id = params.get('id');
+        this.idGlobal = id;
+        console.log('contract id: ', id);
+      });
 /*     this.getMethodById(this.idGlobal);
     console.log('registro de la base de datos obtenido por el id lgobal');
     console.log(this.registroPorId); */
@@ -814,6 +821,7 @@ export class ContractsComponent implements OnInit {
   } */
 
     onSubmit(idGlobal: string) {
+      
       if (this.banderaEditar) {
         // Encontrar el índice del contrato a actualizar
         const index = this.contractsArrayToSend.findIndex(c => c._id === this.contratoId);
