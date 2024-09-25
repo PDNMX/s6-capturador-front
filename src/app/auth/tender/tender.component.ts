@@ -82,19 +82,19 @@ export class TenderComponent implements OnInit {
   }
 
   addItem(opt: any): void {
-    // this.itemsArray.push(
-    //   this.fb.group({
-    //     date: opt.date,
-    //     attendees: opt.attendees,
-    //     officials: opt.officials,
-    //   })
-    // );
-
     this.itemsArray.push(this.fb.group({ ...opt }));
   }
 
   deleteItem(index: number): void {
     this.itemsArray.removeAt(index);
+  }
+
+  saveGeneralData(opt: any): void {
+    this.tenderForm = this.fb.group({
+      ...opt,
+      ...this.tenderForm.controls,
+    });
+    // this.tenderForm.
   }
 
   ngOnInit(): void {
