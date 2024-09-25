@@ -146,20 +146,22 @@
         </div>
         <div class="tab-content" id="licitacion-tabContent">
           <div
-            class="tab-pane fade"
+            class="tab-pane fade show active"
             id="licitacion-general"
             role="tabpanel"
             aria-labelledby="licitacion-general-tab"
             tabindex="0"
           >
             <div class="form">
-              <app-tender-general></app-tender-general>
+              <app-tender-general
+                (saveGeneralData)="saveGeneralData($event)"
+              ></app-tender-general>
             </div>
           </div>
         </div>
         <div class="tab-content" id="licitacion-tabContent">
           <div
-            class="tab-pane fade show active"
+            class="tab-pane fade"
             id="licitacion-items"
             role="tabpanel"
             aria-labelledby="licitacion-items-tab"
