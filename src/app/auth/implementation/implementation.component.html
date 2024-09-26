@@ -63,387 +63,394 @@
         </div>
       </div>
       <div class="col-md-9 g-0">
-        <div class="tab-content" id="licitacion-tabContent">
-          <div
-            class="tab-pane fade show active"
-            id="licitacion-presentacion"
-            role="tabpanel"
-            aria-labelledby="licitacion-presentacion-tab"
-            tabindex="0"
-          >
-            <div class="form h-100">
-              <!-- <div class="row imageP"></div> -->
-              <div class="row">
-                <h3>Ejecución</h3>
-                <hr />
-                <p>
-                  La información relacionada con la implementación del contrato
-                  de acuerdo con las obligaciones definidas en el mismo.
-                </p>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div class="tab-content" id="licitacion-tabContent">
-          <div
-            class="tab-pane fade"
-            id="licitacion-transactions"
-            role="tabpanel"
-            aria-labelledby="licitacion-transactions-tab"
-            tabindex="0"
-          >
-            <div class="form">
-              <div class="row">
-                <div class="form-floating col-md-6 mb-5">
-                  <select
-                    class="form-select"
-                    id="status"
-                    aria-label="award status"
-                  >
-                    <option value="default">Seleccione un opción</option>
-                    <option value="finish">Finalizado</option>
-                    <option value="process">En proceso</option>
-                    <option value="cancelled">Cancelado</option>
-                    <option value="unsuccessful">Sin Éxito</option>
-                  </select>
-                  <label for="status">Estado de la ejecución</label>
-                </div>
-              </div>
-              <!--  Transactions Fieldset -->
-              <fieldset class="border p-3 mb-3">
-                <legend class="w-auto px-2">Transacciones</legend>
-                <div class="row mb-3">
-                  <div class="form-floating col-md-6">
-                    <input
-                      type="text"
-                      class="form-control"
-                      id="TransactionsId"
-                      placeholder="Identificador de la transacción"
-                    />
-                    <label for="ClassificationsId" class="form-label"
-                      >Identificador de la transacción</label
-                    >
-                  </div>
-                  <div class="form-floating col-md-6">
-                    <input
-                      type="text"
-                      class="form-control"
-                      id="TransactionsSource"
-                      placeholder="Fuente de datos"
-                    />
-                    <label for="TransactionsSource" class="form-label"
-                      >Fuente de datos</label
-                    >
-                  </div>
-                </div>
-                <div class="row mb-3">
-                  <div class="form-floating col-md-6">
-                    <input
-                      type="date"
-                      class="form-control"
-                      id="TransacctionsDate"
-                      placeholder="Fecha de la transacción"
-                    />
-                    <label for="TransacctionsDate" class="form-label"
-                      >Fecha de la transacción</label
-                    >
-                  </div>
-                  <div class="form-floating col-md-6">
-                    <input
-                      type="text"
-                      class="form-control"
-                      id="TransactionsPaymentMethod"
-                      placeholder="Método de pago"
-                    />
-                    <label for="TransactionsPaymentMethod" class="form-label"
-                      >Método de pago</label
-                    >
-                  </div>
-                </div>
-                <legend class="w-auto px-2">Valor</legend>
-                <div class="row mb-3">
-                  <div class="form-floating col-md-6">
-                    <input
-                      type="text"
-                      class="form-control"
-                      id="TransactionsValueAmount"
-                      placeholder="Monto de la transacción"
-                    />
-                    <label for="TransactionsValueAmount">Monto</label>
-                  </div>
-                  <div class="form-floating form-group col-md-6">
-                    <select
-                      class="form-select"
-                      id="TransactionsValueCurrency"
-                      aria-label="moneda"
-                    >
-                      <option value="default">
-                        Seleccione el tipo de moneda
-                      </option>
-                      <option value="mxn">Peso mexicano</option>
-                      <option value="usd">Dólar estadounidense</option>
-                    </select>
-                    <label for="TransactionsValueCurrency">Moneda</label>
-                  </div>
-                </div>
-                <legend class="w-auto px-2">Pagador</legend>
-                <div class="row mb-3">
-                  <div class="form-floating col-md-6">
-                    <input
-                      type="text"
-                      class="form-control"
-                      id="TransactionsPayerId"
-                      placeholder="Identificador del actor"
-                    />
-                    <label for="TransactionsPayerId"
-                      >Identificador del actor</label
-                    >
-                  </div>
-                  <div class="form-floating col-md-6">
-                    <input
-                      type="text"
-                      class="form-control"
-                      id="TransactionsPayerName"
-                      placeholder="Nombre del actor"
-                    />
-                    <label for="TransactionsPayerName">Nombre del actor</label>
-                  </div>
-                </div>
-                <legend class="w-auto px-2">Beneficiario</legend>
-                <div class="row mb-3">
-                  <div class="form-floating col-md-6 mb-5">
-                    <input
-                      type="text"
-                      class="form-control"
-                      id="TransactionsPayeeId"
-                      placeholder="Identificador del actor"
-                    />
-                    <label for="TransactionsPayeeId"
-                      >Identificador del actor</label
-                    >
-                  </div>
-                  <div class="form-floating col-md-6 mb-5">
-                    <input
-                      type="text"
-                      class="form-control"
-                      id="TransactionsPayeeName"
-                      placeholder="Nombre del actor"
-                    />
-                    <label for="TransactionsPayeeName">Nombre del actor</label>
-                  </div>
-                </div>
+        <form [formGroup]="implements">
+          <div class="tab-content" id="licitacion-tabContent">
+            <div
+              class="tab-pane fade show active"
+              id="licitacion-presentacion"
+              role="tabpanel"
+              aria-labelledby="licitacion-presentacion-tab"
+              tabindex="0"
+            >
+              <div class="form h-100">
+                <!-- <div class="row imageP"></div> -->
                 <div class="row">
-                  <div class="form-floating col-md-12 mb-5">
-                    <input
-                      type="text"
-                      class="form-control"
-                      id="TransactionsUri"
-                      placeholder="URI"
-                    />
-                    <label for="TransactionsUri">URI</label>
-                  </div>
+                  <h3>Ejecución</h3>
+                  <hr />
+                  <p>
+                    La información relacionada con la implementación del contrato
+                    de acuerdo con las obligaciones definidas en el mismo.
+                  </p>
                 </div>
-                <div class="row mb-3">
-                  <div
-                    class="col-md-6 form-group d-flex justify-content-between"
-                  >
-                    <input
-                      type="submit"
-                      value="Guardar"
-                      class="btn btn-primary rounded-0 py-2 px-4"
-                    />
-                    <span class="Guardar"></span>
-                    <input
-                      type="submit"
-                      value="Eliminar"
-                      class="btn btn-danger rounded-0 py-2 px-4"
-                    />
-                    <span class="Guardar"></span>
-                  </div>
-                </div>
-              </fieldset>
+              </div>
             </div>
           </div>
-        </div>
-        <div class="tab-content" id="licitacion-tabContent">
-          <div
-            class="tab-pane fade"
-            id="licitacion-milestones"
-            role="tabpanel"
-            aria-labelledby="licitacion-milestones-tab"
-            tabindex="0"
-          >
-            <div class="form">
-              <!-- Hitos Fieldset -->
-              <fieldset class="border p-3 mb-3">
-                <legend class="w-auto px-2">Hitos</legend>
-                <div class="row mb-3">
-                  <div class="form-floating col-md-6">
-                    <input
-                      type="text"
-                      class="form-control"
-                      id="MilestonesId"
-                      placeholder="Identificador del hito"
-                    />
-                    <label for="MilestonesId">Identificador del hito</label>
-                  </div>
-                  <div class="form-floating col-md-6">
-                    <input
-                      type="text"
-                      class="form-control"
-                      id="MilestonesTitle"
-                      placeholder="Títutlo del hito"
-                    />
-                    <label for="MilestonesTitle">Títutlo del hito</label>
-                  </div>
-                </div>
-                <div class="row mb-3">
-                  <div class="form-floating col-md-12">
-                    <textarea
-                      class="form-control"
-                      id="MilestonesDescription"
-                      type="text"
-                      placeholder="Descripción del hito"
-                      data-sb-validations=""
-                    ></textarea>
-                    <label for="MilestonesDescription"
-                      >Descripción del hito</label
-                    >
-                  </div>
-                </div>
-                <div class="row mb-3">
-                  <div class="form-floating col-md-4">
-                    <input
-                      type="text"
-                      class="form-control"
-                      id="MilestonesType"
-                      placeholder="Tipo de hito"
-                    />
-                    <label for="MilestonesType">Tipo de hito</label>
-                  </div>
-                  <div class="form-floating col-md-4">
-                    <input
-                      type="text"
-                      class="form-control"
-                      id="MilestonesCode"
-                      placeholder="Código del hito"
-                    />
-                    <label for="MilestonesCode">Código del hito</label>
-                  </div>
-                  <div class="form-floating col-md-4">
-                    <input
-                      type="text"
-                      class="form-control"
-                      id="MilestonesStatus"
-                      placeholder="Estado del hito"
-                    />
-                    <label for="MilestonesStatus">Estado del hito</label>
-                  </div>
-                </div>
-                <div class="row mb-3">
-                  <div class="form-floating col-md-4 mb-5">
-                    <input
-                      type="date"
-                      class="form-control"
-                      id="MilestonesDueDate"
-                      placeholder="Fecha de vencimiento"
-                    />
-                    <label for="MilestonesDueDate">Fecha de vencimiento</label>
-                  </div>
-                  <div class="form-floating col-md-4 mb-5">
-                    <input
-                      type="date"
-                      class="form-control"
-                      id="MilestonesDateMet"
-                      placeholder="Fecha de cumplimiento"
-                    />
-                    <label for="MilestonesDateMet">Fecha de cumplimiento</label>
-                  </div>
-                  <div class="form-floating col-md-4 mb-5">
-                    <input
-                      type="date"
-                      class="form-control"
-                      id="MilestonesDateModified"
-                      placeholder="Fecha de modificación"
-                    />
-                    <label for="MilestonesDateModified"
-                      >Fecha de modificación</label
-                    >
-                  </div>
-                </div>
-                <div class="row mb-3">
-                  <div
-                    class="col-md-6 form-group d-flex justify-content-between"
-                  >
-                    <input
-                      type="submit"
-                      value="Guardar"
-                      class="btn btn-primary rounded-0 py-2 px-4"
-                    />
-                    <span class="Guardar"></span>
-                    <input
-                      type="submit"
-                      value="Eliminar"
-                      class="btn btn-danger rounded-0 py-2 px-4"
-                    />
-                    <span class="Guardar"></span>
-                  </div>
-                </div>
-              </fieldset>
-            </div>
-          </div>
-        </div>
-
-        <div class="tab-content" id="licitacion-tabContent">
-          <div
-            class="tab-pane fade"
-            id="licitacion-documents"
-            role="tabpanel"
-            aria-labelledby="licitacion-documents-tab"
-            tabindex="0"
-          >
-            <div class="form">
-              <!-- Documents fieldset -->
-              <fieldset class="border p-3 mb-3">
-                <legend class="w-auto px-2">Documentos</legend>
-                <div class="row mb-3">
-                  <div class="form-floating col-md-4 mb-5">
+  
+          <div class="tab-content" id="licitacion-tabContent">
+            <div
+              class="tab-pane fade"
+              id="licitacion-transactions"
+              role="tabpanel"
+              aria-labelledby="licitacion-transactions-tab"
+              tabindex="0"
+            >
+              <div class="form">
+                <div class="row">
+                  <div class="form-floating col-md-6 mb-5">
                     <select
                       class="form-select"
-                      id="ImplementationDocumentType"
-                      aria-label="scheme"
+                      id="status"
+                      aria-label="award status"
                     >
-                      <option value="default">Seleccione una opción</option>
-                      <option value="completionCertificate">
-                        Certificado de terminación
-                      </option>
-                      <option value="physicalProgressReport">
-                        Reportes de progreso físico
-                      </option>
-                      <option value="financialProgressReport">
-                        Reportes de progreso financiero
-                      </option>
-                      <option value="finalAudit">Auditoría final</option>
-                      <option value="environmentalImpact">
-                        Impacto medioambiental
-                      </option>
-                      <option value="conflictOfInterest">
-                        Conflicto de interés
-                      </option>
-                      <option value="illustration">Ilustraciones</option>
-                      <option value="debarments">Inhabilitaciones</option>
-                      <option value="cancellationDetails">
-                        Detalles de cancelación
-                      </option>
+                      <option value="default">Seleccione un opción</option>
+                      <option value="finish">Finalizado</option>
+                      <option value="process">En proceso</option>
+                      <option value="cancelled">Cancelado</option>
+                      <option value="unsuccessful">Sin Éxito</option>
                     </select>
-                    <label for="documentType">Tipo de Documento</label>
+                    <label for="status">Estado de la ejecución</label>
                   </div>
                 </div>
-              </fieldset>
+                <!--  Transactions Fieldset -->
+                <fieldset class="border p-3 mb-3">
+                  <legend class="w-auto px-2">Transacciones</legend>
+                  <div class="row mb-3">
+                    <div class="form-floating col-md-6">
+                      <input
+                        type="text"
+                        class="form-control"
+                        id="TransactionsId"
+                        placeholder="Identificador de la transacción"
+                      />
+                      <label for="ClassificationsId" class="form-label"
+                        >Identificador de la transacción</label
+                      >
+                    </div>
+                    <div class="form-floating col-md-6">
+                      <input
+                        type="text"
+                        class="form-control"
+                        id="TransactionsSource"
+                        placeholder="Fuente de datos"
+                      />
+                      <label for="TransactionsSource" class="form-label"
+                        >Fuente de datos</label
+                      >
+                    </div>
+                  </div>
+                  <div class="row mb-3">
+                    <div class="form-floating col-md-6">
+                      <input
+                        type="date"
+                        class="form-control"
+                        id="TransacctionsDate"
+                        placeholder="Fecha de la transacción"
+                      />
+                      <label for="TransacctionsDate" class="form-label"
+                        >Fecha de la transacción</label
+                      >
+                    </div>
+                    <div class="form-floating col-md-6">
+                      <input
+                        type="text"
+                        class="form-control"
+                        id="TransactionsPaymentMethod"
+                        placeholder="Método de pago"
+                      />
+                      <label for="TransactionsPaymentMethod" class="form-label"
+                        >Método de pago</label
+                      >
+                    </div>
+                  </div>
+                  <legend class="w-auto px-2">Valor</legend>
+                  <div class="row mb-3">
+                    <div class="form-floating col-md-6">
+                      <input
+                        type="text"
+                        class="form-control"
+                        id="TransactionsValueAmount"
+                        placeholder="Monto de la transacción"
+                      />
+                      <label for="TransactionsValueAmount">Monto</label>
+                    </div>
+                    <div class="form-floating form-group col-md-6">
+                      <select
+                        class="form-select"
+                        id="TransactionsValueCurrency"
+                        aria-label="moneda"
+                      >
+                        <option value="default">
+                          Seleccione el tipo de moneda
+                        </option>
+                        <option value="mxn">Peso mexicano</option>
+                        <option value="usd">Dólar estadounidense</option>
+                      </select>
+                      <label for="TransactionsValueCurrency">Moneda</label>
+                    </div>
+                  </div>
+                  <legend class="w-auto px-2">Pagador</legend>
+                  <div class="row mb-3">
+                    <div class="form-floating col-md-6">
+                      <input
+                        type="text"
+                        class="form-control"
+                        id="TransactionsPayerId"
+                        placeholder="Identificador del actor"
+                      />
+                      <label for="TransactionsPayerId"
+                        >Identificador del actor</label
+                      >
+                    </div>
+                    <div class="form-floating col-md-6">
+                      <input
+                        type="text"
+                        class="form-control"
+                        id="TransactionsPayerName"
+                        placeholder="Nombre del actor"
+                      />
+                      <label for="TransactionsPayerName">Nombre del actor</label>
+                    </div>
+                  </div>
+                  <legend class="w-auto px-2">Beneficiario</legend>
+                  <div class="row mb-3">
+                    <div class="form-floating col-md-6 mb-5">
+                      <input
+                        type="text"
+                        class="form-control"
+                        id="TransactionsPayeeId"
+                        placeholder="Identificador del actor"
+                      />
+                      <label for="TransactionsPayeeId"
+                        >Identificador del actor</label
+                      >
+                    </div>
+                    <div class="form-floating col-md-6 mb-5">
+                      <input
+                        type="text"
+                        class="form-control"
+                        id="TransactionsPayeeName"
+                        placeholder="Nombre del actor"
+                      />
+                      <label for="TransactionsPayeeName">Nombre del actor</label>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="form-floating col-md-12 mb-5">
+                      <input
+                        type="text"
+                        class="form-control"
+                        id="TransactionsUri"
+                        placeholder="URI"
+                      />
+                      <label for="TransactionsUri">URI</label>
+                    </div>
+                  </div>
+                  <div class="row mb-3">
+                    <div
+                      class="col-md-6 form-group d-flex justify-content-between"
+                    >
+                      <input
+                        type="submit"
+                        value="Guardar"
+                        class="btn btn-primary rounded-0 py-2 px-4"
+                      />
+                      <span class="Guardar"></span>
+                      <input
+                        type="submit"
+                        value="Eliminar"
+                        class="btn btn-danger rounded-0 py-2 px-4"
+                      />
+                      <span class="Guardar"></span>
+                    </div>
+                  </div>
+                </fieldset>
+              </div>
             </div>
           </div>
-        </div>
+
+          <div class="tab-content" id="licitacion-tabContent">
+            <div
+              class="tab-pane fade"
+              id="licitacion-milestones"
+              role="tabpanel"
+              aria-labelledby="licitacion-milestones-tab"
+              tabindex="0"
+            >
+              <div class="form">
+                <!-- Hitos Fieldset -->
+                <fieldset class="border p-3 mb-3">
+                  <legend class="w-auto px-2">Hitos</legend>
+                  <div class="row mb-3">
+                    <div class="form-floating col-md-6">
+                      <input
+                        type="text"
+                        class="form-control"
+                        id="MilestonesId"
+                        placeholder="Identificador del hito"
+                      />
+                      <label for="MilestonesId">Identificador del hito</label>
+                    </div>
+                    <div class="form-floating col-md-6">
+                      <input
+                        type="text"
+                        class="form-control"
+                        id="MilestonesTitle"
+                        placeholder="Títutlo del hito"
+                      />
+                      <label for="MilestonesTitle">Títutlo del hito</label>
+                    </div>
+                  </div>
+                  <div class="row mb-3">
+                    <div class="form-floating col-md-12">
+                      <textarea
+                        class="form-control"
+                        id="MilestonesDescription"
+                        type="text"
+                        placeholder="Descripción del hito"
+                        data-sb-validations=""
+                      ></textarea>
+                      <label for="MilestonesDescription"
+                        >Descripción del hito</label
+                      >
+                    </div>
+                  </div>
+                  <div class="row mb-3">
+                    <div class="form-floating col-md-4">
+                      <input
+                        type="text"
+                        class="form-control"
+                        id="MilestonesType"
+                        placeholder="Tipo de hito"
+                      />
+                      <label for="MilestonesType">Tipo de hito</label>
+                    </div>
+                    <div class="form-floating col-md-4">
+                      <input
+                        type="text"
+                        class="form-control"
+                        id="MilestonesCode"
+                        placeholder="Código del hito"
+                      />
+                      <label for="MilestonesCode">Código del hito</label>
+                    </div>
+                    <div class="form-floating col-md-4">
+                      <input
+                        type="text"
+                        class="form-control"
+                        id="MilestonesStatus"
+                        placeholder="Estado del hito"
+                      />
+                      <label for="MilestonesStatus">Estado del hito</label>
+                    </div>
+                  </div>
+                  <div class="row mb-3">
+                    <div class="form-floating col-md-4 mb-5">
+                      <input
+                        type="date"
+                        class="form-control"
+                        id="MilestonesDueDate"
+                        placeholder="Fecha de vencimiento"
+                      />
+                      <label for="MilestonesDueDate">Fecha de vencimiento</label>
+                    </div>
+                    <div class="form-floating col-md-4 mb-5">
+                      <input
+                        type="date"
+                        class="form-control"
+                        id="MilestonesDateMet"
+                        placeholder="Fecha de cumplimiento"
+                      />
+                      <label for="MilestonesDateMet">Fecha de cumplimiento</label>
+                    </div>
+                    <div class="form-floating col-md-4 mb-5">
+                      <input
+                        type="date"
+                        class="form-control"
+                        id="MilestonesDateModified"
+                        placeholder="Fecha de modificación"
+                      />
+                      <label for="MilestonesDateModified"
+                        >Fecha de modificación</label
+                      >
+                    </div>
+                  </div>
+                  <div class="row mb-3">
+                    <div
+                      class="col-md-6 form-group d-flex justify-content-between"
+                    >
+                      <input
+                        type="submit"
+                        value="Guardar"
+                        class="btn btn-primary rounded-0 py-2 px-4"
+                      />
+                      <span class="Guardar"></span>
+                      <input
+                        type="submit"
+                        value="Eliminar"
+                        class="btn btn-danger rounded-0 py-2 px-4"
+                      />
+                      <span class="Guardar"></span>
+                    </div>
+                  </div>
+                </fieldset>
+              </div>
+            </div>
+          </div>
+  
+          <div class="tab-content" id="licitacion-tabContent">
+            <div
+              class="tab-pane fade"
+              id="licitacion-documents"
+              role="tabpanel"
+              aria-labelledby="licitacion-documents-tab"
+              tabindex="0"
+              formControlName="title"
+              [ngClass]="{ readonly: isReadOnly }"
+            >
+              <div class="form">
+                <!-- Documents fieldset -->
+                <fieldset class="border p-3 mb-3">
+                  <legend class="w-auto px-2">Documentos</legend>
+                  <div class="row mb-3">
+                    <div class="form-floating col-md-4 mb-5">
+                      <select
+                        class="form-select"
+                        id="ImplementationDocumentType"
+                        aria-label="scheme"
+                      >
+                        <option value="default">Seleccione una opción</option>
+                        <option value="completionCertificate">
+                          Certificado de terminación
+                        </option>
+                        <option value="physicalProgressReport">
+                          Reportes de progreso físico
+                        </option>
+                        <option value="financialProgressReport">
+                          Reportes de progreso financiero
+                        </option>
+                        <option value="finalAudit">Auditoría final</option>
+                        <option value="environmentalImpact">
+                          Impacto medioambiental
+                        </option>
+                        <option value="conflictOfInterest">
+                          Conflicto de interés
+                        </option>
+                        <option value="illustration">Ilustraciones</option>
+                        <option value="debarments">Inhabilitaciones</option>
+                        <option value="cancellationDetails">
+                          Detalles de cancelación
+                        </option>
+                      </select>
+                      <label for="documentType">Tipo de Documento</label>
+                    </div>
+                  </div>
+                </fieldset>
+              </div>
+            </div>
+          </div>
+
+        </form>
+
       </div>
     </div>
   </div>
