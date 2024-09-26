@@ -30,7 +30,7 @@ export class TenderAmendmentsComponent implements OnInit {
   }
 
   addNewAmendment(): void {
-    this.addAmendment.emit(this.amendmentsForm.value);
+    this.addAmendment.emit(this.amendmentsForm);
     this.initForm();
   }
 }

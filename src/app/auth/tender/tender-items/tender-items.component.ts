@@ -12,11 +12,14 @@ export class TenderItemsComponent implements OnInit {
   @Output() addItem = new EventEmitter<any>();
   @Output() deleteItem = new EventEmitter<any>();
 
-  items: any[] = [];
   itemsForm!: FormGroup;
   additionalClassificationsForm!: FormGroup;
 
-  classification = Classifications;
+  classification = Classifications.map((m) => ({
+    id: m.id,
+    description: m.description,
+    uri: m.uri,
+  }));
   currency = Currency;
 
   constructor(private fb: FormBuilder) {}
@@ -27,7 +30,16 @@ export class TenderItemsComponent implements OnInit {
 
   addAdditionalClassifications(): void {
     const data = this.additionalClassificationsForm.value.data;
-    this.additionalClassificationsArray.push(this.fb.group({ ...data }));
+    const { id, description, unit, uri } = data;
+
+    this.additionalClassificationsArray.push(
+      this.fb.group({
+        id: [id, Validators.required],
+        description: [description, Validators.required],
+        // unit: [unit, Validators.required],
+        uri: [uri, Validators.required],
+      })
+    );
   }
 
   deleteAdditionalClassifications(index: number): void {
@@ -59,27 +71,14 @@ export class TenderItemsComponent implements OnInit {
     });
   }
 
-  submitForm(): void {
-    console.log('this.itemsForm.value: ', this.itemsForm.value);
+  selectChange(): void {
+    this.itemsForm.controls['unit'].patchValue({
+      name: this.itemsForm.value.classification.unit,
+    });
   }
 
   addNewItem(): void {
-    //this.itemsForm.value.classification.unit
-    const unit = this.itemsForm.value.unit.name
-      ? this.itemsForm.value.unit.name
-      : this.itemsForm.value.classification.unit;
-
-    const newUnit = { ...this.itemsForm.value.unit, name: unit };
-
-    const newItem = {
-      ...this.itemsForm.value,
-      additionalClassifications: this.additionalClassificationsArray,
-      unit: newUnit,
-    };
-
-    console.log('newItem: ', newItem);
-
-    this.addItem.emit(newItem);
+    this.addItem.emit(this.itemsForm);
     this.initForm();
   }
 }

@@ -74,6 +74,7 @@ export class TenderDocumentsComponent implements OnInit {
   }
 
   addNewDocument(): void {
-    this.addDocument.emit(this.documentForm.value);
+    this.addDocument.emit(this.documentForm);
+    this.initForm();
   }
 }
