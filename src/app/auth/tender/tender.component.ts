@@ -35,7 +35,7 @@ export class TenderComponent implements OnInit {
   }
 
   addDocument(opt: any): void {
-    this.documentsArray.push(this.fb.group({ ...opt }));
+    this.documentsArray.push(opt);
   }
 
   deleteDocument(index: number): void {
@@ -47,7 +47,7 @@ export class TenderComponent implements OnInit {
   }
 
   addMilestone(opt: any): void {
-    this.milestonesArray.push(this.fb.group({ ...opt }));
+    this.milestonesArray.push(opt);
   }
 
   deleteMilestone(index: number): void {
@@ -59,7 +59,7 @@ export class TenderComponent implements OnInit {
   }
 
   addAmendment(opt: any): void {
-    this.amendmentsArray.push(this.fb.group({ ...opt }));
+    this.amendmentsArray.push(opt);
   }
 
   deleteAmendment(index: number): void {
@@ -71,13 +71,7 @@ export class TenderComponent implements OnInit {
   }
 
   addClarificationMeeting(opt: any): void {
-    this.clarificationMeetingsArray.push(
-      this.fb.group({
-        date: opt.date,
-        attendees: opt.attendees,
-        officials: opt.officials,
-      })
-    );
+    this.clarificationMeetingsArray.push(opt);
   }
 
   deleteClarificationMeeting(index: number): void {
@@ -89,7 +83,7 @@ export class TenderComponent implements OnInit {
   }
 
   addItem(opt: any): void {
-    this.itemsArray.push(this.fb.group({ ...opt }));
+    this.itemsArray.push(opt);
   }
 
   deleteItem(index: number): void {
@@ -129,8 +123,8 @@ export class TenderComponent implements OnInit {
         if (r.err) {
           console.log('r: ', r);
         } else {
-          const id = r.data._id;
-          console.log('id: ', id);
+          // const id = r.data._id;
+          // console.log('id: ', id);
           // this.router.navigate([`/planning/${id}`]);
         }
       });
