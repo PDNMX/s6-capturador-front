@@ -33,10 +33,14 @@
         <tbody>
           <tr *ngFor="let item of itemsArray; index as i">
             <th scope="row">
-              {{ i + 1 }}
+              {{ item.id || i + 1 }}
             </th>
             <td>{{ item.description }}</td>
-            <td>{{ item.classification.description }}</td>
+            <td>
+              <ul>
+                <li>{{ item.classification.description }}</li>
+              </ul>
+            </td>
             <td>
               <ul>
                 <li *ngFor="let ele of item.additionalClassifications">

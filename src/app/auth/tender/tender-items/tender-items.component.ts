@@ -1,5 +1,8 @@
+import { map } from 'rxjs';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ActivatedRoute } from '@angular/router';
+import { ApiService } from 'src/app/services/api.service';
 import { Classifications, Currency } from 'src/utils';
 
 @Component({
@@ -12,6 +15,7 @@ export class TenderItemsComponent implements OnInit {
   @Output() addItem = new EventEmitter<any>();
   @Output() deleteItem = new EventEmitter<any>();
 
+  record_id: string = '';
   itemsForm!: FormGroup;
   additionalClassificationsForm!: FormGroup;
 
@@ -22,7 +26,11 @@ export class TenderItemsComponent implements OnInit {
   }));
   currency = Currency;
 
-  constructor(private fb: FormBuilder) {}
+  constructor(
+    private fb: FormBuilder,
+    private route: ActivatedRoute,
+    private api: ApiService
+  ) {}
 
   get additionalClassificationsArray() {
     return this.itemsForm.controls['additionalClassifications'] as FormArray;
@@ -46,8 +54,54 @@ export class TenderItemsComponent implements OnInit {
     this.additionalClassificationsArray.removeAt(index);
   }
 
+  loadForm(data: any): void {
+    data.forEach((item: any) => {
+      const {
+        id,
+        description,
+        classification,
+        additionalClassifications,
+        quantity,
+        unit,
+      } = item;
+
+      this.addItem.emit(
+        this.fb.group({
+          id,
+          description,
+          classification,
+          additionalClassifications: this.fb.array(
+            additionalClassifications.map((m: any) => this.fb.group({ ...m }))
+          ),
+          quantity,
+          unit,
+        })
+      );
+
+      this.itemsArray.push(this.itemsForm);
+    });
+  }
+
+  loadData(): void {
+    this.route.paramMap.subscribe((params: any) => {
+      this.record_id = params.get('id');
+    });
+
+    this.api.getMethod(`/tender/${this.record_id}`).subscribe((d: any) => {
+      const { tender, error, message } = d;
+
+      if (error) {
+        console.log('message: ', message);
+      } else {
+        // load forms
+        if (tender !== null) this.loadForm(tender.items);
+      }
+    });
+  }
+
   ngOnInit(): void {
     this.initForm();
+    this.loadData();
   }
 
   initForm(): void {
@@ -59,9 +113,9 @@ export class TenderItemsComponent implements OnInit {
       unit: this.fb.group({
         name: ['', [Validators.required]],
         value: this.fb.group({
-          amount: ['', [Validators.required]],
-          amountNet: ['', [Validators.required]],
-          currency: ['', [Validators.required]],
+          amount: [0, [Validators.required]],
+          amountNet: [0, [Validators.required]],
+          currency: ['MXN', [Validators.required]],
         }),
       }),
     });

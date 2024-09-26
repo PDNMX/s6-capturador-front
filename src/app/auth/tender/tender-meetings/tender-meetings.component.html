@@ -21,7 +21,7 @@
           </thead>
           <tbody>
             <tr *ngFor="let meeting of clarificationMeetingsArray; index as i">
-              <td scope="row">{{ i + 1 }}</td>
+              <th scope="row">{{ meeting.id || i + 1 }}</th>
               <td>{{ meeting.date }}</td>
               <td>
                 <ul>
