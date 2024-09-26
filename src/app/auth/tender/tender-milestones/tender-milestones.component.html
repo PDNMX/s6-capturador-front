@@ -29,13 +29,13 @@
             <tr *ngFor="let ele of milestonesArray; index as i">
               <td scope="row">{{ i + 1 }}</td>
               <td>{{ ele.title }}</td>
-              <td>{{ ele.type.title }}</td>
+              <td>{{ getMilestoneTypeDesc(ele.type) }}</td>
               <td>{{ ele.description }}</td>
               <td>{{ ele.code }}</td>
               <td>{{ ele.dueDate }}</td>
               <td>{{ ele.dateMet }}</td>
               <td>{{ ele.dateModified }}</td>
-              <td>{{ ele.status.title }}</td>
+              <td>{{ getMilestoneStatusDesc(ele.status) }}</td>
               <td>
                 <button
                   type="button"
