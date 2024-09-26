@@ -22,7 +22,7 @@ export class TenderMilestonesComponent implements OnInit {
   getMilestoneTypeDesc(code: string): string {
     let desc = '';
     this.milestoneType.forEach((m) => {
-      if (m.code === code) desc = m.description;
+      if (m.code === code) desc = m.title;
     });
     return desc;
   }
@@ -30,7 +30,7 @@ export class TenderMilestonesComponent implements OnInit {
   getMilestoneStatusDesc(code: string): string {
     let desc = '';
     this.milestoneStatus.forEach((m) => {
-      if (m.code === code) desc = m.description;
+      if (m.code === code) desc = m.title;
     });
     return desc;
   }
@@ -53,7 +53,7 @@ export class TenderMilestonesComponent implements OnInit {
   }
 
   addNewMilestone(): void {
-    this.milestonesArray.push(this.milestoneForm.value);
-    // this.initForm();
+    this.addMilestone.emit(this.milestoneForm);
+    this.initForm();
   }
 }

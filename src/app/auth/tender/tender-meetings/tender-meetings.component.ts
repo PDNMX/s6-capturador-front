@@ -98,17 +98,7 @@ export class TenderMeetingsComponent implements OnInit {
   }
 
   addNewClarificationMeeting(): void {
-    const attendees = this.attendeesArray;
-    const officials = this.officialsArray;
-
-    const data = {
-      date: this.meetingForm.value.date,
-      attendees,
-      officials,
-    };
-
-    this.addClarificationMeeting.emit(data);
-
+    this.addClarificationMeeting.emit(this.meetingForm);
     this.initForm();
   }
 }

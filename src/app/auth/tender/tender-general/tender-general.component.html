@@ -270,7 +270,7 @@
                 <tr
                   class=""
                   *ngFor="
-                    let d of additionalProcurementCategoriesArray;
+                    let d of generalForm.value.additionalProcurementCategories;
                     index as i
                   "
                 >
@@ -289,7 +289,12 @@
                     </button>
                   </td>
                 </tr>
-                <tr *ngIf="additionalProcurementCategoriesArray.length === 0">
+                <tr
+                  *ngIf="
+                    generalForm.value.additionalProcurementCategories.length ===
+                    0
+                  "
+                >
                   <th scope="row" colspan="4" class="text-center">
                     Sin registros.
                   </th>
@@ -386,7 +391,10 @@
               <tbody>
                 <tr
                   class=""
-                  *ngFor="let d of submissionMethodArray; index as i"
+                  *ngFor="
+                    let d of generalForm.value.submissionMethod;
+                    index as i
+                  "
                 >
                   <td scope="row">{{ i + 1 }}</td>
                   <td>
