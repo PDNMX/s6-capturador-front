@@ -53,7 +53,6 @@ export class TenderMilestonesComponent implements OnInit {
   }
 
   addNewMilestone(): void {
-    console.log('this.milestoneForm.value: ', this.milestoneForm.value);
     this.addMilestone.emit(this.milestoneForm);
     this.initForm();
   }
