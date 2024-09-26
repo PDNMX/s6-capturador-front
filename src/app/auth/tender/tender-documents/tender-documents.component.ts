@@ -1,5 +1,7 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ActivatedRoute } from '@angular/router';
+import { ApiService } from 'src/app/services/api.service';
 import { FormatDocument, getDocumentType, Language } from 'src/utils';
 
 @Component({
@@ -12,13 +14,19 @@ export class TenderDocumentsComponent implements OnInit {
   @Output() addDocument = new EventEmitter<any>();
   @Output() deleteDocument = new EventEmitter<any>();
 
+  record_id = '';
+
   documents = getDocumentType('tender');
   formatDocument = FormatDocument;
   languaje = Language;
 
   documentForm!: FormGroup;
 
-  constructor(private fb: FormBuilder) {}
+  constructor(
+    private fb: FormBuilder,
+    private route: ActivatedRoute,
+    private api: ApiService
+  ) {}
 
   getDocumentTypeDesc(code: string): string {
     let desc = '';
@@ -56,8 +64,32 @@ export class TenderDocumentsComponent implements OnInit {
     return desc;
   }
 
+  loadForm(data: any): void {
+    data.forEach((doc: any) => {
+      this.addDocument.emit(this.fb.group({ ...doc }));
+    });
+  }
+
+  loadData(): void {
+    this.route.paramMap.subscribe((params: any) => {
+      this.record_id = params.get('id');
+    });
+
+    this.api.getMethod(`/tender/${this.record_id}`).subscribe((d: any) => {
+      const { tender, error, message } = d;
+
+      if (error) {
+        console.log('message: ', message);
+      } else {
+        // load forms
+        if (tender !== null) this.loadForm(tender.documents);
+      }
+    });
+  }
+
   ngOnInit(): void {
     this.initForm();
+    this.loadData();
   }
 
   initForm(): void {

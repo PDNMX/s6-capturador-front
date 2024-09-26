@@ -1,5 +1,7 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ActivatedRoute } from '@angular/router';
+import { ApiService } from 'src/app/services/api.service';
 
 @Component({
   selector: 'app-tender-amendments',
@@ -11,12 +13,41 @@ export class TenderAmendmentsComponent implements OnInit {
   @Output() addAmendment = new EventEmitter<any>();
   @Output() deleteAmendment = new EventEmitter<any>();
 
+  record_id: string = '';
   amendmentsForm!: FormGroup;
 
-  constructor(private fb: FormBuilder) {}
+  constructor(
+    private fb: FormBuilder,
+    private route: ActivatedRoute,
+    private api: ApiService
+  ) {}
+
+  loadForm(data: any): void {
+    data.forEach((amendment: any) => {
+      this.addAmendment.emit(this.fb.group({ ...amendment }));
+    });
+  }
+
+  loadData(): void {
+    this.route.paramMap.subscribe((params: any) => {
+      this.record_id = params.get('id');
+    });
+
+    this.api.getMethod(`/tender/${this.record_id}`).subscribe((d: any) => {
+      const { tender, error, message } = d;
+
+      if (error) {
+        console.log('message: ', message);
+      } else {
+        // load forms
+        if (tender !== null) this.loadForm(tender.amendments);
+      }
+    });
+  }
 
   ngOnInit(): void {
     this.initForm();
+    this.loadData();
   }
 
   initForm(): void {

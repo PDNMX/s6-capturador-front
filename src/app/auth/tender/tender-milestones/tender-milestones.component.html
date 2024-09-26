@@ -27,7 +27,7 @@
           </thead>
           <tbody>
             <tr *ngFor="let ele of milestonesArray; index as i">
-              <td scope="row">{{ i + 1 }}</td>
+              <th scope="row">{{ ele.id || i + 1 }}</th>
               <td>{{ ele.title }}</td>
               <td>{{ getMilestoneTypeDesc(ele.type) }}</td>
               <td>{{ ele.description }}</td>
