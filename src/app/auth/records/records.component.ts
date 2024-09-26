@@ -41,6 +41,7 @@ export class RecordsComponent implements OnInit {
         console.log('r: ', r);
       } else {
         const id = r.data._id;
+        localStorage.setItem('record', id);
         this.router.navigate([`/planning/${id}`]);
       }
     });
