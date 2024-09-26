@@ -1,0 +1,176 @@
+<div class="container">
+  <div class="row">
+    <div class="col">
+      <h3>Información general</h3>
+      <hr />
+    </div>
+  </div>
+
+  <form [formGroup]="generalForm">
+    <div class="row">
+      <div class="form-floating col mb-5">
+        <input
+          type="text"
+          class="form-control"
+          id="id"
+          data-sb-validations="required"
+          formControlName="id"
+        />
+        <label for="id">Indentificador de la adjudicación *</label>
+      </div>
+    </div>
+    <div class="form-floating col mb-5">
+      <select class="form-select" formControlName="status">
+        <option *ngFor="let s of awardStatus" [ngValue]="s.code">
+          {{ s.title }}
+        </option>
+      </select>
+      <label for="status">Estatus de la Adjudicación</label>
+      <p class="mt-2">{{ getAwardStatusDesc(generalForm.value.status) }}</p>
+    </div>
+    <div class="row">
+      <div class="form-floating col-md-12 mb-5">
+        <input
+          class="form-control"
+          id="AwardsTitle"
+          type="text"
+          placeholder="Título"
+          formControlName="title"
+        />
+        <label for="AwardsTitle">Título de la adjudicación.</label>
+        <div class="invalid-feedback" data-sb-feedback="titulo:required">
+          Título is required.
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="form-floating col-md-12 mb-5">
+        <textarea
+          class="form-control"
+          id="AwardsDescription"
+          type="text"
+          placeholder="Descripción"
+          formControlName="description"
+        ></textarea>
+        <label for="AwardsDescription">Descripción de la adjudicación.</label>
+      </div>
+    </div>
+    <div class="row">
+      <div class="form-floating col-md-12 mb-5">
+        <textarea
+          class="form-control"
+          id="AwardsRationale"
+          type="text"
+          placeholder="Justificación"
+          formControlName="rationale"
+        ></textarea>
+        <label for="AwardsRationale">Justificación</label>
+      </div>
+    </div>
+    <div class="row">
+      <div class="form-floating col-md-4 mb-5">
+        <input
+          type="date"
+          class="form-control"
+          id="AwardsDate"
+          placeholder="Fecha de la adjudicación"
+          formControlName="date"
+        />
+        <label for="AwardsDate">Fecha de la adjudicación</label>
+      </div>
+    </div>
+    <!-- fieldset value -->
+    <fieldset class="border p-3 mb-3" formGroupName="value">
+      <legend class="w-auto px-2">Valor</legend>
+      <div class="row">
+        <div class="form-floating form-group col-md-6 mb-5">
+          <input
+            type="number"
+            class="form-control"
+            id="AwardsValueAmount"
+            placeholder="Monto total de la adjudicación *"
+            formControlName="amount"
+          />
+          <label for="AwardsValueAmount"
+            >Monto total de la adjudicación *</label
+          >
+        </div>
+        <div class="form-floating form-group col-md-6 mb-5">
+          <select
+            class="form-select"
+            id="AwardsValueCurrency"
+            formControlName="currency"
+          >
+            <option value="" selected>
+              -- Seleccione el tipo de moneda --
+            </option>
+            <option *ngFor="let m of currency" value="{{ m.code }}">
+              {{ m.title }}
+            </option>
+          </select>
+          <label for="AwardsValueCurrency">Moneda</label>
+        </div>
+      </div>
+    </fieldset>
+    <!-- End fieldset value -->
+
+    <!-- fieldset contracts period -->
+    <fieldset class="border p-3 mb-3">
+      <legend class="w-auto px-2">Periodo del contrato</legend>
+      <div class="row" formGroupName="contractPeriod">
+        <div class="form-floating form-group col-md-3 mb-5">
+          <input
+            type="date"
+            class="form-control"
+            id="ContractPeriodStartDate"
+            placeholder="Fecha de inicio del contrato"
+            formControlName="startDate"
+          />
+          <label for="ContractPeriodStartDate">Fecha de inicio</label>
+        </div>
+        <div class="form-floating form-group col-md-3 mb-5">
+          <input
+            type="date"
+            class="form-control"
+            id="ContractPeriodendDate"
+            placeholder="Fecha de la adjudicación"
+            formControlName="endDate"
+          />
+          <label for="ContractPeriodendDate">Fecha de término</label>
+        </div>
+        <div class="form-floating form-group col-md-3 mb-5">
+          <input
+            type="date"
+            class="form-control"
+            id="ContractPeriodMaxExtentDate"
+            placeholder="Fecha de la adjudicación"
+            formControlName="maxExtentDate"
+          />
+          <label for="ContractPeriodMaxExtentDate">Extensión máxima</label>
+        </div>
+        <div class="form-floating form-group col-md-3 mb-5">
+          <input
+            type="number"
+            class="form-control"
+            id="ContractPeriodDurationInDays"
+            placeholder="Duración en dias"
+            formControlName="durationInDays"
+          />
+          <label for="ContractPeriodDurationInDays">Duración (días)</label>
+        </div>
+      </div>
+    </fieldset>
+    <!-- End fieldset contracts period -->
+    <div class="row m-10">
+      <div class="col">
+        <button
+          type="button"
+          class="btn btn-danger btn-add"
+          (click)="saveForm()"
+        >
+          Guardar sección
+        </button>
+      </div>
+    </div>
+  </form>
+</div>

@@ -20,6 +20,11 @@ import { TenderTenderersComponent } from './tender/tender-tenderers/tender-tende
 import { TenderDocumentsComponent } from './tender/tender-documents/tender-documents.component';
 import { TenderMilestonesComponent } from './tender/tender-milestones/tender-milestones.component';
 import { TenderAmendmentsComponent } from './tender/tender-amendments/tender-amendments.component';
+import { AwardsAmendmentsComponent } from './awards/awards-amendments/awards-amendments.component';
+import { AwardsDocumentsComponent } from './awards/awards-documents/awards-documents.component';
+import { AwardsItemsComponent } from './awards/awards-items/awards-items.component';
+import { AwardsSuppliersComponent } from './awards/awards-suppliers/awards-suppliers.component';
+import { AwardsGeneralComponent } from './awards/awards-general/awards-general.component';
 
 @NgModule({
   declarations: [
@@ -40,6 +45,11 @@ import { TenderAmendmentsComponent } from './tender/tender-amendments/tender-ame
     TenderDocumentsComponent,
     TenderMilestonesComponent,
     TenderAmendmentsComponent,
+    AwardsAmendmentsComponent,
+    AwardsDocumentsComponent,
+    AwardsItemsComponent,
+    AwardsSuppliersComponent,
+    AwardsGeneralComponent,
   ],
   imports: [CommonModule, AuthRoutingModule, ReactiveFormsModule, FormsModule],
   exports: [

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators, FormArray } from '@angular/forms';
 import { ApiService } from 'src/app/services/api.service';
-import { Currency, Language } from 'src/utils';
+
 
 @Component({
   selector: 'app-awards',
@@ -9,18 +9,14 @@ import { Currency, Language } from 'src/utils';
   styleUrls: ['./awards.component.css'],
 })
 export class AwardsComponent implements OnInit {
-  currency = Currency;
-  language = Language;
+awardForm!: FormGroup;
+
 
   data: any;
   data1: any;
   savingMessage: string = '';
   isSaving: boolean = false;
   recordId: string = '';
-  /* Datos de ejemplo */
-  //dataToSend = {};
-  /*   id: string = '1';
-  dataToUpdate = {}; */
 
   //Almacenar los datos temporalmente para cada sección
 
@@ -121,57 +117,12 @@ export class AwardsComponent implements OnInit {
   } */
   /* Mostrar en consolo el contenido de los formularios */
   initForms() {
-    this.awards = this.fb.group({
-      id: ['', Validators.required],
-      status: ['', Validators.required],
-      title: ['', Validators.required],
-      description: ['', Validators.required],
-      rationale: ['', Validators.required],
-      date: ['', Validators.required],
-      value: this.fb.group({
-        amount: ['', Validators.required],
-        currency: ['', Validators.required],
-      }),
-      contractPeriod: this.fb.group({
-        startDate: ['', Validators.required],
-        endDate: ['', Validators.required],
-        maxExtentDate: ['', Validators.required],
-        durationInDays: ['', Validators.required],
-      }),
-    });
 
-    this.suppliers = this.fb.group({
-      id: ['', Validators.required],
-      name: ['', Validators.required],
-    });
-
-    this.items = this.fb.group({
-      id: ['', Validators.required],
-      description: ['', Validators.required],
-      quantity: ['', Validators.required],
-      unit: this.fb.group({
-        id: [''],
-        scheme: [''],
-        name: [''],
-        uri: [''],
-        value: this.fb.group({
-          amount: [''],
-          currency: [''],
-        }),
-      }),
-      classification: this.fb.group({
-        id: ['', Validators.required],
-        description: ['', Validators.required],
-        scheme: [''],
-        uri: [''],
-      }),
-      additionalClassifications: this.fb.group({
-        id: ['', Validators.required],
-        description: ['', Validators.required],
-        scheme: [''],
-        uri: [''],
-      }),
-    });
+    this.awardForm = this.fb.group({
+      suppliers: this.fb.array([], Validators.required),
+    })
+    
+      
 
     this.documents = this.fb.group({
       id: ['', Validators.required],
@@ -195,17 +146,28 @@ export class AwardsComponent implements OnInit {
     });
   }
 
-  addSupplier() {
-    this.tempAwards.suppliers.push(this.suppliers.value);
-    this.suppliers.reset();
+  get suppliersArray() {
+    return this.awardForm.controls['suppliers'] as FormArray;
+    //return this.awardForm.get('suppliers') as FormArray;
   }
 
-  deleteSupplier(index: number) {
-    this.tempAwards.suppliers.splice(index, 1);
+  addSupplier(opt: any): void {
+    this.suppliersArray.push(this.fb.group({ ...opt }));
+    /* const suppliersArray = this.awardForm.get('suppliers') as FormArray;
+    suppliersArray.push(this.fb.group(newSupplier)); */
   }
 
-  onSubmitSuppliers() {
-    this.addSupplier();
+  deleteSupplier(index: number): void {
+    this.suppliersArray.removeAt(index);
+   /*  const suppliersArray = this.awardForm.get('suppliers') as FormArray;
+    suppliersArray.removeAt(index); */
+  }
+
+  saveGeneralDataForm(data: any): void {
+    this.awardForm = this.fb.group({
+      ...this.awardForm.controls,
+      ...data,
+    });
   }
 
   onSubmit() {
@@ -215,12 +177,6 @@ export class AwardsComponent implements OnInit {
     //this.awards.reset();
   }
 
-  /*   onSubmitSuppliers() {
-    console.log(this.suppliers.value);
-    this.tempAwards.suppliers.push(this.suppliers.value);
-    //this.showSavingMessage();
-    //this.suppliers.reset();
-  } */
 
   onSubmitItems() {
     console.log(this.items.value);
@@ -253,20 +209,6 @@ export class AwardsComponent implements OnInit {
     }, 1500);
   }
 
-  //Metodo para combinar y enviar todos los datos
-  /*   submitAllSections() {
-    const finalData = {
-      id: this.tempAwards.id,
-      data: {
-        award: {
-          ...this.tempAwards,
-          suppliers: this.tempAwards.suppliers,
-        },
-      },
-    };
-    console.log('Enviando todos los datos', finalData);
-    this.postMethod(finalData);
-  } */
   submitAllSections() {
     const awardData = {
       ...this.awards.value,

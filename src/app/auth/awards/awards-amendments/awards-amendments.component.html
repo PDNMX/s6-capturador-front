@@ -1,0 +1,61 @@
+<div class="container">
+  <div class="row">
+    <div class="col">
+      <h3>Enmiendas</h3>
+      <hr />
+    </div>
+  </div>
+  <form class="mb-5" method="post" id="awards-form" name="awards-form" novalidate="novalidate"
+  [formGroup]="amendmentsForm" (ngSubmit)="onSubmitAwardsAmendments()">
+  
+  <div class="row">
+    <div class="form-floating col-md-4 mb5">
+      <input class="form-control" id="AmendmentsId" type="text" placeholder="Identificador de la Enmienda"
+        formControlName="id" />
+      <label for="AmendmentsId">Identificador de la Enmienda</label>
+    </div>
+    <div class="form-floating col-md-4 mb-5">
+      <input class="form-control" id="AwardsAmendmentsDatePublished" type="date"
+        placeholder="Fecha de publicación del documento" formControlName="date" />
+      <label for="AwardsAmendmentsDatePublished">Fecha de publicación</label>
+    </div>
+    <div class="form-floating col-md-4 mb-5">
+      <input class="form-control" id="AwardsAmendmentsRationale" type="text"
+        placeholder="Justificación de la Enmienda" formControlName="rationale" />
+      <label for="AwardsAmendmentsRationale">Justificación de la Enmienda</label>
+    </div>
+  </div>
+  <div class="row">
+    <div class="form-floating col-md-4 mb-5">
+      <input class="form-control" id="AwardsAmendmentsDescription" type="text"
+        placeholder="Descripción de los cambios hechos en la enmienda" formControlName="description" />
+      <label for="AwardsAmendmentsDescription">Descripción de los cambios</label>
+    </div>
+    <div class="form-floating col-md-4 mb-5">
+      <input class="form-control" id="AwardsAmendsReleaseID" type="text" placeholder="Entrega enmendada"
+        formControlName="amendsReleaseID" />
+      <label for="AwardsAmendsReleaseID">Entrega enmendada (Identificador)</label>
+    </div>
+    <div class="form-floating col-md-4 mb-5">
+      <input class="form-control" id="AwardsAmendmentsReleaseID" type="text"
+        placeholder="Entrega de enmienda" formControlName="releaseID" />
+      <label for="AwardsAmendmentsReleaseID">Entrega de enmienda (dentificador)</label>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-6 form-group d-flex justify-content-between">
+      <input type="submit" value="guardar" class="btn btn-primary rounded-0 py-2 px-4" />
+      <span class="Guardar"></span>
+    </div>
+  </div>
+
+  <!-- Botón para enviar todos los datos -->
+  <div class="row">
+    <div class="col-md-12 text-center mt-5">
+      <button  class="btn btn-success rounded-0 py-2 px-4">
+        Guardar Adjudicación
+      </button>
+    </div>
+  </div>
+</form>
+</div>
