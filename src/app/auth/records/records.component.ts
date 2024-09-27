@@ -12,6 +12,10 @@ export class RecordsComponent implements OnInit {
   records: any = [];
   constructor(private api: ApiService, private router: Router) {}
 
+  get randomNumber(): number {
+    return Math.floor(Math.random() * 10) + 1;
+  }
+
   getAllRecords() {
     this.api.getMethod('/records').subscribe((r: any) => {
       this.records = r.results;
