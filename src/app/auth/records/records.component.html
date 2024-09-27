@@ -19,10 +19,100 @@
           <div class="list-records">
             <div class="card">
               <div class="card-header">
-                Proceso de compra: <br />
-                <strong>{{ n.ocid }}</strong>
+                <p>
+                  Proceso de compra: <br />
+                  <strong>{{ n.ocid }}</strong>
+                </p>
               </div>
-              <div class="card-body">Detalle de contratación</div>
+              <div class="card-body">
+                <div class="row">
+                  <div class="col">
+                    <h3>Detalle de contratación</h3>
+                  </div>
+                </div>
+
+                <fieldset *ngIf="n.buyer" class="border p-3 mb-3">
+                  <legend>Comprador</legend>
+                  <ul>
+                    <li><strong>Nombre:</strong>&nbsp;{{ n.buyer.name }}</li>
+                  </ul>
+                </fieldset>
+
+                <fieldset class="border p-3 mb-3">
+                  <legend>Planeacion</legend>
+                  <ul>
+                    <li>
+                      <strong>Justificación:</strong>&nbsp;{{
+                        n.planning?.rationale || "Ejemplo de Justificación"
+                      }}
+                    </li>
+                  </ul>
+                </fieldset>
+
+                <fieldset class="border p-3 mb-3">
+                  <legend>Licitacion</legend>
+                  <ul>
+                    <li>
+                      <strong>Titulo:</strong>&nbsp;{{
+                        n.tender?.title || "titulo de ejemplo"
+                      }}
+                    </li>
+                    <li>
+                      <strong>Numero de licitantes:</strong>&nbsp;{{
+                        n.tender?.numberOfTenderers || randomNumber
+                      }}
+                    </li>
+                  </ul>
+                </fieldset>
+
+                <fieldset class="border p-3 mb-3">
+                  <legend>Adjudicaciones</legend>
+                  <ul
+                    *ngFor="
+                      let l of n.awards || [
+                        {
+                          title: 'titulo ejemplo 1',
+                          description: 'descripción de ejemplo 1'
+                        },
+                        {
+                          title: 'titulo ejemplo 2',
+                          description: 'descripción de ejemplo 2'
+                        }
+                      ]
+                    "
+                  >
+                    <li><strong>Titulo:</strong>&nbsp;{{ l.title }}</li>
+                    <li>
+                      <strong>Descripción:</strong>&nbsp;{{ l.description }}
+                    </li>
+                  </ul>
+                </fieldset>
+
+                <fieldset class="border p-3 mb-3">
+                  <legend>Contratos</legend>
+                  <ul
+                    *ngFor="
+                      let l of n.awards || [
+                        {
+                          title: 'titulo ejemplo 1',
+                          description: 'descripción de ejemplo 1'
+                        },
+                        {
+                          title: 'titulo ejemplo 2',
+                          description: 'descripción de ejemplo 2'
+                        }
+                      ]
+                    "
+                  >
+                    <li><strong>Titulo:</strong>&nbsp;{{ l.title }}</li>
+                    <li>
+                      <strong>Descripción:</strong>&nbsp;{{ l.description }}
+                    </li>
+                  </ul>
+                </fieldset>
+
+                <br />
+              </div>
               <div class="card-footer">
                 <button class="btn btn-success m-2" (click)="editRecord(n._id)">
                   <i class="bi bi-pencil-square"></i> Editar
