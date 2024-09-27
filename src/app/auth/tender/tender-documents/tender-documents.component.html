@@ -27,7 +27,7 @@
           </thead>
           <tbody>
             <tr *ngFor="let doc of documentsArray; index as i">
-              <td scope="row">{{ i + 1 }}</td>
+              <th scope="row">{{ doc.id || i + 1 }}</th>
               <td>{{ getDocumentTypeTitle(doc.documentType) }}</td>
               <td>{{ doc.title }}</td>
               <td>{{ doc.description }}</td>

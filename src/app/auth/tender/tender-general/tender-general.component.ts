@@ -1,5 +1,7 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ActivatedRoute } from '@angular/router';
+import { ApiService } from 'src/app/services/api.service';
 import {
   AdditionalProcurementCategories,
   AwardCriteria,
@@ -17,6 +19,8 @@ import {
 })
 export class TenderGeneralComponent implements OnInit {
   @Output() saveGeneralData = new EventEmitter<any>();
+
+  record_id: string = '';
 
   tenderStatus = TenderStatus;
   currency = Currency;
@@ -46,10 +50,101 @@ export class TenderGeneralComponent implements OnInit {
   additionalProcurementCategoriesForm!: FormGroup;
   submissionMethodForm!: FormGroup;
 
-  constructor(private fb: FormBuilder) {}
+  constructor(
+    private fb: FormBuilder,
+    private route: ActivatedRoute,
+    private api: ApiService
+  ) {}
+
+  setSelectValue(element: string, value: any): void {
+    this.generalForm.get(element)?.setValue(value);
+  }
+
+  loadForm(data: any): void {
+    const {
+      title,
+      description,
+      status,
+      procuringEntity,
+      value,
+      minValue,
+      procurementMethod,
+      procurementMethodDetails,
+      procurementMethodRationale,
+      mainProcurementCategory,
+      additionalProcurementCategories,
+      awardCriteria,
+      awardCriteriaDetails,
+      submissionMethod,
+      submissionMethodDetails,
+      tenderPeriod,
+      enquiryPeriod,
+      hasEnquiries,
+      eligibilityCriteria,
+      awardPeriod,
+      contractPeriod,
+    } = data;
+
+    let optProcuringEntity = null;
+
+    if (procuringEntity)
+      optProcuringEntity = this.tempEntidadContratante.find(
+        (e) => (e.id = procuringEntity.id)
+      );
+
+    this.generalForm.patchValue({
+      title,
+      description,
+      status,
+      value,
+      minValue,
+      procurementMethod,
+      procurementMethodDetails,
+      procurementMethodRationale,
+      mainProcurementCategory,
+      awardCriteria,
+      awardCriteriaDetails,
+      submissionMethod,
+      submissionMethodDetails,
+      tenderPeriod,
+      enquiryPeriod,
+      hasEnquiries,
+      eligibilityCriteria,
+      awardPeriod,
+      contractPeriod,
+    });
+
+    additionalProcurementCategories.forEach((e: string) => {
+      this.additionalProcurementCategoriesArray.push(this.fb.control(e));
+    });
+
+    submissionMethod.forEach((e: string) => {
+      this.submissionMethodArray.push(this.fb.control(e));
+    });
+
+    this.setSelectValue('procuringEntity', optProcuringEntity);
+  }
+
+  loadData(): void {
+    this.route.paramMap.subscribe((params: any) => {
+      this.record_id = params.get('id');
+    });
+
+    this.api.getMethod(`/tender/${this.record_id}`).subscribe((d: any) => {
+      const { tender, error, message } = d;
+
+      if (error) {
+        console.log('message: ', message);
+      } else {
+        // load forms
+        if (tender !== null) this.loadForm(tender);
+      }
+    });
+  }
 
   ngOnInit(): void {
     this.initForm();
+    this.loadData();
   }
 
   initForm(): void {

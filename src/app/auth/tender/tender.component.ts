@@ -100,7 +100,6 @@ export class TenderComponent implements OnInit {
   ngOnInit(): void {
     this.route.paramMap.subscribe((params: any) => {
       this.record_id = params.get('id');
-      console.log('tender id: ', this.record_id);
     });
 
     this.tenderForm = this.fb.group({
