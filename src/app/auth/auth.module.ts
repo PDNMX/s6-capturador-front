@@ -20,6 +20,12 @@ import { TenderTenderersComponent } from './tender/tender-tenderers/tender-tende
 import { TenderDocumentsComponent } from './tender/tender-documents/tender-documents.component';
 import { TenderMilestonesComponent } from './tender/tender-milestones/tender-milestones.component';
 import { TenderAmendmentsComponent } from './tender/tender-amendments/tender-amendments.component';
+import { PlanningBudgetComponent } from './planning/planning-budget/planning-budget.component';
+import { PlanningDocumentsComponent } from './planning/planning-documents/planning-documents.component';
+import { PlanningGeneralComponent } from './planning/planning-general/planning-general.component';
+import { PlanningItemsComponent } from './planning/planning-items/planning-items.component';
+import { PlanningMilestonesComponent } from './planning/planning-milestones/planning-milestones.component';
+import { PlanningRequestForQuotesComponent } from './planning/planning-requestForQuotes/planning-requestForQuotes.component';
 
 @NgModule({
   declarations: [
@@ -40,6 +46,12 @@ import { TenderAmendmentsComponent } from './tender/tender-amendments/tender-ame
     TenderDocumentsComponent,
     TenderMilestonesComponent,
     TenderAmendmentsComponent,
+    PlanningBudgetComponent,
+    PlanningDocumentsComponent,
+    PlanningGeneralComponent,
+    PlanningItemsComponent,
+    PlanningMilestonesComponent,
+    PlanningRequestForQuotesComponent,
   ],
   imports: [CommonModule, AuthRoutingModule, ReactiveFormsModule, FormsModule],
   exports: [
