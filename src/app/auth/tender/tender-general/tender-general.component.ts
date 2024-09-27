@@ -85,9 +85,12 @@ export class TenderGeneralComponent implements OnInit {
       contractPeriod,
     } = data;
 
-    const optProcuringEntity = this.tempEntidadContratante.find(
-      (e) => (e.id = procuringEntity.id)
-    );
+    let optProcuringEntity = null;
+
+    if (procuringEntity)
+      optProcuringEntity = this.tempEntidadContratante.find(
+        (e) => (e.id = procuringEntity.id)
+      );
 
     this.generalForm.patchValue({
       title,

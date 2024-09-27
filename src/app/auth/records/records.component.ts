@@ -23,8 +23,6 @@ export class RecordsComponent implements OnInit {
     localStorage.removeItem('record');
   }
 
-  num = [0, 1, 2, 3];
-
   deleteRecord(id: string): void {
     this.api.deleteMethod(id, `/records/${id}`).subscribe((r: any) => {
       if (r.err) {
