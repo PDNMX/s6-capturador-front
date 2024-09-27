@@ -6,6 +6,7 @@ import { map, Observable, of, tap, catchError, throwError } from 'rxjs';
 //import { HttpClient } from '@angular/common/http';
 import { ApiService } from 'src/app/services/api.service';
 import { ActivatedRoute } from '@angular/router';
+import { Language } from 'src/utils';
 
 
 @Component({
@@ -33,12 +34,52 @@ export class ImplementationComponent implements OnInit{
       });
   }
 
-  implements = this.fb.group({
-    contractId: [''],
-    implementationDate: [''],
-    implementationStatus: [''],
-    implementationDescription: [''],
-    implementationCost: [''],
-    implementationNotes: ['']
+  implementation = this.fb.group({
+    status: ['', Validators.required],
   });
+
+  transactions= this.fb.group({
+    id: ['',Validators.required],
+    source: ['',Validators.required],
+    date: ['',Validators.required],
+    paymentMethod: ['',Validators.required],
+    value: this.fb.group({
+      amount: ['',Validators.required],
+      currency: ['',Validators.required]
+    }),
+    payer: this.fb.group({
+      id: ['',Validators.required],
+      name: ['',Validators.required]
+    }),
+    payee: this.fb.group({
+      id: ['',Validators.required],
+      name: ['',Validators.required]
+    }),
+    uri: ['',Validators.required]
+  });
+
+  milestones= this.fb.group({
+    id: ['',Validators.required],
+    title: ['',Validators.required],
+    type: ['',Validators.required],
+    description: ['',Validators.required],
+    code: ['',Validators.required],
+    dueDate: ['',Validators.required],
+    dateMet: ['',Validators.required],
+    dateModified: ['',Validators.required],
+    status: ['',Validators.required],
+  });
+
+  documents= this.fb.group({
+    id: ['',Validators.required],
+    documentType: ['',Validators.required],
+    title: ['',Validators.required],
+    description: ['',Validators.required],
+    url: ['',Validators.required],  
+    datePublished: ['',Validators.required],
+    dateModified: ['',Validators.required],
+    format: ['',Validators.required],
+    Language: ['',Validators.required],
+  });
+
 }
