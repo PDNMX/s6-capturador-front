@@ -2,15 +2,13 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, FormArray } from '@angular/forms';
 import { ApiService } from 'src/app/services/api.service';
 
-
 @Component({
   selector: 'app-awards',
   templateUrl: './awards.component.html',
   styleUrls: ['./awards.component.css'],
 })
 export class AwardsComponent implements OnInit {
-awardForm!: FormGroup;
-
+  awardForm!: FormGroup;
 
   data: any;
   data1: any;
@@ -41,6 +39,42 @@ awardForm!: FormGroup;
     if (this.recordId) {
       this.loadExistingData();
     }
+  }
+
+  get suppliersArray() {
+    return this.awardForm.controls['suppliers'] as FormArray;
+    //return this.awardForm.get('suppliers') as FormArray;
+  }
+
+  addSupplier(opt: any): void {
+    this.suppliersArray.push(this.fb.group({ ...opt }));
+    /* const suppliersArray = this.awardForm.get('suppliers') as FormArray;
+    suppliersArray.push(this.fb.group(newSupplier)); */
+  }
+
+  deleteSupplier(index: number): void {
+    this.suppliersArray.removeAt(index);
+    /*  const suppliersArray = this.awardForm.get('suppliers') as FormArray;
+    suppliersArray.removeAt(index); */
+  }
+
+  saveGeneralDataForm(data: any): void {
+    this.awardForm = this.fb.group({
+      ...this.awardForm.controls,
+      ...data,
+    });
+  }
+
+  get itemsArray() {
+    return this.awardForm.controls['items'] as FormArray;
+  }
+
+  addItem(opt: any): void {
+    this.itemsArray.push(opt);
+  }
+
+  deleteItem(index: number): void {
+    this.itemsArray.removeAt(index);
   }
 
   loadRecordId() {
@@ -117,56 +151,11 @@ awardForm!: FormGroup;
   } */
   /* Mostrar en consolo el contenido de los formularios */
   initForms() {
-
     this.awardForm = this.fb.group({
-      suppliers: this.fb.array([], Validators.required),
-    })
-    
-      
-
-    this.documents = this.fb.group({
-      id: ['', Validators.required],
-      documentType: ['', Validators.required],
-      title: ['', Validators.required],
-      description: ['', Validators.required],
-      url: ['', Validators.required],
-      datePublished: ['', Validators.required],
-      dateModified: ['', Validators.required],
-      format: ['', Validators.required],
-      language: ['', Validators.required],
-    });
-
-    this.amendments = this.fb.group({
-      date: ['', Validators.required],
-      rationale: ['', Validators.required],
-      id: ['', Validators.required],
-      description: ['', Validators.required],
-      amendsReleaseID: ['', Validators.required],
-      releaseID: ['', Validators.required],
-    });
-  }
-
-  get suppliersArray() {
-    return this.awardForm.controls['suppliers'] as FormArray;
-    //return this.awardForm.get('suppliers') as FormArray;
-  }
-
-  addSupplier(opt: any): void {
-    this.suppliersArray.push(this.fb.group({ ...opt }));
-    /* const suppliersArray = this.awardForm.get('suppliers') as FormArray;
-    suppliersArray.push(this.fb.group(newSupplier)); */
-  }
-
-  deleteSupplier(index: number): void {
-    this.suppliersArray.removeAt(index);
-   /*  const suppliersArray = this.awardForm.get('suppliers') as FormArray;
-    suppliersArray.removeAt(index); */
-  }
-
-  saveGeneralDataForm(data: any): void {
-    this.awardForm = this.fb.group({
-      ...this.awardForm.controls,
-      ...data,
+      suppliers: this.fb.array([], [Validators.required]),
+      items: this.fb.array([], [Validators.required]),
+      documents: this.fb.array([], [Validators.required]),
+      amendments: this.fb.array([], [Validators.required]),
     });
   }
 
@@ -176,7 +165,6 @@ awardForm!: FormGroup;
     this.showSavingMessage();
     //this.awards.reset();
   }
-
 
   onSubmitItems() {
     console.log(this.items.value);

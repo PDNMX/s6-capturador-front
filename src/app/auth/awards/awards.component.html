@@ -158,8 +158,12 @@
             role="tabpanel"
             aria-labelledby="adjudicacion-items-tab"
           >
-            <div class="form h-100">
-              <app-awards-items></app-awards-items>
+            <div class="form">
+              <app-awards-items
+                [itemsArray]="awardForm.value.items"
+                (addItem)="addItem($event)"
+                (deleteItem)="deleteItem($event)"
+              ></app-awards-items>
             </div>
           </div>
         </div>
