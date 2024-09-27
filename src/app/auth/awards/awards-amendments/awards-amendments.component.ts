@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, FormArray } from '@angular/forms';
 
 @Component({
@@ -7,9 +7,19 @@ import { FormBuilder, FormGroup, Validators, FormArray } from '@angular/forms';
   styleUrls: ['./awards-amendments.component.css'],
 })
 export class AwardsAmendmentsComponent implements OnInit {
+  @Input() amendmentsArray: Array<any> = [];
+  @Output() addAmendment = new EventEmitter<any>();
+  @Output() deleteAmendment = new EventEmitter<any>();
+
   amendmentsForm!: FormGroup;
 
   constructor(private fb: FormBuilder) {}
+
+  loadForm(data: any): void {
+    data.forEach((amendment: any) => {
+      this.addAmendment.emit(this.fb.group({ ...amendment }));
+    });
+  }
 
   ngOnInit(): void {
     this.initForm();
@@ -17,7 +27,6 @@ export class AwardsAmendmentsComponent implements OnInit {
 
   initForm(): void {
     this.amendmentsForm = this.fb.group({
-      id: ['', Validators.required],
       date: ['', Validators.required],
       rationale: ['', Validators.required],
       description: ['', Validators.required],
@@ -26,7 +35,9 @@ export class AwardsAmendmentsComponent implements OnInit {
     });
   }
 
-  onSubmitAwardsAmendments() {
+addNewAmendment(): void {
+    this.addAmendment.emit(this.amendmentsForm);
     console.log(this.amendmentsForm.value);
+    this.initForm();
   }
 }

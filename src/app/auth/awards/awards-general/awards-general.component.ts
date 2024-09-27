@@ -54,5 +54,6 @@ export class AwardsGeneralComponent implements OnInit {
       ...this.generalForm.value,
     };
     this.saveGeneralDataForm.emit(this.generalForm.controls);
+    console.log(data);
   }
 }

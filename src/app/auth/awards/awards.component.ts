@@ -77,6 +77,30 @@ export class AwardsComponent implements OnInit {
     this.itemsArray.removeAt(index);
   }
 
+  get documentsarray() {
+    return this.awardForm.controls['documents'] as FormArray;
+  }
+
+  addDocument(opt: any): void {
+    this.documentsarray.push(opt);
+  }
+
+  deleteDocument(index: number): void {
+    this.documentsarray.removeAt(index);
+  }
+
+  get amendmentsarray() {
+    return this.awardForm.controls['amendments'] as FormArray;
+  }
+
+  addAmendment(opt: any): void {
+    this.amendmentsarray.push(opt);
+  }
+
+  deleteAmendment(index: number): void {
+    this.amendmentsarray.removeAt(index);
+  }
+
   loadRecordId() {
     const storedId = localStorage.getItem('record');
     if (storedId) {

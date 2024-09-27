@@ -177,7 +177,11 @@
             aria-labelledby="adjudicacion-documentos-tab"
           >
             <div class="form h-100">
-              <app-awards-documents></app-awards-documents>
+              <app-awards-documents
+                [documentsArray]="awardForm.value.documents"
+                (addDocument)="addDocument($event)"
+                (deleteDocument)="deleteDocument($event)"
+              ></app-awards-documents>
             </div>
           </div>
         </div>
@@ -191,7 +195,11 @@
             aria-labelledby="adjudicacion-mofificaciones-tab"
           >
             <div class="form h-100">
-              <app-awards-amendments></app-awards-amendments>
+              <app-awards-amendments
+                [amendmentsArray]="awardForm.value.amendments"
+                (addAmendment)="addAmendment($event)"
+                (deleteAmendment)="deleteAmendment($event)"
+              ></app-awards-amendments>
             </div>
           </div>
         </div>

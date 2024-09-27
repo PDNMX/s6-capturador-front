@@ -33,6 +33,7 @@ export class AwardsSuppliersComponent {
 
   addNewSupplier(): void {
     this.addSupplier.emit(this.suppliersValue);
+    console.log(this.suppliersValue);
   }
 
 }

@@ -5,89 +5,195 @@
       <hr />
     </div>
   </div>
-  <form class="mb-5" method="post" id="AwardsDocumentsForm" name="AwardsDocumentsForm" [formGroup]="documentsForm"
-    (ngSubmit)="onSubmitDocuments()">
-    <div class="row">
-      <div class="form-floating col-md-4 mb5">
-        <input class="form-control" id="AwardsDocumentsId" type="text" placeholder="Idenficador del Documento"
-          formControlName="id" />
-        <label for="AwardsDocumentsId">Identificador del Documento</label>
+
+  <div class="row">
+    <div class="col">
+      <div class="table-responsive-sm">
+        <table class="table table-hover table-striped mb-10">
+          <thead>
+            <tr>
+              <th scope="col">ID</th>
+              <th scope="col">Tipo de documento</th>
+              <th scope="col">Titulo</th>
+              <th scope="col">Descripción</th>
+              <th scope="col">URL</th>
+              <th scope="col">Fecha de publicación</th>
+              <th scope="col">Fecha de Modificación</th>
+              <th scope="col">Formato</th>
+              <th scope="col">Idioma</th>
+
+              <th scope="col">Opciones</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let doc of documentsArray; index as i">
+              <th scope="row">{{ doc.id || i + 1 }}</th>
+              <td>{{ getDocumentTypeTitle(doc.documentType) }}</td>
+              <td>{{ doc.title }}</td>
+              <td>{{ doc.description }}</td>
+              <td>{{ doc.url }}</td>
+              <td>{{ doc.datePublished }}</td>
+              <td>{{ doc.dateModified }}</td>
+              <td>{{ getFormatDocument(doc.format) }}</td>
+              <td>{{ getLanguaje(doc.language) }}</td>
+              <td>
+                <button
+                  type="button"
+                  class="btn btn-danger btn-delete"
+                  (click)="deleteDocument.emit(i)"
+                >
+                  Eliminar
+                </button>
+              </td>
+            </tr>
+            <tr *ngIf="documentsArray.length === 0">
+              <th scope="row" colspan="10" class="text-center">
+                Sin registros.
+              </th>
+            </tr>
+          </tbody>
+        </table>
       </div>
-      <div class="form-floating col-md-4 mb-5">
-        <select class="form-select" id="AwardsDocumentsType" aria-label="scheme" formControlName="documentType">
-          <option value="default">Seleccione una opción</option>
-          <option value="awardNotice">Aviso de adjudicación</option>
-          <option value="contractDraft">
-            Borrador de contrato
-          </option>
-          <option value="contractArrangements">
-            Arreglos para finalizar un contrato
-          </option>
-          <option value="contractSchedule">
-            Calendario del contrato
-          </option>
-          <option value="winningBid">Oferta ganadora</option>
-          <option value="complaints">Quejas y decisiones</option>
-          <option value="conflictOfInterest">
-            Conflicto de interés
-          </option>
-          <option value="submissionDocuments">
-            Documentos de presentación de oferta
-          </option>
-          <option value="cancellationDetails">
-            Detalles de cancelación
+    </div>
+  </div>
+  <hr />
+
+  <form [formGroup]="documentsForm">
+    <div class="row">
+      <div class="col-12">
+        <label for="">Tipo de documento</label>
+      </div>
+      <div class="form-floating col mb-5">
+        <select class="form-select" formControlName="documentType">
+          <option *ngFor="let d of documents" [ngValue]="d.code">
+            {{ d.title }}
           </option>
         </select>
-        <label for="AwardsDocumentsType">Tipo de Documento</label>
+        <p>
+          {{ getDocumentTypeDesc(documentsForm.value.documentType) }}
+        </p>
       </div>
-      <div class="form-floating col-md-4 mb-5">
-        <input class="form-control" id="AwardsDocumentsTitle" type="text" placeholder="Título del documento"
-          formControlName="title" />
-        <label for="AwardsDocumentsTitle">Título del Documento</label>
+    </div>
+
+    <div class="row">
+      <div class="form-floating col mb-5">
+        <input
+          class="form-control"
+          id="title"
+          type="text"
+          data-sb-validations="required"
+          placeholder="URL*"
+          formControlName="title"
+        />
+        <label for="title">Titulo *</label>
+        <div class="invalid-feedback" data-sb-feedback="title:required">
+          Titulo * es requerido.
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="form-floating col-12 mb-5">
+        <textarea
+          class="form-control"
+          id="description"
+          type="text"
+          placeholder="Descripción*"
+          style="height: 100px"
+          formControlName="description"
+        ></textarea>
+        <label for="description">Descripción *</label>
+        <div class="invalid-feedback" data-sb-feedback="description:required">
+          Descripción * es requerido.
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="form-floating col mb-5">
+        <input
+          class="form-control"
+          id="URL"
+          type="text"
+          data-sb-validations="required"
+          placeholder="URL*"
+          formControlName="url"
+        />
+        <label for="URL">URL *</label>
+        <div class="invalid-feedback" data-sb-feedback="title:required">
+          URL * es requerido.
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="form-floating col-6 mb-5">
+        <input
+          class="form-control"
+          id="datePublished"
+          type="date"
+          data-sb-validations="required"
+          formControlName="datePublished"
+        />
+        <label for="datePublished">Fecha de publicación *</label>
+        <div class="invalid-feedback" data-sb-feedback="title:required">
+          Fecha de publicación * es requerido.
+        </div>
+      </div>
+      <div class="form-floating col-6 mb-5">
+        <input
+          class="form-control"
+          id="dateModified"
+          type="date"
+          data-sb-validations="required"
+          formControlName="dateModified"
+        />
+        <label for="dateModified">Fecha de modificación*</label>
+        <div class="invalid-feedback" data-sb-feedback="title:required">
+          Fecha de modificación * es requerido.
+        </div>
       </div>
     </div>
     <div class="row">
-      <div class="form-floating col-md-4 mb-5">
-        <input class="form-control" id="AwardsDocumentsDescription" type="text" placeholder="Descripción del documento"
-          formControlName="description" />
-        <label for="AwardsDocumentsDescription">Descripción del Documento</label>
+      <div class="col-6">
+        <div class="row">
+          <div class="col-12">
+            <label for="format">Formato</label>
+          </div>
+          <div class="form-floating col mb-5">
+            <select class="form-select" formControlName="format">
+              <option *ngFor="let d of formatDocument" [ngValue]="d.template">
+                {{ d.name }}
+              </option>
+            </select>
+          </div>
+        </div>
       </div>
-      <div class="form-floating col-md-4 mb-5">
-        <input class="form-control" id="AwardsDocumentsUrl" type="text" placeholder="Url del documento"
-          formControlName="url" />
-        <label for="AwardsDocumentsUrl">URL</label>
-      </div>
-      <div class="form-floating col-md-4 mb-5">
-        <input class="form-control" id="AwardsDocumentsDatePublished" type="date"
-          placeholder="Fecha de publicación del documento" formControlName="datePublished" />
-        <label for="AwardsDocumentsDatePublished">Fecha de publicación</label>
-      </div>
-    </div>
-    <div class="row">
-      <div class="form-floating col-md-4 mb-5">
-        <input class="form-control" id="AwardsDocumentsDateModified" type="date"
-          placeholder="Fecha de modificación del documento" formControlName="dateModified" />
-        <label for="AwardsDocumentsDateModified">Fecha de modificación</label>
-      </div>
-      <div class="form-floating col-md-4 mb-5">
-        <input class="form-control" id="AwardsDocumentsFormat" type="text" placeholder="Formato del documento"
-          formControlName="format" />
-        <label for="AwardsDocumentsFormat">Formato del Documento</label>
-      </div>
-      <div class="form-floating col-md-4 mb-5">
-        <select class="form-select" id="AwardsDocumentslanguage" aria-label="scheme" formControlName="language">
-          <option value="default">Elige un idioma</option>
-          <option *ngFor="let d of language" [ngValue]="d">
-            {{ d.name }}
-          </option>
-        </select>
-        <label for="AwardsDocumentslanguage">Idioma del Documento</label>
+      <div class="col-6">
+        <div class="row">
+          <div class="col-12">
+            <label for="language">Idioma</label>
+          </div>
+          <div class="form-floating col mb-5">
+            <select class="form-select" formControlName="language">
+              <option *ngFor="let d of languaje" [ngValue]="d.code">
+                {{ d.name }}
+              </option>
+            </select>
+          </div>
+        </div>
       </div>
     </div>
+
     <div class="row">
-      <div class="col-md-6 form-group d-flex justify-content-between">
-        <input type="submit" value="guardar" class="btn btn-primary rounded-0 py-2 px-4" />
-        <span class="Guardar"></span>
+      <div class="col">
+        <button
+          type="button"
+          class="btn btn-danger btn-add"
+          (click)="addNewDocument()"
+        >
+          Agregar documento
+        </button>
       </div>
     </div>
   </form>
