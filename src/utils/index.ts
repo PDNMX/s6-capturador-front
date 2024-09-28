@@ -11,6 +11,7 @@ import MilestoneType from './milestoneType';
 import MilestoneStatus from './milestoneStatus';
 import TenderStatus from './tenderStatus';
 import Classifications from './classification';
+import AwardStatus from './awardStatus';
 
 export {
   Currency,
@@ -26,4 +27,5 @@ export {
   MilestoneStatus,
   TenderStatus,
   Classifications,
+  AwardStatus,
 };
