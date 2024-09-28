@@ -6,7 +6,7 @@
     </div>
   </div>
 
-  <form>
+  <form [formGroup]="beneficialOwnersForm">
     <div class="row">
       <div class="form-floating col mb-5">
         <input
@@ -108,7 +108,7 @@
         </div>
       </div>
     </div>
-    <fieldset class="border p-3 mb-3" formGroupName="value">
+    <fieldset class="border p-3 mb-3" formGroupName="address">
       <legend class="w-auto px-1">Domicilio</legend>
 
       <div class="row">
