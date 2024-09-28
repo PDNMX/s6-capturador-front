@@ -113,7 +113,7 @@
               class="btn btn-danger text-center p-3"
               (click)="submit()"
             >
-              Guardar
+              Guardar Licitación
             </button>
           </div>
         </div>
@@ -121,7 +121,7 @@
       <div class="col-md-9 g-0">
         <div class="tab-content" id="licitacion-tabContent">
           <div
-            class="tab-pane fade"
+            class="tab-pane fade show active"
             id="licitacion-presentacion"
             role="tabpanel"
             aria-labelledby="licitacion-presentacion-tab"
@@ -153,13 +153,15 @@
             tabindex="0"
           >
             <div class="form">
-              <app-tender-general></app-tender-general>
+              <app-tender-general
+                (saveGeneralData)="saveGeneralData($event)"
+              ></app-tender-general>
             </div>
           </div>
         </div>
         <div class="tab-content" id="licitacion-tabContent">
           <div
-            class="tab-pane fade show active"
+            class="tab-pane fade"
             id="licitacion-items"
             role="tabpanel"
             aria-labelledby="licitacion-items-tab"

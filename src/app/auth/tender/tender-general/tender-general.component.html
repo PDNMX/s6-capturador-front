@@ -8,20 +8,6 @@
 
   <form [formGroup]="generalForm">
     <div class="row">
-      <div class="col-12">
-        <label for="">Estatus de la licitación</label>
-      </div>
-      <div class="form-floating col mb-5">
-        <select class="form-select" formControlName="status">
-          <option *ngFor="let d of tenderStatus" [ngValue]="d">
-            {{ d.title }}
-          </option>
-        </select>
-        <p class="mt-2">{{ generalForm.value.status.description }}</p>
-      </div>
-    </div>
-
-    <div class="row">
       <div class="form-floating col mb-5">
         <input
           class="form-control"
@@ -56,6 +42,18 @@
     </div>
 
     <div class="row">
+      <div class="form-floating col mb-5">
+        <label for="">Estatus de la licitación</label>
+        <select class="form-select" formControlName="status">
+          <option *ngFor="let d of tenderStatus" [ngValue]="d.code">
+            {{ d.title }}
+          </option>
+        </select>
+        <p class="mt-2">{{ getTenderStatusDesc(generalForm.value.status) }}</p>
+      </div>
+    </div>
+
+    <div class="row">
       <div class="col-12">
         <label for="">Entidad contratante</label>
       </div>
@@ -68,18 +66,96 @@
       </div>
     </div>
 
+    <fieldset class="border p-3 mb-3" formGroupName="value">
+      <legend class="w-auto px-1">Valor máximo de contratación</legend>
+      <div class="row">
+        <div class="col">
+          <p>
+            El valor estimado de la contratación sin impuestos incluidos. En
+            caso de contrataciones abiertas, se señala el presupuesto máximo que
+            podría ejercerse en la ejecución del contrato.
+          </p>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="form-floating col-4 mb-5">
+          <input
+            class="form-control"
+            id="amount"
+            type="text"
+            data-sb-validations="required"
+            placeholder="ID de Organización*"
+            formControlName="amount"
+          />
+          <label for="amount">Cantidad*</label>
+          <div class="invalid-feedback" data-sb-feedback="title:required">
+            Cantidas * es requerido.
+          </div>
+        </div>
+        <div class="form-floating col-8 mb-5">
+          <select class="form-select" formControlName="currency">
+            <label for="currency">Moneda*</label>
+            <option selected>Seleccione un moneda</option>
+            <option *ngFor="let m of currency" value="{{ m.code }}">
+              {{ m.title }}
+            </option>
+          </select>
+        </div>
+      </div>
+    </fieldset>
+
+    <fieldset class="border p-3 mb-3" formGroupName="minValue">
+      <legend class="w-auto px-1">Valor mínimo de contratación</legend>
+      <div class="row">
+        <div class="col">
+          <p>
+            El valor mínimo estimado de la contratación sin impuestos incluidos.
+            En caso de contrataciones abiertas, se señala el presupuesto mínimo
+            (que debería ejercerse en la ejecución del contrato).
+          </p>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="form-floating col-4 mb-5">
+          <input
+            class="form-control"
+            id="amount"
+            type="text"
+            data-sb-validations="required"
+            placeholder="ID de Organización*"
+            formControlName="amount"
+          />
+          <label for="amount">Cantidad*</label>
+          <div class="invalid-feedback" data-sb-feedback="title:required">
+            Cantidas * es requerido.
+          </div>
+        </div>
+        <div class="form-floating col-8 mb-5">
+          <select class="form-select" formControlName="currency">
+            <label for="currency">Moneda*</label>
+            <option selected>Seleccione un moneda</option>
+            <option *ngFor="let m of currency" value="{{ m.code }}">
+              {{ m.title }}
+            </option>
+          </select>
+        </div>
+      </div>
+    </fieldset>
+
     <div class="row">
       <div class="col-12">
         <label for="">Método de contratación</label>
       </div>
       <div class="form-floating col mb-5">
         <select class="form-select" formControlName="procurementMethod">
-          <option *ngFor="let d of procurementMethod" [ngValue]="d">
+          <option *ngFor="let d of procurementMethod" [ngValue]="d.code">
             {{ d.title }}
           </option>
         </select>
         <p class="mt-2">
-          {{ generalForm.value.procurementMethod.description }}
+          {{ getProcurementMethod(generalForm.value.procurementMethod) }}
         </p>
       </div>
     </div>
@@ -127,6 +203,7 @@
         </div>
       </div>
     </div>
+
     <fieldset class="border p-3 mb-3">
       <legend class="w-auto px-1">Categoria de la contratacion</legend>
       <div class="row">
@@ -135,12 +212,19 @@
         </div>
         <div class="form-floating col mb-5">
           <select class="form-select" formControlName="mainProcurementCategory">
-            <option *ngFor="let d of mainProcurementCategory" [ngValue]="d">
+            <option
+              *ngFor="let d of mainProcurementCategory"
+              [ngValue]="d.code"
+            >
               {{ d.title }}
             </option>
           </select>
           <p class="mt-2">
-            {{ generalForm.value.mainProcurementCategory.description }}
+            {{
+              getMainProcurementCategory(
+                generalForm.value.mainProcurementCategory
+              )
+            }}
           </p>
         </div>
       </div>
@@ -150,24 +234,22 @@
           <label for="">Categorias adicionales*</label>
         </div>
         <div
-          class="form-floating col-8 mb-5"
+          class="form-floating col-10 mb-5"
           [formGroup]="additionalProcurementCategoriesForm"
         >
           <select class="form-select" formControlName="data">
             <option
               *ngFor="let d of additionalProcurementCategories"
-              [ngValue]="d"
+              [ngValue]="d.code"
             >
               {{ d.title }}
             </option>
           </select>
-
-          <p class="mt-2"></p>
         </div>
-        <div class="col-4">
+        <div class="col-2">
           <button
             type="button"
-            class="btn btn-danger"
+            class="btn btn-danger btn-add"
             (click)="addAdditionalProcurementCategories()"
           >
             Agregar
@@ -193,12 +275,14 @@
                   "
                 >
                   <td scope="row">{{ i + 1 }}</td>
-                  <td>{{ d.title }}</td>
-                  <td>{{ d.description }}</td>
+                  <td>
+                    {{ getAdditionalProcurementCategoriesTitle(d) }}
+                  </td>
+                  <td>{{ getAdditionalProcurementCategoriesDesc(d) }}</td>
                   <td>
                     <button
                       type="button"
-                      class="btn btn-danger"
+                      class="btn btn-danger btn-delete"
                       (click)="deleteAdditionalProcurementCategories(i)"
                     >
                       Eliminar
@@ -233,14 +317,14 @@
           <select class="form-select" formControlName="awardCriteria">
             <option
               *ngFor="let d of awardCriteria"
-              [ngValue]="d"
+              [ngValue]="d.code"
               [disabled]="d.obsoleto"
             >
               <strong *ngIf="d.obsoleto">(obsoleto)</strong> {{ d.title }}
             </option>
           </select>
           <p class="mt-2">
-            {{ generalForm.value.awardCriteria.description }}
+            {{ getAwardCriteriaDesc(generalForm.value.awardCriteria) }}
           </p>
         </div>
       </div>
@@ -270,17 +354,71 @@
       <legend class="w-auto px-1">Metodo de presentación de oferta</legend>
       <div class="row">
         <div class="col-12">
-          <label for="">Criterio de adjudicación*</label>
+          <label for="">Método de presentación*</label>
         </div>
-        <div class="form-floating col mb-5">
-          <select class="form-select" formControlName="submissionMethod">
-            <option *ngFor="let d of submissionMethod" [ngValue]="d">
+        <div
+          class="form-floating col-10 mb-5"
+          [formGroup]="submissionMethodForm"
+        >
+          <select class="form-select" formControlName="data">
+            <option *ngFor="let d of submissionMethod" [ngValue]="d.code">
               {{ d.title }}
             </option>
           </select>
-          <p class="mt-2">
-            {{ generalForm.value.submissionMethod.description }}
-          </p>
+        </div>
+
+        <div class="col-2">
+          <button
+            type="button"
+            class="btn btn-danger btn-add"
+            (click)="addSubmissionMethod()"
+          >
+            Agregar
+          </button>
+        </div>
+
+        <div class="col-12">
+          <div class="table-responsive">
+            <table class="table table-striped table-hover">
+              <thead>
+                <tr>
+                  <th scope="col">ID</th>
+                  <th scope="col">Metodo</th>
+                  <th scope="col">Descripción</th>
+                  <th scope="col">Opciones</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr
+                  class=""
+                  *ngFor="
+                    let d of generalForm.value.submissionMethod;
+                    index as i
+                  "
+                >
+                  <td scope="row">{{ i + 1 }}</td>
+                  <td>
+                    {{ getSubmissionMethodTitle(d) }}
+                  </td>
+                  <td>{{ getSubmissionMethodDesc(d) }}</td>
+                  <td>
+                    <button
+                      type="button"
+                      class="btn btn-danger btn-delete"
+                      (click)="deleteSubmissionMethod(i)"
+                    >
+                      Eliminar
+                    </button>
+                  </td>
+                </tr>
+                <tr *ngIf="submissionMethodArray.length === 0">
+                  <th scope="row" colspan="4" class="text-center">
+                    Sin registros.
+                  </th>
+                </tr>
+              </tbody>
+            </table>
+          </div>
         </div>
       </div>
 
@@ -431,6 +569,42 @@
       </div>
     </fieldset>
 
+    <div class="row">
+      <div class="form-floating col mb-5">
+        <div class="form-check">
+          <input
+            class="form-check-input"
+            type="checkbox"
+            id="flexCheckDefault"
+            formControlName="hasEnquiries"
+          />
+          <label class="form-check-label" for="flexCheckDefault">
+            ¿Tiene solicitudes de aclaración?
+          </label>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="form-floating col-12 mb-5">
+        <textarea
+          class="form-control"
+          id="eligibilityCriteria"
+          type="text"
+          placeholder="Criterios de elegibilidad*"
+          style="height: 100px"
+          formControlName="eligibilityCriteria"
+        ></textarea>
+        <label for="eligibilityCriteria">Criterios de elegibilidad*</label>
+        <div
+          class="invalid-feedback"
+          data-sb-feedback="eligibilityCriteria:required"
+        >
+          Criterios de elegibilidad * es requerido.
+        </div>
+      </div>
+    </div>
+
     <fieldset class="border p-3 mb-3" formGroupName="awardPeriod">
       <legend class="w-auto px-1">Periodo de evaluación y adjudicación</legend>
 
@@ -567,177 +741,18 @@
       </div>
     </fieldset>
 
+    <!-- organizados  -->
+
     <div class="row m-10">
       <div class="col">
-        <button type="button" class="btn btn-danger" (click)="saveForm()">
-          Guardar
+        <button
+          type="button"
+          class="btn btn-danger btn-add"
+          (click)="saveForm()"
+        >
+          Guardar sección
         </button>
       </div>
     </div>
   </form>
 </div>
-
-<form>
-  <div class="container">
-    <fieldset class="border p-3 mb-3">
-      <legend class="w-auto px-1">Valor máximo de contratación</legend>
-      <div class="row">
-        <div class="col">
-          <p>
-            El valor estimado de la contratación sin impuestos incluidos. En
-            caso de contrataciones abiertas, se señala el presupuesto máximo que
-            podría ejercerse en la ejecución del contrato.
-          </p>
-        </div>
-      </div>
-
-      <div class="row">
-        <div class="form-floating col-4 mb-5">
-          <input
-            class="form-control"
-            id="amount"
-            type="text"
-            data-sb-validations="required"
-            placeholder="ID de Organización*"
-          />
-          <label for="amount">Cantidad*</label>
-          <div class="invalid-feedback" data-sb-feedback="title:required">
-            Cantidas * es requerido.
-          </div>
-        </div>
-        <div class="form-floating col-8 mb-5">
-          <select class="form-select">
-            <label for="currency">Moneda*</label>
-            <option selected>Seleccione un moneda</option>
-            <option *ngFor="let m of currency" value="{{ m.code }}">
-              {{ m.title }}
-            </option>
-          </select>
-        </div>
-      </div>
-    </fieldset>
-    <fieldset class="border p-3 mb-3">
-      <legend class="w-auto px-1">Valor mínimo de contratación</legend>
-      <div class="row">
-        <div class="col">
-          <p>
-            El valor mínimo estimado de la contratación sin impuestos incluidos.
-            En caso de contrataciones abiertas, se señala el presupuesto mínimo
-            (que debería ejercerse en la ejecución del contrato).
-          </p>
-        </div>
-      </div>
-
-      <div class="row">
-        <div class="form-floating col-4 mb-5">
-          <input
-            class="form-control"
-            id="amount"
-            type="text"
-            data-sb-validations="required"
-            placeholder="ID de Organización*"
-          />
-          <label for="amount">Cantidad*</label>
-          <div class="invalid-feedback" data-sb-feedback="title:required">
-            Cantidas * es requerido.
-          </div>
-        </div>
-        <div class="form-floating col-8 mb-5">
-          <select class="form-select">
-            <label for="currency">Moneda*</label>
-            <option selected>Seleccione un moneda</option>
-            <option *ngFor="let m of currency" value="{{ m.code }}">
-              {{ m.title }}
-            </option>
-          </select>
-        </div>
-      </div>
-    </fieldset>
-    <fieldset class="border p-3 mb-3">
-      <legend class="w-auto px-1">Metodo contratación</legend>
-      <div class="row">
-        <div class="form-floating col mb-5">
-          <select class="form-select">
-            <label for="currency">Metodo*</label>
-            <option selected>Seleccione un metodo</option>
-            <option *ngFor="let m of procurementMethod" value="{{ m.code }}">
-              {{ m.title }}
-            </option>
-          </select>
-        </div>
-      </div>
-      <div class="row">
-        <div class="form-floating col-12 mb-5">
-          <textarea
-            class="form-control"
-            id="detalles"
-            type="text"
-            placeholder="Detalles del método de contratación*"
-            style="height: 100px"
-          ></textarea>
-          <label for="description">Detalles*</label>
-          <div class="invalid-feedback" data-sb-feedback="description:required">
-            Detalles del método de contratación * es requerido.
-          </div>
-        </div>
-      </div>
-
-      <div class="row">
-        <div class="form-floating col-12 mb-5">
-          <textarea
-            class="form-control"
-            id=""
-            type="text"
-            placeholder="Justificación para el método de contratación*"
-            style="height: 100px"
-          ></textarea>
-          <label for="description">Justificación*</label>
-          <div class="invalid-feedback" data-sb-feedback="description:required">
-            Justificación para el método de contratación * es requerido.
-          </div>
-        </div>
-      </div>
-    </fieldset>
-
-    <div class="row">
-      <p>¿Tiene solicitudes de aclaración?</p>
-      <div class="form-floating col mb-5">
-        <div class="form-check form-check-inline">
-          <input
-            class="form-check-input"
-            type="radio"
-            name="inlineRadioOptions"
-            id="inlineRadio1"
-            value="true"
-          />
-          <label class="form-check-label" for="inlineRadio1">Sí</label>
-        </div>
-        <div class="form-check form-check-inline">
-          <input
-            class="form-check-input"
-            type="radio"
-            name="inlineRadioOptions"
-            id="inlineRadio2"
-            value="false"
-          />
-          <label class="form-check-label" for="inlineRadio2">No</label>
-        </div>
-      </div>
-    </div>
-    <div class="row">
-      <div class="form-floating col-12 mb-5">
-        <textarea
-          class="form-control"
-          id="detalles"
-          type="text"
-          placeholder="Criterios de elegibilidad*"
-          style="height: 100px"
-        ></textarea>
-        <label for="description">Criterios de elegibilidad*</label>
-        <div class="invalid-feedback" data-sb-feedback="description:required">
-          Criterios de elegibilidad* es requerido.
-        </div>
-      </div>
-    </div>
-  </div>
-</form>

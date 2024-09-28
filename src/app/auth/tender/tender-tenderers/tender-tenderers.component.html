@@ -16,12 +16,12 @@
         </thead>
         <tbody>
           <tr *ngFor="let opt of tenderersArray; index as i">
-            <td scope="row">{{ opt.id }}</td>
+            <th scope="row">{{ opt.id }}</th>
             <td>{{ opt.name }}</td>
             <td>
               <button
                 type="button"
-                class="btn btn-danger"
+                class="btn btn-danger btn-delete"
                 (click)="deleteTenderer.emit(i)"
               >
                 Eliminar
@@ -45,8 +45,12 @@
       </select>
     </div>
     <div class="col-2">
-      <button type="button" class="btn btn-primary" (click)="addNewTenderer()">
-        Agregar
+      <button
+        type="button"
+        class="btn btn-danger btn-add"
+        (click)="addNewTenderer()"
+      >
+        Agregar licitante
       </button>
     </div>
   </div>

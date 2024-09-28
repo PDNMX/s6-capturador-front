@@ -1,5 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ActivatedRoute } from '@angular/router';
+import { ApiService } from 'src/app/services/api.service';
 import {
   AdditionalProcurementCategories,
   AwardCriteria,
@@ -16,6 +18,10 @@ import {
   styleUrls: ['./tender-general.component.css'],
 })
 export class TenderGeneralComponent implements OnInit {
+  @Output() saveGeneralData = new EventEmitter<any>();
+
+  record_id: string = '';
+
   tenderStatus = TenderStatus;
   currency = Currency;
   procurementMethod = ProcurementMethod;
@@ -42,11 +48,169 @@ export class TenderGeneralComponent implements OnInit {
 
   generalForm!: FormGroup;
   additionalProcurementCategoriesForm!: FormGroup;
+  submissionMethodForm!: FormGroup;
 
-  constructor(private fb: FormBuilder) {}
+  constructor(
+    private fb: FormBuilder,
+    private route: ActivatedRoute,
+    private api: ApiService
+  ) {}
+
+  setSelectValue(element: string, value: any): void {
+    this.generalForm.get(element)?.setValue(value);
+  }
+
+  loadForm(data: any): void {
+    const {
+      title,
+      description,
+      status,
+      procuringEntity,
+      value,
+      minValue,
+      procurementMethod,
+      procurementMethodDetails,
+      procurementMethodRationale,
+      mainProcurementCategory,
+      additionalProcurementCategories,
+      awardCriteria,
+      awardCriteriaDetails,
+      submissionMethod,
+      submissionMethodDetails,
+      tenderPeriod,
+      enquiryPeriod,
+      hasEnquiries,
+      eligibilityCriteria,
+      awardPeriod,
+      contractPeriod,
+    } = data;
+
+    let optProcuringEntity = null;
+
+    if (procuringEntity)
+      optProcuringEntity = this.tempEntidadContratante.find(
+        (e) => (e.id = procuringEntity.id)
+      );
+
+    this.generalForm.patchValue({
+      title,
+      description,
+      status,
+      value,
+      minValue,
+      procurementMethod,
+      procurementMethodDetails,
+      procurementMethodRationale,
+      mainProcurementCategory,
+      awardCriteria,
+      awardCriteriaDetails,
+      submissionMethod,
+      submissionMethodDetails,
+      tenderPeriod,
+      enquiryPeriod,
+      hasEnquiries,
+      eligibilityCriteria,
+      awardPeriod,
+      contractPeriod,
+    });
+
+    additionalProcurementCategories.forEach((e: string) => {
+      this.additionalProcurementCategoriesArray.push(this.fb.control(e));
+    });
+
+    submissionMethod.forEach((e: string) => {
+      this.submissionMethodArray.push(this.fb.control(e));
+    });
+
+    this.setSelectValue('procuringEntity', optProcuringEntity);
+  }
+
+  loadData(): void {
+    this.route.paramMap.subscribe((params: any) => {
+      this.record_id = params.get('id');
+    });
+
+    this.api.getMethod(`/tender/${this.record_id}`).subscribe((d: any) => {
+      const { tender, error, message } = d;
+
+      if (error) {
+        console.log('message: ', message);
+      } else {
+        // load forms
+        if (tender !== null) this.loadForm(tender);
+      }
+    });
+  }
 
   ngOnInit(): void {
     this.initForm();
+    this.loadData();
+  }
+
+  initForm(): void {
+    this.generalForm = this.fb.group({
+      status: ['', [Validators.required]],
+      title: ['', [Validators.required]],
+      description: ['', [Validators.required]],
+      procuringEntity: ['', [Validators.required]],
+      value: this.fb.group({
+        amount: ['0', [Validators.required]],
+        currency: ['MXN', [Validators.required]],
+      }),
+      minValue: this.fb.group({
+        amount: ['0', [Validators.required]],
+        currency: ['MXN', [Validators.required]],
+      }),
+      procurementMethod: ['', [Validators.required]],
+      procurementMethodDetails: ['', [Validators.required]],
+      procurementMethodRationale: ['', [Validators.required]],
+      mainProcurementCategory: ['', [Validators.required]],
+      additionalProcurementCategories: this.fb.array([]),
+      awardCriteria: ['', [Validators.required]],
+      awardCriteriaDetails: ['', [Validators.required]],
+      submissionMethod: this.fb.array([]),
+      submissionMethodDetails: ['', [Validators.required]],
+      tenderPeriod: this.fb.group({
+        startDate: ['', [Validators.required]],
+        endDate: ['', [Validators.required]],
+        maxExtentDate: ['', [Validators.required]],
+        durationInDays: [0, [Validators.required]],
+      }),
+      enquiryPeriod: this.fb.group({
+        startDate: ['', [Validators.required]],
+        endDate: ['', [Validators.required]],
+        maxExtentDate: ['', [Validators.required]],
+        durationInDays: [0, [Validators.required]],
+      }),
+      hasEnquiries: [false, [Validators.required]],
+      awardPeriod: this.fb.group({
+        startDate: ['', [Validators.required]],
+        endDate: ['', [Validators.required]],
+        maxExtentDate: ['', [Validators.required]],
+        durationInDays: [0, [Validators.required]],
+      }),
+      contractPeriod: this.fb.group({
+        startDate: ['', [Validators.required]],
+        endDate: ['', [Validators.required]],
+        maxExtentDate: ['', [Validators.required]],
+        durationInDays: [0, [Validators.required]],
+      }),
+
+      eligibilityCriteria: ['', [Validators.required]],
+      numberOfTenderers: [0, [Validators.required]],
+    });
+
+    this.additionalProcurementCategoriesForm = this.fb.group({
+      data: ['', [Validators.required]],
+    });
+
+    this.submissionMethodForm = this.fb.group({
+      data: ['', [Validators.required]],
+    });
+  }
+
+  saveForm(): void {
+    this.saveGeneralData.emit(this.generalForm.controls);
   }
 
   get additionalProcurementCategoriesArray() {
@@ -55,71 +219,98 @@ export class TenderGeneralComponent implements OnInit {
     ] as FormArray;
   }
 
-  initForm(): void {
-    this.generalForm = this.fb.group({
-      status: ['', [Validators.required]],
-      title: ['title', [Validators.required]],
-      description: ['description', [Validators.required]],
-      procuringEntity: ['procuringEntity', [Validators.required]],
-      procurementMethod: ['procurementMethod', [Validators.required]],
-      procurementMethodDetails: [
-        'procurementMethodDetails',
-        [Validators.required],
-      ],
-      procurementMethodRationale: [
-        'procurementMethodRationale',
-        [Validators.required],
-      ],
-      mainProcurementCategory: [
-        'mainProcurementCategory',
-        [Validators.required],
-      ],
-      additionalProcurementCategories: this.fb.array([]),
-      awardCriteria: ['awardCriteria', [Validators.required]],
-      awardCriteriaDetails: ['awardCriteriaDetails', [Validators.required]],
-      submissionMethod: ['awardCriteriaDetails', [Validators.required]],
-      submissionMethodDetails: ['awardCriteriaDetails', [Validators.required]],
-      tenderPeriod: this.fb.group({
-        startDate: ['startDate', [Validators.required]],
-        endDate: ['endDate', [Validators.required]],
-        maxExtentDate: ['maxExtentDate', [Validators.required]],
-        durationInDays: ['durationInDays', [Validators.required]],
-      }),
-      enquiryPeriod: this.fb.group({
-        startDate: ['startDate', [Validators.required]],
-        endDate: ['endDate', [Validators.required]],
-        maxExtentDate: ['maxExtentDate', [Validators.required]],
-        durationInDays: ['durationInDays', [Validators.required]],
-      }),
-      awardPeriod: this.fb.group({
-        startDate: ['startDate', [Validators.required]],
-        endDate: ['endDate', [Validators.required]],
-        maxExtentDate: ['maxExtentDate', [Validators.required]],
-        durationInDays: ['durationInDays', [Validators.required]],
-      }),
-      contractPeriod: this.fb.group({
-        startDate: ['startDate', [Validators.required]],
-        endDate: ['endDate', [Validators.required]],
-        maxExtentDate: ['maxExtentDate', [Validators.required]],
-        durationInDays: ['durationInDays', [Validators.required]],
-      }),
-    });
-
-    this.additionalProcurementCategoriesForm = this.fb.group({
-      data: ['', [Validators.required]],
-    });
-  }
-
-  saveForm(): void {
-    console.log(this.generalForm.value);
-  }
-
   addAdditionalProcurementCategories(): void {
-    const opt = this.additionalProcurementCategoriesForm.value.data;
-    this.additionalProcurementCategoriesArray.push(this.fb.group({ ...opt }));
+    const opt: string = this.additionalProcurementCategoriesForm.value.data;
+    this.additionalProcurementCategoriesArray.push(this.fb.control(opt));
   }
 
   deleteAdditionalProcurementCategories(index: number): void {
     this.additionalProcurementCategoriesArray.removeAt(index);
+  }
+
+  get submissionMethodArray() {
+    return this.generalForm.controls['submissionMethod'] as FormArray;
+  }
+
+  addSubmissionMethod(): void {
+    const opt: string = this.submissionMethodForm.value.data;
+    this.submissionMethodArray.push(this.fb.control(opt));
+  }
+
+  deleteSubmissionMethod(index: number): void {
+    this.submissionMethodArray.removeAt(index);
+  }
+
+  // submissionMethod
+  getTenderStatusDesc(code: string): string {
+    let dec = '';
+    this.tenderStatus.forEach((t) => {
+      if (t.code === code) dec = t.description;
+    });
+
+    return dec;
+  }
+
+  getProcurementMethod(code: string): string {
+    let dec = '';
+    this.procurementMethod.forEach((t) => {
+      if (t.code === code) dec = t.description;
+    });
+
+    return dec;
+  }
+
+  getMainProcurementCategory(code: string): string {
+    let dec = '';
+    this.mainProcurementCategory.forEach((t) => {
+      if (t.code === code) dec = t.description;
+    });
+
+    return dec;
+  }
+
+  getAdditionalProcurementCategoriesDesc(code: string): string {
+    let dec = '';
+    this.additionalProcurementCategories.forEach((t) => {
+      if (t.code === code) dec = t.description;
+    });
+
+    return dec;
+  }
+
+  getAdditionalProcurementCategoriesTitle(code: string): string {
+    let dec = '';
+    this.additionalProcurementCategories.forEach((t) => {
+      if (t.code === code) dec = t.title;
+    });
+
+    return dec;
+  }
+
+  getSubmissionMethodDesc(code: string): string {
+    let dec = '';
+    this.submissionMethod.forEach((t) => {
+      if (t.code === code) dec = t.description;
+    });
+
+    return dec;
+  }
+
+  getSubmissionMethodTitle(code: string): string {
+    let dec = '';
+    this.submissionMethod.forEach((t) => {
+      if (t.code === code) dec = t.title;
+    });
+
+    return dec;
+  }
+
+  getAwardCriteriaDesc(code: string): string {
+    let dec = '';
+    this.awardCriteria.forEach((t) => {
+      if (t.code === code) dec = t.description;
+    });
+
+    return dec;
   }
 }

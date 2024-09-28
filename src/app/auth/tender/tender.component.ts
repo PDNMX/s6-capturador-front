@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ActivatedRoute } from '@angular/router';
+import { ApiService } from 'src/app/services/api.service';
 
 @Component({
   selector: 'app-tender',
@@ -7,9 +9,14 @@ import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
   styleUrls: ['./tender.component.css'],
 })
 export class TenderComponent implements OnInit {
+  record_id = null;
   tenderForm!: FormGroup;
 
-  constructor(private fb: FormBuilder) {}
+  constructor(
+    private fb: FormBuilder,
+    private api: ApiService,
+    private route: ActivatedRoute
+  ) {}
 
   get tenderersArray() {
     return this.tenderForm.controls['tenderers'] as FormArray;
@@ -28,7 +35,7 @@ export class TenderComponent implements OnInit {
   }
 
   addDocument(opt: any): void {
-    this.documentsArray.push(this.fb.group({ ...opt }));
+    this.documentsArray.push(opt);
   }
 
   deleteDocument(index: number): void {
@@ -40,7 +47,7 @@ export class TenderComponent implements OnInit {
   }
 
   addMilestone(opt: any): void {
-    this.milestonesArray.push(this.fb.group({ ...opt }));
+    this.milestonesArray.push(opt);
   }
 
   deleteMilestone(index: number): void {
@@ -52,7 +59,7 @@ export class TenderComponent implements OnInit {
   }
 
   addAmendment(opt: any): void {
-    this.amendmentsArray.push(this.fb.group({ ...opt }));
+    this.amendmentsArray.push(opt);
   }
 
   deleteAmendment(index: number): void {
@@ -64,13 +71,7 @@ export class TenderComponent implements OnInit {
   }
 
   addClarificationMeeting(opt: any): void {
-    this.clarificationMeetingsArray.push(
-      this.fb.group({
-        date: opt.date,
-        attendees: opt.attendees,
-        officials: opt.officials,
-      })
-    );
+    this.clarificationMeetingsArray.push(opt);
   }
 
   deleteClarificationMeeting(index: number): void {
@@ -82,22 +83,25 @@ export class TenderComponent implements OnInit {
   }
 
   addItem(opt: any): void {
-    // this.itemsArray.push(
-    //   this.fb.group({
-    //     date: opt.date,
-    //     attendees: opt.attendees,
-    //     officials: opt.officials,
-    //   })
-    // );
-
-    this.itemsArray.push(this.fb.group({ ...opt }));
+    this.itemsArray.push(opt);
   }
 
   deleteItem(index: number): void {
     this.itemsArray.removeAt(index);
   }
 
+  saveGeneralData(opt: any): void {
+    this.tenderForm = this.fb.group({
+      ...opt,
+      ...this.tenderForm.controls,
+    });
+  }
+
   ngOnInit(): void {
+    this.route.paramMap.subscribe((params: any) => {
+      this.record_id = params.get('id');
+    });
+
     this.tenderForm = this.fb.group({
       tenderers: this.fb.array([], [Validators.required]),
       documents: this.fb.array([], [Validators.required]),
@@ -105,66 +109,23 @@ export class TenderComponent implements OnInit {
       amendments: this.fb.array([], [Validators.required]),
       clarificationMeetings: this.fb.array([], [Validators.required]),
       items: this.fb.array([], [Validators.required]),
-      // title: [''],
-      // additionalProcurementCategories: [''],
-      // awardCriteria: [''],
-      // awardCriteriaDetails: [''],
-      // awardPeriod: this.fb.group({
-      //   durationInDays: [''],
-      //   endDate: [''],
-      //   maxExtentDate: [''],
-      //   startDate: [''],
-      // }),
-      // contractPeriod: this.fb.group({
-      //   durationInDays: [''],
-      //   endDate: [''],
-      //   maxExtentDate: [''],
-      //   startDate: [''],
-      // }),
-      // description: [''],
-      // eligibilityCriteria: [''],
-      // enquiryPeriod: this.fb.group({
-      //   durationInDays: [''],
-      //   endDate: [''],
-      //   maxExtentDate: [''],
-      //   startDate: [''],
-      // }),
-      // hasEnquiries: [''],
-      // id: [''],
-      // mainProcurementCategory: [''],
-      // minValue: this.fb.group({
-      //   amount: [''],
-      //   currency: [''],
-      // }),
-      // numberOfTenderers: [''],
-      // procurementMethod: [''],
-      // procurementMethodDetails: [''],
-      // procurementMethodRationale: [''],
-      // procuringEntity: this.fb.group({
-      //   id: [''],
-      //   name: [''],
-      // }),
-      // status: [''],
-      // submissionMethod: [''],
-      // submissionMethodDetails: [''],
-      // tenderPeriod: this.fb.group({
-      //   durationInDays: [''],
-      //   endDate: [''],
-      //   maxExtentDate: [''],
-      //   startDate: [''],
-      // }),
-      // value: this.fb.group({
-      //   amount: [''],
-      //   currency: [''],
-      // }),
     });
-  }
-
-  onSubmit(): void {
-    console.log(this.tenderForm.value);
   }
 
   submit(): void {
     console.log(this.tenderForm.value);
+
+    this.api
+      .postMethod({ ...this.tenderForm.value }, `/tender/${this.record_id}`)
+      .subscribe((r: any) => {
+        console.log('r: ', r);
+        if (r.err) {
+          console.log('r: ', r);
+        } else {
+          // const id = r.data._id;
+          // console.log('id: ', id);
+          // this.router.navigate([`/planning/${id}`]);
+        }
+      });
   }
 }

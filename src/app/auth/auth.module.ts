@@ -25,6 +25,11 @@ import { AwardsDocumentsComponent } from './awards/awards-documents/awards-docum
 import { AwardsItemsComponent } from './awards/awards-items/awards-items.component';
 import { AwardsSuppliersComponent } from './awards/awards-suppliers/awards-suppliers.component';
 import { AwardsGeneralComponent } from './awards/awards-general/awards-general.component';
+import { PartiesContactPointComponent } from './parties/parties-contact-point/parties-contact-point.component';
+import { PartiesAdditionalContactPointsComponent } from './parties/parties-additional-contact-points/parties-additional-contact-points.component';
+import { PartiesBeneficialOwnersComponent } from './parties/parties-beneficial-owners/parties-beneficial-owners.component';
+import { PartiesGeneralComponent } from './parties/parties-general/parties-general.component';
+import { PartiesAddressComponent } from './parties/parties-address/parties-address.component';
 
 @NgModule({
   declarations: [
@@ -50,6 +55,11 @@ import { AwardsGeneralComponent } from './awards/awards-general/awards-general.c
     AwardsItemsComponent,
     AwardsSuppliersComponent,
     AwardsGeneralComponent,
+    PartiesContactPointComponent,
+    PartiesAdditionalContactPointsComponent,
+    PartiesBeneficialOwnersComponent,
+    PartiesGeneralComponent,
+    PartiesAddressComponent,
   ],
   imports: [CommonModule, AuthRoutingModule, ReactiveFormsModule, FormsModule],
   exports: [
