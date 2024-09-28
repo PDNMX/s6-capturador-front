@@ -1,0 +1,338 @@
+<form
+  class="mb-5"
+  method="post"
+  id="parties-form"
+  name="parties-form"
+  [formGroup]="Parties"
+  (ngSubmit)="onSubmit()"
+>
+  <fieldset class="border p-3 mb-3">
+    <h3>Información General</h3>
+    <hr />
+    <div class="row">
+      <div class="form-floating form-group col-md-4 mb-5">
+        <input
+          type="text"
+          class="form-control"
+          id="id"
+          placeholder="Indentificador"
+          formControlName="id"
+        />
+        <label for="id">Indentificador</label>
+      </div>
+      <div class="form-floating col-md-4 mb-5">
+        <input
+          type="text"
+          class="form-control"
+          id="name"
+          placeholder="Nombre común de la parte involucrada"
+          formControlName="name"
+        />
+        <label for="name">Nombre común</label>
+      </div>
+      <div class="form-floating col-md-4 mb-5">
+        <input
+          type="text"
+          class="form-control"
+          id="position"
+          placeholder="Nombre común de la parte involucrada"
+          formControlName="position"
+        />
+        <label for="position">Cargo</label>
+      </div>
+    </div>
+  </fieldset>
+
+  <fieldset class="border p-3 mb-3" formGroupName="identifier">
+    <div class="row">
+      <div><h4>Identificador principal</h4></div>
+      <div class="form-floating col-md-4 mb-5">
+        <input
+          class="form-control"
+          id="id"
+          type="text"
+          placeholder="Personalidad Jurídica"
+          formControlName="id"
+        />
+        <label for="id">Identificador</label>
+      </div>
+      <div class="form-floating col-md-4 mb-5">
+        <input
+          class="form-control"
+          id="scheme"
+          type="text"
+          placeholder="Esquema del que se extraer el identificador"
+          formControlName="scheme"
+        />
+        <label for="scheme">Esquema</label>
+      </div>
+      <div class="form-floating col-md-4 mb-5">
+        <input
+          class="form-control"
+          id="legalName"
+          type="text"
+          placeholder="Nombre o razón Social"
+          formControlName="legalName"
+        />
+        <label for="legalName">Denominación o razón social</label>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="form-floating col-md-4 mb-5">
+        <input
+          class="form-control"
+          id="givenName"
+          type="text"
+          placeholder="Descripción"
+          formControlName="givenName"
+        />
+        <label for="givenName">Nombre</label>
+      </div>
+      <div class="form-floating col-md-4 mb-5">
+        <input
+          class="form-control"
+          id="patronymicName"
+          type="text"
+          placeholder="Primer apellido"
+          formControlName="patronymicName"
+        />
+        <label for="patronymicName">Primer apellido</label>
+      </div>
+      <div class="form-floating col-md-4 mb-5">
+        <input
+          class="form-control"
+          id="matronymicName"
+          type="text"
+          placeholder="Segundo apellido"
+          formControlName="matronymicName"
+        />
+        <label for="matronymicName">Segundo apellido</label>
+      </div>
+    </div>
+    <div class="row">
+      <div class="form-floating col-md-6 mb-5">
+        <input
+          class="form-control"
+          id="legalPersonality"
+          type="text"
+          placeholder="Personalidad Jurídica"
+          formControlName="legalPersonality"
+        />
+        <label for="legalPersonality">Personalidad jurídica</label>
+      </div>
+      <div class="form-floating col-md-6 mb-5">
+        <input
+          class="form-control"
+          id="uri"
+          type="text"
+          placeholder="uri para identificar el actor"
+          formControlName="uri"
+        />
+        <label for="uri">URI</label>
+      </div>
+    </div>
+  </fieldset>
+  <fieldset class="border p-3 mb-3" formGroupName="additionalIdentifiers">
+    <div class="row">
+      <div><h4>Identificadores adicionales</h4></div>
+      <div class="form-floating col-md-4 mb-5">
+        <input
+          class="form-control"
+          id="id"
+          type="text"
+          placeholder="Personalidad Jurídica"
+          formControlName="id"
+        />
+        <label for="id">Identificador</label>
+      </div>
+      <div class="form-floating col-md-4 mb-5">
+        <input
+          class="form-control"
+          id="scheme"
+          type="text"
+          placeholder="Esquema del que se extraer el identificador"
+          formControlName="scheme"
+        />
+        <label for="scheme">Esquema</label>
+      </div>
+      <div class="form-floating col-md-4 mb-5">
+        <input
+          class="form-control"
+          id="legalName"
+          type="text"
+          placeholder="Nombre o razón Social"
+          formControlName="legalName"
+        />
+        <label for="legalName">Denominación o razón social</label>
+      </div>
+    </div>
+    <div class="row">
+      <div class="form-floating mb-5">
+        <input
+          class="form-control"
+          id="uri"
+          type="text"
+          placeholder="uri para identificar el actor"
+          formControlName="uri"
+        />
+        <label for="uri">URI</label>
+      </div>
+    </div>
+  </fieldset>
+  <fieldset class="border p-3 mb-3" formGroupName="address">
+    <div class="row">
+      <h4>Domicilio</h4>
+    </div>
+    <div class="row">
+      <div class="form-floating col-md-6 mb-5">
+        <input
+          type="text"
+          class="form-control"
+          id="streetAddress"
+          placeholder="Calle y número"
+          formControlName="streetAddress"
+        />
+        <label for="streetAddress">Calle y número</label>
+      </div>
+      <div class="form-floating col-md-6 mb-5">
+        <input
+          type="text"
+          class="form-control"
+          id="locality"
+          placeholder="Localidad"
+          formControlName="locality"
+        />
+        <label for="locality">Localidad</label>
+      </div>
+    </div>
+    <div class="row">
+      <div class="form-floating col-md-4 mb-5">
+        <input
+          type="text"
+          class="form-control"
+          id="region"
+          placeholder="Región"
+          formControlName="region"
+        />
+        <label for="region">Región</label>
+      </div>
+      <div class="form-floating col-md-4 mb-5">
+        <input
+          type="text"
+          class="form-control"
+          id="postalCode"
+          placeholder="Código Postal"
+          formControlName="postalCode"
+        />
+        <label for="postalCode">Código Postal</label>
+      </div>
+      <div class="form-floating col-md-4 mb-5">
+        <input
+          type="text"
+          class="form-control"
+          id="countryName"
+          placeholder="País"
+          formControlName="countryName"
+        />
+        <label for="countryName">País</label>
+      </div>
+    </div>
+  </fieldset>
+
+  <fieldset class="border p-3 mb-3" formGroupName="roles">
+    <div class="row">
+      <h4>Rol o roles de la parte involucrada</h4>
+    </div>
+    <div class="row">
+      <div
+        class="form-check form-switch col-md-4 mb-5"
+        *ngFor="let role of rolesList"
+      >
+        <input
+          class="form-check-input"
+          type="checkbox"
+          role="switch"
+          [id]="role.id"
+          [formControlName]="role.id"
+          (change)="onRoleChange()"
+        />
+        <label class="form-check-label" [for]="role.id">{{ role.label }}</label>
+      </div>
+    </div>
+  </fieldset>
+  <fieldset class="border p-3 mb-3" formGroupName="memberOf">
+    <div class="row">
+      <h4>Miembro de:</h4>
+      <div class="row">
+        <div class="form-floating col-md-6 mb-5">
+          <input
+            type="text"
+            class="form-control"
+            id="id"
+            placeholder="Identificador del actor"
+            formControlName="id"
+          />
+          <label for="id">Identificador del actor</label>
+        </div>
+        <div class="form-floating col-md-6 mb-5">
+          <input
+            type="text"
+            class="form-control"
+            id="name"
+            placeholder="Nombre del actor"
+            formControlName="name"
+          />
+          <label for="name">Nombre del actor</label>
+        </div>
+      </div>
+    </div>
+  </fieldset>
+
+  <fieldset class="border p-3 mb-3" formGroupName="details">
+    <h4>¿Cotiza en el mercado regulado?</h4>
+    <div class="row">
+      <div class="form-check m-3">
+        <input
+          class="form-check-input"
+          type="radio"
+          formControlName="listedOnRegulatedMarket"
+          id="listedOnRegulatedMarketTrue"
+          [value]="true"
+        />
+        <label class="form-check-label" for="listedOnRegulatedMarketTrue">
+          Sí
+        </label>
+      </div>
+      <div class="form-check m-3">
+        <input
+          class="form-check-input"
+          type="radio"
+          formControlName="listedOnRegulatedMarket"
+          id="listedOnRegulatedMarketFalse"
+          [value]="false"
+        />
+        <label class="form-check-label" for="listedOnRegulatedMarketFalse">
+          No
+        </label>
+      </div>
+    </div>
+  </fieldset>
+
+  <div class="row">
+    <div class="col-md-6 form-group d-flex justify-content-between">
+      <input
+        type="submit"
+        value="Guardar"
+        class="btn btn-primary rounded-0 py-2 px-4"
+      />
+      <span class="Guardar"></span>
+      <input
+        type="submit"
+        value="Eliminar"
+        class="btn btn-danger rounded-0 py-2 px-4"
+      />
+      <span class="Guardar"></span>
+    </div>
+  </div>
+</form>
