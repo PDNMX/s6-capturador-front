@@ -1,185 +1,181 @@
-<form
-  class="mb-5"
-  method="post"
-  id="parties-form"
-  name="parties-form"
-  [formGroup]="Parties"
-  (ngSubmit)="onSubmit()"
->
-  <fieldset class="border p-3 mb-3">
-    <h3>Información General</h3>
-    <hr />
+<div class="container">
+  <div class="row">
+    <div class="col">
+      <h3>Información general</h3>
+      <hr />
+    </div>
+  </div>
+  <form>
     <div class="row">
-      <div class="form-floating form-group col-md-4 mb-5">
+      <div class="form-floating col mb-5">
         <input
-          type="text"
-          class="form-control"
-          id="id"
-          placeholder="Indentificador"
-          formControlName="id"
-        />
-        <label for="id">Indentificador</label>
-      </div>
-      <div class="form-floating col-md-4 mb-5">
-        <input
-          type="text"
           class="form-control"
           id="name"
-          placeholder="Nombre común de la parte involucrada"
+          type="text"
+          data-sb-validations="required"
+          placeholder="Nombre común*"
           formControlName="name"
         />
-        <label for="name">Nombre común</label>
+        <label for="name">Nombre común*</label>
+        <div class="invalid-feedback" data-sb-feedback="name:required">
+          Nombre común * es requerido.
+        </div>
       </div>
-      <div class="form-floating col-md-4 mb-5">
+    </div>
+
+    <div class="row">
+      <div class="form-floating col mb-5">
         <input
-          type="text"
           class="form-control"
           id="position"
-          placeholder="Nombre común de la parte involucrada"
+          type="text"
+          data-sb-validations="required"
+          placeholder="Cargo*"
           formControlName="position"
         />
-        <label for="position">Cargo</label>
-      </div>
-    </div>
-  </fieldset>
-
-  <fieldset class="border p-3 mb-3" formGroupName="identifier">
-    <div class="row">
-      <div><h4>Identificador principal</h4></div>
-      <div class="form-floating col-md-4 mb-5">
-        <input
-          class="form-control"
-          id="id"
-          type="text"
-          placeholder="Personalidad Jurídica"
-          formControlName="id"
-        />
-        <label for="id">Identificador</label>
-      </div>
-      <div class="form-floating col-md-4 mb-5">
-        <input
-          class="form-control"
-          id="scheme"
-          type="text"
-          placeholder="Esquema del que se extraer el identificador"
-          formControlName="scheme"
-        />
-        <label for="scheme">Esquema</label>
-      </div>
-      <div class="form-floating col-md-4 mb-5">
-        <input
-          class="form-control"
-          id="legalName"
-          type="text"
-          placeholder="Nombre o razón Social"
-          formControlName="legalName"
-        />
-        <label for="legalName">Denominación o razón social</label>
+        <label for="position">Cargo*</label>
+        <div class="invalid-feedback" data-sb-feedback="position:required">
+          Cargo * es requerido.
+        </div>
       </div>
     </div>
 
     <div class="row">
-      <div class="form-floating col-md-4 mb-5">
+      <div class="form-floating col mb-5">
         <input
           class="form-control"
-          id="givenName"
+          id="roles"
           type="text"
-          placeholder="Descripción"
-          formControlName="givenName"
+          data-sb-validations="required"
+          placeholder="Papeles de los actores*"
+          formControlName="roles"
         />
-        <label for="givenName">Nombre</label>
-      </div>
-      <div class="form-floating col-md-4 mb-5">
-        <input
-          class="form-control"
-          id="patronymicName"
-          type="text"
-          placeholder="Primer apellido"
-          formControlName="patronymicName"
-        />
-        <label for="patronymicName">Primer apellido</label>
-      </div>
-      <div class="form-floating col-md-4 mb-5">
-        <input
-          class="form-control"
-          id="matronymicName"
-          type="text"
-          placeholder="Segundo apellido"
-          formControlName="matronymicName"
-        />
-        <label for="matronymicName">Segundo apellido</label>
+        <label for="roles">Papeles de los actores*</label>
+        <div class="invalid-feedback" data-sb-feedback="roles:required">
+          Papeles de los actores * es requerido.
+        </div>
       </div>
     </div>
-    <div class="row">
-      <div class="form-floating col-md-6 mb-5">
-        <input
-          class="form-control"
-          id="legalPersonality"
-          type="text"
-          placeholder="Personalidad Jurídica"
-          formControlName="legalPersonality"
-        />
-        <label for="legalPersonality">Personalidad jurídica</label>
+
+    <fieldset class="border p-3 mb-3" formGroupName="identifier">
+      <legend class="w-auto px-1">Identificador principal</legend>
+
+      <div class="row">
+        <div class="form-floating col mb-5">
+          <input
+            class="form-control"
+            id="legalPersonality"
+            type="text"
+            data-sb-validations="required"
+            placeholder="Personalidad jurídica*"
+            formControlName="legalPersonality"
+          />
+          <label for="legalPersonality">Personalidad jurídica*</label>
+          <div
+            class="invalid-feedback"
+            data-sb-feedback="legalPersonality:required"
+          >
+            Personalidad jurídica * es requerido.
+          </div>
+        </div>
       </div>
-      <div class="form-floating col-md-6 mb-5">
-        <input
-          class="form-control"
-          id="uri"
-          type="text"
-          placeholder="uri para identificar el actor"
-          formControlName="uri"
-        />
-        <label for="uri">URI</label>
+
+      <div class="row">
+        <div class="form-floating col mb-5">
+          <input
+            class="form-control"
+            id="legalName"
+            type="text"
+            data-sb-validations="required"
+            placeholder="Nombre legal*"
+            formControlName="legalName"
+          />
+          <label for="legalName">Nombre legal*</label>
+          <div class="invalid-feedback" data-sb-feedback="legalName:required">
+            Nombre legal * es requerido.
+          </div>
+        </div>
       </div>
-    </div>
-  </fieldset>
-  <fieldset class="border p-3 mb-3" formGroupName="additionalIdentifiers">
-    <div class="row">
-      <div><h4>Identificadores adicionales</h4></div>
-      <div class="form-floating col-md-4 mb-5">
-        <input
-          class="form-control"
-          id="id"
-          type="text"
-          placeholder="Personalidad Jurídica"
-          formControlName="id"
-        />
-        <label for="id">Identificador</label>
+
+      <div class="row">
+        <div class="form-floating col mb-5">
+          <input
+            class="form-control"
+            id="givenName"
+            type="text"
+            data-sb-validations="required"
+            placeholder="Nombre*"
+            formControlName="givenName"
+          />
+          <label for="givenName">Nombre*</label>
+          <div class="invalid-feedback" data-sb-feedback="givenName:required">
+            Nombre * es requerido.
+          </div>
+        </div>
+
+        <div class="form-floating col mb-5">
+          <input
+            class="form-control"
+            id="patronymicName"
+            type="text"
+            data-sb-validations="required"
+            placeholder="Primer apellido*"
+            formControlName="patronymicName"
+          />
+          <label for="patronymicName">Primer apellido*</label>
+          <div
+            class="invalid-feedback"
+            data-sb-feedback="patronymicName:required"
+          >
+            Primer apellido * es requerido.
+          </div>
+        </div>
+
+        <div class="form-floating col mb-5">
+          <input
+            class="form-control"
+            id="matronymicName"
+            type="text"
+            data-sb-validations="required"
+            placeholder="Segundo apellido*"
+            formControlName="matronymicName"
+          />
+          <label for="matronymicName">Segundo apellido*</label>
+          <div
+            class="invalid-feedback"
+            data-sb-feedback="matronymicName:required"
+          >
+            Segundo apellido * es requerido.
+          </div>
+        </div>
       </div>
-      <div class="form-floating col-md-4 mb-5">
-        <input
-          class="form-control"
-          id="scheme"
-          type="text"
-          placeholder="Esquema del que se extraer el identificador"
-          formControlName="scheme"
-        />
-        <label for="scheme">Esquema</label>
+    </fieldset>
+
+    <fieldset class="border p-3 mb-3" formGroupName="identifier">
+      <legend class="w-auto px-1">Identificadores adicionales</legend>
+
+      <div class="row">
+        <div class="form-floating col mb-5">
+          <input
+            class="form-control"
+            id="legalName"
+            type="text"
+            data-sb-validations="required"
+            placeholder="Nombre legal*"
+            formControlName="legalName"
+          />
+          <label for="legalName">Nombre legal*</label>
+          <div class="invalid-feedback" data-sb-feedback="legalName:required">
+            Nombre legal * es requerido.
+          </div>
+        </div>
       </div>
-      <div class="form-floating col-md-4 mb-5">
-        <input
-          class="form-control"
-          id="legalName"
-          type="text"
-          placeholder="Nombre o razón Social"
-          formControlName="legalName"
-        />
-        <label for="legalName">Denominación o razón social</label>
-      </div>
-    </div>
-    <div class="row">
-      <div class="form-floating mb-5">
-        <input
-          class="form-control"
-          id="uri"
-          type="text"
-          placeholder="uri para identificar el actor"
-          formControlName="uri"
-        />
-        <label for="uri">URI</label>
-      </div>
-    </div>
-  </fieldset>
+    </fieldset>
+
+    <!-- fin form  -->
+  </form>
+</div>
+<form>
   <fieldset class="border p-3 mb-3" formGroupName="address">
     <div class="row">
       <h4>Domicilio</h4>

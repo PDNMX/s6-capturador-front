@@ -1,155 +1,205 @@
-<fieldset class="border p-3 mb-3">
-  <div class="row" formGroupName="beneficialOwners">
-    <h4>Beneficiarios</h4>
+<div class="container">
+  <div class="row">
+    <div class="col">
+      <h3>Beneficiarios</h3>
+      <hr />
+    </div>
+  </div>
+
+  <form>
     <div class="row">
-      <div class="form-floating col-md-6 mb-5">
+      <div class="form-floating col mb-5">
         <input
-          type="text"
-          class="form-control"
-          id="id"
-          placeholder="Identificador del Beneficiario"
-          formControlName="id"
-        />
-        <label for="id">Identificador</label>
-      </div>
-      <div class="form-floating col-md-6 mb-5">
-        <input
-          type="text"
           class="form-control"
           id="name"
-          placeholder="Nombre del beneficiario"
+          type="text"
+          data-sb-validations="required"
+          placeholder="Nombre*"
           formControlName="name"
         />
-        <label for="name">Nombre del beneficiario</label>
-      </div>
-    </div>
-    <fieldset class="border p-3 mb-3">
-      <div class="row">
-        <legend class="w-auto px-2">Identificador</legend>
-        <div class="row mb-3" formGroupName="identifier">
-          <div class="form-floating col-md-6 mb-5">
-            <input
-              type="text"
-              class="form-control"
-              id="id"
-              placeholder="Identificador"
-              formControlName="id"
-            />
-            <label for="id">Identificador</label>
-          </div>
-          <div class="form-floating col-md-6 mb-5">
-            <input
-              type="text"
-              class="form-control"
-              id="scheme"
-              placeholder="Esquema"
-              formControlName="scheme"
-            />
-            <label for="scheme">Esquema</label>
-          </div>
+        <label for="name">Nombre*</label>
+        <div class="invalid-feedback" data-sb-feedback="name:required">
+          Nombre * es requerido.
         </div>
       </div>
-    </fieldset>
+    </div>
+
     <div class="row">
-      <div class="form-floating col-md-3 mb-5">
+      <div class="form-floating col mb-5">
         <input
+          class="form-control"
+          id="identifier"
           type="text"
+          data-sb-validations="required"
+          placeholder="Identificador*"
+          formControlName="identifier"
+        />
+        <label for="identifier">Identificador*</label>
+        <div class="invalid-feedback" data-sb-feedback="identifier:required">
+          Identificador * es requerido.
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="form-floating col mb-5">
+        <input
           class="form-control"
           id="nationality"
-          placeholder="Nacionalidad"
+          type="text"
+          data-sb-validations="required"
+          placeholder="Nacionalidad*"
           formControlName="nationality"
         />
-        <label for="nationality">Nacionalidad</label>
-      </div>
-      <div class="form-floating col-md-3 mb-5">
-        <input
-          type="text"
-          class="form-control"
-          id="email"
-          placeholder="Correo electrónico"
-          formControlName="email"
-        />
-        <label for="email">Correo electrónico</label>
-      </div>
-      <div class="form-floating col-md-3 mb-5">
-        <input
-          type="text"
-          class="form-control"
-          id="faxNumber"
-          placeholder="Número de Fax"
-          formControlName="faxNumber"
-        />
-        <label for="faxNumber">Número de Fax</label>
-      </div>
-      <div class="form-floating col-md-3 mb-5">
-        <input
-          type="text"
-          class="form-control"
-          id="telephone"
-          placeholder="Teléfono"
-          formControlName="telephone"
-        />
-        <label for="telephone" class="form-label">Teléfono</label>
+        <label for="nationality">Nacionalidad*</label>
+        <div class="invalid-feedback" data-sb-feedback="nationality:required">
+          Nacionalidad * es requerido.
+        </div>
       </div>
     </div>
-    <fieldset class="border p-3 mb-3" formGroupName="address">
-      <legend class="w-auto px-2">Domicilio</legend>
+
+    <div class="row">
+      <div class="form-floating col mb-5">
+        <input
+          class="form-control"
+          id="email"
+          type="text"
+          data-sb-validations="required"
+          placeholder="Correo electrónico*"
+          formControlName="email"
+        />
+        <label for="email">Correo electrónico*</label>
+        <div class="invalid-feedback" data-sb-feedback="email:required">
+          Correo electrónico * es requerido.
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="form-floating col mb-5">
+        <input
+          class="form-control"
+          id="telephone"
+          type="text"
+          data-sb-validations="required"
+          placeholder="Teléfono*"
+          formControlName="telephone"
+        />
+        <label for="telephone">Teléfono*</label>
+        <div class="invalid-feedback" data-sb-feedback="telephone:required">
+          Teléfono * es requerido.
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="form-floating col mb-5">
+        <input
+          class="form-control"
+          id="faxNumber"
+          type="text"
+          data-sb-validations="required"
+          placeholder="Número de fax*"
+          formControlName="faxNumber"
+        />
+        <label for="faxNumber">Número de fax*</label>
+        <div class="invalid-feedback" data-sb-feedback="faxNumber:required">
+          Número de fax * es requerido.
+        </div>
+      </div>
+    </div>
+    <fieldset class="border p-3 mb-3" formGroupName="value">
+      <legend class="w-auto px-1">Domicilio</legend>
+
       <div class="row">
-        <div class="form-floating col-md-12 mb-5">
+        <div class="form-floating col mb-5">
           <input
-            type="text"
             class="form-control"
             id="streetAddress"
-            placeholder="Dirección completa"
+            type="text"
+            data-sb-validations="required"
+            placeholder="Calle y número*"
             formControlName="streetAddress"
           />
-          <label for="streetAddress">Dirección. Calle y número</label>
+          <label for="streetAddress">Calle y número*</label>
+          <div
+            class="invalid-feedback"
+            data-sb-feedback="streetAddress:required"
+          >
+            Calle y número * es requerido.
+          </div>
         </div>
       </div>
+
       <div class="row">
-        <div class="form-floating col-md-6 mb-5">
+        <div class="form-floating col mb-5">
           <input
-            type="text"
             class="form-control"
             id="locality"
-            placeholder="Localidad"
+            type="text"
+            data-sb-validations="required"
+            placeholder="Localidad*"
             formControlName="locality"
           />
-          <label for="locality">Localidad</label>
-        </div>
-        <div class="form-floating col-md-6 mb-5">
-          <input
-            type="text"
-            class="form-control"
-            id="region"
-            placeholder="Región"
-            formControlName="region"
-          />
-          <label for="region">Región</label>
+          <label for="locality">Localidad*</label>
+          <div class="invalid-feedback" data-sb-feedback="locality:required">
+            Localidad * es requerido.
+          </div>
         </div>
       </div>
+
       <div class="row">
-        <div class="form-floating col-md-6 mb-5">
+        <div class="form-floating col mb-5">
           <input
+            class="form-control"
+            id="region"
             type="text"
+            data-sb-validations="required"
+            placeholder="Región*"
+            formControlName="region"
+          />
+          <label for="region">Región*</label>
+          <div class="invalid-feedback" data-sb-feedback="region:required">
+            Región * es requerido.
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="form-floating col mb-5">
+          <input
             class="form-control"
             id="postalCode"
-            placeholder="Código Postal"
+            type="text"
+            data-sb-validations="required"
+            placeholder="Código postal*"
             formControlName="postalCode"
           />
-          <label for="postalCode">Código Postal</label>
+          <label for="postalCode">Código postal*</label>
+          <div class="invalid-feedback" data-sb-feedback="postalCode:required">
+            Código postal * es requerido.
+          </div>
         </div>
-        <div class="form-floating col-md-6 mb-5">
+      </div>
+
+      <div class="row">
+        <div class="form-floating col mb-5">
           <input
-            type="text"
             class="form-control"
             id="countryName"
-            placeholder="Pais"
+            type="text"
+            data-sb-validations="required"
+            placeholder="País*"
             formControlName="countryName"
           />
-          <label for="countryName">País</label>
+          <label for="countryName">País*</label>
+          <div class="invalid-feedback" data-sb-feedback="countryName:required">
+            País * es requerido.
+          </div>
         </div>
       </div>
     </fieldset>
-  </div>
-</fieldset>
+
+    <!-- fin -->
+  </form>
+</div>

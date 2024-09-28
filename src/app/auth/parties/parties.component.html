@@ -19,7 +19,7 @@
               aria-controls="parties-presentacion"
               aria-selected="true"
             >
-              &nbsp;&nbsp;3. Partes involucradas
+              &nbsp;&nbsp;Actores
             </h3>
 
             <button
@@ -33,6 +33,19 @@
               aria-selected="false"
             >
               Información general
+            </button>
+
+            <button
+              class="nav-link text-left"
+              id="parties-address-tab"
+              data-bs-toggle="pill"
+              data-bs-target="#"
+              type="button"
+              role="tab"
+              aria-controls="parties-address"
+              aria-selected="false"
+            >
+              Domicilio
             </button>
 
             <button
@@ -78,16 +91,56 @@
       </div>
       <!-- secciones  -->
       <div class="col-md-9 g-0">
+        <div class="tab-content" id="licitacion-tabContent">
+          <div
+            class="tab-pane fade show active"
+            id="licitacion-presentacion"
+            role="tabpanel"
+            aria-labelledby="licitacion-presentacion-tab"
+            tabindex="0"
+          >
+            <div class="form h-100">
+              <!-- <div class="row imageP"></div> -->
+              <div class="row">
+                <h3>Actores</h3>
+                <hr />
+                <p>
+                  La información de las partes involucradas (organizaciones,
+                  operadores económicos y otros participantes) que están
+                  involucrados en el proceso de contrataciones y sus roles, por
+                  ejemplo: comprador, entidad contratante, proveedor, etc. Se
+                  utiliza referencias de organización en otras partes del
+                  esquema para hacer referencia a las entradas en esta lista.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+
         <div class="tab-content" id="parties-general">
           <div
-            class="tab-pane fade active show"
+            class="tab-pane fade"
             id="parties-general"
             role="tabpanel"
             aria-labelledby="parties-general-tab"
             tabindex="0"
           >
             <div class="form">
-              <!-- <app-parties-general></app-parties-general> -->
+              <app-parties-general></app-parties-general>
+            </div>
+          </div>
+        </div>
+
+        <div class="tab-content" id="parties-general">
+          <div
+            class="tab-pane fade"
+            id="parties-address"
+            role="tabpanel"
+            aria-labelledby="parties-address-tab"
+            tabindex="0"
+          >
+            <div class="form">
+              <app-parties-address></app-parties-address>
             </div>
           </div>
         </div>
@@ -101,7 +154,7 @@
             tabindex="0"
           >
             <div class="form">
-              <!-- <app-parties-contact-point></app-parties-contact-point> -->
+              <app-parties-contact-point></app-parties-contact-point>
             </div>
           </div>
         </div>
@@ -115,7 +168,7 @@
             tabindex="0"
           >
             <div class="form">
-              <!-- <app-parties-additional-contact-points></app-parties-additional-contact-points> -->
+              <app-parties-additional-contact-points></app-parties-additional-contact-points>
             </div>
           </div>
         </div>
@@ -129,7 +182,7 @@
             tabindex="0"
           >
             <div class="form">
-              <!-- <app-parties-beneficial-owners></app-parties-beneficial-owners> -->
+              <app-parties-beneficial-owners></app-parties-beneficial-owners>
             </div>
           </div>
         </div>

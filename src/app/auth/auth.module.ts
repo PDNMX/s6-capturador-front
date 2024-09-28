@@ -24,6 +24,7 @@ import { PartiesContactPointComponent } from './parties/parties-contact-point/pa
 import { PartiesAdditionalContactPointsComponent } from './parties/parties-additional-contact-points/parties-additional-contact-points.component';
 import { PartiesBeneficialOwnersComponent } from './parties/parties-beneficial-owners/parties-beneficial-owners.component';
 import { PartiesGeneralComponent } from './parties/parties-general/parties-general.component';
+import { PartiesAddressComponent } from './parties/parties-address/parties-address.component';
 
 @NgModule({
   declarations: [
@@ -48,6 +49,7 @@ import { PartiesGeneralComponent } from './parties/parties-general/parties-gener
     PartiesAdditionalContactPointsComponent,
     PartiesBeneficialOwnersComponent,
     PartiesGeneralComponent,
+    PartiesAddressComponent,
   ],
   imports: [CommonModule, AuthRoutingModule, ReactiveFormsModule, FormsModule],
   exports: [
