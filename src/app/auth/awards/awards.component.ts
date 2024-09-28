@@ -166,7 +166,7 @@ export class AwardsComponent implements OnInit {
     this.api
       .postMethod({ ...this.awardForm.value }, `/awards/${this.record_id}`)
       .subscribe((r: any) => {
-        //console.log('r: ', r);
+        console.log('r: ', r);
         if (r.err) {
           console.log('r: ', r);
         } else {
