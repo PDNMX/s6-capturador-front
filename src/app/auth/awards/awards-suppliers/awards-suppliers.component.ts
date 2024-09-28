@@ -21,7 +21,7 @@ export class AwardsSuppliersComponent {
   record_id: string = '';
 
   suppliersValue!: IPartie;
-  suppliers= [
+  suppliers = [
     {
       id: 1,
       name: 'Actor 1',
@@ -36,9 +36,39 @@ export class AwardsSuppliersComponent {
     },
   ];
 
+  constructor(
+    private fb: FormBuilder,
+    private api: ApiService,
+    private route: ActivatedRoute
+  ) {}
+
+  loadForm(data: any): void {
+    data.forEach((supplier: any) => {
+      this.addSupplier.emit({ ...supplier });
+    });
+
+  }
+loadData(): void {
+  this.route.paramMap.subscribe((params: any) => {
+    this.record_id = params.get('id');
+  });
+    this.api.getMethod(`/awards/${this.record_id}`).subscribe((d: any) => {
+      const { award, error, message } = d;
+      if (error) {
+        console.log('error: ', error);
+        console.log('message: ', message);
+      } else {
+        if (award !== null) this.loadForm(award.suppliers);
+      }
+    });
+  }
+
+  ngOnInit(): void {
+    this.loadData();
+  }
+
   addNewSupplier(): void {
     this.addSupplier.emit(this.suppliersValue);
     console.log(this.suppliersValue);
   }
-
 }

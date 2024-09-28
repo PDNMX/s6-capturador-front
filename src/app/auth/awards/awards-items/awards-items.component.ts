@@ -1,6 +1,8 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, FormArray } from '@angular/forms';
 import { Classifications, Currency } from 'src/utils';
+import { ApiService } from 'src/app/services/api.service';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-awards-items',
@@ -15,6 +17,8 @@ export class AwardsItemsComponent implements OnInit {
   itemsForm!: FormGroup;
   additionalClassificationsForm!: FormGroup;
 
+  record_id: string = '';
+
   classification = Classifications.map((m) => ({
     id: m.id,
     description: m.description,
@@ -22,7 +26,54 @@ export class AwardsItemsComponent implements OnInit {
   }));
   currency = Currency;
 
-  constructor(private fb: FormBuilder) {}
+  constructor(
+    private fb: FormBuilder,
+    private api: ApiService,
+    private route: ActivatedRoute
+  ) {}
+  loadForm(data: any): void {
+    data.forEach((item: any) => {
+      const {
+        id,
+        description,
+        classification,
+        additionalClassifications,
+        quantity,
+        unit,
+      } = item;
+      this.addItem.emit(
+        this.fb.group({
+          id,
+          description,
+          classification,
+          additionalClassifications: this.fb.array(
+            additionalClassifications.map((m: any) => this.fb.group({ ...m }))
+          ),
+          quantity,
+          unit,
+        })
+      );
+
+      this.itemsArray.push(this.itemsForm);
+    });
+  }
+
+  loadData(): void {
+    this.route.paramMap.subscribe((params: any) => {
+      this.record_id = params.get('id');
+    });
+
+    this.api.getMethod(`/awards/${this.record_id}`).subscribe((d: any) => {
+      const { award, error, message } = d;
+
+      if (error) {
+        console.log('message: ', message);
+      } else {
+        // load forms
+        if (award !== null) this.loadForm(award.items);
+      }
+    });
+  }
 
   get additionalClassificationsArray() {
     return this.itemsForm.controls['additionalClassifications'] as FormArray;
@@ -47,6 +98,7 @@ export class AwardsItemsComponent implements OnInit {
 
   ngOnInit(): void {
     this.initForm();
+    this.loadData();
   }
 
   initForm(): void {

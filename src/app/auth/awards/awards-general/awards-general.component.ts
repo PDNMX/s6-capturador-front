@@ -1,3 +1,4 @@
+import { AwardsSuppliersComponent } from './../awards-suppliers/awards-suppliers.component';
 import { Component, OnInit, EventEmitter, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Currency, Language, AwardStatus } from 'src/utils';
@@ -26,9 +27,47 @@ export class AwardsGeneralComponent implements OnInit {
     private route: ActivatedRoute
   ) {}
 
+  loadForm(data: any): void {
+    const {
+      title,
+      description,
+      rationale,
+      date,
+      value,
+      contractPeriod,
+      status,
+    } = data;
+
+    this.generalForm.patchValue({
+      title,
+      description,
+      rationale,
+      date,
+      value,
+      contractPeriod,
+      status,
+    });
+  }
+
+  loadData(): void {
+    this.route.paramMap.subscribe((params: any) => {
+      this.record_id = params.get('id');
+    });
+
+    this.api.getMethod(`/awards/${this.record_id}`).subscribe((d: any) => {
+      const { award, error, message } = d;
+      if (error) {
+        console.log('error: ', error);
+        console.log('message: ', message);
+      } else {
+        if (award !== null) this.loadForm(award);
+      }
+    });
+  }
 
   ngOnInit(): void {
     this.initForm();
+    this.loadData();
   }
 
   initForm(): void {
