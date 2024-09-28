@@ -1,4 +1,7 @@
 import { Component, EventEmitter, Output, Input } from '@angular/core';
+import { FormBuilder } from '@angular/forms';
+import { ApiService } from 'src/app/services/api.service';
+import { ActivatedRoute } from '@angular/router';
 
 interface IPartie {
   id: number;
@@ -14,6 +17,8 @@ export class AwardsSuppliersComponent {
   @Input() suppliersArray: Array<any> = [];
   @Output() addSupplier = new EventEmitter<any>();
   @Output() deleteSupplier = new EventEmitter<any>();
+
+  record_id: string = '';
 
   suppliersValue!: IPartie;
   suppliers= [

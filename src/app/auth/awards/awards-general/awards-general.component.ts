@@ -1,6 +1,8 @@
 import { Component, OnInit, EventEmitter, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Currency, Language, AwardStatus } from 'src/utils';
+import { ApiService } from 'src/app/services/api.service';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-awards-general',
@@ -9,13 +11,21 @@ import { Currency, Language, AwardStatus } from 'src/utils';
 })
 export class AwardsGeneralComponent implements OnInit {
   @Output() saveGeneralDataForm = new EventEmitter<any>();
+
+  record_id: string = '';
+
   currency = Currency;
   language = Language;
   awardStatus = AwardStatus;
 
   generalForm!: FormGroup;
 
-  constructor(private fb: FormBuilder) {}
+  constructor(
+    private fb: FormBuilder,
+    private api: ApiService,
+    private route: ActivatedRoute
+  ) {}
+
 
   ngOnInit(): void {
     this.initForm();

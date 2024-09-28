@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, FormArray } from '@angular/forms';
 import { ApiService } from 'src/app/services/api.service';
-
+import { ActivatedRoute } from '@angular/router';
 @Component({
   selector: 'app-awards',
   templateUrl: './awards.component.html',
@@ -9,11 +9,13 @@ import { ApiService } from 'src/app/services/api.service';
 })
 export class AwardsComponent implements OnInit {
   awardForm!: FormGroup;
+  record_id = null;
 
-  data: any;
+  isSaving: boolean = false;
+  savingMessage: string = '';
+  /*   data: any;
   data1: any;
   savingMessage: string = '';
-  isSaving: boolean = false;
   recordId: string = '';
 
   //Almacenar los datos temporalmente para cada sección
@@ -29,17 +31,13 @@ export class AwardsComponent implements OnInit {
   suppliers: FormGroup = new FormGroup({});
   items: FormGroup = new FormGroup({});
   documents: FormGroup = new FormGroup({});
-  amendments: FormGroup = new FormGroup({});
+  amendments: FormGroup = new FormGroup({}); */
 
-  constructor(private fb: FormBuilder, private apiService: ApiService) {}
-  ngOnInit(): void {
-    //this.getMethod();
-    this.loadRecordId();
-    this.initForms();
-    if (this.recordId) {
-      this.loadExistingData();
-    }
-  }
+  constructor(
+    private fb: FormBuilder,
+    private api: ApiService,
+    private route: ActivatedRoute
+  ) {}
 
   get suppliersArray() {
     return this.awardForm.controls['suppliers'] as FormArray;
@@ -101,52 +99,14 @@ export class AwardsComponent implements OnInit {
     this.amendmentsarray.removeAt(index);
   }
 
-  loadRecordId() {
+  /*   loadRecordId() {
     const storedId = localStorage.getItem('record');
     if (storedId) {
       this.recordId = storedId;
     } else {
       console.error('No se encontró el ID del registro');
     }
-  }
-
-  loadExistingData() {
-    const body = { id: this.recordId };
-    this.apiService.postMethod(body, `/awards/getById`).subscribe(
-      (response: any) => {
-        if (response && response.record && response.record.award) {
-          const awardData = response.record.award;
-          this.populateForm(awardData);
-        } else {
-          console.error('Los datos recibidos no tienen la estructura esperada');
-        }
-      },
-      (error) => {
-        console.error('Error al cargar los datos:', error);
-      }
-    );
-  }
-
-  populateForm(data: any) {
-    console.log('Datos recibidos:', data);
-    // Poblar el formulario principal
-    this.awards.patchValue({
-      id: data.id,
-      status: data.status,
-      title: data.title,
-      description: data.description,
-      rationale: data.rationale,
-      date: data.date,
-      value: data.value,
-      contractPeriod: data.contractPeriod,
-    });
-
-    // Poblar los arrays
-    this.tempAwards.suppliers = data.suppliers || [];
-    this.tempAwards.items = data.items || [];
-    this.tempAwards.documents = data.documents || [];
-    this.tempAwards.amendments = data.amendments || [];
-  }
+  } */
 
   //Para ser usado con el api del s6
   /*  postMethod(dataToSend: any) {
@@ -174,41 +134,19 @@ export class AwardsComponent implements OnInit {
     );
   } */
   /* Mostrar en consolo el contenido de los formularios */
-  initForms() {
-    this.awardForm = this.fb.group({
-      suppliers: this.fb.array([], [Validators.required]),
-      items: this.fb.array([], [Validators.required]),
-      documents: this.fb.array([], [Validators.required]),
-      amendments: this.fb.array([], [Validators.required]),
+  ngOnInit(): void {
+    //this.getMethod();
+    this.route.paramMap.subscribe((params: any) => {
+      this.record_id = params.get('id');
+      //this.loadExistingData();
+
+      this.awardForm = this.fb.group({
+        suppliers: this.fb.array([], [Validators.required]),
+        items: this.fb.array([], [Validators.required]),
+        documents: this.fb.array([], [Validators.required]),
+        amendments: this.fb.array([], [Validators.required]),
+      });
     });
-  }
-
-  onSubmit() {
-    console.log(this.awards.value);
-    this.tempAwards = { ...this.tempAwards, ...this.awards.value };
-    this.showSavingMessage();
-    //this.awards.reset();
-  }
-
-  onSubmitItems() {
-    console.log(this.items.value);
-    this.tempAwards.items.push(this.items.value);
-    this.showSavingMessage();
-    //this.items.reset();
-  }
-
-  onSubmitDocuments() {
-    console.log(this.documents.value);
-    this.tempAwards.documents.push(this.documents.value);
-    this.showSavingMessage();
-    //this.documents.reset();
-  }
-
-  onSubmitAwardsAmendments() {
-    console.log(this.amendments.value);
-    this.tempAwards.amendments.push(this.amendments.value);
-    this.showSavingMessage();
-    //this.documents.reset();
   }
 
   //Metodo del mensaje guardando
@@ -221,54 +159,22 @@ export class AwardsComponent implements OnInit {
     }, 1500);
   }
 
-  submitAllSections() {
-    const awardData = {
-      ...this.awards.value,
-      suppliers: this.tempAwards.suppliers,
-      items: this.tempAwards.items,
-      documents: this.tempAwards.documents,
-      amendments: this.tempAwards.amendments,
-    };
-    // Guarda la información del formulario en una varialbe y se lo pasamos a los metodos insert o update
-    const finalData = {
-      id: this.recordId,
-      data: {
-        award: awardData,
-      },
-    };
+  submit(): void {
+    console.log(this.awardForm.value);
+    this.showSavingMessage();
 
-    if (this.recordId) {
-      // Actualizar
-      this.apiService
-        .putMethod(this.recordId, finalData, '/awards/update')
-        .subscribe(
-          (response: any) => {
-            console.log('Actualización exitosa:', response);
-            this.savingMessage = 'Datos actualizados con éxito';
-            this.isSaving = false;
-          },
-          (error) => {
-            console.error('Error en la actualización:', error);
-            this.savingMessage = 'Error al actualizar los datos';
-            this.isSaving = false;
-          }
-        );
-    } else {
-      // Insertar
-      this.apiService.postMethod(finalData, '/awards/insert').subscribe(
-        (response: any) => {
-          console.log('Inserción exitosa:', response);
-          this.savingMessage = 'Datos insertados con éxito';
-          this.isSaving = false;
-          this.recordId = response.id; // Asumiendo que la respuesta incluye el nuevo ID
-          localStorage.setItem('record', this.recordId);
-        },
-        (error) => {
-          console.error('Error en la inserción:', error);
-          this.savingMessage = 'Error al insertar los datos';
-          this.isSaving = false;
+    this.api
+      .postMethod({ ...this.awardForm.value }, `/awards/${this.record_id}`)
+      .subscribe((r: any) => {
+        console.log('r: ', r);
+        if (r.err) {
+          console.log('r: ', r);
+        } else {
+         /*  const id = r.data._id;
+          console.log('id: ', id); */
         }
-      );
-    }
+        this.savingMessage = 'Datos insertados con éxito';
+        this.isSaving = false;
+      });
   }
 }

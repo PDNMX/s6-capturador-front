@@ -9,24 +9,14 @@
   <form [formGroup]="generalForm">
     <div class="row">
       <div class="form-floating col mb-5">
-        <input
-          type="text"
-          class="form-control"
-          id="id"
-          data-sb-validations="required"
-          formControlName="id"
-        />
-        <label for="id">Indentificador de la adjudicación *</label>
+        <select class="form-select" formControlName="status">
+          <option *ngFor="let s of awardStatus" [ngValue]="s.code">
+            {{ s.title }}
+          </option>
+        </select>
+        <label for="status">Estatus de la Adjudicación</label>
+        <p class="mt-2">{{ getAwardStatusDesc(generalForm.value.status) }}</p>
       </div>
-    </div>
-    <div class="form-floating col mb-5">
-      <select class="form-select" formControlName="status">
-        <option *ngFor="let s of awardStatus" [ngValue]="s.code">
-          {{ s.title }}
-        </option>
-      </select>
-      <label for="status">Estatus de la Adjudicación</label>
-      <p class="mt-2">{{ getAwardStatusDesc(generalForm.value.status) }}</p>
     </div>
     <div class="row">
       <div class="form-floating col-md-12 mb-5">
@@ -49,6 +39,7 @@
           class="form-control"
           id="AwardsDescription"
           type="text"
+          style="height: 100px"
           placeholder="Descripción"
           formControlName="description"
         ></textarea>
