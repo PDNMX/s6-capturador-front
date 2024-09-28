@@ -1,0 +1,181 @@
+<div class="container">
+  <div class="row">
+    <div class="col">
+      <h3>Transacciones</h3>
+      <hr />
+    </div>
+  </div>
+
+
+<form [formGroup]="transactionsForm">
+  <div class="row">
+    <div class="form-floating col mb-5">
+      <select
+        class="form-select"
+        id="status"
+        aria-label="award status"
+      >
+        <option value="default">Seleccione un opción</option>
+        <option value="finish">Finalizado</option>
+        <option value="process">En proceso</option>
+        <option value="cancelled">Cancelado</option>
+        <option value="unsuccessful">Sin Éxito</option>
+      </select>
+      <label for="status">Estado de la ejecución</label>
+    </div>
+  </div>
+  <!--  Transactions Fieldset -->
+  <fieldset class="border p-3 mb-3">
+    
+    <div class="row mb-3">
+      <div class="form-floating col-md-6">
+        <input
+          type="text"
+          class="form-control"
+          id="TransactionsId"
+          placeholder="Identificador de la transacción"
+        />
+        <label for="ClassificationsId" class="form-label"
+          >Identificador de la transacción</label
+        >
+      </div>
+      <div class="form-floating col-md-6">
+        <input
+          type="text"
+          class="form-control"
+          id="TransactionsSource"
+          placeholder="Fuente de datos"
+        />
+        <label for="TransactionsSource" class="form-label"
+          >Fuente de datos</label
+        >
+      </div>
+    </div>
+    <div class="row mb-3">
+      <div class="form-floating col-md-6">
+        <input
+          type="date"
+          class="form-control"
+          id="TransacctionsDate"
+          placeholder="Fecha de la transacción"
+        />
+        <label for="TransacctionsDate" class="form-label"
+          >Fecha de la transacción</label
+        >
+      </div>
+      <div class="form-floating col-md-6">
+        <input
+          type="text"
+          class="form-control"
+          id="TransactionsPaymentMethod"
+          placeholder="Método de pago"
+        />
+        <label for="TransactionsPaymentMethod" class="form-label"
+          >Método de pago</label
+        >
+      </div>
+    </div>
+    <legend class="w-auto px-2">Valor</legend>
+    <div class="row mb-3">
+      <div class="form-floating col-md-6">
+        <input
+          type="text"
+          class="form-control"
+          id="TransactionsValueAmount"
+          placeholder="Monto de la transacción"
+        />
+        <label for="TransactionsValueAmount">Monto</label>
+      </div>
+      <div class="form-floating form-group col-md-6">
+        <select
+          class="form-select"
+          id="TransactionsValueCurrency"
+          aria-label="moneda"
+        >
+          <option value="default">
+            Seleccione el tipo de moneda
+          </option>
+          <option value="mxn">Peso mexicano</option>
+          <option value="usd">Dólar estadounidense</option>
+        </select>
+        <label for="TransactionsValueCurrency">Moneda</label>
+      </div>
+    </div>
+    <legend class="w-auto px-2">Pagador</legend>
+    <div class="row mb-3">
+      <div class="form-floating col-md-6">
+        <input
+          type="text"
+          class="form-control"
+          id="TransactionsPayerId"
+          placeholder="Identificador del actor"
+        />
+        <label for="TransactionsPayerId"
+          >Identificador del actor</label
+        >
+      </div>
+      <div class="form-floating col-md-6">
+        <input
+          type="text"
+          class="form-control"
+          id="TransactionsPayerName"
+          placeholder="Nombre del actor"
+        />
+        <label for="TransactionsPayerName">Nombre del actor</label>
+      </div>
+    </div>
+    <legend class="w-auto px-2">Beneficiario</legend>
+    <div class="row mb-3">
+      <div class="form-floating col-md-6 mb-5">
+        <input
+          type="text"
+          class="form-control"
+          id="TransactionsPayeeId"
+          placeholder="Identificador del actor"
+        />
+        <label for="TransactionsPayeeId"
+          >Identificador del actor</label
+        >
+      </div>
+      <div class="form-floating col-md-6 mb-5">
+        <input
+          type="text"
+          class="form-control"
+          id="TransactionsPayeeName"
+          placeholder="Nombre del actor"
+        />
+        <label for="TransactionsPayeeName">Nombre del actor</label>
+      </div>
+    </div>
+    <div class="row">
+      <div class="form-floating col-md-12 mb-5">
+        <input
+          type="text"
+          class="form-control"
+          id="TransactionsUri"
+          placeholder="URI"
+        />
+        <label for="TransactionsUri">URI</label>
+      </div>
+    </div>
+    <div class="row mb-3">
+      <div
+        class="col-md-6 form-group d-flex justify-content-between"
+      >
+        <input
+          type="submit"
+          value="Guardar"
+          class="btn btn-primary rounded-0 py-2 px-4"
+        />
+        <span class="Guardar"></span>
+        <input
+          type="submit"
+          value="Eliminar"
+          class="btn btn-danger rounded-0 py-2 px-4"
+        />
+        <span class="Guardar"></span>
+      </div>
+    </div>
+  </fieldset>
+</form>
+</div>

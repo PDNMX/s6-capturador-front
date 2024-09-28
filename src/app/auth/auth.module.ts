@@ -30,6 +30,9 @@ import { PartiesAdditionalContactPointsComponent } from './parties/parties-addit
 import { PartiesBeneficialOwnersComponent } from './parties/parties-beneficial-owners/parties-beneficial-owners.component';
 import { PartiesGeneralComponent } from './parties/parties-general/parties-general.component';
 import { PartiesAddressComponent } from './parties/parties-address/parties-address.component';
+import { ImplementationTransactionsComponent } from './implementation/implementation-transactions/implementation-transactions.component';
+import { ImplementationMilestonesComponent } from './implementation/implementation-milestones/implementation-milestones.component';
+import { ImplementationDocumentsComponent } from './implementation/implementation-documents/implementation-documents.component';
 
 @NgModule({
   declarations: [
@@ -60,6 +63,9 @@ import { PartiesAddressComponent } from './parties/parties-address/parties-addre
     PartiesBeneficialOwnersComponent,
     PartiesGeneralComponent,
     PartiesAddressComponent,
+    ImplementationTransactionsComponent,
+    ImplementationMilestonesComponent,
+    ImplementationDocumentsComponent,
   ],
   imports: [CommonModule, AuthRoutingModule, ReactiveFormsModule, FormsModule],
   exports: [
