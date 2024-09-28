@@ -1,0 +1,155 @@
+<fieldset class="border p-3 mb-3">
+  <div class="row" formGroupName="beneficialOwners">
+    <h4>Beneficiarios</h4>
+    <div class="row">
+      <div class="form-floating col-md-6 mb-5">
+        <input
+          type="text"
+          class="form-control"
+          id="id"
+          placeholder="Identificador del Beneficiario"
+          formControlName="id"
+        />
+        <label for="id">Identificador</label>
+      </div>
+      <div class="form-floating col-md-6 mb-5">
+        <input
+          type="text"
+          class="form-control"
+          id="name"
+          placeholder="Nombre del beneficiario"
+          formControlName="name"
+        />
+        <label for="name">Nombre del beneficiario</label>
+      </div>
+    </div>
+    <fieldset class="border p-3 mb-3">
+      <div class="row">
+        <legend class="w-auto px-2">Identificador</legend>
+        <div class="row mb-3" formGroupName="identifier">
+          <div class="form-floating col-md-6 mb-5">
+            <input
+              type="text"
+              class="form-control"
+              id="id"
+              placeholder="Identificador"
+              formControlName="id"
+            />
+            <label for="id">Identificador</label>
+          </div>
+          <div class="form-floating col-md-6 mb-5">
+            <input
+              type="text"
+              class="form-control"
+              id="scheme"
+              placeholder="Esquema"
+              formControlName="scheme"
+            />
+            <label for="scheme">Esquema</label>
+          </div>
+        </div>
+      </div>
+    </fieldset>
+    <div class="row">
+      <div class="form-floating col-md-3 mb-5">
+        <input
+          type="text"
+          class="form-control"
+          id="nationality"
+          placeholder="Nacionalidad"
+          formControlName="nationality"
+        />
+        <label for="nationality">Nacionalidad</label>
+      </div>
+      <div class="form-floating col-md-3 mb-5">
+        <input
+          type="text"
+          class="form-control"
+          id="email"
+          placeholder="Correo electrónico"
+          formControlName="email"
+        />
+        <label for="email">Correo electrónico</label>
+      </div>
+      <div class="form-floating col-md-3 mb-5">
+        <input
+          type="text"
+          class="form-control"
+          id="faxNumber"
+          placeholder="Número de Fax"
+          formControlName="faxNumber"
+        />
+        <label for="faxNumber">Número de Fax</label>
+      </div>
+      <div class="form-floating col-md-3 mb-5">
+        <input
+          type="text"
+          class="form-control"
+          id="telephone"
+          placeholder="Teléfono"
+          formControlName="telephone"
+        />
+        <label for="telephone" class="form-label">Teléfono</label>
+      </div>
+    </div>
+    <fieldset class="border p-3 mb-3" formGroupName="address">
+      <legend class="w-auto px-2">Domicilio</legend>
+      <div class="row">
+        <div class="form-floating col-md-12 mb-5">
+          <input
+            type="text"
+            class="form-control"
+            id="streetAddress"
+            placeholder="Dirección completa"
+            formControlName="streetAddress"
+          />
+          <label for="streetAddress">Dirección. Calle y número</label>
+        </div>
+      </div>
+      <div class="row">
+        <div class="form-floating col-md-6 mb-5">
+          <input
+            type="text"
+            class="form-control"
+            id="locality"
+            placeholder="Localidad"
+            formControlName="locality"
+          />
+          <label for="locality">Localidad</label>
+        </div>
+        <div class="form-floating col-md-6 mb-5">
+          <input
+            type="text"
+            class="form-control"
+            id="region"
+            placeholder="Región"
+            formControlName="region"
+          />
+          <label for="region">Región</label>
+        </div>
+      </div>
+      <div class="row">
+        <div class="form-floating col-md-6 mb-5">
+          <input
+            type="text"
+            class="form-control"
+            id="postalCode"
+            placeholder="Código Postal"
+            formControlName="postalCode"
+          />
+          <label for="postalCode">Código Postal</label>
+        </div>
+        <div class="form-floating col-md-6 mb-5">
+          <input
+            type="text"
+            class="form-control"
+            id="countryName"
+            placeholder="Pais"
+            formControlName="countryName"
+          />
+          <label for="countryName">País</label>
+        </div>
+      </div>
+    </fieldset>
+  </div>
+</fieldset>
