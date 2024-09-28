@@ -53,12 +53,12 @@ loadData(): void {
     this.record_id = params.get('id');
   });
     this.api.getMethod(`/awards/${this.record_id}`).subscribe((d: any) => {
-      const { award, error, message } = d;
+      const { awards, error, message } = d;
       if (error) {
         console.log('error: ', error);
         console.log('message: ', message);
       } else {
-        if (award !== null) this.loadForm(award.suppliers);
+        if (awards !== null) this.loadForm(awards.suppliers);
       }
     });
   }

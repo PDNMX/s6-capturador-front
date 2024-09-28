@@ -64,13 +64,13 @@ export class AwardsItemsComponent implements OnInit {
     });
 
     this.api.getMethod(`/awards/${this.record_id}`).subscribe((d: any) => {
-      const { award, error, message } = d;
+      const { awards, error, message } = d;
 
       if (error) {
         console.log('message: ', message);
       } else {
         // load forms
-        if (award !== null) this.loadForm(award.items);
+        if (awards !== null) this.loadForm(awards.items);
       }
     });
   }

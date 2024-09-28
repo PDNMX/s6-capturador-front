@@ -79,11 +79,11 @@ export class AwardsDocumentsComponent implements OnInit {
     });
 
     this.api.getMethod(`/awards/${this.record_id}`).subscribe((d: any) => {
-      const { award, error, message } = d;
+      const { awards, error, message } = d;
       if (error) {
         console.log('message', message);
       } else {
-        if (award !== null) this.loadForm(award.documents);
+        if (awards !== null) this.loadForm(awards.documents);
       }
     });
   }

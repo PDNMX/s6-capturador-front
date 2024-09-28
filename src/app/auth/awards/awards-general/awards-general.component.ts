@@ -55,12 +55,12 @@ export class AwardsGeneralComponent implements OnInit {
     });
 
     this.api.getMethod(`/awards/${this.record_id}`).subscribe((d: any) => {
-      const { award, error, message } = d;
+      const { awards, error, message } = d;
       if (error) {
         console.log('error: ', error);
         console.log('message: ', message);
       } else {
-        if (award !== null) this.loadForm(award);
+        if (awards !== null) this.loadForm(awards);
       }
     });
   }
@@ -72,7 +72,6 @@ export class AwardsGeneralComponent implements OnInit {
 
   initForm(): void {
     this.generalForm = this.fb.group({
-      id: ['', Validators.required],
       status: ['', Validators.required],
       title: ['', Validators.required],
       description: ['', Validators.required],
