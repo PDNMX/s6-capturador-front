@@ -152,21 +152,21 @@ export class AwardsComponent implements OnInit {
   //Metodo del mensaje guardando
   showSavingMessage() {
     this.isSaving = true;
-    this.savingMessage = 'Guardando...';
+    this.savingMessage = 'Guardando adjudicación...';
     setTimeout(() => {
       this.isSaving = false;
       this.savingMessage = '';
-    }, 1500);
+    }, 2000);
   }
 
   submit(): void {
-    console.log(this.awardForm.value);
+    //console.log(this.awardForm.value);
     this.showSavingMessage();
 
     this.api
       .postMethod({ ...this.awardForm.value }, `/awards/${this.record_id}`)
       .subscribe((r: any) => {
-        console.log('r: ', r);
+        //console.log('r: ', r);
         if (r.err) {
           console.log('r: ', r);
         } else {

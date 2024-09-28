@@ -128,7 +128,7 @@ export class AwardsItemsComponent implements OnInit {
 
   addNewItem(): void {
     this.addItem.emit(this.itemsForm);
-    console.log(this.itemsForm.value);
+    //console.log(this.itemsForm.value);
     this.initForm();
   }
 }

@@ -1,6 +1,8 @@
 import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, FormArray } from '@angular/forms';
 import { FormatDocument, getDocumentType, Language } from 'src/utils';
+import { ApiService } from 'src/app/services/api.service';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-awards-documents',
@@ -11,6 +13,7 @@ export class AwardsDocumentsComponent implements OnInit {
   @Input() documentsArray: Array<any> = [];
   @Output() addDocument = new EventEmitter<any>();
   @Output() deleteDocument = new EventEmitter<any>();
+  record_id = '';
 
   formatDocument = FormatDocument;
   languaje = Language;
@@ -18,7 +21,11 @@ export class AwardsDocumentsComponent implements OnInit {
 
   documentsForm!: FormGroup;
 
-  constructor(private fb: FormBuilder) {}
+  constructor(
+    private fb: FormBuilder,
+    private api: ApiService,
+    private route: ActivatedRoute
+  ) {}
 
   getDocumentTypeTitle(code: string): string {
     let desc = '';
@@ -66,8 +73,24 @@ export class AwardsDocumentsComponent implements OnInit {
     });
   }
 
+  loadData(): void {
+    this.route.paramMap.subscribe((params: any) => {
+      this.record_id = params.get('id');
+    });
+
+    this.api.getMethod(`/awards/${this.record_id}`).subscribe((d: any) => {
+      const { award, error, message } = d;
+      if (error) {
+        console.log('message', message);
+      } else {
+        if (award !== null) this.loadForm(award.documents);
+      }
+    });
+  }
+
   ngOnInit(): void {
     this.initForm();
+    this.loadData();
   }
 
   initForm(): void {
@@ -84,7 +107,7 @@ export class AwardsDocumentsComponent implements OnInit {
   }
   addNewDocument(): void {
     this.addDocument.emit(this.documentsForm);
-    console.log(this.documentsForm.value);
+    //console.log(this.documentsForm.value);
     this.initForm();
   }
 }

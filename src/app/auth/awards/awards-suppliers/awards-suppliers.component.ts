@@ -69,6 +69,6 @@ loadData(): void {
 
   addNewSupplier(): void {
     this.addSupplier.emit(this.suppliersValue);
-    console.log(this.suppliersValue);
+    //console.log(this.suppliersValue);
   }
 }
