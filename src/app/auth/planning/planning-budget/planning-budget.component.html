@@ -1,378 +1,257 @@
 <div class="form">
-    <form
-    class="mb-5"
-    method="post"
-    id="planning-form"
-    
-    >
-    <div class="row">
-      <h3>Presupuesto</h3>
-      <hr />
-    </div>
-    
-    <div class="row">
-      <div class="col-md-2 form-floating mb-3">
-        <input
-          type="text"
-          class="form-control"
-          id="BudgetId"
-          placeholder="ID"
-          formControlName="id"
-        />
-        <label for="BudgetId">ID</label>
-      </div>
-      <div class="col-md-5 form-floating mb-3">
-        <input
-          type="text"
-          class="form-control"
-          id="ProjectId"
-          placeholder="ProjectId"
-          formControlName="projectID"
-        />
-        <label for="ProjectId">Identificador de proyecto</label>
-      </div>
-      <div class="col-md-5 form-floating mb-3">
-        <input
-          type="text"
-          class="form-control"
-          id="Project"
-          placeholder="Project"
-          formControlName="project"
-        />
-        <label for="Project">Título del proyecto</label>
-      </div>
-    </div>
-    <div class="row">
-      <div class="col-md-6 form-floating mb-3">
-        <input
-          type="text"
-          class="form-control"
-          id="Description"
-          placeholder="Description"
-          formControlName="description"
-        />
-        <label for="Description">Fuente presupuestaria</label>
-      </div>
-      <div class="col-md-6 form-floating mb-3">
-        <input
-          type="text"
-          class="form-control"
-          id="URI"
-          placeholder="URI"
-          formControlName="uri"
-        />
-        <label for="URI"
-          >Información Presupuestaria vinculada</label
-        >
-      </div>
-    </div>
-    <div class="row" formGroupName="value">
-      <div class="col-md-12 form-floating mb-3">
-        <fieldset class="fieldset cell">
-          <legend>Valor</legend>
-          <div class="grid-margin-x grid-x">
-            <div class="form-floating mb-3 cell medium-6">
-              <input
-                type="number"
-                class="form-control"
-                id="BudgetValueAmount"
-                placeholder="Monto total del presupuesto"
-                formControlName="amount"
-              />
-              <label for="BudgetValueAmount">Monto presupuesto</label>
+    <form [formGroup]="planningBudgetForm" class="mb-5" method="post" id="planning-form">
+        <div class="row">
+            <h3>Presupuesto</h3>
+            <hr />
+        </div>
+
+        <div class="row">
+            <div class="col-md-2 form-floating mb-3">
+                <input type="text" class="form-control" id="BudgetId" placeholder="ID" formControlName="id" />
+                <label for="BudgetId">ID</label>
             </div>
-            <div class="form-floating cell medium-6">
-              <select
-                class="form-select"
-                id="BudgetValueCurrency"
-                aria-label="moneda"
-                formControlName="currency"
-              >
-                <option value="default">
-                  Seleccione el tipo de moneda
-                </option>
-                <option value="mxn">MXN</option>
-                <option value="usd">USD</option>
-              </select>
-              <label for="BudgetValueCurrency">Moneda</label>
+            <div class="col-md-5 form-floating mb-3">
+                <input type="text" class="form-control" id="ProjectId" placeholder="ProjectId"
+                    formControlName="projectID" />
+                <label for="ProjectId">Identificador de proyecto</label>
             </div>
-          </div>
-        </fieldset>
-      </div>
-    </div>
-    
-    <div class="row">
-      <h3>Desglose del presupuesto</h3>
-      <hr />
-    </div>
-    <div>
-      <div class="row" formGroupName="budgetBreakdown">
-        <div class="col-md-12 form-floating mb-3">
-          <input
-            type="text"
-            class="form-control"
-            id="BudgetBreakdownProject"
-            placeholder="Proyecto"
-            formControlName="project"
-          />
-          <label for="BudgetBreakdownProject">Proyecto</label>
-        </div>
-        <div class="col-md-2 form-floating mb-3">
-          <input
-            type="text"
-            class="form-control"
-            id="BudgetBreakdownId"
-            placeholder="ID"
-            formControlName="id"
-          />
-          <label for="BudgetBreakdownId">ID</label>
-        </div>
-        <div class="col-md-5 form-floating mb-3">
-          <input
-            type="text"
-            class="form-control"
-            id="BudgetBreakdownDescription"
-            placeholder="Description"
-            formControlName="description"
-          />
-          <label for="BudgetBreakdownDescription"
-            >Descripción</label
-          >
-        </div>
-        <div class="col-md-5 form-floating mb-3">
-          <input
-            type="text"
-            class="form-control"
-            id="BudgetBreakdownUri"
-            placeholder="URI"
-            formControlName="uri"
-          />
-          <label for="BudgetBreakdownUri"
-            >Información Presupuestaria vinculada</label
-          >
+            <div class="col-md-5 form-floating mb-3">
+                <input type="text" class="form-control" id="Project" placeholder="Project" formControlName="project" />
+                <label for="Project">Título del proyecto</label>
+            </div>
         </div>
         <div class="row">
-          <h5>Periodo</h5>
+            <div class="col-md-6 form-floating mb-3">
+                <input type="text" class="form-control" id="Description" placeholder="Description"
+                    formControlName="description" />
+                <label for="Description">Fuente presupuestaria</label>
+            </div>
+            <div class="col-md-6 form-floating mb-3">
+                <input type="text" class="form-control" id="URI" placeholder="URI" formControlName="uri" />
+                <label for="URI">Información Presupuestaria vinculada</label>
+            </div>
         </div>
-        <div class="row" formGroupName="period">
-          <div class="form-floating form-group col-md-3 mb-5">
-            <input
-              type="date"
-              class="form-control"
-              id="BudgetBreakdownPeriodStartDate"
-              placeholder="Fecha de inicio del contrato"
-              formControlName="startDate"
-            />
-            <label for="BudgetBreakdownPeriodStartDate"
-              >Fecha de inicio</label
-            >
-          </div>
-          <div class="form-floating form-group col-md-3 mb-5">
-            <input
-              type="date"
-              class="form-control"
-              id="BudgetBreakdownPeriodendDate"
-              placeholder="Fecha de la adjudicación"
-              formControlName="endDate"
-            />
-            <label for="BudgetBreakdownPeriodendDate"
-              >Fecha de término</label
-            >
-          </div>
-          <div class="form-floating form-group col-md-3 mb-5">
-            <input
-              type="date"
-              class="form-control"
-              id="BudgetBreakdownPeriodMaxExtentDate"
-              placeholder="Fecha de la adjudicación"
-              formControlName="maxExtentDate"
-            />
-            <label for="BudgetBreakdownPeriodMaxExtentDate"
-              >Extensión máxima</label
-            >
-          </div>
-          <div class="form-floating form-group col-md-3 mb-5">
-            <input
-              type="number"
-              class="form-control"
-              id="BudgetBreakdownPeriodDurationInDays"
-              placeholder="Duración en dias"
-              formControlName="durationInDays"
-            />
-            <label for="BudgetBreakdownPeriodDurationInDays"
-              >Duración (días)</label
-            >
-          </div>
-        </div>
-        <div class="row">
-          <h5>Actor fuente</h5>
-        </div>
-        <div class="row" formGroupName="sourceParty">
-          <div class="col-md-2 form-floating mb-3">
-            <input
-              type="text"
-              class="form-control"
-              id="BudgetBreakDownSourcePartyId"
-              placeholder="Identificador del actor"
-              formControlName="id"
-            />
-            <label for="BudgetBreakDownSourcePartyId">ID</label>
-          </div>
-          <div class="col-md-10 form-floating mb-3">
-            <input
-              type="text"
-              class="form-control"
-              id="BudgetBreakDownSourcePartyName"
-              placeholder="Nombre del actor"
-              formControlName="name"
-            />
-            <label for="BudgetBreakDownSourcePartyName"
-              >Nombre del actor</label
-            >
-          </div>
-        </div>
-    
         <div class="row" formGroupName="value">
-          <div class="col-md-12 form-floating mb-3">
-            
-              <legend>Valor actor</legend>
-              <div class="grid-margin-x grid-x">
-                <div class="form-floating mb-3 cell medium-6">
-                  <input
-                    type="number"
-                    class="form-control"
-                    id="BudgetBreakdownValueAmount"
-                    placeholder="Monto total del presupuesto"
-                    formControlName="amount"
-                  />
-                  <label for="BudgetBreakdownValueAmount"
-                    >Monto</label
-                  >
+            <div class="col-md-12 form-floating mb-3">
+                <fieldset class="fieldset cell">
+                    <legend>Valor</legend>
+                    <div class="grid-margin-x grid-x">
+                        <div class="form-floating mb-3 cell medium-6">
+                            <input type="number" class="form-control" id="BudgetValueAmount"
+                                placeholder="Monto total del presupuesto" formControlName="amount" />
+                            <label for="BudgetValueAmount">Monto presupuesto</label>
+                        </div>
+                        <div class="form-floating cell medium-6">
+                            <select class="form-select" id="BudgetValueCurrency" aria-label="moneda"
+                                formControlName="currency">
+                                <option value="default">
+                                    Seleccione el tipo de moneda
+                                </option>
+                                <option value="mxn">MXN</option>
+                                <option value="usd">USD</option>
+                            </select>
+                            <label for="BudgetValueCurrency">Moneda</label>
+                        </div>
+                    </div>
+                </fieldset>
+            </div>
+        </div>
+        <fieldset class="border p-3 mb-3" [formGroup]="planningBudgetBreakdownForm">
+            <div class="row">
+                <h3>Desglose del presupuesto</h3>
+                <hr />
+            </div>
+            <div>
+                <div class="row">
+                    <table class="table table-hover table-striped mb-10">
+                        <thead>
+                          <tr>
+                            <th scope="col">ID</th>
+                            <th scope="col">Descripción</th>
+                            <th scope="col">Información Presupuestaria vinculada</th>
+                            <th scope="col">Fecha de inicio</th>
+                            <th scope="col">Fecha de término</th>
+                            <th scope="col">Extensión máxima</th>
+                            <th scope="col">Duración (días)</th>
+                            <th scope="col">Nombre del actor</th>
+                            <th scope="col">Monto</th>
+                            <th scope="col">Opciones</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr *ngFor="let doc of budgetBreakdownArray; index as i">
+                            <th scope="row">{{ doc.id || i + 1 }}</th>
+                            <td>{{ doc.id }}</td>
+                            <td>{{ doc.description }}</td>
+                            <td>{{ doc.informacionPresupestariaVinculada }}</td>
+                            <td>{{ doc.fechaInicio }}</td>
+                            <td>{{ doc.fechaTermino }}</td>
+                            <td>{{ doc.fechaExtMax }}</td>
+                            <td>{{ doc.duracion }}</td>
+                            <td>{{ doc.actor }}</td>
+                            <td>{{ doc.monto }}</td>
+                            <td>
+                              <button
+                                type="button"
+                                class="btn btn-danger btn-delete"
+                                (click)="deleteBudgetBreakdown(i)"
+                              >
+                                Eliminar
+                              </button>
+                            </td>
+                          </tr>
+                          <tr *ngIf="budgetBreakdownArray.length === 0">
+                            <th scope="row" colspan="10" class="text-center">
+                              Sin registros.
+                            </th>
+                          </tr>
+                        </tbody>
+                      </table>
+                </div>                
+                <div class="row">
+                    <div class="col-md-1 form-floating mb-3">
+                        <input type="text" class="form-control" id="BudgetBreakdownId" placeholder="ID"
+                            formControlName="id" />
+                        <label for="BudgetBreakdownId">ID</label>
+                    </div>
+                    <div class="col-md-4 form-floating mb-3">
+                        <input type="text" class="form-control" id="BudgetBreakdownDescription" placeholder="Description" 
+                            formControlName="description" />
+                        <label for="BudgetBreakdownDescription">Descripción</label>
+                    </div>
+                    <div class="col-md-5 form-floating mb-3">
+                        <input type="text" class="form-control" id="BudgetBreakdownUri" placeholder="URI"
+                            formControlName="uri" />
+                        <label for="BudgetBreakdownUri">Información Presupuestaria vinculada</label>
+                    </div>
+                    <div class="form-floating col-md-2 mb-0">
+                        <button type="button" class="btn btn-danger btn-add" (click)="addNewBudgetBreakdown()">Agregar
+                        </button>
+                    </div>
+                    <div class="row">
+                        <h5>Periodo</h5>
+                    </div>
+                    <div class="row">
+                        <div class="form-floating form-group col-md-3 mb-5">
+                            <input type="date" class="form-control" id="BudgetBreakdownPeriodStartDate" placeholder="Fecha de inicio del contrato" 
+                                formControlName="startDate" />
+                            <label for="BudgetBreakdownPeriodStartDate">Fecha de inicio</label>
+                        </div>
+                        <div class="form-floating form-group col-md-3 mb-5">
+                            <input type="date" class="form-control" id="BudgetBreakdownPeriodendDate" placeholder="Fecha de la adjudicación" 
+                                formControlName="endDate" />
+                            <label for="BudgetBreakdownPeriodendDate">Fecha de término</label>
+                        </div>
+                        <div class="form-floating form-group col-md-3 mb-5">
+                            <input type="date" class="form-control" id="BudgetBreakdownPeriodMaxExtentDate" placeholder="Fecha de la adjudicación" 
+                            formControlName="maxExtentDate" />
+                            <label for="BudgetBreakdownPeriodMaxExtentDate">Extensión máxima</label>
+                        </div>
+                        <div class="form-floating form-group col-md-3 mb-5">
+                            <input type="number" class="form-control" id="BudgetBreakdownPeriodDurationInDays" placeholder="Duración en dias" 
+                            formControlName="durationInDays" />
+                            <label for="BudgetBreakdownPeriodDurationInDays">Duración (días)</label>
+                        </div>
+                    </div>
+                    <fieldset class="border p-3 mb-3" >
+                        <div class="row">
+                            <h5>Actor fuente</h5>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-2 form-floating mb-3">
+                                <input type="text" class="form-control" id="BudgetBreakDownSourcePartyId" placeholder="Identificador del actor" 
+                                formControlName="id" />
+                                <label for="BudgetBreakDownSourcePartyId">ID</label>
+                            </div>
+                            <div class="col-md-10 form-floating mb-3">
+                                <input type="text" class="form-control" id="BudgetBreakDownSourcePartyName" placeholder="Nombre del actor" 
+                                formControlName="name" />
+                                <label for="BudgetBreakDownSourcePartyName">Nombre del actor</label>
+                            </div>
+                            <fieldset formGroupName="value">
+                                <div class="form-floating mb-3 cell medium-6">
+                                    <input type="number" class="form-control" id="BudgetBreakdownValueAmount"
+                                        placeholder="Monto total del presupuesto" formControlName="amount" />
+                                    <label for="BudgetBreakdownValueAmount">Monto</label>
+                                </div>
+                                <div class="form-floating cell medium-6">
+                                    <select class="form-select" id="BudgetBreakdownValueCurrency" aria-label="moneda"
+                                        formControlName="currency">
+                                        <option value="default">
+                                            Seleccione el tipo de moneda
+                                        </option>
+                                        <option value="mxn">MXN</option>
+                                        <option value="usd">USD</option>
+                                    </select>
+                                    <label for="BudgetBreakdownValueCurrency">Moneda</label>
+                                </div>
+                            </fieldset>
+                        </div>
+                    </fieldset>
+                        
+                    
+
+
+                   
+
                 </div>
-                <div class="form-floating cell medium-6">
-                  <select
-                    class="form-select"
-                    id="BudgetBreakdownValueCurrency"
-                    aria-label="moneda"
-                    formControlName="currency"
-                  >
-                    <option value="default">
-                      Seleccione el tipo de moneda
-                    </option>
-                    <option value="mxn">MXN</option>
-                    <option value="usd">USD</option>
-                  </select>
-                  <label for="BudgetBreakdownValueCurrency"
-                    >Moneda</label
-                  >
+
+            </div>
+        </fieldset>
+        <fieldset class="border p-3 mb-3" [formGroup]="planningBudgetLinesForm">
+            <div class="row">
+                <h5>Líneas Presupuestarias</h5>
+            </div>
+            <div class="row">
+                <div class="col-md-2 form-floating mb-3">
+                    <input type="text" class="form-control" id="BudgetLinesId" placeholder="ID"
+                        formControlName="id" />
+                    <label for="BudgetLinesId">ID</label>
                 </div>
-              </div>
-            
-          </div>
+                <div class="col-md-10 form-floating mb-3">
+                    <input type="text" class="form-control" id="BudgetLinesOrigin" placeholder="Origin"
+                        formControlName="origin" />
+                    <label for="BudgetLinesOrigin">Origen</label>
+                </div>
+            </div>
+        </fieldset>        
+        <fieldset class="border p-3 mb-3" [formGroup]="planningBudgetComponentsForm">
+            <div class="row">
+                <h5>Componentes</h5>
+            </div>
+            <div class="row">
+                <div class="col-md-4 form-floating mb-3">
+                    <input type="text" class="form-control" id="BudgetComponentsName" placeholder="Nombre"
+                        formControlName="name" />
+                    <label for="BudgetComponentsName">Nombre</label>
+                </div>
+                <div class="col-md-4 form-floating mb-3">
+                    <input type="text" class="form-control" id="BudgetComponentsLevel" placeholder="Nivel"
+                        formControlName="level" />
+                    <label for="BudgetComponentsLevel">Nivel</label>
+                </div>
+                <div class="col-md-4 form-floating mb-3">
+                    <input type="text" class="form-control" id="BudgetComponentsCode" placeholder="Código"
+                        formControlName="code" />
+                    <label for="BudgetComponentsCode">Código</label>
+                </div>
+                <div class="col-md-10 form-floating mb-3">
+                    <input type="text" class="form-control" id="BudgetComponentsDescription"
+                        placeholder="Descripción" formControlName="description" />
+                    <label for="BudgetComponentsDescription">Descripción</label>
+                </div>
+            </div>
+        </fieldset>
+        <div class="row">
+            <div class="col-md-6 form-group d-flex justify-content-between">
+                <input type="submit" value="Siguiente" class="btn btn-primary rounded-0 py-2 px-4" />
+                <span class="Guardar"></span>
+                <input type="submit" value="Eliminar" class="btn btn-danger rounded-0 py-2 px-4" />
+                <span class="Guardar"></span>
+                <input type="submit" value="Guardar" class="btn btn-primary rounded-0 py-2 px-4" />
+            </div>
         </div>
-    
-      </div>
-    
-      
-      
-    
-      <div class="row">
-        <h5>Líneas Presupuestarias</h5>
-      </div>
-      <div class="row" formGroupName="budgetLines">
-        <div class="col-md-2 form-floating mb-3">
-          <input
-            type="text"
-            class="form-control"
-            id="BudgetLinesId"
-            placeholder="ID"
-            formControlName="id"
-          />
-          <label for="BudgetLinesId">ID</label>
-        </div>
-        <div class="col-md-10 form-floating mb-3">
-          <input
-            type="text"
-            class="form-control"
-            id="BudgetLinesOrigin"
-            placeholder="Origin"
-            formControlName="origin"
-          />
-          <label for="BudgetLinesOrigin">Origen</label>
-        </div>
-      </div>
-      <div class="row">
-        <h5>Componentes</h5>
-      </div>
-      <div class="row" formGroupName="components">
-        <div class="col-md-4 form-floating mb-3">
-          <input
-            type="text"
-            class="form-control"
-            id="BudgetComponentsName"
-            placeholder="Nombre"
-            formControlName="name"
-          />
-          <label for="BudgetComponentsName">Nombre</label>
-        </div>
-        <div class="col-md-4 form-floating mb-3">
-          <input
-            type="text"
-            class="form-control"
-            id="BudgetComponentsLevel"
-            placeholder="Nivel"
-            formControlName="level"
-          />
-          <label for="BudgetComponentsLevel">Nivel</label>
-        </div>
-        <div class="col-md-4 form-floating mb-3">
-          <input
-            type="text"
-            class="form-control"
-            id="BudgetComponentsCode"
-            placeholder="Código"
-            formControlName="code"
-          />
-          <label for="BudgetComponentsCode">Código</label>
-        </div>
-        <div class="col-md-10 form-floating mb-3">
-          <input
-            type="text"
-            class="form-control"
-            id="BudgetComponentsDescription"
-            placeholder="Descripción"
-            formControlName="description"
-          />
-          <label for="BudgetComponentsDescription"
-            >Descripción</label
-          >
-        </div>
-      </div>
-    </div>
-    <div class="row">
-      <div
-        class="col-md-6 form-group d-flex justify-content-between"
-      >
-        <input
-          type="submit"
-          value="Siguiente"
-          class="btn btn-primary rounded-0 py-2 px-4"
-        />
-        <span class="Guardar"></span>
-        <input
-          type="submit"
-          value="Eliminar"
-          class="btn btn-danger rounded-0 py-2 px-4"
-        />
-        <span class="Guardar"></span>
-        <input
-          type="submit"
-          value="Guardar"
-          class="btn btn-primary rounded-0 py-2 px-4"
-        />
-      </div>
-    </div>
     </form>
-               
+
 
 </div>

@@ -2,10 +2,8 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { ApiService } from 'src/app/services/api.service';
+import { Currency, FormatDocument, getDocumentType, Language } from 'src/utils';
 
-import { 
-  Currency 
-} from 'src/utils';
 
 @Component({
   selector: 'app-planning-budget',
@@ -14,16 +12,79 @@ import {
 })
 export class PlanningBudgetComponent implements OnInit{
   @Input() budgetArray: Array<any> = [];
+  @Input() budgetBreakdownArray: Array<any> = [];
   @Output() addBudget = new EventEmitter<any>();
+  @Output() addBudgetBreakdown = new EventEmitter<any>();
+  @Output() addBudgetLine = new EventEmitter<any>();
+  @Output() addBudgetComponent = new EventEmitter<any>();
 
   record_id: string = '';
   planningBudgetForm!: FormGroup;
+  planningBudgetBreakdownForm!: FormGroup;
+  planningBudgetLinesForm!: FormGroup;
+  planningBudgetComponentsForm!: FormGroup;
 
-  constructor(private fb: FormBuilder) { }
+  constructor(
+    private fb: FormBuilder,
+    private route: ActivatedRoute,
+    private api: ApiService
+  ) { }
 
   ngOnInit(): void {
     this.initForm();
+    this.loadData();
   }
+
+  loadForm(data: any): void {
+    data.forEach((budget: any) => {
+      this.addBudget.emit(this.fb.group({ ...budget }));
+    });
+  }
+
+  
+  loadData(): void {
+    this.route.paramMap.subscribe((params: any) => {
+      this.record_id = params.get('id');
+    });
+    
+    this.api.getMethod(`/planning/${this.record_id}`).subscribe((d: any) => {
+      const { planning, error, message } = d;
+      
+      if (error) {
+        console.log('message: ', message);
+      } else {
+        // load forms
+        if (planning !== null) this.loadForm(planning.budget);
+      }
+    });
+  } 
+  
+  addNewBudget(): void {
+    this.addBudget.emit(this.planningBudgetForm);
+    this.initForm();
+  }
+
+  getBudgetBreakdownArray() {
+    return this.planningBudgetBreakdownForm.controls['budgetBreakdown'] as FormArray;
+  }
+  addNewBudgetBreakdown(): void {
+    this.addBudgetBreakdown.emit(this.planningBudgetBreakdownForm);
+    this.initForm();
+  }
+  deleteBudgetBreakdown(index: number): void {
+    //this.budgetBreakdownArray.removeAt(index);
+  }
+
+  addNewBudgetLine(): void {
+    this.addBudgetLine.emit(this.planningBudgetLinesForm);
+    this.initForm();
+  }
+
+  addNewBudgetComponent(): void {
+    this.addBudgetComponent.emit(this.planningBudgetComponentsForm);
+    this.initForm();
+  } 
+
 
   initForm  (): void {
     this.planningBudgetForm = this.fb.group({
@@ -37,16 +98,41 @@ export class PlanningBudgetComponent implements OnInit{
         currency: ['', Validators.required],
       }),
       budgetBreakdown: this.fb.array([]),
+    }); 
+
+    this.planningBudgetBreakdownForm = this.fb.group({
+      id: ['', Validators.required],
+      description: ['', Validators.required],
+      uri: ['', Validators.required],
+      amount: this.fb.group({
+        amount: ['', Validators.required],
+        currency: ['', Validators.required],
+      }),
       period: this.fb.group({
         startDate: ['', Validators.required],
         endDate: ['', Validators.required],
         maxExtentDate: ['', Validators.required],
         durationInDays: ['', Validators.required],
       }),
+      budgetLines: this.fb.array([]),
+      components: this.fb.array([]),
       sourceParty: this.fb.group({
         id: ['', Validators.required],
         name: ['', Validators.required],
       }),
+    });
+
+    this.planningBudgetLinesForm = this.fb.group({
+      id: ['', Validators.required],
+      origin: ['', Validators.required],
+    });
+
+    this.planningBudgetComponentsForm = this.fb.group({
+      name: ['', Validators.required],
+      level: ['', Validators.required],
+      code: ['', Validators.required],
+      description: ['', Validators.required],
     }); 
   }
+
 }

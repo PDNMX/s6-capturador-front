@@ -12,6 +12,10 @@ import { ApiService } from 'src/app/services/api.service';
 export class PlanningComponent implements OnInit {
   record_id = null;
   planningForm!: FormGroup;
+  planningBudgetForm!: FormGroup;
+  planningBudgetBreakdownForm!: FormGroup;
+  planningBudgetLinesForm!: FormGroup;
+  planningBudgetComponentsForm!: FormGroup;
 
   // savingMessage: string = '';
   // isSaving: boolean = false;
@@ -113,6 +117,13 @@ export class PlanningComponent implements OnInit {
     });
   }
 
+  saveBudgetData(opt: any): void {
+    this.planningBudgetForm = this.fb.group({
+      ...opt,
+      ...this.planningBudgetForm.controls,
+    });
+  }   
+
 
 
 
@@ -130,11 +141,26 @@ export class PlanningComponent implements OnInit {
       milestones: this.fb.array([], [Validators.required]),
     });
 
+    this.planningBudgetForm = this.fb.group({
+      id: ['', Validators.required],
+      projectID: ['', Validators.required],
+      project: ['', Validators.required],
+      description: ['', Validators.required],
+      uri: ['', Validators.required],
+      value: this.fb.group({
+        amount: ['', Validators.required],
+        currency: ['', Validators.required],
+      }),
+      budgetBreakdown: this.fb.array([]),
+    }); 
+
+
+
  
   }
 
 /*
-   planning = this.fb.group({
+  planning = this.fb.group({
     rationale: ['', Validators.required],
     hasQuotes: ['', Validators.required],
     contractingUnits: this.fb.group({

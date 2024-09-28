@@ -14,6 +14,7 @@ import {
 })
 export class PlanningRequestForQuotesComponent implements OnInit{
   @Input() requestForQuotesArray: Array<any> = [];
+
   @Output() addRequestForQuotes = new EventEmitter<any>();  
 
   record_id: string = '';

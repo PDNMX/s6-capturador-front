@@ -1,132 +1,231 @@
-
 <div class="form h-100">
     <form>
-        <div class="row">
-            <h3>Información general</h3>
-            <hr />
-        </div>
-        <div class="row">
-            <div class="form-floating col-md-8 mb-5">
-                <textarea class="form-control" id="PlanningRationale" type="text"
-                    placeholder="Escriba la justificación de la contratación" data-sb-validations=""
-                    formControlName="rationale"></textarea>
-                <label for="PlanningRationale">Justificación *</label>
+        <fieldset class="border p-3 mb-3"  [formGroup]="generalForm">
+            <div class="row">
+                <h3>Información general</h3>
+                <hr />
             </div>
-            <div class="form-floating col-md-4 mb5">
-                <p class="form-label d-block">¿Hubo cotizaciones?</p>
-                <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="radio" id="hasQuotesYes" value="yes"
-                        formControlName="hasQuotes" />
-                    <label class="form-check-label" for="hasQuotesYes">Sí</label>
+            <div class="row">
+                <div class="form-floating col-md-8 mb-5">
+                    <textarea class="form-control" id="PlanningRationale" type="text"
+                        placeholder="Escriba la justificación de la contratación" data-sb-validations=""
+                        formControlName="rationale"></textarea>
+                    <label for="PlanningRationale">Justificación *</label>
                 </div>
-                <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="radio" id="hasQuotesNo" value="no"
-                        formControlName="hasQuotes" />
-                    <label class="form-check-label" for="hasQuotesNo">No</label>
+                <div class="form-floating col-md-4 mb5">
+                    <p class="form-label d-block">¿Hubo cotizaciones?</p>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" id="hasQuotesYes" value="yes"
+                            formControlName="hasQuotes" />
+                        <label class="form-check-label" for="hasQuotesYes">Sí</label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" id="hasQuotesNo" value="no"
+                            formControlName="hasQuotes" />
+                        <label class="form-check-label" for="hasQuotesNo">No</label>
+                    </div>
+                    <div class="invalid-feedback">Se requiere una opción.</div>
                 </div>
-                <div class="invalid-feedback">Se requiere una opción.</div>
             </div>
-        </div>
+        </fieldset>
+        <hr />
+
 
         <!-- Array Para contractingUnits -->
-        <div class="row" formGroupName="contractingUnits">
-            <div class="form-floating col-md-1 mb-0">
-                <button class="btn btn-primary" type="button">+</button>
-            </div>
-            <div class="form-floating col-md-11 mb-0">
-                <p for="contractingUnits">
-                    Unidad Administrativa responsable de la ejecución del
-                    contrato *
-                </p>
-                <div class="invalid-feedback" data-sb-feedback="contractingUnits:required">
-                    Unidad Administrativa responsable de la ejecución * es
-                    requerido.
+        <fieldset class="border p-3 mb-3" [formGroup]="contractingUnitsForm">
+            <div class="row">
+                <div class="form-floating col-md-10 mb-0">
+                    <p for="contractingUnits">
+                        Unidad Administrativa responsable de la ejecución del
+                        contrato *
+                    </p>
+                </div>
+                <div class="form-floating col-md-2 mb-0">
+                    <button type="button" class="btn btn-danger btn-add" (click)="addContractingUnits()">Agregar
+                    </button>
+                </div>
+                <div class="col-md-1"></div>
+                <div class="form-floating col-md-6 mt-1">
+                    <input class="form-control" id="contractingUnitsName" type="text"
+                        placeholder="Nombre de la Unidad Administrativa responsable de la ejecución *"
+                        formControlName="name" />
+                    <label for="contractingUnitsName">Nombre del actor *</label>
+                </div>
+                <div class="form-floating col-md-5 mt-1">
+                    <input class="form-control" id="contractingUnitsId" type="text"
+                        placeholder="ID de la Unidad Administrativa responsable de la ejecución *"
+                        formControlName="id" />
+                    <label for="contractingUnitsId">ID *</label>
                 </div>
             </div>
-
-            <div class="col-md-1"></div>
-            <div class="form-floating col-md-6 mt-1">
-                <input class="form-control" id="contractingUnitsName" type="text"
-                    placeholder="Nombre de la Unidad Administrativa responsable de la ejecución *"
-                    formControlName="name" />
-                <label for="contractingUnitsName">Nombre del actor *</label>
+            <div class="col-12">
+                <div class="table-responsive-sm">
+                    <table class="table table-hover table-striped mb-10">
+                        <thead>
+                            <tr>
+                                <th scope="col">ID</th>
+                                <th scope="col">Nombre</th>
+                                <th scope="col">Opciones</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let doc of contractingUnitsArray; index as i">
+                                <th scope="row">{{ i + 1 }}</th>
+                                <td>{{ doc.name }}</td>
+                                <td>
+                                    <button 
+                                        type="button" 
+                                        class="btn btn-danger btn-delete" 
+                                        (click)="deleteContractingUnit()">Eliminar</button>
+                                </td>
+                            </tr>
+                            <tr *ngIf="contractingUnitsArray.length === 0">
+                                <th scope="row" colspan="4" class="text-center">
+                                    Sin registros.
+                                </th>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
             </div>
-            <div class="form-floating col-md-5 mt-1">
-                <input class="form-control" id="contractingUnitsId" type="text"
-                    placeholder="ID de la Unidad Administrativa responsable de la ejecución *" formControlName="id" />
-                <label for="contractingUnitsId">ID *</label>
-            </div>
-        </div>
+        </fieldset>
         <hr />
         <!-- Array Para requestingUnits -->
-        <div class="row" formGroupName="requestingUnits">
-            <div class="form-floating col-md-1 mb-0">
-                <button class="btn btn-primary" type="button">+</button>
+        <fieldset class="border p-3 mb-3" [formGroup]="requestingUnitsForm">
+            <div class="row">
+                <div class="form-floating col-md-10 mb-0">
+                    <p for="requestingUnits">
+                        Unidad Administrativa requiriente *
+                    </p>
+                </div>
+                <div class="form-floating col-md-2 mb-0">
+                    <button type="button" class="btn btn-danger btn-add" (click)="addRequestingUnits()">Agregar
+                    </button>
+                </div>
+
+                <div class="col-md-1"></div>
+                <div class="form-floating col-md-6 mt-1">
+                    <input class="form-control" id="requestingUnitsName" type="text"
+                        placeholder="Nombre de la Unidad Administrativa requiriente *" formControlName="name" />
+                    <label for="requestingUnitsName">Nombre del actor *</label>
+                </div>
+                <div class="form-floating col-md-5 mt-1">
+                    <input class="form-control" id="requestingUnitsId" type="text"
+                        placeholder="ID de la Unidad Administrativa requiriente *" formControlName="id" />
+                    <label for="requestingUnitsId">ID *</label>
+                </div>
+                
             </div>
-            <div class="form-floating col-md-11 mb-0">
-                <p for="requestingUnits">
-                    Unidad Administrativa requiriente *
-                </p>
-                <div class="invalid-feedback" data-sb-feedback="requestingUnits:required">
-                    Unidad Administrativa requiriente * es requerido.
+            <div class="col-12">
+                <div class="table-responsive-sm">
+                    <table class="table table-hover table-striped mb-10">
+                        <thead>
+                            <tr>
+                                <th scope="col">ID</th>
+                                <th scope="col">Nombre</th>
+                                <th scope="col">Opciones</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let doc of contractingUnitsArray; index as i">
+                                <th scope="row">{{ i + 1 }}</th>
+                                <td>{{ doc.name }}</td>
+                                <td>
+                                    <button 
+                                        type="button" 
+                                        class="btn btn-danger btn-delete" 
+                                        (click)="deleteContractingUnit()">Eliminar</button>
+                                </td>
+                            </tr>
+                            <tr *ngIf="contractingUnitsArray.length === 0">
+                                <th scope="row" colspan="4" class="text-center">
+                                    Sin registros.
+                                </th>
+                            </tr>
+                        </tbody>
+                    </table>
                 </div>
             </div>
-
-            <div class="col-md-1"></div>
-            <div class="form-floating col-md-6 mt-1">
-                <input class="form-control" id="requestingUnitsName" type="text"
-                    placeholder="Nombre de la Unidad Administrativa requiriente *" formControlName="name" />
-                <label for="requestingUnitsName">Nombre del actor *</label>
-            </div>
-            <div class="form-floating col-md-5 mt-1">
-                <input class="form-control" id="requestingUnitsId" type="text"
-                    placeholder="ID de la Unidad Administrativa requiriente *" formControlName="id" />
-                <label for="requestingUnitsId">ID *</label>
-            </div>
-        </div>
+        </fieldset>
         <hr />
+
+
         <!-- Array Para responsibleUnits -->
-        <div class="row" formGroupName="responsibleUnits">
-            <div class="form-floating col-md-1 mb-0">
-                <button class="btn btn-primary" type="button">+</button>
-            </div>
-            <div class="form-floating col-md-11 mb-0">
-                <p for="responsibleUnits">
-                    Unidad Administrativa contratante *
-                </p>
-                <div class="invalid-feedback" data-sb-feedback="responsibleUnits:required">
-                    Unidad Administrativa contratante * es requerido.
+
+        <fieldset class="border p-3 mb-3" [formGroup]="responsibleUnitsForm">
+            <div class="row">
+                <div class="form-floating col-md-10 mb-0">
+                    <p for="responsibleUnits">
+                        Unidad Administrativa contratante *
+                    </p>
+                </div>
+                <div class="form-floating col-md-2 mb-0">
+                    <button type="button" class="btn btn-danger btn-add" (click)="addResponsibleUnits()">Agregar
+                    </button>
+                </div>
+                <div class="col-md-1"></div>
+                <div class="form-floating col-md-6 mt-1">
+                    <input class="form-control" id="responsibleUnitsName" type="text"
+                        placeholder="Nombre de la Unidad Administrativa contratante *" formControlName="name" />
+                    <label for="responsibleUnitsName">Nombre del actor *</label>
+                </div>
+                <div class="form-floating col-md-5 mt-1">
+                    <input class="form-control" id="responsibleUnitsId" type="text"
+                        placeholder="ID de la Unidad Administrativa contratante *" formControlName="id" />
+                    <label for="responsibleUnitsId">ID *</label>
                 </div>
             </div>
-
-            <div class="col-md-1"></div>
-            <div class="form-floating col-md-6 mt-1">
-                <input class="form-control" id="responsibleUnitsName" type="text"
-                    placeholder="Nombre de la Unidad Administrativa contratante *" formControlName="name" />
-                <label for="responsibleUnitsName">Nombre del actor *</label>
+            <div class="col-12">
+                <div class="table-responsive-sm">
+                    <table class="table table-hover table-striped mb-10">
+                        <thead>
+                            <tr>
+                                <th scope="col">ID</th>
+                                <th scope="col">Nombre</th>
+                                <th scope="col">Opciones</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let doc of contractingUnitsArray; index as i">
+                                <th scope="row">{{ i + 1 }}</th>
+                                <td>{{ doc.name }}</td>
+                                <td>
+                                    <button 
+                                        type="button" 
+                                        class="btn btn-danger btn-delete" 
+                                        (click)="deleteContractingUnit()">Eliminar</button>
+                                </td>
+                            </tr>
+                            <tr *ngIf="contractingUnitsArray.length === 0">
+                                <th scope="row" colspan="4" class="text-center">
+                                    Sin registros.
+                                </th>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
             </div>
-            <div class="form-floating col-md-5 mt-1">
-                <input class="form-control" id="responsibleUnitsId" type="text"
-                    placeholder="ID de la Unidad Administrativa contratante *" formControlName="id" />
-                <label for="responsibleUnitsId">ID *</label>
-            </div>
-        </div>
+        </fieldset>
         <hr />
 
         <div class="row">
-            <div class="col-md-12 form-group d-flex justify-content-between">
+            <!-- <div class="col-md-12 form-group d-flex justify-content-between">
                 <input type="submit" value="Guardar" class="btn btn-primary rounded-0 py-2 px-4" />
                 <span class="Guardar"></span>
-            </div>
+            </div> -->
         </div>
-        <div id="form-message-warning mt-4"></div>
-        <div id="form-message-success">
-            Los campos fueron guardados, Gracias
+        <div class="row mb-10">
+            <div class="col">
+                <button 
+                    type="button" 
+                    class="btn btn-danger btn-add" 
+                    (click)="saveForm()"
+                    >
+                    Guardar sección
+                </button>
+            </div>
+
         </div>
     </form>
-    
+
 </div>
-
-
-
-
