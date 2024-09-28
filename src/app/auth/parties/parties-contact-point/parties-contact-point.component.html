@@ -1,0 +1,189 @@
+<div class="container">
+  <div class="row">
+    <div class="col">
+      <h3>Punto de contacto</h3>
+      <hr />
+    </div>
+  </div>
+  <form [formGroup]="contactPointForm">
+    <div class="row">
+      <div class="form-floating col mb-5">
+        <input
+          class="form-control"
+          id="type"
+          type="text"
+          data-sb-validations="required"
+          placeholder="Tipo de punto de contacto*"
+          formControlName="type"
+        />
+        <label for="type">Tipo de punto de contacto*</label>
+        <div class="invalid-feedback" data-sb-feedback="type:required">
+          Tipo de punto de contacto * es requerido.
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="form-floating col mb-5">
+        <input
+          class="form-control"
+          id="name"
+          type="text"
+          data-sb-validations="required"
+          placeholder="Nombre completo*"
+          formControlName="name"
+        />
+        <label for="name">Nombre completo*</label>
+        <div class="invalid-feedback" data-sb-feedback="name:required">
+          Nombre completo * es requerido.
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="form-floating col mb-5">
+        <input
+          class="form-control"
+          id="givenName"
+          type="text"
+          data-sb-validations="required"
+          placeholder="Nombre*"
+          formControlName="givenName"
+        />
+        <label for="givenName">Nombre*</label>
+        <div class="invalid-feedback" data-sb-feedback="givenName:required">
+          Nombre * es requerido.
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="form-floating col mb-5">
+        <input
+          class="form-control"
+          id="patronymicName"
+          type="text"
+          data-sb-validations="required"
+          placeholder="Primer apellido*"
+          formControlName="patronymicName"
+        />
+        <label for="patronymicName">Primer apellido*</label>
+        <div
+          class="invalid-feedback"
+          data-sb-feedback="patronymicName:required"
+        >
+          Primer apellido * es requerido.
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="form-floating col mb-5">
+        <input
+          class="form-control"
+          id="matronymicName"
+          type="text"
+          data-sb-validations="required"
+          placeholder="Segundo apellido*"
+          formControlName="matronymicName"
+        />
+        <label for="matronymicName">Segundo apellido*</label>
+        <div
+          class="invalid-feedback"
+          data-sb-feedback="matronymicName:required"
+        >
+          Segundo apellido * es requerido.
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="form-floating col mb-5">
+        <input
+          class="form-control"
+          id="email"
+          type="text"
+          data-sb-validations="required"
+          placeholder="Correo electrónico*"
+          formControlName="email"
+        />
+        <label for="email">Correo electrónico*</label>
+        <div class="invalid-feedback" data-sb-feedback="email:required">
+          Correo electrónico * es requerido.
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="form-floating col mb-5">
+        <input
+          class="form-control"
+          id="telephone"
+          type="text"
+          data-sb-validations="required"
+          placeholder="Teléfono*"
+          formControlName="telephone"
+        />
+        <label for="telephone">Teléfono*</label>
+        <div class="invalid-feedback" data-sb-feedback="telephone:required">
+          Teléfono * es requerido.
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="form-floating col mb-5">
+        <input
+          class="form-control"
+          id="faxNumber"
+          type="text"
+          data-sb-validations="required"
+          placeholder="Número de fax*"
+          formControlName="faxNumber"
+        />
+        <label for="faxNumber">Número de fax*</label>
+        <div class="invalid-feedback" data-sb-feedback="faxNumber:required">
+          Número de fax * es requerido.
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="form-floating col mb-5">
+        <input
+          class="form-control"
+          id="url"
+          type="text"
+          data-sb-validations="required"
+          placeholder="URL*"
+          formControlName="url"
+        />
+        <label for="url">URL*</label>
+        <div class="invalid-feedback" data-sb-feedback="url:required">
+          URL * es requerido.
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="form-floating col mb-5">
+        <input
+          class="form-control"
+          id="availableLanguage"
+          type="text"
+          data-sb-validations="required"
+          placeholder="Idioma(s) disponible(s)*"
+          formControlName="availableLanguage"
+        />
+        <label for="availableLanguage">Idioma(s) disponible(s)*</label>
+        <div
+          class="invalid-feedback"
+          data-sb-feedback="availableLanguage:required"
+        >
+          Idioma(s) disponible(s) * es requerido.
+        </div>
+      </div>
+    </div>
+    <!-- fin -->
+  </form>
+</div>

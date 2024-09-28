@@ -1,0 +1,200 @@
+<div class="container">
+  <div class="row">
+    <div class="col">
+      <h3>Documentos</h3>
+      <hr />
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col">
+      <div class="table-responsive-sm">
+        <table class="table table-hover table-striped mb-10">
+          <thead>
+            <tr>
+              <th scope="col">ID</th>
+              <th scope="col">Tipo de documento</th>
+              <th scope="col">Titulo</th>
+              <th scope="col">Descripción</th>
+              <th scope="col">URL</th>
+              <th scope="col">Fecha de publicación</th>
+              <th scope="col">Fecha de Modificación</th>
+              <th scope="col">Formato</th>
+              <th scope="col">Idioma</th>
+
+              <th scope="col">Opciones</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let doc of documentsArray; index as i">
+              <th scope="row">{{ doc.id || i + 1 }}</th>
+              <td>{{ getDocumentTypeTitle(doc.documentType) }}</td>
+              <td>{{ doc.title }}</td>
+              <td>{{ doc.description }}</td>
+              <td>{{ doc.url }}</td>
+              <td>{{ doc.datePublished }}</td>
+              <td>{{ doc.dateModified }}</td>
+              <td>{{ getFormatDocument(doc.format) }}</td>
+              <td>{{ getLanguaje(doc.language) }}</td>
+              <td>
+                <button
+                  type="button"
+                  class="btn btn-danger btn-delete"
+                  (click)="deleteDocument.emit(i)"
+                >
+                  Eliminar
+                </button>
+              </td>
+            </tr>
+            <tr *ngIf="documentsArray.length === 0">
+              <th scope="row" colspan="10" class="text-center">
+                Sin registros.
+              </th>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+  <hr />
+
+  <form [formGroup]="documentsForm">
+    <div class="row">
+      <div class="col-12">
+        <label for="">Tipo de documento</label>
+      </div>
+      <div class="form-floating col mb-5">
+        <select class="form-select" formControlName="documentType">
+          <option *ngFor="let d of documents" [ngValue]="d.code">
+            {{ d.title }}
+          </option>
+        </select>
+        <p>
+          {{ getDocumentTypeDesc(documentsForm.value.documentType) }}
+        </p>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="form-floating col mb-5">
+        <input
+          class="form-control"
+          id="title"
+          type="text"
+          data-sb-validations="required"
+          placeholder="URL*"
+          formControlName="title"
+        />
+        <label for="title">Titulo *</label>
+        <div class="invalid-feedback" data-sb-feedback="title:required">
+          Titulo * es requerido.
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="form-floating col-12 mb-5">
+        <textarea
+          class="form-control"
+          id="description"
+          type="text"
+          placeholder="Descripción*"
+          style="height: 100px"
+          formControlName="description"
+        ></textarea>
+        <label for="description">Descripción *</label>
+        <div class="invalid-feedback" data-sb-feedback="description:required">
+          Descripción * es requerido.
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="form-floating col mb-5">
+        <input
+          class="form-control"
+          id="URL"
+          type="text"
+          data-sb-validations="required"
+          placeholder="URL*"
+          formControlName="url"
+        />
+        <label for="URL">URL *</label>
+        <div class="invalid-feedback" data-sb-feedback="title:required">
+          URL * es requerido.
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="form-floating col-6 mb-5">
+        <input
+          class="form-control"
+          id="datePublished"
+          type="date"
+          data-sb-validations="required"
+          formControlName="datePublished"
+        />
+        <label for="datePublished">Fecha de publicación *</label>
+        <div class="invalid-feedback" data-sb-feedback="title:required">
+          Fecha de publicación * es requerido.
+        </div>
+      </div>
+      <div class="form-floating col-6 mb-5">
+        <input
+          class="form-control"
+          id="dateModified"
+          type="date"
+          data-sb-validations="required"
+          formControlName="dateModified"
+        />
+        <label for="dateModified">Fecha de modificación*</label>
+        <div class="invalid-feedback" data-sb-feedback="title:required">
+          Fecha de modificación * es requerido.
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-6">
+        <div class="row">
+          <div class="col-12">
+            <label for="format">Formato</label>
+          </div>
+          <div class="form-floating col mb-5">
+            <select class="form-select" formControlName="format">
+              <option *ngFor="let d of formatDocument" [ngValue]="d.template">
+                {{ d.name }}
+              </option>
+            </select>
+          </div>
+        </div>
+      </div>
+      <div class="col-6">
+        <div class="row">
+          <div class="col-12">
+            <label for="language">Idioma</label>
+          </div>
+          <div class="form-floating col mb-5">
+            <select class="form-select" formControlName="language">
+              <option *ngFor="let d of languaje" [ngValue]="d.code">
+                {{ d.name }}
+              </option>
+            </select>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col">
+        <button
+          type="button"
+          class="btn btn-danger btn-add"
+          (click)="addNewDocument()"
+        >
+          Agregar documento
+        </button>
+      </div>
+    </div>
+  </form>
+</div>

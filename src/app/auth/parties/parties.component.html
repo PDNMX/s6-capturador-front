@@ -5,1135 +5,186 @@
         <div class="menu-info h-100">
           <div
             class="nav flex-column nav-pills"
-            id="v-pills-tab"
+            id="parties-tab"
             role="tablist"
             aria-orientation="vertical"
           >
             <h3
-              class="active text-left"
-              id="v-pills-AwardsDefinition-tab"
+              class="active text-left mb-2"
+              id="parties-presentacion-tab"
               data-bs-toggle="pill"
-              data-bs-target="#v-pills-AwardsDefinition"
+              data-bs-target="#parties-presentacion"
               type="button"
               role="tab"
-              aria-controls="v-pills-AwardsDefinition"
+              aria-controls="parties-presentacion"
               aria-selected="true"
             >
-              3. Partes involucradas
+              &nbsp;&nbsp;Actores
             </h3>
+
             <button
               class="nav-link text-left"
-              id="v-pills-AwardGeneral-tab"
+              id="parties-general-tab"
               data-bs-toggle="pill"
-              data-bs-target="#"
+              data-bs-target="#parties-general"
               type="button"
               role="tab"
-              aria-controls="v-pills-AwardGeneral"
+              aria-controls="parties-general"
               aria-selected="false"
             >
-              <i class="fa fa-folder"></i> Actor
+              Información general
+            </button>
+
+            <button
+              class="nav-link text-left"
+              id="parties-address-tab"
+              data-bs-toggle="pill"
+              data-bs-target="#parties-address"
+              type="button"
+              role="tab"
+              aria-controls="parties-address"
+              aria-selected="false"
+            >
+              Domicilio
+            </button>
+
+            <button
+              class="nav-link text-left"
+              id="parties-contactPoint-tab"
+              data-bs-toggle="pill"
+              data-bs-target="#parties-contactPoint"
+              type="button"
+              role="tab"
+              aria-controls="parties-contactPoint"
+              aria-selected="false"
+            >
+              Punto de contacto
+            </button>
+
+            <button
+              class="nav-link text-left"
+              id="parties-additionalContactPoints-tab"
+              data-bs-toggle="pill"
+              data-bs-target="#parties-additionalContactPoints"
+              type="button"
+              role="tab"
+              aria-controls="parties-additionalContactPoints"
+              aria-selected="false"
+            >
+              Puntos de contacto adicionales
+            </button>
+
+            <button
+              class="nav-link text-left"
+              id="parties-beneficialOwners-tab"
+              data-bs-toggle="pill"
+              data-bs-target="#parties-beneficialOwners"
+              type="button"
+              role="tab"
+              aria-controls="parties-beneficialOwners"
+              aria-selected="false"
+            >
+              Beneficiarios
             </button>
           </div>
         </div>
       </div>
+      <!-- secciones  -->
       <div class="col-md-9 g-0">
-        <div class="form h-100">
-          <form
-            class="mb-5"
-            method="post"
-            id="parties-form"
-            name="parties-form"
-            [formGroup]="Parties"
-            (ngSubmit)="onSubmit()"
+        <div class="tab-content" id="licitacion-tabContent">
+          <div
+            class="tab-pane fade show active"
+            id="licitacion-presentacion"
+            role="tabpanel"
+            aria-labelledby="licitacion-presentacion-tab"
+            tabindex="0"
           >
-            <fieldset class="border p-3 mb-3">
-              <h3>Información General</h3>
-              <hr />
+            <div class="form h-100">
+              <!-- <div class="row imageP"></div> -->
               <div class="row">
-                <div class="form-floating form-group col-md-4 mb-5">
-                  <input
-                    type="text"
-                    class="form-control"
-                    id="id"
-                    placeholder="Indentificador"
-                    formControlName="id"
-                  />
-                  <label for="id">Indentificador</label>
-                </div>
-                <div class="form-floating col-md-4 mb-5">
-                  <input
-                    type="text"
-                    class="form-control"
-                    id="name"
-                    placeholder="Nombre común de la parte involucrada"
-                    formControlName="name"
-                  />
-                  <label for="name">Nombre común</label>
-                </div>
-                <div class="form-floating col-md-4 mb-5">
-                  <input
-                    type="text"
-                    class="form-control"
-                    id="position"
-                    placeholder="Nombre común de la parte involucrada"
-                    formControlName="position"
-                  />
-                  <label for="position">Cargo</label>
-                </div>
-              </div>
-            </fieldset>
-
-            <fieldset class="border p-3 mb-3" formGroupName="identifier">
-              <div class="row">
-                <div><h4>Identificador principal</h4></div>
-                <div class="form-floating col-md-4 mb-5">
-                  <input
-                    class="form-control"
-                    id="id"
-                    type="text"
-                    placeholder="Personalidad Jurídica"
-                    formControlName="id"
-                  />
-                  <label for="id">Identificador</label>
-                </div>
-                <div class="form-floating col-md-4 mb-5">
-                  <input
-                    class="form-control"
-                    id="scheme"
-                    type="text"
-                    placeholder="Esquema del que se extraer el identificador"
-                    formControlName="scheme"
-                  />
-                  <label for="scheme">Esquema</label>
-                </div>
-                <div class="form-floating col-md-4 mb-5">
-                  <input
-                    class="form-control"
-                    id="legalName"
-                    type="text"
-                    placeholder="Nombre o razón Social"
-                    formControlName="legalName"
-                  />
-                  <label for="legalName">Denominación o razón social</label>
-                </div>
-              </div>
-
-              <div class="row">
-                <div class="form-floating col-md-4 mb-5">
-                  <input
-                    class="form-control"
-                    id="givenName"
-                    type="text"
-                    placeholder="Descripción"
-                    formControlName="givenName"
-                  />
-                  <label for="givenName">Nombre</label>
-                </div>
-                <div class="form-floating col-md-4 mb-5">
-                  <input
-                    class="form-control"
-                    id="patronymicName"
-                    type="text"
-                    placeholder="Primer apellido"
-                    formControlName="patronymicName"
-                  />
-                  <label for="patronymicName">Primer apellido</label>
-                </div>
-                <div class="form-floating col-md-4 mb-5">
-                  <input
-                    class="form-control"
-                    id="matronymicName"
-                    type="text"
-                    placeholder="Segundo apellido"
-                    formControlName="matronymicName"
-                  />
-                  <label for="matronymicName">Segundo apellido</label>
-                </div>
-              </div>
-              <div class="row">
-                <div class="form-floating col-md-6 mb-5">
-                  <input
-                    class="form-control"
-                    id="legalPersonality"
-                    type="text"
-                    placeholder="Personalidad Jurídica"
-                    formControlName="legalPersonality"
-                  />
-                  <label for="legalPersonality">Personalidad jurídica</label>
-                </div>
-                <div class="form-floating col-md-6 mb-5">
-                  <input
-                    class="form-control"
-                    id="uri"
-                    type="text"
-                    placeholder="uri para identificar el actor"
-                    formControlName="uri"
-                  />
-                  <label for="uri">URI</label>
-                </div>
-              </div>
-            </fieldset>
-            <fieldset
-              class="border p-3 mb-3"
-              formGroupName="additionalIdentifiers"
-            >
-              <div class="row">
-                <div><h4>Identificadores adicionales</h4></div>
-                <div class="form-floating col-md-4 mb-5">
-                  <input
-                    class="form-control"
-                    id="id"
-                    type="text"
-                    placeholder="Personalidad Jurídica"
-                    formControlName="id"
-                  />
-                  <label for="id">Identificador</label>
-                </div>
-                <div class="form-floating col-md-4 mb-5">
-                  <input
-                    class="form-control"
-                    id="scheme"
-                    type="text"
-                    placeholder="Esquema del que se extraer el identificador"
-                    formControlName="scheme"
-                  />
-                  <label for="scheme">Esquema</label>
-                </div>
-                <div class="form-floating col-md-4 mb-5">
-                  <input
-                    class="form-control"
-                    id="legalName"
-                    type="text"
-                    placeholder="Nombre o razón Social"
-                    formControlName="legalName"
-                  />
-                  <label for="legalName">Denominación o razón social</label>
-                </div>
-              </div>
-              <div class="row">
-                <div class="form-floating mb-5">
-                  <input
-                    class="form-control"
-                    id="uri"
-                    type="text"
-                    placeholder="uri para identificar el actor"
-                    formControlName="uri"
-                  />
-                  <label for="uri">URI</label>
-                </div>
-              </div>
-            </fieldset>
-            <fieldset class="border p-3 mb-3" formGroupName="address">
-              <div class="row">
-                <h4>Domicilio</h4>
-              </div>
-              <div class="row">
-                <div class="form-floating col-md-6 mb-5">
-                  <input
-                    type="text"
-                    class="form-control"
-                    id="streetAddress"
-                    placeholder="Calle y número"
-                    formControlName="streetAddress"
-                  />
-                  <label for="streetAddress">Calle y número</label>
-                </div>
-                <div class="form-floating col-md-6 mb-5">
-                  <input
-                    type="text"
-                    class="form-control"
-                    id="locality"
-                    placeholder="Localidad"
-                    formControlName="locality"
-                  />
-                  <label for="locality">Localidad</label>
-                </div>
-              </div>
-              <div class="row">
-                <div class="form-floating col-md-4 mb-5">
-                  <input
-                    type="text"
-                    class="form-control"
-                    id="region"
-                    placeholder="Región"
-                    formControlName="region"
-                  />
-                  <label for="region">Región</label>
-                </div>
-                <div class="form-floating col-md-4 mb-5">
-                  <input
-                    type="text"
-                    class="form-control"
-                    id="postalCode"
-                    placeholder="Código Postal"
-                    formControlName="postalCode"
-                  />
-                  <label for="postalCode">Código Postal</label>
-                </div>
-                <div class="form-floating col-md-4 mb-5">
-                  <input
-                    type="text"
-                    class="form-control"
-                    id="countryName"
-                    placeholder="País"
-                    formControlName="countryName"
-                  />
-                  <label for="countryName">País</label>
-                </div>
-              </div>
-            </fieldset>
-            <fieldset class="border p-3 mb-3" formGroupName="contactPoint">
-              <div class="row">
-                <h4>Punto de contacto</h4>
-              </div>
-              <div class="row">
-                <div class="form-floating col-md-4 mb-5">
-                  <input
-                    type="text"
-                    class="form-control"
-                    id="name"
-                    placeholder="Nombre completo de la persona de contacto o departamento"
-                    formControlName="name"
-                  />
-                  <label for="name">Nombre completo</label>
-                </div>
-                <div class="form-floating col-md-4 mb-5">
-                  <input
-                    type="text"
-                    class="form-control"
-                    id="givenName"
-                    placeholder="Nombre de la persona física"
-                    formControlName="givenName"
-                  />
-                  <label for="givenName">Nombre</label>
-                </div>
-                <div class="form-floating col-md-4 mb-5">
-                  <input
-                    type="text"
-                    class="form-control"
-                    id="patronymicName"
-                    placeholder="Primer apellido"
-                    formControlName="patronymicName"
-                  />
-                  <label for="patronymicName">Primer apellido</label>
-                </div>
-              </div>
-              <div class="row">
-                <div class="form-floating col-md-4 mb-5">
-                  <input
-                    type="text"
-                    class="form-control"
-                    id="matronymicName"
-                    placeholder="Segundo apellido"
-                    formControlName="matronymicName"
-                  />
-                  <label for="matronymicName">Segundo apellido</label>
-                </div>
-                <div class="form-floating col-md-4 mb-5">
-                  <input
-                    type="text"
-                    class="form-control"
-                    id="email"
-                    placeholder="Correo electrónico"
-                    formControlName="email"
-                  />
-                  <label for="email">Correo electrónico</label>
-                </div>
-                <div class="form-floating col-md-4 mb-5">
-                  <input
-                    type="text"
-                    class="form-control"
-                    id="telephone"
-                    placeholder="Teléfono"
-                    formControlName="telephone"
-                  />
-                  <label for="telephone">Teléfono</label>
-                </div>
-              </div>
-              <div class="row">
-                <div class="form-floating col-md-4 mb-5">
-                  <input
-                    type="text"
-                    class="form-control"
-                    id="faxNumber"
-                    placeholder="Número de fax"
-                    formControlName="faxNumber"
-                  />
-                  <label for="faxNumber">Fax</label>
-                </div>
-                <div class="form-floating col-md-4 mb-5">
-                  <input
-                    type="text"
-                    class="form-control"
-                    id="url"
-                    placeholder="Dirección web del punto de contacto"
-                    formControlName="url"
-                  />
-                  <label for="url">Dirección web</label>
-                </div>
-                <div class="form-floating col-md-4 mb-5">
-                  <input
-                    type="text"
-                    class="form-control"
-                    id="type"
-                    placeholder="Tipo de contacto"
-                    formControlName="type"
-                  />
-                  <label for="type">Tipo de contacto</label>
-                </div>
-              </div>
-              <div class="row">
-                <div class="form-floating mb-5">
-                  <select
-                    class="form-select"
-                    id="language"
-                    aria-label="scheme"
-                    formControlName="availableLanguage"
-                  >
-                    <option value="default">Elige una opción</option>
-                    <option value="ab">Abkhazian</option>
-                    <option value="aa">Afar</option>
-                    <option value="af">Afrikaans</option>
-                    <option value="ak">Akan</option>
-                    <option value="sq">Albanian</option>
-                    <option value="am">Amharic</option>
-                    <option value="ar">Arabic</option>
-                    <option value="an">Aragonese</option>
-                    <option value="hy">Armenian</option>
-                    <option value="as">Assamese</option>
-                    <option value="av">Avaric</option>
-                    <option value="ae">Avestan</option>
-                    <option value="ay">Aymara</option>
-                    <option value="az">Azerbaijani</option>
-                    <option value="bm">Bambara</option>
-                    <option value="ba">Bashkir</option>
-                    <option value="eu">Basque</option>
-                    <option value="be">Belarusian</option>
-                    <option value="bn">Bengali</option>
-                    <option value="bh">Bihari</option>
-                    <option value="bi">Bislama</option>
-                    <option value="bs">Bosnian</option>
-                    <option value="br">Breton</option>
-                    <option value="bg">Bulgarian</option>
-                    <option value="my">Burmese</option>
-                    <option value="ca">Catalan</option>
-                    <option value="ch">Chamorro</option>
-                    <option value="ce">Chechen</option>
-                    <option value="ny">Chichewa</option>
-                    <option value="zh">Chinese</option>
-                    <option value="cu">Church Slavic</option>
-                    <option value="cv">Chuvash</option>
-                    <option value="kw">Cornish</option>
-                    <option value="co">Corsican</option>
-                    <option value="cr">Cree</option>
-                    <option value="hr">Croatian</option>
-                    <option value="cs">Czech</option>
-                    <option value="da">Danish</option>
-                    <option value="dv">Divehi</option>
-                    <option value="nl">Dutch</option>
-                    <option value="dz">Dzongkha</option>
-                    <option value="en">English</option>
-                    <option value="eo">Esperanto</option>
-                    <option value="et">Estonian</option>
-                    <option value="ee">Ewe</option>
-                    <option value="fo">Faroese</option>
-                    <option value="fj">Fijian</option>
-                    <option value="fi">Finnish</option>
-                    <option value="fr">French</option>
-                    <option value="ff">Fulah</option>
-                    <option value="gl">Galician</option>
-                    <option value="ka">Georgian</option>
-                    <option value="de">German</option>
-                    <option value="el">Greek</option>
-                    <option value="gn">Guarani</option>
-                    <option value="gu">Gujarati</option>
-                    <option value="ht">Haitian</option>
-                    <option value="ha">Hausa</option>
-                    <option value="he">Hebrew</option>
-                    <option value="hz">Herero</option>
-                    <option value="hi">Hindi</option>
-                    <option value="ho">Hiri Motu</option>
-                    <option value="hu">Hungarian</option>
-                    <option value="ia">Interlingua</option>
-                    <option value="id">Indonesian</option>
-                    <option value="ie">Interlingue</option>
-                    <option value="ga">Irish</option>
-                    <option value="ig">Igbo</option>
-                    <option value="ik">Inupiaq</option>
-                    <option value="io">Ido</option>
-                    <option value="is">Icelandic</option>
-                    <option value="it">Italian</option>
-                    <option value="iu">Inuktitut</option>
-                    <option value="ja">Japanese</option>
-                    <option value="jv">Javanese</option>
-                    <option value="kl">Kalaallisut</option>
-                    <option value="kn">Kannada</option>
-                    <option value="kr">Kanuri</option>
-                    <option value="ks">Kashmiri</option>
-                    <option value="kk">Kazakh</option>
-                    <option value="km">Khmer</option>
-                    <option value="ki">Kikuyu</option>
-                    <option value="rw">Kinyarwanda</option>
-                    <option value="ky">Kirghiz</option>
-                    <option value="kv">Komi</option>
-                    <option value="kg">Kongo</option>
-                    <option value="ko">Korean</option>
-                    <option value="kj">Kuanyama</option>
-                    <option value="ku">Kurdish</option>
-                    <option value="lo">Lao</option>
-                    <option value="la">Latin</option>
-                    <option value="lv">Latvian</option>
-                    <option value="li">Limburgan</option>
-                    <option value="ln">Lingala</option>
-                    <option value="lt">Lithuanian</option>
-                    <option value="lu">Luba-Katanga</option>
-                    <option value="lb">Luxembourgish</option>
-                    <option value="mk">Macedonian</option>
-                    <option value="mg">Malagasy</option>
-                    <option value="ms">Malay</option>
-                    <option value="ml">Malayalam</option>
-                    <option value="mt">Maltese</option>
-                    <option value="gv">Manx</option>
-                    <option value="mi">Maori</option>
-                    <option value="mr">Marathi</option>
-                    <option value="mh">Marshallese</option>
-                    <option value="mn">Mongolian</option>
-                    <option value="na">Nauru</option>
-                    <option value="nv">Navajo</option>
-                    <option value="nd">North Ndebele</option>
-                    <option value="nr">South Ndebele</option>
-                    <option value="ng">Ndonga</option>
-                    <option value="ne">Nepali</option>
-                    <option value="no">Norwegian</option>
-                    <option value="nb">Norwegian Bokmål</option>
-                    <option value="nn">Norwegian Nynorsk</option>
-                    <option value="ii">Sichuan Yi</option>
-                    <option value="oc">Occitan</option>
-                    <option value="oj">Ojibwa</option>
-                    <option value="or">Oriya</option>
-                    <option value="om">Oromo</option>
-                    <option value="os">Ossetian</option>
-                    <option value="pi">Pali</option>
-                    <option value="pa">Panjabi</option>
-                    <option value="ps">Pashto</option>
-                    <option value="fa">Persian</option>
-                    <option value="pl">Polish</option>
-                    <option value="pt">Portuguese</option>
-                    <option value="qu">Quechua</option>
-                    <option value="ro">Romanian</option>
-                    <option value="rm">Romansh</option>
-                    <option value="rn">Rundi</option>
-                    <option value="ru">Russian</option>
-                    <option value="sm">Samoan</option>
-                    <option value="sg">Sango</option>
-                    <option value="sa">Sanskrit</option>
-                    <option value="sc">Sardinian</option>
-                    <option value="sr">Serbian</option>
-                    <option value="sn">Shona</option>
-                    <option value="sd">Sindhi</option>
-                    <option value="si">Sinhala</option>
-                    <option value="sk">Slovak</option>
-                    <option value="sl">Slovenian</option>
-                    <option value="so">Somali</option>
-                    <option value="st">Southern Sotho</option>
-                    <option value="es">Spanish</option>
-                    <option value="su">Sundanese</option>
-                    <option value="sw">Swahili</option>
-                    <option value="ss">Swati</option>
-                    <option value="sv">Swedish</option>
-                    <option value="tl">Tagalog</option>
-                    <option value="ty">Tahitian</option>
-                    <option value="tg">Tajik</option>
-                    <option value="ta">Tamil</option>
-                    <option value="tt">Tatar</option>
-                    <option value="te">Telugu</option>
-                    <option value="th">Thai</option>
-                    <option value="bo">Tibetan</option>
-                    <option value="ti">Tigrinya</option>
-                    <option value="to">Tonga</option>
-                    <option value="ts">Tsonga</option>
-                    <option value="tn">Tswana</option>
-                    <option value="tr">Turkish</option>
-                    <option value="tk">Turkmen</option>
-                    <option value="tw">Twi</option>
-                    <option value="ug">Uighur</option>
-                    <option value="uk">Ukrainian</option>
-                    <option value="ur">Urdu</option>
-                    <option value="uz">Uzbek</option>
-                    <option value="ve">Venda</option>
-                    <option value="vi">Vietnamese</option>
-                    <option value="vo">Volapük</option>
-                    <option value="wa">Walloon</option>
-                    <option value="cy">Welsh</option>
-                    <option value="wo">Wolof</option>
-                    <option value="xh">Xhosa</option>
-                    <option value="yi">Yiddish</option>
-                    <option value="yo">Yoruba</option>
-                    <option value="za">Zhuang</option>
-                    <option value="zu">Zulu</option>
-                  </select>
-                  <label for="language">Idioma(s) disponible(s)</label>
-                </div>
-              </div>
-            </fieldset>
-            <fieldset
-              class="border p-3 mb-3"
-              formGroupName="additionalContactPoints"
-            >
-              <div class="row">
-                <h4>Puntos de contacto adicionales</h4>
-              </div>
-              <div class="row">
-                <div class="form-floating col-md-4 mb-5">
-                  <input
-                    type="text"
-                    class="form-control"
-                    id="name"
-                    placeholder="Nombre completo de la persona de contacto o departamento"
-                    formControlName="name"
-                  />
-                  <label for="name">Nombre completo</label>
-                </div>
-                <div class="form-floating col-md-4 mb-5">
-                  <input
-                    type="text"
-                    class="form-control"
-                    id="givenName"
-                    placeholder="Nombre de la persona física"
-                    formControlName="givenName"
-                  />
-                  <label for="givenName">Nombre</label>
-                </div>
-                <div class="form-floating col-md-4 mb-5">
-                  <input
-                    type="text"
-                    class="form-control"
-                    id="patronymicName"
-                    placeholder="Primer apellido"
-                    formControlName="patronymicName"
-                  />
-                  <label for="patronymicName">Primer apellido</label>
-                </div>
-              </div>
-              <div class="row">
-                <div class="form-floating col-md-4 mb-5">
-                  <input
-                    type="text"
-                    class="form-control"
-                    id="matronymicName"
-                    placeholder="Segundo apellido"
-                    formControlName="matronymicName"
-                  />
-                  <label for="matronymicName">Segundo apellido</label>
-                </div>
-                <div class="form-floating col-md-4 mb-5">
-                  <input
-                    type="text"
-                    class="form-control"
-                    id="email"
-                    placeholder="Correo electrónico"
-                    formControlName="email"
-                  />
-                  <label for="email">Correo electrónico</label>
-                </div>
-                <div class="form-floating col-md-4 mb-5">
-                  <input
-                    type="text"
-                    class="form-control"
-                    id="telephone"
-                    placeholder="Teléfono"
-                    formControlName="telephone"
-                  />
-                  <label for="telephone">Teléfono</label>
-                </div>
-              </div>
-              <div class="row">
-                <div class="form-floating col-md-4 mb-5">
-                  <input
-                    type="text"
-                    class="form-control"
-                    id="faxNumber"
-                    placeholder="Número de fax"
-                    formControlName="faxNumber"
-                  />
-                  <label for="faxNumber">Fax</label>
-                </div>
-                <div class="form-floating col-md-4 mb-5">
-                  <input
-                    type="text"
-                    class="form-control"
-                    id="url"
-                    placeholder="Dirección web del punto de contacto"
-                    formControlName="url"
-                  />
-                  <label for="url">Dirección web</label>
-                </div>
-                <div class="form-floating col-md-4 mb-5">
-                  <input
-                    type="text"
-                    class="form-control"
-                    id="type"
-                    placeholder="Tipo de contacto"
-                    formControlName="type"
-                  />
-                  <label for="type">Tipo de contacto</label>
-                </div>
-              </div>
-              <div class="row">
-                <div class="form-floating mb-5">
-                  <select
-                    class="form-select"
-                    id="language"
-                    aria-label="scheme"
-                    formControlName="availableLanguage"
-                  >
-                    <option value="default">Elige una opción</option>
-                    <option value="ab">Abkhazian</option>
-                    <option value="aa">Afar</option>
-                    <option value="af">Afrikaans</option>
-                    <option value="ak">Akan</option>
-                    <option value="sq">Albanian</option>
-                    <option value="am">Amharic</option>
-                    <option value="ar">Arabic</option>
-                    <option value="an">Aragonese</option>
-                    <option value="hy">Armenian</option>
-                    <option value="as">Assamese</option>
-                    <option value="av">Avaric</option>
-                    <option value="ae">Avestan</option>
-                    <option value="ay">Aymara</option>
-                    <option value="az">Azerbaijani</option>
-                    <option value="bm">Bambara</option>
-                    <option value="ba">Bashkir</option>
-                    <option value="eu">Basque</option>
-                    <option value="be">Belarusian</option>
-                    <option value="bn">Bengali</option>
-                    <option value="bh">Bihari</option>
-                    <option value="bi">Bislama</option>
-                    <option value="bs">Bosnian</option>
-                    <option value="br">Breton</option>
-                    <option value="bg">Bulgarian</option>
-                    <option value="my">Burmese</option>
-                    <option value="ca">Catalan</option>
-                    <option value="ch">Chamorro</option>
-                    <option value="ce">Chechen</option>
-                    <option value="ny">Chichewa</option>
-                    <option value="zh">Chinese</option>
-                    <option value="cu">Church Slavic</option>
-                    <option value="cv">Chuvash</option>
-                    <option value="kw">Cornish</option>
-                    <option value="co">Corsican</option>
-                    <option value="cr">Cree</option>
-                    <option value="hr">Croatian</option>
-                    <option value="cs">Czech</option>
-                    <option value="da">Danish</option>
-                    <option value="dv">Divehi</option>
-                    <option value="nl">Dutch</option>
-                    <option value="dz">Dzongkha</option>
-                    <option value="en">English</option>
-                    <option value="eo">Esperanto</option>
-                    <option value="et">Estonian</option>
-                    <option value="ee">Ewe</option>
-                    <option value="fo">Faroese</option>
-                    <option value="fj">Fijian</option>
-                    <option value="fi">Finnish</option>
-                    <option value="fr">French</option>
-                    <option value="ff">Fulah</option>
-                    <option value="gl">Galician</option>
-                    <option value="ka">Georgian</option>
-                    <option value="de">German</option>
-                    <option value="el">Greek</option>
-                    <option value="gn">Guarani</option>
-                    <option value="gu">Gujarati</option>
-                    <option value="ht">Haitian</option>
-                    <option value="ha">Hausa</option>
-                    <option value="he">Hebrew</option>
-                    <option value="hz">Herero</option>
-                    <option value="hi">Hindi</option>
-                    <option value="ho">Hiri Motu</option>
-                    <option value="hu">Hungarian</option>
-                    <option value="ia">Interlingua</option>
-                    <option value="id">Indonesian</option>
-                    <option value="ie">Interlingue</option>
-                    <option value="ga">Irish</option>
-                    <option value="ig">Igbo</option>
-                    <option value="ik">Inupiaq</option>
-                    <option value="io">Ido</option>
-                    <option value="is">Icelandic</option>
-                    <option value="it">Italian</option>
-                    <option value="iu">Inuktitut</option>
-                    <option value="ja">Japanese</option>
-                    <option value="jv">Javanese</option>
-                    <option value="kl">Kalaallisut</option>
-                    <option value="kn">Kannada</option>
-                    <option value="kr">Kanuri</option>
-                    <option value="ks">Kashmiri</option>
-                    <option value="kk">Kazakh</option>
-                    <option value="km">Khmer</option>
-                    <option value="ki">Kikuyu</option>
-                    <option value="rw">Kinyarwanda</option>
-                    <option value="ky">Kirghiz</option>
-                    <option value="kv">Komi</option>
-                    <option value="kg">Kongo</option>
-                    <option value="ko">Korean</option>
-                    <option value="kj">Kuanyama</option>
-                    <option value="ku">Kurdish</option>
-                    <option value="lo">Lao</option>
-                    <option value="la">Latin</option>
-                    <option value="lv">Latvian</option>
-                    <option value="li">Limburgan</option>
-                    <option value="ln">Lingala</option>
-                    <option value="lt">Lithuanian</option>
-                    <option value="lu">Luba-Katanga</option>
-                    <option value="lb">Luxembourgish</option>
-                    <option value="mk">Macedonian</option>
-                    <option value="mg">Malagasy</option>
-                    <option value="ms">Malay</option>
-                    <option value="ml">Malayalam</option>
-                    <option value="mt">Maltese</option>
-                    <option value="gv">Manx</option>
-                    <option value="mi">Maori</option>
-                    <option value="mr">Marathi</option>
-                    <option value="mh">Marshallese</option>
-                    <option value="mn">Mongolian</option>
-                    <option value="na">Nauru</option>
-                    <option value="nv">Navajo</option>
-                    <option value="nd">North Ndebele</option>
-                    <option value="nr">South Ndebele</option>
-                    <option value="ng">Ndonga</option>
-                    <option value="ne">Nepali</option>
-                    <option value="no">Norwegian</option>
-                    <option value="nb">Norwegian Bokmål</option>
-                    <option value="nn">Norwegian Nynorsk</option>
-                    <option value="ii">Sichuan Yi</option>
-                    <option value="oc">Occitan</option>
-                    <option value="oj">Ojibwa</option>
-                    <option value="or">Oriya</option>
-                    <option value="om">Oromo</option>
-                    <option value="os">Ossetian</option>
-                    <option value="pi">Pali</option>
-                    <option value="pa">Panjabi</option>
-                    <option value="ps">Pashto</option>
-                    <option value="fa">Persian</option>
-                    <option value="pl">Polish</option>
-                    <option value="pt">Portuguese</option>
-                    <option value="qu">Quechua</option>
-                    <option value="ro">Romanian</option>
-                    <option value="rm">Romansh</option>
-                    <option value="rn">Rundi</option>
-                    <option value="ru">Russian</option>
-                    <option value="sm">Samoan</option>
-                    <option value="sg">Sango</option>
-                    <option value="sa">Sanskrit</option>
-                    <option value="sc">Sardinian</option>
-                    <option value="sr">Serbian</option>
-                    <option value="sn">Shona</option>
-                    <option value="sd">Sindhi</option>
-                    <option value="si">Sinhala</option>
-                    <option value="sk">Slovak</option>
-                    <option value="sl">Slovenian</option>
-                    <option value="so">Somali</option>
-                    <option value="st">Southern Sotho</option>
-                    <option value="es">Spanish</option>
-                    <option value="su">Sundanese</option>
-                    <option value="sw">Swahili</option>
-                    <option value="ss">Swati</option>
-                    <option value="sv">Swedish</option>
-                    <option value="tl">Tagalog</option>
-                    <option value="ty">Tahitian</option>
-                    <option value="tg">Tajik</option>
-                    <option value="ta">Tamil</option>
-                    <option value="tt">Tatar</option>
-                    <option value="te">Telugu</option>
-                    <option value="th">Thai</option>
-                    <option value="bo">Tibetan</option>
-                    <option value="ti">Tigrinya</option>
-                    <option value="to">Tonga</option>
-                    <option value="ts">Tsonga</option>
-                    <option value="tn">Tswana</option>
-                    <option value="tr">Turkish</option>
-                    <option value="tk">Turkmen</option>
-                    <option value="tw">Twi</option>
-                    <option value="ug">Uighur</option>
-                    <option value="uk">Ukrainian</option>
-                    <option value="ur">Urdu</option>
-                    <option value="uz">Uzbek</option>
-                    <option value="ve">Venda</option>
-                    <option value="vi">Vietnamese</option>
-                    <option value="vo">Volapük</option>
-                    <option value="wa">Walloon</option>
-                    <option value="cy">Welsh</option>
-                    <option value="wo">Wolof</option>
-                    <option value="xh">Xhosa</option>
-                    <option value="yi">Yiddish</option>
-                    <option value="yo">Yoruba</option>
-                    <option value="za">Zhuang</option>
-                    <option value="zu">Zulu</option>
-                  </select>
-                  <label for="language">Idioma(s) disponible(s)</label>
-                </div>
-              </div>
-            </fieldset>
-            <fieldset class="border p-3 mb-3" formGroupName="roles">
-              <div class="row">
-                <h4>Rol o roles de la parte involucrada</h4>
-              </div>
-              <div class="row">
-                <div
-                  class="form-check form-switch col-md-4 mb-5"
-                  *ngFor="let role of rolesList"
-                >
-                  <input
-                    class="form-check-input"
-                    type="checkbox"
-                    role="switch"
-                    [id]="role.id"
-                    [formControlName]="role.id"
-                    (change)="onRoleChange()"
-                  />
-                  <label class="form-check-label" [for]="role.id">{{
-                    role.label
-                  }}</label>
-                </div>
-              </div>
-            </fieldset>
-            <fieldset class="border p-3 mb-3" formGroupName="memberOf">
-              <div class="row">
-                <h4>Miembro de:</h4>
-                <div class="row">
-                  <div class="form-floating col-md-6 mb-5">
-                    <input
-                      type="text"
-                      class="form-control"
-                      id="id"
-                      placeholder="Identificador del actor"
-                      formControlName="id"
-                    />
-                    <label for="id">Identificador del actor</label>
-                  </div>
-                  <div class="form-floating col-md-6 mb-5">
-                    <input
-                      type="text"
-                      class="form-control"
-                      id="name"
-                      placeholder="Nombre del actor"
-                      formControlName="name"
-                    />
-                    <label for="name">Nombre del actor</label>
-                  </div>
-                </div>
-              </div>
-            </fieldset>
-            <fieldset class="border p-3 mb-3">
-              <div class="row" formGroupName="beneficialOwners">
-                <h4>Beneficiarios</h4>
-                <div class="row">
-                  <div class="form-floating col-md-6 mb-5">
-                    <input
-                      type="text"
-                      class="form-control"
-                      id="id"
-                      placeholder="Identificador del Beneficiario"
-                      formControlName="id"
-                    />
-                    <label for="id">Identificador</label>
-                  </div>
-                  <div class="form-floating col-md-6 mb-5">
-                    <input
-                      type="text"
-                      class="form-control"
-                      id="name"
-                      placeholder="Nombre del beneficiario"
-                      formControlName="name"
-                    />
-                    <label for="name">Nombre del beneficiario</label>
-                  </div>
-                </div>
-                <fieldset class="border p-3 mb-3">
-                  <div class="row">
-                    <legend class="w-auto px-2">Identificador</legend>
-                    <div class="row mb-3" formGroupName="identifier">
-                      <div class="form-floating col-md-6 mb-5">
-                        <input
-                          type="text"
-                          class="form-control"
-                          id="id"
-                          placeholder="Identificador"
-                          formControlName="id"
-                        />
-                        <label for="id">Identificador</label>
-                      </div>
-                      <div class="form-floating col-md-6 mb-5">
-                        <input
-                          type="text"
-                          class="form-control"
-                          id="scheme"
-                          placeholder="Esquema"
-                          formControlName="scheme"
-                        />
-                        <label for="scheme">Esquema</label>
-                      </div>
-                    </div>
-                  </div>
-                </fieldset>
-                <div class="row">
-                  <div class="form-floating col-md-3 mb-5">
-                    <input
-                      type="text"
-                      class="form-control"
-                      id="nationality"
-                      placeholder="Nacionalidad"
-                      formControlName="nationality"
-                    />
-                    <label for="nationality">Nacionalidad</label>
-                  </div>
-                  <div class="form-floating col-md-3 mb-5">
-                    <input
-                      type="text"
-                      class="form-control"
-                      id="email"
-                      placeholder="Correo electrónico"
-                      formControlName="email"
-                    />
-                    <label for="email">Correo electrónico</label>
-                  </div>
-                  <div class="form-floating col-md-3 mb-5">
-                    <input
-                      type="text"
-                      class="form-control"
-                      id="faxNumber"
-                      placeholder="Número de Fax"
-                      formControlName="faxNumber"
-                    />
-                    <label for="faxNumber">Número de Fax</label>
-                  </div>
-                  <div class="form-floating col-md-3 mb-5">
-                    <input
-                      type="text"
-                      class="form-control"
-                      id="telephone"
-                      placeholder="Teléfono"
-                      formControlName="telephone"
-                    />
-                    <label for="telephone" class="form-label">Teléfono</label>
-                  </div>
-                </div>
-                <fieldset class="border p-3 mb-3" formGroupName="address">
-                  <legend class="w-auto px-2">Domicilio</legend>
-                  <div class="row">
-                    <div class="form-floating col-md-12 mb-5">
-                      <input
-                        type="text"
-                        class="form-control"
-                        id="streetAddress"
-                        placeholder="Dirección completa"
-                        formControlName="streetAddress"
-                      />
-                      <label for="streetAddress"
-                        >Dirección. Calle y número</label
-                      >
-                    </div>
-                  </div>
-                  <div class="row">
-                    <div class="form-floating col-md-6 mb-5">
-                      <input
-                        type="text"
-                        class="form-control"
-                        id="locality"
-                        placeholder="Localidad"
-                        formControlName="locality"
-                      />
-                      <label for="locality">Localidad</label>
-                    </div>
-                    <div class="form-floating col-md-6 mb-5">
-                      <input
-                        type="text"
-                        class="form-control"
-                        id="region"
-                        placeholder="Región"
-                        formControlName="region"
-                      />
-                      <label for="region">Región</label>
-                    </div>
-                  </div>
-                  <div class="row">
-                    <div class="form-floating col-md-6 mb-5">
-                      <input
-                        type="text"
-                        class="form-control"
-                        id="postalCode"
-                        placeholder="Código Postal"
-                        formControlName="postalCode"
-                      />
-                      <label for="postalCode">Código Postal</label>
-                    </div>
-                    <div class="form-floating col-md-6 mb-5">
-                      <input
-                        type="text"
-                        class="form-control"
-                        id="countryName"
-                        placeholder="Pais"
-                        formControlName="countryName"
-                      />
-                      <label for="countryName">País</label>
-                    </div>
-                  </div>
-                </fieldset>
-              </div>
-            </fieldset>
-
-            <fieldset class="border p-3 mb-3" formGroupName="details">
-              <h4>¿Cotiza en el mercado regulado?</h4>
-              <div class="row">
-                <div class="form-check m-3">
-                  <input
-                    class="form-check-input"
-                    type="radio"
-                    formControlName="listedOnRegulatedMarket"
-                    id="listedOnRegulatedMarketTrue"
-                    [value]="true"
-                  />
-                  <label
-                    class="form-check-label"
-                    for="listedOnRegulatedMarketTrue"
-                  >
-                    Sí
-                  </label>
-                </div>
-                <div class="form-check m-3">
-                  <input
-                    class="form-check-input"
-                    type="radio"
-                    formControlName="listedOnRegulatedMarket"
-                    id="listedOnRegulatedMarketFalse"
-                    [value]="false"
-                  />
-                  <label
-                    class="form-check-label"
-                    for="listedOnRegulatedMarketFalse"
-                  >
-                    No
-                  </label>
-                </div>
-              </div>
-            </fieldset>
-
-            <div class="row">
-              <div class="col-md-6 form-group d-flex justify-content-between">
-                <input
-                  type="submit"
-                  value="Guardar"
-                  class="btn btn-primary rounded-0 py-2 px-4"
-                />
-                <span class="Guardar"></span>
-                <input
-                  type="submit"
-                  value="Eliminar"
-                  class="btn btn-danger rounded-0 py-2 px-4"
-                />
-                <span class="Guardar"></span>
+                <h3>Actores</h3>
+                <hr />
+                <p>
+                  La información de las partes involucradas (organizaciones,
+                  operadores económicos y otros participantes) que están
+                  involucrados en el proceso de contrataciones y sus roles, por
+                  ejemplo: comprador, entidad contratante, proveedor, etc. Se
+                  utiliza referencias de organización en otras partes del
+                  esquema para hacer referencia a las entradas en esta lista.
+                </p>
               </div>
             </div>
-          </form>
+          </div>
+        </div>
+
+        <div class="tab-content" id="parties-general">
+          <div
+            class="tab-pane fade"
+            id="parties-general"
+            role="tabpanel"
+            aria-labelledby="parties-general-tab"
+            tabindex="0"
+          >
+            <div class="form">
+              <app-parties-general></app-parties-general>
+            </div>
+          </div>
+        </div>
+
+        <div class="tab-content" id="parties-address">
+          <div
+            class="tab-pane fade"
+            id="parties-address"
+            role="tabpanel"
+            aria-labelledby="parties-address-tab"
+            tabindex="0"
+          >
+            <div class="form">
+              <app-parties-address></app-parties-address>
+            </div>
+          </div>
+        </div>
+
+        <div class="tab-content" id="parties-contactPoint">
+          <div
+            class="tab-pane fade"
+            id="parties-contactPoint"
+            role="tabpanel"
+            aria-labelledby="parties-contactPoint-tab"
+            tabindex="0"
+          >
+            <div class="form">
+              <app-parties-contact-point></app-parties-contact-point>
+            </div>
+          </div>
+        </div>
+
+        <div class="tab-content" id="parties-additionalContactPoints">
+          <div
+            class="tab-pane fade"
+            id="parties-additionalContactPoints"
+            role="tabpanel"
+            aria-labelledby="parties-additionalContactPoints-tab"
+            tabindex="0"
+          >
+            <div class="form">
+              <app-parties-additional-contact-points></app-parties-additional-contact-points>
+            </div>
+          </div>
+        </div>
+
+        <div class="tab-content" id="parties-beneficialOwners">
+          <div
+            class="tab-pane fade"
+            id="parties-beneficialOwners"
+            role="tabpanel"
+            aria-labelledby="parties-beneficialOwners-tab"
+            tabindex="0"
+          >
+            <div class="form">
+              <app-parties-beneficial-owners></app-parties-beneficial-owners>
+            </div>
+          </div>
         </div>
       </div>
     </div>

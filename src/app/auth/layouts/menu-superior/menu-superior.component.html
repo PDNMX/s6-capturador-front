@@ -1,28 +1,22 @@
-<div class="container-fluid  bg-s6-l">
+<div class="container-fluid bg-s6-l">
   <div class="d-flex justify-content-center align-items-center">
     <nav class="navbar navbar-expand-lg pt-4">
       <a class="navbar-brand" [routerLink]="'/'" [routerLinkActive]="'active'">
-
       </a>
-      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
-        aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon">
-
-        </span>
+      <button
+        class="navbar-toggler"
+        type="button"
+        data-toggle="collapse"
+        data-target="#navbarNav"
+        aria-controls="navbarNav"
+        aria-expanded="false"
+        aria-label="Toggle navigation"
+      >
+        <span class="navbar-toggler-icon"> </span>
       </button>
       <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav px-4">
-          <!--<li class="nav-item px-3">
-            <a
-              class="nav-link"
-              [routerLink]="'parties'"
-              [routerLinkActive]="'active'"
-              >
-              <span>
-                <i class="bi bi-people-fill"></i>
-              </span>Actores
-            </a>
-          </li>
+          <!--
           <li class="nav-item px-3">
             <a
               class="nav-link"
@@ -35,40 +29,89 @@
             </a>
           </li>-->
           <li class="nav-item px-3">
-            <a class="nav-link" [routerLink]="'planning/' + contractID " [routerLinkActive]="'active'">
+            <a
+              class="nav-link"
+              [routerLink]="'parties/' + contractID"
+              [routerLinkActive]="'active'"
+            >
+              <span> <i class="bi bi-people-fill"></i></span>Actores
+            </a>
+          </li>
+          <li class="nav-item px-3">
+            <a
+              class="nav-link"
+              [routerLink]="'planning/' + contractID"
+              [routerLinkActive]="'active'"
+            >
               <span class="p">
-                <i><img src="../../../assets/icons/icon-planeacion.svg" alt="Planeación" /></i>
-              </span>Planeación
+                <i
+                  ><img
+                    src="../../../assets/icons/icon-planeacion.svg"
+                    alt="Planeación"
+                /></i> </span
+              >Planeación
             </a>
           </li>
           <li class="nav-item px-3">
-            <a class="nav-link" [routerLink]="'tender/' + contractID " [routerLinkActive]="'active'">
+            <a
+              class="nav-link"
+              [routerLink]="'tender/' + contractID"
+              [routerLinkActive]="'active'"
+            >
               <span class="l">
-                <i><img src="../../../assets/icons/icon-licitacion.svg" alt="Licitación" /></i>
-              </span>Licitación
+                <i
+                  ><img
+                    src="../../../assets/icons/icon-licitacion.svg"
+                    alt="Licitación"
+                /></i> </span
+              >Licitación
             </a>
           </li>
           <li class="nav-item px-3">
-            <a class="nav-link" [routerLink]="'awards/' + contractID " [routerLinkActive]="'active'">
+            <a
+              class="nav-link"
+              [routerLink]="'awards/' + contractID"
+              [routerLinkActive]="'active'"
+            >
               <span class="a">
-                <i><img src="../../../assets/icons/icon-adjudicaciones.svg" alt="Adjudicaciones" /></i>
+                <i
+                  ><img
+                    src="../../../assets/icons/icon-adjudicaciones.svg"
+                    alt="Adjudicaciones"
+                /></i>
               </span>
               Adjudicaciones
             </a>
           </li>
 
           <li class="nav-item px-3">
-            <a class="nav-link" [routerLink]="'contracts/' + contractID " [routerLinkActive]="'active'">
+            <a
+              class="nav-link"
+              [routerLink]="'contracts/' + contractID"
+              [routerLinkActive]="'active'"
+            >
               <span class="c">
-                <i><img src="../../../assets/icons/icon-contratos.svg" alt="Contratos" /></i>
-              </span>Contratos
+                <i
+                  ><img
+                    src="../../../assets/icons/icon-contratos.svg"
+                    alt="Contratos"
+                /></i> </span
+              >Contratos
             </a>
           </li>
           <li class="nav-item px-3">
-            <a class="nav-link" [routerLink]="'implementation/' + contractID " [routerLinkActive]="'active'">
+            <a
+              class="nav-link"
+              [routerLink]="'implementation/' + contractID"
+              [routerLinkActive]="'active'"
+            >
               <span class="e">
-                <i><img src="../../../assets/icons/icon-ejecucion.svg" alt="Ejecución" /></i>
-              </span>Ejecución
+                <i
+                  ><img
+                    src="../../../assets/icons/icon-ejecucion.svg"
+                    alt="Ejecución"
+                /></i> </span
+              >Ejecución
             </a>
           </li>
         </ul>

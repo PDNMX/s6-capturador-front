@@ -20,6 +20,16 @@ import { TenderTenderersComponent } from './tender/tender-tenderers/tender-tende
 import { TenderDocumentsComponent } from './tender/tender-documents/tender-documents.component';
 import { TenderMilestonesComponent } from './tender/tender-milestones/tender-milestones.component';
 import { TenderAmendmentsComponent } from './tender/tender-amendments/tender-amendments.component';
+import { AwardsAmendmentsComponent } from './awards/awards-amendments/awards-amendments.component';
+import { AwardsDocumentsComponent } from './awards/awards-documents/awards-documents.component';
+import { AwardsItemsComponent } from './awards/awards-items/awards-items.component';
+import { AwardsSuppliersComponent } from './awards/awards-suppliers/awards-suppliers.component';
+import { AwardsGeneralComponent } from './awards/awards-general/awards-general.component';
+import { PartiesContactPointComponent } from './parties/parties-contact-point/parties-contact-point.component';
+import { PartiesAdditionalContactPointsComponent } from './parties/parties-additional-contact-points/parties-additional-contact-points.component';
+import { PartiesBeneficialOwnersComponent } from './parties/parties-beneficial-owners/parties-beneficial-owners.component';
+import { PartiesGeneralComponent } from './parties/parties-general/parties-general.component';
+import { PartiesAddressComponent } from './parties/parties-address/parties-address.component';
 
 @NgModule({
   declarations: [
@@ -40,6 +50,16 @@ import { TenderAmendmentsComponent } from './tender/tender-amendments/tender-ame
     TenderDocumentsComponent,
     TenderMilestonesComponent,
     TenderAmendmentsComponent,
+    AwardsAmendmentsComponent,
+    AwardsDocumentsComponent,
+    AwardsItemsComponent,
+    AwardsSuppliersComponent,
+    AwardsGeneralComponent,
+    PartiesContactPointComponent,
+    PartiesAdditionalContactPointsComponent,
+    PartiesBeneficialOwnersComponent,
+    PartiesGeneralComponent,
+    PartiesAddressComponent,
   ],
   imports: [CommonModule, AuthRoutingModule, ReactiveFormsModule, FormsModule],
   exports: [

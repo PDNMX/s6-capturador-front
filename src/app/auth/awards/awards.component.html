@@ -1,104 +1,105 @@
 <div class="content">
-  <!-- <h2>Prueba POST</h2>
-  <div *ngIf="data1">
-    <pre>{{ data1 | json }}</pre>
-  </div>
-  <h2>Prueba GET</h2>
-  <div *ngIf="data">
-    <pre>{{ data | json }}</pre>
-  </div> -->
   <div class="container">
     <div class="row align-items-stretch no-gutters menu-wrap">
       <div class="col-md-3 g-0">
         <div class="menu-info h-100">
           <div
             class="nav flex-column nav-pills"
-            id="v-pills-tab"
+            id="adjudication-tab"
             role="tablist"
             aria-orientation="vertical"
           >
             <h3
               class="active text-left"
-              id="v-pills-AwardsDefinition-tab"
+              id="definicion-adjudicacion-tab"
               data-bs-toggle="pill"
-              data-bs-target="#v-pills-AwardsDefinition"
+              data-bs-target="#definicion-adjudicacion"
               type="button"
               role="tab"
-              aria-controls="v-pills-AwardsDefinition"
+              aria-controls="definicion-adjudicacion"
               aria-selected="true"
             >
-              &nbsp;&nbsp; 3. Adjudicación
+              &nbsp;&nbsp;3. Adjudicación
             </h3>
             <button
               class="nav-link text-left"
-              id="v-pills-AwardGeneral-tab"
+              id="adjudicacion-general-tab"
               data-bs-toggle="pill"
-              data-bs-target="#v-pills-AwardGeneral"
+              data-bs-target="#adjudicacion-general"
               type="button"
               role="tab"
-              aria-controls="v-pills-AwardGeneral"
+              aria-controls="adjudicacion-general"
               aria-selected="false"
             >
               Información General
             </button>
             <button
               class="nav-link text-left"
-              id="v-pills-proveedores-tab"
+              id="adjudicacion-proveedores-tab"
               data-bs-toggle="pill"
-              data-bs-target="#v-pills-proveedores"
+              data-bs-target="#adjudicacion-proveedores"
               type="button"
               role="tab"
-              aria-controls="v-pills-proveedores"
+              aria-controls="adjudicacion-proveedores"
               aria-selected="false"
             >
               Proveedores
             </button>
             <button
               class="nav-link"
-              id="v-pills-AwardsItems-tab"
+              id="adjudicacion-items-tab"
               data-bs-toggle="pill"
-              data-bs-target="#v-pills-AwardsItems"
+              data-bs-target="#adjudicacion-items"
               type="button"
               role="tab"
-              aria-controls="v-pills-AwardsItems"
+              aria-controls="adjudicacion-items"
               aria-selected="false"
             >
               Artículos
             </button>
             <button
               class="nav-link"
-              id="v-pills-AwardsDocumentos-tab"
+              id="adjudicacion-documentos-tab"
               data-bs-toggle="pill"
-              data-bs-target="#v-pills-AwardsDocumentos"
+              data-bs-target="#adjudicacion-documentos"
               type="button"
               role="tab"
-              aria-controls="v-pills-AwardsDocumentos"
+              aria-controls="adjudicacion-documentos"
               aria-selected="false"
             >
               Documentos
             </button>
             <button
               class="nav-link"
-              id="v-pills-AwardsAmendments-tab"
+              id="adjudicacion-mofificaciones-tab"
               data-bs-toggle="pill"
-              data-bs-target="#v-pills-AwardsAmendments"
+              data-bs-target="#adjudicacion-mofificaciones"
               type="button"
               role="tab"
-              aria-controls="v-pills-AwardsAmendments"
+              aria-controls="adjudicacion-mofificaciones"
               aria-selected="false"
             >
               Modificaciones
             </button>
           </div>
+          <div class="d-flex flex-column">
+            <button
+              type="button"
+              class="btn btn-danger text-center p-3"
+              (click)="submit()"
+            >
+              Guardar Adjudicación
+            </button>
+          </div>
         </div>
       </div>
       <div class="col-md-9 g-0">
-        <div class="tab-content" id="v-pills-tabContent">
+        <div class="tab-content" id="adjudicaciones-tabContent">
           <div
             class="tab-pane fade show active"
-            id="v-pills-AwardsDefinition"
+            id="definicion-adjudicacion"
             role="tabpanel"
-            aria-labelledby="v-pills-AwardsDefinition-tab"
+            aria-labelledby="definicion-adjudicacion-tab"
             tabindex="0"
           >
             <div class="form h-100">
@@ -125,972 +126,89 @@
         </div>
 
         <!-- Inicia formulario de datos generales de la adjudicación -->
-        <div class="tab-content" id="v-pills-tabContent">
+        <div class="tab-content" id="adjudicaciones-tabContent">
           <div
             class="tab-pane fade"
-            id="v-pills-AwardGeneral"
+            id="adjudicacion-general"
             role="tabpanel"
-            aria-labelledby="v-pills-AwardGeneral-tab"
+            aria-labelledby="adjudicacion-general-tab"
           >
-            <div class="form h-100">
-              <form
-                class="mb-5"
-                method="post"
-                id="awards-form"
-                [formGroup]="awards"
-                (ngSubmit)="onSubmit()"
-              >
-                <h3>Información general</h3>
-                <hr />
-                <div class="row">
-                  <div class="form-floating col-md-6 mb-5">
-                    <input
-                      type="text"
-                      class="form-control"
-                      id="AwardsId"
-                      placeholder="Indentificador de la adjudicación"
-                      formControlName="id"
-                    />
-                    <label for="AwardsId"
-                      >Indentificador de la adjudicación *</label
-                    >
-                  </div>
-                  <div class="form-floating col-md-6 mb-5">
-                    <select
-                      class="form-select"
-                      id="AwardsStatus"
-                      aria-label="award status"
-                      formControlName="status"
-                    >
-                      <option value="default">Seleccione un opción</option>
-                      <option value="pending">Pendiente</option>
-                      <option value="active">Activo</option>
-                      <option value="cancelled">Cancelado</option>
-                      <option value="unsuccessful">Sin Éxito</option>
-                    </select>
-                    <label for="AwardsStatus">Estado de la adjudicación</label>
-                  </div>
-                </div>
-                <div class="row">
-                  <div class="form-floating col-md-12 mb-5">
-                    <input
-                      class="form-control"
-                      id="AwardsTitle"
-                      type="text"
-                      placeholder="Título"
-                      formControlName="title"
-                    />
-                    <label for="AwardsTitle">Título de la adjudicación.</label>
-                    <div
-                      class="invalid-feedback"
-                      data-sb-feedback="titulo:required"
-                    >
-                      Título is required.
-                    </div>
-                  </div>
-                </div>
-                <div class="row">
-                  <div class="form-floating col-md-12 mb-5">
-                    <textarea
-                      class="form-control"
-                      id="AwardsDescription"
-                      type="text"
-                      placeholder="Descripción"
-                      formControlName="description"
-                    ></textarea>
-                    <label for="AwardsDescription"
-                      >Descripción de la adjudicación.</label
-                    >
-                  </div>
-                </div>
-                <div class="row">
-                  <div class="form-floating col-md-12 mb-5">
-                    <textarea
-                      class="form-control"
-                      id="AwardsRationale"
-                      type="text"
-                      placeholder="Justificación"
-                      formControlName="rationale"
-                    ></textarea>
-                    <label for="AwardsRationale">Justificación</label>
-                  </div>
-                </div>
-                <div class="row">
-                  <div class="form-floating col-md-4 mb-5">
-                    <input
-                      type="date"
-                      class="form-control"
-                      id="AwardsDate"
-                      placeholder="Fecha de la adjudicación"
-                      formControlName="date"
-                    />
-                    <label for="AwardsDate">Fecha de la adjudicación</label>
-                  </div>
-                </div>
-                <!-- fieldset value -->
-                <fieldset class="border p-3 mb-3" formGroupName="value">
-                  <legend class="w-auto px-2">Valor</legend>
-                  <div class="row">
-                    <div class="form-floating form-group col-md-6 mb-5">
-                      <input
-                        type="number"
-                        class="form-control"
-                        id="AwardsValueAmount"
-                        placeholder="Monto total de la adjudicación *"
-                        formControlName="amount"
-                      />
-                      <label for="AwardsValueAmount"
-                        >Monto total de la adjudicación *</label
-                      >
-                    </div>
-                    <div class="form-floating form-group col-md-6 mb-5">
-                      <select
-                        class="form-select"
-                        id="AwardsValueCurrency"
-                        formControlName="currency"
-                      >
-                        <option value="" selected>
-                          -- Seleccione el tipo de moneda --
-                        </option>
-                        <option *ngFor="let m of currency" value="{{ m.code }}">
-                          {{ m.title }}
-                        </option>
-                      </select>
-                      <label for="AwardsValueCurrency">Moneda</label>
-                    </div>
-                  </div>
-                </fieldset>
-                <!-- End fieldset value -->
-
-                <!-- fieldset contracts period -->
-                <fieldset class="border p-3 mb-3">
-                  <legend class="w-auto px-2">Periodo del contrato</legend>
-                  <div class="row" formGroupName="contractPeriod">
-                    <div class="form-floating form-group col-md-3 mb-5">
-                      <input
-                        type="date"
-                        class="form-control"
-                        id="ContractPeriodStartDate"
-                        placeholder="Fecha de inicio del contrato"
-                        formControlName="startDate"
-                      />
-                      <label for="ContractPeriodStartDate"
-                        >Fecha de inicio</label
-                      >
-                    </div>
-                    <div class="form-floating form-group col-md-3 mb-5">
-                      <input
-                        type="date"
-                        class="form-control"
-                        id="ContractPeriodendDate"
-                        placeholder="Fecha de la adjudicación"
-                        formControlName="endDate"
-                      />
-                      <label for="ContractPeriodendDate"
-                        >Fecha de término</label
-                      >
-                    </div>
-                    <div class="form-floating form-group col-md-3 mb-5">
-                      <input
-                        type="date"
-                        class="form-control"
-                        id="ContractPeriodMaxExtentDate"
-                        placeholder="Fecha de la adjudicación"
-                        formControlName="maxExtentDate"
-                      />
-                      <label for="ContractPeriodMaxExtentDate"
-                        >Extensión máxima</label
-                      >
-                    </div>
-                    <div class="form-floating form-group col-md-3 mb-5">
-                      <input
-                        type="number"
-                        class="form-control"
-                        id="ContractPeriodDurationInDays"
-                        placeholder="Duración en dias"
-                        formControlName="durationInDays"
-                      />
-                      <label for="ContractPeriodDurationInDays"
-                        >Duración (días)</label
-                      >
-                    </div>
-                  </div>
-                </fieldset>
-                <!-- End fieldset contracts period -->
-                <div class="row">
-                  <div
-                    class="col-md-6 form-group d-flex justify-content-between"
-                  >
-                    <input
-                      type="submit"
-                      value="guardar"
-                      class="btn btn-primary rounded-0 py-2 px-4"
-                    />
-                    <span class="Guardar"></span>
-                  </div>
-                </div>
-              </form>
+            <div class="form">
+              <app-awards-general
+                (saveGeneralDataForm)="saveGeneralDataForm($event)"
+              ></app-awards-general>
             </div>
           </div>
         </div>
 
         <!-- Inicia formulario de agregar uno o varios proveedores -->
-        <div class="tab-content" id="v-pills-tabContent">
+        <div class="tab-content" id="adjudicaciones-tabContent">
           <div
             class="tab-pane fade"
-            id="v-pills-proveedores"
+            id="adjudicacion-proveedores"
             role="tabpanel"
-            aria-labelledby="v-pills-proveedores-tab"
+            aria-labelledby="adjudicacion-proveedores-tab"
           >
-            <div class="form h-100">
-              <form
-                class="mb-5"
-                id="AwardsSuppliersForm"
-                [formGroup]="suppliers"
-                (ngSubmit)="onSubmitSuppliers()"
-              >
-                <div class="row">
-                  <h3>Proveedor</h3>
-                  <hr class="solid" />
-                </div>
-
-                <!-- Tabla de proveedores de la adjudicación-->
-                <div class="row mb-3">
-                  <div class="col-12">
-                    <table class="table table-hover table-striped mb-10">
-                      <thead>
-                        <tr>
-                          <th>ID del proveedor</th>
-                          <th>Nombre del proveedor</th>
-                          <th>Acciones</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        <tr
-                          *ngFor="
-                            let supplier of tempAwards.suppliers;
-                            let i = index
-                          "
-                        >
-                          <td>{{ supplier.id }}</td>
-                          <td>{{ supplier.name }}</td>
-                          <td>
-                            <button
-                              class="btn btn-sm btn-danger"
-                              (click)="deleteSupplier(i)"
-                            >
-                              Eliminar
-                            </button>
-                          </td>
-                        </tr>
-                        <tr *ngIf="tempAwards.suppliers.length === 0">
-                          <th scope="row" colspan="7" class="text-center">
-                            Sin registros.
-                          </th>
-                        </tr>
-                      </tbody>
-                    </table>
-                  </div>
-                </div>
-                <div class="form-floating col-md-6 mb-5">
-                  <input
-                    class="form-control"
-                    id="AwardsSuppliersId"
-                    type="text"
-                    placeholder="Identificador del Proveedor"
-                    formControlName="id"
-                  />
-                  <label for="AwardsSuppliersId"
-                    >Indentificador del proveedor</label
-                  >
-                </div>
-                <div class="form-floating col-md-6 mb-5">
-                  <input
-                    class="form-control"
-                    id="AwardsSuppliersName"
-                    type="text"
-                    placeholder="Nombre del Proveedor"
-                    formControlName="name"
-                  />
-                  <label for="AwardsSuppliersName">Nombre del proveedor</label>
-                </div>
-                <div class="row">
-                  <div
-                    class="col-md-6 form-group d-flex justify-content-between"
-                  >
-                    <div class="col-2">
-                      <button
-                        type="button"
-                        class="btn btn-primary"
-                        (click)="addSupplier()"
-                      >
-                        Agregar
-                      </button>
-                    </div>
-                  </div>
-                </div>
-              </form>
+            <div class="form">
+              <app-awards-suppliers
+                [suppliersArray]="awardForm.value.suppliers"
+                (addSupplier)="addSupplier($event)"
+                (deleteSupplier)="deleteSupplier($event)"
+              ></app-awards-suppliers>
             </div>
           </div>
         </div>
 
         <!-- Inicia formulario Items -->
-        <div class="tab-content" id="v-pills-tabContent">
+        <div class="tab-content" id="adjudicaciones-tabContent">
           <div
             class="tab-pane fade"
-            id="v-pills-AwardsItems"
+            id="adjudicacion-items"
             role="tabpanel"
-            aria-labelledby="v-pills-AwardsItems-tab"
+            aria-labelledby="adjudicacion-items-tab"
           >
-            <div class="form h-100">
-              <form
-                class="mb-5"
-                method="post"
-                id="AwardsItemsForm"
-                name="AwardsItemsForm"
-                [formGroup]="items"
-                (ngSubmit)="onSubmitItems()"
-              >
-                <h3>Artículos</h3>
-                <hr class="solid" />
-                <div class="row mb-5">
-                  <small>
-                    Los bienes y servicios adjudicados en esta adjudicación,
-                    desglosados en tipos de artículos de una clasificación
-                    preexistente cuando sea posible. Los artículos no deberían
-                    de estar duplicados, sino se debe especificar la cantidad.
-                  </small>
-                </div>
-                <div class="row">
-                  <div class="form-floating col-md-4 mb-5">
-                    <input
-                      class="form-control"
-                      id="AwardsItemsId"
-                      type="text"
-                      placeholder="Id del Artículo"
-                      formControlName="id"
-                    />
-                    <label for="AwardsItemsId"
-                      >Indentificador del artículo</label
-                    >
-                  </div>
-                  <div class="form-floating col-md-4 mb-5">
-                    <input
-                      class="form-control"
-                      id="AwardsItemsDescription"
-                      type="text"
-                      placeholder="Descripción del Artículo"
-                      formControlName="description"
-                    />
-                    <label for="AwardsItemsDescription"
-                      >Descripción del articulo</label
-                    >
-                  </div>
-                  <div class="form-floating col-md-4 mb-5">
-                    <input
-                      class="form-control"
-                      id="AwardsItemsQuantity"
-                      type="number"
-                      placeholder="Cantidad de unidades"
-                      formControlName="quantity"
-                    />
-                    <label for="AwardsItemsQuantity"
-                      >Cantidad de unidades</label
-                    >
-                  </div>
-                </div>
-                <div formGroupName="unit">
-                  <fieldset class="border p-3 mb-3">
-                    <legend class="w-auto px-2">Unidad</legend>
-                    <div class="row mb-5">
-                      <small
-                        >Una descripción de la unidad en la cual los
-                        suministros, servicios o trabajos están provistos (ej.
-                        horas, kilos) y el precio por unidad.</small
-                      >
-                    </div>
-                    <div class="row">
-                      <div class="form-floating col-md-6 mb-5">
-                        <input
-                          class="form-control"
-                          id="ItemsUnitId"
-                          type="text"
-                          placeholder="Identificador de la unidad"
-                          formControlName="id"
-                        />
-                        <label for="ItemsUnitId"
-                          >Identificador de la unidad de medida</label
-                        >
-                      </div>
-                      <div class="form-floating cell col-md-6 mb-5">
-                        <select
-                          class="form-select"
-                          id="ItemsUnitScheme"
-                          aria-label="scheme"
-                          formControlName="scheme"
-                        >
-                          <option value="" selected>
-                            -- Seleccione una opción --
-                          </option>
-                          <!-- <option value="UNCEFACT">
-                              UN/CEFACT Recommendation 20
-                            </option> -->
-                          <option value="UNCEFACT">
-                            Recomendación 20 de la UN/CEFACT
-                          </option>
-                          <option value="QUDT">
-                            Ontologías de Cantidades, Unidades, Dimensiones y
-                            Tipos de Datos
-                          </option>
-                        </select>
-                        <label for="ItemsUnitScheme"
-                          >Esquema de unidades de medida</label
-                        >
-                      </div>
-                    </div>
-                    <div class="row">
-                      <div class="form-floating col-md-6 mb-5">
-                        <input
-                          class="form-control"
-                          id="ItemesUnitName"
-                          type="text"
-                          placeholder="Nombre de la unidad de medida"
-                          formControlName="name"
-                        />
-                        <label for="description">Unidad de medida</label>
-                      </div>
-                      <div class="form-floating col-md-6 mb-5">
-                        <input
-                          class="form-control"
-                          id="uri"
-                          type="text"
-                          placeholder="URI de la unidad de medida, dada por el esquema"
-                          formControlName="uri"
-                        />
-                        <label for="uri">URI</label>
-                      </div>
-                    </div>
-                  </fieldset>
-                  <fieldset class="border p-3 mb-3" formGroupName="value">
-                    <legend class="w-auto px-2">Valor</legend>
-                    <div class="row">
-                      <div class="form-floating form-group col-md-6 mb-5">
-                        <input
-                          type="number"
-                          class="form-control"
-                          id="UnitValueAmount"
-                          placeholder="Monto total de la adjudicación *"
-                          formControlName="amount"
-                        />
-                        <label for="UnitValueAmount">Monto *</label>
-                      </div>
-                      <div class="form-floating form-group col-md-6 mb-5">
-                        <select
-                          class="form-select"
-                          id="UnitValueCurrency"
-                          formControlName="currency"
-                        >
-                          <option value="" selected>
-                            -- Seleccione el tipo de moneda --
-                          </option>
-                          <option
-                            *ngFor="let m of currency"
-                            value="{{ m.code }}"
-                          >
-                            {{ m.title }}
-                          </option>
-                        </select>
-                        <label for="currency">Moneda</label>
-                      </div>
-                    </div>
-                  </fieldset>
-                </div>
-                <fieldset
-                  class="border p-3 mb-3"
-                  formGroupName="classification"
-                >
-                  <legend class="w-auto px-2">Clasificación</legend>
-                  <div class="row">
-                    <div class="form-floating col-md-6 mb-5">
-                      <input
-                        class="form-control"
-                        id="ItemsClassificationID"
-                        type="text"
-                        placeholder="Identificador de la Clasificación"
-                        formControlName="id"
-                      />
-                      <label for="ItemsClassificationID"
-                        >Código de la clasificación</label
-                      >
-                    </div>
-                    <div class="form-floating form-group col-md-6 mb-5">
-                      <select
-                        class="form-select"
-                        id="ItemsClassificationScheme"
-                        aria-label="scheme"
-                        formControlName="scheme"
-                      >
-                        <option value="" selected>
-                          -- Seleccione una opción --
-                        </option>
-                        <!-- <option value="CPC">
-                            Central Product Classification
-                          </option> -->
-                        <option value="CUCOP">
-                          Clasificador Único Mexicano de Contrataciones Públicas
-                          (CUCOP)
-                        </option>
-                        <!-- <option value="CPV">
-                            EC Common Procurement Vocabulary
-                          </option> -->
-                        <!-- <option value="CPVS">
-                            EC Common Procurement Vocabulary - Listas de Códigos
-                            Suplementarias
-                          </option>
-                          <option value="GSIN">
-                            Goods and Services Identification Number
-                          </option>
-                          <option value="OKDP">
-                            Russian National Classification of Products by
-                            Economic Activity (1994)
-                          </option>
-                          <option value="OKPD">
-                            Russian National Classification of Products by
-                            Economic Activity (2014)
-                          </option>
-                          <option value="UNSPSC">
-                            United Nations Standard Products and Services Code
-                          </option> -->
-                      </select>
-                      <label for="ItemsClassificationScheme">Esquema</label>
-                    </div>
-                  </div>
-                  <div class="row">
-                    <div class="form-floating col-md-6 mb-5">
-                      <input
-                        class="form-control"
-                        id="ItemsClassificationDescription"
-                        type="text"
-                        placeholder="Descripción del Artículo"
-                        formControlName="description"
-                      />
-                      <label for="ItemsClassificationDescription"
-                        >Descripción</label
-                      >
-                    </div>
-                    <div class="form-floating col-md-6 mb-5">
-                      <input
-                        class="form-control"
-                        id="ItemsClassificationUri"
-                        type="text"
-                        placeholder="URI de la clasificación"
-                        formControlName="uri"
-                      />
-                      <label for="ItemsClassificationUri">URI</label>
-                    </div>
-                  </div>
-                </fieldset>
-                <fieldset
-                  class="border p-3 mb-3"
-                  formGroupName="additionalClassifications"
-                >
-                  <legend class="w-auto px-2">
-                    Clasificaciones Adicionales
-                  </legend>
-                  <div class="row">
-                    <div class="form-floating col-md-6 mb-5">
-                      <input
-                        class="form-control"
-                        id="additionalClassificationsID"
-                        type="text"
-                        placeholder="Identificador de la Clasificación"
-                        formControlName="id"
-                      />
-                      <label for="AdditionalClassificationsID"
-                        >Código de la clasificación adicional</label
-                      >
-                    </div>
-                    <div class="form-floating form-group col-md-6 mb-5">
-                      <select
-                        class="form-select"
-                        id="AdditionalClassificationsScheme"
-                        aria-label="scheme"
-                        formControlName="scheme"
-                      >
-                        <option value="" selected>
-                          -- Seleccione una opción --
-                        </option>
-                        <!-- <option value="CPC">
-                            Central Product Classification
-                          </option> -->
-                        <option value="CUCOP">
-                          Clasificador Único Mexicano de Contrataciones Públicas
-                          (CUCOP)
-                        </option>
-                        <!-- <option value="CPV">
-                            EC Common Procurement Vocabulary
-                          </option>
-                          <option value="CPVS">
-                            EC Common Procurement Vocabulary - Listas de Códigos
-                            Suplementarias
-                          </option>
-                          <option value="GSIN">
-                            Goods and Services Identification Number
-                          </option>
-                          <option value="OKDP">
-                            Russian National Classification of Products by
-                            Economic Activity (1994)
-                          </option>
-                          <option value="OKPD">
-                            Russian National Classification of Products by
-                            Economic Activity (2014)
-                          </option>
-                          <option value="UNSPSC">
-                            United Nations Standard Products and Services Code
-                          </option> -->
-                      </select>
-                      <label for="AdditionalClassificationsScheme"
-                        >Esquema</label
-                      >
-                    </div>
-                  </div>
-                  <div class="row">
-                    <div class="form-floating col-md-6 mb-5">
-                      <input
-                        class="form-control"
-                        id="AdditionalClassificationsDescription"
-                        type="text"
-                        placeholder="Descripción del Artículo"
-                        formControlName="description"
-                      />
-                      <label for="AdditionalClassificationsDescription"
-                        >Descripción</label
-                      >
-                    </div>
-                    <div class="form-floating col-md-6 mb-5">
-                      <input
-                        class="form-control"
-                        id="AdditionalClassificationsDescriptionUri"
-                        type="text"
-                        placeholder="URI de la clasificación"
-                        formControlName="uri"
-                      />
-                      <label for="AdditionalClassificationsDescriptionUri"
-                        >URI</label
-                      >
-                    </div>
-                  </div>
-                </fieldset>
-                <div class="row">
-                  <div
-                    class="col-md-6 form-group d-flex justify-content-between"
-                  >
-                    <input
-                      type="submit"
-                      value="guardar"
-                      class="btn btn-primary rounded-0 py-2 px-4"
-                    />
-                    <span class="Guardar"></span>
-                  </div>
-                </div>
-              </form>
+            <div class="form">
+              <app-awards-items
+                [itemsArray]="awardForm.value.items"
+                (addItem)="addItem($event)"
+                (deleteItem)="deleteItem($event)"
+              ></app-awards-items>
             </div>
           </div>
         </div>
 
         <!-- Inicia formulario Documentos -->
-        <div class="tab-content" id="v-pills-tabContent">
+        <div class="tab-content" id="adjudicaciones-tabContent">
           <div
             class="tab-pane fade"
-            id="v-pills-AwardsDocumentos"
+            id="adjudicacion-documentos"
             role="tabpanel"
-            aria-labelledby="v-pills-AwardsDocumentos-tab"
+            aria-labelledby="adjudicacion-documentos-tab"
           >
             <div class="form h-100">
-              <form
-                class="mb-5"
-                method="post"
-                id="AwardsDocumentsForm"
-                name="AwardsDocumentsForm"
-                [formGroup]="documents"
-                (ngSubmit)="onSubmitDocuments()"
-              >
-                <h3>Documentos</h3>
-                <hr class="solid" />
-                <div class="row">
-                  <div class="form-floating col-md-4 mb5">
-                    <input
-                      class="form-control"
-                      id="AwardsDocumentsId"
-                      type="text"
-                      placeholder="Idenficador del Documento"
-                      formControlName="id"
-                    />
-                    <label for="AwardsDocumentsId"
-                      >Identificador del Documento</label
-                    >
-                  </div>
-                  <div class="form-floating col-md-4 mb-5">
-                    <select
-                      class="form-select"
-                      id="AwardsDocumentsType"
-                      aria-label="scheme"
-                      formControlName="documentType"
-                    >
-                      <option value="default">Seleccione una opción</option>
-                      <option value="awardNotice">Aviso de adjudicación</option>
-                      <option value="contractDraft">
-                        Borrador de contrato
-                      </option>
-                      <option value="contractArrangements">
-                        Arreglos para finalizar un contrato
-                      </option>
-                      <option value="contractSchedule">
-                        Calendario del contrato
-                      </option>
-                      <option value="winningBid">Oferta ganadora</option>
-                      <option value="complaints">Quejas y decisiones</option>
-                      <option value="conflictOfInterest">
-                        Conflicto de interés
-                      </option>
-                      <option value="submissionDocuments">
-                        Documentos de presentación de oferta
-                      </option>
-                      <option value="cancellationDetails">
-                        Detalles de cancelación
-                      </option>
-                    </select>
-                    <label for="AwardsDocumentsType">Tipo de Documento</label>
-                  </div>
-                  <div class="form-floating col-md-4 mb-5">
-                    <input
-                      class="form-control"
-                      id="AwardsDocumentsTitle"
-                      type="text"
-                      placeholder="Título del documento"
-                      formControlName="title"
-                    />
-                    <label for="AwardsDocumentsTitle"
-                      >Título del Documento</label
-                    >
-                  </div>
-                </div>
-                <div class="row">
-                  <div class="form-floating col-md-4 mb-5">
-                    <input
-                      class="form-control"
-                      id="AwardsDocumentsDescription"
-                      type="text"
-                      placeholder="Descripción del documento"
-                      formControlName="description"
-                    />
-                    <label for="AwardsDocumentsDescription"
-                      >Descripción del Documento</label
-                    >
-                  </div>
-                  <div class="form-floating col-md-4 mb-5">
-                    <input
-                      class="form-control"
-                      id="AwardsDocumentsUrl"
-                      type="text"
-                      placeholder="Url del documento"
-                      formControlName="url"
-                    />
-                    <label for="AwardsDocumentsUrl">URL</label>
-                  </div>
-                  <div class="form-floating col-md-4 mb-5">
-                    <input
-                      class="form-control"
-                      id="AwardsDocumentsDatePublished"
-                      type="date"
-                      placeholder="Fecha de publicación del documento"
-                      formControlName="datePublished"
-                    />
-                    <label for="AwardsDocumentsDatePublished"
-                      >Fecha de publicación</label
-                    >
-                  </div>
-                </div>
-                <div class="row">
-                  <div class="form-floating col-md-4 mb-5">
-                    <input
-                      class="form-control"
-                      id="AwardsDocumentsDateModified"
-                      type="date"
-                      placeholder="Fecha de modificación del documento"
-                      formControlName="dateModified"
-                    />
-                    <label for="AwardsDocumentsDateModified"
-                      >Fecha de modificación</label
-                    >
-                  </div>
-                  <div class="form-floating col-md-4 mb-5">
-                    <input
-                      class="form-control"
-                      id="AwardsDocumentsFormat"
-                      type="text"
-                      placeholder="Formato del documento"
-                      formControlName="format"
-                    />
-                    <label for="AwardsDocumentsFormat"
-                      >Formato del Documento</label
-                    >
-                  </div>
-                  <div class="form-floating col-md-4 mb-5">
-                    <select
-                      class="form-select"
-                      id="AwardsDocumentslanguage"
-                      aria-label="scheme"
-                      formControlName="language"
-                    >
-                      <option value="default">Elige un idioma</option>
-                      <option *ngFor="let d of language" [ngValue]="d">
-                        {{ d.name }}
-                      </option>
-                    </select>
-                    <label for="AwardsDocumentslanguage"
-                      >Idioma del Documento</label
-                    >
-                  </div>
-                </div>
-                <div class="row">
-                  <div
-                    class="col-md-6 form-group d-flex justify-content-between"
-                  >
-                    <input
-                      type="submit"
-                      value="guardar"
-                      class="btn btn-primary rounded-0 py-2 px-4"
-                    />
-                    <span class="Guardar"></span>
-                  </div>
-                </div>
-              </form>
+              <app-awards-documents
+                [documentsArray]="awardForm.value.documents"
+                (addDocument)="addDocument($event)"
+                (deleteDocument)="deleteDocument($event)"
+              ></app-awards-documents>
             </div>
           </div>
         </div>
 
         <!-- Inicia formulario Enmiendas -->
-        <div class="tab-content" id="v-pills-tabContent">
+        <div class="tab-content" id="adjudicaciones-tabContent">
           <div
             class="tab-pane fade"
-            id="v-pills-AwardsAmendments"
+            id="adjudicacion-mofificaciones"
             role="tabpanel"
-            aria-labelledby="v-pills-AwardsAmendments-tab"
+            aria-labelledby="adjudicacion-mofificaciones-tab"
           >
             <div class="form h-100">
-              <form
-                class="mb-5"
-                method="post"
-                id="awards-form"
-                name="awards-form"
-                novalidate="novalidate"
-                [formGroup]="amendments"
-                (ngSubmit)="onSubmitAwardsAmendments()"
-              >
-                <h3>Enmiendas</h3>
-                <hr class="solid" />
-                <div class="row">
-                  <div class="form-floating col-md-4 mb5">
-                    <input
-                      class="form-control"
-                      id="AmendmentsId"
-                      type="text"
-                      placeholder="Identificador de la Enmienda"
-                      formControlName="id"
-                    />
-                    <label for="AmendmentsId"
-                      >Identificador de la Enmienda</label
-                    >
-                  </div>
-                  <div class="form-floating col-md-4 mb-5">
-                    <input
-                      class="form-control"
-                      id="AwardsAmendmentsDatePublished"
-                      type="date"
-                      placeholder="Fecha de publicación del documento"
-                      formControlName="date"
-                    />
-                    <label for="AwardsAmendmentsDatePublished"
-                      >Fecha de publicación</label
-                    >
-                  </div>
-                  <div class="form-floating col-md-4 mb-5">
-                    <input
-                      class="form-control"
-                      id="AwardsAmendmentsRationale"
-                      type="text"
-                      placeholder="Justificación de la Enmienda"
-                      formControlName="rationale"
-                    />
-                    <label for="AwardsAmendmentsRationale"
-                      >Justificación de la Enmienda</label
-                    >
-                  </div>
-                </div>
-                <div class="row">
-                  <div class="form-floating col-md-4 mb-5">
-                    <input
-                      class="form-control"
-                      id="AwardsAmendmentsDescription"
-                      type="text"
-                      placeholder="Descripción de los cambios hechos en la enmienda"
-                      formControlName="description"
-                    />
-                    <label for="AwardsAmendmentsDescription"
-                      >Descripción de los cambios</label
-                    >
-                  </div>
-                  <div class="form-floating col-md-4 mb-5">
-                    <input
-                      class="form-control"
-                      id="AwardsAmendsReleaseID"
-                      type="text"
-                      placeholder="Entrega enmendada"
-                      formControlName="amendsReleaseID"
-                    />
-                    <label for="AwardsAmendsReleaseID"
-                      >Entrega enmendada (Identificador)</label
-                    >
-                  </div>
-                  <div class="form-floating col-md-4 mb-5">
-                    <input
-                      class="form-control"
-                      id="AwardsAmendmentsReleaseID"
-                      type="text"
-                      placeholder="Entrega de enmienda"
-                      formControlName="releaseID"
-                    />
-                    <label for="AwardsAmendmentsReleaseID"
-                      >Entrega de enmienda (dentificador)</label
-                    >
-                  </div>
-                </div>
-                <div class="row">
-                  <div
-                    class="col-md-6 form-group d-flex justify-content-between"
-                  >
-                    <input
-                      type="submit"
-                      value="guardar"
-                      class="btn btn-primary rounded-0 py-2 px-4"
-                    />
-                    <span class="Guardar"></span>
-                  </div>
-                </div>
-
-                <!-- Botón para enviar todos los datos -->
-                <div class="row">
-                  <div class="col-md-12 text-center mt-5">
-                    <button
-                      (click)="submitAllSections()"
-                      class="btn btn-success rounded-0 py-2 px-4"
-                    >
-                      Guardar Adjudicación
-                    </button>
-                  </div>
-                </div>
-              </form>
+              <app-awards-amendments
+                [amendmentsArray]="awardForm.value.amendments"
+                (addAmendment)="addAmendment($event)"
+                (deleteAmendment)="deleteAmendment($event)"
+              ></app-awards-amendments>
             </div>
           </div>
         </div>
