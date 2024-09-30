@@ -31,6 +31,7 @@
               role="tab"
               aria-controls="parties-general"
               aria-selected="false"
+              *ngIf="editMode"
             >
               Información general
             </button>
@@ -44,6 +45,7 @@
               role="tab"
               aria-controls="parties-address"
               aria-selected="false"
+              *ngIf="editMode"
             >
               Domicilio
             </button>
@@ -57,6 +59,7 @@
               role="tab"
               aria-controls="parties-contactPoint"
               aria-selected="false"
+              *ngIf="editMode"
             >
               Punto de contacto
             </button>
@@ -70,6 +73,7 @@
               role="tab"
               aria-controls="parties-additionalContactPoints"
               aria-selected="false"
+              *ngIf="editMode"
             >
               Puntos de contacto adicionales
             </button>
@@ -83,20 +87,32 @@
               role="tab"
               aria-controls="parties-beneficialOwners"
               aria-selected="false"
+              *ngIf="editMode"
             >
               Beneficiarios
+            </button>
+          </div>
+
+          <div class="d-flex flex-column">
+            <button
+              type="button"
+              class="btn btn-danger text-center p-3"
+              (click)="savePartie()"
+              *ngIf="editMode"
+            >
+              Guardar Actor
             </button>
           </div>
         </div>
       </div>
       <!-- secciones  -->
       <div class="col-md-9 g-0">
-        <div class="tab-content" id="licitacion-tabContent">
+        <div class="tab-content" id="parties-tabContent" *ngIf="!editMode">
           <div
             class="tab-pane fade show active"
-            id="licitacion-presentacion"
+            id="parties-presentacion"
             role="tabpanel"
-            aria-labelledby="licitacion-presentacion-tab"
+            aria-labelledby="parties-presentacion-tab"
             tabindex="0"
           >
             <div class="form h-100">
@@ -113,11 +129,74 @@
                   esquema para hacer referencia a las entradas en esta lista.
                 </p>
               </div>
+              <div class="row">
+                <div class="col">
+                  <button
+                    type="button"
+                    class="btn btn-danger btn-add"
+                    (click)="newPartie()"
+                  >
+                    Agregar actor
+                  </button>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col">
+                  <div class="table-responsive">
+                    <table class="table table-striped table-hover">
+                      <thead>
+                        <tr>
+                          <th scope="col">ID</th>
+                          <th scope="col">Nombre comun</th>
+                          <th scope="col">cargo</th>
+                          <th scope="col">Nombre legal</th>
+                          <th scope="col">Nombre</th>
+                          <th scope="col">Primer apellido</th>
+                          <th scope="col">Segundo apellido</th>
+                          <th scope="col">opciones</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr
+                          *ngFor="
+                            let item of partiesForm.value.parties;
+                            index as i
+                          "
+                        >
+                          <td scope="row">
+                            {{ i + 1 }}
+                          </td>
+                          <td>{{ item.name }}</td>
+                          <td>{{ item.position }}</td>
+                          <td>{{ item.identifier.legalName }}</td>
+                          <td>{{ item.identifier.givenName }}</td>
+                          <td>{{ item.identifier.patronymicName }}</td>
+                          <td>{{ item.identifier.matronymicName }}</td>
+                          <td>
+                            <button
+                              type="button"
+                              class="btn btn-danger btn-delete"
+                              (click)="deletePartie(i)"
+                            >
+                              Eliminar
+                            </button>
+                          </td>
+                        </tr>
+                        <tr *ngIf="partiesForm.value.parties.length === 0">
+                          <th scope="row" colspan="8" class="text-center">
+                            Sin registros.
+                          </th>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </div>
 
-        <div class="tab-content" id="parties-general">
+        <div class="tab-content" id="parties-tabContent" *ngIf="editMode">
           <div
             class="tab-pane fade"
             id="parties-general"
@@ -126,12 +205,14 @@
             tabindex="0"
           >
             <div class="form">
-              <app-parties-general></app-parties-general>
+              <app-parties-general
+                (saveGeneral)="saveGeneral($event)"
+              ></app-parties-general>
             </div>
           </div>
         </div>
 
-        <div class="tab-content" id="parties-address">
+        <div class="tab-content" id="parties-tabContent" *ngIf="editMode">
           <div
             class="tab-pane fade"
             id="parties-address"
@@ -140,12 +221,14 @@
             tabindex="0"
           >
             <div class="form">
-              <app-parties-address></app-parties-address>
+              <app-parties-address
+                (saveAddress)="saveAddress($event)"
+              ></app-parties-address>
             </div>
           </div>
         </div>
 
-        <div class="tab-content" id="parties-contactPoint">
+        <div class="tab-content" id="parties-tabContent" *ngIf="editMode">
           <div
             class="tab-pane fade"
             id="parties-contactPoint"
@@ -154,12 +237,14 @@
             tabindex="0"
           >
             <div class="form">
-              <app-parties-contact-point></app-parties-contact-point>
+              <app-parties-contact-point
+                (saveContactPoint)="saveContactPoint($event)"
+              ></app-parties-contact-point>
             </div>
           </div>
         </div>
 
-        <div class="tab-content" id="parties-additionalContactPoints">
+        <div class="tab-content" id="parties-tabContent" *ngIf="editMode">
           <div
             class="tab-pane fade"
             id="parties-additionalContactPoints"
@@ -168,12 +253,22 @@
             tabindex="0"
           >
             <div class="form">
-              <app-parties-additional-contact-points></app-parties-additional-contact-points>
+              <app-parties-additional-contact-points
+                [additionalContactPointsArray]="
+                  partieForm.value.additionalContactPoints
+                "
+                (addAdditionalContactPoints)="
+                  addAdditionalContactPoints($event)
+                "
+                (deleteAdditionalContactPoints)="
+                  deleteAdditionalContactPoints($event)
+                "
+              ></app-parties-additional-contact-points>
             </div>
           </div>
         </div>
 
-        <div class="tab-content" id="parties-beneficialOwners">
+        <div class="tab-content" id="parties-tabContent" *ngIf="editMode">
           <div
             class="tab-pane fade"
             id="parties-beneficialOwners"
@@ -182,7 +277,11 @@
             tabindex="0"
           >
             <div class="form">
-              <app-parties-beneficial-owners></app-parties-beneficial-owners>
+              <app-parties-beneficial-owners
+                [beneficialOwnersArray]="partieForm.value.beneficialOwners"
+                (addBeneficialOwners)="addBeneficialOwners($event)"
+                (deleteBeneficialOwners)="deleteBeneficialOwners($event)"
+              ></app-parties-beneficial-owners>
             </div>
           </div>
         </div>
