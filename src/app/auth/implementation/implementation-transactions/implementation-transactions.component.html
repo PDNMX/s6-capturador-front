@@ -41,7 +41,31 @@
               <th scope="col">Opciones</th>
             </tr>
           </thead>
-          <tbody></tbody>
+          <tbody>
+            <tr *ngFor="let transaction of transactionsArray; let i = index">
+              <td>{{ transaction.id || i + 1 }}</td>
+              <td>{{ transaction.date }}</td>
+              <td>{{ transaction.paymentMethod }}</td>
+              <td>{{ transaction.value.amount }}</td>
+              <td>{{ transaction.value.currency }}</td>
+              <td>{{ transaction.payer.name }}</td>
+              <td>{{ transaction.payee.name }}</td>
+              <td>
+                <button
+                  type="button"
+                  class="btn btn-danger btn-delete"
+                  (click)="deleteTransaction.emit(i)"
+                >
+                  Eliminar
+                </button>
+              </td>
+            </tr>
+            <tr *ngIf="transactionsArray.length === 0">
+              <th scope="row" colspan="8" class="text-center">
+                Sin registros.
+              </th>
+            </tr>
+          </tbody>
         </table>
       </div>
     </div>
@@ -121,81 +145,26 @@
     <fieldset class="border p-3 mb-3">
       <legend class="w-auto px-2">Pagador</legend>
       <div class="row">
-        <div class="form-floating col-10 mb-5" [formGroup]="payerForm">
-          <select class="form-select" formControlName="id">
+        <div class="form-floating col-10 mb-5" >
+          <select class="form-select" formControlName="payer">
             <option selected>Seleccione un pagador</option>
             <option *ngFor="let p of payers" [ngValue]="p">
-              pagador {{ p?.name }}
+              Actor {{ p?.name }}
             </option>
           </select>
         </div>
-        <div class="col-2">
-          <button
-            type="button"
-            class="btn btn-danger btn-add"
-            (click)="addPayer()"
-          >
-            Agregar
-          </button>
-        </div>
-      </div>
-      <div class="row">
-        <div class="table-responsive">
-          <table class="table table-hover table-striped mb-10">
-            <thead>
-              <tr>
-                <th scope="col">ID</th>
-                <th scope="col">Nombre</th>
-                <th scope="col">Opciones</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr
-                class=""
-                *ngFor="let payer of payerForm.value.payers; index as i"
-              >
-                <td scope="row">{{ payer.id }}</td>
-                <td>{{ payer.name }}</td>
-                <td>
-                  <button
-                    type="button"
-                    class="btn btn-danger btn-delete"
-                    (click)="deletePayer(i)"
-                  >
-                    Eliminar
-                  </button>
-                </td>
-              </tr>
-              <tr *ngIf="payerForm.value.payers.length === 0">
-                <th scope="row" colspan="3" class="text-center">
-                  Sin registros.
-                </th>
-              </tr>
-            </tbody>
-          </table>
-        </div>
       </div>
     </fieldset>
-    <fieldset>
+    <fieldset class="border p-3 mb-3">
       <legend class="w-auto px-2">Beneficiario</legend>
-      <div class="row mb-3">
-        <div class="form-floating col-md-6 mb-5">
-          <input
-            type="text"
-            class="form-control"
-            id="TransactionsPayeeId"
-            placeholder="Identificador del actor"
-          />
-          <label for="TransactionsPayeeId">Identificador del actor</label>
-        </div>
-        <div class="form-floating col-md-6 mb-5">
-          <input
-            type="text"
-            class="form-control"
-            id="TransactionsPayeeName"
-            placeholder="Nombre del actor"
-          />
-          <label for="TransactionsPayeeName">Nombre del actor</label>
+      <div class="row">
+        <div class="form-floating col-10 mb-5" >
+          <select class="form-select" formControlName="payee">
+            <option selected>Seleccione un pagador</option>
+            <option *ngFor="let b of payee" [ngValue]="b">
+              Actor {{ b?.name }}
+            </option>
+          </select>
         </div>
       </div>
     </fieldset>
@@ -208,6 +177,17 @@
           placeholder="URI"
         />
         <label for="TransactionsUri">URI</label>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col">
+        <button
+          type="button"
+          class="btn btn-danger btn-add"
+          (click)="addNewTransactions()"
+        >
+          Agregar transacción
+        </button>
       </div>
     </div>
   </form>

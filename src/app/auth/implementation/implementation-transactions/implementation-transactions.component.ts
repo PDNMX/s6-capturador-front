@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, EventEmitter, Output, Input } from '@angular/core';
 import {
   FormGroup,
   FormControl,
@@ -14,24 +14,31 @@ import { ImplementationStatus, Currency } from 'src/utils';
   styleUrls: ['./implementation-transactions.component.css'],
 })
 export class ImplementationTransactionsComponent implements OnInit {
+  @Input() transactionsArray: Array<any> = [];
+  @Output() addTransaction = new EventEmitter<any>();
+  @Output() deleteTransaction = new EventEmitter<any>();
+
   implementationStatus = ImplementationStatus;
   currency = Currency;
 
   statusForm!: FormGroup;
   transactionsForm!: FormGroup;
-  payerForm!: FormGroup;
+  
 
-  payers = [
-    { id: 1, name: 'Pagador 1' },
-    { id: 2, name: 'Pagador 2' },
-    { id: 3, name: 'Pagador 3' },
+  payers: Array<{id: number, name: string}> = [
+    {id: 1, name: 'pagador 1'},
+    {id: 2, name: 'pagador 2'},
+    {id: 3, name: 'pagador 3'},
   ];
+
+  payee: Array<{id: number, name: string}> = [
+    {id: 1, name: 'beneficiario 1'},
+    {id: 2, name: 'beneficiario 2'},
+    {id: 3, name: 'beneficiario 3'},
+  ]     
 
   constructor(private fb: FormBuilder) {}
 
-  get payersArray() {
-    return this.payerForm.controls['payers'] as FormArray;
-  }
 
   ngOnInit(): void {
     this.initForm();
@@ -48,21 +55,12 @@ export class ImplementationTransactionsComponent implements OnInit {
         amount: ['', Validators.required],
         currency: ['', Validators.required],
       }),
+      payer: [null, Validators.required],
+      payee: [null, Validators.required],
+      uri: ['', Validators.required],
     });
 
-    this.payerForm = this.fb.group({
-      id: ['null', Validators.required],
-      payers: this.fb.array([]),
-    });
-  }
-
-  addPayer(): void {
-    const opt = this.payerForm.value.id;
-    this.payersArray.push(this.fb.group({ ...opt }));
-  }
-
-  deletePayer(index: number): void {
-    this.payersArray.removeAt(index);
+  
   }
 
   // Método para obtener la descripción basada en el código seleccionado
@@ -72,5 +70,11 @@ export class ImplementationTransactionsComponent implements OnInit {
       if (t.code === code) dec = t.description;
     });
     return dec;
+  }
+  
+  addNewTransactions(): void {
+    this.addTransaction.emit(this.transactionsForm);
+    console.log(this.transactionsForm.value);
+    this.initForm();
   }
 }
