@@ -1,5 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormControl, FormArray, Validators, FormBuilder } from '@angular/forms';
+import {
+  FormGroup,
+  FormControl,
+  FormArray,
+  Validators,
+  FormBuilder,
+} from '@angular/forms';
 import { Title } from '@angular/platform-browser';
 import { map, Observable, of, tap, catchError, throwError } from 'rxjs';
 //import { HttpClient } from '@angular/common/http';
@@ -12,13 +18,12 @@ import { ActivatedRoute } from '@angular/router';
   templateUrl: './contracts.component.html',
   styleUrls: ['./contracts.component.css'],
 })
-
 export class ContractsComponent implements OnInit {
   /* Variable que contiene el objectId o id del mongo a actualizar */
   idGlobal: string = '';
   /* Variable que contiene la propiedad para cambiar
    a editable o no los input que contienen la clase de readOnly */
-   isReadOnly: boolean = false;
+  isReadOnly: boolean = false;
   /* Objeto que contiene los datos del formulario que se está capturando */
   datacontract: any = {};
   contractsArrayToSend: any[] = [];
@@ -46,22 +51,24 @@ export class ContractsComponent implements OnInit {
   contractData: any;
 
   /* Constructor para inicializar el formbuilder y el servicio el api */
-  constructor(private fb: FormBuilder, private apiService: ApiService, private route: ActivatedRoute) {} //, private http: HttpClient) { }
+  constructor(
+    private fb: FormBuilder,
+    private apiService: ApiService,
+    private route: ActivatedRoute
+  ) {} //, private http: HttpClient) { }
 
   ngOnInit() {
-
     this.getMethodById(this.idGlobal);
-    
-    this.route.paramMap.subscribe((params:any) => 
-      {
-        const id = params.get('id');
-        this.idGlobal = id;
-        console.log('contract id: ', id);
-      });
-/*     this.getMethodById(this.idGlobal);
+
+    this.route.paramMap.subscribe((params: any) => {
+      const id = params.get('id');
+      this.idGlobal = id;
+      console.log('contract id: ', id);
+    });
+    /*     this.getMethodById(this.idGlobal);
     console.log('registro de la base de datos obtenido por el id lgobal');
     console.log(this.registroPorId); */
-/*     this.route.paramMap.subscribe((params) => {
+    /*     this.route.paramMap.subscribe((params) => {
       let idGlobal = params.get('id');
 
       console.log('planning id: ', idGlobal);
@@ -70,10 +77,14 @@ export class ContractsComponent implements OnInit {
 
   /* Método para generar un id para cada contrato agregado al arreglo de contratos del OCID */
   generarId(): string {
-    return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
-      var r = Math.random() * 16 | 0, v = c == 'x' ? r : (r & 0x3 | 0x8);
-      return v.toString(16);
-    });
+    return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(
+      /[xy]/g,
+      function (c) {
+        var r = (Math.random() * 16) | 0,
+          v = c == 'x' ? r : (r & 0x3) | 0x8;
+        return v.toString(16);
+      }
+    );
   }
 
   /* Construyendo el objeto de contracts con formbuilder */
@@ -94,11 +105,34 @@ export class ContractsComponent implements OnInit {
       amount: ['', Validators.required],
       amountNet: ['', Validators.required],
       currency: ['', Validators.required],
+      exchangeRate: this.fb.array([]),
     }),
     dateSignedContracts: this.fb.group({
       dateSigned: ['', Validators.required],
     }),
   });
+
+  // Método para agregar un nuevo exchangeRate
+  addExchangeRate() {
+    const exchangeRateForm = this.fb.group({
+      rate: ['', Validators.required],
+      currency: ['', Validators.required],
+      date: ['', Validators.required],
+      source: ['', Validators.required],
+    });
+    (this.contracts.get('value.exchangeRate') as FormArray).push(
+      exchangeRateForm
+    );
+  }
+
+  // Getter para acceder fácilmente al FormArray de exchangeRate
+  get exchangeRates() {
+    return this.contracts.get('value.exchangeRate') as FormArray;
+  }
+
+  removeExchangeRate(index: number) {
+    (this.contracts.get('value.exchangeRate') as FormArray).removeAt(index);
+  }
 
   items = this.fb.group({
     id: ['', Validators.required],
@@ -244,7 +278,7 @@ export class ContractsComponent implements OnInit {
   }
 
   /* Obtener el registro de la colección correspondiente al OCID en curso */
-/*   getMethodById(id: string): void {
+  /*   getMethodById(id: string): void {
     this.apiService.getMethod<any>(`/contracts/getById/${id}`).subscribe(
       (data: any) => {
         this.registroPorId = data;
@@ -256,18 +290,18 @@ export class ContractsComponent implements OnInit {
     );
   } */
 
-    getMethodById(id: string): void {
-      this.apiService.getMethodById(id, '/contracts/getById').subscribe(
-        (data: any) => {
-          this.registroPorId = data;
-          this.contractsArrayToSend = [...this.registroPorId.record.contracts];
-          console.log('Datos obtenidos:', this.registroPorId);
-        },
-        (error: any) => {
-          console.error('Error al obtener data:', error);
-        }
-      );
-    }
+  getMethodById(id: string): void {
+    this.apiService.getMethodById(id, '/contracts/getById').subscribe(
+      (data: any) => {
+        this.registroPorId = data;
+        this.contractsArrayToSend = [...this.registroPorId.record.contracts];
+        console.log('Datos obtenidos:', this.registroPorId);
+      },
+      (error: any) => {
+        console.error('Error al obtener data:', error);
+      }
+    );
+  }
 
   /* Con un observable */
   /* getMethodById(id: string): Observable<any> {
@@ -285,17 +319,19 @@ export class ContractsComponent implements OnInit {
 
   /* Método para llamar el servicio y actualizar */
   putMethod(dataToUpdate: any) {
-    this.apiService.putMethod(this.idGlobal, dataToUpdate, '/contracts/update').subscribe(
-      (data: any) => {
-        console.log('Data updated successfully:', data);
-        this.data2 = data;
-        // Handle successful response (e.g., update UI)
-      },
-      (error: any) => {
-        console.error('Error updating data:', error.message);
-        // Handle error (e.g., display error message to user)
-      }
-    );
+    this.apiService
+      .putMethod(this.idGlobal, dataToUpdate, '/contracts/update')
+      .subscribe(
+        (data: any) => {
+          console.log('Data updated successfully:', data);
+          this.data2 = data;
+          // Handle successful response (e.g., update UI)
+        },
+        (error: any) => {
+          console.error('Error updating data:', error.message);
+          // Handle error (e.g., display error message to user)
+        }
+      );
   }
 
   /* Comienza sección de métodos para construir el objeto por subseccion */
@@ -488,7 +524,7 @@ export class ContractsComponent implements OnInit {
       return;
     }
 
-    const contract = contracts.find(c => c.id === contratoId);
+    const contract = contracts.find((c) => c.id === contratoId);
     if (!contract) {
       console.error('Contrato no encontrado');
       return;
@@ -665,7 +701,7 @@ export class ContractsComponent implements OnInit {
 
   /* Funciones para el formulario */
   /* Editar */
-/*   editElement(contract: any) {
+  /*   editElement(contract: any) {
     this.banderaEditar = true;
     this.contratoId = contract._id;
     this.isReadOnly = false;
@@ -716,7 +752,7 @@ export class ContractsComponent implements OnInit {
       surveillanceMechanisms: contract.surveillanceMechanisms,
       period: contract.period,
       value: contract.value,
-      dateSignedContracts: contract.dateSignedContracts
+      dateSignedContracts: contract.dateSignedContracts,
     });
 
     this.items.patchValue(contract.items || {});
@@ -771,7 +807,7 @@ export class ContractsComponent implements OnInit {
     console.log('Contrato agregado al array', this.contractsArrayToSend);
   }
 
-/*   onSubmit(idGlobal: string, idArrayObject?: string) {
+  /*   onSubmit(idGlobal: string, idArrayObject?: string) {
     if (this.banderaEditar === true && this.registroPorId) {
       alert('editar:' + this.contratoId);
       this.resetForm();
@@ -819,50 +855,51 @@ export class ContractsComponent implements OnInit {
     }
   } */
 
-    onSubmit(idGlobal: string) {
-      
-      if (this.banderaEditar) {
-        // Encontrar el índice del contrato a actualizar
-        const index = this.contractsArrayToSend.findIndex(c => c._id === this.contratoId);
-        if (index !== -1) {
-          // Actualizar el contrato existente
-          this.contractsArrayToSend[index] = {
-            ...this.contractsArrayToSend[index],
-            ...this.contracts.value,
-            items: this.items.value,
-            guarantees: this.guarantees.value,
-            documents: this.documents.value,
-            relatedProcesses: this.relatedProcesses.value,
-            milestones: this.milestones.value,
-            amendments: this.amendments.value
-          };
-        }
-      } else {
-        // Agregar un nuevo contrato
-        this.addElementToObject();
-        this.contractsArrayToSend.push(this.datacontract);
+  onSubmit(idGlobal: string) {
+    if (this.banderaEditar) {
+      // Encontrar el índice del contrato a actualizar
+      const index = this.contractsArrayToSend.findIndex(
+        (c) => c._id === this.contratoId
+      );
+      if (index !== -1) {
+        // Actualizar el contrato existente
+        this.contractsArrayToSend[index] = {
+          ...this.contractsArrayToSend[index],
+          ...this.contracts.value,
+          items: this.items.value,
+          guarantees: this.guarantees.value,
+          documents: this.documents.value,
+          relatedProcesses: this.relatedProcesses.value,
+          milestones: this.milestones.value,
+          amendments: this.amendments.value,
+        };
       }
-
-      // Preparar datos para enviar al API
-      this.dataToUpdate = {
-        id: idGlobal,
-        data: {
-          contracts: this.contractsArrayToSend
-        }
-      };
-
-      // Enviar datos al API
-      this.putMethod(this.dataToUpdate);
-
-      // Resetear el formulario y obtener datos actualizados
-      this.resetForm();
-      this.getMethodById(idGlobal);
-
-      // Resetear la bandera de edición
-      this.banderaEditar = false;
-      this.contratoId = '';
+    } else {
+      // Agregar un nuevo contrato
+      this.addElementToObject();
+      this.contractsArrayToSend.push(this.datacontract);
     }
-/*     onSubmit(idGlobal: string) {
+
+    // Preparar datos para enviar al API
+    this.dataToUpdate = {
+      id: idGlobal,
+      data: {
+        contracts: this.contractsArrayToSend,
+      },
+    };
+
+    // Enviar datos al API
+    this.putMethod(this.dataToUpdate);
+
+    // Resetear el formulario y obtener datos actualizados
+    this.resetForm();
+    this.getMethodById(idGlobal);
+
+    // Resetear la bandera de edición
+    this.banderaEditar = false;
+    this.contratoId = '';
+  }
+  /*     onSubmit(idGlobal: string) {
       if (this.banderaEditar) {
         // Crear un nuevo objeto con los datos actualizados
         let updatedContract = {
@@ -911,5 +948,4 @@ export class ContractsComponent implements OnInit {
       this.banderaEditar = false;
       this.contratoId = '';
     } */
-
-    }
+}

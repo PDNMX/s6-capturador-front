@@ -25,7 +25,13 @@
                 <td>{{ contract.title }}</td>
                 <!-- (click)="editElement(contract._id)" -->
                 <td>
-                  <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 0 24 24" width="24px" fill="#5f6368">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    height="24px"
+                    viewBox="0 0 24 24"
+                    width="24px"
+                    fill="#5f6368"
+                  >
                     <path d="M0 0h24v24H0z" fill="none" />
                     <path
                       d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04c.39-.39.39-1.02 0-1.41l-2.34-2.34c-.39-.39-1.02-.39-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z"
@@ -35,7 +41,13 @@
                   Editar
                 </td>
                 <td>
-                  <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 0 24 24" width="24px" fill="#5f6368">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    height="24px"
+                    viewBox="0 0 24 24"
+                    width="24px"
+                    fill="#5f6368"
+                  >
                     <path d="M0 0h24v24H0z" fill="none" />
                     <path
                       d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"
@@ -58,7 +70,7 @@
             id="v-pills-tab"
             role="tablist"
             aria-orientation="vertical"
-              >
+          >
             <button
               class="nav-link active"
               id="v-pills-contrato-definicion-tab"
@@ -422,19 +434,12 @@
                                       id="montoSinImpuestos"
                                       type="text"
                                       placeholder="Monto sin impuestos"
-                                      data-sb-validations="required"
                                       formControlName="amountNet"
                                       [ngClass]="{ readonly: isReadOnly }"
                                     />
                                     <label for="montoSinImpuestos"
                                       >Monto sin impuestos</label
                                     >
-                                    <div
-                                      class="invalid-feedback"
-                                      data-sb-feedback="newField13:required"
-                                    >
-                                      Monto sin impuestos es requerido.
-                                    </div>
                                   </div>
                                 </div>
                                 <div class="col-md-4">
@@ -444,17 +449,10 @@
                                       id="montoTotal"
                                       type="text"
                                       placeholder="Monto total"
-                                      data-sb-validations="required"
                                       formControlName="amount"
                                       [ngClass]="{ readonly: isReadOnly }"
                                     />
                                     <label for="montoTotal">Monto total</label>
-                                    <div
-                                      class="invalid-feedback"
-                                      data-sb-feedback="montoTotal:required"
-                                    >
-                                      Monto total es requerido.
-                                    </div>
                                   </div>
                                 </div>
                                 <div class="col-md-4">
@@ -464,18 +462,98 @@
                                       id="moneda"
                                       type="text"
                                       placeholder="Moneda"
-                                      data-sb-validations="required"
                                       formControlName="currency"
                                       [ngClass]="{ readonly: isReadOnly }"
                                     />
                                     <label for="moneda">Moneda</label>
-                                    <div
-                                      class="invalid-feedback"
-                                      data-sb-feedback="newField13:required"
-                                    >
-                                      Moneda es requerido.
+                                  </div>
+                                </div>
+                              </div>
+
+                              <div formArrayName="exchangeRate">
+                                <div
+                                  *ngFor="
+                                    let rate of exchangeRates.controls;
+                                    let i = index
+                                  "
+                                  [formGroupName]="i"
+                                  class="mb-3"
+                                >
+                                  <div class="row">
+                                    <div class="col-md-3">
+                                      <div class="form-floating">
+                                        <input
+                                          class="form-control"
+                                          [id]="'rate' + i"
+                                          type="number"
+                                          placeholder="Tasa"
+                                          formControlName="rate"
+                                        />
+                                        <label [for]="'rate' + i">Tasa</label>
+                                      </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                      <div class="form-floating">
+                                        <input
+                                          class="form-control"
+                                          [id]="'currency' + i"
+                                          type="text"
+                                          placeholder="Moneda"
+                                          formControlName="currency"
+                                        />
+                                        <label [for]="'currency' + i"
+                                          >Moneda</label
+                                        >
+                                      </div>
+                                    </div>
+                                    <div class="col-md-2">
+                                      <div class="form-floating">
+                                        <input
+                                          class="form-control"
+                                          [id]="'date' + i"
+                                          type="date"
+                                          placeholder="Fecha"
+                                          formControlName="date"
+                                        />
+                                        <label [for]="'date' + i">Fecha</label>
+                                      </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                      <div class="form-floating">
+                                        <input
+                                          class="form-control"
+                                          [id]="'source' + i"
+                                          type="text"
+                                          placeholder="Fuente"
+                                          formControlName="source"
+                                        />
+                                        <label [for]="'source' + i"
+                                          >Fuente</label
+                                        >
+                                      </div>
+                                    </div>
+                                    <div class="col-md-1">
+                                      <button
+                                        type="button"
+                                        class="btn btn-danger"
+                                        (click)="removeExchangeRate(i)"
+                                      >
+                                        <i class="fas fa-trash"></i>
+                                      </button>
                                     </div>
                                   </div>
+                                </div>
+                              </div>
+
+                              <div class="row mt-3">
+                                <div class="col-md-12">
+                                  <button
+                                    type="button"
+                                    class="btn btn-primary"
+                                    (click)="addExchangeRate()"
+                                  >
+                                    Agregar Tasa de Cambio
+                                  </button>
                                 </div>
                               </div>
                             </fieldset>
