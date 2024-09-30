@@ -22,6 +22,7 @@ export interface Contract {
     }[];
   };
   items: {
+    _id?: string;
     id: string;
     description: string;
     classification: {
@@ -171,4 +172,30 @@ export interface Contract {
     amendsReleaseID: string;
     releaseID: string;
   }[];
+}
+
+export interface Item {
+  _id?: string;
+  id: string;
+  description: string;
+  classification: {
+    scheme: string;
+    id: string;
+    uri: string;
+    description: string;
+  };
+  additionalClassifications: any;
+  quantity: number;
+  unit: {
+    scheme: string;
+    id: string;
+    name: string;
+    uri: string;
+    value: {
+      amount: number;
+      currency: string;
+    };
+  };
+  deliveryLocation: any;
+  deliveryAddress: any;
 }

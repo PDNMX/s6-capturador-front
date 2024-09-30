@@ -19,6 +19,7 @@ import { ActivatedRoute } from '@angular/router';
   styleUrls: ['./contracts.component.css'],
 })
 export class ContractsComponent implements OnInit {
+  itemsArray: any[] = [];
   /* Variable que contiene el objectId o id del mongo a actualizar */
   idGlobal: string = '';
   /* Variable que contiene la propiedad para cambiar
@@ -368,17 +369,21 @@ export class ContractsComponent implements OnInit {
     console.log('Documento agregado al array', this.datacontract);
   }
 
-  /* Sección de items */
+  addItemToArray() {
+    const newItem = this.items.value;
+    this.itemsArray.push(newItem);
+    this.items.reset(); // Clear the form after adding
+  }
+  deleteItem(index: number) {
+    this.itemsArray.splice(index, 1);
+  }
   addItemsToArray() {
-    console.log('Agregando item al array');
-    let items = this.items.value;
-    // Actualiza o agrega el nodo 'documents' manteniendo el resto de la información
+    console.log('Agregando items al array');
     this.datacontract = {
       ...this.datacontract,
-      items,
+      items: this.itemsArray,
     };
-
-    console.log('Ítem agregado al array', this.datacontract);
+    console.log('Ítems agregados al array', this.datacontract);
   }
 
   /* Sección de garantías */
@@ -755,7 +760,7 @@ export class ContractsComponent implements OnInit {
       dateSignedContracts: contract.dateSignedContracts,
     });
 
-    this.items.patchValue(contract.items || {});
+    this.itemsArray = contract.items || [];
     this.guarantees.patchValue(contract.guarantees || {});
     this.documents.patchValue(contract.documents || {});
     this.relatedProcesses.patchValue(contract.relatedProcesses || {});
@@ -780,7 +785,7 @@ export class ContractsComponent implements OnInit {
     this.banderaEditar = false;
     this.contratoId = '';
     this.contracts.reset();
-    this.items.reset();
+    this.itemsArray = []; // Clear the items array
     this.guarantees.reset();
     this.documents.reset();
     this.relatedProcesses.reset();
@@ -807,54 +812,6 @@ export class ContractsComponent implements OnInit {
     console.log('Contrato agregado al array', this.contractsArrayToSend);
   }
 
-  /*   onSubmit(idGlobal: string, idArrayObject?: string) {
-    if (this.banderaEditar === true && this.registroPorId) {
-      alert('editar:' + this.contratoId);
-      this.resetForm();
-      this.getMethodById(this.idGlobal);
-      console.log(this.registroPorId.record.contracts);
-      //let array = [1, 2, 3, 4, 5];
-      let array = this.registroPorId.record.contracts;
-      for (let i = 0; i < array.length; i++) {
-        console.log('desde la version de editar contrato');
-        console.log(array[i]);
-        if (array[i]._id == this.contratoId) {
-          //console.log("arreglo: ");
-          //console.log(array[i]);
-          this.addElementToObject();
-          console.log('nuevo arreglo');
-          let _id = array[i]._id;
-          console.log(_id);
-          console.log('nuevo objeto en el array');
-          console.log(this.contracts);
-          //array[i] = this.contracts;
-          //array[i]._id = _id;
-        }
-        //console.log("encontrado: ", array[i]);
-      }
-    } else {
-      alert('agregar');
-      let encontrado = false; // Esta variable no se usa
-      this.addElementToObject();
-      this.dataToUpdate = {
-        id: this.idGlobal,
-        data: {
-          ...this.registroPorId.record.contracts,
-          contracts: this.contractsArrayToSend,
-        },
-      };
-
-      if (this.registroPorId.record) {
-        this.putMethod(this.dataToUpdate);
-        this.resetForm();
-        this.getMethodById(this.idGlobal);
-      } else {
-        console.log('No se encontró el registro');
-        alert('No se encontró el registro, intente más tarde');
-      }
-    }
-  } */
-
   onSubmit(idGlobal: string) {
     if (this.banderaEditar) {
       // Encontrar el índice del contrato a actualizar
@@ -866,7 +823,7 @@ export class ContractsComponent implements OnInit {
         this.contractsArrayToSend[index] = {
           ...this.contractsArrayToSend[index],
           ...this.contracts.value,
-          items: this.items.value,
+          ...this.contractsArrayToSend[index],
           guarantees: this.guarantees.value,
           documents: this.documents.value,
           relatedProcesses: this.relatedProcesses.value,
@@ -877,6 +834,7 @@ export class ContractsComponent implements OnInit {
     } else {
       // Agregar un nuevo contrato
       this.addElementToObject();
+      this.datacontract.items = this.itemsArray; // Set items to itemsArray
       this.contractsArrayToSend.push(this.datacontract);
     }
 

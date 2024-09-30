@@ -1000,7 +1000,6 @@
                       <div formGroupName="clasification">
                         <fieldset class="border p-3 mb-3">
                           <legend>Clasificación del ítem</legend>
-
                           <div class="row">
                             <div class="col-md-4">
                               <div class="form-floating mb-3">
@@ -1100,7 +1099,7 @@
                               </div>
                             </div>
                           </div>
-                          <div class="row">
+                          <!--                           <div class="row">
                             <div class="col-md-12">
                               <div class="center">
                                 <button type="button" class="next-button">
@@ -1108,10 +1107,9 @@
                                 </button>
                               </div>
                             </div>
-                          </div>
+                          </div> -->
                         </fieldset>
                       </div>
-                      <!-- comienza additionalClassifications -->
                       <div
                         class="row"
                         formGroupName="additionalClassifications"
@@ -1128,7 +1126,6 @@
                                   formControlName="scheme"
                                   [ngClass]="{ readonly: isReadOnly }"
                                 >
-                                  <!-- <option value = "UNCEFACT"> Códigos para unidades de medida utilizados en el comercio internacional </option> -->
                                   <option value="UNCEFACT">
                                     UN/CEFACT Recommendation 20
                                   </option>
@@ -1212,7 +1209,6 @@
                           </div>
                         </fieldset>
                       </div>
-                      <!-- termina additionalClassifications -->
                       <div formGroupName="unit">
                         <fieldset class="border p-3 mb-3">
                           <legend>Unidad</legend>
@@ -1690,9 +1686,14 @@
                         </fieldset>
                       </div>
                       <div class="row">
-                        <!--  <div class = "col-md-4">
-                  <button (click) = "addElementToObject()" class = "btn btn-primary">Siguiente</button>
-                </div> -->
+                        <div class="col-md-4">
+                          <button
+                            (click)="addItemToArray()"
+                            class="btn btn-primary"
+                          >
+                            Agrgar item
+                          </button>
+                        </div>
                         <div class="col-md-4">
                           <button
                             (click)="addItemsToArray()"
@@ -1711,6 +1712,40 @@
                           >
                             Eliminar
                           </button>
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="row mt-3">
+                          <div class="col-12">
+                            <h4>Items List</h4>
+                            <table class="table table-striped">
+                              <thead>
+                                <tr>
+                                  <th>ID</th>
+                                  <th>Description</th>
+                                  <th>Quantity</th>
+                                  <th>Actions</th>
+                                </tr>
+                              </thead>
+                              <tbody>
+                                <tr
+                                  *ngFor="let item of itemsArray; let i = index"
+                                >
+                                  <td>{{ item.id }}</td>
+                                  <td>{{ item.description }}</td>
+                                  <td>{{ item.quantity }}</td>
+                                  <td>
+                                    <button
+                                      class="btn btn-danger btn-sm"
+                                      (click)="deleteItem(i)"
+                                    >
+                                      Delete
+                                    </button>
+                                  </td>
+                                </tr>
+                              </tbody>
+                            </table>
+                          </div>
                         </div>
                       </div>
                     </fieldset>
