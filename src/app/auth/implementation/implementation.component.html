@@ -94,7 +94,11 @@
             tabindex="0"
           >
             <div class="form">
-              <app-implementation-transactions></app-implementation-transactions>
+              <app-implementation-transactions
+                [transactionsArray]="implementationForm.value.transactions"
+                (addTransaction)="addTransaction($event)"
+                (deleteTransaction)="deleteTransaction($event)"
+              ></app-implementation-transactions>
             </div>
           </div>
         </div>
@@ -108,7 +112,11 @@
           >
             <div class="form">
               <!-- Hitos Fieldset -->
-              <app-implementation-milestones></app-implementation-milestones>
+              <app-implementation-milestones
+                [milestonesArray]="implementationForm.value.milestone"
+                (addMilestone)="addMilestone($event)"
+                (deleteMilestone)="deleteMilestone($event)"
+              ></app-implementation-milestones>
             </div>
           </div>
         </div>
@@ -123,7 +131,11 @@
           >
             <div class="form">
               <!-- Documents fieldset -->
-              <app-implementation-documents></app-implementation-documents>
+              <app-implementation-documents
+                [documentsArray]="implementationForm.value.documents"
+                (addDocument)="addDocument($event)"
+                (deleteDocument)="deleteDocument($event)"
+              ></app-implementation-documents>
             </div>
           </div>
 
@@ -268,7 +280,6 @@
               aria-labelledby="licitacion-documents-tab"
               tabindex="0"
               formControlName="title"
-              [ngClass]="{ readonly: isReadOnly }"
             >
               <div class="form">
                 <!-- Documents fieldset -->
