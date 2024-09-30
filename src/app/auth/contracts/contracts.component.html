@@ -889,10 +889,17 @@
                         </div>
                       </div>
                       <div class="row">
-                        <!--  <div class = "col-md-4">
-                  <button (click) = "addElementToObject()" class = "btn btn-primary">Siguiente</button>
-                </div> -->
                         <div class="col-md-4">
+                          <!-- agregar al arreglo de documentos -->
+                          <button
+                            (click)="addDocumentToArray()"
+                            class="btn btn-primary"
+                          >
+                            Agregar Documento
+                          </button>
+                        </div>
+                        <div class="col-md-4">
+                          <!-- agregar al arreglo de contracts que va aguardar el arreglo de documents -->
                           <button
                             (click)="addDocumentsToArray()"
                             class="btn btn-primary"
@@ -909,6 +916,43 @@
                           >
                             Eliminar
                           </button>
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="row mt-3">
+                          <div class="col-12">
+                            <h4>Lista de Documentos</h4>
+                            <table class="table table-striped">
+                              <thead>
+                                <tr>
+                                  <th>ID</th>
+                                  <th>Título</th>
+                                  <th>Tipo</th>
+                                  <th>Acciones</th>
+                                </tr>
+                              </thead>
+                              <tbody>
+                                <tr
+                                  *ngFor="
+                                    let document of documentsArray;
+                                    let i = index
+                                  "
+                                >
+                                  <td>{{ document.id }}</td>
+                                  <td>{{ document.title }}</td>
+                                  <td>{{ document.description }}</td>
+                                  <td>
+                                    <button
+                                      class="btn btn-danger btn-sm"
+                                      (click)="deleteDocument(i)"
+                                    >
+                                      Eliminar
+                                    </button>
+                                  </td>
+                                </tr>
+                              </tbody>
+                            </table>
+                          </div>
                         </div>
                       </div>
                     </fieldset>
@@ -1691,7 +1735,7 @@
                             (click)="addItemToArray()"
                             class="btn btn-primary"
                           >
-                            Agrgar item
+                            Agregar item
                           </button>
                         </div>
                         <div class="col-md-4">
@@ -2041,9 +2085,14 @@
                         </fieldset>
                       </div>
                       <div class="row">
-                        <!--  <div class = "col-md-4">
-                  <button (click) = "addElementToObject()" class = "btn btn-primary">Siguiente</button>
-                </div> -->
+                        <div class="col-md-4">
+                          <button
+                            (click)="addGuaranteeToArray()"
+                            class="btn btn-primary"
+                          >
+                            Agregar Garantía
+                          </button>
+                        </div>
                         <div class="col-md-4">
                           <button
                             (click)="addGuaranteesToArray()"
@@ -2062,6 +2111,45 @@
                           >
                             Eliminar
                           </button>
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="row mt-3">
+                          <div class="col-12">
+                            <h4>Lista de fiadores</h4>
+                            <table class="table table-striped">
+                              <thead>
+                                <tr>
+                                  <th>ID</th>
+                                  <th>Tipo</th>
+                                  <th>Fecha</th>
+                                  <th>Obligaciones</th>
+                                  <th>Acciones</th>
+                                </tr>
+                              </thead>
+                              <tbody>
+                                <tr
+                                  *ngFor="
+                                    let guarantee of guaranteesArray;
+                                    let i = index
+                                  "
+                                >
+                                  <td>{{ guarantee.id }}</td>
+                                  <td>{{ guarantee.type }}</td>
+                                  <td>{{ guarantee.date }}</td>
+                                  <td>{{ guarantee.obligations }}</td>
+                                  <td>
+                                    <button
+                                      class="btn btn-danger btn-sm"
+                                      (click)="deleteGuarantee(i)"
+                                    >
+                                      Delete
+                                    </button>
+                                  </td>
+                                </tr>
+                              </tbody>
+                            </table>
+                          </div>
                         </div>
                       </div>
                     </fieldset>
@@ -2236,9 +2324,14 @@
                         </div>
                       </div>
                       <div class="row">
-                        <!--  <div class = "col-md-4">
-                  <button (click) = "addElementToObject()" class = "btn btn-primary">Siguiente</button>
-                </div> -->
+                        <div class="col-md-4">
+                          <button
+                            (click)="addRelatedProcessToArray()"
+                            class="btn btn-primary"
+                          >
+                            Agregar Proceso Relacionado
+                          </button>
+                        </div>
                         <div class="col-md-4">
                           <button
                             (click)="addRelatedProcessesToArray()"
@@ -2257,6 +2350,43 @@
                           >
                             Eliminar
                           </button>
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="row mt-3">
+                          <div class="col-12">
+                            <h4>Lista de Procesos Relacionados</h4>
+                            <table class="table table-striped">
+                              <thead>
+                                <tr>
+                                  <th>ID</th>
+                                  <th>Relación</th>
+                                  <th>Título</th>
+                                  <th>Acciones</th>
+                                </tr>
+                              </thead>
+                              <tbody>
+                                <tr
+                                  *ngFor="
+                                    let process of relatedProcessesArray;
+                                    let i = index
+                                  "
+                                >
+                                  <td>{{ process.id }}</td>
+                                  <td>{{ process.relationship }}</td>
+                                  <td>{{ process.title }}</td>
+                                  <td>
+                                    <button
+                                      class="btn btn-danger btn-sm"
+                                      (click)="deleteRelatedProcess(i)"
+                                    >
+                                      Eliminar
+                                    </button>
+                                  </td>
+                                </tr>
+                              </tbody>
+                            </table>
+                          </div>
                         </div>
                       </div>
                     </fieldset>
@@ -2472,9 +2602,14 @@
                         </div>
                       </div>
                       <div class="row">
-                        <!--  <div class = "col-md-4">
-                  <button (click) = "addElementToObject()" class = "btn btn-primary">Siguiente</button>
-                </div> -->
+                        <div class="col-md-4">
+                          <button
+                            (click)="addMilestoneToArray()"
+                            class="btn btn-primary"
+                          >
+                            Agregar Hito
+                          </button>
+                        </div>
                         <div class="col-md-4">
                           <button
                             (click)="addMilestonesToArray()"
@@ -2493,6 +2628,43 @@
                           >
                             Eliminar
                           </button>
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="row mt-3">
+                          <div class="col-12">
+                            <h4>Lista de Hitos</h4>
+                            <table class="table table-striped">
+                              <thead>
+                                <tr>
+                                  <th>ID</th>
+                                  <th>Título</th>
+                                  <th>Tipo</th>
+                                  <th>Acciones</th>
+                                </tr>
+                              </thead>
+                              <tbody>
+                                <tr
+                                  *ngFor="
+                                    let milestone of milestonesArray;
+                                    let i = index
+                                  "
+                                >
+                                  <td>{{ milestone.id }}</td>
+                                  <td>{{ milestone.title }}</td>
+                                  <td>{{ milestone.type }}</td>
+                                  <td>
+                                    <button
+                                      class="btn btn-danger btn-sm"
+                                      (click)="deleteMilestone(i)"
+                                    >
+                                      Eliminar
+                                    </button>
+                                  </td>
+                                </tr>
+                              </tbody>
+                            </table>
+                          </div>
                         </div>
                       </div>
                     </fieldset>
@@ -2648,9 +2820,14 @@
                         </div>
                       </div>
                       <div class="row">
-                        <!--  <div class = "col-md-4">
-                  <button (click) = "addElementToObject()" class = "btn btn-primary">Siguiente</button>
-                </div> -->
+                        <div class="col-md-4">
+                          <button
+                            (click)="addAmendmentToArray()"
+                            class="btn btn-primary"
+                          >
+                            Agregar Enmienda
+                          </button>
+                        </div>
                         <div class="col-md-4">
                           <button
                             (click)="addAmendmentsToArray()"
@@ -2669,6 +2846,43 @@
                           >
                             Eliminar
                           </button>
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="row mt-3">
+                          <div class="col-12">
+                            <h4>Lista de Enmiendas</h4>
+                            <table class="table table-striped">
+                              <thead>
+                                <tr>
+                                  <th>ID</th>
+                                  <th>Fecha</th>
+                                  <th>Justificación</th>
+                                  <th>Acciones</th>
+                                </tr>
+                              </thead>
+                              <tbody>
+                                <tr
+                                  *ngFor="
+                                    let amendment of amendmentsArray;
+                                    let i = index
+                                  "
+                                >
+                                  <td>{{ amendment.id }}</td>
+                                  <td>{{ amendment.description }}</td>
+                                  <td>{{ amendment.rationale }}</td>
+                                  <td>
+                                    <button
+                                      class="btn btn-danger btn-sm"
+                                      (click)="deleteAmendment(i)"
+                                    >
+                                      Eliminar
+                                    </button>
+                                  </td>
+                                </tr>
+                              </tbody>
+                            </table>
+                          </div>
                         </div>
                       </div>
                     </fieldset>
