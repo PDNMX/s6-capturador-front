@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 interface RoleOption {
-  id:string;
+  id: string;
   label: string;
 }
 @Component({
@@ -11,6 +11,11 @@ interface RoleOption {
   styleUrls: ['./parties.component.css'],
 })
 export class PartiesComponent implements OnInit {
+  partiesForm!: FormGroup;
+  partieForm!: FormGroup;
+
+  editMode: boolean = false;
+
   Parties!: FormGroup;
   rolesList: RoleOption[] = [
     { id: 'buyer', label: 'Comprador' },
@@ -22,122 +27,108 @@ export class PartiesComponent implements OnInit {
     { id: 'payer', label: 'Pagador' },
     { id: 'payee', label: 'Beneficiario' },
     { id: 'reviewBody', label: 'Órgano de revisión' },
-    { id: 'interestedParty', label: 'Parte interesada' }
+    { id: 'interestedParty', label: 'Parte interesada' },
   ];
 
   constructor(private fb: FormBuilder) {}
+
+  newPartie(): void {
+    this.editMode = true;
+  }
+
+  get partiesArray() {
+    return this.partiesForm.controls['parties'] as FormArray;
+  }
+
+  deletePartie(index: number): void {
+    this.partiesArray.removeAt(index);
+  }
+
+  getParties(): string {
+    return JSON.stringify(this.partiesForm.value, undefined, 4);
+  }
+
+  getPartie(): string {
+    return JSON.stringify(this.partieForm.value, undefined, 4);
+  }
+
+  savePartie(): void {
+    const parties = this.partiesArray;
+    parties.push(this.partieForm);
+    this.initPartieForm();
+    this.editMode = false;
+  }
+
+  saveGeneral(general: FormGroup): void {
+    this.partieForm = this.fb.group({
+      ...general.controls,
+      ...this.partieForm.controls,
+    });
+  }
+
+  saveAddress(address: FormGroup): void {
+    this.partieForm = this.fb.group({
+      ...this.partieForm.controls,
+      address: this.fb.group({
+        ...address.controls,
+      }),
+    });
+  }
+
+  saveContactPoint(contactPoint: FormGroup): void {
+    this.partieForm = this.fb.group({
+      ...this.partieForm.controls,
+      contactPoint: this.fb.group({
+        ...contactPoint.controls,
+      }),
+    });
+  }
+
+  get additionalContactPointsArray() {
+    return this.partieForm.controls['additionalContactPoints'] as FormArray;
+  }
+
+  addAdditionalContactPoints(contact: any): void {
+    this.additionalContactPointsArray.push(contact);
+  }
+
+  deleteAdditionalContactPoints(index: number): void {
+    this.additionalContactPointsArray.removeAt(index);
+  }
+
+  get beneficialOwnersArray() {
+    return this.partieForm.controls['beneficialOwners'] as FormArray;
+  }
+
+  addBeneficialOwners(beneficialOwners: any): void {
+    this.beneficialOwnersArray.push(beneficialOwners);
+  }
+  deleteBeneficialOwners(index: number): void {
+    this.beneficialOwnersArray.removeAt(index);
+  }
+
+  getAddress() {
+    return this.partieForm.controls['address'] as FormGroup;
+  }
+
   ngOnInit(): void {
     this.initForm();
   }
-initForm(): void {
-  this.Parties = this.fb.group({
-    id: ['', Validators.required],
-    name: ['', Validators.required],
-    position: ['', Validators.required],
-    identifier: this.fb.group({
-      id: [''],
-      legalPersonality: ['', Validators.required],
-      scheme: [''],
-      legalName: [''],
-      givenName: [''],
-      patronymicName: [''],
-      matronymicName: [''],
-      uri: [''],
-    }),
-    additionalIdentifiers: this.fb.group({
-      id: [''],
-      scheme: [''],
-      legalName: [''],
-      uri: [''],
-    }),
-    address: this.fb.group({
-      streetAddress: [''],
-      locality: [''],
-      region: [''],
-      postalCode: [''],
-      countryName: [''],
-    }),
-    contactPoint: this.fb.group({
-      type: [''],
-      name: [''],
-      givenName: [''],
-      patronymicName: [''],
-      matronymicName: [''],
-      email: [''],
-      telephone: [''],
-      faxNumber: [''],
-      url: [''],
-      availableLanguage: [''],
-    }),
-    additionalContactPoints: this.fb.group({
-      type: [''],
-      name: [''],
-      givenName: [''],
-      patronymicName: [''],
-      matronymicName: [''],
-      email: [''],
-      telephone: [''],
-      faxNumber: [''],
-      url: [''],
-      availableLanguage: [''],
-    }),
-    roles: this.fb.group(
-      this.rolesList.reduce<Record<string, boolean>>((acc, role) => {
-        acc[role.id] = false;
-        return acc;
-      }, {})
-    ),
-    memberOf: this.fb.group({
-      id: [''],
-      name: [''],
-    }),
-    beneficialOwners: this.fb.group({
-      id: [''],
-      name: [''],
-      nationality: [''],
-      email: [''],
-      faxNumber: [''],
-      telephone: [''],
-      identifier: this.fb.group({
-        id: [''],
-        scheme: [''],
-      }),
-      address: this.fb.group({
-        streetAddress: [''],
-        locality: [''],
-        region: [''],
-        postalCode: [''],
-        countryName: [''],
-      }),
-    }),
-     details: this.fb.group({
-      listedOnRegulatedMarket: [false],
-    }),
-  });
-}
 
-onRoleChange(): void {
-  const rolesFormGroup = this.Parties.get('roles');
-  if (rolesFormGroup) {
-    const selectedRoles = Object.keys(rolesFormGroup.value)
-    .filter(key => rolesFormGroup.value[key])
-    .map(key => key);
-
-  console.log('Roles seleccionados:', selectedRoles);
+  initPartieForm(): void {
+    this.partieForm = this.fb.group({
+      address: null,
+      contactPoint: null,
+      additionalContactPoints: this.fb.array([]),
+      beneficialOwners: this.fb.array([]),
+    });
   }
 
-}
-  onSubmit() {
-    if (this.Parties.valid)  {
-      const formValue = this.Parties.value;
-      const selectedRoles = Object.keys(formValue.roles)
-      .filter(key => formValue.roles[key])
-      .map(key => key);
-      formValue.roles = selectedRoles;
-      console.log(formValue);
-    } else {
-      console.log('Form is invalid');
-    }
+  initForm(): void {
+    this.partiesForm = this.fb.group({
+      parties: this.fb.array([]),
+    });
 
+    this.initPartieForm();
   }
 }
