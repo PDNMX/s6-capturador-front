@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
@@ -7,6 +7,8 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
   styleUrls: ['./parties-address.component.css'],
 })
 export class PartiesAddressComponent implements OnInit {
+  @Output() saveAddress = new EventEmitter<any>();
+
   addressForm!: FormGroup;
 
   constructor(private fb: FormBuilder) {}
@@ -17,11 +19,16 @@ export class PartiesAddressComponent implements OnInit {
 
   initForm(): void {
     this.addressForm = this.fb.group({
-      streetAddress: ['', [Validators.required]],
-      locality: ['', [Validators.required]],
-      region: ['', [Validators.required]],
-      postalCode: ['', [Validators.required]],
-      countryName: ['', [Validators.required]],
+      streetAddress: ['streetAddress', [Validators.required]],
+      locality: ['locality', [Validators.required]],
+      region: ['region', [Validators.required]],
+      postalCode: ['postalCode', [Validators.required]],
+      countryName: ['countryName', [Validators.required]],
     });
+  }
+
+  save(): void {
+    console.log(this.addressForm.value);
+    this.saveAddress.emit(this.addressForm);
   }
 }

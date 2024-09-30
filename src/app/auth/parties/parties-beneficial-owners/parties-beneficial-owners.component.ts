@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
@@ -7,6 +7,10 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
   styleUrls: ['./parties-beneficial-owners.component.css'],
 })
 export class PartiesBeneficialOwnersComponent implements OnInit {
+  @Input() beneficialOwnersArray: Array<any> = [];
+  @Output() addBeneficialOwners = new EventEmitter<any>();
+  @Output() deleteBeneficialOwners = new EventEmitter<any>();
+
   beneficialOwnersForm!: FormGroup;
 
   constructor(private fb: FormBuilder) {}
@@ -17,19 +21,24 @@ export class PartiesBeneficialOwnersComponent implements OnInit {
 
   initForm(): void {
     this.beneficialOwnersForm = this.fb.group({
-      name: ['', [Validators.required]],
-      identifier: ['', [Validators.required]],
-      nationality: ['', [Validators.required]],
-      email: ['', [Validators.required]],
-      telephone: ['', [Validators.required]],
-      faxNumber: ['', [Validators.required]],
+      name: ['name', [Validators.required]],
+      identifier: ['identifier', [Validators.required]],
+      nationality: ['nationality', [Validators.required]],
+      email: ['email', [Validators.required]],
+      telephone: ['telephone', [Validators.required]],
+      faxNumber: ['faxNumber', [Validators.required]],
       address: this.fb.group({
-        streetAddress: ['', [Validators.required]],
-        locality: ['', [Validators.required]],
-        region: ['', [Validators.required]],
-        postalCode: ['', [Validators.required]],
-        countryName: ['', [Validators.required]],
+        streetAddress: ['streetAddress', [Validators.required]],
+        locality: ['locality', [Validators.required]],
+        region: ['region', [Validators.required]],
+        postalCode: ['postalCode', [Validators.required]],
+        countryName: ['countryName', [Validators.required]],
       }),
     });
+  }
+
+  addNewBeneficialOwners(): void {
+    this.addBeneficialOwners.emit(this.beneficialOwnersForm);
+    this.initForm();
   }
 }

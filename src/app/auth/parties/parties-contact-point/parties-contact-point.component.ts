@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
@@ -7,6 +7,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
   styleUrls: ['./parties-contact-point.component.css'],
 })
 export class PartiesContactPointComponent implements OnInit {
+  @Output() saveContactPoint = new EventEmitter<any>();
   contactPointForm!: FormGroup;
 
   constructor(private fb: FormBuilder) {}
@@ -17,16 +18,20 @@ export class PartiesContactPointComponent implements OnInit {
 
   initForm(): void {
     this.contactPointForm = this.fb.group({
-      name: ['', [Validators.required]],
-      type: ['', [Validators.required]],
-      givenName: ['', [Validators.required]],
-      patronymicName: ['', [Validators.required]],
-      matronymicName: ['', [Validators.required]],
-      email: ['', [Validators.required]],
-      telephone: ['', [Validators.required]],
-      faxNumber: ['', [Validators.required]],
-      url: ['', [Validators.required]],
-      availableLanguage: ['', [Validators.required]],
+      type: ['type', [Validators.required]],
+      name: ['name', [Validators.required]],
+      givenName: ['givenName', [Validators.required]],
+      patronymicName: ['patronymicName', [Validators.required]],
+      matronymicName: ['matronymicName', [Validators.required]],
+      email: ['email', [Validators.required]],
+      telephone: ['telephone', [Validators.required]],
+      faxNumber: ['faxNumber', [Validators.required]],
+      url: ['url', [Validators.required]],
+      availableLanguage: ['availableLanguage', [Validators.required]],
     });
+  }
+
+  save(): void {
+    this.saveContactPoint.emit(this.contactPointForm);
   }
 }

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
@@ -7,6 +7,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
   styleUrls: ['./parties-general.component.css'],
 })
 export class PartiesGeneralComponent implements OnInit {
+  @Output() saveGeneral = new EventEmitter<any>();
   generalForm!: FormGroup;
 
   rolesList = [
@@ -27,16 +28,20 @@ export class PartiesGeneralComponent implements OnInit {
 
   initForm(): void {
     this.generalForm = this.fb.group({
-      name: ['', [Validators.required]],
-      position: ['', [Validators.required]],
-      roles: ['', [Validators.required]],
+      name: ['name', [Validators.required]],
+      position: ['position', [Validators.required]],
+      roles: ['roles', [Validators.required]],
       identifier: this.fb.group({
-        legalPersonality: ['', [Validators.required]],
-        legalName: ['', [Validators.required]],
-        givenName: ['', [Validators.required]],
-        patronymicName: ['', [Validators.required]],
-        matronymicName: ['', [Validators.required]],
+        legalPersonality: ['legalPersonality', [Validators.required]],
+        legalName: ['legalName', [Validators.required]],
+        givenName: ['givenName', [Validators.required]],
+        patronymicName: ['patronymicName', [Validators.required]],
+        matronymicName: ['matronymicName', [Validators.required]],
       }),
     });
+  }
+
+  save(): void {
+    this.saveGeneral.emit(this.generalForm);
   }
 }

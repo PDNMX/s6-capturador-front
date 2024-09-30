@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
@@ -7,6 +7,10 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
   styleUrls: ['./parties-additional-contact-points.component.css'],
 })
 export class PartiesAdditionalContactPointsComponent implements OnInit {
+  @Input() additionalContactPointsArray: Array<any> = [];
+  @Output() addAdditionalContactPoints = new EventEmitter<any>();
+  @Output() deleteAdditionalContactPoints = new EventEmitter<any>();
+
   additionalContactPointsForm!: FormGroup;
 
   constructor(private fb: FormBuilder) {}
@@ -17,16 +21,21 @@ export class PartiesAdditionalContactPointsComponent implements OnInit {
 
   initForm(): void {
     this.additionalContactPointsForm = this.fb.group({
-      name: ['', [Validators.required]],
-      type: ['', [Validators.required]],
-      givenName: ['', [Validators.required]],
-      patronymicName: ['', [Validators.required]],
-      matronymicName: ['', [Validators.required]],
-      email: ['', [Validators.required]],
-      telephone: ['', [Validators.required]],
-      faxNumber: ['', [Validators.required]],
-      url: ['', [Validators.required]],
-      availableLanguage: ['', [Validators.required]],
+      type: ['type', [Validators.required]],
+      name: ['name', [Validators.required]],
+      givenName: ['givenName', [Validators.required]],
+      patronymicName: ['patronymicName', [Validators.required]],
+      matronymicName: ['matronymicName', [Validators.required]],
+      email: ['email', [Validators.required]],
+      telephone: ['telephone', [Validators.required]],
+      faxNumber: ['faxNumber', [Validators.required]],
+      url: ['url', [Validators.required]],
+      availableLanguage: ['availableLanguage', [Validators.required]],
     });
+  }
+
+  addNewConctactPoint(): void {
+    this.addAdditionalContactPoints.emit(this.additionalContactPointsForm);
+    this.initForm();
   }
 }
