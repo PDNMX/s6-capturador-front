@@ -1,0 +1,96 @@
+<div class="form h-100">
+  <form class="mb-5" method="post" id="planning-form" [formGroup]="planningQuotesForm">
+    <div class="row">
+      <h3>Cotizaciones</h3>
+      <hr />
+    </div>
+    <div class="row">
+      <div class="col-md-2 form-floating mb-5">
+        <input type="text" class="form-control" id="QuotesId" placeholder="ID" formControlName="id" />
+        <label for="QuotesId">ID</label>
+      </div>
+      <div class="col-md-7 form-floating mb-5">
+        <textarea class="form-control" id="QuotesDescription" type="text" placeholder="Descripción"
+          formControlName="description"></textarea>
+        <label for="QuotesDescription">Descripción</label>
+      </div>
+      <div class="col-md-3 form-floating form-group mb-5">
+        <input type="date" class="form-control" id="QuotesDate" placeholder="Fecha de la cotización"
+          formControlName="date" />
+        <label for="QuotesDate">Fecha de la cotización</label>
+      </div>
+    </div>
+    <fieldset  formGroupName="issuingSupplier">
+      <div class="row">
+        <h5>Proveedor emisor</h5>
+      </div>
+      <div class="row">
+        <div class="form-floating col-md-2 mb-5">
+          <input type="text" class="form-control" id="id" placeholder="ID" formControlName="id" />
+          <label for="id">ID</label>
+        </div>
+        <div class="form-floating col-md-10 mb-5">
+          <input type="text" class="form-control" id="name" placeholder="Nombre" formControlName="name" />
+          <label for="name">Nombre</label>
+        </div>
+      </div>
+    </fieldset>
+
+    <fieldset formGroupName="period">
+      <div class="row">
+        <h5>Periodo de la cotización</h5>
+      </div>
+      <div class="row">
+        <div class="form-floating form-group col-md-3 mb-5">
+          <input type="date" class="form-control" id="PlanningQuotesPeriodStartDate"
+            placeholder="Fecha de inicio del contrato" formControlName="startDate" />
+          <label for="PlanningQuotesPeriodStartDate">Fecha de inicio</label>
+        </div>
+        <div class="form-floating form-group col-md-3 mb-5">
+          <input type="date" class="form-control" id="PlanningQuotesPeriodendDate"
+            placeholder="Fecha de la adjudicación" formControlName="endDate" />
+          <label for="PlanningQuotesPeriodendDate">Fecha de término</label>
+        </div>
+        <div class="form-floating form-group col-md-3 mb-5">
+          <input type="date" class="form-control" id="PlanningQuotesPeriodMaxExtentDate"
+            placeholder="Fecha de la adjudicación" formControlName="maxExtentDate" />
+          <label for="BPlanningQuotesPeriodMaxExtentDate">Extensión máxima</label>
+        </div>
+        <div class="form-floating form-group col-md-3 mb-5">
+          <input type="number" class="form-control" id="PlanningQuotesPeriodDurationInDays"
+            placeholder="Duración en dias" formControlName="durationInDays" />
+          <label for="PlanningQuotesPeriodDurationInDays">Duración (días)</label>
+        </div>
+      </div>
+    </fieldset>
+
+    <fieldset  formGroupName="value">
+      <div class="row">
+        <div class="col-md-2">
+          <h5>Valor</h5>
+        </div>
+      </div>
+      <div class="row">
+        <div class="form-floating col-4 mb-2">
+          <input class="form-control" id="amount" type="text" data-sb-validations="required" placeholder="Monto*"
+            formControlName="amount" />
+          <label for="amount">Monto*</label>
+        </div>
+
+        <div class="form-floating col-4 mb-2">
+          <label for="type"></label>
+          <select class="form-select" formControlName="currency">
+            <option *ngFor="let d of currency" [ngValue]="d.code">
+              {{ d.title }}
+            </option>
+          </select>
+          <!-- <p>{{ getMilestoneTypeDesc(milestoneForm.value.type) }}</p> -->
+        </div>
+      </div>
+
+
+
+    </fieldset>
+
+  </form>
+</div>

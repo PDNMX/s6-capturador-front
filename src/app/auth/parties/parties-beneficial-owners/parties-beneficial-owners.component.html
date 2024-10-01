@@ -27,7 +27,7 @@
             <tr *ngFor="let item of beneficialOwnersArray; index as i">
               <td scope="row">{{ i + 1 }}</td>
               <td>{{ item.name }}</td>
-              <td>{{ item.identifier }}</td>
+              <td>{{ item.identifier.scheme }}-{{ item.identifier.id }}</td>
               <td>{{ item.nationality }}</td>
               <td>{{ item.email }}</td>
               <td>{{ item.faxNumber }}</td>
@@ -64,6 +64,41 @@
   <hr />
 
   <form [formGroup]="beneficialOwnersForm">
+    <fieldset class="border p-3 mb-3" formGroupName="identifier">
+      <legend class="w-auto px-1">Identificador</legend>
+      <div class="row">
+        <div class="form-floating col-6 mb-5">
+          <input
+            class="form-control"
+            id="scheme"
+            type="text"
+            data-sb-validations="required"
+            placeholder="Esquema*"
+            formControlName="scheme"
+          />
+          <label for="scheme">Esquema*</label>
+          <div class="invalid-feedback" data-sb-feedback="scheme:required">
+            Esquema * es requerido.
+          </div>
+        </div>
+
+        <div class="form-floating col-6 mb-5">
+          <input
+            class="form-control"
+            id="id"
+            type="text"
+            data-sb-validations="required"
+            placeholder="RFC*"
+            formControlName="id"
+          />
+          <label for="id">RFC*</label>
+          <div class="invalid-feedback" data-sb-feedback="id:required">
+            RFC * es requerido.
+          </div>
+        </div>
+      </div>
+    </fieldset>
+
     <div class="row">
       <div class="form-floating col mb-5">
         <input
@@ -77,23 +112,6 @@
         <label for="name">Nombre*</label>
         <div class="invalid-feedback" data-sb-feedback="name:required">
           Nombre * es requerido.
-        </div>
-      </div>
-    </div>
-
-    <div class="row">
-      <div class="form-floating col mb-5">
-        <input
-          class="form-control"
-          id="identifier"
-          type="text"
-          data-sb-validations="required"
-          placeholder="Identificador*"
-          formControlName="identifier"
-        />
-        <label for="identifier">Identificador*</label>
-        <div class="invalid-feedback" data-sb-feedback="identifier:required">
-          Identificador * es requerido.
         </div>
       </div>
     </div>

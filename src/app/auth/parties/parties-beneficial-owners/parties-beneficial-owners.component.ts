@@ -21,24 +21,28 @@ export class PartiesBeneficialOwnersComponent implements OnInit {
 
   initForm(): void {
     this.beneficialOwnersForm = this.fb.group({
-      name: ['name', [Validators.required]],
-      identifier: ['identifier', [Validators.required]],
-      nationality: ['nationality', [Validators.required]],
-      email: ['email', [Validators.required]],
-      telephone: ['telephone', [Validators.required]],
-      faxNumber: ['faxNumber', [Validators.required]],
+      name: ['', [Validators.required]],
+      identifier: this.fb.group({
+        scheme: ['MX-RFC', [Validators.required]],
+        id: ['', [Validators.required]],
+      }),
+      nationality: ['', [Validators.required]],
+      email: ['', [Validators.required]],
+      telephone: ['', [Validators.required]],
+      faxNumber: ['', [Validators.required]],
       address: this.fb.group({
-        streetAddress: ['streetAddress', [Validators.required]],
-        locality: ['locality', [Validators.required]],
-        region: ['region', [Validators.required]],
-        postalCode: ['postalCode', [Validators.required]],
-        countryName: ['countryName', [Validators.required]],
+        streetAddress: ['', [Validators.required]],
+        locality: ['', [Validators.required]],
+        region: ['', [Validators.required]],
+        postalCode: ['', [Validators.required]],
+        countryName: ['', [Validators.required]],
       }),
     });
   }
 
   addNewBeneficialOwners(): void {
     this.addBeneficialOwners.emit(this.beneficialOwnersForm);
+    // console.log('beneficialOwnersForm: ', this.beneficialOwnersForm.value);
     this.initForm();
   }
 }
