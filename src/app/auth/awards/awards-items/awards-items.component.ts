@@ -31,7 +31,7 @@ export class AwardsItemsComponent implements OnInit {
     private api: ApiService,
     private route: ActivatedRoute
   ) {}
-  loadForm(data: any): void {
+  /* loadForm(data: any): void {
     data.forEach((item: any) => {
       const {
         id,
@@ -57,8 +57,8 @@ export class AwardsItemsComponent implements OnInit {
       this.itemsArray.push(this.itemsForm);
     });
   }
-
-  loadData(): void {
+ */
+  /* loadData(): void {
     this.route.paramMap.subscribe((params: any) => {
       this.record_id = params.get('id');
     });
@@ -73,7 +73,7 @@ export class AwardsItemsComponent implements OnInit {
         if (awards !== null) this.loadForm(awards.items);
       }
     });
-  }
+  } */
 
   get additionalClassificationsArray() {
     return this.itemsForm.controls['additionalClassifications'] as FormArray;
@@ -98,7 +98,7 @@ export class AwardsItemsComponent implements OnInit {
 
   ngOnInit(): void {
     this.initForm();
-    this.loadData();
+    //this.loadData();
   }
 
   initForm(): void {

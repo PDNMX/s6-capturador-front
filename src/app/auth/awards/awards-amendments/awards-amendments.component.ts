@@ -17,7 +17,7 @@ export class AwardsAmendmentsComponent implements OnInit {
 
   constructor(private fb: FormBuilder, private api: ApiService, private route: ActivatedRoute) {}
 
-  loadForm(data: any): void {
+  /* loadForm(data: any): void {
     data.forEach((amendment: any) => {
       this.addAmendment.emit(this.fb.group({ ...amendment }));
     });
@@ -36,11 +36,11 @@ export class AwardsAmendmentsComponent implements OnInit {
         if (awards !== null) this.loadForm(awards.amendments);
       }
     });
-  }
+  } */
 
   ngOnInit(): void {
     this.initForm();
-    this.loadData();
+    //this.loadData();
   }
 
   initForm(): void {
