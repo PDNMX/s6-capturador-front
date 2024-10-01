@@ -31,7 +31,6 @@
               role="tab"
               aria-controls="implementacion-transacciones"
               aria-selected="false"
-              *ngIf="editMode"
             >
               Transacciones
             </button>
@@ -45,7 +44,6 @@
               role="tab"
               aria-controls="implementacion-hitos"
               aria-selected="false"
-              *ngIf="editMode"
             >
               Hitos
             </button>
@@ -58,25 +56,14 @@
               role="tab"
               aria-controls="implementacion-documentos"
               aria-selected="false"
-              *ngIf="editMode"
             >
               Documentos
-            </button>
-          </div>
-          <div class="d-flex flex-column">
-            <button
-              type="button"
-              class="btn btn-danger text-center p-3"
-              (click)="submit()"
-              *ngIf="editMode"
-            >
-              Guardar implementación
             </button>
           </div>
         </div>
       </div>
       <div class="col-md-9 g-0">
-        <div class="tab-content" id="implementacion-tabContent" *ngIf="!editMode">
+        <div class="tab-content" id="implementacion-tabContent">
           <div
             class="tab-pane fade show active"
             id="implementacion-presentacion"
@@ -93,17 +80,6 @@
                   La información relacionada con la implementación del contrato
                   de acuerdo con las obligaciones definidas en el mismo.
                 </p>
-              </div>
-              <div class="row">
-                <div class="col-12">
-                  <button
-                    type="button"
-                    class="btn btn-danger btn-add"
-                    (click)="newImplementation()"
-                  >
-                    Agregar implementación
-                  </button>
-                </div>
               </div>
             </div>
           </div>

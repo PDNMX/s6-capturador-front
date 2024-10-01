@@ -23,20 +23,22 @@ export class ImplementationTransactionsComponent implements OnInit {
 
   statusForm!: FormGroup;
   transactionsForm!: FormGroup;
+  
 
-  payers: Array<{ id: number; name: string }> = [
-    { id: 1, name: 'pagador 1' },
-    { id: 2, name: 'pagador 2' },
-    { id: 3, name: 'pagador 3' },
+  payers: Array<{id: number, name: string}> = [
+    {id: 1, name: 'pagador 1'},
+    {id: 2, name: 'pagador 2'},
+    {id: 3, name: 'pagador 3'},
   ];
 
-  payee: Array<{ id: number; name: string }> = [
-    { id: 1, name: 'beneficiario 1' },
-    { id: 2, name: 'beneficiario 2' },
-    { id: 3, name: 'beneficiario 3' },
-  ];
+  payee: Array<{id: number, name: string}> = [
+    {id: 1, name: 'beneficiario 1'},
+    {id: 2, name: 'beneficiario 2'},
+    {id: 3, name: 'beneficiario 3'},
+  ]     
 
   constructor(private fb: FormBuilder) {}
+
 
   ngOnInit(): void {
     this.initForm();
@@ -57,6 +59,8 @@ export class ImplementationTransactionsComponent implements OnInit {
       payee: [null, Validators.required],
       uri: ['', Validators.required],
     });
+
+  
   }
 
   // Método para obtener la descripción basada en el código seleccionado
@@ -67,7 +71,7 @@ export class ImplementationTransactionsComponent implements OnInit {
     });
     return dec;
   }
-
+  
   addNewTransactions(): void {
     this.addTransaction.emit(this.transactionsForm);
     console.log(this.transactionsForm.value);
