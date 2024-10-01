@@ -83,33 +83,33 @@ export class PartiesGeneralComponent implements OnInit {
   initAdditionalIdentifiersForm(): void {
     this.additionalIdentifiersForm = this.fb.group({
       schema: ['MX-RFC', [Validators.required]],
-      id: ['PEVB870321382', [Validators.required]],
+      id: ['', [Validators.required]],
       uri: [
         'https://www.sat.gob.mx/cs/Satellite?blobcol=urldata&blobkey=id&blobtable=MungoBlobs&blobwhere=1705377302103&ssbinary=true',
         [Validators.required],
       ],
-      legalName: ['legalName', [Validators.required]],
+      legalName: ['', [Validators.required]],
     });
   }
 
   initForm(): void {
     this.generalForm = this.fb.group({
-      name: ['name', [Validators.required]],
-      position: ['position', [Validators.required]],
+      name: ['', [Validators.required]],
+      position: ['', [Validators.required]],
       roles: this.fb.array([]),
       memberOf: this.fb.array([]),
       identifier: this.fb.group({
-        legalPersonality: ['legalPersonality', [Validators.required]],
+        legalPersonality: ['', [Validators.required]],
         schema: ['MX-RFC', [Validators.required]],
-        id: ['PEVB870321382', [Validators.required]],
+        id: ['', [Validators.required]],
         uri: [
           'https://www.sat.gob.mx/cs/Satellite?blobcol=urldata&blobkey=id&blobtable=MungoBlobs&blobwhere=1705377302103&ssbinary=true',
           [Validators.required],
         ],
-        legalName: ['legalName', [Validators.required]],
-        givenName: ['givenName', [Validators.required]],
-        patronymicName: ['patronymicName', [Validators.required]],
-        matronymicName: ['matronymicName', [Validators.required]],
+        legalName: ['', [Validators.required]],
+        givenName: ['', [Validators.required]],
+        patronymicName: ['', [Validators.required]],
+        matronymicName: ['', [Validators.required]],
       }),
       additionalIdentifiers: this.fb.array([]),
       details: this.fb.group({

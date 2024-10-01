@@ -3,10 +3,6 @@ import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { ApiService } from 'src/app/services/api.service';
 
-interface RoleOption {
-  id: string;
-  label: string;
-}
 @Component({
   selector: 'app-parties',
   templateUrl: './parties.component.html',
@@ -20,18 +16,6 @@ export class PartiesComponent implements OnInit {
   editMode: boolean = false;
 
   Parties!: FormGroup;
-  rolesList: RoleOption[] = [
-    { id: 'buyer', label: 'Comprador' },
-    { id: 'procuringEntity', label: 'Entidad contratante' },
-    { id: 'supplier', label: 'Proveedor' },
-    { id: 'tenderer', label: 'Licitante' },
-    { id: 'funder', label: 'Financiador' },
-    { id: 'enquirer', label: 'Persona que solicita información' },
-    { id: 'payer', label: 'Pagador' },
-    { id: 'payee', label: 'Beneficiario' },
-    { id: 'reviewBody', label: 'Órgano de revisión' },
-    { id: 'interestedParty', label: 'Parte interesada' },
-  ];
 
   constructor(
     private fb: FormBuilder,
