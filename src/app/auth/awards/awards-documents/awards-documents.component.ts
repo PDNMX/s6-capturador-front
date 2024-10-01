@@ -67,7 +67,7 @@ export class AwardsDocumentsComponent implements OnInit {
     return desc;
   }
 
-  loadForm(data: any): void {
+  /* loadForm(data: any): void {
     data.forEach((doc: any) => {
       this.addDocument.emit(this.fb.group({ ...doc }));
     });
@@ -86,11 +86,11 @@ export class AwardsDocumentsComponent implements OnInit {
         if (awards !== null) this.loadForm(awards.documents);
       }
     });
-  }
+  } */
 
   ngOnInit(): void {
     this.initForm();
-    this.loadData();
+    //this.loadData();
   }
 
   initForm(): void {
