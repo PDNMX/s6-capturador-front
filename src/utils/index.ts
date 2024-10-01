@@ -13,6 +13,7 @@ import TenderStatus from './tenderStatus';
 import Classifications from './classification';
 import AwardStatus from './awardStatus';
 import PartyRole from './partyRole';
+import ImplementationStatus from './implementationStatus';
 
 export {
   Currency,
@@ -30,4 +31,5 @@ export {
   Classifications,
   AwardStatus,
   PartyRole,
+  ImplementationStatus,
 };

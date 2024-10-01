@@ -8,6 +8,7 @@ import { ApiService } from 'src/app/services/api.service';
   templateUrl: './tender.component.html',
   styleUrls: ['./tender.component.css'],
 })
+
 export class TenderComponent implements OnInit {
   record_id = null;
   tenderForm!: FormGroup;
