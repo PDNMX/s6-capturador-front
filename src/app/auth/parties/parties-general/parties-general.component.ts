@@ -1,5 +1,6 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { PartyRole } from 'src/utils';
 
 @Component({
   selector: 'app-parties-general',
@@ -9,39 +10,118 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 export class PartiesGeneralComponent implements OnInit {
   @Output() saveGeneral = new EventEmitter<any>();
   generalForm!: FormGroup;
+  additionalIdentifiersForm!: FormGroup;
 
-  rolesList = [
+  rolesList = PartyRole;
+  optRole: string = '';
+
+  optMemeberOf: string = '';
+
+  tempParties = [
     {
-      id: '',
-      label: '',
+      id: '1',
+      name: 'Actor 1',
+    },
+    {
+      id: '2',
+      name: 'Actor 2',
+    },
+    {
+      id: '3',
+      name: 'Actor 3',
     },
   ];
 
-  onSubmit(): void {}
-  onRoleChange(): void {}
-
   constructor(private fb: FormBuilder) {}
+
+  getRoleByCode(code: string): any {
+    return this.rolesList.find((e) => e.code === code);
+  }
+
+  get memberOfArray() {
+    return this.generalForm.controls['memberOf'] as FormArray;
+  }
+
+  addMemberOf(): void {
+    this.memberOfArray.push(this.fb.control(this.optMemeberOf));
+  }
+
+  deleteMemberOf(index: number): void {
+    this.memberOfArray.removeAt(index);
+  }
+
+  get roleArray() {
+    return this.generalForm.controls['roles'] as FormArray;
+  }
+
+  addRole(): void {
+    this.roleArray.push(this.fb.control(this.optRole));
+    this.optRole = '';
+  }
+
+  deleteRole(index: number): void {
+    this.roleArray.removeAt(index);
+  }
+
+  get additionalIdentifiersArray() {
+    return this.generalForm.controls['additionalIdentifiers'] as FormArray;
+  }
+
+  addAdditionalIdentifiers(): void {
+    this.additionalIdentifiersArray.push(this.additionalIdentifiersForm);
+    this.initAdditionalIdentifiersForm();
+  }
+
+  deleteAdditionalIdentifiers(index: number): void {
+    this.additionalIdentifiersArray.removeAt(index);
+  }
 
   ngOnInit(): void {
     this.initForm();
+  }
+
+  initAdditionalIdentifiersForm(): void {
+    this.additionalIdentifiersForm = this.fb.group({
+      schema: ['MX-RFC', [Validators.required]],
+      id: ['PEVB870321382', [Validators.required]],
+      uri: [
+        'https://www.sat.gob.mx/cs/Satellite?blobcol=urldata&blobkey=id&blobtable=MungoBlobs&blobwhere=1705377302103&ssbinary=true',
+        [Validators.required],
+      ],
+      legalName: ['legalName', [Validators.required]],
+    });
   }
 
   initForm(): void {
     this.generalForm = this.fb.group({
       name: ['name', [Validators.required]],
       position: ['position', [Validators.required]],
-      roles: ['roles', [Validators.required]],
+      roles: this.fb.array([]),
+      memberOf: this.fb.array([]),
       identifier: this.fb.group({
         legalPersonality: ['legalPersonality', [Validators.required]],
+        schema: ['MX-RFC', [Validators.required]],
+        id: ['PEVB870321382', [Validators.required]],
+        uri: [
+          'https://www.sat.gob.mx/cs/Satellite?blobcol=urldata&blobkey=id&blobtable=MungoBlobs&blobwhere=1705377302103&ssbinary=true',
+          [Validators.required],
+        ],
         legalName: ['legalName', [Validators.required]],
         givenName: ['givenName', [Validators.required]],
         patronymicName: ['patronymicName', [Validators.required]],
         matronymicName: ['matronymicName', [Validators.required]],
       }),
+      additionalIdentifiers: this.fb.array([]),
+      details: this.fb.group({
+        listedOnRegulatedMarket: [false, [Validators.required]],
+      }),
     });
+
+    this.initAdditionalIdentifiersForm();
   }
 
   save(): void {
+    // console.log(this.generalForm.value);
     this.saveGeneral.emit(this.generalForm);
   }
 }

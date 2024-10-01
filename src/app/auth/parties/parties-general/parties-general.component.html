@@ -40,22 +40,140 @@
       </div>
     </div>
 
-    <div class="row">
-      <div class="form-floating col mb-5">
-        <input
-          class="form-control"
-          id="roles"
-          type="text"
-          data-sb-validations="required"
-          placeholder="Papeles de los actores*"
-          formControlName="roles"
-        />
-        <label for="roles">Papeles de los actores*</label>
-        <div class="invalid-feedback" data-sb-feedback="roles:required">
-          Papeles de los actores * es requerido.
+    <fieldset class="border p-3 mb-3">
+      <legend>Papeles de los actores</legend>
+
+      <div class="row">
+        <div class="col-10">
+          <div class="row">
+            <div class="form-floating col mb-5">
+              <select
+                class="form-select"
+                [(ngModel)]="optRole"
+                [ngModelOptions]="{ standalone: true }"
+              >
+                <option *ngFor="let d of rolesList" [ngValue]="d.code">
+                  {{ d.title }}
+                </option>
+              </select>
+              <p>
+                {{ getRoleByCode(optRole)?.description }}
+              </p>
+            </div>
+          </div>
+        </div>
+        <div class="form-floating col-2 mb-5">
+          <button
+            type="button "
+            class="btn btn-danger btn-add"
+            (click)="addRole()"
+          >
+            Agregar
+          </button>
         </div>
       </div>
-    </div>
+
+      <div class="row">
+        <div class="col">
+          <div class="table-responsive">
+            <table class="table table-striped table-hover">
+              <thead>
+                <tr>
+                  <th scope="col">Rol</th>
+                  <th scope="col">Descripción</th>
+                  <th scope="col">Opciones</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let item of generalForm.value.roles; index as i">
+                  <td scope="row">{{ getRoleByCode(item)?.title }}</td>
+                  <td scope="row">{{ getRoleByCode(item)?.description }}</td>
+                  <td>
+                    <button
+                      type="button"
+                      class="btn btn-danger btn-delete"
+                      (click)="deleteRole(i)"
+                    >
+                      Eliminar
+                    </button>
+                  </td>
+                </tr>
+                <tr *ngIf="generalForm.value.roles.length === 0">
+                  <th scope="row" colspan="3" class="text-center">
+                    Sin registros.
+                  </th>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </fieldset>
+
+    <fieldset class="border p-3 mb-3">
+      <legend>Miembro de</legend>
+
+      <div class="row">
+        <div class="col-10">
+          <div class="row">
+            <div class="form-floating col mb-5">
+              <select
+                class="form-select"
+                [(ngModel)]="optMemeberOf"
+                [ngModelOptions]="{ standalone: true }"
+              >
+                <option *ngFor="let d of tempParties" [ngValue]="d">
+                  {{ d.name }}
+                </option>
+              </select>
+            </div>
+          </div>
+        </div>
+        <div class="form-floating col-2 mb-5">
+          <button
+            type="button "
+            class="btn btn-danger btn-add"
+            (click)="addMemberOf()"
+          >
+            Agregar
+          </button>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col">
+          <div class="table-responsive">
+            <table class="table table-striped table-hover">
+              <thead>
+                <tr>
+                  <th scope="col">Actor</th>
+                  <th scope="col">Opciones</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let item of generalForm.value.memberOf; index as i">
+                  <td scope="row">{{ item.name }}</td>
+                  <td>
+                    <button
+                      type="button"
+                      class="btn btn-danger btn-delete"
+                      (click)="deleteMemberOf(i)"
+                    >
+                      Eliminar
+                    </button>
+                  </td>
+                </tr>
+                <tr *ngIf="generalForm.value.memberOf.length === 0">
+                  <th scope="row" colspan="2" class="text-center">
+                    Sin registros.
+                  </th>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </fieldset>
 
     <fieldset class="border p-3 mb-3" formGroupName="identifier">
       <legend class="w-auto px-1">Identificador principal</legend>
@@ -149,28 +267,180 @@
           </div>
         </div>
       </div>
-    </fieldset>
-
-    <fieldset class="border p-3 mb-3" formGroupName="identifier">
-      <legend class="w-auto px-1">Identificadores adicionales</legend>
 
       <div class="row">
-        <div class="form-floating col mb-5">
+        <div class="form-floating col-4 mb-5">
           <input
             class="form-control"
-            id="legalName"
+            id="schema"
             type="text"
             data-sb-validations="required"
-            placeholder="Nombre legal*"
-            formControlName="legalName"
+            placeholder="Esquema*"
+            formControlName="schema"
           />
-          <label for="legalName">Nombre legal*</label>
-          <div class="invalid-feedback" data-sb-feedback="legalName:required">
-            Nombre legal * es requerido.
+          <label for="schema">Esquema*</label>
+          <div class="invalid-feedback" data-sb-feedback="schema:required">
+            Esquema * es requerido.
+          </div>
+        </div>
+
+        <div class="form-floating col-4 mb-5">
+          <input
+            class="form-control"
+            id="id"
+            type="text"
+            data-sb-validations="required"
+            placeholder="RFC*"
+            formControlName="id"
+          />
+          <label for="id">RFC*</label>
+          <div class="invalid-feedback" data-sb-feedback="id:required">
+            RFC * es requerido.
+          </div>
+        </div>
+
+        <div class="form-floating col-4 mb-5">
+          <input
+            class="form-control"
+            id="uri"
+            type="text"
+            data-sb-validations="required"
+            placeholder="URI*"
+            formControlName="uri"
+          />
+          <label for="uri">URI*</label>
+          <div class="invalid-feedback" data-sb-feedback="uri:required">
+            URI * es requerido.
           </div>
         </div>
       </div>
     </fieldset>
+
+    <fieldset class="border p-3 mb-3" formGroupName="additionalIdentifiers">
+      <legend class="w-auto px-1">Identificadores adicionales</legend>
+
+      <div class="row">
+        <div class="col">
+          <div class="table-responsive">
+            <table class="table table-striped table-hover">
+              <thead>
+                <tr>
+                  <th scope="col">Identificador</th>
+                  <th scope="col">Nombre legal</th>
+                  <th scope="col">Esquema</th>
+                  <th scope="col">URI</th>
+                  <th scope="col">Opciones</th>
+                </tr>
+                <tr [formGroup]="additionalIdentifiersForm">
+                  <th>
+                    <input
+                      class="form-control"
+                      id="id"
+                      type="text"
+                      data-sb-validations="required"
+                      placeholder="Identificador*"
+                      formControlName="id"
+                    />
+                  </th>
+                  <th>
+                    <input
+                      class="form-control"
+                      id="legalName"
+                      type="text"
+                      data-sb-validations="required"
+                      placeholder="Nombre legal*"
+                      formControlName="legalName"
+                    />
+                  </th>
+                  <th>
+                    <input
+                      class="form-control"
+                      id="schem"
+                      type="text"
+                      data-sb-validations="required"
+                      placeholder="Esquema*"
+                      formControlName="schema"
+                    />
+                  </th>
+                  <th>
+                    <input
+                      class="form-control"
+                      id="uri"
+                      type="text"
+                      data-sb-validations="required"
+                      placeholder="URI*"
+                      formControlName="uri"
+                    />
+                  </th>
+                  <th>
+                    <button
+                      type="button"
+                      class="btn btn-danger btn-add"
+                      (click)="addAdditionalIdentifiers()"
+                    >
+                      Agregar
+                    </button>
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr
+                  *ngFor="
+                    let item of generalForm.value.additionalIdentifiers;
+                    index as i
+                  "
+                >
+                  <td scope="row">
+                    {{ item.id }}
+                  </td>
+                  <td>
+                    {{ item.legalName }}
+                  </td>
+                  <td>
+                    {{ item.schema }}
+                  </td>
+                  <td>
+                    {{ item.uri }}
+                  </td>
+                  <td>
+                    <button
+                      type="button"
+                      class="btn btn-danger btn-delete"
+                      (click)="deleteAdditionalIdentifiers(i)"
+                    >
+                      Eliminar
+                    </button>
+                  </td>
+                </tr>
+                <tr
+                  *ngIf="generalForm.value.additionalIdentifiers.length === 0"
+                >
+                  <th scope="row" colspan="5" class="text-center">
+                    Sin registros.
+                  </th>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </fieldset>
+
+    <div class="row">
+      <div class="form-floating col mb-5">
+        <div class="form-check" formGroupName="details">
+          <input
+            class="form-check-input"
+            type="checkbox"
+            id="flexCheckDefault"
+            formControlName="listedOnRegulatedMarket"
+          />
+          <label class="form-check-label" for="flexCheckDefault">
+            ¿Cotiza en el mercado regulado?
+          </label>
+        </div>
+      </div>
+    </div>
 
     <div class="row">
       <div class="col">
