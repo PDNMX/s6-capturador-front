@@ -65,7 +65,7 @@ export class ContractsComponent implements OnInit {
   ) {} //, private http: HttpClient) { }
 
   ngOnInit() {
-    this.getMethodById(this.idGlobal);
+    //this.getMethodById(this.idGlobal);
 
     this.route.paramMap.subscribe((params: any) => {
       const id = params.get('id');
@@ -774,6 +774,7 @@ export class ContractsComponent implements OnInit {
 
   onSubmit(idGlobal: string) {
     if (this.banderaEditar) {
+      this.getMethodById(this.idGlobal);
       // Encontrar el índice del contrato a actualizar
       const index = this.contractsArrayToSend.findIndex(
         (c) => c._id === this.contratoId
