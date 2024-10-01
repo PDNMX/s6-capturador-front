@@ -26,6 +26,8 @@ import { PlanningGeneralComponent } from './planning/planning-general/planning-g
 import { PlanningItemsComponent } from './planning/planning-items/planning-items.component';
 import { PlanningMilestonesComponent } from './planning/planning-milestones/planning-milestones.component';
 import { PlanningRequestForQuotesComponent } from './planning/planning-requestForQuotes/planning-requestForQuotes.component';
+import { PlanningQuotesComponent } from './planning/planning-quotes/planning-quotes.component';
+
 
 @NgModule({
   declarations: [
@@ -52,6 +54,7 @@ import { PlanningRequestForQuotesComponent } from './planning/planning-requestFo
     PlanningItemsComponent,
     PlanningMilestonesComponent,
     PlanningRequestForQuotesComponent,
+    PlanningQuotesComponent,
   ],
   imports: [CommonModule, AuthRoutingModule, ReactiveFormsModule, FormsModule],
   exports: [

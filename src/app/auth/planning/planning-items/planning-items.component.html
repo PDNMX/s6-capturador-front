@@ -1,1 +1,269 @@
-<p>planning-items works!</p>
+
+
+<div class="form h-100">
+    <div class="row">
+      <div class="col">
+        <h3>Artículos a ser cotizados</h3>
+        <hr />
+        <p>
+          Los bienes y servicios que se van a cotizar, desglosados a líneas de
+          artículos cuando sea posible. Los artículos no deben de duplicarse, y se
+          deben de especificar las cantidades.
+        </p>
+      </div>
+    </div>
+ 
+  
+  <div class="row">
+    <div class="col">
+      <div class="table-responsive-sm">
+        <table class="table table-hover table-striped mb-10">
+          <thead>
+            <tr>
+              <th scope="col">ID</th>
+              <th scope="col">Descripción</th>
+              <th scope="col">Clasificación</th>
+              <th scope="col">Clasificaciones adicionales</th>
+              <th scope="col">Cantidad</th>
+              <th scope="col">Unidad</th>
+              <th scope="col">Monto</th>
+              <th scope="col">Monto sin impuestos</th>
+              <th scope="col">Moneda</th>
+              <th scope="col">Opciones</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let item of itemsArray; index as i">
+              <th scope="row">
+                {{ item.id || i + 1 }}
+              </th>
+              <td>{{ item.description }}</td>
+              <td>
+                <ul>
+                  <li>{{ item.classification.description }}</li>
+                </ul>
+              </td>
+              <td>
+                <ul>
+                  <li *ngFor="let ele of item.additionalClassifications">
+                    {{ ele.description }}
+                  </li>
+                </ul>
+              </td>
+              <td>{{ item.quantity }}</td>
+              <td>{{ item.unit.name }}</td>
+              <td>{{ item.unit.value.amount }}</td>
+              <td>{{ item.unit.value.amountNet }}</td>
+              <td>{{ item.unit.value.currency }}</td>
+              <td>
+                <button
+                  class="btn btn-danger btn-delete"
+                  (click)="deleteItem.emit(i)"
+                >
+                  Eliminar
+                </button>
+              </td>
+            </tr>
+            <tr *ngIf="itemsArray.length === 0">
+              <th scope="row" colspan="10" class="text-center">Sin registros.</th>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+  <hr />
+  
+  <!-- *ngIf="
+  itemsForm.get('description')?.invalid &&
+  itemsForm.get('description')?.touched
+  "
+  class="invalid-feedback"
+  data-sb-feedback="title:required"
+  
+  [disabled]="itemsForm.invalid"
+  
+  -->
+  
+  <form [formGroup]="itemsForm">
+    <div class="row">
+      <div class="form-floating col-12 mb-2">
+        <textarea
+          class="form-control"
+          id="description"
+          type="text"
+          placeholder="Descripción*"
+          style="height: 100px"
+          formControlName="description"
+        ></textarea>
+        <label for="description">Descripción*</label>
+        <div class="invalid-feedback" data-sb-feedback="description:required">
+          Descripción * es requerido.
+        </div>
+      </div>
+    </div>
+  
+    <div class="row">
+      <div class="col-12">
+        <label for="type">Clasificación</label>
+      </div>
+      <div class="form-floating col mb-2">
+        <select
+          class="form-select"
+          formControlName="classification"
+          (change)="selectChange()"
+        >
+          <option *ngFor="let d of classification" [ngValue]="d">
+            {{ d.description }}
+          </option>
+        </select>
+        <!-- <p>{{ getMilestoneTypeDesc(milestoneForm.value.type) }}</p> -->
+      </div>
+    </div>
+  
+    <fieldset class="border p-3 mb-3">
+      <legend class="w-auto px-1">Clasificaciones adicionales</legend>
+      <div class="row">
+        <div class="col-12">
+          <label for="type">Clasificaciones adicionales</label>
+        </div>
+        <div
+          class="form-floating col-10 mb-2"
+          [formGroup]="additionalClassificationsForm"
+        >
+          <select class="form-select" formControlName="data">
+            <option *ngFor="let d of classification" [ngValue]="d">
+              {{ d.description }}
+            </option>
+          </select>
+          <!-- <p>{{ getMilestoneTypeDesc(milestoneForm.value.type) }}</p> -->
+        </div>
+        <div class="col-2">
+          <button
+            type="button"
+            class="btn btn-danger btn-add"
+            (click)="addAdditionalClassifications()"
+          >
+            Agregar
+          </button>
+        </div>
+      </div>
+      <div class="row">
+        <div class="table-responsive">
+          <table class="table table-striped table-hover">
+            <thead>
+              <tr>
+                <th scope="col">ID</th>
+                <th scope="col">Description</th>
+                <th scope="col">Opciones</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr
+                *ngFor="
+                  let item of itemsForm.value.additionalClassifications;
+                  index as i
+                "
+              >
+                <td scope="row">
+                  {{ i + 1 }}
+                </td>
+                <td>
+                  {{ item.description }}
+                </td>
+                <td>
+                  <button
+                    type="button"
+                    class="btn btn-danger btn-delete"
+                    (click)="deleteAdditionalClassifications(i)"
+                  >
+                    Eliminar
+                  </button>
+                </td>
+              </tr>
+              <tr *ngIf="additionalClassificationsArray.length === 0">
+                <th scope="row" colspan="5" class="text-center">
+                  Sin registros.
+                </th>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </fieldset>
+  
+    <div class="row">
+      <div class="form-floating col-6 mb-2">
+        <input
+          class="form-control"
+          id="quantity"
+          type="text"
+          data-sb-validations="required"
+          placeholder="Cantidad*"
+          formControlName="quantity"
+        />
+        <label for="quantity">Cantidad*</label>
+        <div class="invalid-feedback" data-sb-feedback="quantity:required">
+          Cantidad * es requerido.
+        </div>
+      </div>
+    </div>
+  
+    <div class="row" formGroupName="unit">
+      <div class="form-floating col-6 mb-2">
+        <input
+          class="form-control"
+          id="unit"
+          type="text"
+          data-sb-validations="required"
+          placeholder="Unidad*"
+          formControlName="name"
+        />
+        <label for="unit">Unidad*</label>
+        <div class="invalid-feedback" data-sb-feedback="unit:required">
+          Unidad * es requerido.
+        </div>
+      </div>
+  
+      <div class="col-12" formGroupName="value">
+        <div class="row">
+          <div class="form-floating col-4 mb-2">
+            <input
+              class="form-control"
+              id="amount"
+              type="text"
+              data-sb-validations="required"
+              placeholder="Monto*"
+              formControlName="amount"
+            />
+            <label for="amount">Monto*</label>
+            <div class="invalid-feedback" data-sb-feedback="amount:required">
+              Monto * es requerido.
+            </div>
+          </div>
+          <div class="form-floating col-4 mb-2">
+            <label for="type">Moneda</label>
+            <select class="form-select" formControlName="currency">
+              <option *ngFor="let d of currency" [ngValue]="d.code">
+                {{ d.title }}
+              </option>
+            </select>
+            <!-- <p>{{ getMilestoneTypeDesc(milestoneForm.value.type) }}</p> -->
+          </div>
+        </div>
+      </div>
+    </div>
+  
+    <div class="row">
+      <div class="col">
+        <button
+          type="button"
+          class="btn btn-danger btn-add"
+          (click)="addNewItem()"
+        >
+          Agregar artículo
+        </button>
+      </div>
+    </div>
+  </form>
+</div>  

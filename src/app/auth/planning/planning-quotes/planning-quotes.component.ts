@@ -1,23 +1,26 @@
 import { map } from 'rxjs';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
 import { ApiService } from 'src/app/services/api.service';
-import { Classifications, Currency } from 'src/utils';
+import { ActivatedRoute } from '@angular/router';
+import { Classifications, Currency } from 'src/utils';  
 
 @Component({
-  selector: 'app-planning-items',
-  templateUrl: './planning-items.component.html',
-  styleUrls: ['./planning-items.component.css'],
+  selector: 'app-planning-quotes',
+  templateUrl: './planning-quotes.component.html',
+  styleUrls: ['./planning-quotes.component.css']
 })
-export class PlanningItemsComponent implements OnInit {
+
+export class PlanningQuotesComponent implements OnInit {
   @Input() itemsArray: Array<any> = [];
   @Output() addItem = new EventEmitter<any>();
-  @Output() deleteItem = new EventEmitter<any>();
+  @Output() deleteItem = new EventEmitter<any>();   
+  
 
   record_id: string = '';
-  itemsForm!: FormGroup;
+  planningQuotesForm!: FormGroup;
   additionalClassificationsForm!: FormGroup;
+  planningItemsForm!: FormGroup;
 
   classification = Classifications.map((m) => ({
     id: m.id,
@@ -33,7 +36,7 @@ export class PlanningItemsComponent implements OnInit {
   ) {}
 
   get additionalClassificationsArray() {
-    return this.itemsForm.controls['additionalClassifications'] as FormArray;
+    return this.planningQuotesForm.controls['additionalClassifications'] as FormArray;
   }
 
   addAdditionalClassifications(): void {
@@ -78,7 +81,7 @@ export class PlanningItemsComponent implements OnInit {
         })
       );
 
-      this.itemsArray.push(this.itemsForm);
+      this.itemsArray.push(this.planningQuotesForm);
     });
   }
 
@@ -87,36 +90,55 @@ export class PlanningItemsComponent implements OnInit {
       this.record_id = params.get('id');
     });
 
-    this.api.getMethod(`/tender/${this.record_id}`).subscribe((d: any) => {
-      const { tender, error, message } = d;
+    this.api.getMethod(`/planning/${this.record_id}`).subscribe((d: any) => {
+      const { planning, error, message } = d;
 
       if (error) {
         console.log('message: ', message);
       } else {
         // load forms
-        if (tender !== null) this.loadForm(tender.items);
+        if (planning !== null) this.loadForm(planning.items);
       }
     });
-  }
-
-  ngOnInit(): void {
-    this.initForm();
-    this.loadData();
-  }
+  } 
 
   initForm(): void {
-    this.itemsForm = this.fb.group({
+    this.planningQuotesForm = this.fb.group({
+      id: ['', Validators.required],
+      description: ['', [Validators.required]],
+      date: ['', Validators.required],
+      items: this.fb.array([], [Validators.required]),
+      value: this.fb.group({
+        amount: [0, [Validators.required]],
+        currency: ['MXN', [Validators.required]],
+      }),
+      period: this.fb.group({
+        startDate: ['', Validators.required],
+        endDate: ['', Validators.required],
+        maxExtentDate: ['', Validators.required],
+        durationInDays: ['', Validators.required],
+      }), 
+      issuingSupplier: this.fb.group({
+        name: ['', Validators.required],  
+        id: ['', Validators.required],
+      }),
+    });
+
+    this.planningItemsForm = this.fb.group({
+      id: ['', Validators.required],
       description: ['', [Validators.required]],
       classification: [{}, [Validators.required]],
       additionalClassifications: this.fb.array([], [Validators.required]),
       quantity: ['', [Validators.required]],
       unit: this.fb.group({
+        schema: ['', [Validators.required]],
+        id: ['', [Validators.required]],
         name: ['', [Validators.required]],
         value: this.fb.group({
           amount: [0, [Validators.required]],
-          amountNet: [0, [Validators.required]],
           currency: ['MXN', [Validators.required]],
         }),
+        uri: ['', [Validators.required]],
       }),
     });
 
@@ -126,13 +148,20 @@ export class PlanningItemsComponent implements OnInit {
   }
 
   selectChange(): void {
-    this.itemsForm.controls['unit'].patchValue({
-      name: this.itemsForm.value.classification.unit,
+    this.planningItemsForm.controls['unit'].patchValue({
+      name: this.planningItemsForm.value.classification.unit,
     });
   }
 
   addNewItem(): void {
-    this.addItem.emit(this.itemsForm);
+    this.addItem.emit(this.planningItemsForm);
     this.initForm();
+  }   
+
+  
+  ngOnInit(): void {
+    this.initForm();
+    this.loadData();
   }
+
 }

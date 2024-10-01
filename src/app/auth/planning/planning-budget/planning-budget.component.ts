@@ -13,10 +13,15 @@ import { Currency, FormatDocument, getDocumentType, Language } from 'src/utils';
 export class PlanningBudgetComponent implements OnInit{
   @Input() budgetArray: Array<any> = [];
   @Input() budgetBreakdownArray: Array<any> = [];
+  @Input() planningBudgetLinesArray: Array<any> = [];
+  @Input() planningBudgetComponentsArray: Array<any> = [];
   @Output() addBudget = new EventEmitter<any>();
   @Output() addBudgetBreakdown = new EventEmitter<any>();
   @Output() addBudgetLine = new EventEmitter<any>();
   @Output() addBudgetComponent = new EventEmitter<any>();
+  @Output() addBudgetBreakdownLine = new EventEmitter<any>();
+  @Output() addBudgetBreakdownComponent = new EventEmitter<any>();
+  @Output() saveBudgetData = new EventEmitter<any>();
 
   record_id: string = '';
   planningBudgetForm!: FormGroup;
@@ -75,15 +80,32 @@ export class PlanningBudgetComponent implements OnInit{
     //this.budgetBreakdownArray.removeAt(index);
   }
 
+
+  getPlanningBudgetLinesArray() {
+    return this.planningBudgetLinesForm.controls['planningBudgetLines'] as FormArray;
+  }
+  addNewPlanningBudgetLines(): void {
+    this.addBudgetLine.emit(this.planningBudgetLinesForm);
+    this.initForm();
+  }
+  deletePlanningBudgetLines(): void {
+    //this.planningBudgetLinesArray.removeAt(index);
+  } 
   addNewBudgetLine(): void {
     this.addBudgetLine.emit(this.planningBudgetLinesForm);
     this.initForm();
   }
 
+  getPlanningBudgetComponentsArray() {
+    return this.planningBudgetComponentsForm.controls['planningBudgetComponents'] as FormArray;
+  }
   addNewBudgetComponent(): void {
     this.addBudgetComponent.emit(this.planningBudgetComponentsForm);
     this.initForm();
-  } 
+  }
+  deletePlanningBudgetComponents(): void {
+    //this.planningBudgetComponentsArray.removeAt(index);
+  }     
 
 
   initForm  (): void {
@@ -133,6 +155,10 @@ export class PlanningBudgetComponent implements OnInit{
       code: ['', Validators.required],
       description: ['', Validators.required],
     }); 
+  }
+
+  saveForm(): void {
+    this.saveBudgetData.emit(this.planningBudgetForm.controls);
   }
 
 }
