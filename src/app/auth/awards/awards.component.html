@@ -159,7 +159,7 @@
                             <td>{{ award.description }}</td>
                             <td>{{ award.date | date:'shortDate' }}</td>
                             <td>{{ award.value?.amount }} {{ award.value?.currency }}</td>
-                            <td>{{ award.suppliers[0]?.name }}</td>
+                            <td>{{ award.suppliers?.name }}</td>
                             <td>
                               <button
                                 type="button"
