@@ -223,12 +223,12 @@
             </div>
           </div>
           <div class="form-floating col-4 mb-2">
-            <label for="type">Moneda</label>
             <select class="form-select" formControlName="currency">
               <option *ngFor="let d of currency" [ngValue]="d.code">
                 {{ d.title }}
               </option>
             </select>
+            <label for="type">Moneda</label>
             <!-- <p>{{ getMilestoneTypeDesc(milestoneForm.value.type) }}</p> -->
           </div>
         </div>

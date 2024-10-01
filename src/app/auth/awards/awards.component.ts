@@ -1,3 +1,4 @@
+import { map } from 'rxjs';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, FormArray } from '@angular/forms';
 import { ApiService } from 'src/app/services/api.service';
@@ -47,7 +48,8 @@ export class AwardsComponent implements OnInit {
   }
 
   deleteAward(index: number): void {
-    this.awardsArray.removeAt(index);
+    const awardsArray = this.awardsForm.get('awards') as FormArray;
+    awardsArray.removeAt(index);
     this.saveData();
   }
 
@@ -120,6 +122,13 @@ export class AwardsComponent implements OnInit {
   }
 
   saveAward(): void {
+    
+   /*  const awardData = this.awardForm.value;
+    if (!awardData.title || !awardData.description || !awardData.date) {
+      console.log('Faltan datos obligatorios');
+      this.savingMessage = 'Faltan datos obligatorios';
+      return;
+    } */
     const awards = this.awardsArray;
     awards.push(this.awardForm);
     this.initAwardForm();
@@ -128,12 +137,23 @@ export class AwardsComponent implements OnInit {
   }
 
   loadData(): void {
-    this.api.getMethod(`/awards/${this.record_id}`).subscribe((d: any) => {
-      const { awards, error, message } = d;
-      if (error) {
-        console.log('message: ', message);
-      } else {
-        if (awards !== null) this.loadForm(awards);
+    this.api.getMethod(`/awards/${this.record_id}`).subscribe({
+      next: (d: any) => {
+        const { awards, error, message } = d;
+        if (error) {
+          console.log('message: ', message);
+        } else {
+          if (Array.isArray(awards)) {
+            this.awardsForm.setControl('awards', this.fb.array(awards.map(award => this.fb.group(award))));
+          } else {
+            console.error('Awards is not an array:', awards);
+            this.awardsForm.setControl('awards', this.fb.array([]));
+          }
+        }
+      },
+      error: (err) => {
+        console.error('Error loading awards:', err);
+        this.awardsForm.setControl('awards', this.fb.array([]));
       }
     });
   }
@@ -150,6 +170,13 @@ export class AwardsComponent implements OnInit {
 
   initAwardForm(): void {
     this.awardForm = this.fb.group({
+      title: ['', Validators.required],
+    description: ['', Validators.required],
+    date: [''],
+    value: this.fb.group({
+      amount: [''],
+      currency: ['']
+    }),
       suppliers: this.fb.array([], [Validators.required]),
       items: this.fb.array([], [Validators.required]),
       documents: this.fb.array([], [Validators.required]),
@@ -182,21 +209,27 @@ export class AwardsComponent implements OnInit {
   }
 
   saveData(): void {
-    console.log('awardsForm', this.awardsForm.value);
+    const awardsData = this.awardsForm.value.awards;
     this.api
-      .postMethod({ ...this.awardsForm.value }, `/awards/${this.record_id}`)
-      .subscribe((r: any) => {
-        console.log('r: ', r);
-        if (r.err) {
-          console.log('r: ', r);
-        } else {
-          this.initForm();
-          this.loadData();
-          /*  const id = r.data._id;
-        console.log('id: ', id); */
+      .postMethod({ awards: awardsData }, `/awards/${this.record_id}`)
+      .subscribe({
+        next: (r: any) => {
+          console.log('Respuesta:', r);
+          if (r.error) {
+            console.error('Error:', r.message);
+            this.savingMessage = 'Error: ' + r.message;
+          } else {
+            this.loadData(); // Recargar los datos después de guardar
+            this.savingMessage = 'Datos guardados con éxito';
+          }
+        },
+        error: (err) => {
+          console.error('Error HTTP:', err);
+          this.savingMessage = 'Error de conexión. Por favor, intente de nuevo.';
+        },
+        complete: () => {
+          this.isSaving = false;
         }
-        this.savingMessage = 'Datos insertados con éxito';
-        this.isSaving = false;
       });
   }
 }
