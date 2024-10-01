@@ -21,11 +21,12 @@ import { Language } from 'src/utils';
 })
 export class ImplementationComponent implements OnInit {
   implementationForm!: FormGroup;
+  record_id: string = '';
 
   constructor(
     private fb: FormBuilder,
     private route: ActivatedRoute,
-    private apiService: ApiService
+    private api: ApiService
   ) {}
 
   get transactionsArray() {
@@ -65,10 +66,31 @@ export class ImplementationComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.route.paramMap.subscribe((params: any) => {
+      this.record_id = params.get('id');
+    });
     this.implementationForm = this.fb.group({
       transactions: this.fb.array([], [Validators.required]),
       milestone: this.fb.array([], [Validators.required]),
       documents: this.fb.array([], [Validators.required]),
     });
+  }
+  Submit() {
+    console.log(this.implementationForm.value);
+    this.api
+      .postMethod(
+        { ...this.implementationForm.value },
+        `/implements/${this.record_id}`
+      )
+      .subscribe((r: any) => {
+        console.log('r: ', r);
+        if (r.err) {
+          console.log('r: ', r);
+        } else {
+          // const id = r.data._id;
+          // console.log('id: ', id);
+          // this.router.navigate([`/planning/${id}`]);
+        }
+      });
   }
 }

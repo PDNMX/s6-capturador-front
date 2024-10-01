@@ -71,8 +71,8 @@
             role="tablist"
             aria-orientation="vertical"
           >
-            <button
-              class="nav-link active"
+            <h3
+              class="active text-left"
               id="v-pills-contrato-definicion-tab"
               data-bs-toggle="pill"
               data-bs-target="#v-pills-contrato-definicion"
@@ -81,9 +81,8 @@
               aria-controls="v-pills-contrato-definicion"
               aria-selected="true"
             >
-              <h3>4. Contrato</h3>
-            </button>
-
+              &nbsp;&nbsp; 4. Contrato
+            </h3>
             <button
               class="nav-link"
               id="v-pills-contrato-tab"
@@ -191,6 +190,13 @@
               role="tab"
               aria-controls="v-pills-nuevo"
               aria-selected="false"
+              style="
+                background-color: #dc3545; /* Rojo de peligro */
+                border: 1px solid #dc3545;
+                color: #fff; /* Blanco para contraste */
+                text-align: center;
+                padding: 1rem;
+              "
             >
               <!-- $ -->
               Agregar contrato
