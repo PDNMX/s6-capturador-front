@@ -19,11 +19,11 @@ export class PartiesAddressComponent implements OnInit {
 
   initForm(): void {
     this.addressForm = this.fb.group({
-      streetAddress: ['streetAddress', [Validators.required]],
-      locality: ['locality', [Validators.required]],
-      region: ['region', [Validators.required]],
-      postalCode: ['postalCode', [Validators.required]],
-      countryName: ['countryName', [Validators.required]],
+      streetAddress: ['', [Validators.required]],
+      locality: ['', [Validators.required]],
+      region: ['', [Validators.required]],
+      postalCode: ['', [Validators.required]],
+      countryName: ['', [Validators.required]],
     });
   }
 
