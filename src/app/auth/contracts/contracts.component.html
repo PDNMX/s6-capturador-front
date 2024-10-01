@@ -25,7 +25,13 @@
                 <td>{{ contract.title }}</td>
                 <!-- (click)="editElement(contract._id)" -->
                 <td>
-                  <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 0 24 24" width="24px" fill="#5f6368">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    height="24px"
+                    viewBox="0 0 24 24"
+                    width="24px"
+                    fill="#5f6368"
+                  >
                     <path d="M0 0h24v24H0z" fill="none" />
                     <path
                       d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04c.39-.39.39-1.02 0-1.41l-2.34-2.34c-.39-.39-1.02-.39-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z"
@@ -35,7 +41,13 @@
                   Editar
                 </td>
                 <td>
-                  <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 0 24 24" width="24px" fill="#5f6368">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    height="24px"
+                    viewBox="0 0 24 24"
+                    width="24px"
+                    fill="#5f6368"
+                  >
                     <path d="M0 0h24v24H0z" fill="none" />
                     <path
                       d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"
@@ -69,7 +81,7 @@
               aria-controls="v-pills-contrato-definicion"
               aria-selected="true"
             >
-              <h3>&nbsp;&nbsp;4. Contrato</h3>
+              <h3>4. Contrato</h3>
             </button>
 
             <button
@@ -422,19 +434,12 @@
                                       id="montoSinImpuestos"
                                       type="text"
                                       placeholder="Monto sin impuestos"
-                                      data-sb-validations="required"
                                       formControlName="amountNet"
                                       [ngClass]="{ readonly: isReadOnly }"
                                     />
                                     <label for="montoSinImpuestos"
                                       >Monto sin impuestos</label
                                     >
-                                    <div
-                                      class="invalid-feedback"
-                                      data-sb-feedback="newField13:required"
-                                    >
-                                      Monto sin impuestos es requerido.
-                                    </div>
                                   </div>
                                 </div>
                                 <div class="col-md-4">
@@ -444,17 +449,10 @@
                                       id="montoTotal"
                                       type="text"
                                       placeholder="Monto total"
-                                      data-sb-validations="required"
                                       formControlName="amount"
                                       [ngClass]="{ readonly: isReadOnly }"
                                     />
                                     <label for="montoTotal">Monto total</label>
-                                    <div
-                                      class="invalid-feedback"
-                                      data-sb-feedback="montoTotal:required"
-                                    >
-                                      Monto total es requerido.
-                                    </div>
                                   </div>
                                 </div>
                                 <div class="col-md-4">
@@ -464,18 +462,98 @@
                                       id="moneda"
                                       type="text"
                                       placeholder="Moneda"
-                                      data-sb-validations="required"
                                       formControlName="currency"
                                       [ngClass]="{ readonly: isReadOnly }"
                                     />
                                     <label for="moneda">Moneda</label>
-                                    <div
-                                      class="invalid-feedback"
-                                      data-sb-feedback="newField13:required"
-                                    >
-                                      Moneda es requerido.
+                                  </div>
+                                </div>
+                              </div>
+
+                              <div formArrayName="exchangeRate">
+                                <div
+                                  *ngFor="
+                                    let rate of exchangeRates.controls;
+                                    let i = index
+                                  "
+                                  [formGroupName]="i"
+                                  class="mb-3"
+                                >
+                                  <div class="row">
+                                    <div class="col-md-3">
+                                      <div class="form-floating">
+                                        <input
+                                          class="form-control"
+                                          [id]="'rate' + i"
+                                          type="number"
+                                          placeholder="Tasa"
+                                          formControlName="rate"
+                                        />
+                                        <label [for]="'rate' + i">Tasa</label>
+                                      </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                      <div class="form-floating">
+                                        <input
+                                          class="form-control"
+                                          [id]="'currency' + i"
+                                          type="text"
+                                          placeholder="Moneda"
+                                          formControlName="currency"
+                                        />
+                                        <label [for]="'currency' + i"
+                                          >Moneda</label
+                                        >
+                                      </div>
+                                    </div>
+                                    <div class="col-md-2">
+                                      <div class="form-floating">
+                                        <input
+                                          class="form-control"
+                                          [id]="'date' + i"
+                                          type="date"
+                                          placeholder="Fecha"
+                                          formControlName="date"
+                                        />
+                                        <label [for]="'date' + i">Fecha</label>
+                                      </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                      <div class="form-floating">
+                                        <input
+                                          class="form-control"
+                                          [id]="'source' + i"
+                                          type="text"
+                                          placeholder="Fuente"
+                                          formControlName="source"
+                                        />
+                                        <label [for]="'source' + i"
+                                          >Fuente</label
+                                        >
+                                      </div>
+                                    </div>
+                                    <div class="col-md-1">
+                                      <button
+                                        type="button"
+                                        class="btn btn-danger"
+                                        (click)="removeExchangeRate(i)"
+                                      >
+                                        <i class="fas fa-trash"></i>
+                                      </button>
                                     </div>
                                   </div>
+                                </div>
+                              </div>
+
+                              <div class="row mt-3">
+                                <div class="col-md-12">
+                                  <button
+                                    type="button"
+                                    class="btn btn-primary"
+                                    (click)="addExchangeRate()"
+                                  >
+                                    Agregar Tasa de Cambio
+                                  </button>
                                 </div>
                               </div>
                             </fieldset>
@@ -811,10 +889,17 @@
                         </div>
                       </div>
                       <div class="row">
-                        <!--  <div class = "col-md-4">
-                  <button (click) = "addElementToObject()" class = "btn btn-primary">Siguiente</button>
-                </div> -->
                         <div class="col-md-4">
+                          <!-- agregar al arreglo de documentos -->
+                          <button
+                            (click)="addDocumentToArray()"
+                            class="btn btn-primary"
+                          >
+                            Agregar Documento
+                          </button>
+                        </div>
+                        <div class="col-md-4">
+                          <!-- agregar al arreglo de contracts que va aguardar el arreglo de documents -->
                           <button
                             (click)="addDocumentsToArray()"
                             class="btn btn-primary"
@@ -831,6 +916,43 @@
                           >
                             Eliminar
                           </button>
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="row mt-3">
+                          <div class="col-12">
+                            <h4>Lista de Documentos</h4>
+                            <table class="table table-striped">
+                              <thead>
+                                <tr>
+                                  <th>ID</th>
+                                  <th>Título</th>
+                                  <th>Tipo</th>
+                                  <th>Acciones</th>
+                                </tr>
+                              </thead>
+                              <tbody>
+                                <tr
+                                  *ngFor="
+                                    let document of documentsArray;
+                                    let i = index
+                                  "
+                                >
+                                  <td>{{ document.id }}</td>
+                                  <td>{{ document.title }}</td>
+                                  <td>{{ document.description }}</td>
+                                  <td>
+                                    <button
+                                      class="btn btn-danger btn-sm"
+                                      (click)="deleteDocument(i)"
+                                    >
+                                      Eliminar
+                                    </button>
+                                  </td>
+                                </tr>
+                              </tbody>
+                            </table>
+                          </div>
                         </div>
                       </div>
                     </fieldset>
@@ -922,7 +1044,6 @@
                       <div formGroupName="clasification">
                         <fieldset class="border p-3 mb-3">
                           <legend>Clasificación del ítem</legend>
-
                           <div class="row">
                             <div class="col-md-4">
                               <div class="form-floating mb-3">
@@ -1022,7 +1143,7 @@
                               </div>
                             </div>
                           </div>
-                          <div class="row">
+                          <!--                           <div class="row">
                             <div class="col-md-12">
                               <div class="center">
                                 <button type="button" class="next-button">
@@ -1030,10 +1151,9 @@
                                 </button>
                               </div>
                             </div>
-                          </div>
+                          </div> -->
                         </fieldset>
                       </div>
-                      <!-- comienza additionalClassifications -->
                       <div
                         class="row"
                         formGroupName="additionalClassifications"
@@ -1050,7 +1170,6 @@
                                   formControlName="scheme"
                                   [ngClass]="{ readonly: isReadOnly }"
                                 >
-                                  <!-- <option value = "UNCEFACT"> Códigos para unidades de medida utilizados en el comercio internacional </option> -->
                                   <option value="UNCEFACT">
                                     UN/CEFACT Recommendation 20
                                   </option>
@@ -1134,7 +1253,6 @@
                           </div>
                         </fieldset>
                       </div>
-                      <!-- termina additionalClassifications -->
                       <div formGroupName="unit">
                         <fieldset class="border p-3 mb-3">
                           <legend>Unidad</legend>
@@ -1612,9 +1730,14 @@
                         </fieldset>
                       </div>
                       <div class="row">
-                        <!--  <div class = "col-md-4">
-                  <button (click) = "addElementToObject()" class = "btn btn-primary">Siguiente</button>
-                </div> -->
+                        <div class="col-md-4">
+                          <button
+                            (click)="addItemToArray()"
+                            class="btn btn-primary"
+                          >
+                            Agregar item
+                          </button>
+                        </div>
                         <div class="col-md-4">
                           <button
                             (click)="addItemsToArray()"
@@ -1633,6 +1756,40 @@
                           >
                             Eliminar
                           </button>
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="row mt-3">
+                          <div class="col-12">
+                            <h4>Items List</h4>
+                            <table class="table table-striped">
+                              <thead>
+                                <tr>
+                                  <th>ID</th>
+                                  <th>Description</th>
+                                  <th>Quantity</th>
+                                  <th>Actions</th>
+                                </tr>
+                              </thead>
+                              <tbody>
+                                <tr
+                                  *ngFor="let item of itemsArray; let i = index"
+                                >
+                                  <td>{{ item.id }}</td>
+                                  <td>{{ item.description }}</td>
+                                  <td>{{ item.quantity }}</td>
+                                  <td>
+                                    <button
+                                      class="btn btn-danger btn-sm"
+                                      (click)="deleteItem(i)"
+                                    >
+                                      Delete
+                                    </button>
+                                  </td>
+                                </tr>
+                              </tbody>
+                            </table>
+                          </div>
                         </div>
                       </div>
                     </fieldset>
@@ -1928,9 +2085,14 @@
                         </fieldset>
                       </div>
                       <div class="row">
-                        <!--  <div class = "col-md-4">
-                  <button (click) = "addElementToObject()" class = "btn btn-primary">Siguiente</button>
-                </div> -->
+                        <div class="col-md-4">
+                          <button
+                            (click)="addGuaranteeToArray()"
+                            class="btn btn-primary"
+                          >
+                            Agregar Garantía
+                          </button>
+                        </div>
                         <div class="col-md-4">
                           <button
                             (click)="addGuaranteesToArray()"
@@ -1949,6 +2111,45 @@
                           >
                             Eliminar
                           </button>
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="row mt-3">
+                          <div class="col-12">
+                            <h4>Lista de fiadores</h4>
+                            <table class="table table-striped">
+                              <thead>
+                                <tr>
+                                  <th>ID</th>
+                                  <th>Tipo</th>
+                                  <th>Fecha</th>
+                                  <th>Obligaciones</th>
+                                  <th>Acciones</th>
+                                </tr>
+                              </thead>
+                              <tbody>
+                                <tr
+                                  *ngFor="
+                                    let guarantee of guaranteesArray;
+                                    let i = index
+                                  "
+                                >
+                                  <td>{{ guarantee.id }}</td>
+                                  <td>{{ guarantee.type }}</td>
+                                  <td>{{ guarantee.date }}</td>
+                                  <td>{{ guarantee.obligations }}</td>
+                                  <td>
+                                    <button
+                                      class="btn btn-danger btn-sm"
+                                      (click)="deleteGuarantee(i)"
+                                    >
+                                      Delete
+                                    </button>
+                                  </td>
+                                </tr>
+                              </tbody>
+                            </table>
+                          </div>
                         </div>
                       </div>
                     </fieldset>
@@ -2123,9 +2324,14 @@
                         </div>
                       </div>
                       <div class="row">
-                        <!--  <div class = "col-md-4">
-                  <button (click) = "addElementToObject()" class = "btn btn-primary">Siguiente</button>
-                </div> -->
+                        <div class="col-md-4">
+                          <button
+                            (click)="addRelatedProcessToArray()"
+                            class="btn btn-primary"
+                          >
+                            Agregar Proceso Relacionado
+                          </button>
+                        </div>
                         <div class="col-md-4">
                           <button
                             (click)="addRelatedProcessesToArray()"
@@ -2144,6 +2350,43 @@
                           >
                             Eliminar
                           </button>
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="row mt-3">
+                          <div class="col-12">
+                            <h4>Lista de Procesos Relacionados</h4>
+                            <table class="table table-striped">
+                              <thead>
+                                <tr>
+                                  <th>ID</th>
+                                  <th>Relación</th>
+                                  <th>Título</th>
+                                  <th>Acciones</th>
+                                </tr>
+                              </thead>
+                              <tbody>
+                                <tr
+                                  *ngFor="
+                                    let process of relatedProcessesArray;
+                                    let i = index
+                                  "
+                                >
+                                  <td>{{ process.id }}</td>
+                                  <td>{{ process.relationship }}</td>
+                                  <td>{{ process.title }}</td>
+                                  <td>
+                                    <button
+                                      class="btn btn-danger btn-sm"
+                                      (click)="deleteRelatedProcess(i)"
+                                    >
+                                      Eliminar
+                                    </button>
+                                  </td>
+                                </tr>
+                              </tbody>
+                            </table>
+                          </div>
                         </div>
                       </div>
                     </fieldset>
@@ -2359,9 +2602,14 @@
                         </div>
                       </div>
                       <div class="row">
-                        <!--  <div class = "col-md-4">
-                  <button (click) = "addElementToObject()" class = "btn btn-primary">Siguiente</button>
-                </div> -->
+                        <div class="col-md-4">
+                          <button
+                            (click)="addMilestoneToArray()"
+                            class="btn btn-primary"
+                          >
+                            Agregar Hito
+                          </button>
+                        </div>
                         <div class="col-md-4">
                           <button
                             (click)="addMilestonesToArray()"
@@ -2380,6 +2628,43 @@
                           >
                             Eliminar
                           </button>
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="row mt-3">
+                          <div class="col-12">
+                            <h4>Lista de Hitos</h4>
+                            <table class="table table-striped">
+                              <thead>
+                                <tr>
+                                  <th>ID</th>
+                                  <th>Título</th>
+                                  <th>Tipo</th>
+                                  <th>Acciones</th>
+                                </tr>
+                              </thead>
+                              <tbody>
+                                <tr
+                                  *ngFor="
+                                    let milestone of milestonesArray;
+                                    let i = index
+                                  "
+                                >
+                                  <td>{{ milestone.id }}</td>
+                                  <td>{{ milestone.title }}</td>
+                                  <td>{{ milestone.type }}</td>
+                                  <td>
+                                    <button
+                                      class="btn btn-danger btn-sm"
+                                      (click)="deleteMilestone(i)"
+                                    >
+                                      Eliminar
+                                    </button>
+                                  </td>
+                                </tr>
+                              </tbody>
+                            </table>
+                          </div>
                         </div>
                       </div>
                     </fieldset>
@@ -2535,9 +2820,14 @@
                         </div>
                       </div>
                       <div class="row">
-                        <!--  <div class = "col-md-4">
-                  <button (click) = "addElementToObject()" class = "btn btn-primary">Siguiente</button>
-                </div> -->
+                        <div class="col-md-4">
+                          <button
+                            (click)="addAmendmentToArray()"
+                            class="btn btn-primary"
+                          >
+                            Agregar Enmienda
+                          </button>
+                        </div>
                         <div class="col-md-4">
                           <button
                             (click)="addAmendmentsToArray()"
@@ -2556,6 +2846,43 @@
                           >
                             Eliminar
                           </button>
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="row mt-3">
+                          <div class="col-12">
+                            <h4>Lista de Enmiendas</h4>
+                            <table class="table table-striped">
+                              <thead>
+                                <tr>
+                                  <th>ID</th>
+                                  <th>Fecha</th>
+                                  <th>Justificación</th>
+                                  <th>Acciones</th>
+                                </tr>
+                              </thead>
+                              <tbody>
+                                <tr
+                                  *ngFor="
+                                    let amendment of amendmentsArray;
+                                    let i = index
+                                  "
+                                >
+                                  <td>{{ amendment.id }}</td>
+                                  <td>{{ amendment.description }}</td>
+                                  <td>{{ amendment.rationale }}</td>
+                                  <td>
+                                    <button
+                                      class="btn btn-danger btn-sm"
+                                      (click)="deleteAmendment(i)"
+                                    >
+                                      Eliminar
+                                    </button>
+                                  </td>
+                                </tr>
+                              </tbody>
+                            </table>
+                          </div>
                         </div>
                       </div>
                     </fieldset>

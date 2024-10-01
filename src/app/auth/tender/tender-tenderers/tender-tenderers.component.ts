@@ -13,6 +13,7 @@ interface IPartie {
   templateUrl: './tender-tenderers.component.html',
   styleUrls: ['./tender-tenderers.component.css'],
 })
+
 export class TenderTenderersComponent implements OnInit {
   @Input() tenderersArray: Array<any> = [];
   @Output() addTenderer = new EventEmitter<any>();
