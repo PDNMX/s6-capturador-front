@@ -7,7 +7,7 @@ import { ActivatedRoute } from '@angular/router';
 @Component({
   selector: 'app-implementation-documents',
   templateUrl: './implementation-documents.component.html',
-  styleUrls: ['./implementation-documents.component.css']
+  styleUrls: ['./implementation-documents.component.css'],
 })
 export class ImplementationDocumentsComponent implements OnInit {
   @Input() documentsArray: Array<any> = [];
@@ -19,12 +19,33 @@ export class ImplementationDocumentsComponent implements OnInit {
   documents = getDocumentType('award');
 
   documentsForm!: FormGroup;
+  record_id = '';
 
   constructor(
     private fb: FormBuilder,
     private api: ApiService,
     private route: ActivatedRoute
   ) {}
+
+  loadForm(data: any): void {
+    data.forEach((doc: any) => {
+      this.addDocument.emit(this.fb.group({ ...doc }));
+    });
+  }
+  loadData(): void {
+    this.route.paramMap.subscribe((params: any) => {
+      this.record_id = params.get('id');
+    });
+
+    this.api.getMethod(`/implementation/${this.record_id}`).subscribe((d: any) => {
+      const { implementation, error, message } = d;
+      if (error) {
+        console.log('message', message);
+      } else {
+        if (implementation !== null) this.loadForm(implementation.documents);
+      }
+    });
+  }
 
   getDocumentTypeTitle(code: string): string {
     let desc = '';
@@ -67,7 +88,7 @@ export class ImplementationDocumentsComponent implements OnInit {
   }
 
   ngOnInit(): void {
-      this.initForm();
+    this.initForm();
   }
   initForm(): void {
     this.documentsForm = this.fb.group({
@@ -86,5 +107,4 @@ export class ImplementationDocumentsComponent implements OnInit {
     //console.log(this.documentsForm.value);
     this.initForm();
   }
-
 }

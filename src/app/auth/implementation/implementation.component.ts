@@ -10,13 +10,21 @@ import { ApiService } from 'src/app/services/api.service';
   styleUrls: ['./implementation.component.css'],
 })
 export class ImplementationComponent implements OnInit {
+  
+  editMode: boolean = false;
   implementationForm!: FormGroup;
+  
+  record_id = 'null';
 
   constructor(
     private fb: FormBuilder,
     private route: ActivatedRoute,
     private apiService: ApiService
   ) {}
+
+  newImplementation(): void {
+    this.editMode = true;
+  }
 
   get transactionsArray() {
     return this.implementationForm.controls['transactions'] as FormArray;
@@ -55,10 +63,18 @@ export class ImplementationComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.route.paramMap.subscribe((params: any) => {
+      this.record_id = params.get('id');
+    });
+
     this.implementationForm = this.fb.group({
       transactions: this.fb.array([], [Validators.required]),
       milestone: this.fb.array([], [Validators.required]),
       documents: this.fb.array([], [Validators.required]),
     });
+  }
+
+  submit(): void {
+    console.log(this.implementationForm.value);
   }
 }
