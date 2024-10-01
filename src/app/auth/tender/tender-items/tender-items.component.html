@@ -33,10 +33,14 @@
         <tbody>
           <tr *ngFor="let item of itemsArray; index as i">
             <th scope="row">
-              {{ i + 1 }}
+              {{ item.id || i + 1 }}
             </th>
             <td>{{ item.description }}</td>
-            <td>{{ item.classification.description }}</td>
+            <td>
+              <ul>
+                <li>{{ item.classification.description }}</li>
+              </ul>
+            </td>
             <td>
               <ul>
                 <li *ngFor="let ele of item.additionalClassifications">
@@ -102,7 +106,11 @@ data-sb-feedback="title:required"
       <label for="type">Clasificación</label>
     </div>
     <div class="form-floating col mb-2">
-      <select class="form-select" formControlName="classification">
+      <select
+        class="form-select"
+        formControlName="classification"
+        (change)="selectChange()"
+      >
         <option *ngFor="let d of classification" [ngValue]="d">
           {{ d.description }}
         </option>
@@ -208,7 +216,6 @@ data-sb-feedback="title:required"
         data-sb-validations="required"
         placeholder="Unidad*"
         formControlName="name"
-        [value]="itemsForm.value.classification.unit || ''"
       />
       <label for="unit">Unidad*</label>
       <div class="invalid-feedback" data-sb-feedback="unit:required">

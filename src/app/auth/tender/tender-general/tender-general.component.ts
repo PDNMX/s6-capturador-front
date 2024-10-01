@@ -1,5 +1,7 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ActivatedRoute } from '@angular/router';
+import { ApiService } from 'src/app/services/api.service';
 import {
   AdditionalProcurementCategories,
   AwardCriteria,
@@ -18,13 +20,13 @@ import {
 export class TenderGeneralComponent implements OnInit {
   @Output() saveGeneralData = new EventEmitter<any>();
 
+  record_id: string = '';
+
   tenderStatus = TenderStatus;
   currency = Currency;
   procurementMethod = ProcurementMethod;
   mainProcurementCategory = MainProcurementCategory;
   additionalProcurementCategories = AdditionalProcurementCategories;
-  additionalProcurementCategoriesArray: Array<string> = [];
-  submissionMethodArray: Array<string> = [];
 
   awardCriteria = AwardCriteria;
   submissionMethod = SubmissionMethod;
@@ -48,10 +50,101 @@ export class TenderGeneralComponent implements OnInit {
   additionalProcurementCategoriesForm!: FormGroup;
   submissionMethodForm!: FormGroup;
 
-  constructor(private fb: FormBuilder) {}
+  constructor(
+    private fb: FormBuilder,
+    private route: ActivatedRoute,
+    private api: ApiService
+  ) {}
+
+  setSelectValue(element: string, value: any): void {
+    this.generalForm.get(element)?.setValue(value);
+  }
+
+  loadForm(data: any): void {
+    const {
+      title,
+      description,
+      status,
+      procuringEntity,
+      value,
+      minValue,
+      procurementMethod,
+      procurementMethodDetails,
+      procurementMethodRationale,
+      mainProcurementCategory,
+      additionalProcurementCategories,
+      awardCriteria,
+      awardCriteriaDetails,
+      submissionMethod,
+      submissionMethodDetails,
+      tenderPeriod,
+      enquiryPeriod,
+      hasEnquiries,
+      eligibilityCriteria,
+      awardPeriod,
+      contractPeriod,
+    } = data;
+
+    let optProcuringEntity = null;
+
+    if (procuringEntity)
+      optProcuringEntity = this.tempEntidadContratante.find(
+        (e) => (e.id = procuringEntity.id)
+      );
+
+    this.generalForm.patchValue({
+      title,
+      description,
+      status,
+      value,
+      minValue,
+      procurementMethod,
+      procurementMethodDetails,
+      procurementMethodRationale,
+      mainProcurementCategory,
+      awardCriteria,
+      awardCriteriaDetails,
+      submissionMethod,
+      submissionMethodDetails,
+      tenderPeriod,
+      enquiryPeriod,
+      hasEnquiries,
+      eligibilityCriteria,
+      awardPeriod,
+      contractPeriod,
+    });
+
+    additionalProcurementCategories.forEach((e: string) => {
+      this.additionalProcurementCategoriesArray.push(this.fb.control(e));
+    });
+
+    submissionMethod.forEach((e: string) => {
+      this.submissionMethodArray.push(this.fb.control(e));
+    });
+
+    this.setSelectValue('procuringEntity', optProcuringEntity);
+  }
+
+  loadData(): void {
+    this.route.paramMap.subscribe((params: any) => {
+      this.record_id = params.get('id');
+    });
+
+    this.api.getMethod(`/tender/${this.record_id}`).subscribe((d: any) => {
+      const { tender, error, message } = d;
+
+      if (error) {
+        console.log('message: ', message);
+      } else {
+        // load forms
+        if (tender !== null) this.loadForm(tender);
+      }
+    });
+  }
 
   ngOnInit(): void {
     this.initForm();
+    this.loadData();
   }
 
   initForm(): void {
@@ -75,32 +168,32 @@ export class TenderGeneralComponent implements OnInit {
       additionalProcurementCategories: this.fb.array([]),
       awardCriteria: ['', [Validators.required]],
       awardCriteriaDetails: ['', [Validators.required]],
-      submissionMethod: ['', [Validators.required]],
+      submissionMethod: this.fb.array([]),
       submissionMethodDetails: ['', [Validators.required]],
       tenderPeriod: this.fb.group({
         startDate: ['', [Validators.required]],
         endDate: ['', [Validators.required]],
         maxExtentDate: ['', [Validators.required]],
-        durationInDays: ['', [Validators.required]],
+        durationInDays: [0, [Validators.required]],
       }),
       enquiryPeriod: this.fb.group({
         startDate: ['', [Validators.required]],
         endDate: ['', [Validators.required]],
         maxExtentDate: ['', [Validators.required]],
-        durationInDays: ['', [Validators.required]],
+        durationInDays: [0, [Validators.required]],
       }),
       hasEnquiries: [false, [Validators.required]],
       awardPeriod: this.fb.group({
         startDate: ['', [Validators.required]],
         endDate: ['', [Validators.required]],
         maxExtentDate: ['', [Validators.required]],
-        durationInDays: ['', [Validators.required]],
+        durationInDays: [0, [Validators.required]],
       }),
       contractPeriod: this.fb.group({
         startDate: ['', [Validators.required]],
         endDate: ['', [Validators.required]],
         maxExtentDate: ['', [Validators.required]],
-        durationInDays: ['', [Validators.required]],
+        durationInDays: [0, [Validators.required]],
       }),
 
       eligibilityCriteria: ['', [Validators.required]],
@@ -117,35 +210,35 @@ export class TenderGeneralComponent implements OnInit {
   }
 
   saveForm(): void {
-    const data = {
-      ...this.generalForm.value,
-      additionalProcurementCategories:
-        this.additionalProcurementCategoriesArray,
-      submissionMethod: this.submissionMethodArray,
-    };
-
     this.saveGeneralData.emit(this.generalForm.controls);
+  }
+
+  get additionalProcurementCategoriesArray() {
+    return this.generalForm.controls[
+      'additionalProcurementCategories'
+    ] as FormArray;
   }
 
   addAdditionalProcurementCategories(): void {
     const opt: string = this.additionalProcurementCategoriesForm.value.data;
-    this.additionalProcurementCategoriesArray.push(opt);
+    this.additionalProcurementCategoriesArray.push(this.fb.control(opt));
   }
 
   deleteAdditionalProcurementCategories(index: number): void {
-    this.additionalProcurementCategoriesArray =
-      this.additionalProcurementCategoriesArray.filter((a, i) => i !== index);
+    this.additionalProcurementCategoriesArray.removeAt(index);
+  }
+
+  get submissionMethodArray() {
+    return this.generalForm.controls['submissionMethod'] as FormArray;
   }
 
   addSubmissionMethod(): void {
     const opt: string = this.submissionMethodForm.value.data;
-    this.submissionMethodArray.push(opt);
+    this.submissionMethodArray.push(this.fb.control(opt));
   }
 
   deleteSubmissionMethod(index: number): void {
-    this.submissionMethodArray = this.submissionMethodArray.filter(
-      (e, i) => i !== index
-    );
+    this.submissionMethodArray.removeAt(index);
   }
 
   // submissionMethod

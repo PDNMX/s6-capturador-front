@@ -1,0 +1,102 @@
+<div class="container">
+  <div class="row">
+    <div class="col">
+      <h3>Domicilio</h3>
+      <hr />
+    </div>
+  </div>
+  <form [formGroup]="addressForm">
+    <div class="row">
+      <div class="form-floating col mb-5">
+        <input
+          class="form-control"
+          id="streetAddress"
+          type="text"
+          data-sb-validations="required"
+          placeholder="Calle y número*"
+          formControlName="streetAddress"
+        />
+        <label for="streetAddress">Calle y número*</label>
+        <div class="invalid-feedback" data-sb-feedback="streetAddress:required">
+          Calle y número * es requerido.
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="form-floating col mb-5">
+        <input
+          class="form-control"
+          id="locality"
+          type="text"
+          data-sb-validations="required"
+          placeholder="Localidad*"
+          formControlName="locality"
+        />
+        <label for="locality">Localidad*</label>
+        <div class="invalid-feedback" data-sb-feedback="locality:required">
+          Localidad * es requerido.
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="form-floating col mb-5">
+        <input
+          class="form-control"
+          id="region"
+          type="text"
+          data-sb-validations="required"
+          placeholder="Región*"
+          formControlName="region"
+        />
+        <label for="region">Región*</label>
+        <div class="invalid-feedback" data-sb-feedback="region:required">
+          Región * es requerido.
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="form-floating col mb-5">
+        <input
+          class="form-control"
+          id="postalCode"
+          type="text"
+          data-sb-validations="required"
+          placeholder="Código postal*"
+          formControlName="postalCode"
+        />
+        <label for="postalCode">Código postal*</label>
+        <div class="invalid-feedback" data-sb-feedback="postalCode:required">
+          Código postal * es requerido.
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="form-floating col mb-5">
+        <input
+          class="form-control"
+          id="countryName"
+          type="text"
+          data-sb-validations="required"
+          placeholder="País*"
+          formControlName="countryName"
+        />
+        <label for="countryName">País*</label>
+        <div class="invalid-feedback" data-sb-feedback="countryName:required">
+          País * es requerido.
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col">
+        <button type="button" class="btn btn-danger btn-save" (click)="save()">
+          Guardar direccion
+        </button>
+      </div>
+    </div>
+  </form>
+</div>

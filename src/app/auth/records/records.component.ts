@@ -12,6 +12,10 @@ export class RecordsComponent implements OnInit {
   records: any = [];
   constructor(private api: ApiService, private router: Router) {}
 
+  get randomNumber(): number {
+    return Math.floor(Math.random() * 10) + 1;
+  }
+
   getAllRecords() {
     this.api.getMethod('/records').subscribe((r: any) => {
       this.records = r.results;
@@ -22,8 +26,6 @@ export class RecordsComponent implements OnInit {
     this.getAllRecords();
     localStorage.removeItem('record');
   }
-
-  num = [0, 1, 2, 3];
 
   deleteRecord(id: string): void {
     this.api.deleteMethod(id, `/records/${id}`).subscribe((r: any) => {
@@ -41,6 +43,7 @@ export class RecordsComponent implements OnInit {
         console.log('r: ', r);
       } else {
         const id = r.data._id;
+        localStorage.setItem('record', id);
         this.router.navigate([`/planning/${id}`]);
       }
     });

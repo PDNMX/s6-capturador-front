@@ -1,6 +1,6 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { catchError, map, of, tap } from 'rxjs';
+import { catchError, map, of } from 'rxjs';
 import { environment } from 'src/environments/environment';
 
 interface IToken {
@@ -34,8 +34,14 @@ export class AuthService {
       })
       .pipe(
         map((d) => {
-          const { access_token } = d as IToken;
+          const { access_token, expires_in } = d as IToken;
           localStorage.setItem('token', access_token);
+
+          const maxTimeToken = expires_in * 1000 + Date.now();
+          localStorage.setItem(
+            'maxTimeToken',
+            JSON.stringify({ maxTimeToken })
+          );
 
           return { success: true, message: '' };
         }),
@@ -50,6 +56,24 @@ export class AuthService {
       );
   }
 
+  isExpiredToken(): boolean {
+    let expired = true;
+
+    const objMaxTimeToken = localStorage.getItem('maxTimeToken');
+    if (objMaxTimeToken) {
+      const { maxTimeToken } = JSON.parse(objMaxTimeToken);
+      const nowTime = Date.now();
+
+      console.log(
+        'maxTimeToken - nowTime: ',
+        (maxTimeToken - nowTime) / 1000 / 60
+      );
+      return maxTimeToken - nowTime < 0;
+    }
+
+    return expired;
+  }
+
   isAuth(): boolean {
     return !!localStorage.getItem('token');
   }
@@ -61,5 +85,6 @@ export class AuthService {
 
   logout(): void {
     localStorage.removeItem('token');
+    localStorage.removeItem('maxTimeToken');
   }
 }

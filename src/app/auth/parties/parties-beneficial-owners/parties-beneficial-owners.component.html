@@ -1,0 +1,274 @@
+<div class="container">
+  <div class="row">
+    <div class="col">
+      <h3>Beneficiarios</h3>
+      <hr />
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col">
+      <div class="table-responsive">
+        <table class="table table-striped table-hover">
+          <thead>
+            <tr>
+              <th scope="col">ID</th>
+              <th scope="col">Nombre</th>
+              <th scope="col">Identificador</th>
+              <th scope="col">Nacionalidad</th>
+              <th scope="col">Correo electronico</th>
+              <th scope="col">Numero de Fax</th>
+              <th scope="col">Telefono</th>
+              <th scope="col">Direccion</th>
+              <th scope="col">opciones</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let item of beneficialOwnersArray; index as i">
+              <td scope="row">{{ i + 1 }}</td>
+              <td>{{ item.name }}</td>
+              <td>{{ item.identifier }}</td>
+              <td>{{ item.nationality }}</td>
+              <td>{{ item.email }}</td>
+              <td>{{ item.faxNumber }}</td>
+              <td>{{ item.telephone }}</td>
+              <td>
+                <ul>
+                  <li>Calle: {{ item.address.streetAddress }}</li>
+                  <li>Localidad: {{ item.address.locality }}</li>
+                  <li>Region: {{ item.address.region }}</li>
+                  <li>Codigo Postal: {{ item.address.postalCode }}</li>
+                  <li>Pais: {{ item.address.countryName }}</li>
+                </ul>
+              </td>
+              <td>
+                <button
+                  type="button"
+                  class="btn btn-danger btn-delete"
+                  (click)="deleteBeneficialOwners.emit(i)"
+                >
+                  Eliminar
+                </button>
+              </td>
+            </tr>
+            <tr *ngIf="beneficialOwnersArray.length === 0">
+              <th scope="row" colspan="12" class="text-center">
+                Sin registros.
+              </th>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+  <hr />
+
+  <form [formGroup]="beneficialOwnersForm">
+    <div class="row">
+      <div class="form-floating col mb-5">
+        <input
+          class="form-control"
+          id="name"
+          type="text"
+          data-sb-validations="required"
+          placeholder="Nombre*"
+          formControlName="name"
+        />
+        <label for="name">Nombre*</label>
+        <div class="invalid-feedback" data-sb-feedback="name:required">
+          Nombre * es requerido.
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="form-floating col mb-5">
+        <input
+          class="form-control"
+          id="identifier"
+          type="text"
+          data-sb-validations="required"
+          placeholder="Identificador*"
+          formControlName="identifier"
+        />
+        <label for="identifier">Identificador*</label>
+        <div class="invalid-feedback" data-sb-feedback="identifier:required">
+          Identificador * es requerido.
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="form-floating col mb-5">
+        <input
+          class="form-control"
+          id="nationality"
+          type="text"
+          data-sb-validations="required"
+          placeholder="Nacionalidad*"
+          formControlName="nationality"
+        />
+        <label for="nationality">Nacionalidad*</label>
+        <div class="invalid-feedback" data-sb-feedback="nationality:required">
+          Nacionalidad * es requerido.
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="form-floating col mb-5">
+        <input
+          class="form-control"
+          id="email"
+          type="text"
+          data-sb-validations="required"
+          placeholder="Correo electrónico*"
+          formControlName="email"
+        />
+        <label for="email">Correo electrónico*</label>
+        <div class="invalid-feedback" data-sb-feedback="email:required">
+          Correo electrónico * es requerido.
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="form-floating col mb-5">
+        <input
+          class="form-control"
+          id="telephone"
+          type="text"
+          data-sb-validations="required"
+          placeholder="Teléfono*"
+          formControlName="telephone"
+        />
+        <label for="telephone">Teléfono*</label>
+        <div class="invalid-feedback" data-sb-feedback="telephone:required">
+          Teléfono * es requerido.
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="form-floating col mb-5">
+        <input
+          class="form-control"
+          id="faxNumber"
+          type="text"
+          data-sb-validations="required"
+          placeholder="Número de fax*"
+          formControlName="faxNumber"
+        />
+        <label for="faxNumber">Número de fax*</label>
+        <div class="invalid-feedback" data-sb-feedback="faxNumber:required">
+          Número de fax * es requerido.
+        </div>
+      </div>
+    </div>
+    <fieldset class="border p-3 mb-3" formGroupName="address">
+      <legend class="w-auto px-1">Domicilio</legend>
+
+      <div class="row">
+        <div class="form-floating col mb-5">
+          <input
+            class="form-control"
+            id="streetAddress"
+            type="text"
+            data-sb-validations="required"
+            placeholder="Calle y número*"
+            formControlName="streetAddress"
+          />
+          <label for="streetAddress">Calle y número*</label>
+          <div
+            class="invalid-feedback"
+            data-sb-feedback="streetAddress:required"
+          >
+            Calle y número * es requerido.
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="form-floating col mb-5">
+          <input
+            class="form-control"
+            id="locality"
+            type="text"
+            data-sb-validations="required"
+            placeholder="Localidad*"
+            formControlName="locality"
+          />
+          <label for="locality">Localidad*</label>
+          <div class="invalid-feedback" data-sb-feedback="locality:required">
+            Localidad * es requerido.
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="form-floating col mb-5">
+          <input
+            class="form-control"
+            id="region"
+            type="text"
+            data-sb-validations="required"
+            placeholder="Región*"
+            formControlName="region"
+          />
+          <label for="region">Región*</label>
+          <div class="invalid-feedback" data-sb-feedback="region:required">
+            Región * es requerido.
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="form-floating col mb-5">
+          <input
+            class="form-control"
+            id="postalCode"
+            type="text"
+            data-sb-validations="required"
+            placeholder="Código postal*"
+            formControlName="postalCode"
+          />
+          <label for="postalCode">Código postal*</label>
+          <div class="invalid-feedback" data-sb-feedback="postalCode:required">
+            Código postal * es requerido.
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="form-floating col mb-5">
+          <input
+            class="form-control"
+            id="countryName"
+            type="text"
+            data-sb-validations="required"
+            placeholder="País*"
+            formControlName="countryName"
+          />
+          <label for="countryName">País*</label>
+          <div class="invalid-feedback" data-sb-feedback="countryName:required">
+            País * es requerido.
+          </div>
+        </div>
+      </div>
+    </fieldset>
+
+    <div class="row">
+      <div class="col">
+        <button
+          type="button"
+          class="btn btn-danger btn-add"
+          (click)="addNewBeneficialOwners()"
+        >
+          Agregar beneficiario
+        </button>
+      </div>
+    </div>
+
+    <!-- fin -->
+  </form>
+</div>

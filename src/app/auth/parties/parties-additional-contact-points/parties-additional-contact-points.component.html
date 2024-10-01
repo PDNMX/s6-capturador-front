@@ -1,0 +1,255 @@
+<div class="container">
+  <div class="row">
+    <div class="col">
+      <h3>Punto de contacto</h3>
+      <hr />
+    </div>
+  </div>
+  <div class="row">
+    <div class="col">
+      <div class="table-responsive">
+        <table class="table table-striped table-hover">
+          <thead>
+            <tr>
+              <th scope="col">ID</th>
+              <th scope="col">Tipo de punto de contacto</th>
+              <th scope="col">Nombre completo</th>
+              <th scope="col">Nombre</th>
+              <th scope="col">Primer apellido</th>
+              <th scope="col">Segundo apellido</th>
+              <th scope="col">Correo electronico</th>
+              <th scope="col">Teléfono</th>
+              <th scope="col">Número de fax</th>
+              <th scope="col">URL</th>
+              <th scope="col">Idioma(s) disponible(s)</th>
+              <th scope="col">opciones</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let item of additionalContactPointsArray; index as i">
+              <td scope="row">{{ i + 1 }}</td>
+              <td>{{ item.type }}</td>
+              <td>{{ item.name }}</td>
+              <td>{{ item.givenName }}</td>
+              <td>{{ item.patronymicName }}</td>
+              <td>{{ item.matronymicName }}</td>
+              <td>{{ item.email }}</td>
+              <td>{{ item.telephone }}</td>
+              <td>{{ item.faxNumber }}</td>
+              <td>{{ item.url }}</td>
+              <td>{{ item.availableLanguage }}</td>
+              <td>
+                <button
+                  type="button"
+                  class="btn btn-danger btn-delete"
+                  (click)="deleteAdditionalContactPoints.emit(i)"
+                >
+                  Eliminar
+                </button>
+              </td>
+            </tr>
+            <tr *ngIf="additionalContactPointsArray.length === 0">
+              <th scope="row" colspan="12" class="text-center">
+                Sin registros.
+              </th>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+  <hr />
+  <form [formGroup]="additionalContactPointsForm">
+    <div class="row">
+      <div class="form-floating col mb-5">
+        <input
+          class="form-control"
+          id="type"
+          type="text"
+          data-sb-validations="required"
+          placeholder="Tipo de punto de contacto*"
+          formControlName="type"
+        />
+        <label for="type">Tipo de punto de contacto*</label>
+        <div class="invalid-feedback" data-sb-feedback="type:required">
+          Tipo de punto de contacto * es requerido.
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="form-floating col mb-5">
+        <input
+          class="form-control"
+          id="name"
+          type="text"
+          data-sb-validations="required"
+          placeholder="Nombre completo*"
+          formControlName="name"
+        />
+        <label for="name">Nombre completo*</label>
+        <div class="invalid-feedback" data-sb-feedback="name:required">
+          Nombre completo * es requerido.
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="form-floating col mb-5">
+        <input
+          class="form-control"
+          id="givenName"
+          type="text"
+          data-sb-validations="required"
+          placeholder="Nombre*"
+          formControlName="givenName"
+        />
+        <label for="givenName">Nombre*</label>
+        <div class="invalid-feedback" data-sb-feedback="givenName:required">
+          Nombre * es requerido.
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="form-floating col mb-5">
+        <input
+          class="form-control"
+          id="patronymicName"
+          type="text"
+          data-sb-validations="required"
+          placeholder="Primer apellido*"
+          formControlName="patronymicName"
+        />
+        <label for="patronymicName">Primer apellido*</label>
+        <div
+          class="invalid-feedback"
+          data-sb-feedback="patronymicName:required"
+        >
+          Primer apellido * es requerido.
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="form-floating col mb-5">
+        <input
+          class="form-control"
+          id="matronymicName"
+          type="text"
+          data-sb-validations="required"
+          placeholder="Segundo apellido*"
+          formControlName="matronymicName"
+        />
+        <label for="matronymicName">Segundo apellido*</label>
+        <div
+          class="invalid-feedback"
+          data-sb-feedback="matronymicName:required"
+        >
+          Segundo apellido * es requerido.
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="form-floating col mb-5">
+        <input
+          class="form-control"
+          id="email"
+          type="text"
+          data-sb-validations="required"
+          placeholder="Correo electrónico*"
+          formControlName="email"
+        />
+        <label for="email">Correo electrónico*</label>
+        <div class="invalid-feedback" data-sb-feedback="email:required">
+          Correo electrónico * es requerido.
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="form-floating col mb-5">
+        <input
+          class="form-control"
+          id="telephone"
+          type="text"
+          data-sb-validations="required"
+          placeholder="Teléfono*"
+          formControlName="telephone"
+        />
+        <label for="telephone">Teléfono*</label>
+        <div class="invalid-feedback" data-sb-feedback="telephone:required">
+          Teléfono * es requerido.
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="form-floating col mb-5">
+        <input
+          class="form-control"
+          id="faxNumber"
+          type="text"
+          data-sb-validations="required"
+          placeholder="Número de fax*"
+          formControlName="faxNumber"
+        />
+        <label for="faxNumber">Número de fax*</label>
+        <div class="invalid-feedback" data-sb-feedback="faxNumber:required">
+          Número de fax * es requerido.
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="form-floating col mb-5">
+        <input
+          class="form-control"
+          id="url"
+          type="text"
+          data-sb-validations="required"
+          placeholder="URL*"
+          formControlName="url"
+        />
+        <label for="url">URL*</label>
+        <div class="invalid-feedback" data-sb-feedback="url:required">
+          URL * es requerido.
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="form-floating col mb-5">
+        <input
+          class="form-control"
+          id="availableLanguage"
+          type="text"
+          data-sb-validations="required"
+          placeholder="Idioma(s) disponible(s)*"
+          formControlName="availableLanguage"
+        />
+        <label for="availableLanguage">Idioma(s) disponible(s)*</label>
+        <div
+          class="invalid-feedback"
+          data-sb-feedback="availableLanguage:required"
+        >
+          Idioma(s) disponible(s) * es requerido.
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col">
+        <button
+          type="button"
+          class="btn btn-danger btn-save"
+          (click)="addNewConctactPoint()"
+        >
+          Guardar Punto de contacto adicional
+        </button>
+      </div>
+    </div>
+    <!-- fin -->
+  </form>
+</div>

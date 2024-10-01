@@ -27,7 +27,7 @@
           </thead>
           <tbody>
             <tr *ngFor="let doc of documentsArray; index as i">
-              <td scope="row">{{ i + 1 }}</td>
+              <th scope="row">{{ doc.id || i + 1 }}</th>
               <td>{{ getDocumentTypeTitle(doc.documentType) }}</td>
               <td>{{ doc.title }}</td>
               <td>{{ doc.description }}</td>
@@ -168,27 +168,33 @@
       </div>
     </div>
     <div class="row">
-      <div class="col-12">
-        <label for="format">Formato</label>
+      <div class="col-6">
+        <div class="row">
+          <div class="col-12">
+            <label for="format">Formato</label>
+          </div>
+          <div class="form-floating col mb-5">
+            <select class="form-select" formControlName="format">
+              <option *ngFor="let d of formatDocument" [ngValue]="d.template">
+                {{ d.name }}
+              </option>
+            </select>
+          </div>
+        </div>
       </div>
-      <div class="form-floating col mb-5">
-        <select class="form-select" formControlName="format">
-          <option *ngFor="let d of formatDocument" [ngValue]="d.template">
-            {{ d.name }}
-          </option>
-        </select>
-      </div>
-    </div>
-    <div class="row">
-      <div class="col-12">
-        <label for="languaje">Idioma</label>
-      </div>
-      <div class="form-floating col mb-5">
-        <select class="form-select" formControlName="languaje">
-          <option *ngFor="let d of languaje" [ngValue]="d.code">
-            {{ d.name }}
-          </option>
-        </select>
+      <div class="col-6">
+        <div class="row">
+          <div class="col-12">
+            <label for="languaje">Idioma</label>
+          </div>
+          <div class="form-floating col mb-5">
+            <select class="form-select" formControlName="languaje">
+              <option *ngFor="let d of languaje" [ngValue]="d.code">
+                {{ d.name }}
+              </option>
+            </select>
+          </div>
+        </div>
       </div>
     </div>
 
