@@ -22,7 +22,10 @@ export class PartiesBeneficialOwnersComponent implements OnInit {
   initForm(): void {
     this.beneficialOwnersForm = this.fb.group({
       name: ['name', [Validators.required]],
-      identifier: ['identifier', [Validators.required]],
+      identifier: this.fb.group({
+        scheme: ['MX-RFC', [Validators.required]],
+        id: ['PEVB870321382', [Validators.required]],
+      }),
       nationality: ['nationality', [Validators.required]],
       email: ['email', [Validators.required]],
       telephone: ['telephone', [Validators.required]],
@@ -39,6 +42,7 @@ export class PartiesBeneficialOwnersComponent implements OnInit {
 
   addNewBeneficialOwners(): void {
     this.addBeneficialOwners.emit(this.beneficialOwnersForm);
+    console.log('beneficialOwnersForm: ', this.beneficialOwnersForm.value);
     this.initForm();
   }
 }

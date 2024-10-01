@@ -28,7 +28,7 @@ export class PartiesAddressComponent implements OnInit {
   }
 
   save(): void {
-    console.log(this.addressForm.value);
+    // console.log(this.addressForm.value);
     this.saveAddress.emit(this.addressForm);
   }
 }
