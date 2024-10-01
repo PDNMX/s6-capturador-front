@@ -1,0 +1,513 @@
+<div class="form h-100">
+    <form
+      class="mb-5"
+      method="post"
+      id="planning-form"
+      [formGroup]="planningRequestForQuotesForm"      
+    >
+      <div class="row">
+        <h3>Solicitudes de Cotizaciones</h3>
+        <hr />
+      </div>
+      <div class="row">
+        <div class="col-md-2 form-floating mb-5">
+          <input
+            type="text"
+            class="form-control"
+            id="RequestForQuotesId"
+            placeholder="ID"
+            formControlName="id"
+          />
+          <label for="RequestForQuotesId">ID</label>
+        </div>
+        <div class="col-md-10 form-floating mb-5">
+          <input
+            type="text"
+            class="form-control"
+            id="RequestForQuotesTitle"
+            placeholder="Título"
+            formControlName="title"
+          />
+          <label for="RequestForQuotesTitle">Título</label>
+        </div>
+      </div>
+      <div class="row">
+        <div class="form-floating col-md-12 mb-5">
+          <textarea
+            class="form-control"
+            id="RequestForQuotesDescription"
+            type="text"
+            placeholder="Descripción"
+            formControlName="description"
+          ></textarea>
+          <label for="RequestForQuotesDescription">Descripción</label>
+        </div>
+      </div>
+      <div class="row">
+        <h5>Periodo para recibir cotizaciones</h5>
+      </div>
+      <div class="row" formGroupName="period">
+        <div class="form-floating form-group col-md-3 mb-5">
+          <input
+            type="date"
+            class="form-control"
+            id="RequestForQuotesPeriodStartDate"
+            placeholder="Fecha de inicio del contrato"
+            formControlName="startDate"
+          />
+          <label for="RequestForQuotesPeriodStartDate"
+            >Fecha de inicio</label
+          >
+        </div>
+        <div class="form-floating form-group col-md-3 mb-5">
+          <input
+            type="date"
+            class="form-control"
+            id="RequestForQuotesPeriodendDate"
+            placeholder="Fecha de la adjudicación"
+            formControlName="endDate"
+          />
+          <label for="RequestForQuotesPeriodendDate"
+            >Fecha de término</label
+          >
+        </div>
+        <div class="form-floating form-group col-md-3 mb-5">
+          <input
+            type="date"
+            class="form-control"
+            id="RequestForQuotesPeriodMaxExtentDate"
+            placeholder="Fecha de la adjudicación"
+            formControlName="maxExtentDate"
+          />
+          <label for="RequestForQuotesPeriodMaxExtentDate"
+            >Extensión máxima</label
+          >
+        </div>
+        <div class="form-floating form-group col-md-3 mb-5">
+          <input
+            type="number"
+            class="form-control"
+            id="RequestForQuotesPeriodDurationInDays"
+            placeholder="Duración en dias"
+            formControlName="durationInDays"
+          />
+          <label for="RequestForQuotesPeriodDurationInDays"
+            >Duración (días)</label
+          >
+        </div>
+      </div>
+
+<!--       <fieldset class="border p-3 mb-3">
+        <h3>Artículos a ser cotizados</h3>
+        <hr class="solid" />
+        <div class="row mb-5">
+          <small>
+            Los artículos no deberían de estar duplicados, sino se
+            debe especificar la cantidad.
+          </small>
+        </div>
+        <div class="row" formGroupName="items">
+          <div class="form-floating col-md-4 mb-5">
+            <input
+              class="form-control"
+              id="QuotesItemsId"
+              type="text"
+              placeholder="Id del Artículo"
+              formControlName="id"
+            />
+            <label for="QuotesItemsId"
+              >Indentificador del artículo</label
+            >
+          </div>
+          <div class="form-floating col-md-4 mb-5">
+            <input
+              class="form-control"
+              id="QuotesItemsDescription"
+              type="text"
+              placeholder="Descripción del Artículo"
+              formControlName="description"
+            />
+            <label for="QuotesItemsDescription"
+              >Descripción del articulo</label
+            >
+          </div>
+          <div class="form-floating col-md-4 mb-5">
+            <input
+              class="form-control"
+              id="QuotesItemsQuantity"
+              type="number"
+              placeholder="Cantidad de unidades"
+              formControlName="quantity"
+            />
+            <label for="QuotesItemsQuantity"
+              >Cantidad de unidades</label
+            >
+          </div>
+          <fieldset class="border p-3 mb-3" formGroupName="unit">
+            <legend class="w-auto px-2">Unidad</legend>
+            <div class="row mb-5">
+              <small
+                >Una descripción de la unidad en la cual los
+                suministros, servicios o trabajos están provistos (ej.
+                horas, kilos) y el precio por unidad.</small
+              >
+            </div>
+            <div class="row">
+              <div class="form-floating col-md-6 mb-5">
+                <input
+                  class="form-control"
+                  id="ItemsUnitId"
+                  type="text"
+                  placeholder="Identificador de la unidad"
+                  formControlName="id"
+                />
+                <label for="ItemsUnitId"
+                  >Identificador de la unidad de medida</label
+                >
+              </div>
+              <div class="form-floating cell col-md-6 mb-5">
+                <select
+                  class="form-select"
+                  id="ItemsUnitScheme"
+                  aria-label="scheme"
+                  formControlName="scheme"
+                >
+                  <option value="" selected>
+                    -- Seleccione una opción --
+                  </option>
+                  <option value="UNCEFACT">
+                    UN/CEFACT Recommendation 20
+                  </option>
+                  <option value="QUDT">
+                    Ontologías de Cantidades, Unidades, Dimensiones y
+                    Tipos de Datos
+                  </option>
+                </select>
+                <label for="ItemsUnitScheme"
+                  >Esquema de unidades de medida</label
+                >
+              </div>
+            </div>
+            <div class="row">
+              <div class="form-floating col-md-6 mb-5">
+                <input
+                  class="form-control"
+                  id="ItemesUnitName"
+                  type="text"
+                  placeholder="Nombre de la unidad de medida"
+                  formControlName="name"
+                />
+                <label for="description">Unidad de medida</label>
+              </div>
+              <div class="form-floating col-md-6 mb-5">
+                <input
+                  class="form-control"
+                  id="uri"
+                  type="text"
+                  placeholder="URI de la unidad de medida, dada por el esquema"
+                  formControlName="uri"
+                />
+                <label for="uri">URI</label>
+              </div>
+            </div>
+          </fieldset>
+          <fieldset class="border p-3 mb-3" formGroupName="value">
+            <legend class="w-auto px-2">Valor</legend>
+            <div class="row">
+              <div class="form-floating form-group col-md-6 mb-5">
+                <input
+                  type="number"
+                  class="form-control"
+                  id="UnitValueAmount"
+                  placeholder="Monto total de la adjudicación *"
+                  formControlName="amount"
+                />
+                <label for="UnitValueAmount">Monto *</label>
+              </div>
+              <div class="form-floating form-group col-md-6 mb-5">
+                <select
+                  class="form-select"
+                  id="UnitValueCurrency"
+                  aria-label="moneda"
+                  formControlName="currency"
+                >
+                  <option value="" selected>
+                    -- Seleccione el tipo de moneda --
+                  </option>
+                  <option value="mxn">MXN</option>
+                  <option value="usd">USD</option>
+                </select>
+                <label for="currency">Moneda</label>
+              </div>
+            </div>
+          </fieldset>
+          <fieldset
+            class="border p-3 mb-3"
+            formGroupName="classification"
+          >
+            <legend class="w-auto px-2">Clasificación</legend>
+            <div class="row">
+              <div class="form-floating col-md-6 mb-5">
+                <input
+                  class="form-control"
+                  id="ItemsClassificationID"
+                  type="text"
+                  placeholder="Identificador de la Clasificación"
+                  formControlName="id"
+                />
+                <label for="ItemsClassificationID"
+                  >Código de la clasificación</label
+                >
+              </div>
+              <div class="form-floating form-group col-md-6 mb-5">
+                <select
+                  class="form-select"
+                  id="ItemsClassificationScheme"
+                  aria-label="scheme"
+                  formControlName="scheme"
+                >
+                  <option value="" selected>
+                    -- Seleccione una opción --
+                  </option>
+                  <option value="CPC">
+                    Central Product Classification
+                  </option>
+                  <option value="CUCOP">
+                    Clasificador Único Mexicano de Contrataciones
+                    Públicas
+                  </option>
+                  <option value="CPV">
+                    EC Common Procurement Vocabulary
+                  </option>
+                  <option value="CPVS">
+                    EC Common Procurement Vocabulary - Listas de
+                    Códigos Suplementarias
+                  </option>
+                  <option value="GSIN">
+                    Goods and Services Identification Number
+                  </option>
+                  <option value="OKDP">
+                    Russian National Classification of Products by
+                    Economic Activity (1994)
+                  </option>
+                  <option value="OKPD">
+                    Russian National Classification of Products by
+                    Economic Activity (2014)
+                  </option>
+                  <option value="UNSPSC">
+                    United Nations Standard Products and Services Code
+                  </option>
+                </select>
+                <label for="ItemsClassificationScheme">Esquema</label>
+              </div>
+            </div>
+            <div class="row">
+              <div class="form-floating col-md-6 mb-5">
+                <input
+                  class="form-control"
+                  id="ItemsClassificationDescription"
+                  type="text"
+                  placeholder="Descripción del Artículo"
+                  formControlName="description"
+                />
+                <label for="ItemsClassificationDescription"
+                  >Descripción</label
+                >
+              </div>
+              <div class="form-floating col-md-6 mb-5">
+                <input
+                  class="form-control"
+                  id="ItemsClassificationUri"
+                  type="text"
+                  placeholder="URI de la clasificación"
+                  formControlName="uri"
+                />
+                <label for="ItemsClassificationUri">URI</label>
+              </div>
+            </div>
+          </fieldset>
+          <fieldset
+            class="border p-3 mb-3"
+            formGroupName="additionalClassifications"
+          >
+            <legend class="w-auto px-2">
+              Clasificaciones Adicionales
+            </legend>
+            <div class="row">
+              <div class="form-floating col-md-6 mb-5">
+                <input
+                  class="form-control"
+                  id="additionalClassificationsID"
+                  type="text"
+                  placeholder="Identificador de la Clasificación"
+                  formControlName="id"
+                />
+                <label for="AdditionalClassificationsID"
+                  >Código de la clasificación adicional</label
+                >
+              </div>
+              <div class="form-floating form-group col-md-6 mb-5">
+                <select
+                  class="form-select"
+                  id="AdditionalClassificationsScheme"
+                  aria-label="scheme"
+                  formControlName="scheme"
+                >
+                  <option value="" selected>
+                    -- Seleccione una opción --
+                  </option>
+                  <option value="CPC">
+                    Central Product Classification
+                  </option>
+                  <option value="CUCOP">
+                    Clasificador Único Mexicano de Contrataciones
+                    Públicas
+                  </option>
+                  <option value="CPV">
+                    EC Common Procurement Vocabulary
+                  </option>
+                  <option value="CPVS">
+                    EC Common Procurement Vocabulary - Listas de
+                    Códigos Suplementarias
+                  </option>
+                  <option value="GSIN">
+                    Goods and Services Identification Number
+                  </option>
+                  <option value="OKDP">
+                    Russian National Classification of Products by
+                    Economic Activity (1994)
+                  </option>
+                  <option value="OKPD">
+                    Russian National Classification of Products by
+                    Economic Activity (2014)
+                  </option>
+                  <option value="UNSPSC">
+                    United Nations Standard Products and Services Code
+                  </option>
+                </select>
+                <label for="AdditionalClassificationsScheme"
+                  >Esquema</label
+                >
+              </div>
+            </div>
+            <div class="row">
+              <div class="form-floating col-md-6 mb-5">
+                <input
+                  class="form-control"
+                  id="AdditionalClassificationsDescription"
+                  type="text"
+                  placeholder="Descripción del Artículo"
+                  formControlName="description"
+                />
+                <label for="AdditionalClassificationsDescription"
+                  >Descripción</label
+                >
+              </div>
+              <div class="form-floating col-md-6 mb-5">
+                <input
+                  class="form-control"
+                  id="AdditionalClassificationsDescriptionUri"
+                  type="text"
+                  placeholder="URI de la clasificación"
+                  formControlName="uri"
+                />
+                <label for="AdditionalClassificationsDescriptionUri"
+                  >URI</label
+                >
+              </div>
+            </div>
+          </fieldset>
+        </div>
+        <div></div>
+        <div class="row">
+          <div
+            class="col-md-6 form-group d-flex justify-content-between"
+          >
+            <input
+              type="submit"
+              value="Siguiente"
+              class="btn btn-primary rounded-0 py-2 px-4"
+            />
+            <span class="Guardar"></span>
+            <input
+              type="submit"
+              value="Eliminar"
+              class="btn btn-danger rounded-0 py-2 px-4"
+            />
+            <span class="Guardar"></span>
+          </div>
+        </div>
+      </fieldset> -->
+
+      <!-- <div class="row">
+        <h5>Ítems a ser cotizados</h5>
+      </div>
+      <div class="row">
+        <div class="form-floating col-md-1 mb-5">
+          <button class="btn btn-primary" type="button">+</button>
+        </div>
+        <div class="form-floating col-md-8 mb-5">
+          <input
+            class="form-control"
+            id="descriptionItem"
+            type="text"
+            placeholder="Bien o servicio"
+          />
+          <label for="descriptionItem">Bien o servicio *</label>
+        </div>
+        <div class="form-floating col-md-3 mb-5">
+          <input
+            class="form-control"
+            id="quantityItem"
+            type="number"
+            placeholder="Cantidad"
+          />
+          <label for="quantityItem">Cantidad *</label>
+        </div>
+        <hr />
+      </div>
+      <div class="row">
+        <div class="col-md-12">
+          <table class="table">
+            <thead>
+              <tr>
+                <th scope="col">#</th>
+                <th scope="col">Bien o servicio</th>
+                <th scope="col">Cantidad</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <th>1</th>
+                <td>Mark</td>
+                <td></td>
+              </tr>
+              <tr>
+                <th>3</th>
+                <td>&#64;twitter</td>
+                <td></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <hr />
+      </div>
+
+      <div class="row">
+        <div
+          class="col-md-12 form-group d-flex justify-content-between"
+        >
+          <input
+            type="submit"
+            value="Guardar"
+            class="btn btn-primary rounded-0 py-2 px-4"
+          />
+          <span class="Guardar"></span>
+        </div>
+      </div>
+      <div id="form-message-warning mt-4"></div>
+      <div id="form-message-success">
+        Los campos fueron guardados, Gracias
+      </div> -->
+    </form>
+  </div>
