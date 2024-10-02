@@ -2,7 +2,7 @@ import { map } from 'rxjs';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
-import { ApiService } from 'src/app/services/api.service';
+import { ApiService, IPartieList } from 'src/app/services/api.service';
 
 @Component({
   selector: 'app-tender-meetings',
@@ -14,44 +14,16 @@ export class TenderMeetingsComponent implements OnInit {
   @Output() addClarificationMeeting = new EventEmitter<any>();
   @Output() deleteClarificationMeeting = new EventEmitter<any>();
 
-  record_id = '';
+  record_id = null;
   meetingsArray: Array<any> = [];
 
   meetingForm!: FormGroup;
   attendeesForm!: FormGroup;
   officialsForm!: FormGroup;
 
-  attendees = [
-    {
-      id: 1,
-      name: 'nombre 1',
-    },
-    {
-      id: 2,
-      name: 'nombre 2',
-    },
+  attendees: any = [];
 
-    {
-      id: 3,
-      name: 'nombre 3',
-    },
-  ];
-
-  officials = [
-    {
-      id: 1,
-      name: 'nombre 1',
-    },
-    {
-      id: 2,
-      name: 'nombre 2',
-    },
-
-    {
-      id: 3,
-      name: 'nombre 3',
-    },
-  ];
+  officials: any = [];
 
   constructor(
     private fb: FormBuilder,
@@ -105,6 +77,23 @@ export class TenderMeetingsComponent implements OnInit {
 
   ngOnInit(): void {
     this.initForm();
+
+    this.route.paramMap.subscribe((params: any) => {
+      this.record_id = params.get('id');
+    });
+
+    if (this.record_id) {
+      this.api.getPartiesByType(this.record_id).subscribe((d: IPartieList) => {
+        this.attendees = d.data;
+      });
+    }
+
+    if (this.record_id) {
+      this.api.getPartiesByType(this.record_id).subscribe((d: IPartieList) => {
+        this.officials = d.data;
+      });
+    }
+
     this.loadData();
   }
 
