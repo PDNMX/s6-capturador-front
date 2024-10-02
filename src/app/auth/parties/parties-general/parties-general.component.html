@@ -122,6 +122,12 @@
                 [(ngModel)]="optMemberOf"
                 [ngModelOptions]="{ standalone: true }"
               >
+                <option
+                  *ngIf="memberOfList.length === 0"
+                  [disabled]="memberOfList.length === 0"
+                >
+                  No hay registros de Actores para este proceso de contratación.
+                </option>
                 <option *ngFor="let d of memberOfList" [ngValue]="d">
                   {{ d.name }}
                 </option>
