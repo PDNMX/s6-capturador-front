@@ -139,7 +139,7 @@
                                         (click)="deleteRequestingUnit(i)">Eliminar</button>
                                 </td>
                             </tr>
-                            <tr *ngIf="contractingUnitsFormArray.length === 0">
+                            <tr *ngIf="generalForm.value.requestingUnits.length === 0">
                                 <th scope="row" colspan="5" class="text-center">
                                     Sin registros.
                                 </th>
@@ -198,7 +198,7 @@
                                         (click)="deleteResponsibleUnit(i)">Eliminar</button>
                                 </td>
                             </tr>
-                            <tr *ngIf="contractingUnitsFormArray.length === 0">
+                            <tr *ngIf="generalForm.value.responsibleUnits.length === 0">
                                 <th scope="row" colspan="4" class="text-center">
                                     Sin registros.
                                 </th>

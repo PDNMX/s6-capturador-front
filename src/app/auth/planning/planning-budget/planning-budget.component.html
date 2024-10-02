@@ -1,5 +1,5 @@
 <div class="form">
-    <form [formGroup]="planningBudgetForm" class="mb-5" method="post" id="planning-form">
+    <form [formGroup]="budgetForm" class="mb-5" method="post" id="planning-form">
         <div class="row">
             <h3>Presupuesto</h3>
             <hr />
@@ -56,7 +56,7 @@
                 </fieldset>
             </div>
         </div>
-        <fieldset class="border p-3 mb-3" [formGroup]="planningBudgetBreakdownForm">
+        <fieldset class="border p-3 mb-3" [formGroup]="budgetBreakdownForm">
             <div class="row">
                 <h3>Desglose del presupuesto</h3>
                 <hr />
@@ -79,7 +79,7 @@
                           </tr>
                         </thead>
                         <tbody>
-                          <tr *ngFor="let doc of budgetBreakdownArray; index as i">
+                          <tr *ngFor="let doc of budgetForm.value.budgetBreakdown; index as i">
                             <th scope="row">{{ doc.id || i + 1 }}</th>
                             <td>{{ doc.id }}</td>
                             <td>{{ doc.description }}</td>
@@ -100,7 +100,7 @@
                               </button>
                             </td>
                           </tr>
-                          <tr *ngIf="budgetBreakdownArray.length === 0">
+                          <tr *ngIf="budgetForm.value.budgetBreakdown.length === 0">
                             <th scope="row" colspan="10" class="text-center">
                               Sin registros.
                             </th>
@@ -120,14 +120,14 @@
                                 formControlName="description" />
                             <label for="BudgetBreakdownDescription">Descripción</label>
                         </div>
+                        <div class="form-floating col-md-2 mb-0">
+                            <button type="button" class="btn btn-danger btn-add" (click)="addBudgetBreakdown()">Agregar
+                            </button>
+                        </div>
                         <div class="col-md-6 form-floating mb-3">
                             <input type="text" class="form-control" id="BudgetBreakdownUri" placeholder="URI"
                                 formControlName="uri" />
                             <label for="BudgetBreakdownUri">Información Presupuestaria vinculada</label>
-                        </div>
-                        <div class="form-floating col-md-2 mb-0">
-                            <button type="button" class="btn btn-danger btn-add" (click)="addNewBudgetBreakdown()">Agregar
-                            </button>
                         </div>
                     </div>
                     <div class="row" formGroupName="amount">
@@ -197,7 +197,7 @@
         </fieldset>
                
                 <!-- Array Para Líneas Presupuestarias -->
-        <fieldset class="border p-3 mb-3" [formGroup]="planningBudgetLinesForm">
+        <fieldset class="border p-3 mb-3" [formGroup]="budgetLinesForm">
             <div class="row">
                 <h5>Líneas Presupuestarias</h5>
             </div>
@@ -213,7 +213,7 @@
                     <label for="BudgetLinesOrigin">Origen</label>
                 </div>
                 <div class="form-floating col-md-2 mb-0">
-                    <button type="button" class="btn btn-danger btn-add" (click)="addNewPlanningBudgetLines()">Agregar
+                    <button type="button" class="btn btn-danger btn-add" (click)="addBudgetLines()">Agregar
                     </button>
                 </div>
             </div>
@@ -229,17 +229,17 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr *ngFor="let doc of planningBudgetLinesArray; index as i">
+                                <tr *ngFor="let doc of budgetForm.value.budgetLines; index as i">
                                     <th scope="row">{{ i + 1 }}</th>
-                                    <td>{{ doc.name }}</td>
+                                    <td>{{ doc.origin }}</td>
                                     <td>
                                         <button 
                                             type="button" 
                                             class="btn btn-danger btn-delete" 
-                                            (click)="deletePlanningBudgetLines()">Eliminar</button>
+                                            (click)="deleteBudgetLines(i)">Eliminar</button>
                                     </td>
                                 </tr>
-                                <tr *ngIf="planningBudgetLinesArray.length === 0">
+                                <tr *ngIf="budgetForm.value.budgetLines.length === 0">
                                     <th scope="row" colspan="4" class="text-center">
                                         Sin registros.
                                     </th>
@@ -252,23 +252,23 @@
         </fieldset>  
 
             <!-- Array Para Componentes -->
-        <fieldset class="border p-3 mb-3" [formGroup]="planningBudgetComponentsForm">
+        <fieldset class="border p-3 mb-3" [formGroup]="budgetComponentsForm">
             <div class="row">
                 <h5>Componentes</h5>
             </div>
             <div class="row">
                 <div class="col-md-7 form-floating mb-3">
                     <input type="text" class="form-control" id="BudgetComponentsName" placeholder="Nombre"
-                        formControlName="name" />
+                    formControlName="name" />
                     <label for="BudgetComponentsName">Nombre</label>
                 </div>
                 <div class="col-md-3 form-floating mb-3">
                     <input type="text" class="form-control" id="BudgetComponentsCode" placeholder="Código"
-                        formControlName="code" />
+                    formControlName="code" />
                     <label for="BudgetComponentsCode">Código</label>
                 </div>                
                 <div class="form-floating col-md-2 mb-0">
-                    <button type="button" class="btn btn-danger btn-add" (click)="addNewPlanningBudgetLines()">Agregar
+                    <button type="button" class="btn btn-danger btn-add" (click)="addBudgetComponent()">Agregar
                     </button>
                 </div>                
                 <div class="col-md-8 form-floating mb-3">
@@ -296,7 +296,7 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr *ngFor="let doc of planningBudgetComponentsArray; index as i">
+                                <tr *ngFor="let doc of budgetForm.value.budgetComponents; index as i">
                                     <th scope="row">{{ i + 1 }}</th>
                                     <td>{{ doc.name }}</td>
                                     <td>{{ doc.level }}</td>
@@ -306,10 +306,10 @@
                                         <button 
                                             type="button" 
                                             class="btn btn-danger btn-delete" 
-                                            (click)="deletePlanningBudgetComponents()">Eliminar</button>
+                                            (click)="deleteBudgetComponent(i)">Eliminar</button>
                                     </td>
                                 </tr>
-                                <tr *ngIf="planningBudgetLinesArray.length === 0">
+                                <tr *ngIf="budgetForm.value.budgetComponents.length === 0">
                                     <th scope="row" colspan="5" class="text-center">
                                         Sin registros.
                                     </th>
