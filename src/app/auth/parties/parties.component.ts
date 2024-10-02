@@ -96,6 +96,7 @@ export class PartiesComponent implements OnInit {
   addBeneficialOwners(beneficialOwners: any): void {
     this.beneficialOwnersArray.push(beneficialOwners);
   }
+
   deleteBeneficialOwners(index: number): void {
     this.beneficialOwnersArray.removeAt(index);
   }

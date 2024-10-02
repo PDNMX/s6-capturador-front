@@ -104,7 +104,6 @@
               <!-- ℘ -->
               Hitos
             </button>
-
             <button
               class="nav-link"
               id="v-pills-enmiendas-tab"
@@ -123,10 +122,10 @@
               class="nav-link btn btn-danger btn-add"
               id="v-pills-nuevo-tab"
               data-bs-toggle="pill"
-              data-bs-target="#v-pills-nuevo"
+              data-bs-target="#v-pills-contrato-definicion"
               type="button"
               role="tab"
-              aria-controls="v-pills-nuevo"
+              aria-controls="v-pills-contrato-definicion"
               aria-selected="false"
               style="
                 background-color: #dc3545; /* Rojo de peligro */
@@ -135,6 +134,7 @@
                 text-align: center;
                 padding: 1rem;
               "
+              (click)="onSubmit(idGlobal)"
             >
               <!-- $ -->
               Agregar contrato
@@ -142,7 +142,6 @@
           </div>
         </div>
       </div>
-      <!-- termina col-md-3 -->
       <!-- Termina Formulario lado derecho -->
       <div class="col-md-9 g-0">
         <div class="tab-content" id="v-pills-tabContent">
@@ -161,7 +160,6 @@
                 name="planning-Form-StartAward"
                 novalidate="novalidate"
               >
-                <!-- <div class="row imageP"></div> -->
                 <div class="row">
                   <h3>Contratación</h3>
                   <hr />
@@ -171,65 +169,94 @@
                     de acuerdo con la evaluación de las propuestas.
                   </p>
                 </div>
-                <!-- Tabla con arreglo de contratos -->
                 <div class="contractsArray">
                   <div class="row">
                     <div class="col-md-12">
-                      <table class="table" *ngIf="registroPorId">
-                        <thead>
-                          <tr>
-                            <th>_ID</th>
-                            <th>ID</th>
-                            <th>Título</th>
-                            <th>Editar</th>
-                            <th>Visualizar</th>
-                          </tr>
-                        </thead>
-                        <tbody>
-                          <tr
-                            *ngFor="
-                              let contract of registroPorId.record.contracts
-                            "
-                          >
-                            <td>{{ contract._id }}</td>
-                            <td>{{ contract.id }}</td>
-                            <td>{{ contract.title }}</td>
-                            <!-- (click)="editElement(contract._id)" -->
-                            <td>
-                              <svg
-                                xmlns="http://www.w3.org/2000/svg"
-                                height="24px"
-                                viewBox="0 0 24 24"
-                                width="24px"
-                                fill="#5f6368"
+                      <div class="table-responsive">
+                        <table class="table table-striped table-hover">
+                          <thead>
+                            <tr>
+                              <!--  <th scope="col">_ID</th> -->
+                              <th scope="col">ID</th>
+                              <th scope="col">Título</th>
+                              <th scope="col">Editar</th>
+                              <th scope="col">Visualizar</th>
+                              <th scope="col">Eliminar</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            <tr *ngIf="!registroPorId">
+                              <th scope="row" colspan="8" class="text-center">
+                                Sin registros.
+                              </th>
+                            </tr>
+                            <div *ngIf="registroPorId">
+                              <tr
+                                *ngFor="
+                                  let contract of registroPorId.record
+                                    .contracts;
+                                  index as i
+                                "
                               >
-                                <path d="M0 0h24v24H0z" fill="none" />
-                                <path
-                                  d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04c.39-.39.39-1.02 0-1.41l-2.34-2.34c-.39-.39-1.02-.39-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z"
-                                  (click)="editElement(contract)"
-                                />
-                              </svg>
-                              Editar
-                            </td>
-                            <td>
-                              <svg
-                                xmlns="http://www.w3.org/2000/svg"
-                                height="24px"
-                                viewBox="0 0 24 24"
-                                width="24px"
-                                fill="#5f6368"
-                              >
-                                <path d="M0 0h24v24H0z" fill="none" />
-                                <path
-                                  d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"
-                                  (click)="viewElement(contract)"
-                                />
-                              </svg>
-                              Visualizar
-                            </td>
-                          </tr>
-                        </tbody>
-                      </table>
+                                <td scope="row">
+                                  {{ i + 1 }}
+                                </td>
+                                <!-- <td>{{ contract._id }}</td> -->
+                                <td>{{ contract.id }}</td>
+                                <td>{{ contract.title }}</td>
+                                <!-- (click)="editElement(contract._id)" -->
+                                <td (click)="editElement(contract)">
+                                  <svg
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    height="24px"
+                                    viewBox="0 0 24 24"
+                                    width="24px"
+                                    fill="#5f6368"
+                                  >
+                                    <path d="M0 0h24v24H0z" fill="none" />
+                                    <path
+                                      d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04c.39-.39.39-1.02 0-1.41l-2.34-2.34c-.39-.39-1.02-.39-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z"
+                                    />
+                                  </svg>
+                                  Editar
+                                </td>
+                                <td (click)="viewElement(contract)">
+                                  <svg
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    height="24px"
+                                    viewBox="0 0 24 24"
+                                    width="24px"
+                                    fill="#5f6368"
+                                  >
+                                    <path d="M0 0h24v24H0z" fill="none" />
+                                    <path
+                                      d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"
+                                    />
+                                  </svg>
+                                  Visualizar
+                                </td>
+                                <!--  <td (click)="deleteElement(contract)">
+                                  <svg
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    height="24px"
+                                    viewBox="0 0 24 24"
+                                    width="24px"
+                                    fill="#5f6368"
+                                  >
+                                    <path d="M0 0h24v24H0z" fill="none" />
+                                    <path d="M0 0h24v24H0z" fill="none" />
+                                    <path d="M8 9h8v10H8z" />
+                                    <path
+                                      d="M18 2H6c-1.1 0-1.99.9-1.99 2L4 20c0 1.1.89 2 1.99 2H18c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm-1 16H7V7h10v11z"
+                                    />
+                                  </svg>
+                                  Eliminar
+                                </td> -->
+                              </tr>
+                            </div>
+                          </tbody>
+                        </table>
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -238,7 +265,6 @@
           </div>
           <div class="col col-md-9">
             <div class="tab-content" id="v-pills-tabContent">
-              <!-- Datos generales del contrato -->
               <div
                 class="tab-pane fade"
                 id="v-pills-contrato"
@@ -246,10 +272,8 @@
                 aria-labelledby="v-pills-contrato-tab"
                 tabindex="0"
               >
-                <!-- Contenido de Agregar contrato -->
                 <div class="form h-100">
                   <h3>Datos generales del contrato #</h3>
-                  <!-- Cambiar por el número de contrato a Siguiente -->
                   <form [formGroup]="contracts">
                     <fieldset class="border p-3 mb-3">
                       <legend class="w-auto px-2">Clasificación</legend>
@@ -550,67 +574,19 @@
                                   </div>
                                 </div>
                               </div>
-
                               <div class="row mt-3">
                                 <div class="col-md-12">
                                   <button
                                     type="button"
-                                    class="btn btn-primary"
+                                    class="btn btn-danger btn-add"
                                     (click)="addExchangeRate()"
                                   >
-                                    Agregar Tasa de Cambio
+                                    Agregar tasa de cambio
                                   </button>
                                 </div>
                               </div>
                             </fieldset>
                           </div>
-                          <!-- Tasa de cambio-->
-                          <!--  <div class = "row">
-                <h2>Tasa de cambio</h2>
-                <div class = "col-md-4">
-                  <div class = "form-floating mb-3">
-                    <input class = "form-control" id = "tasa" type = "text" placeholder = "Tasa de cambio" data-sb-validations = "required" />
-                    <label for = "tasa">Tasa</label>
-                    <div class = "invalid-feedback" data-sb-feedback = "tasa:required">Tasa de cambio es requerido.</div>
-                </div>
-                </div>
-                <div class = "col-md-4">
-                  <div class = "form-floating mb-3">
-                    <input class = "form-control" id = "montoMxn" type = "text" placeholder = "New Field 13" data-sb-validations = "required" />
-                    <label for = "montoMxn">Monto en MXN</label>
-                    <div class = "invalid-feedback" data-sb-feedback = "montoMxn:required">Monto en MXN es requerido.</div>
-                </div>                </div>
-                <div class = "col-md-4">
-                  <div class = "form-floating mb-3">
-                    <input class = "form-control" id = "monedaNw" type = "text" placeholder = "New Field 13" data-sb-validations = "required" />
-                    <label for = "monedaNw">Moneda</label>
-                    <div class = "invalid-feedback" data-sb-feedback = "monedaNw:required">Moneda es requerido.</div>
-                  </div>
-                </div>
-              </div> --><!-- Termina row de 4-->
-                          <!-- Tasa de cambio -->
-                          <!-- <div class = "row">
-                <div class = "col-md-6">
-                  <div class = "form-floating mb-3">
-                    <select class = "form-select" id = "fuente" aria-label = "New Field 14">
-                        <option value = "1">1</option>
-                        <option value = "2">2</option>
-                        <option value = "3">3</option>
-                        <option value = "4">4</option>
-                        <option value = "5">5</option>
-                    </select>
-                    <label for = "fuente">Fuente</label>
-                </div>
-                </div>
-                <div class = "col-md-6">
-                  <div class = "form-floating mb-3">
-                    <input class = "form-control" id = "fechaTasaCambio" type = "date" placeholder = "New Field 13" data-sb-validations = "required" />
-                    <label for = "fechaTasaCambio">Fecha de la tasa de cambio</label>
-                    <div class = "invalid-feedback" data-sb-feedback = "fechaTasaCambio:required">New Field 13 is required.</div>
-                </div>
-              </div>
-              </div> --><!-- Termina Tasa de cambio -->
-
                           <div class="row">
                             <div
                               class="col-md-12"
@@ -653,9 +629,6 @@
                           </div>
                         </div>
                         <div class="row">
-                          <!--                 <div class = "col-md-4">
-                  <button (click) = "addElementToObject()" class = "btn btn-primary">Siguiente</button>
-                </div> -->
                           <div class="col-md-12">
                             <div
                               (click)="addGeneralContractToArray()"
@@ -665,15 +638,6 @@
                               Guardar sección
                             </div>
                           </div>
-                          <!--                           <div class="col-md-4">
-                            <button
-                              (click)="resetForm()"
-                              class="btn btn-danger"
-                              [ngClass]="{ readonly: isReadOnly }"
-                            >
-                              Eliminar
-                            </button>
-                          </div> -->
                         </div>
                       </div>
                     </fieldset>
@@ -688,10 +652,8 @@
                 role="tabpanel"
                 aria-labelledby="v-pills-documentos-tab"
               >
-                <!-- Contenido de Documentos -->
                 <div class="form h-100">
                   <h3>Datos generales del contrato (Sección de documentos)</h3>
-                  <!-- Cambiar por el número de contrato a Siguiente -->
                   <form [formGroup]="documents">
                     <fieldset class="border p-3 mb-3">
                       <div class="row">
@@ -896,16 +858,14 @@
                       </div>
                       <div class="row">
                         <div class="col-md-6">
-                          <!-- agregar al arreglo de documentos -->
                           <button
                             (click)="addDocumentToArray()"
                             class="btn btn-danger btn-add"
                           >
-                            Agregar Documento
+                            Agregar documento
                           </button>
                         </div>
                         <div class="col-md-6">
-                          <!-- agregar al arreglo de contracts que va aguardar el arreglo de documents -->
                           <button
                             (click)="addDocumentsToArray()"
                             class="btn btn-danger btn-add"
@@ -914,15 +874,6 @@
                             Guardar sección
                           </button>
                         </div>
-                        <!-- <div class="col-md-4">
-                          <button
-                            (click)="resetForm()"
-                            class="btn btn-danger"
-                            [ngClass]="{ readonly: isReadOnly }"
-                          >
-                            Eliminar
-                          </button>
-                        </div> -->
                       </div>
                       <div class="row">
                         <div class="row mt-3">
@@ -1736,31 +1687,21 @@
                         </fieldset>
                       </div>
                       <div class="row">
-                        <div class="col-md-4">
+                        <div class="col-md-6">
                           <button
                             (click)="addItemToArray()"
-                            class="btn btn-primary"
+                            class="btn btn-danger btn-add"
                           >
                             Agregar item
                           </button>
                         </div>
-                        <div class="col-md-4">
+                        <div class="col-md-6">
                           <button
                             (click)="addItemsToArray()"
-                            class="btn btn-primary"
+                            class="btn btn-danger btn-add"
                             [ngClass]="{ readonly: isReadOnly }"
                           >
                             Guardar sección
-                          </button>
-                        </div>
-                        <div class="col-md-4">
-                          <button
-                            (click)="resetForm()"
-                            type="button"
-                            class="btn btn-danger"
-                            [ngClass]="{ readonly: isReadOnly }"
-                          >
-                            Eliminar
                           </button>
                         </div>
                       </div>
@@ -2091,31 +2032,21 @@
                         </fieldset>
                       </div>
                       <div class="row">
-                        <div class="col-md-4">
+                        <div class="col-md-6">
                           <button
                             (click)="addGuaranteeToArray()"
-                            class="btn btn-primary"
+                            class="btn btn-danger btn-add"
                           >
-                            Agregar Garantía
+                            Agregar garantía
                           </button>
                         </div>
-                        <div class="col-md-4">
+                        <div class="col-md-6">
                           <button
                             (click)="addGuaranteesToArray()"
-                            class="btn btn-primary"
+                            class="btn btn-danger btn-add"
                             [ngClass]="{ readonly: isReadOnly }"
                           >
                             Guardar sección
-                          </button>
-                        </div>
-                        <div class="col-md-4">
-                          <button
-                            (click)="resetForm()"
-                            type="button"
-                            class="btn btn-danger"
-                            [ngClass]="{ readonly: isReadOnly }"
-                          >
-                            Eliminar
                           </button>
                         </div>
                       </div>
@@ -2330,31 +2261,21 @@
                         </div>
                       </div>
                       <div class="row">
-                        <div class="col-md-4">
+                        <div class="col-md-6">
                           <button
                             (click)="addRelatedProcessToArray()"
-                            class="btn btn-primary"
+                            class="btn btn-danger btn-add"
                           >
-                            Agregar Proceso Relacionado
+                            Agregar proceso
                           </button>
                         </div>
-                        <div class="col-md-4">
+                        <div class="col-md-6">
                           <button
                             (click)="addRelatedProcessesToArray()"
-                            class="btn btn-primary"
+                            class="btn btn-danger btn-add"
                             [ngClass]="{ readonly: isReadOnly }"
                           >
                             Guardar sección
-                          </button>
-                        </div>
-                        <div class="col-md-4">
-                          <button
-                            (click)="resetForm()"
-                            type="button"
-                            class="btn btn-danger"
-                            [ngClass]="{ readonly: isReadOnly }"
-                          >
-                            Eliminar
                           </button>
                         </div>
                       </div>
@@ -2608,31 +2529,21 @@
                         </div>
                       </div>
                       <div class="row">
-                        <div class="col-md-4">
+                        <div class="col-md-6">
                           <button
                             (click)="addMilestoneToArray()"
-                            class="btn btn-primary"
+                            class="btn btn-danger btn-add"
                           >
-                            Agregar Hito
+                            Agregar hito
                           </button>
                         </div>
-                        <div class="col-md-4">
+                        <div class="col-md-6">
                           <button
                             (click)="addMilestonesToArray()"
-                            class="btn btn-primary"
+                            class="btn btn-danger btn-add"
                             [ngClass]="{ readonly: isReadOnly }"
                           >
                             Guardar sección
-                          </button>
-                        </div>
-                        <div class="col-md-4">
-                          <button
-                            (click)="resetForm()"
-                            type="button"
-                            class="btn btn-danger"
-                            [ngClass]="{ readonly: isReadOnly }"
-                          >
-                            Eliminar
                           </button>
                         </div>
                       </div>
@@ -2826,31 +2737,21 @@
                         </div>
                       </div>
                       <div class="row">
-                        <div class="col-md-4">
+                        <div class="col-md-6">
                           <button
                             (click)="addAmendmentToArray()"
-                            class="btn btn-primary"
+                            class="btn btn-danger btn-add"
                           >
-                            Agregar Enmienda
+                            Agregar enmienda
                           </button>
                         </div>
-                        <div class="col-md-4">
+                        <div class="col-md-6">
                           <button
                             (click)="addAmendmentsToArray()"
-                            class="btn btn-primary"
+                            class="btn btn-danger btn-add"
                             [ngClass]="{ readonly: isReadOnly }"
                           >
                             Guardar sección
-                          </button>
-                        </div>
-                        <div class="col-md-4">
-                          <button
-                            (click)="resetForm()"
-                            type="button"
-                            class="btn btn-danger"
-                            [ngClass]="{ readonly: isReadOnly }"
-                          >
-                            Eliminar
                           </button>
                         </div>
                       </div>
@@ -2888,52 +2789,6 @@
                                 </tr>
                               </tbody>
                             </table>
-                          </div>
-                        </div>
-                      </div>
-                    </fieldset>
-                  </form>
-                </div>
-              </div>
-              <div
-                class="tab-pane fade"
-                id="v-pills-nuevo"
-                role="tabpanel"
-                aria-labelledby="v-pills-nuevo-tab"
-              >
-                <div class="form h-100">
-                  <form>
-                    <fieldset class="border p-3 mb-3">
-                      <legend>Agregar nuevo contrato</legend>
-                      <div class="row">
-                        <!--                   <div class = "col-md-4">
-                    <button (click) = "addContractToArray()" class = "btn btn-primary">Agregar contrato</button>
-                  </div> -->
-                        <div class="col-md-3">
-                          <div
-                            (click)="addContracttoArraycontracts()"
-                            class="btn btn-primary"
-                          >
-                            Agregar nuevo contrato
-                          </div>
-                        </div>
-                        <!--                   <div class="col-md-3">
-                    <div class="btn btn-primary">
-                      Guardar cambios
-                    </div>
-                  </div> -->
-                        <div class="col-md-3">
-                          <div
-                            (click)="onSubmit(idGlobal)"
-                            class="btn btn-primary"
-                            [ngClass]="{ readonly: isReadOnly }"
-                          >
-                            Guardar y salir
-                          </div>
-                        </div>
-                        <div class="col-md-3">
-                          <div (click)="resetForm()" class="btn btn-danger">
-                            Limpiar datos del formulario
                           </div>
                         </div>
                       </div>

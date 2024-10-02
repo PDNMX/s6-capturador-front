@@ -19,6 +19,7 @@ import { ActivatedRoute } from '@angular/router';
   styleUrls: ['./contracts.component.css'],
 })
 export class ContractsComponent implements OnInit {
+  /* Arreglos que contienen los arreglos anidados de cada sección */
   itemsArray: any[] = [];
   guaranteesArray: any[] = [];
   documentsArray: any[] = [];
@@ -726,6 +727,36 @@ export class ContractsComponent implements OnInit {
     this.isReadOnly = true;
     this.fillFormWithContractData(contract);
   }
+
+  deleteElement(contract: any) {
+    this.isReadOnly = false;
+    this.banderaEditar = false;
+    this.contratoId = contract._id;
+    this.deleteContractFromArray(contract._id);
+    this.dataToUpdate = {
+      id: this.idGlobal,
+      data: {
+        contracts: this.contractsArrayToSend,
+      },
+    };
+    this.putMethod(this.dataToUpdate);
+    this.resetForm();
+    this.getMethodById(this.idGlobal);
+    alert('Contrato eliminado exitosamente');
+  }
+
+  deleteContractFromArray(contractId: string) {
+    // Encontrar el índice del contrato a eliminar
+    const index = this.contractsArrayToSend.findIndex(
+      (c) => c._id === contractId
+    );
+    if (index !== -1) {
+      // Eliminar el contrato
+      this.contractsArrayToSend.splice(index, 1);
+    }
+    console.log('Contratos actualizados:', this.contractsArrayToSend);
+  }
+
   private fillFormWithContractData(contract: any) {
     this.contracts.patchValue({
       id: contract.id,
@@ -822,6 +853,9 @@ export class ContractsComponent implements OnInit {
     // Resetear la bandera de edición
     this.banderaEditar = false;
     this.contratoId = '';
+
+    alert('Contrato guardado exitosamente');
+    console.log('Contratos actualizados:', this.contractsArrayToSend);
   }
   /********************* Termina la sección de funciones generales *********************/
 }
