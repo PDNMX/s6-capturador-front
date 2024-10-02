@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { ApiService } from 'src/app/services/api.service';
 
@@ -105,13 +105,9 @@ export class PartiesComponent implements OnInit {
   }
 
   loadForm(data: any): void {
-    console.log('data: ', data);
-
     data.forEach((partie: any) => {
       this.partiesArray.push(this.fb.control(partie));
     });
-
-    console.log('load partiesForm', this.partiesForm.value);
   }
 
   loadData(): void {
