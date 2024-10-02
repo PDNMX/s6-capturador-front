@@ -80,7 +80,12 @@
       <div class="row">
         <div class="form-floating col-10 mb-5" [formGroup]="attendeesForm">
           <select class="form-select" formControlName="id">
-            <option selected>Seleccione un asistente</option>
+            <option
+              *ngIf="attendees.length === 0"
+              [disabled]="attendees.length === 0"
+            >
+              No hay registros de Actores para este proceso de contratación.
+            </option>
             <option *ngFor="let c of attendees" [ngValue]="c">
               asistente {{ c?.name }}
             </option>
@@ -139,7 +144,12 @@
       <div class="row">
         <div class="form-floating col-10 mb-5" [formGroup]="officialsForm">
           <select class="form-select" formControlName="id">
-            <option selected>Seleccione un servidor publico</option>
+            <option
+              *ngIf="officials.length === 0"
+              [disabled]="officials.length === 0"
+            >
+              No hay registros de Actores para este proceso de contratación.
+            </option>
             <option *ngFor="let c of officials" [ngValue]="c">
               servidor publico {{ c?.name }}
             </option>

@@ -1,7 +1,7 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
-import { ApiService } from 'src/app/services/api.service';
+import { ApiService, IPartieList } from 'src/app/services/api.service';
 import {
   AdditionalProcurementCategories,
   AwardCriteria,
@@ -20,7 +20,7 @@ import {
 export class TenderGeneralComponent implements OnInit {
   @Output() saveGeneralData = new EventEmitter<any>();
 
-  record_id: string = '';
+  record_id = null;
 
   tenderStatus = TenderStatus;
   currency = Currency;
@@ -31,20 +31,7 @@ export class TenderGeneralComponent implements OnInit {
   awardCriteria = AwardCriteria;
   submissionMethod = SubmissionMethod;
 
-  tempEntidadContratante = [
-    {
-      id: '1',
-      name: 'Entidad contratante 1',
-    },
-    {
-      id: '2',
-      name: 'Entidad contratante 2',
-    },
-    {
-      id: '3',
-      name: 'Entidad contratante 3',
-    },
-  ];
+  procuringEntity: any = [];
 
   generalForm!: FormGroup;
   additionalProcurementCategoriesForm!: FormGroup;
@@ -88,8 +75,8 @@ export class TenderGeneralComponent implements OnInit {
     let optProcuringEntity = null;
 
     if (procuringEntity)
-      optProcuringEntity = this.tempEntidadContratante.find(
-        (e) => (e.id = procuringEntity.id)
+      optProcuringEntity = this.procuringEntity.find(
+        (e: any) => (e.id = procuringEntity.id)
       );
 
     this.generalForm.patchValue({
@@ -144,6 +131,19 @@ export class TenderGeneralComponent implements OnInit {
 
   ngOnInit(): void {
     this.initForm();
+
+    this.route.paramMap.subscribe((params: any) => {
+      this.record_id = params.get('id');
+    });
+
+    if (this.record_id) {
+      this.api
+        .getPartiesByType(this.record_id, 'procuringEntity')
+        .subscribe((d: IPartieList) => {
+          this.procuringEntity = d.data;
+        });
+    }
+
     this.loadData();
   }
 

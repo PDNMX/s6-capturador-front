@@ -15,7 +15,7 @@ export class TenderItemsComponent implements OnInit {
   @Output() addItem = new EventEmitter<any>();
   @Output() deleteItem = new EventEmitter<any>();
 
-  record_id: string = '';
+  record_id = null;
   itemsForm!: FormGroup;
   additionalClassificationsForm!: FormGroup;
 
