@@ -1,5 +1,7 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ActivatedRoute } from '@angular/router';
+import { ApiService, IPartieList } from 'src/app/services/api.service';
 import { PartyRole } from 'src/utils';
 
 @Component({
@@ -12,27 +14,20 @@ export class PartiesGeneralComponent implements OnInit {
   generalForm!: FormGroup;
   additionalIdentifiersForm!: FormGroup;
 
+  record_id = null;
+
   rolesList = PartyRole;
   optRole: string = '';
 
-  optMemeberOf: string = '';
+  optMemberOf: string = '';
 
-  tempParties = [
-    {
-      id: '1',
-      name: 'Actor 1',
-    },
-    {
-      id: '2',
-      name: 'Actor 2',
-    },
-    {
-      id: '3',
-      name: 'Actor 3',
-    },
-  ];
+  memberOfList: any = [];
 
-  constructor(private fb: FormBuilder) {}
+  constructor(
+    private fb: FormBuilder,
+    private api: ApiService,
+    private route: ActivatedRoute
+  ) {}
 
   getRoleByCode(code: string): any {
     return this.rolesList.find((e) => e.code === code);
@@ -43,7 +38,7 @@ export class PartiesGeneralComponent implements OnInit {
   }
 
   addMemberOf(): void {
-    this.memberOfArray.push(this.fb.control(this.optMemeberOf));
+    this.memberOfArray.push(this.fb.control(this.optMemberOf));
   }
 
   deleteMemberOf(index: number): void {
@@ -78,6 +73,17 @@ export class PartiesGeneralComponent implements OnInit {
 
   ngOnInit(): void {
     this.initForm();
+
+    this.route.paramMap.subscribe((params: any) => {
+      this.record_id = params.get('id');
+    });
+
+    if (this.record_id) {
+      this.api.getPartiesByType(this.record_id).subscribe((d: IPartieList) => {
+        this.memberOfList = d.data;
+        console.log('this.memberOfList: ', this.memberOfList);
+      });
+    }
   }
 
   initAdditionalIdentifiersForm(): void {
