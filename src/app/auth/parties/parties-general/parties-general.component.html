@@ -119,10 +119,16 @@
             <div class="form-floating col mb-5">
               <select
                 class="form-select"
-                [(ngModel)]="optMemeberOf"
+                [(ngModel)]="optMemberOf"
                 [ngModelOptions]="{ standalone: true }"
               >
-                <option *ngFor="let d of tempParties" [ngValue]="d">
+                <option
+                  *ngIf="memberOfList.length === 0"
+                  [disabled]="memberOfList.length === 0"
+                >
+                  No hay registros de Actores para este proceso de contratación.
+                </option>
+                <option *ngFor="let d of memberOfList" [ngValue]="d">
                   {{ d.name }}
                 </option>
               </select>
