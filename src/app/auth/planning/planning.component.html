@@ -76,7 +76,7 @@
         <!-- Inicia formulario de información general de la planeación -->
         <div class="tab-content" id="v-pills-tabContent">
           <div class="tab-pane fade" id="v-pills-general" role="tabpanel" aria-labelledby="v-pills-general-tab">
-            <app-planning-general></app-planning-general>
+            <app-planning-general (saveGeneralData)="saveGeneralData($event)"></app-planning-general>
           </div>
         </div>
 

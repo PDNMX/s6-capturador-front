@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { ApiService } from 'src/app/services/api.service';
@@ -13,9 +13,7 @@ import {
   styleUrls: ['./planning-general.component.css']
 })
 export class PlanningGeneralComponent implements OnInit {
-  @Input() contractingUnitsArray: Array<any> = [];
   @Output() saveGeneralData = new EventEmitter<any>();
-
 
   record_id: string = '';
 
@@ -53,6 +51,11 @@ export class PlanningGeneralComponent implements OnInit {
       responsibleUnits  
     });
 
+    requestingUnits.forEach((e: any) => {
+      this.requestingUnitsArray.push(this.fb.group(e));  
+    });
+    
+
 
   }
 
@@ -78,6 +81,28 @@ export class PlanningGeneralComponent implements OnInit {
     this.loadData();
   }
 
+  initContractingUnitsForm(): void {
+    this.contractingUnitsForm = this.fb.group({
+      name: ['', Validators.required],
+      id: ['', Validators.required],
+    });
+  }
+
+  initRequestingUnitsForm(): void {
+    this.requestingUnitsForm = this.fb.group({
+      name: ['', Validators.required],
+      id: ['', Validators.required],
+    });
+  }
+
+  initResponsibleUnitsForm(): void {
+    this.responsibleUnitsForm = this.fb.group({
+      name: ['', Validators.required],
+      id: ['', Validators.required],
+    });
+  }
+
+
   initForm(): void {
     this.generalForm = this.fb.group({
       rationale: ['', Validators.required],
@@ -86,56 +111,57 @@ export class PlanningGeneralComponent implements OnInit {
       requestingUnits: this.fb.array([]),
       responsibleUnits: this.fb.array([]),
     });
-    this.contractingUnitsForm = this.fb.group({
-      name: ['', Validators.required],
-      id: ['', Validators.required],
-    });
-    this.requestingUnitsForm = this.fb.group({
-      name: ['', Validators.required],
-      id: ['', Validators.required],
-    });
-    this.responsibleUnitsForm = this.fb.group({
-      name: ['', Validators.required],
-      id: ['', Validators.required],
-    });
-  }
+    this.initContractingUnitsForm();
+    this.initRequestingUnitsForm()
+    this.initResponsibleUnitsForm()
 
-
-  getContractingUnitsArray() {
-    return this.generalForm.controls['contractingUnits'] as FormArray;
   }
-  addContractingUnits(): void {
-    const opt: string = this.contractingUnitsForm.value;
-    this.getContractingUnitsArray().push(this.fb.group(opt));
-  }
-  deleteContractingUnit(): void { }
-
-
-  getRequestingUnitsArray() {
-    return this.generalForm.controls['requestingUnits'] as FormArray;
-  }
-  addRequestingUnits(): void {
-    const opt: string = this.requestingUnitsForm.value;
-    this.getRequestingUnitsArray().push(this.fb.group(opt));
-  }
-  deleteRequestingUnit(): void { }
-
-
-  getResponsibleUnitsArray() {
-    return this.generalForm.controls['responsibleUnits'] as FormArray;
-  }
-  addResponsibleUnits(): void {
-    const opt: string = this.responsibleUnitsForm.value;
-    this.getResponsibleUnitsArray().push(this.fb.group(opt));
-  }
-  deleteResponsibleUnit(): void { }
-
 
 
   saveForm(): void {
     this.saveGeneralData.emit(this.generalForm.controls);
   }
- 
+
+
+  get contractingUnitsFormArray() {
+    return this.generalForm.controls['contractingUnits'] as FormArray;
+  }
+  
+  addContractingUnits(): void {
+    this.contractingUnitsFormArray.push(this.contractingUnitsForm);
+    this.initContractingUnitsForm();
+  }
+  
+  deleteContractingUnit(index:number): void { 
+    this.contractingUnitsFormArray.removeAt(index);
+  }
+
+
+  get requestingUnitsArray() {
+    return this.generalForm.controls['requestingUnits'] as FormArray;
+  }
+
+  addRequestingUnits(): void {
+    this.requestingUnitsArray.push(this.requestingUnitsForm);
+    this.initRequestingUnitsForm();
+  }
+  deleteRequestingUnit(index:number): void {
+    this.requestingUnitsArray.removeAt(index);
+  }
+
+
+
+  get responsibleUnitsArray() {
+    return this.generalForm.controls['responsibleUnits'] as FormArray;
+  }
+
+  addResponsibleUnits(): void {
+    this.responsibleUnitsArray.push(this.responsibleUnitsForm);
+    this.initResponsibleUnitsForm();
+  }
+  deleteResponsibleUnit(index:number): void { 
+    this.responsibleUnitsArray.removeAt(index);
+  }
 
 
 }
