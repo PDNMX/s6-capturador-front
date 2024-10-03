@@ -178,7 +178,11 @@
             role="tabpanel"
             aria-labelledby="v-pills-documento-tab"
           >
-            <app-planning-documents></app-planning-documents>
+            <app-planning-documents
+              [documentsArray]="planningForm.value.documents"
+              (addDocument)="addDocument($event)"
+              (deleteDocument)="deleteDocument($event)"
+            ></app-planning-documents>
           </div>
         </div>
 
@@ -220,7 +224,7 @@
           <!-- Inicia formulario de Hitos -->
           <div class="tab-content" id="v-pills-tabContent">
             <div
-              class="tab-pane fade show active"
+              class="tab-pane fade"
               id="v-pills-hitos"
               role="tabpanel"
               aria-labelledby="v-pills-hitos-tab"
