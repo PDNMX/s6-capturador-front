@@ -3,57 +3,128 @@
     <div class="row align-items-stretch no-gutters menu-wrap">
       <div class="col-md-3 g-0">
         <div class="menu-info h-100">
-          <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
-            <h3 class="active text-left" id="v-pills-general2-tab" data-bs-toggle="pill"
-              data-bs-target="#v-pills-general2" type="button" role="tab" aria-controls="v-pills-general2"
-              aria-selected="true">
+          <div
+            class="nav flex-column nav-pills"
+            id="v-pills-tab"
+            role="tablist"
+            aria-orientation="vertical"
+          >
+            <h3
+              class="active text-left"
+              id="v-pills-general2-tab"
+              data-bs-toggle="pill"
+              data-bs-target="#v-pills-general2"
+              type="button"
+              role="tab"
+              aria-controls="v-pills-general2"
+              aria-selected="true"
+            >
               &nbsp;&nbsp;1. Planeación
             </h3>
-            <button class="nav-link text-left" id="v-pills-general-tab" data-bs-toggle="pill"
-              data-bs-target="#v-pills-general" type="button" role="tab" aria-controls="v-pills-general"
-              aria-selected="false">
+            <button
+              class="nav-link text-left"
+              id="v-pills-general-tab"
+              data-bs-toggle="pill"
+              data-bs-target="#v-pills-general"
+              type="button"
+              role="tab"
+              aria-controls="v-pills-general"
+              aria-selected="false"
+            >
               Información General
             </button>
-            <button class="nav-link text-left" id="v-pills-presupuesto-tab" data-bs-toggle="pill"
-              data-bs-target="#v-pills-presupuesto" type="button" role="tab" aria-controls="v-pills-presupuesto"
-              aria-selected="false">
+            <button
+              class="nav-link text-left"
+              id="v-pills-presupuesto-tab"
+              data-bs-toggle="pill"
+              data-bs-target="#v-pills-presupuesto"
+              type="button"
+              role="tab"
+              aria-controls="v-pills-presupuesto"
+              aria-selected="false"
+            >
               Presupuesto
             </button>
-            <button class="nav-link" id="v-pills-documentos-tab" data-bs-toggle="pill"
-              data-bs-target="#v-pills-documentos" type="button" role="tab" aria-controls="v-pills-documentos"
-              aria-selected="false">
+            <button
+              class="nav-link"
+              id="v-pills-documentos-tab"
+              data-bs-toggle="pill"
+              data-bs-target="#v-pills-documentos"
+              type="button"
+              role="tab"
+              aria-controls="v-pills-documentos"
+              aria-selected="false"
+            >
               Documentos
             </button>
-            <button class="nav-link" id="v-pills-cotizaciones-tab" data-bs-toggle="pill"
-              data-bs-target="#v-pills-solicitudes-cotizaciones" type="button" role="tab" aria-controls="v-pills-solicitudes-cotizaciones"
-              aria-selected="false">
+            <button
+              class="nav-link"
+              id="v-pills-cotizaciones-tab"
+              data-bs-toggle="pill"
+              data-bs-target="#v-pills-solicitudes-cotizaciones"
+              type="button"
+              role="tab"
+              aria-controls="v-pills-solicitudes-cotizaciones"
+              aria-selected="false"
+            >
               Solicitudes de cotizaciones
             </button>
-            <button class="nav-link" id="v-pills-articulos-tab" data-bs-toggle="pill"
-            data-bs-target="#v-pills-articulos" type="button" role="tab" aria-controls="v-pills-articulos"
-            aria-selected="false">
-            Artículos a ser cotizados
-          </button>
-          <button class="nav-link" id="v-pills-cotizaciones-tab" data-bs-toggle="pill" data-bs-target="#v-pills-cotizaciones"
-          data-bs-target="#v-pills-cotizaciones" type="button" role="tab" aria-controls="v-pills-cotizaciones-tab"
-          aria-selected="false">
-          Cotizaciones
-        </button>
-            <button class="nav-link" id="v-pills-hitos-tab" data-bs-toggle="pill" data-bs-target="#v-pills-hitos"
-              type="button" role="tab" aria-controls="v-pills-hitos" aria-selected="false">
+            <button
+              class="nav-link"
+              id="v-pills-articulos-tab"
+              data-bs-toggle="pill"
+              data-bs-target="#v-pills-articulos"
+              type="button"
+              role="tab"
+              aria-controls="v-pills-articulos"
+              aria-selected="false"
+            >
+              Artículos a ser cotizados
+            </button>
+            <button
+              class="nav-link"
+              id="v-pills-cotizaciones-tab"
+              data-bs-toggle="pill"
+              data-bs-target="#v-pills-cotizaciones"
+              data-bs-target="#v-pills-cotizaciones"
+              type="button"
+              role="tab"
+              aria-controls="v-pills-cotizaciones-tab"
+              aria-selected="false"
+            >
+              Cotizaciones
+            </button>
+            <button
+              class="nav-link"
+              id="v-pills-hitos-tab"
+              data-bs-toggle="pill"
+              data-bs-target="#v-pills-hitos"
+              type="button"
+              role="tab"
+              aria-controls="v-pills-hitos"
+              aria-selected="false"
+            >
               Hitos
             </button>
-            <button type="button" class="btn btn-danger text-center p-3" (click)="submit()">
+            <button
+              type="button"
+              class="btn btn-danger text-center p-3"
+              (click)="submit()"
+            >
               Guardar Planeación
             </button>
           </div>
         </div>
-
       </div>
       <div class="col-md-9 g-0">
         <div class="tab-content" id="v-pills-tabContent">
-          <div class="tab-pane fade show active" id="v-pills-general2" role="tabpanel"
-            aria-labelledby="v-pills-general2-tab" tabindex="0">
+          <div
+            class="tab-pane fade show active"
+            id="v-pills-general2"
+            role="tabpanel"
+            aria-labelledby="v-pills-general2-tab"
+            tabindex="0"
+          >
             <div class="form">
               <div class="row">
                 <h3>Planeación</h3>
@@ -75,59 +146,94 @@
 
         <!-- Inicia formulario de información general de la planeación -->
         <div class="tab-content" id="v-pills-tabContent">
-          <div class="tab-pane fade" id="v-pills-general" role="tabpanel" aria-labelledby="v-pills-general-tab">
-            <app-planning-general (saveGeneralData)="saveGeneralData($event)"></app-planning-general>
+          <div
+            class="tab-pane fade"
+            id="v-pills-general"
+            role="tabpanel"
+            aria-labelledby="v-pills-general-tab"
+          >
+            <app-planning-general
+              (saveGeneralData)="saveGeneralData($event)"
+            ></app-planning-general>
           </div>
         </div>
 
         <!-- Inicia formulario de presupuesto -->
         <div class="tab-content" id="v-pills-tabContent">
-          <div class="tab-pane fade" id="v-pills-presupuesto" role="tabpanel"
-            aria-labelledby="v-pills-presupuesto-tab">
+          <div
+            class="tab-pane fade"
+            id="v-pills-presupuesto"
+            role="tabpanel"
+            aria-labelledby="v-pills-presupuesto-tab"
+          >
             <app-planning-budget></app-planning-budget>
           </div>
         </div>
 
         <!-- Inicia formulario de documentos -->
         <div class="tab-content" id="v-pills-tabContent">
-          <div class="tab-pane fade" id="v-pills-documentos" role="tabpanel" aria-labelledby="v-pills-documento-tab">
+          <div
+            class="tab-pane fade"
+            id="v-pills-documentos"
+            role="tabpanel"
+            aria-labelledby="v-pills-documento-tab"
+          >
             <app-planning-documents></app-planning-documents>
           </div>
         </div>
 
         <!-- Inicia formulario de solicitudes de cotizaciones -->
         <div class="tab-content" id="v-pills-tabContent">
-          <div class="tab-pane fade" id="v-pills-solicitudes-cotizaciones" role="tabpanel"
-            aria-labelledby="v-pills-solicitudes-cotizaciones-tab">
-          <app-planning-requestForQuotes></app-planning-requestForQuotes>
+          <div
+            class="tab-pane fade"
+            id="v-pills-solicitudes-cotizaciones"
+            role="tabpanel"
+            aria-labelledby="v-pills-solicitudes-cotizaciones-tab"
+          >
+            <app-planning-requestForQuotes></app-planning-requestForQuotes>
           </div>
         </div>
 
         <!-- Inicia formulario de cotizaciones -->
         <div class="tab-content" id="v-pills-tabContent">
-          <div class="tab-pane fade" id="v-pills-cotizaciones" role="tabpanel"
-            aria-labelledby="v-pills-cotizaciones-tab">
+          <div
+            class="tab-pane fade"
+            id="v-pills-cotizaciones"
+            role="tabpanel"
+            aria-labelledby="v-pills-cotizaciones-tab"
+          >
             <app-planning-quotes></app-planning-quotes>
           </div>
 
-        <!-- Inicia formulario de items -->
-        <div class="tab-content" id="v-pills-tabContent">
-          <div class="tab-pane fade" id="v-pills-articulos" role="tabpanel"
-            aria-labelledby="v-pills-articulos-tab">
-          <app-planning-items></app-planning-items>
+          <!-- Inicia formulario de items -->
+          <div class="tab-content" id="v-pills-tabContent">
+            <div
+              class="tab-pane fade"
+              id="v-pills-articulos"
+              role="tabpanel"
+              aria-labelledby="v-pills-articulos-tab"
+            >
+              <app-planning-items></app-planning-items>
+            </div>
           </div>
-        </div>
 
-        <!-- Inicia formulario de Hitos -->
-        <div class="tab-content" id="v-pills-tabContent">
-          <div class="tab-pane fade show active" id="v-pills-hitos" role="tabpanel" aria-labelledby="v-pills-hitos-tab">
-            <app-planning-milestones
-            [milestonesArray]="planningForm.value.milestones"
-            (addMilestone)="addMilestones($event)"
-            (deleteMilestone)="deleteMilestones($event)"
-            ></app-planning-milestones>
+          <!-- Inicia formulario de Hitos -->
+          <div class="tab-content" id="v-pills-tabContent">
+            <div
+              class="tab-pane fade show active"
+              id="v-pills-hitos"
+              role="tabpanel"
+              aria-labelledby="v-pills-hitos-tab"
+            >
+              <app-planning-milestones
+                [milestonesArray]="planningForm.value.milestones"
+                (addMilestone)="addMilestones($event)"
+                (deleteMilestone)="deleteMilestones($event)"
+              ></app-planning-milestones>
+            </div>
           </div>
         </div>
       </div>
     </div>
   </div>
+</div>
