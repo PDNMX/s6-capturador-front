@@ -155,7 +155,7 @@ export class PlanningBudgetComponent implements OnInit{
 
 
   get budgetBreakdownArray() {
-    return this.budgetBreakdownForm.controls['budgetBreakdown'] as FormArray;
+    return this.budgetForm.controls['budgetBreakdown'] as FormArray;
   }
   addBudgetBreakdown(): void {
     this.budgetBreakdownArray.push(this.budgetBreakdownForm);
@@ -169,7 +169,7 @@ export class PlanningBudgetComponent implements OnInit{
 
 
   get budgetLinesArray() {
-    return this.budgetLinesForm.controls['budgetLines'] as FormArray;
+    return this.budgetForm.controls['budgetLines'] as FormArray;
   }
   addBudgetLines(): void {
     this.budgetLinesArray.push(this.budgetLinesForm);
@@ -183,7 +183,7 @@ export class PlanningBudgetComponent implements OnInit{
 
 
   get budgetComponentsArray() {
-    return this.budgetComponentsForm.controls['budgetComponents'] as FormArray;
+    return this.budgetForm.controls['budgetComponents'] as FormArray;
   } 
   addBudgetComponent(): void {
     this.budgetComponentsArray.push(this.budgetComponentsForm);

@@ -81,15 +81,14 @@
                         <tbody>
                           <tr *ngFor="let doc of budgetForm.value.budgetBreakdown; index as i">
                             <th scope="row">{{ doc.id || i + 1 }}</th>
-                            <td>{{ doc.id }}</td>
                             <td>{{ doc.description }}</td>
-                            <td>{{ doc.informacionPresupestariaVinculada }}</td>
-                            <td>{{ doc.fechaInicio }}</td>
-                            <td>{{ doc.fechaTermino }}</td>
-                            <td>{{ doc.fechaExtMax }}</td>
-                            <td>{{ doc.duracion }}</td>
-                            <td>{{ doc.actor }}</td>
-                            <td>{{ doc.monto }}</td>
+                            <td>{{ doc.uri }}</td>
+                            <td>{{ doc.period.startDate }}</td>
+                            <td>{{ doc.period.endDate }}</td>
+                            <td>{{ doc.period.maxExtentDate }}</td>                            
+                            <td>{{ doc.period.durationInDays }}</td>    
+                            <td>{{ doc.sourceParty.name }}</td> 
+                            <td>{{ doc.amount.amount }}</td>
                             <td>
                               <button
                                 type="button"
@@ -115,29 +114,28 @@
                                 formControlName="id" />
                             <label for="BudgetBreakdownId">ID</label>
                         </div>
-                        <div class="col-md-9 form-floating mb-3">
+                        <div class="col-md-4 form-floating mb-3">
                             <input type="text" class="form-control" id="BudgetBreakdownDescription" placeholder="Description" 
                                 formControlName="description" />
                             <label for="BudgetBreakdownDescription">Descripción</label>
                         </div>
+                        <div class="col-md-5 form-floating mb-3">
+                            <input type="text" class="form-control" id="BudgetBreakdownUri" placeholder="URI"
+                                formControlName="uri" />
+                            <label for="BudgetBreakdownUri">Información Presupuestaria vinculada</label>
+                        </div>                        
                         <div class="form-floating col-md-2 mb-0">
                             <button type="button" class="btn btn-danger btn-add" (click)="addBudgetBreakdown()">Agregar
                             </button>
                         </div>
-                        <div class="col-md-6 form-floating mb-3">
-                            <input type="text" class="form-control" id="BudgetBreakdownUri" placeholder="URI"
-                                formControlName="uri" />
-                            <label for="BudgetBreakdownUri">Información Presupuestaria vinculada</label>
-                        </div>
                     </div>
-                    <div class="row" formGroupName="amount">
-
-                        <div class="col-md-4 form-floating mb-3">
+                    <div class="row"  formGroupName="amount">
+                        <div class="col-md-6 form-floating mb-3">
                             <input type="number" class="form-control" id="BudgetBreakdownValueAmount"
                                 placeholder="Monto total del presupuesto" formControlName="amount" />
                             <label for="BudgetBreakdownValueAmount">Monto</label>
                         </div>
-                        <div class="col-md-2 form-floating">
+                        <div class="col-md-6 form-floating mb-3">
                             <select class="form-select" id="BudgetBreakdownValueCurrency" aria-label="moneda"
                                 formControlName="currency">
                                 <option value="default">
@@ -147,8 +145,13 @@
                                 <option value="usd">USD</option>
                             </select>
                             <label for="BudgetBreakdownValueCurrency">Moneda</label>
-                        </div>
+                        </div>                       
                     </div>
+
+
+                       
+                    
+
                     <div class="row">
                         <h5>Periodo</h5>
                     </div>
