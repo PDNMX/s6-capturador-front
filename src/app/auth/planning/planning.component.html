@@ -44,7 +44,7 @@
               Hitos
             </button>
             <button type="button" class="btn btn-danger text-center p-3" (click)="submit()">
-              Guardar Licitación
+              Guardar Planeación
             </button>
           </div>
         </div>
@@ -116,14 +116,18 @@
             aria-labelledby="v-pills-articulos-tab">
           <app-planning-items></app-planning-items>
           </div>
-        </div>        
+        </div>
 
         <!-- Inicia formulario de Hitos -->
         <div class="tab-content" id="v-pills-tabContent">
-          <div class="tab-pane fade" id="v-pills-hitos" role="tabpanel" aria-labelledby="v-pills-hitos-tab">
-            <app-planning-milestones></app-planning-milestones>
+          <div class="tab-pane fade show active" id="v-pills-hitos" role="tabpanel" aria-labelledby="v-pills-hitos-tab">
+            <app-planning-milestones
+            [milestonesArray]="planningForm.value.milestones"
+            (addMilestone)="addMilestones($event)"
+            (deleteMilestone)="deleteMilestones($event)"
+            ></app-planning-milestones>
           </div>
         </div>
-      </div>      
+      </div>
     </div>
   </div>

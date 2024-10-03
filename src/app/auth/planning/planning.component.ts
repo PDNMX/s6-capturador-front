@@ -8,7 +8,6 @@ import { ApiService } from 'src/app/services/api.service';
   templateUrl: './planning.component.html',
   styleUrls: ['./planning.component.css'],
 })
-
 export class PlanningComponent implements OnInit {
   record_id = null;
   planningForm!: FormGroup;
@@ -32,25 +31,13 @@ export class PlanningComponent implements OnInit {
   //budget: FormGroup = new FormGroup({});
   //documents: FormGroup = new FormGroup({});
   //requestForQuotes: FormGroup = new FormGroup({});
-  //milestones: FormGroup = new FormGroup({});  
-
+  //milestones: FormGroup = new FormGroup({});
 
   constructor(
     private fb: FormBuilder,
     private api: ApiService,
     private route: ActivatedRoute
-  ) { }
-
-  // Sección de planning (planificación)
-  get planningArray() {
-    return this.planningForm.controls['planning'] as FormArray;
-  }
-  addPlanning(opt: any): void {
-    this.planningArray.push(opt);
-  }
-  deletePlanning(index: number): void {
-    this.planningArray.removeAt(index);
-  } 
+  ) {}
 
   // Sección de budget (presupuesto)
   get budgetArray() {
@@ -61,8 +48,8 @@ export class PlanningComponent implements OnInit {
   }
   deleteBudget(index: number): void {
     this.budgetArray.removeAt(index);
-  }   
- 
+  }
+
   // Sección de documents (documentos)
   get documentsArray() {
     return this.planningForm.controls['documents'] as FormArray;
@@ -74,7 +61,6 @@ export class PlanningComponent implements OnInit {
     this.documentsArray.removeAt(index);
   }
 
-
   // Sección de requestForQuotes (cotizaciones)
   get requestForQuotesArray() {
     return this.planningForm.controls['requestForQuotes'] as FormArray;
@@ -84,8 +70,7 @@ export class PlanningComponent implements OnInit {
   }
   deleteRequestForQuotes(index: number): void {
     this.requestForQuotesArray.removeAt(index);
-  } 
-
+  }
 
   // Sección de items  (articulos )
   get itemsArray() {
@@ -107,8 +92,7 @@ export class PlanningComponent implements OnInit {
   }
   deleteMilestones(index: number): void {
     this.milestonesArray.removeAt(index);
-  } 
-
+  }
 
   saveGeneralData(opt: any): void {
     this.planningForm = this.fb.group({
@@ -122,10 +106,7 @@ export class PlanningComponent implements OnInit {
       ...opt,
       ...this.planningBudgetForm.controls,
     });
-  }   
-
-
-
+  }
 
   ngOnInit(): void {
     this.route.paramMap.subscribe((params: any) => {
@@ -134,9 +115,8 @@ export class PlanningComponent implements OnInit {
     });
 
     this.planningForm = this.fb.group({
-      planning: this.fb.array([], [Validators.required]),
-      budget: this.fb.array([], [Validators.required]),
-      documents: this.fb.array([], [Validators.required]), 
+      budget: null,
+      documents: this.fb.array([], [Validators.required]),
       requestForQuotes: this.fb.array([], [Validators.required]),
       milestones: this.fb.array([], [Validators.required]),
     });
@@ -152,14 +132,10 @@ export class PlanningComponent implements OnInit {
         currency: ['', Validators.required],
       }),
       budgetBreakdown: this.fb.array([]),
-    }); 
-
-
-
- 
+    });
   }
 
-/*
+  /*
   planning = this.fb.group({
     rationale: ['', Validators.required],
     hasQuotes: ['', Validators.required],
@@ -288,7 +264,7 @@ export class PlanningComponent implements OnInit {
     console.log(this.planningForm.value);
 
     this.api
-      .postMethod({...this.planningForm.value}, `/planning/${this.record_id}`)
+      .postMethod({ ...this.planningForm.value }, `/planning/${this.record_id}`)
       .subscribe((r: any) => {
         console.log('r: ', r);
         if (r.err) {
@@ -300,53 +276,50 @@ export class PlanningComponent implements OnInit {
       });
   }
 
- /*  onSubmit() {
+  /*  onSubmit() {
     console.log(this.planningForm.value);
   } */
 
-
-/*   onSubmitBudget() {
+  /*   onSubmitBudget() {
    console.log(this.budget.value);
     this.tempPlanning.budget.push(this.budget.value);
     this.showSavingMessage();
     this.budget.reset();
   } */
 
-/*   onSubmitDocuments() {
+  /*   onSubmitDocuments() {
    console.log(this.documents.value);
     this.tempPlanning.documents.push(this.documents.value);
     this.showSavingMessage();
     this.documents.reset();
   } */
 
- /* onSubmitQuotes() {
+  /* onSubmitQuotes() {
     console.log(this.requestForQuotes.value);
     this.tempPlanning.requestForQuotes.push(this.requestForQuotes.value);
     this.showSavingMessage();
     this.documents.reset();
   }
-*/ 
-/*   onSubmitMilestones() {
+*/
+  /*   onSubmitMilestones() {
    console.log(this.milestones.value);
     this.tempPlanning.milestones.push(this.milestones.value);
     this.showSavingMessage();
     this.documents.reset();
   } */
 
-
-
   //Metodo del mensaje guardando
-/*   showSavingMessage() {
+  /*   showSavingMessage() {
          this.isSaving = true;
         this.savingMessage = 'Guardando...';
         setTimeout(() => {
           this.isSaving = false;
           this.savingMessage = '';
-        }, 3000); 
+        }, 3000);
   } */
 
   //Metodo para combinar y enviar todos los datos
-/*   submitAllSections() {
+  /*   submitAllSections() {
         const finalData = {
           id: this.tempPlanning.id,
           data: {
@@ -357,6 +330,6 @@ export class PlanningComponent implements OnInit {
           },
         };
         console.log('Enviando todos los datos', finalData);
-        this.postMethod(finalData); 
+        this.postMethod(finalData);
   } */
 }
