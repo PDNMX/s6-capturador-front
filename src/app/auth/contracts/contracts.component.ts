@@ -26,7 +26,8 @@ export class ContractsComponent implements OnInit {
   relatedProcessesArray: any[] = [];
   milestonesArray: any[] = [];
   amendmentsArray: any[] = [];
-
+  /* Variable que sirve para identificar si los botones deben ser visibles o no */
+  mostrarBotones: boolean = false;
   /* Variable que contiene el objectId o id del mongo a actualizar */
   idGlobal: string = '';
   /* Variable que contiene la propiedad para cambiar
@@ -704,6 +705,11 @@ export class ContractsComponent implements OnInit {
   }
 
   /* Método para generar un id para cada contrato agregado al arreglo de contratos del OCID */
+
+  newContract(): void {
+    this.mostrarBotones = true;
+  }
+
   generarId(): string {
     return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(
       /[xy]/g,
@@ -720,12 +726,14 @@ export class ContractsComponent implements OnInit {
     this.banderaEditar = true;
     this.contratoId = contract._id;
     this.fillFormWithContractData(contract);
+    this.mostrarBotones = true;
   }
 
   /* Visualizar */
   viewElement(contract: any) {
     this.isReadOnly = true;
     this.fillFormWithContractData(contract);
+    this.mostrarBotones = true;
   }
 
   deleteElement(contract: any) {
@@ -853,6 +861,7 @@ export class ContractsComponent implements OnInit {
     // Resetear la bandera de edición
     this.banderaEditar = false;
     this.contratoId = '';
+    this.mostrarBotones = false;
   }
   /********************* Termina la sección de funciones generales *********************/
 }
