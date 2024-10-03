@@ -13,21 +13,67 @@ import {
   styleUrls: ['./planning-requestForQuotes.component.css']
 })
 export class PlanningRequestForQuotesComponent implements OnInit{
-  @Input() requestForQuotesArray: Array<any> = [];
-
-  @Output() addRequestForQuotes = new EventEmitter<any>();  
+@Output() saveRequestForQuotesData = new EventEmitter<any>();  
 
   record_id: string = '';
-  planningRequestForQuotesForm!: FormGroup;
 
-  constructor(private fb: FormBuilder) { }
+  requestForQuotesForm!: FormGroup;
+
+  constructor(
+    private fb: FormBuilder,
+    private route: ActivatedRoute,
+    private api: ApiService
+  ) { }
+
+  setSelectValue(element: string, value: any): void {
+    this.requestForQuotesForm.get(element)?.setValue(value);
+  } 
+
+  loadForm(data: any): void {
+    const {
+      id,
+      title,
+      description,
+      period,
+      items,
+      uri,
+    } = data;
+
+    this.requestForQuotesForm.patchValue({
+      id,
+      title,
+      description,
+      period,
+      items,
+      uri,
+    });
+    
+  }
+
+  loadData(): void {
+    this.route.paramMap.subscribe((params: any) => {
+      this.record_id = params.get('id');
+    });
+
+    this.api.getMethod(`/planning/${this.record_id}`).subscribe((d: any) => {
+      const { planning, error, message } = d;
+
+      if (error) {
+        console.log('message: ', message);
+      } else {
+        // load forms
+        if (planning !== null) this.loadForm(planning);
+      }
+    });
+  }
 
   ngOnInit(): void {
     this.initForm();
+    this.loadData();
   }
 
   initForm  (): void {
-    this.planningRequestForQuotesForm = this.fb.group({
+    this.requestForQuotesForm = this.fb.group({
       id: ['', Validators.required],
       title: ['', Validators.required],
       description: ['', Validators.required],
@@ -41,4 +87,10 @@ export class PlanningRequestForQuotesComponent implements OnInit{
       uri: ['', Validators.required],
     }); 
   }
+
+  saveForm(): void {
+    this.saveRequestForQuotesData.emit(this.requestForQuotesForm);
+  }   
+
+
 }
