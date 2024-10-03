@@ -853,9 +853,6 @@ export class ContractsComponent implements OnInit {
     // Resetear la bandera de edición
     this.banderaEditar = false;
     this.contratoId = '';
-
-    alert('Contrato guardado exitosamente');
-    console.log('Contratos actualizados:', this.contractsArrayToSend);
   }
   /********************* Termina la sección de funciones generales *********************/
 }
