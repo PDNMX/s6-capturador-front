@@ -1,7 +1,7 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
-import { ApiService } from 'src/app/services/api.service';
+import { ApiService, IPartieList } from 'src/app/services/api.service';
 
 interface IPartie {
   id: number;
@@ -13,30 +13,15 @@ interface IPartie {
   templateUrl: './tender-tenderers.component.html',
   styleUrls: ['./tender-tenderers.component.css'],
 })
-
 export class TenderTenderersComponent implements OnInit {
   @Input() tenderersArray: Array<any> = [];
   @Output() addTenderer = new EventEmitter<any>();
   @Output() deleteTenderer = new EventEmitter<any>();
 
-  record_id: string = '';
+  record_id = null;
   tenderersValue!: IPartie;
 
-  tenderers = [
-    {
-      id: 1,
-      name: 'nombre 1',
-    },
-    {
-      id: 2,
-      name: 'nombre 2',
-    },
-
-    {
-      id: 3,
-      name: 'nombre 3',
-    },
-  ];
+  tenderers: any = [];
 
   constructor(
     private fb: FormBuilder,
@@ -68,6 +53,18 @@ export class TenderTenderersComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.route.paramMap.subscribe((params: any) => {
+      this.record_id = params.get('id');
+    });
+
+    if (this.record_id) {
+      this.api
+        .getPartiesByType(this.record_id, 'tenderer')
+        .subscribe((d: IPartieList) => {
+          this.tenderers = d.data;
+        });
+    }
+
     this.loadData();
   }
 

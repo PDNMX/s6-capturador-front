@@ -13,7 +13,7 @@ export class TenderAmendmentsComponent implements OnInit {
   @Output() addAmendment = new EventEmitter<any>();
   @Output() deleteAmendment = new EventEmitter<any>();
 
-  record_id: string = '';
+  record_id = null;
   amendmentsForm!: FormGroup;
 
   constructor(

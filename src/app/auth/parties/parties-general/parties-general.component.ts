@@ -81,7 +81,6 @@ export class PartiesGeneralComponent implements OnInit {
     if (this.record_id) {
       this.api.getPartiesByType(this.record_id).subscribe((d: IPartieList) => {
         this.memberOfList = d.data;
-        console.log('this.memberOfList: ', this.memberOfList);
       });
     }
   }

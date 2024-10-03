@@ -14,7 +14,7 @@ export class TenderDocumentsComponent implements OnInit {
   @Output() addDocument = new EventEmitter<any>();
   @Output() deleteDocument = new EventEmitter<any>();
 
-  record_id = '';
+  record_id = null;
 
   documents = getDocumentType('tender');
   formatDocument = FormatDocument;

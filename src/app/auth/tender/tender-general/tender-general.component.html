@@ -59,7 +59,13 @@
       </div>
       <div class="form-floating col mb-5">
         <select class="form-select" formControlName="procuringEntity">
-          <option *ngFor="let d of tempEntidadContratante" [ngValue]="d">
+          <option
+            *ngIf="procuringEntity.length === 0"
+            [disabled]="procuringEntity.length === 0"
+          >
+            No hay registros de Actores para este proceso de contratación.
+          </option>
+          <option *ngFor="let d of procuringEntity" [ngValue]="d">
             {{ d.name }}
           </option>
         </select>
