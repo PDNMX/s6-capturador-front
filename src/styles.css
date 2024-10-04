@@ -115,6 +115,13 @@ background: -moz-linear-gradient(0deg, hsla(272, 43%, 54%, 1) 0%, hsla(271, 100%
 background: -webkit-linear-gradient(0deg, hsla(272, 43%, 54%, 1) 0%, hsla(271, 100%, 95%, 1) 100%);
 filter: progid: DXImageTransform.Microsoft.gradient( startColorstr="#8C55BC", endColorstr="#F4E8FF", GradientType=1 );
 }
+.nav-item span.ac {
+  background: hsla(174, 54%, 54%, 1);
+background: linear-gradient(0deg, hsla(174, 54%, 54%, 1) 0%, hsla(204, 100%, 95%, 1) 100%);
+background: -moz-linear-gradient(0deg, hsla(174, 54%, 54%, 1) 0%, hsla(204, 100%, 95%, 1) 100%);
+background: -webkit-linear-gradient(0deg, hsla(174, 54%, 54%, 1) 0%, hsla(204, 100%, 95%, 1) 100%);
+filter: progid: DXImageTransform.Microsoft.gradient( startColorstr="#4cc9BD", endColorstr="#E6fffc", GradientType=1 );
+}
 
 .nav-item a.nav-link.active span.p {
   background: hsla(198, 54%, 55%, 1);
@@ -126,6 +133,10 @@ filter: progid: DXImageTransform.Microsoft.gradient( startColorstr="#8C55BC", en
 }
 .nav-item a.nav-link.active span.a {
   background: hsla(205, 68%, 46%, 1);
+  color: #eef2f6;
+}
+.nav-item a.nav-link.active span.ac {
+  background: hsla(174, 54%, 54%, 1);
   color: #eef2f6;
 }
 .nav-item a.nav-link.active span.c {
