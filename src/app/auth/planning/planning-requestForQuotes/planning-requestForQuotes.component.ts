@@ -3,8 +3,8 @@ import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { ApiService } from 'src/app/services/api.service';
 
-import { 
-  Currency 
+import {
+  Currency
 } from 'src/utils';
 
 @Component({
@@ -13,9 +13,9 @@ import {
   styleUrls: ['./planning-requestForQuotes.component.css']
 })
 export class PlanningRequestForQuotesComponent implements OnInit{
-@Output() saveRequestForQuotesData = new EventEmitter<any>();  
+@Output() saveRequestForQuotesData = new EventEmitter<any>();
 
-  record_id: string = '';
+  record_id = null;
 
   requestForQuotesForm!: FormGroup;
 
@@ -27,7 +27,7 @@ export class PlanningRequestForQuotesComponent implements OnInit{
 
   setSelectValue(element: string, value: any): void {
     this.requestForQuotesForm.get(element)?.setValue(value);
-  } 
+  }
 
   loadForm(data: any): void {
     const {
@@ -47,7 +47,7 @@ export class PlanningRequestForQuotesComponent implements OnInit{
       items,
       uri,
     });
-    
+
   }
 
   loadData(): void {
@@ -85,12 +85,12 @@ export class PlanningRequestForQuotesComponent implements OnInit{
       }),
       items: this.fb.array([]),
       uri: ['', Validators.required],
-    }); 
+    });
   }
 
   saveForm(): void {
     this.saveRequestForQuotesData.emit(this.requestForQuotesForm);
-  }   
+  }
 
 
 }

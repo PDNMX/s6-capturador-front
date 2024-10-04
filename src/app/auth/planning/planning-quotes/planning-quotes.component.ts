@@ -3,7 +3,7 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ApiService } from 'src/app/services/api.service';
 import { ActivatedRoute } from '@angular/router';
-import { Classifications, Currency } from 'src/utils';  
+import { Classifications, Currency } from 'src/utils';
 
 @Component({
   selector: 'app-planning-quotes',
@@ -14,10 +14,10 @@ import { Classifications, Currency } from 'src/utils';
 export class PlanningQuotesComponent implements OnInit {
   @Input() itemsArray: Array<any> = [];
   @Output() addItem = new EventEmitter<any>();
-  @Output() deleteItem = new EventEmitter<any>();   
-  
+  @Output() deleteItem = new EventEmitter<any>();
 
-  record_id: string = '';
+
+  record_id = null;
   planningQuotesForm!: FormGroup;
   additionalClassificationsForm!: FormGroup;
   planningItemsForm!: FormGroup;
@@ -100,7 +100,7 @@ export class PlanningQuotesComponent implements OnInit {
         if (planning !== null) this.loadForm(planning.items);
       }
     });
-  } 
+  }
 
   initForm(): void {
     this.planningQuotesForm = this.fb.group({
@@ -117,9 +117,9 @@ export class PlanningQuotesComponent implements OnInit {
         endDate: ['', Validators.required],
         maxExtentDate: ['', Validators.required],
         durationInDays: ['', Validators.required],
-      }), 
+      }),
       issuingSupplier: this.fb.group({
-        name: ['', Validators.required],  
+        name: ['', Validators.required],
         id: ['', Validators.required],
       }),
     });
@@ -156,12 +156,12 @@ export class PlanningQuotesComponent implements OnInit {
   addNewItem(): void {
     this.addItem.emit(this.planningItemsForm);
     this.initForm();
-  }   
+  }
 
-  
+
   ngOnInit(): void {
     this.initForm();
-    this.loadData();
+    // this.loadData();
   }
 
 }

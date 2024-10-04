@@ -15,7 +15,7 @@ import {
 export class PlanningGeneralComponent implements OnInit {
   @Output() saveGeneralData = new EventEmitter<any>();
 
-  record_id: string = '';
+  record_id = null;
 
   currency = Currency;
 
@@ -48,13 +48,13 @@ export class PlanningGeneralComponent implements OnInit {
       hasQuotes,
       contractingUnits,
       requestingUnits,
-      responsibleUnits  
+      responsibleUnits
     });
 
     requestingUnits.forEach((e: any) => {
-      this.requestingUnitsArray.push(this.fb.group(e));  
+      this.requestingUnitsArray.push(this.fb.group(e));
     });
-    
+
 
 
   }
@@ -126,13 +126,13 @@ export class PlanningGeneralComponent implements OnInit {
   get contractingUnitsFormArray() {
     return this.generalForm.controls['contractingUnits'] as FormArray;
   }
-  
+
   addContractingUnits(): void {
     this.contractingUnitsFormArray.push(this.contractingUnitsForm);
     this.initContractingUnitsForm();
   }
-  
-  deleteContractingUnit(index:number): void { 
+
+  deleteContractingUnit(index:number): void {
     this.contractingUnitsFormArray.removeAt(index);
   }
 
@@ -159,7 +159,7 @@ export class PlanningGeneralComponent implements OnInit {
     this.responsibleUnitsArray.push(this.responsibleUnitsForm);
     this.initResponsibleUnitsForm();
   }
-  deleteResponsibleUnit(index:number): void { 
+  deleteResponsibleUnit(index:number): void {
     this.responsibleUnitsArray.removeAt(index);
   }
 

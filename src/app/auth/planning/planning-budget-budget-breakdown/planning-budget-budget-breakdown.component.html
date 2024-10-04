@@ -1,0 +1,394 @@
+<fieldset class="border p-3 mb-3">
+  <legend class="w-auto px-1">Desgloce del presupuesto</legend>
+  <hr />
+  <div class="row">
+    <table class="table table-hover table-striped mb-10">
+      <thead>
+        <tr>
+          <th scope="col">ID</th>
+          <th scope="col">Descripción</th>
+          <th scope="col">Información Presupuestaria vinculada</th>
+          <th scope="col">Fecha de inicio</th>
+          <th scope="col">Fecha de término</th>
+          <th scope="col">Extensión máxima</th>
+          <th scope="col">Duración (días)</th>
+          <th scope="col">Nombre del actor</th>
+          <th scope="col">Monto</th>
+          <th scope="col">Opciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let doc of budgetBreakdownArray; index as i">
+          <th scope="row">{{ doc.id || i + 1 }}</th>
+          <td>{{ doc.description }}</td>
+          <td>{{ doc.uri }}</td>
+          <td>{{ doc.period.startDate }}</td>
+          <td>{{ doc.period.endDate }}</td>
+          <td>{{ doc.period.maxExtentDate }}</td>
+          <td>{{ doc.period.durationInDays }}</td>
+          <td>{{ doc.sourceParty.name }}</td>
+          <td>{{ doc.amount.amount }}</td>
+          <td>
+            <button
+              type="button"
+              class="btn btn-danger btn-delete"
+              (click)="deleteBudgetBreakdown.emit(i)"
+            >
+              Eliminar
+            </button>
+          </td>
+        </tr>
+        <tr *ngIf="budgetBreakdownArray.length === 0">
+          <th scope="row" colspan="10" class="text-center">Sin registros.</th>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <form [formGroup]="budgetBreakdownForm">
+    <div class="row">
+      <div class="col-md-12 form-floating mb-3">
+        <input
+          type="text"
+          class="form-control"
+          id="description"
+          placeholder="Description"
+          formControlName="description"
+        />
+        <label for="description">Descripción</label>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-12 form-floating mb-3">
+        <input
+          type="text"
+          class="form-control"
+          id="BudgetBreakdownUri"
+          placeholder="URI"
+          formControlName="uri"
+        />
+        <label for="BudgetBreakdownUri"
+          >Información Presupuestaria vinculada</label
+        >
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="form-floating col mb-5">
+        <select
+          name="sourceParty"
+          class="form-select"
+          formControlName="sourceParty"
+        >
+          <option *ngFor="let c of [{ id: 1, name: 'name' }]" [ngValue]="c">
+            {{ c?.name }}
+          </option>
+        </select>
+        <label for="sourceParty"> Actor fuente </label>
+      </div>
+    </div>
+
+    <fieldset class="border p-3 mb-3">
+      <legend class="w-auto px-1">
+        Valor de la línea de pedido del presupuesto
+      </legend>
+      <div class="col-12" formGroupName="amount">
+        <div class="row">
+          <div class="form-floating col-2 mb-2">
+            <input
+              class="form-control"
+              id="amount"
+              type="text"
+              data-sb-validations="required"
+              placeholder="Monto*"
+              formControlName="amount"
+            />
+            <label for="amount">Monto*</label>
+            <div class="invalid-feedback" data-sb-feedback="amount:required">
+              Monto * es requerido.
+            </div>
+          </div>
+
+          <div class="form-floating col-4 mb-2">
+            <select class="form-select" formControlName="currency">
+              <option *ngFor="let d of currency" [ngValue]="d.code">
+                {{ d.title }}
+              </option>
+            </select>
+            <label for="type">Moneda</label>
+          </div>
+        </div>
+      </div>
+    </fieldset>
+
+    <fieldset class="border p-3 mb-3" formGroupName="period">
+      <legend class="w-auto px-1">Periodo de presupuesto</legend>
+
+      <div class="row">
+        <div class="form-floating col-6 mb-5">
+          <input
+            class="form-control"
+            id="startDate"
+            type="date"
+            data-sb-validations="required"
+            formControlName="startDate"
+          />
+          <label for="startDate">Fecha de inicio*</label>
+          <div class="invalid-feedback" data-sb-feedback="title:required">
+            Fecha de inicio * es requerido.
+          </div>
+        </div>
+        <div class="form-floating col-6 mb-5">
+          <input
+            class="form-control"
+            id="endDate"
+            type="date"
+            data-sb-validations="required"
+            formControlName="endDate"
+          />
+          <label for="endDate">Fecha de término*</label>
+          <div class="invalid-feedback" data-sb-feedback="title:required">
+            Fecha de término * es requerido.
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="form-floating col-6 mb-5">
+          <input
+            class="form-control"
+            id="maxExtentDate"
+            type="date"
+            data-sb-validations="required"
+            formControlName="maxExtentDate"
+          />
+          <label for="maxExtentDate">Extension máxima*</label>
+          <div class="invalid-feedback" data-sb-feedback="title:required">
+            Extension máxima * es requerido.
+          </div>
+        </div>
+        <div class="form-floating col-6 mb-5">
+          <input
+            class="form-control"
+            id="durationInDays"
+            type="number"
+            data-sb-validations="required"
+            placeholder="Duración (días)*"
+            formControlName="durationInDays"
+          />
+          <label for="durationInDays">Duración (dias)*</label>
+          <div class="invalid-feedback" data-sb-feedback="title:required">
+            Duración * es requerido.
+          </div>
+        </div>
+      </div>
+    </fieldset>
+
+    <fieldset class="border p-3 mb-3">
+      <legend class="w-auto px-1">Líneas presupuestarias</legend>
+      <div class="row">
+        <div class="col-12">
+          <div class="table-responsive-sm">
+            <table class="table table-hover table-striped mb-10">
+              <thead>
+                <tr>
+                  <th scope="col">ID</th>
+                  <th scope="col">Origen</th>
+                  <th scope="col">Opciones</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr
+                  *ngFor="
+                    let doc of budgetBreakdownForm.value.budgetLines;
+                    index as i
+                  "
+                >
+                  <th scope="row">{{ i + 1 }}</th>
+                  <td>{{ doc.origin }}</td>
+                  <td>
+                    <button
+                      type="button"
+                      class="btn btn-danger btn-delete"
+                      (click)="deleteBudgetLines(i)"
+                    >
+                      Eliminar
+                    </button>
+                  </td>
+                </tr>
+                <tr *ngIf="budgetBreakdownForm.value.budgetLines.length === 0">
+                  <th scope="row" colspan="4" class="text-center">
+                    Sin registros.
+                  </th>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+      <form [formGroup]="budgetLinesForm">
+        <div class="row">
+          <div class="col-md-6 form-floating mb-3">
+            <input
+              type="text"
+              class="form-control"
+              id="BudgetLinesId"
+              placeholder="ID"
+              formControlName="id"
+              readonly
+            />
+            <label for="BudgetLinesId">ID</label>
+          </div>
+          <div class="col-md-6 form-floating mb-3">
+            <input
+              type="text"
+              class="form-control"
+              id="BudgetLinesOrigin"
+              placeholder="Origin"
+              formControlName="origin"
+            />
+            <label for="BudgetLinesOrigin">Origen</label>
+          </div>
+        </div>
+      </form>
+      <fieldset class="border p-3 mb-3">
+        <legend class="w-auto px-1">Componentes</legend>
+        <div class="row">
+          <div class="col-12">
+            <div class="table-responsive-sm">
+              <table class="table table-hover table-striped mb-10">
+                <thead>
+                  <tr>
+                    <th scope="col">Nombre</th>
+                    <th scope="col">Descripción</th>
+                    <th scope="col">Nivel</th>
+                    <th scope="col">Código</th>
+                    <th scope="col">Opciones</th>
+                  </tr>
+                  <tr [formGroup]="componentsForm">
+                    <th scope="col">
+                      <div class="row">
+                        <div class="col">
+                          <input
+                            type="text"
+                            class="form-control"
+                            id="BudgetComponentsName"
+                            placeholder="Nombre"
+                            formControlName="name"
+                          />
+                          <label for="BudgetComponentsName">Nombre</label>
+                        </div>
+                      </div>
+                    </th>
+                    <th scope="col">
+                      <input
+                        type="text"
+                        class="form-control"
+                        id="description"
+                        placeholder="Descripción"
+                        formControlName="description"
+                      />
+                      <label for="description">Descripción</label>
+                    </th>
+                    <th scope="col">
+                      <div class="row">
+                        <div class="col">
+                          <input
+                            type="text"
+                            class="form-control"
+                            id="level"
+                            placeholder="Código"
+                            formControlName="level"
+                          />
+                          <label for="level">Código</label>
+                        </div>
+                      </div>
+                    </th>
+                    <th scope="col">
+                      <div class="row">
+                        <div class="col">
+                          <input
+                            type="text"
+                            class="form-control"
+                            id="BudgetComponentsCode"
+                            placeholder="Código"
+                            formControlName="code"
+                          />
+                          <label for="BudgetComponentsCode">Código</label>
+                        </div>
+                      </div>
+                    </th>
+                    <th scope="col">
+                      <div class="row">
+                        <div class="col">
+                          <button
+                            type="button"
+                            class="btn btn-danger btn-add"
+                            (click)="addComponent()"
+                          >
+                            Agregar
+                          </button>
+                        </div>
+                      </div>
+                    </th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr
+                    *ngFor="
+                      let doc of budgetLinesForm.value.components;
+                      index as i
+                    "
+                  >
+                    <td>{{ doc.name }}</td>
+                    <td>{{ doc.description }}</td>
+                    <td>{{ doc.level }}</td>
+                    <td>{{ doc.code }}</td>
+                    <td>
+                      <button
+                        type="button"
+                        class="btn btn-danger btn-delete"
+                        (click)="deleteComponent(i)"
+                      >
+                        Eliminar
+                      </button>
+                    </td>
+                  </tr>
+                  <tr *ngIf="budgetLinesForm.value.components.length === 0">
+                    <th scope="row" colspan="5" class="text-center">
+                      Sin registros.
+                    </th>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </fieldset>
+    </fieldset>
+
+    <!-- fin -->
+
+    <!-- <div class="form-floating col-md-2 mb-0">
+      <button
+        type="button"
+        class="btn btn-danger btn-add"
+        (click)="addBudgetLines()"
+      >
+        Agregar
+      </button>
+    </div> -->
+
+    <div class="row">
+      <div class="form-floating col mb-0">
+        <button
+          type="button"
+          class="btn btn-danger btn-add"
+          (click)="addNewBudgetBreakdown()"
+        >
+          Agregar desglose
+        </button>
+      </div>
+    </div>
+  </form>
+</fieldset>

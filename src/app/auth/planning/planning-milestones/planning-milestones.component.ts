@@ -14,7 +14,7 @@ export class PlanningMilestonesComponent implements OnInit {
   @Output() addMilestone = new EventEmitter<any>();
   @Output() deleteMilestone = new EventEmitter<any>();
 
-  record_id: string = '';
+  record_id = null;
 
   milestoneType = MilestoneType;
   milestoneStatus = MilestoneStatus;

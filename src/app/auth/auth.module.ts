@@ -41,6 +41,7 @@ import { PartiesAddressComponent } from './parties/parties-address/parties-addre
 import { ImplementationTransactionsComponent } from './implementation/implementation-transactions/implementation-transactions.component';
 import { ImplementationMilestonesComponent } from './implementation/implementation-milestones/implementation-milestones.component';
 import { ImplementationDocumentsComponent } from './implementation/implementation-documents/implementation-documents.component';
+import { PlanningBudgetBudgetBreakdownComponent } from './planning/planning-budget-budget-breakdown/planning-budget-budget-breakdown.component';
 
 @NgModule({
   declarations: [
@@ -81,6 +82,7 @@ import { ImplementationDocumentsComponent } from './implementation/implementatio
     ImplementationTransactionsComponent,
     ImplementationMilestonesComponent,
     ImplementationDocumentsComponent,
+    PlanningBudgetBudgetBreakdownComponent,
   ],
   imports: [CommonModule, AuthRoutingModule, ReactiveFormsModule, FormsModule],
   exports: [
