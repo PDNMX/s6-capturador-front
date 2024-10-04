@@ -15,7 +15,7 @@ export class PlanningItemsComponent implements OnInit {
   @Output() addItem = new EventEmitter<any>();
   @Output() deleteItem = new EventEmitter<any>();
 
-  record_id: string = '';
+  record_id = null;
   itemsForm!: FormGroup;
   additionalClassificationsForm!: FormGroup;
 
@@ -24,6 +24,7 @@ export class PlanningItemsComponent implements OnInit {
     description: m.description,
     uri: m.uri,
   }));
+
   currency = Currency;
 
   constructor(
@@ -101,7 +102,7 @@ export class PlanningItemsComponent implements OnInit {
 
   ngOnInit(): void {
     this.initForm();
-    this.loadData();
+    // this.loadData();
   }
 
   initForm(): void {

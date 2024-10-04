@@ -69,17 +69,17 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr *ngFor="let doc of contractingUnitsArray; index as i">
+                            <tr *ngFor="let doc of generalForm.value.contractingUnits; index as i">
                                 <th scope="row">{{ i + 1 }}</th>
                                 <td>{{ doc.name }}</td>
                                 <td>
                                     <button 
                                         type="button" 
                                         class="btn btn-danger btn-delete" 
-                                        (click)="deleteContractingUnit()">Eliminar</button>
+                                        (click)="deleteContractingUnit(i)">Eliminar</button>
                                 </td>
                             </tr>
-                            <tr *ngIf="contractingUnitsArray.length === 0">
+                            <tr *ngIf="generalForm.value.contractingUnits.length === 0">
                                 <th scope="row" colspan="4" class="text-center">
                                     Sin registros.
                                 </th>
@@ -123,22 +123,24 @@
                             <tr>
                                 <th scope="col">ID</th>
                                 <th scope="col">Nombre</th>
+                                <th scope="col">id</th>
                                 <th scope="col">Opciones</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <tr *ngFor="let doc of contractingUnitsArray; index as i">
+                            <tr *ngFor="let doc of generalForm.value.requestingUnits index as i">
                                 <th scope="row">{{ i + 1 }}</th>
                                 <td>{{ doc.name }}</td>
+                                <td>{{ doc.id }}</td>
                                 <td>
                                     <button 
                                         type="button" 
                                         class="btn btn-danger btn-delete" 
-                                        (click)="deleteContractingUnit()">Eliminar</button>
+                                        (click)="deleteRequestingUnit(i)">Eliminar</button>
                                 </td>
                             </tr>
-                            <tr *ngIf="contractingUnitsArray.length === 0">
-                                <th scope="row" colspan="4" class="text-center">
+                            <tr *ngIf="generalForm.value.requestingUnits.length === 0">
+                                <th scope="row" colspan="5" class="text-center">
                                     Sin registros.
                                 </th>
                             </tr>
@@ -186,17 +188,17 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr *ngFor="let doc of contractingUnitsArray; index as i">
+                            <tr *ngFor="let doc of generalForm.value.responsibleUnits; index as i">
                                 <th scope="row">{{ i + 1 }}</th>
                                 <td>{{ doc.name }}</td>
                                 <td>
                                     <button 
                                         type="button" 
                                         class="btn btn-danger btn-delete" 
-                                        (click)="deleteContractingUnit()">Eliminar</button>
+                                        (click)="deleteResponsibleUnit(i)">Eliminar</button>
                                 </td>
                             </tr>
-                            <tr *ngIf="contractingUnitsArray.length === 0">
+                            <tr *ngIf="generalForm.value.responsibleUnits.length === 0">
                                 <th scope="row" colspan="4" class="text-center">
                                     Sin registros.
                                 </th>
