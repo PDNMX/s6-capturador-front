@@ -42,6 +42,10 @@ import { ImplementationTransactionsComponent } from './implementation/implementa
 import { ImplementationMilestonesComponent } from './implementation/implementation-milestones/implementation-milestones.component';
 import { ImplementationDocumentsComponent } from './implementation/implementation-documents/implementation-documents.component';
 import { PlanningBudgetBudgetBreakdownComponent } from './planning/planning-budget-budget-breakdown/planning-budget-budget-breakdown.component';
+import { ContractsImplementationComponent } from './contracts/contracts-implementation/contracts-implementation.component';
+import { ContractsImplementationTransactionsComponent } from './contracts/contracts-implementation-transactions/contracts-implementation-transactions.component';
+import { ContractsImplementationMilestonesComponent } from './contracts/contracts-implementation-milestones/contracts-implementation-milestones.component';
+import { ContractsImplementationDocumentsComponent } from './contracts/contracts-implementation-documents/contracts-implementation-documents.component';
 
 @NgModule({
   declarations: [
@@ -83,6 +87,10 @@ import { PlanningBudgetBudgetBreakdownComponent } from './planning/planning-budg
     ImplementationMilestonesComponent,
     ImplementationDocumentsComponent,
     PlanningBudgetBudgetBreakdownComponent,
+    ContractsImplementationComponent,
+    ContractsImplementationTransactionsComponent,
+    ContractsImplementationMilestonesComponent,
+    ContractsImplementationDocumentsComponent,
   ],
   imports: [CommonModule, AuthRoutingModule, ReactiveFormsModule, FormsModule],
   exports: [
