@@ -19,13 +19,15 @@ import { ActivatedRoute } from '@angular/router';
   styleUrls: ['./contracts.component.css'],
 })
 export class ContractsComponent implements OnInit {
+  /* Arreglos que contienen los arreglos anidados de cada sección */
   itemsArray: any[] = [];
   guaranteesArray: any[] = [];
   documentsArray: any[] = [];
   relatedProcessesArray: any[] = [];
   milestonesArray: any[] = [];
   amendmentsArray: any[] = [];
-
+  /* Variable que sirve para identificar si los botones deben ser visibles o no */
+  mostrarBotones: boolean = false;
   /* Variable que contiene el objectId o id del mongo a actualizar */
   idGlobal: string = '';
   /* Variable que contiene la propiedad para cambiar
@@ -703,6 +705,11 @@ export class ContractsComponent implements OnInit {
   }
 
   /* Método para generar un id para cada contrato agregado al arreglo de contratos del OCID */
+
+  newContract(): void {
+    this.mostrarBotones = true;
+  }
+
   generarId(): string {
     return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(
       /[xy]/g,
@@ -719,13 +726,45 @@ export class ContractsComponent implements OnInit {
     this.banderaEditar = true;
     this.contratoId = contract._id;
     this.fillFormWithContractData(contract);
+    this.mostrarBotones = true;
   }
 
   /* Visualizar */
   viewElement(contract: any) {
     this.isReadOnly = true;
     this.fillFormWithContractData(contract);
+    this.mostrarBotones = true;
   }
+
+  deleteElement(contract: any) {
+    this.isReadOnly = false;
+    this.banderaEditar = false;
+    this.contratoId = contract._id;
+    this.deleteContractFromArray(contract._id);
+    this.dataToUpdate = {
+      id: this.idGlobal,
+      data: {
+        contracts: this.contractsArrayToSend,
+      },
+    };
+    this.putMethod(this.dataToUpdate);
+    this.resetForm();
+    this.getMethodById(this.idGlobal);
+    alert('Contrato eliminado exitosamente');
+  }
+
+  deleteContractFromArray(contractId: string) {
+    // Encontrar el índice del contrato a eliminar
+    const index = this.contractsArrayToSend.findIndex(
+      (c) => c._id === contractId
+    );
+    if (index !== -1) {
+      // Eliminar el contrato
+      this.contractsArrayToSend.splice(index, 1);
+    }
+    console.log('Contratos actualizados:', this.contractsArrayToSend);
+  }
+
   private fillFormWithContractData(contract: any) {
     this.contracts.patchValue({
       id: contract.id,
@@ -822,6 +861,7 @@ export class ContractsComponent implements OnInit {
     // Resetear la bandera de edición
     this.banderaEditar = false;
     this.contratoId = '';
+    this.mostrarBotones = false;
   }
   /********************* Termina la sección de funciones generales *********************/
 }
