@@ -42,7 +42,7 @@ export class AwardsSuppliersComponent {
     private route: ActivatedRoute
   ) {}
 
-  loadForm(data: any): void {
+/*   loadForm(data: any): void {
     data.forEach((supplier: any) => {
       this.addSupplier.emit({ ...supplier });
     });
@@ -61,10 +61,10 @@ loadData(): void {
         if (awards !== null) this.loadForm(awards.suppliers);
       }
     });
-  }
+  } */
 
   ngOnInit(): void {
-    this.loadData();
+    //this.loadData();
   }
 
   addNewSupplier(): void {

@@ -1,3 +1,4 @@
+import { map } from 'rxjs';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, FormArray } from '@angular/forms';
 import { ApiService } from 'src/app/services/api.service';
@@ -9,7 +10,10 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class AwardsComponent implements OnInit {
   awardForm!: FormGroup;
+  awardsForm!: FormGroup;
   record_id = null;
+
+  editMode: boolean = false;
 
   isSaving: boolean = false;
   savingMessage: string = '';
@@ -38,6 +42,24 @@ export class AwardsComponent implements OnInit {
     private api: ApiService,
     private route: ActivatedRoute
   ) {}
+
+  newAward(): void {
+    this.editMode = true;
+  }
+
+  deleteAward(index: number): void {
+    const awardsArray = this.awardsForm.get('awards') as FormArray;
+    awardsArray.removeAt(index);
+    this.saveData();
+  }
+
+  getAward(): string {
+    return JSON.stringify(this.awardForm.value, undefined, 4);
+  }
+
+  get awardsArray() {
+    return this.awardsForm.controls['awards'] as FormArray;
+  }
 
   get suppliersArray() {
     return this.awardForm.controls['suppliers'] as FormArray;
@@ -99,56 +121,75 @@ export class AwardsComponent implements OnInit {
     this.amendmentsarray.removeAt(index);
   }
 
-  /*   loadRecordId() {
-    const storedId = localStorage.getItem('record');
-    if (storedId) {
-      this.recordId = storedId;
-    } else {
-      console.error('No se encontró el ID del registro');
-    }
-  } */
+  saveAward(): void {
+    
+   /*  const awardData = this.awardForm.value;
+    if (!awardData.title || !awardData.description || !awardData.date) {
+      console.log('Faltan datos obligatorios');
+      this.savingMessage = 'Faltan datos obligatorios';
+      return;
+    } */
+    const awards = this.awardsArray;
+    awards.push(this.awardForm);
+    this.initAwardForm();
+    this.saveData();
+    this.editMode = false;
+  }
 
-  //Para ser usado con el api del s6
-  /*  postMethod(dataToSend: any) {
-    this.apiService.postMethod<any>(dataToSend, '/awards/insert').subscribe(
-      (data1: any) => {
-        console.log('Data returned successfully:', data1);
-        this.data1 = data1;
-        // Handle successful response (e.g., update UI)
+  loadData(): void {
+    this.api.getMethod(`/awards/${this.record_id}`).subscribe({
+      next: (d: any) => {
+        const { awards, error, message } = d;
+        if (error) {
+          console.log('message: ', message);
+        } else {
+          if (Array.isArray(awards)) {
+            this.awardsForm.setControl('awards', this.fb.array(awards.map(award => this.fb.group(award))));
+          } else {
+            console.error('Awards is not an array:', awards);
+            this.awardsForm.setControl('awards', this.fb.array([]));
+          }
+        }
       },
-      (error) => {
-        console.error('Error returning data:', error.message);
-        // Handle error (e.g., display error message to user)
+      error: (err) => {
+        console.error('Error loading awards:', err);
+        this.awardsForm.setControl('awards', this.fb.array([]));
       }
-    );
-  } */
-
-  // Método para ser usado con el api del s6
-  /*   getMethod(): void {
-    this.apiService.getMethod('/get').subscribe(
-      (data) => {
-        this.data = data;
-        console.log('data recibida por la funcion', data);
-      },
-      (error) => console.error('Error fetching data:', error)
-    );
-  } */
-  /* Mostrar en consolo el contenido de los formularios */
-  ngOnInit(): void {
-    //this.getMethod();
-    this.route.paramMap.subscribe((params: any) => {
-      this.record_id = params.get('id');
-      //this.loadExistingData();
-
-      this.awardForm = this.fb.group({
-        suppliers: this.fb.array([], [Validators.required]),
-        items: this.fb.array([], [Validators.required]),
-        documents: this.fb.array([], [Validators.required]),
-        amendments: this.fb.array([], [Validators.required]),
-      });
     });
   }
 
+  ngOnInit(): void {
+    this.route.paramMap.subscribe((params: any) => {
+      this.record_id = params.get('id');
+      //this.loadExistingData();
+    });
+
+    this.initForm();
+    this.loadData();
+  }
+
+  initAwardForm(): void {
+    this.awardForm = this.fb.group({
+      title: ['', Validators.required],
+    description: ['', Validators.required],
+    date: [''],
+    value: this.fb.group({
+      amount: [''],
+      currency: ['']
+    }),
+      suppliers: this.fb.array([], [Validators.required]),
+      items: this.fb.array([], [Validators.required]),
+      documents: this.fb.array([], [Validators.required]),
+      amendments: this.fb.array([], [Validators.required]),
+    });
+  }
+
+  initForm(): void {
+    this.awardsForm = this.fb.group({
+      awards: this.fb.array([]),
+    });
+    this.initAwardForm();
+  }
   //Metodo del mensaje guardando
   showSavingMessage() {
     this.isSaving = true;
@@ -159,22 +200,36 @@ export class AwardsComponent implements OnInit {
     }, 2000);
   }
 
-  submit(): void {
-    //console.log(this.awardForm.value);
-    this.showSavingMessage();
+  loadForm(data: any): void {
+    console.log('data', data);
+    data.forEach((award: any) => {
+      this.awardsArray.push(this.fb.control(award));
+    });
+    console.log('load awardForm', this.awardForm.value);
+  }
 
+  saveData(): void {
+    const awardsData = this.awardsForm.value.awards;
     this.api
-      .postMethod({ ...this.awardForm.value }, `/awards/${this.record_id}`)
-      .subscribe((r: any) => {
-        console.log('r: ', r);
-        if (r.err) {
-          console.log('r: ', r);
-        } else {
-         /*  const id = r.data._id;
-          console.log('id: ', id); */
+      .postMethod({ awards: awardsData }, `/awards/${this.record_id}`)
+      .subscribe({
+        next: (r: any) => {
+          console.log('Respuesta:', r);
+          if (r.error) {
+            console.error('Error:', r.message);
+            this.savingMessage = 'Error: ' + r.message;
+          } else {
+            this.loadData(); // Recargar los datos después de guardar
+            this.savingMessage = 'Datos guardados con éxito';
+          }
+        },
+        error: (err) => {
+          console.error('Error HTTP:', err);
+          this.savingMessage = 'Error de conexión. Por favor, intente de nuevo.';
+        },
+        complete: () => {
+          this.isSaving = false;
         }
-        this.savingMessage = 'Datos insertados con éxito';
-        this.isSaving = false;
       });
   }
 }

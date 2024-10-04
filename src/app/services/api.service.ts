@@ -4,11 +4,20 @@ import {
   HttpHeaders,
   HttpErrorResponse,
 } from '@angular/common/http';
-import { Observable, of, throwError } from 'rxjs';
-import { catchError, tap } from 'rxjs/operators';
+import { Observable, of } from 'rxjs';
+import { catchError } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
 import { AuthService } from './auth.service';
 import { Router } from '@angular/router';
+
+export interface IPartieList {
+  data: [
+    {
+      id: String;
+      name: String;
+    }
+  ];
+}
 
 @Injectable({
   providedIn: 'root',
@@ -31,14 +40,22 @@ export class ApiService {
       : new HttpHeaders();
   }
 
+  getPartiesByType(id: string, type: string = ''): Observable<IPartieList> {
+    return this.http
+      .get<IPartieList>(`${this.base_url}/parties/${id}/list/${type}`, {
+        headers: this.getHeaders(),
+      })
+      .pipe(catchError(this.handleError<IPartieList>('getPartiesByType')));
+  }
+
   getMethodById(id: string, endpoint: string): Observable<any> {
-    return this.http.post<any>(
-      `${this.base_url}${endpoint}`,
-      { id: id },  // Enviamos el ID en el cuerpo de la petición
-      { headers: this.getHeaders() }
-    ).pipe(
-      catchError(this.handleError<any>('getMethodById'))
-    );
+    return this.http
+      .post<any>(
+        `${this.base_url}${endpoint}`,
+        { id: id }, // Enviamos el ID en el cuerpo de la petición
+        { headers: this.getHeaders() }
+      )
+      .pipe(catchError(this.handleError<any>('getMethodById')));
   }
 
   /* Método para hacer llamadas por get all*/
@@ -63,15 +80,16 @@ export class ApiService {
       .put<T>(`${this.base_url}${endpoint}`, body, {
         headers: this.getHeaders(),
       })
-      .pipe(catchError(this.handleError<T>('postMethod')));
+      .pipe(catchError(this.handleError<T>('putMethod')));
   }
 
   /* Método para llamadas por delete */
   deleteMethod<T>(id: string, endpoint: string): Observable<T> {
     return this.http
       .delete<T>(`${this.base_url}${endpoint}`, { headers: this.getHeaders() })
-      .pipe(catchError(this.handleError<T>('postMethod')));
+      .pipe(catchError(this.handleError<T>('deleteMethod')));
   }
+
   // Manejo de errores
   private handleError<T>(operation: string) {
     return (err: HttpErrorResponse): Observable<T> => {

@@ -114,7 +114,7 @@ export class TenderComponent implements OnInit {
   }
 
   submit(): void {
-    console.log(this.tenderForm.value);
+    // console.log(this.tenderForm.value);
 
     this.api
       .postMethod({ ...this.tenderForm.value }, `/tender/${this.record_id}`)

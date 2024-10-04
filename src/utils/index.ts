@@ -12,6 +12,7 @@ import MilestoneStatus from './milestoneStatus';
 import TenderStatus from './tenderStatus';
 import Classifications from './classification';
 import AwardStatus from './awardStatus';
+import PartyRole from './partyRole';
 import ImplementationStatus from './implementationStatus';
 
 export {
@@ -29,5 +30,6 @@ export {
   TenderStatus,
   Classifications,
   AwardStatus,
+  PartyRole,
   ImplementationStatus,
 };

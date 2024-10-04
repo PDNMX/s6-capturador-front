@@ -1,5 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Language } from 'src/utils';
 
 @Component({
   selector: 'app-parties-additional-contact-points',
@@ -13,7 +14,28 @@ export class PartiesAdditionalContactPointsComponent implements OnInit {
 
   additionalContactPointsForm!: FormGroup;
 
+  optsLanguage = Language;
+  optLanguaje: string = '';
+
   constructor(private fb: FormBuilder) {}
+
+  get availableLanguageArray() {
+    return this.additionalContactPointsForm.controls[
+      'availableLanguage'
+    ] as FormArray;
+  }
+
+  addAvailableLanguage(): void {
+    this.availableLanguageArray.push(this.fb.control(this.optLanguaje));
+  }
+
+  deleteAvailableLanguage(index: number): void {
+    this.availableLanguageArray.removeAt(index);
+  }
+
+  getLanguajeData(code: string): any {
+    return this.optsLanguage.find((e) => e.code === code);
+  }
 
   ngOnInit(): void {
     this.initForm();
@@ -21,16 +43,16 @@ export class PartiesAdditionalContactPointsComponent implements OnInit {
 
   initForm(): void {
     this.additionalContactPointsForm = this.fb.group({
-      type: ['type', [Validators.required]],
-      name: ['name', [Validators.required]],
-      givenName: ['givenName', [Validators.required]],
-      patronymicName: ['patronymicName', [Validators.required]],
-      matronymicName: ['matronymicName', [Validators.required]],
-      email: ['email', [Validators.required]],
-      telephone: ['telephone', [Validators.required]],
-      faxNumber: ['faxNumber', [Validators.required]],
-      url: ['url', [Validators.required]],
-      availableLanguage: ['availableLanguage', [Validators.required]],
+      type: ['', [Validators.required]],
+      name: ['', [Validators.required]],
+      givenName: ['', [Validators.required]],
+      patronymicName: ['', [Validators.required]],
+      matronymicName: ['', [Validators.required]],
+      email: ['', [Validators.required]],
+      telephone: ['', [Validators.required]],
+      faxNumber: ['', [Validators.required]],
+      url: ['', [Validators.required]],
+      availableLanguage: this.fb.array([]),
     });
   }
 

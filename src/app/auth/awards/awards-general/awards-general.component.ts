@@ -49,7 +49,7 @@ export class AwardsGeneralComponent implements OnInit {
     });
   }
 
-  loadData(): void {
+/*   loadData(): void {
     this.route.paramMap.subscribe((params: any) => {
       this.record_id = params.get('id');
     });
@@ -63,11 +63,11 @@ export class AwardsGeneralComponent implements OnInit {
         if (awards !== null) this.loadForm(awards);
       }
     });
-  }
+  } */
 
   ngOnInit(): void {
     this.initForm();
-    this.loadData();
+    //this.loadData();
   }
 
   initForm(): void {
