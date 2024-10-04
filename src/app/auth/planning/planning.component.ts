@@ -11,27 +11,6 @@ import { ApiService } from 'src/app/services/api.service';
 export class PlanningComponent implements OnInit {
   record_id = null;
   planningForm!: FormGroup;
-  planningBudgetForm!: FormGroup;
-  planningBudgetBreakdownForm!: FormGroup;
-  planningBudgetLinesForm!: FormGroup;
-  planningBudgetComponentsForm!: FormGroup;
-
-  // savingMessage: string = '';
-  // isSaving: boolean = false;
-
-  //Almacenar los datos temporalmente para cada sección
-  /*   tempPlanning: any = {
-      planning: [],
-      budget: [],
-      documents: [],
-      requestForQuotes: [],
-      milestones: [],
-    }; */
-  //planning: FormGroup = new FormGroup({});
-  //budget: FormGroup = new FormGroup({});
-  //documents: FormGroup = new FormGroup({});
-  //requestForQuotes: FormGroup = new FormGroup({});
-  //milestones: FormGroup = new FormGroup({});
 
   constructor(
     private fb: FormBuilder,
@@ -39,7 +18,10 @@ export class PlanningComponent implements OnInit {
     private route: ActivatedRoute
   ) {}
 
-  // Sección de budget (presupuesto)
+  get budgetForm() {
+    return this.planningForm.controls['budget'] as FormGroup;
+  }
+
   get budgetArray() {
     return this.planningForm.controls['budget'] as FormArray;
   }
@@ -50,7 +32,6 @@ export class PlanningComponent implements OnInit {
     this.budgetArray.removeAt(index);
   }
 
-  // Sección de documents (documentos)
   get documentsArray() {
     return this.planningForm.controls['documents'] as FormArray;
   }
@@ -61,7 +42,6 @@ export class PlanningComponent implements OnInit {
     this.documentsArray.removeAt(index);
   }
 
-  // Sección de requestForQuotes (cotizaciones)
   get requestForQuotesArray() {
     return this.planningForm.controls['requestForQuotes'] as FormArray;
   }
@@ -72,7 +52,6 @@ export class PlanningComponent implements OnInit {
     this.requestForQuotesArray.removeAt(index);
   }
 
-  // Sección de items  (articulos )
   get itemsArray() {
     return this.planningForm.controls['items'] as FormArray;
   }
@@ -83,7 +62,6 @@ export class PlanningComponent implements OnInit {
     this.itemsArray.removeAt(index);
   }
 
-  // Sección de milestones (hitos)
   get milestonesArray() {
     return this.planningForm.controls['milestones'] as FormArray;
   }
@@ -102,10 +80,8 @@ export class PlanningComponent implements OnInit {
   }
 
   saveBudgetData(opt: any): void {
-    this.planningBudgetForm = this.fb.group({
-      ...opt,
-      ...this.planningBudgetForm.controls,
-    });
+    this.planningForm.addControl('budget', opt);
+    console.log('saveBudgetData: this.planningForm: ', this.planningForm.value);
   }
 
   ngOnInit(): void {
@@ -115,150 +91,22 @@ export class PlanningComponent implements OnInit {
     });
 
     this.planningForm = this.fb.group({
-      budget: null,
+      budget: this.fb.group({
+        description: ['description', [Validators.required]],
+        value: this.fb.group({
+          amount: ['0', [Validators.required]],
+          currency: ['MXN', [Validators.required]],
+        }),
+        project: ['project', [Validators.required]],
+        projectID: ['projectID', [Validators.required]],
+        uri: ['uri', [Validators.required]],
+        budgetBreakdown: this.fb.array([]),
+      }),
       documents: this.fb.array([], [Validators.required]),
       requestForQuotes: this.fb.array([], [Validators.required]),
       milestones: this.fb.array([], [Validators.required]),
     });
-
-    this.planningBudgetForm = this.fb.group({
-      id: ['', Validators.required],
-      projectID: ['', Validators.required],
-      project: ['', Validators.required],
-      description: ['', Validators.required],
-      uri: ['', Validators.required],
-      value: this.fb.group({
-        amount: ['', Validators.required],
-        currency: ['', Validators.required],
-      }),
-      budgetBreakdown: this.fb.array([]),
-    });
   }
-
-  /*
-  planning = this.fb.group({
-    rationale: ['', Validators.required],
-    hasQuotes: ['', Validators.required],
-    contractingUnits: this.fb.group({
-      name: ['', Validators.required],
-      id: ['', Validators.required]
-    }),
-    requestingUnits: this.fb.group({
-      name: ['', Validators.required],
-      id: ['', Validators.required]
-    }),
-    responsibleUnits: this.fb.group({
-      name: ['', Validators.required],
-      id: ['', Validators.required]
-    })
-  });
-
-  budget = this.fb.group({
-    id: ['', Validators.required],
-    projectID: ['', Validators.required],
-    project: ['', Validators.required],
-    description: ['', Validators.required],
-    uri: ['', Validatpassword1_oauthValidators.required]
-    }),
-    budgetBreakdown: this.fb.group({
-      id: ['', Validators.required],
-      description: ['', Validators.required],
-      project: ['', Validators.required],
-      uri: ['', Validators.required],
-      value: this.fb.group({
-        amount: ['', Validators.required],
-        currency: ['', Validators.required]
-      }),
-      period: this.fb.group({
-        startDate: ['', Validators.required],
-        endDate: ['', Validators.required],
-        maxExtentDate: ['', Validators.required],
-        durationInDays: ['', Validators.required]
-      }),
-      sourceParty: this.fb.group({
-        name: ['', Validators.required],
-        id: ['', Validators.required]
-      })
-    }),
-    budgetLines: this.fb.group({
-      id: ['', Validators.required],
-      origin: ['', Validators.required]
-    }),
-    components: this.fb.group({
-      name: ['', Validators.required],
-      level: ['', Validators.required],
-      code: ['', Validators.required],
-      description: ['', Validators.required]
-    })
-  });
-
-
-  documents = this.fb.group({
-    id: ['', Validators.required],
-    documentType: ['', Validators.required],
-    title: ['', Validators.required],
-    description: ['', Validators.required],
-    url: ['', Validators.required],
-    datePublished: ['', Validators.required],
-    dateModified: ['', Validators.required],
-    format: ['', Validators.required],
-    language: ['', Validators.required]
-  });
-
-  requestForQuotes = this.fb.group({
-    id: ['', Validators.required],
-    title: ['', Validators.required],
-    description: ['', Validators.required],
-    period: this.fb.group({
-      startDate: ['', Validators.required],
-      endDate: ['', Validators.required],
-      maxExtentDate: ['', Validators.required],
-      durationInDays: ['', Validators.required]
-    }),
-    items: this.fb.group({
-      id: ['', Validators.required],
-      description: ['', Validators.required],
-      quantity: ['', Validators.required],
-      value: this.fb.group({
-        amount: [''],
-        currency: [''],
-      }),
-      unit: this.fb.group({
-        id: [''],
-        scheme: [''],
-        name: [''],
-        uri: [''],
-      }),
-      classification: this.fb.group({
-        id: ['', Validators.required],
-        description: ['', Validators.required],
-        scheme: [''],
-        uri: [''],
-      }),
-      additionalClassifications: this.fb.group({
-        id: ['', Validators.required],
-        description: ['', Validators.required],
-        scheme: [''],
-        uri: [''],
-      }),
-    })
-  });
-
-  milestones = this.fb.group({
-    id: ['', Validators.required],
-    title: ['', Validators.required],
-    type: ['', Validators.required],
-    description: ['', Validators.required],
-    code: ['', Validators.required],
-    dueDate: ['', Validators.required],
-    dateMet: ['', Validators.required],
-    dateModified: ['', Validators.required],
-    status: ['', Validators.required]
-  });
-
-
-
- */
 
   submit(): void {
     console.log(this.planningForm.value);
@@ -275,61 +123,4 @@ export class PlanningComponent implements OnInit {
         }
       });
   }
-
-  /*  onSubmit() {
-    console.log(this.planningForm.value);
-  } */
-
-  /*   onSubmitBudget() {
-   console.log(this.budget.value);
-    this.tempPlanning.budget.push(this.budget.value);
-    this.showSavingMessage();
-    this.budget.reset();
-  } */
-
-  /*   onSubmitDocuments() {
-   console.log(this.documents.value);
-    this.tempPlanning.documents.push(this.documents.value);
-    this.showSavingMessage();
-    this.documents.reset();
-  } */
-
-  /* onSubmitQuotes() {
-    console.log(this.requestForQuotes.value);
-    this.tempPlanning.requestForQuotes.push(this.requestForQuotes.value);
-    this.showSavingMessage();
-    this.documents.reset();
-  }
-*/
-  /*   onSubmitMilestones() {
-   console.log(this.milestones.value);
-    this.tempPlanning.milestones.push(this.milestones.value);
-    this.showSavingMessage();
-    this.documents.reset();
-  } */
-
-  //Metodo del mensaje guardando
-  /*   showSavingMessage() {
-         this.isSaving = true;
-        this.savingMessage = 'Guardando...';
-        setTimeout(() => {
-          this.isSaving = false;
-          this.savingMessage = '';
-        }, 3000);
-  } */
-
-  //Metodo para combinar y enviar todos los datos
-  /*   submitAllSections() {
-        const finalData = {
-          id: this.tempPlanning.id,
-          data: {
-            award: {
-              ...this.tempPlanning,
-              suppliers: this.tempPlanning.suppliers,
-            },
-          },
-        };
-        console.log('Enviando todos los datos', finalData);
-        this.postMethod(finalData);
-  } */
 }

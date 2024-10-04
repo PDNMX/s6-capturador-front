@@ -10,12 +10,14 @@ import { Currency, FormatDocument, getDocumentType, Language } from 'src/utils';
   styleUrls: ['./planning-budget.component.css'],
 })
 export class PlanningBudgetComponent implements OnInit {
+  @Input() budgetForm!: FormGroup;
+
   @Output() saveBudgetData = new EventEmitter<any>();
 
   record_id = null;
   currency = Currency;
 
-  budgetForm!: FormGroup;
+  // budgetForm!: FormGroup;
 
   constructor(
     private fb: FormBuilder,
@@ -53,44 +55,44 @@ export class PlanningBudgetComponent implements OnInit {
     // });
   }
 
-  loadData(): void {
-    this.route.paramMap.subscribe((params: any) => {
-      this.record_id = params.get('id');
-    });
+  // loadData(): void {
+  //   this.route.paramMap.subscribe((params: any) => {
+  //     this.record_id = params.get('id');
+  //   });
 
-    this.api.getMethod(`/planning/${this.record_id}`).subscribe((d: any) => {
-      const { planning, error, message } = d;
-      if (error) {
-        console.log('message: ', message);
-      } else {
-        // load forms
-        if (planning.budget !== null) this.loadForm(planning.budget);
-      }
-    });
-  }
+  //   this.api.getMethod(`/planning/${this.record_id}`).subscribe((d: any) => {
+  //     const { planning, error, message } = d;
+  //     if (error) {
+  //       console.log('message: ', message);
+  //     } else {
+  //       // load forms
+  //       if (planning.budget !== null) this.loadForm(planning.budget);
+  //       console.log("planning.budget: ", planning.budget);
+  //     }
+  //   });
+  // }
 
   ngOnInit(): void {
-    this.initForm();
-    this.loadData();
+    // this.initForm();
+    // this.loadData();
   }
 
-  initForm(): void {
-    this.budgetForm = this.fb.group({
-      description: ['description', [Validators.required]],
-      value: this.fb.group({
-        amount: ['0', [Validators.required]],
-        currency: ['MXN', [Validators.required]],
-      }),
-      project: ['project', [Validators.required]],
-      projectID: ['projectID', [Validators.required]],
-      uri: ['uri', [Validators.required]],
-      budgetBreakdown: this.fb.array([]),
-    });
-  }
+  // initForm(): void {
+  // this.budgetForm = this.fb.group({
+  //   description: ['description', [Validators.required]],
+  //   value: this.fb.group({
+  //     amount: ['0', [Validators.required]],
+  //     currency: ['MXN', [Validators.required]],
+  //   }),
+  //   project: ['project', [Validators.required]],
+  //   projectID: ['projectID', [Validators.required]],
+  //   uri: ['uri', [Validators.required]],
+  //   budgetBreakdown: this.fb.array([]),
+  // });
+  // }
 
   saveForm(): void {
-    // this.saveBudgetData.emit(this.budgetForm.controls);
-    console.log('this.budgetForm: ', this.budgetForm.value);
+    this.saveBudgetData.emit(this.budgetForm);
   }
 
   get budgetBreakdownArray() {
@@ -98,7 +100,6 @@ export class PlanningBudgetComponent implements OnInit {
   }
 
   addBudgetBreakdown(opt: any): void {
-    console.log('budgetBreakdownArray: ', opt.value);
     this.budgetBreakdownArray.push(opt);
   }
   deleteBudgetBreakdown(index: number): void {

@@ -45,18 +45,7 @@
             >
               Presupuesto
             </button>
-            <button
-              class="nav-link"
-              id="v-pills-documentos-tab"
-              data-bs-toggle="pill"
-              data-bs-target="#v-pills-documentos"
-              type="button"
-              role="tab"
-              aria-controls="v-pills-documentos"
-              aria-selected="false"
-            >
-              Documentos
-            </button>
+
             <button
               class="nav-link"
               id="v-pills-cotizaciones-tab"
@@ -96,6 +85,18 @@
             </button>
             <button
               class="nav-link"
+              id="v-pills-documentos-tab"
+              data-bs-toggle="pill"
+              data-bs-target="#v-pills-documentos"
+              type="button"
+              role="tab"
+              aria-controls="v-pills-documentos"
+              aria-selected="false"
+            >
+              Documentos
+            </button>
+            <button
+              class="nav-link"
               id="v-pills-hitos-tab"
               data-bs-toggle="pill"
               data-bs-target="#v-pills-hitos"
@@ -119,7 +120,7 @@
       <div class="col-md-9 g-0">
         <div class="tab-content" id="v-pills-tabContent">
           <div
-            class="tab-pane fade show active"
+            class="tab-pane fade"
             id="v-pills-general2"
             role="tabpanel"
             aria-labelledby="v-pills-general2-tab"
@@ -166,7 +167,10 @@
             role="tabpanel"
             aria-labelledby="v-pills-presupuesto-tab"
           >
-            <app-planning-budget></app-planning-budget>
+            <app-planning-budget
+              [budgetForm]="budgetForm"
+              (saveBudgetData)="saveBudgetData($event)"
+            ></app-planning-budget>
           </div>
         </div>
 
@@ -224,7 +228,7 @@
           <!-- Inicia formulario de Hitos -->
           <div class="tab-content" id="v-pills-tabContent">
             <div
-              class="tab-pane fade"
+              class="tab-pane fade show active"
               id="v-pills-hitos"
               role="tabpanel"
               aria-labelledby="v-pills-hitos-tab"

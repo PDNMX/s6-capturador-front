@@ -61,7 +61,7 @@ export class PlanningMilestonesComponent implements OnInit {
         console.log('message: ', message);
       } else {
         // load forms
-        if (planning !== null) this.loadForm(planning.milestones);
+        if (planning.milestones !== null) this.loadForm(planning.milestones);
       }
     });
   }

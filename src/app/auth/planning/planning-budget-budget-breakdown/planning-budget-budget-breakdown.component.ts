@@ -1,5 +1,7 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ActivatedRoute } from '@angular/router';
+import { ApiService, IPartieList } from 'src/app/services/api.service';
 import { Currency } from 'src/utils';
 
 @Component({
@@ -17,7 +19,14 @@ export class PlanningBudgetBudgetBreakdownComponent implements OnInit {
   budgetLinesForm!: FormGroup;
   componentsForm!: FormGroup;
 
-  constructor(private fb: FormBuilder) {}
+  record_id = null;
+  sourceParty: any = [];
+
+  constructor(
+    private fb: FormBuilder,
+    private route: ActivatedRoute,
+    private api: ApiService
+  ) {}
 
   get componentsArray() {
     return this.budgetLinesForm.controls['components'] as FormArray;
@@ -47,12 +56,23 @@ export class PlanningBudgetBudgetBreakdownComponent implements OnInit {
 
   addBudgetLines() {
     this.budgetLinesArray.push(this.budgetLinesForm);
+    this.initBudgetLinesForm();
   }
   deleteBudgetLines(index: number) {
     this.budgetLinesArray.removeAt(index);
   }
 
   ngOnInit(): void {
+    this.route.paramMap.subscribe((params: any) => {
+      this.record_id = params.get('id');
+    });
+
+    if (this.record_id) {
+      this.api.getPartiesByType(this.record_id).subscribe((d: IPartieList) => {
+        this.sourceParty = d.data;
+      });
+    }
+
     this.initForm();
   }
 
@@ -71,10 +91,7 @@ export class PlanningBudgetBudgetBreakdownComponent implements OnInit {
         durationInDays: [10, [Validators.required]],
       }),
       budgetLines: this.fb.array([]),
-      sourceParty: this.fb.group({
-        id: ['', [Validators.required]],
-        name: ['', [Validators.required]],
-      }),
+      sourceParty: null,
     });
 
     this.initBudgetLinesForm();
@@ -87,6 +104,8 @@ export class PlanningBudgetBudgetBreakdownComponent implements OnInit {
       origin: ['un origen', [Validators.required]],
       components: this.fb.array([]),
     });
+
+    this.initComponentsForm();
   }
 
   initComponentsForm(): void {
