@@ -41,6 +41,10 @@ import { PartiesAddressComponent } from './parties/parties-address/parties-addre
 import { ImplementationTransactionsComponent } from './implementation/implementation-transactions/implementation-transactions.component';
 import { ImplementationMilestonesComponent } from './implementation/implementation-milestones/implementation-milestones.component';
 import { ImplementationDocumentsComponent } from './implementation/implementation-documents/implementation-documents.component';
+import { ContractsImplementationComponent } from './contracts/contracts-implementation/contracts-implementation.component';
+import { ContractsImplementationTransactionsComponent } from './contracts/contracts-implementation-transactions/contracts-implementation-transactions.component';
+import { ContractsImplementationMilestonesComponent } from './contracts/contracts-implementation-milestones/contracts-implementation-milestones.component';
+import { ContractsImplementationDocumentsComponent } from './contracts/contracts-implementation-documents/contracts-implementation-documents.component';
 
 @NgModule({
   declarations: [
@@ -81,6 +85,10 @@ import { ImplementationDocumentsComponent } from './implementation/implementatio
     ImplementationTransactionsComponent,
     ImplementationMilestonesComponent,
     ImplementationDocumentsComponent,
+    ContractsImplementationComponent,
+    ContractsImplementationTransactionsComponent,
+    ContractsImplementationMilestonesComponent,
+    ContractsImplementationDocumentsComponent,
   ],
   imports: [CommonModule, AuthRoutingModule, ReactiveFormsModule, FormsModule],
   exports: [
