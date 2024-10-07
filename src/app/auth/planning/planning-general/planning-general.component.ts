@@ -3,14 +3,12 @@ import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { ApiService } from 'src/app/services/api.service';
 
-import {
-  Currency
-} from 'src/utils';
+import { Currency } from 'src/utils';
 
 @Component({
   selector: 'app-planning-general',
   templateUrl: './planning-general.component.html',
-  styleUrls: ['./planning-general.component.css']
+  styleUrls: ['./planning-general.component.css'],
 })
 export class PlanningGeneralComponent implements OnInit {
   @Output() saveGeneralData = new EventEmitter<any>();
@@ -28,7 +26,7 @@ export class PlanningGeneralComponent implements OnInit {
     private fb: FormBuilder,
     private route: ActivatedRoute,
     private api: ApiService
-  ) { }
+  ) {}
 
   setSelectValue(element: string, value: any): void {
     this.generalForm.get(element)?.setValue(value);
@@ -40,7 +38,7 @@ export class PlanningGeneralComponent implements OnInit {
       hasQuotes,
       contractingUnits,
       requestingUnits,
-      responsibleUnits
+      responsibleUnits,
     } = data;
 
     this.generalForm.patchValue({
@@ -48,15 +46,12 @@ export class PlanningGeneralComponent implements OnInit {
       hasQuotes,
       contractingUnits,
       requestingUnits,
-      responsibleUnits
+      responsibleUnits,
     });
 
     requestingUnits.forEach((e: any) => {
       this.requestingUnitsArray.push(this.fb.group(e));
     });
-
-
-
   }
 
   loadData(): void {
@@ -102,7 +97,6 @@ export class PlanningGeneralComponent implements OnInit {
     });
   }
 
-
   initForm(): void {
     this.generalForm = this.fb.group({
       rationale: ['', Validators.required],
@@ -112,16 +106,13 @@ export class PlanningGeneralComponent implements OnInit {
       responsibleUnits: this.fb.array([]),
     });
     this.initContractingUnitsForm();
-    this.initRequestingUnitsForm()
-    this.initResponsibleUnitsForm()
-
+    this.initRequestingUnitsForm();
+    this.initResponsibleUnitsForm();
   }
-
 
   saveForm(): void {
     this.saveGeneralData.emit(this.generalForm.controls);
   }
-
 
   get contractingUnitsFormArray() {
     return this.generalForm.controls['contractingUnits'] as FormArray;
@@ -132,10 +123,9 @@ export class PlanningGeneralComponent implements OnInit {
     this.initContractingUnitsForm();
   }
 
-  deleteContractingUnit(index:number): void {
+  deleteContractingUnit(index: number): void {
     this.contractingUnitsFormArray.removeAt(index);
   }
-
 
   get requestingUnitsArray() {
     return this.generalForm.controls['requestingUnits'] as FormArray;
@@ -145,11 +135,9 @@ export class PlanningGeneralComponent implements OnInit {
     this.requestingUnitsArray.push(this.requestingUnitsForm);
     this.initRequestingUnitsForm();
   }
-  deleteRequestingUnit(index:number): void {
+  deleteRequestingUnit(index: number): void {
     this.requestingUnitsArray.removeAt(index);
   }
-
-
 
   get responsibleUnitsArray() {
     return this.generalForm.controls['responsibleUnits'] as FormArray;
@@ -159,9 +147,7 @@ export class PlanningGeneralComponent implements OnInit {
     this.responsibleUnitsArray.push(this.responsibleUnitsForm);
     this.initResponsibleUnitsForm();
   }
-  deleteResponsibleUnit(index:number): void {
+  deleteResponsibleUnit(index: number): void {
     this.responsibleUnitsArray.removeAt(index);
   }
-
-
 }
