@@ -79,27 +79,26 @@ export class PlanningComponent implements OnInit {
     });
   }
 
-  saveBudgetData(opt: any): void {
-    this.planningForm.addControl('budget', opt);
-    console.log('saveBudgetData: this.planningForm: ', this.planningForm.value);
-  }
-
   ngOnInit(): void {
     this.route.paramMap.subscribe((params: any) => {
       this.record_id = params.get('id');
       console.log('planning id: ', this.record_id);
     });
 
+    this.initForm();
+  }
+
+  initForm(): void {
     this.planningForm = this.fb.group({
       budget: this.fb.group({
-        description: ['description', [Validators.required]],
+        description: ['', [Validators.required]],
         value: this.fb.group({
           amount: ['0', [Validators.required]],
           currency: ['MXN', [Validators.required]],
         }),
-        project: ['project', [Validators.required]],
-        projectID: ['projectID', [Validators.required]],
-        uri: ['uri', [Validators.required]],
+        project: ['', [Validators.required]],
+        projectID: ['', [Validators.required]],
+        uri: ['', [Validators.required]],
         budgetBreakdown: this.fb.array([]),
       }),
       documents: this.fb.array([], [Validators.required]),
@@ -118,8 +117,7 @@ export class PlanningComponent implements OnInit {
         if (r.err) {
           console.log('r: ', r);
         } else {
-          const id = r.data._id;
-          console.log('id: ', id);
+          console.log('r: ', r);
         }
       });
   }

@@ -12,12 +12,8 @@ import { Currency, FormatDocument, getDocumentType, Language } from 'src/utils';
 export class PlanningBudgetComponent implements OnInit {
   @Input() budgetForm!: FormGroup;
 
-  @Output() saveBudgetData = new EventEmitter<any>();
-
   record_id = null;
   currency = Currency;
-
-  // budgetForm!: FormGroup;
 
   constructor(
     private fb: FormBuilder,
@@ -26,73 +22,33 @@ export class PlanningBudgetComponent implements OnInit {
   ) {}
 
   loadForm(data: any): void {
-    const {
-      id,
-      projectID,
-      project,
-      description,
-      uri,
-      value,
-      budgetBreakdown,
-      budgetLines,
-      budgetComponents,
-    } = data;
+    this.budgetForm.patchValue({ ...data });
 
-    this.budgetForm.patchValue({
-      id,
-      projectID,
-      project,
-      description,
-      uri,
-      value,
-      budgetBreakdown,
-      budgetLines,
-      budgetComponents,
+    data.budgetBreakdown.forEach((e: any) => {
+      console.log('e: ', e);
+      this.budgetBreakdownArray.push(this.fb.group(e));
+    });
+  }
+
+  loadData(): void {
+    this.route.paramMap.subscribe((params: any) => {
+      this.record_id = params.get('id');
     });
 
-    // budgetBreakdown.forEach((e: any) => {
-    //   this.budgetBreakdownArray.push(this.fb.group(e));
-    // });
+    this.api.getMethod(`/planning/${this.record_id}`).subscribe((d: any) => {
+      const { planning, error, message } = d;
+      if (error) {
+        console.log('message: ', message);
+      } else {
+        // load forms
+        if (planning.budget !== null) this.loadForm(planning.budget);
+        console.log('planning.budget: ', planning.budget);
+      }
+    });
   }
-
-  // loadData(): void {
-  //   this.route.paramMap.subscribe((params: any) => {
-  //     this.record_id = params.get('id');
-  //   });
-
-  //   this.api.getMethod(`/planning/${this.record_id}`).subscribe((d: any) => {
-  //     const { planning, error, message } = d;
-  //     if (error) {
-  //       console.log('message: ', message);
-  //     } else {
-  //       // load forms
-  //       if (planning.budget !== null) this.loadForm(planning.budget);
-  //       console.log("planning.budget: ", planning.budget);
-  //     }
-  //   });
-  // }
 
   ngOnInit(): void {
-    // this.initForm();
-    // this.loadData();
-  }
-
-  // initForm(): void {
-  // this.budgetForm = this.fb.group({
-  //   description: ['description', [Validators.required]],
-  //   value: this.fb.group({
-  //     amount: ['0', [Validators.required]],
-  //     currency: ['MXN', [Validators.required]],
-  //   }),
-  //   project: ['project', [Validators.required]],
-  //   projectID: ['projectID', [Validators.required]],
-  //   uri: ['uri', [Validators.required]],
-  //   budgetBreakdown: this.fb.array([]),
-  // });
-  // }
-
-  saveForm(): void {
-    this.saveBudgetData.emit(this.budgetForm);
+    this.loadData();
   }
 
   get budgetBreakdownArray() {

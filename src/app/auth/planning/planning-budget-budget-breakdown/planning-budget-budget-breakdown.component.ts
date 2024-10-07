@@ -78,17 +78,17 @@ export class PlanningBudgetBudgetBreakdownComponent implements OnInit {
 
   initForm(): void {
     this.budgetBreakdownForm = this.fb.group({
-      description: ['description', [Validators.required]],
-      uri: ['URI', [Validators.required]],
+      description: ['', [Validators.required]],
+      uri: ['', [Validators.required]],
       amount: this.fb.group({
         amount: ['0', [Validators.required]],
         currency: ['MXN', [Validators.required]],
       }),
       period: this.fb.group({
-        startDate: ['2024-09-27', [Validators.required]],
-        endDate: ['2024-09-28', [Validators.required]],
-        maxExtentDate: ['2024-09-29', [Validators.required]],
-        durationInDays: [10, [Validators.required]],
+        startDate: ['', [Validators.required]],
+        endDate: ['', [Validators.required]],
+        maxExtentDate: ['', [Validators.required]],
+        durationInDays: [0, [Validators.required]],
       }),
       budgetLines: this.fb.array([]),
       sourceParty: null,
@@ -100,8 +100,8 @@ export class PlanningBudgetBudgetBreakdownComponent implements OnInit {
 
   initBudgetLinesForm(): void {
     this.budgetLinesForm = this.fb.group({
-      id: ['un id largo', [Validators.required]],
-      origin: ['un origen', [Validators.required]],
+      id: ['', [Validators.required]],
+      origin: ['', [Validators.required]],
       components: this.fb.array([]),
     });
 
@@ -110,10 +110,10 @@ export class PlanningBudgetBudgetBreakdownComponent implements OnInit {
 
   initComponentsForm(): void {
     this.componentsForm = this.fb.group({
-      name: ['name', [Validators.required]],
-      level: ['level', [Validators.required]],
-      code: ['code', [Validators.required]],
-      description: ['description', [Validators.required]],
+      name: ['', [Validators.required]],
+      level: ['', [Validators.required]],
+      code: ['', [Validators.required]],
+      description: ['', [Validators.required]],
     });
   }
 
