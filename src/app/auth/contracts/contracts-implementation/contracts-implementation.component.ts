@@ -1,5 +1,5 @@
 import { getDocumentType } from 'src/utils';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import {
   FormGroup,
   FormControl,
@@ -14,6 +14,7 @@ import { map, Observable, of, tap, catchError, throwError } from 'rxjs';
 import { ApiService } from 'src/app/services/api.service';
 import { ActivatedRoute } from '@angular/router';
 import { Language } from 'src/utils';
+
 @Component({
   selector: 'app-contracts-implementation',
   templateUrl: './contracts-implementation.component.html',

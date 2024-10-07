@@ -1,6 +1,19 @@
-<form action="">
+<!-- <form action="">
   <input type="text" name="status" id="" />
 </form>
-
-<app-contracts-implementation-transactions></app-contracts-implementation-transactions>
-<app-contracts-implementation-documents></app-contracts-implementation-documents>
+ -->
+<app-contracts-implementation-transactions
+  [transactionsArray]="implementationForm.value.transactions"
+  (addTransaction)="addTransaction($event)"
+  (deleteTransaction)="deleteTransaction($event)"
+></app-contracts-implementation-transactions>
+<app-contracts-implementation-documents
+  [documentsArray]="implementationForm.value.documents"
+  (addDocument)="addDocument($event)"
+  (deleteDocument)="deleteDocument($event)"
+></app-contracts-implementation-documents>
+<app-contracts-implementation-milestones
+  [milestonesArray]="implementationForm.value.milestone"
+  (addMilestone)="addMilestone($event)"
+  (deleteMilestone)="deleteMilestone($event)"
+></app-contracts-implementation-milestones>
