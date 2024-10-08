@@ -25,7 +25,6 @@ export class PlanningBudgetComponent implements OnInit {
     this.budgetForm.patchValue({ ...data });
 
     data.budgetBreakdown.forEach((e: any) => {
-      console.log('e: ', e);
       this.budgetBreakdownArray.push(this.fb.group(e));
     });
   }
@@ -42,7 +41,6 @@ export class PlanningBudgetComponent implements OnInit {
       } else {
         // load forms
         if (planning.budget !== null) this.loadForm(planning.budget);
-        console.log('planning.budget: ', planning.budget);
       }
     });
   }
