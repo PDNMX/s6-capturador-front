@@ -153,9 +153,11 @@
             role="tabpanel"
             aria-labelledby="v-pills-general-tab"
           >
-            <app-planning-general
-              (saveGeneralData)="saveGeneralData($event)"
-            ></app-planning-general>
+            <div class="form">
+              <app-planning-general
+                (saveGeneralData)="saveGeneralData($event)"
+              ></app-planning-general>
+            </div>
           </div>
         </div>
 

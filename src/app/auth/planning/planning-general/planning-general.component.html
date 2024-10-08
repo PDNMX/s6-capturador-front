@@ -1,305 +1,265 @@
-<div class="form h-100">
-  <form>
-    <fieldset class="border p-3 mb-3" [formGroup]="generalForm">
-      <div class="row">
+<div class="content">
+  <div class="container">
+    <div class="row">
+      <div class="col">
         <h3>Información general</h3>
         <hr />
       </div>
+    </div>
+
+    <form [formGroup]="generalForm">
       <div class="row">
-        <div class="form-floating col-md-8 mb-5">
+        <div class="form-floating col mb-5">
           <textarea
             class="form-control"
-            id="PlanningRationale"
+            id="rationale"
             type="text"
             placeholder="Escriba la justificación de la contratación"
             data-sb-validations=""
             formControlName="rationale"
           ></textarea>
-          <label for="PlanningRationale">Justificación *</label>
+          <label for="rationale">Justificación *</label>
         </div>
-        <div class="form-floating col-md-4 mb5">
-          <p class="form-label d-block">¿Hubo cotizaciones?</p>
-          <div class="form-check form-check-inline">
+      </div>
+
+      <div class="row">
+        <div class="form-floating col mb-5">
+          <div class="form-check">
             <input
               class="form-check-input"
-              type="radio"
-              id="hasQuotesYes"
-              value="yes"
+              type="checkbox"
+              id="hasQuotes"
               formControlName="hasQuotes"
             />
-            <label class="form-check-label" for="hasQuotesYes">Sí</label>
+            <label class="form-check-label" for="hasQuotes">
+              ¿Tiene cotizaciones?
+            </label>
           </div>
-          <div class="form-check form-check-inline">
-            <input
-              class="form-check-input"
-              type="radio"
-              id="hasQuotesNo"
-              value="no"
-              formControlName="hasQuotes"
-            />
-            <label class="form-check-label" for="hasQuotesNo">No</label>
+        </div>
+      </div>
+    </form>
+
+    <form [formGroup]="selectForm">
+      <fieldset class="border p-3 mb-3">
+        <legend class="w-auto px-1">
+          Unidades administrativas requirentes
+        </legend>
+        <div class="row">
+          <div class="form-floating col-10 mb-5">
+            <select class="form-select" formControlName="requestingUnits">
+              <option
+                *ngIf="requestings.length === 0"
+                [disabled]="requestings.length === 0"
+              >
+                No hay registros de Actores para este proceso de contratación.
+              </option>
+              <option *ngFor="let c of requestings" [ngValue]="c">
+                {{ c?.name }}
+              </option>
+            </select>
           </div>
-          <div class="invalid-feedback">Se requiere una opción.</div>
+          <div class="col-2">
+            <button
+              type="button"
+              class="btn btn-danger btn-add"
+              (click)="addRequestingUnit()"
+            >
+              Agregar
+            </button>
+          </div>
         </div>
-      </div>
-    </fieldset>
-    <hr />
+        <div class="row">
+          <div class="table-responsive">
+            <table class="table table-hover table-striped mb-10">
+              <thead>
+                <tr>
+                  <th scope="col">ID</th>
+                  <th scope="col">Nombre</th>
+                  <th scope="col">Opciones</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr
+                  class=""
+                  *ngFor="
+                    let assists of generalForm.value.requestingUnits;
+                    index as i
+                  "
+                >
+                  <td scope="row">{{ assists.id }}</td>
+                  <td>{{ assists.name }}</td>
+                  <td>
+                    <button
+                      type="button"
+                      class="btn btn-danger btn-delete"
+                      (click)="deleteRequestingUnit(i)"
+                    >
+                      Eliminar
+                    </button>
+                  </td>
+                </tr>
+                <tr *ngIf="generalForm.value.requestingUnits.length === 0">
+                  <th scope="row" colspan="3" class="text-center">
+                    Sin registros.
+                  </th>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </fieldset>
 
-    <!-- Array Para contractingUnits -->
-    <fieldset class="border p-3 mb-3" [formGroup]="contractingUnitsForm">
-      <div class="row">
-        <div class="form-floating col-md-10 mb-0">
-          <p for="contractingUnits">
-            Unidad Administrativa responsable de la ejecución del contrato *
-          </p>
-        </div>
-        <div class="form-floating col-md-2 mb-0">
-          <button
-            type="button"
-            class="btn btn-danger btn-add"
-            (click)="addContractingUnits()"
-          >
-            Agregar
-          </button>
-        </div>
-        <div class="col-md-1"></div>
-        <div class="form-floating col-md-6 mt-1">
-          <input
-            class="form-control"
-            id="contractingUnitsName"
-            type="text"
-            placeholder="Nombre de la Unidad Administrativa responsable de la ejecución *"
-            formControlName="name"
-          />
-          <label for="contractingUnitsName">Nombre del actor *</label>
-        </div>
-        <div class="form-floating col-md-5 mt-1">
-          <input
-            class="form-control"
-            id="contractingUnitsId"
-            type="text"
-            placeholder="ID de la Unidad Administrativa responsable de la ejecución *"
-            formControlName="id"
-          />
-          <label for="contractingUnitsId">ID *</label>
-        </div>
-      </div>
-      <div class="col-12">
-        <div class="table-responsive-sm">
-          <table class="table table-hover table-striped mb-10">
-            <thead>
-              <tr>
-                <th scope="col">ID</th>
-                <th scope="col">Nombre</th>
-                <th scope="col">Opciones</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr
-                *ngFor="
-                  let doc of generalForm.value.contractingUnits;
-                  index as i
-                "
+      <fieldset class="border p-3 mb-3">
+        <legend class="w-auto px-1">
+          Unidades administrativas contratantes
+        </legend>
+        <div class="row">
+          <div class="form-floating col-10 mb-5">
+            <select class="form-select" formControlName="responsibleUnits">
+              <option
+                *ngIf="responsibles.length === 0"
+                [disabled]="responsibles.length === 0"
               >
-                <th scope="row">{{ i + 1 }}</th>
-                <td>{{ doc.name }}</td>
-                <td>
-                  <button
-                    type="button"
-                    class="btn btn-danger btn-delete"
-                    (click)="deleteContractingUnit(i)"
-                  >
-                    Eliminar
-                  </button>
-                </td>
-              </tr>
-              <tr *ngIf="generalForm.value.contractingUnits.length === 0">
-                <th scope="row" colspan="4" class="text-center">
-                  Sin registros.
-                </th>
-              </tr>
-            </tbody>
-          </table>
+                No hay registros de Actores para este proceso de contratación.
+              </option>
+              <option *ngFor="let c of responsibles" [ngValue]="c">
+                {{ c?.name }}
+              </option>
+            </select>
+          </div>
+          <div class="col-2">
+            <button
+              type="button"
+              class="btn btn-danger btn-add"
+              (click)="addResponsibleUnit()"
+            >
+              Agregar
+            </button>
+          </div>
         </div>
-      </div>
-    </fieldset>
-    <hr />
-    <!-- Array Para requestingUnits -->
-    <fieldset class="border p-3 mb-3" [formGroup]="requestingUnitsForm">
-      <div class="row">
-        <div class="form-floating col-md-10 mb-0">
-          <p for="requestingUnits">Unidad Administrativa requiriente *</p>
+        <div class="row">
+          <div class="table-responsive">
+            <table class="table table-hover table-striped mb-10">
+              <thead>
+                <tr>
+                  <th scope="col">ID</th>
+                  <th scope="col">Nombre</th>
+                  <th scope="col">Opciones</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr
+                  class=""
+                  *ngFor="
+                    let assists of generalForm.value.responsibleUnits;
+                    index as i
+                  "
+                >
+                  <td scope="row">{{ assists.id }}</td>
+                  <td>{{ assists.name }}</td>
+                  <td>
+                    <button
+                      type="button"
+                      class="btn btn-danger btn-delete"
+                      (click)="deleteResponsibleUnit(i)"
+                    >
+                      Eliminar
+                    </button>
+                  </td>
+                </tr>
+                <tr *ngIf="generalForm.value.responsibleUnits.length === 0">
+                  <th scope="row" colspan="3" class="text-center">
+                    Sin registros.
+                  </th>
+                </tr>
+              </tbody>
+            </table>
+          </div>
         </div>
-        <div class="form-floating col-md-2 mb-0">
-          <button
-            type="button"
-            class="btn btn-danger btn-add"
-            (click)="addRequestingUnits()"
-          >
-            Agregar
-          </button>
-        </div>
+      </fieldset>
 
-        <div class="col-md-1"></div>
-        <div class="form-floating col-md-6 mt-1">
-          <input
-            class="form-control"
-            id="requestingUnitsName"
-            type="text"
-            placeholder="Nombre de la Unidad Administrativa requiriente *"
-            formControlName="name"
-          />
-          <label for="requestingUnitsName">Nombre del actor *</label>
-        </div>
-        <div class="form-floating col-md-5 mt-1">
-          <input
-            class="form-control"
-            id="requestingUnitsId"
-            type="text"
-            placeholder="ID de la Unidad Administrativa requiriente *"
-            formControlName="id"
-          />
-          <label for="requestingUnitsId">ID *</label>
-        </div>
-      </div>
-      <div class="col-12">
-        <div class="table-responsive-sm">
-          <table class="table table-hover table-striped mb-10">
-            <thead>
-              <tr>
-                <th scope="col">ID</th>
-                <th scope="col">Nombre</th>
-                <th scope="col">id</th>
-                <th scope="col">Opciones</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr
-                *ngFor="
-                  let doc of generalForm.value.requestingUnits;
-                  index as i
-                "
+      <fieldset class="border p-3 mb-3">
+        <legend class="w-auto px-1">
+          Unidades responsables de la ejecución del contrato
+        </legend>
+        <div class="row">
+          <div class="form-floating col-10 mb-5">
+            <select class="form-select" formControlName="contractingUnits">
+              <option
+                *ngIf="contractings.length === 0"
+                [disabled]="contractings.length === 0"
               >
-                <th scope="row">{{ i + 1 }}</th>
-                <td>{{ doc.name }}</td>
-                <td>{{ doc.id }}</td>
-                <td>
-                  <button
-                    type="button"
-                    class="btn btn-danger btn-delete"
-                    (click)="deleteRequestingUnit(i)"
-                  >
-                    Eliminar
-                  </button>
-                </td>
-              </tr>
-              <tr *ngIf="generalForm.value.requestingUnits.length === 0">
-                <th scope="row" colspan="5" class="text-center">
-                  Sin registros.
-                </th>
-              </tr>
-            </tbody>
-          </table>
+                No hay registros de Actores para este proceso de contratación.
+              </option>
+              <option *ngFor="let c of contractings" [ngValue]="c">
+                {{ c?.name }}
+              </option>
+            </select>
+          </div>
+          <div class="col-2">
+            <button
+              type="button"
+              class="btn btn-danger btn-add"
+              (click)="addContractingUnits()"
+            >
+              Agregar
+            </button>
+          </div>
         </div>
-      </div>
-    </fieldset>
-    <hr />
-
-    <!-- Array Para responsibleUnits -->
-
-    <fieldset class="border p-3 mb-3" [formGroup]="responsibleUnitsForm">
-      <div class="row">
-        <div class="form-floating col-md-10 mb-0">
-          <p for="responsibleUnits">Unidad Administrativa contratante *</p>
+        <div class="row">
+          <div class="table-responsive">
+            <table class="table table-hover table-striped mb-10">
+              <thead>
+                <tr>
+                  <th scope="col">ID</th>
+                  <th scope="col">Nombre</th>
+                  <th scope="col">Opciones</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr
+                  class=""
+                  *ngFor="
+                    let assists of generalForm.value.contractingUnits;
+                    index as i
+                  "
+                >
+                  <td scope="row">{{ assists.id }}</td>
+                  <td>{{ assists.name }}</td>
+                  <td>
+                    <button
+                      type="button"
+                      class="btn btn-danger btn-delete"
+                      (click)="deleteContractingUnit(i)"
+                    >
+                      Eliminar
+                    </button>
+                  </td>
+                </tr>
+                <tr *ngIf="generalForm.value.contractingUnits.length === 0">
+                  <th scope="row" colspan="3" class="text-center">
+                    Sin registros.
+                  </th>
+                </tr>
+              </tbody>
+            </table>
+          </div>
         </div>
-        <div class="form-floating col-md-2 mb-0">
-          <button
-            type="button"
-            class="btn btn-danger btn-add"
-            (click)="addResponsibleUnits()"
-          >
-            Agregar
-          </button>
-        </div>
-        <div class="col-md-1"></div>
-        <div class="form-floating col-md-6 mt-1">
-          <input
-            class="form-control"
-            id="responsibleUnitsName"
-            type="text"
-            placeholder="Nombre de la Unidad Administrativa contratante *"
-            formControlName="name"
-          />
-          <label for="responsibleUnitsName">Nombre del actor *</label>
-        </div>
-        <div class="form-floating col-md-5 mt-1">
-          <input
-            class="form-control"
-            id="responsibleUnitsId"
-            type="text"
-            placeholder="ID de la Unidad Administrativa contratante *"
-            formControlName="id"
-          />
-          <label for="responsibleUnitsId">ID *</label>
-        </div>
-      </div>
-      <div class="col-12">
-        <div class="table-responsive-sm">
-          <table class="table table-hover table-striped mb-10">
-            <thead>
-              <tr>
-                <th scope="col">ID</th>
-                <th scope="col">Nombre</th>
-                <th scope="col">Opciones</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr
-                *ngFor="
-                  let doc of generalForm.value.responsibleUnits;
-                  index as i
-                "
-              >
-                <th scope="row">{{ i + 1 }}</th>
-                <td>{{ doc.name }}</td>
-                <td>
-                  <button
-                    type="button"
-                    class="btn btn-danger btn-delete"
-                    (click)="deleteResponsibleUnit(i)"
-                  >
-                    Eliminar
-                  </button>
-                </td>
-              </tr>
-              <tr *ngIf="generalForm.value.responsibleUnits.length === 0">
-                <th scope="row" colspan="4" class="text-center">
-                  Sin registros.
-                </th>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-      </div>
-    </fieldset>
-    <hr />
+      </fieldset>
+    </form>
 
     <div class="row">
-      <!-- <div class="col-md-12 form-group d-flex justify-content-between">
-                <input type="submit" value="Guardar" class="btn btn-primary rounded-0 py-2 px-4" />
-                <span class="Guardar"></span>
-            </div> -->
-    </div>
-    <div class="row mb-10">
       <div class="col">
         <button
           type="button"
-          class="btn btn-danger btn-add"
+          class="btn btn-danger btn-save"
           (click)="saveForm()"
         >
-          Guardar sección
+          Guardar general
         </button>
       </div>
     </div>
-  </form>
+
+    <!-- fin -->
+  </div>
 </div>
