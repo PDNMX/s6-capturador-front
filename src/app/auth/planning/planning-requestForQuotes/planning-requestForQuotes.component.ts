@@ -3,17 +3,15 @@ import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { ApiService } from 'src/app/services/api.service';
 
-import {
-  Currency
-} from 'src/utils';
+import { Currency } from 'src/utils';
 
 @Component({
   selector: 'app-planning-requestForQuotes',
   templateUrl: './planning-requestForQuotes.component.html',
-  styleUrls: ['./planning-requestForQuotes.component.css']
+  styleUrls: ['./planning-requestForQuotes.component.css'],
 })
-export class PlanningRequestForQuotesComponent implements OnInit{
-@Output() saveRequestForQuotesData = new EventEmitter<any>();
+export class PlanningRequestForQuotesComponent implements OnInit {
+  @Output() saveRequestForQuotesData = new EventEmitter<any>();
 
   record_id = null;
 
@@ -23,21 +21,14 @@ export class PlanningRequestForQuotesComponent implements OnInit{
     private fb: FormBuilder,
     private route: ActivatedRoute,
     private api: ApiService
-  ) { }
+  ) {}
 
   setSelectValue(element: string, value: any): void {
     this.requestForQuotesForm.get(element)?.setValue(value);
   }
 
   loadForm(data: any): void {
-    const {
-      id,
-      title,
-      description,
-      period,
-      items,
-      uri,
-    } = data;
+    const { id, title, description, period, items, uri } = data;
 
     this.requestForQuotesForm.patchValue({
       id,
@@ -47,7 +38,6 @@ export class PlanningRequestForQuotesComponent implements OnInit{
       items,
       uri,
     });
-
   }
 
   loadData(): void {
@@ -72,7 +62,7 @@ export class PlanningRequestForQuotesComponent implements OnInit{
     this.loadData();
   }
 
-  initForm  (): void {
+  initForm(): void {
     this.requestForQuotesForm = this.fb.group({
       id: ['', Validators.required],
       title: ['', Validators.required],
@@ -91,6 +81,4 @@ export class PlanningRequestForQuotesComponent implements OnInit{
   saveForm(): void {
     this.saveRequestForQuotesData.emit(this.requestForQuotesForm);
   }
-
-
 }
