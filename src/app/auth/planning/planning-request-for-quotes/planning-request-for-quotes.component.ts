@@ -4,9 +4,9 @@ import { ActivatedRoute } from '@angular/router';
 import { ApiService, IPartieList } from 'src/app/services/api.service';
 
 @Component({
-  selector: 'app-planning-requestForQuotes',
-  templateUrl: './planning-requestForQuotes.component.html',
-  styleUrls: ['./planning-requestForQuotes.component.css'],
+  selector: 'app-planning-request-for-quotes',
+  templateUrl: './planning-request-for-quotes.component.html',
+  styleUrls: ['./planning-request-for-quotes.component.css'],
 })
 export class PlanningRequestForQuotesComponent implements OnInit {
   @Input() requestForQuotesArray: Array<any> = [];
