@@ -23,10 +23,7 @@ import { TenderAmendmentsComponent } from './tender/tender-amendments/tender-ame
 import { PlanningBudgetComponent } from './planning/planning-budget/planning-budget.component';
 import { PlanningDocumentsComponent } from './planning/planning-documents/planning-documents.component';
 import { PlanningGeneralComponent } from './planning/planning-general/planning-general.component';
-import { PlanningItemsComponent } from './planning/planning-items/planning-items.component';
 import { PlanningMilestonesComponent } from './planning/planning-milestones/planning-milestones.component';
-import { PlanningRequestForQuotesComponent } from './planning/planning-requestForQuotes/planning-requestForQuotes.component';
-import { PlanningQuotesComponent } from './planning/planning-quotes/planning-quotes.component';
 
 import { AwardsAmendmentsComponent } from './awards/awards-amendments/awards-amendments.component';
 import { AwardsDocumentsComponent } from './awards/awards-documents/awards-documents.component';
@@ -46,6 +43,9 @@ import { ContractsImplementationComponent } from './contracts/contracts-implemen
 import { ContractsImplementationTransactionsComponent } from './contracts/contracts-implementation-transactions/contracts-implementation-transactions.component';
 import { ContractsImplementationMilestonesComponent } from './contracts/contracts-implementation-milestones/contracts-implementation-milestones.component';
 import { ContractsImplementationDocumentsComponent } from './contracts/contracts-implementation-documents/contracts-implementation-documents.component';
+import { PlanningRequestForQuotesItemsComponent } from './planning/planning-request-for-quotes-items/planning-request-for-quotes-items.component';
+import { PlanningRequestForQuotesQuotesComponent } from './planning/planning-request-for-quotes-quotes/planning-request-for-quotes-quotes.component';
+import { PlanningRequestForQuotesComponent } from './planning/planning-request-for-quotes/planning-request-for-quotes.component';
 
 @NgModule({
   declarations: [
@@ -69,10 +69,7 @@ import { ContractsImplementationDocumentsComponent } from './contracts/contracts
     PlanningBudgetComponent,
     PlanningDocumentsComponent,
     PlanningGeneralComponent,
-    PlanningItemsComponent,
     PlanningMilestonesComponent,
-    PlanningRequestForQuotesComponent,
-    PlanningQuotesComponent,
     AwardsAmendmentsComponent,
     AwardsDocumentsComponent,
     AwardsItemsComponent,
@@ -91,6 +88,9 @@ import { ContractsImplementationDocumentsComponent } from './contracts/contracts
     ContractsImplementationTransactionsComponent,
     ContractsImplementationMilestonesComponent,
     ContractsImplementationDocumentsComponent,
+    PlanningRequestForQuotesItemsComponent,
+    PlanningRequestForQuotesQuotesComponent,
+    PlanningRequestForQuotesComponent,
   ],
   imports: [CommonModule, AuthRoutingModule, ReactiveFormsModule, FormsModule],
   exports: [
