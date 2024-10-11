@@ -172,8 +172,8 @@
       </div>
       <div class="form-floating col mb-5">
         <select class="form-select" formControlName="status">
-          <option *ngFor="let d of milestoneStatus" [ngValue]="d.code">
-            {{ d.title }}
+          <option *ngFor="let d of milestoneStatus" [ngValue]="d?.code">
+            {{ d?.title }}
           </option>
         </select>
         <p>

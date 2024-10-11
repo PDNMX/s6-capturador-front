@@ -48,8 +48,8 @@
               <td>{{ transaction.paymentMethod }}</td>
               <td>{{ transaction.value.amount }}</td>
               <td>{{ transaction.value.currency }}</td>
-              <td>{{ transaction.payer.name }}</td>
-              <td>{{ transaction.payee.name }}</td>
+              <td>{{ transaction.payer?.name }}</td>
+              <td>{{ transaction.payee?.name }}</td>
               <td>
                 <button
                   type="button"
