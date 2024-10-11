@@ -1,5 +1,5 @@
 import { getDocumentType } from 'src/utils';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import {
   FormGroup,
   FormControl,
@@ -14,6 +14,7 @@ import { map, Observable, of, tap, catchError, throwError } from 'rxjs';
 import { ApiService } from 'src/app/services/api.service';
 import { ActivatedRoute } from '@angular/router';
 import { Language } from 'src/utils';
+
 @Component({
   selector: 'app-contracts-implementation',
   templateUrl: './contracts-implementation.component.html',
@@ -22,6 +23,7 @@ import { Language } from 'src/utils';
 export class ContractsImplementationComponent implements OnInit {
   implementationForm!: FormGroup;
   record_id: string = '';
+  object_implementation: any = {};
 
   constructor(
     private fb: FormBuilder,
@@ -74,23 +76,14 @@ export class ContractsImplementationComponent implements OnInit {
       milestone: this.fb.array([], [Validators.required]),
       documents: this.fb.array([], [Validators.required]),
     });
+    console.log(' CONTRACTS IMPLEMENTATION COMPONENT INTO CONTRACTS');
+    console.log('this.implementationForm: ', this.implementationForm);
   }
-  Submit() {
+  submit(): void {
+    console.log(
+      ' METHOD SUBMIT CONTRACTS IMPLEMENTATION COMPONENT INTO CONTRACTS'
+    );
     console.log(this.implementationForm.value);
-    this.api
-      .postMethod(
-        { ...this.implementationForm.value },
-        `/implements/${this.record_id}`
-      )
-      .subscribe((r: any) => {
-        console.log('r: ', r);
-        if (r.err) {
-          console.log('r: ', r);
-        } else {
-          // const id = r.data._id;
-          // console.log('id: ', id);
-          // this.router.navigate([`/planning/${id}`]);
-        }
-      });
+    this.api;
   }
 }

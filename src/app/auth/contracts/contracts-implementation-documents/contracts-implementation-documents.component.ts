@@ -50,7 +50,7 @@ export class ContractsImplementationDocumentsComponent implements OnInit {
     let desc = '';
     this.formatDocument.forEach((d) => {
       if (d.template === code) {
-        desc = d.name;
+        desc = d?.name;
       }
     });
     return desc;
@@ -60,7 +60,7 @@ export class ContractsImplementationDocumentsComponent implements OnInit {
     let desc = '';
     this.languaje.forEach((d) => {
       if (d.code === code) {
-        desc = d.name;
+        desc = d?.name;
       }
     });
     return desc;

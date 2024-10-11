@@ -21,8 +21,8 @@ export class ContractsImplementationMilestonesComponent {
   getMilestoneTypeDesc(code: string): string {
     let desc = '';
     this.milestoneType.forEach((d) => {
-      if (d.code === code) {
-        desc = d.title;
+      if (d?.code === code) {
+        desc = d?.title;
       }
     });
     return desc;
@@ -31,8 +31,8 @@ export class ContractsImplementationMilestonesComponent {
   getMilestoneStatusDesc(code: string): string {
     let desc = '';
     this.milestoneStatus.forEach((d) => {
-      if (d.code === code) {
-        desc = d.title;
+      if (d?.code === code) {
+        desc = d?.title;
       }
     });
     return desc;

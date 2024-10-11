@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import {
   FormGroup,
   FormControl,
@@ -840,6 +840,7 @@ export class ContractsComponent implements OnInit {
       this.datacontract.relatedProcesses = this.relatedProcessesArray;
       this.datacontract.milestones = this.milestonesArray;
       this.datacontract.amendments = this.amendmentsArray;
+      this.datacontract.implementation = {};
       this.contractsArrayToSend.push(this.datacontract);
     }
 
