@@ -63,11 +63,13 @@
   <div class="row">
     <div class="form-floating col-10 mb-5">
       <select name="select" class="form-select" [(ngModel)]="suppliersValue">
-        <option selected>Seleccione proveedor</option>
+        <option *ngIf="suppliers.length === 0" [disabled] = "suppliers.length === 0">
+          No hay registros de proveedores para esta adjudicación
+        </option>
         <option *ngFor="let c of suppliers" [ngValue]="c">
           proveedor {{ c?.name }}
-        </option>
       </select>
+      <label for="AwardsSuppliersName">Seleccione proveedor</label>
     </div>
     <div class="col-2">
       <button type="button" class="btn btn-danger btn-add" (click)="addNewSupplier()">
