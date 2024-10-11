@@ -11,6 +11,7 @@ import { Classifications, Currency } from 'src/utils';
 })
 export class PlanningRequestForQuotesItemsComponent implements OnInit {
   @Input() itemsArray: Array<any> = [];
+  @Input() title: String = 'Articulos a ser cotizados';
   @Output() addItem = new EventEmitter<any>();
   @Output() deleteItem = new EventEmitter<any>();
 

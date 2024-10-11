@@ -111,7 +111,6 @@ export class PlanningRequestForQuotesComponent implements OnInit {
 
   initForm(): void {
     this.requestForQuotesForm = this.fb.group({
-      id: ['id', Validators.required],
       title: ['title', Validators.required],
       description: ['description', Validators.required],
       period: this.fb.group({

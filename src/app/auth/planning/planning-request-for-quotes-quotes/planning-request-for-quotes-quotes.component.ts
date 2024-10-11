@@ -1,6 +1,6 @@
 import { Currency } from 'src/utils';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { ApiService, IPartieList } from 'src/app/services/api.service';
 
@@ -26,6 +26,23 @@ export class PlanningRequestForQuotesQuotesComponent implements OnInit {
     private api: ApiService
   ) {}
 
+  get itemsArray() {
+    return this.quotesForm.controls['items'] as FormArray;
+  }
+
+  addItem(opt: any): void {
+    this.itemsArray.push(opt);
+  }
+
+  deleteItem(index: number): void {
+    this.itemsArray.removeAt(index);
+  }
+
+  addNewQuotes(): void {
+    this.addQuotes.emit(this.quotesForm);
+    console.log('this.quotesForm: ', this.quotesForm.value);
+  }
+
   ngOnInit(): void {
     this.initForm();
 
@@ -42,7 +59,7 @@ export class PlanningRequestForQuotesQuotesComponent implements OnInit {
 
   initForm(): void {
     this.quotesForm = this.fb.group({
-      id: [null, [Validators.required]],
+      id: ['', [Validators.required]],
       description: [null, [Validators.required]],
       date: [null, [Validators.required]],
       items: this.fb.array([]),
