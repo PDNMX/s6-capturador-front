@@ -1,4 +1,3 @@
-import { map } from 'rxjs';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
@@ -6,26 +5,25 @@ import { ApiService } from 'src/app/services/api.service';
 import { Classifications, Currency } from 'src/utils';
 
 @Component({
-  selector: 'app-planning-items',
-  templateUrl: './planning-items.component.html',
-  styleUrls: ['./planning-items.component.css'],
+  selector: 'app-planning-request-for-quotes-items',
+  templateUrl: './planning-request-for-quotes-items.component.html',
+  styleUrls: ['./planning-request-for-quotes-items.component.css'],
 })
-export class PlanningItemsComponent implements OnInit {
+export class PlanningRequestForQuotesItemsComponent implements OnInit {
   @Input() itemsArray: Array<any> = [];
+  @Input() title: String = 'Articulos a ser cotizados';
   @Output() addItem = new EventEmitter<any>();
   @Output() deleteItem = new EventEmitter<any>();
 
-  record_id = null;
   itemsForm!: FormGroup;
   additionalClassificationsForm!: FormGroup;
 
+  currency = Currency;
   classification = Classifications.map((m) => ({
     id: m.id,
     description: m.description,
     uri: m.uri,
   }));
-
-  currency = Currency;
 
   constructor(
     private fb: FormBuilder,
@@ -55,59 +53,13 @@ export class PlanningItemsComponent implements OnInit {
     this.additionalClassificationsArray.removeAt(index);
   }
 
-  loadForm(data: any): void {
-    data.forEach((item: any) => {
-      const {
-        id,
-        description,
-        classification,
-        additionalClassifications,
-        quantity,
-        unit,
-      } = item;
-
-      this.addItem.emit(
-        this.fb.group({
-          id,
-          description,
-          classification,
-          additionalClassifications: this.fb.array(
-            additionalClassifications.map((m: any) => this.fb.group({ ...m }))
-          ),
-          quantity,
-          unit,
-        })
-      );
-
-      this.itemsArray.push(this.itemsForm);
-    });
-  }
-
-  loadData(): void {
-    this.route.paramMap.subscribe((params: any) => {
-      this.record_id = params.get('id');
-    });
-
-    this.api.getMethod(`/tender/${this.record_id}`).subscribe((d: any) => {
-      const { tender, error, message } = d;
-
-      if (error) {
-        console.log('message: ', message);
-      } else {
-        // load forms
-        if (tender !== null) this.loadForm(tender.items);
-      }
-    });
-  }
-
   ngOnInit(): void {
     this.initForm();
-    // this.loadData();
   }
 
   initForm(): void {
     this.itemsForm = this.fb.group({
-      description: ['', [Validators.required]],
+      description: ['description', [Validators.required]],
       classification: [{}, [Validators.required]],
       additionalClassifications: this.fb.array([], [Validators.required]),
       quantity: ['', [Validators.required]],
@@ -123,12 +75,6 @@ export class PlanningItemsComponent implements OnInit {
 
     this.additionalClassificationsForm = this.fb.group({
       data: [null, [Validators.required]],
-    });
-  }
-
-  selectChange(): void {
-    this.itemsForm.controls['unit'].patchValue({
-      name: this.itemsForm.value.classification.unit,
     });
   }
 

@@ -21,6 +21,7 @@
             >
               &nbsp;&nbsp;1. Planeación
             </h3>
+
             <button
               class="nav-link text-left"
               id="v-pills-general-tab"
@@ -33,6 +34,7 @@
             >
               Información General
             </button>
+
             <button
               class="nav-link text-left"
               id="v-pills-presupuesto-tab"
@@ -58,31 +60,7 @@
             >
               Solicitudes de cotizaciones
             </button>
-            <button
-              class="nav-link"
-              id="v-pills-articulos-tab"
-              data-bs-toggle="pill"
-              data-bs-target="#v-pills-articulos"
-              type="button"
-              role="tab"
-              aria-controls="v-pills-articulos"
-              aria-selected="false"
-            >
-              Artículos a ser cotizados
-            </button>
-            <button
-              class="nav-link"
-              id="v-pills-cotizaciones-tab"
-              data-bs-toggle="pill"
-              data-bs-target="#v-pills-cotizaciones"
-              data-bs-target="#v-pills-cotizaciones"
-              type="button"
-              role="tab"
-              aria-controls="v-pills-cotizaciones-tab"
-              aria-selected="false"
-            >
-              Cotizaciones
-            </button>
+
             <button
               class="nav-link"
               id="v-pills-documentos-tab"
@@ -120,7 +98,7 @@
       <div class="col-md-9 g-0">
         <div class="tab-content" id="v-pills-tabContent">
           <div
-            class="tab-pane fade  show active"
+            class="tab-pane fade show active"
             id="v-pills-general2"
             role="tabpanel"
             aria-labelledby="v-pills-general2-tab"
@@ -145,7 +123,6 @@
           </div>
         </div>
 
-        <!-- Inicia formulario de información general de la planeación -->
         <div class="tab-content" id="v-pills-tabContent">
           <div
             class="tab-pane fade"
@@ -153,13 +130,14 @@
             role="tabpanel"
             aria-labelledby="v-pills-general-tab"
           >
-            <app-planning-general
-              (saveGeneralData)="saveGeneralData($event)"
-            ></app-planning-general>
+            <div class="form">
+              <app-planning-general
+                (saveGeneralData)="saveGeneralData($event)"
+              ></app-planning-general>
+            </div>
           </div>
         </div>
 
-        <!-- Inicia formulario de presupuesto -->
         <div class="tab-content" id="v-pills-tabContent">
           <div
             class="tab-pane fade"
@@ -169,12 +147,28 @@
           >
             <app-planning-budget
               [budgetForm]="budgetForm"
-              (saveBudgetData)="saveBudgetData($event)"
             ></app-planning-budget>
           </div>
         </div>
 
-        <!-- Inicia formulario de documentos -->
+        <div class="tab-content" id="v-pills-tabContent">
+          <div
+            class="tab-pane fade"
+            id="v-pills-solicitudes-cotizaciones"
+            role="tabpanel"
+            aria-labelledby="v-pills-solicitudes-cotizaciones-tab"
+          >
+            <div class="form">
+              <app-planning-request-for-quotes
+                [requestForQuotesArray]="planningForm.value.requestForQuotes"
+                (addRequestForQuotes)="addRequestForQuotes($event)"
+                (deleteRequestForQuotes)="deleteRequestForQuotes($event)"
+              >
+              </app-planning-request-for-quotes>
+            </div>
+          </div>
+        </div>
+
         <div class="tab-content" id="v-pills-tabContent">
           <div
             class="tab-pane fade"
@@ -190,57 +184,22 @@
           </div>
         </div>
 
-        <!-- Inicia formulario de solicitudes de cotizaciones -->
         <div class="tab-content" id="v-pills-tabContent">
           <div
             class="tab-pane fade"
-            id="v-pills-solicitudes-cotizaciones"
+            id="v-pills-hitos"
             role="tabpanel"
-            aria-labelledby="v-pills-solicitudes-cotizaciones-tab"
+            aria-labelledby="v-pills-hitos-tab"
           >
-            <app-planning-requestForQuotes></app-planning-requestForQuotes>
+            <app-planning-milestones
+              [milestonesArray]="planningForm.value.milestones"
+              (addMilestone)="addMilestones($event)"
+              (deleteMilestone)="deleteMilestones($event)"
+            ></app-planning-milestones>
           </div>
         </div>
 
-        <!-- Inicia formulario de cotizaciones -->
-        <div class="tab-content" id="v-pills-tabContent">
-          <div
-            class="tab-pane fade"
-            id="v-pills-cotizaciones"
-            role="tabpanel"
-            aria-labelledby="v-pills-cotizaciones-tab"
-          >
-            <app-planning-quotes></app-planning-quotes>
-          </div>
-
-          <!-- Inicia formulario de items -->
-          <div class="tab-content" id="v-pills-tabContent">
-            <div
-              class="tab-pane fade"
-              id="v-pills-articulos"
-              role="tabpanel"
-              aria-labelledby="v-pills-articulos-tab"
-            >
-              <app-planning-items></app-planning-items>
-            </div>
-          </div>
-
-          <!-- Inicia formulario de Hitos -->
-          <div class="tab-content" id="v-pills-tabContent">
-            <div
-              class="tab-pane fade"
-              id="v-pills-hitos"
-              role="tabpanel"
-              aria-labelledby="v-pills-hitos-tab"
-            >
-              <app-planning-milestones
-                [milestonesArray]="planningForm.value.milestones"
-                (addMilestone)="addMilestones($event)"
-                (deleteMilestone)="deleteMilestones($event)"
-              ></app-planning-milestones>
-            </div>
-          </div>
-        </div>
+        <!-- fin -->
       </div>
     </div>
   </div>

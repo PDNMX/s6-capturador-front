@@ -1,16 +1,14 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
-import { ApiService } from 'src/app/services/api.service';
+import { ApiService, IPartieList } from 'src/app/services/api.service';
 
-import {
-  Currency
-} from 'src/utils';
+import { Currency } from 'src/utils';
 
 @Component({
   selector: 'app-planning-general',
   templateUrl: './planning-general.component.html',
-  styleUrls: ['./planning-general.component.css']
+  styleUrls: ['./planning-general.component.css'],
 })
 export class PlanningGeneralComponent implements OnInit {
   @Output() saveGeneralData = new EventEmitter<any>();
@@ -20,15 +18,70 @@ export class PlanningGeneralComponent implements OnInit {
   currency = Currency;
 
   generalForm!: FormGroup;
-  contractingUnitsForm!: FormGroup;
-  requestingUnitsForm!: FormGroup;
-  responsibleUnitsForm!: FormGroup;
+  selectForm!: FormGroup;
+
+  requestings: any = [];
+  responsibles: any = [];
+  contractings: any = [];
+
+  requestingUnit = null;
+  responsibleUnit = null;
+  contractingUnit = null;
 
   constructor(
     private fb: FormBuilder,
     private route: ActivatedRoute,
     private api: ApiService
-  ) { }
+  ) {}
+
+  ngOnInit(): void {
+    this.initForm();
+    this.initSelectForm();
+
+    this.route.paramMap.subscribe((params: any) => {
+      this.record_id = params.get('id');
+    });
+
+    if (this.record_id) {
+      this.api.getPartiesByType(this.record_id).subscribe((d: IPartieList) => {
+        this.requestings = d.data;
+      });
+    }
+
+    if (this.record_id) {
+      this.api.getPartiesByType(this.record_id).subscribe((d: IPartieList) => {
+        this.responsibles = d.data;
+      });
+    }
+
+    if (this.record_id) {
+      this.api.getPartiesByType(this.record_id).subscribe((d: IPartieList) => {
+        this.contractings = d.data;
+      });
+    }
+
+    // this.loadData();
+  }
+
+  initForm(): void {
+    this.generalForm = this.fb.group({
+      rationale: ['rationale rationale rationale', Validators.required],
+      hasQuotes: [true, Validators.required],
+      requestingUnits: this.fb.array([]),
+      responsibleUnits: this.fb.array([]),
+      contractingUnits: this.fb.array([]),
+    });
+  }
+
+  initSelectForm(): void {
+    this.selectForm = this.fb.group({
+      requestingUnits: ['', [Validators.required]],
+      responsibleUnits: ['', [Validators.required]],
+      contractingUnits: ['', [Validators.required]],
+    });
+  }
+
+  // fin
 
   setSelectValue(element: string, value: any): void {
     this.generalForm.get(element)?.setValue(value);
@@ -40,7 +93,7 @@ export class PlanningGeneralComponent implements OnInit {
       hasQuotes,
       contractingUnits,
       requestingUnits,
-      responsibleUnits
+      responsibleUnits,
     } = data;
 
     this.generalForm.patchValue({
@@ -48,15 +101,12 @@ export class PlanningGeneralComponent implements OnInit {
       hasQuotes,
       contractingUnits,
       requestingUnits,
-      responsibleUnits
+      responsibleUnits,
     });
 
     requestingUnits.forEach((e: any) => {
       this.requestingUnitsArray.push(this.fb.group(e));
     });
-
-
-
   }
 
   loadData(): void {
@@ -76,92 +126,48 @@ export class PlanningGeneralComponent implements OnInit {
     });
   }
 
-  ngOnInit(): void {
-    this.initForm();
-    this.loadData();
-  }
-
-  initContractingUnitsForm(): void {
-    this.contractingUnitsForm = this.fb.group({
-      name: ['', Validators.required],
-      id: ['', Validators.required],
-    });
-  }
-
-  initRequestingUnitsForm(): void {
-    this.requestingUnitsForm = this.fb.group({
-      name: ['', Validators.required],
-      id: ['', Validators.required],
-    });
-  }
-
-  initResponsibleUnitsForm(): void {
-    this.responsibleUnitsForm = this.fb.group({
-      name: ['', Validators.required],
-      id: ['', Validators.required],
-    });
-  }
-
-
-  initForm(): void {
-    this.generalForm = this.fb.group({
-      rationale: ['', Validators.required],
-      hasQuotes: ['', Validators.required],
-      contractingUnits: this.fb.array([]),
-      requestingUnits: this.fb.array([]),
-      responsibleUnits: this.fb.array([]),
-    });
-    this.initContractingUnitsForm();
-    this.initRequestingUnitsForm()
-    this.initResponsibleUnitsForm()
-
-  }
-
-
   saveForm(): void {
     this.saveGeneralData.emit(this.generalForm.controls);
   }
-
 
   get contractingUnitsFormArray() {
     return this.generalForm.controls['contractingUnits'] as FormArray;
   }
 
   addContractingUnits(): void {
-    this.contractingUnitsFormArray.push(this.contractingUnitsForm);
-    this.initContractingUnitsForm();
+    this.contractingUnitsFormArray.push(
+      this.fb.control(this.selectForm.value.contractingUnits)
+    );
   }
 
-  deleteContractingUnit(index:number): void {
+  deleteContractingUnit(index: number): void {
     this.contractingUnitsFormArray.removeAt(index);
   }
-
 
   get requestingUnitsArray() {
     return this.generalForm.controls['requestingUnits'] as FormArray;
   }
 
-  addRequestingUnits(): void {
-    this.requestingUnitsArray.push(this.requestingUnitsForm);
-    this.initRequestingUnitsForm();
+  addRequestingUnit(): void {
+    this.requestingUnitsArray.push(
+      this.fb.control(this.selectForm.value.requestingUnits)
+    );
+    this.initSelectForm();
   }
-  deleteRequestingUnit(index:number): void {
+  deleteRequestingUnit(index: number): void {
     this.requestingUnitsArray.removeAt(index);
   }
-
-
 
   get responsibleUnitsArray() {
     return this.generalForm.controls['responsibleUnits'] as FormArray;
   }
 
-  addResponsibleUnits(): void {
-    this.responsibleUnitsArray.push(this.responsibleUnitsForm);
-    this.initResponsibleUnitsForm();
+  addResponsibleUnit(): void {
+    this.responsibleUnitsArray.push(
+      this.fb.control(this.selectForm.value.responsibleUnits)
+    );
   }
-  deleteResponsibleUnit(index:number): void {
+  deleteResponsibleUnit(index: number): void {
     this.responsibleUnitsArray.removeAt(index);
   }
-
-
 }
