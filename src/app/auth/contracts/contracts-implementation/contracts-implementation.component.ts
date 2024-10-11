@@ -79,9 +79,11 @@ export class ContractsImplementationComponent implements OnInit {
     console.log(' CONTRACTS IMPLEMENTATION COMPONENT INTO CONTRACTS');
     console.log('this.implementationForm: ', this.implementationForm);
   }
-  /*   Submit() {
-    (' METHOD SUBMIT CONTRACTS IMPLEMENTATION COMPONENT INTO CONTRACTS');
+  submit(): void {
+    console.log(
+      ' METHOD SUBMIT CONTRACTS IMPLEMENTATION COMPONENT INTO CONTRACTS'
+    );
     console.log(this.implementationForm.value);
     this.api;
-  } */
+  }
 }
