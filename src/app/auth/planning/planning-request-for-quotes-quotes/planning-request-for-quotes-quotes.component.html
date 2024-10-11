@@ -40,6 +40,11 @@
                   </button>
                 </td>
               </tr>
+              <tr *ngIf="quotesArray.length === 0">
+                <th scope="row" colspan="4" class="text-center">
+                  Sin registros.
+                </th>
+              </tr>
             </tbody>
           </table>
         </div>
@@ -187,12 +192,28 @@
         </div>
       </div>
 
+      <div class="row">
+        <div class="col">
+          <app-planning-request-for-quotes-items
+            [title]="'Ítems cotizados'"
+            [itemsArray]="quotesForm.value.items"
+            (addItem)="addItem($event)"
+            (deleteItem)="deleteItem($event)"
+          ></app-planning-request-for-quotes-items>
+        </div>
+      </div>
+
       <!-- fin form -->
     </form>
 
+    <br />
     <div class="row">
       <div class="col">
-        <button type="button" class="btn btn-danger btn-add">
+        <button
+          type="button"
+          class="btn btn-danger btn-add"
+          (click)="addNewQuotes()"
+        >
           Agregar solicitud de cotización
         </button>
       </div>
