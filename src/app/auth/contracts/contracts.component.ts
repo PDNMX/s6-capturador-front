@@ -1,17 +1,8 @@
-import { Component, OnInit, Input } from '@angular/core';
-import {
-  FormGroup,
-  FormControl,
-  FormArray,
-  Validators,
-  FormBuilder,
-} from '@angular/forms';
-import { Title } from '@angular/platform-browser';
-import { map, Observable, of, tap, catchError, throwError } from 'rxjs';
-//import { HttpClient } from '@angular/common/http';
+import { Component, OnInit } from '@angular/core';
+import { FormArray, Validators, FormBuilder, FormGroup } from '@angular/forms';
 import { ApiService } from 'src/app/services/api.service';
-import { Contract } from './contract.model';
 import { ActivatedRoute } from '@angular/router';
+import { group } from '@angular/animations';
 
 @Component({
   selector: 'app-contracts',
@@ -19,6 +10,68 @@ import { ActivatedRoute } from '@angular/router';
   styleUrls: ['./contracts.component.css'],
 })
 export class ContractsComponent implements OnInit {
+  record_id = null;
+  contractsForm!: FormGroup;
+  contractForm!: FormGroup;
+
+  constructor(
+    private fb: FormBuilder,
+    private api: ApiService,
+    private apiService: ApiService,
+    private route: ActivatedRoute
+  ) {}
+
+  get contractsArray() {
+    return this.contractsForm.controls['contracts'] as FormArray;
+  }
+
+  addContract(): void {
+    this.contractsArray.push(this.contractForm);
+  }
+
+  deleteContract(index: number): void {
+    this.contractsArray.removeAt(index);
+  }
+
+  ngOnInit() {
+    this.route.paramMap.subscribe((params: any) => {
+      this.record_id = params.get('id');
+    });
+
+    this.initForm();
+    this.initContractForm();
+  }
+
+  initForm(): void {
+    this.contractsForm = this.fb.group({
+      contracts: this.fb.array([{ id: 'num' }]),
+    });
+  }
+
+  initContractForm(): void {
+    this.contractForm = this.fb.group({
+      id: ['id', [Validators.required]],
+      awardID: ['awardID', [Validators.required]],
+      title: ['title', [Validators.required]],
+      description: ['description', [Validators.required]],
+      status: ['pending', [Validators.required]],
+      period: this.fb.group({
+        startDate: ['startDate', [Validators.required]],
+        endDate: ['endDate', [Validators.required]],
+        maxExtentDate: ['maxExtentDate', [Validators.required]],
+        durationInDays: ['durationInDays', [Validators.required]],
+      }),
+      value: this.fb.group({
+        amount: [0, [Validators.required]],
+        amountNet: [0, [Validators.required]],
+        currency: ['MXN', [Validators.required]],
+        exchangeRates: this.fb.array([]),
+      }),
+    });
+  }
+
+  // fin del codigo
+
   /* Arreglos que contienen los arreglos anidados de cada sección */
   itemsArray: any[] = [];
   guaranteesArray: any[] = [];
@@ -58,22 +111,6 @@ export class ContractsComponent implements OnInit {
   dataToSend = {};
   dataToUpdate = {};
   contractData: any;
-
-  /* Constructor para inicializar el formbuilder y el servicio el api */
-  constructor(
-    private fb: FormBuilder,
-    private apiService: ApiService,
-    private route: ActivatedRoute
-  ) {} //, private http: HttpClient) { }
-
-  ngOnInit() {
-    //this.getMethodById(this.idGlobal);
-
-    this.route.paramMap.subscribe((params: any) => {
-      const id = params.get('id');
-      this.idGlobal = id;
-    });
-  }
 
   /* Comienza seccion de contracts de datos generales */
   contracts = this.fb.group({
