@@ -1,0 +1,269 @@
+<div class="container">
+  <div class="row">
+    <div class="col">
+      <h3>Información general</h3>
+      <hr />
+    </div>
+  </div>
+</div>
+<form [formGroup]="contractForm">
+  <div class="row">
+    <div class="form-floating col mb-5">
+      <input
+        class="form-control"
+        id="id"
+        type="text"
+        data-sb-validations="required"
+        placeholder="Identificador del contrato*"
+        formControlName="id"
+        readonly
+      />
+      <label for="id">Identificador del contrato*</label>
+      <div class="invalid-feedback" data-sb-feedback="id:required">
+        Identificador del contrato * es requerido.
+      </div>
+    </div>
+
+    <div class="form-floating col mb-5">
+      <input
+        class="form-control"
+        id="awardID"
+        type="text"
+        data-sb-validations="required"
+        placeholder="Identificador de la adjudicación*"
+        formControlName="awardID"
+        readonly
+      />
+      <label for="id">Identificador de la adjudicación*</label>
+      <div class="invalid-feedback" data-sb-feedback="awardID:required">
+        Identificador de la adjudicación * es requerido.
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="form-floating col mb-5">
+      <input
+        class="form-control"
+        id="title"
+        type="text"
+        data-sb-validations="required"
+        placeholder="Título del contrato*"
+        formControlName="title"
+      />
+      <label for="title">Título del contrato*</label>
+      <div class="invalid-feedback" data-sb-feedback="title:required">
+        Título del contrato * es requerido.
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="form-floating col-12 mb-5">
+      <textarea
+        class="form-control"
+        id="description"
+        type="text"
+        placeholder="Descripción*"
+        style="height: 100px"
+        formControlName="description"
+      ></textarea>
+      <label for="description">Descripción*</label>
+      <div class="invalid-feedback" data-sb-feedback="description:required">
+        Descripción * es requerido.
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="form-floating col mb-5">
+      <select class="form-select" formControlName="status">
+        <option *ngFor="let d of contractStatus" [ngValue]="d.code">
+          {{ d.title }}
+        </option>
+      </select>
+      <label for="status"> Estatus </label>
+      <p>
+        {{ getContractStatusDesc("pending") }}
+      </p>
+    </div>
+  </div>
+
+  <fieldset class="border p-3 mb-3" formGroupName="period">
+    <legend class="w-auto px-1">Periodo del contrato</legend>
+
+    <div class="row">
+      <div class="form-floating col-6 mb-5">
+        <input
+          class="form-control"
+          id="startDate"
+          type="date"
+          data-sb-validations="required"
+          formControlName="startDate"
+        />
+        <label for="startDate">Fecha de inicio*</label>
+        <div class="invalid-feedback" data-sb-feedback="title:required">
+          Fecha de inicio * es requerido.
+        </div>
+      </div>
+      <div class="form-floating col-6 mb-5">
+        <input
+          class="form-control"
+          id="endDate"
+          type="date"
+          data-sb-validations="required"
+          formControlName="endDate"
+        />
+        <label for="endDate">Fecha de término*</label>
+        <div class="invalid-feedback" data-sb-feedback="title:required">
+          Fecha de término * es requerido.
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="form-floating col-6 mb-5">
+        <input
+          class="form-control"
+          id="maxExtentDate"
+          type="date"
+          data-sb-validations="required"
+          formControlName="maxExtentDate"
+        />
+        <label for="maxExtentDate">Extension máxima*</label>
+        <div class="invalid-feedback" data-sb-feedback="title:required">
+          Extension máxima * es requerido.
+        </div>
+      </div>
+      <div class="form-floating col-6 mb-5">
+        <input
+          class="form-control"
+          id="durationInDays"
+          type="number"
+          data-sb-validations="required"
+          placeholder="Duración (días)*"
+          formControlName="durationInDays"
+        />
+        <label for="durationInDays">Duración (dias)*</label>
+        <div class="invalid-feedback" data-sb-feedback="title:required">
+          Duración * es requerido.
+        </div>
+      </div>
+    </div>
+  </fieldset>
+
+  <fieldset class="border p-3 mb-3">
+    <legend class="w-auto px-1">Valor del contrato</legend>
+    <div class="row" formGroupName="value">
+      <div class="form-floating col-4 mb-2">
+        <input
+          class="form-control"
+          id="amount"
+          type="text"
+          data-sb-validations="required"
+          placeholder="Monto*"
+          formControlName="amount"
+        />
+        <label for="amount">Monto*</label>
+        <div class="invalid-feedback" data-sb-feedback="amount:required">
+          Monto * es requerido.
+        </div>
+      </div>
+
+      <div class="form-floating col-4 mb-2">
+        <input
+          class="form-control"
+          id="amountNet"
+          type="text"
+          data-sb-validations="required"
+          placeholder="Monto sin impuestos*"
+          formControlName="amountNet"
+        />
+        <label for="amountNet">Monto sin impuestos*</label>
+        <div class="invalid-feedback" data-sb-feedback="amountNet:required">
+          Monto sin impuestos* es requerido.
+        </div>
+      </div>
+
+      <div class="form-floating col-4 mb-2">
+        <select class="form-select" formControlName="currency">
+          <option *ngFor="let d of currency" [ngValue]="d.code">
+            {{ d.title }}
+          </option>
+        </select>
+        <label for="type">Moneda</label>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col">
+        <div class="table-responsive">
+          <table class="table table-hover table-striped">
+            <thead>
+              <tr>
+                <th scope="col">Tasa de conversión</th>
+                <th scope="col">Moneda</th>
+                <th scope="col">Fecha de la tasa</th>
+                <th scope="col">Fuente de la tasa</th>
+                <th scope="col">Opciones</th>
+              </tr>
+              <tr [formGroup]="exchangeForm">
+                <th>
+                  <input
+                    class="form-control"
+                    id="rate"
+                    type="text"
+                    data-sb-validations="required"
+                    formControlName="rate"
+                  />
+                </th>
+                <th>
+                  <select class="form-select" formControlName="currency">
+                    <option *ngFor="let d of currency" [ngValue]="d.code">
+                      {{ d.title }}
+                    </option>
+                  </select>
+                </th>
+                <th>
+                  <input
+                    class="form-control"
+                    id="date"
+                    type="date"
+                    data-sb-validations="required"
+                    formControlName="date"
+                  />
+                </th>
+                <th>
+                  <input
+                    class="form-control"
+                    id="source"
+                    type="text"
+                    data-sb-validations="required"
+                    formControlName="source"
+                  />
+                </th>
+                <th>
+                  <button
+                    type="button"
+                    class="btn btn-danger btn-add"
+                    (click)="addExchangeRates()"
+                  >
+                    Agregar
+                  </button>
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let item of contractForm.value.exchangeRates">
+                <td>
+                  {{ item.rate }}
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </fieldset>
+
+  <!-- fin form -->
+</form>

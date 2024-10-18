@@ -5,135 +5,127 @@
         <div class="menu-info h-100">
           <div
             class="nav flex-column nav-pills"
-            id="v-pills-tab"
+            id="contracts-tab"
             role="tablist"
             aria-orientation="vertical"
           >
             <h3
               class="active text-left"
-              id="v-pills-contrato-definicion-tab"
+              id="contracts-presentacion-tab"
               data-bs-toggle="pill"
-              data-bs-target="#v-pills-contrato-definicion"
+              data-bs-target="#contracts-presentacion"
               type="button"
               role="tab"
-              aria-controls="v-pills-contrato-definicion"
+              aria-controls="contracts-presentacion"
               aria-selected="true"
             >
-              &nbsp;&nbsp; 4. Contrato
+              &nbsp;&nbsp;4. Contrato
             </h3>
-            <ng-container *ngIf="mostrarBotones === true">
+            <ng-container *ngIf="!mostrarBotones">
               <button
-                class="nav-link"
-                id="v-pills-contrato-tab"
+                class="nav-link text-left active"
+                id="contracts-general-tab"
                 data-bs-toggle="pill"
-                data-bs-target="#v-pills-contrato"
+                data-bs-target="#contracts-general"
                 type="button"
                 role="tab"
-                aria-controls="v-pills-contrato"
+                aria-controls="contracts-general"
                 aria-selected="false"
               >
-                <!-- ▼ -->
                 Datos generales del contrato
               </button>
               <button
-                class="nav-link"
-                id="v-pills-documentos-tab"
+                class="nav-link text-left"
+                id="contracts-documentos-tab"
                 data-bs-toggle="pill"
-                data-bs-target="#v-pills-documentos"
+                data-bs-target="#contracts-documentos"
                 type="button"
                 role="tab"
-                aria-controls="v-pills-documentos"
+                aria-controls="contracts-documentos"
                 aria-selected="false"
               >
-                <!-- ▤ -->
                 Documentos
               </button>
               <button
-                class="nav-link"
-                id="v-pills-implementation-tab"
+                class="nav-link text-left"
+                id="contracts-implementation-tab"
                 data-bs-toggle="pill"
-                data-bs-target="#v-pills-implementation"
+                data-bs-target="#contracts-implementation"
                 type="button"
                 role="tab"
-                aria-controls="v-pills-implementation"
+                aria-controls="contracts-implementation"
                 aria-selected="false"
               >
-                <!-- ▤ -->
                 Ejecución
               </button>
               <button
-                class="nav-link"
-                id="v-pills-items-tab"
+                class="nav-link text-left"
+                id="contracts-items-tab"
                 data-bs-toggle="pill"
-                data-bs-target="#v-pills-items"
+                data-bs-target="#contracts-items"
                 type="button"
                 role="tab"
-                aria-controls="v-pills-items"
+                aria-controls="contracts-items"
                 aria-selected="false"
               >
-                <!-- $ -->
                 Ítems del contrato
               </button>
               <button
-                class="nav-link"
-                id="v-pills-garantias-tab"
+                class="nav-link text-left"
+                id="contracts-garantias-tab"
                 data-bs-toggle="pill"
-                data-bs-target="#v-pills-garantias"
+                data-bs-target="#contracts-garantias"
                 type="button"
                 role="tab"
-                aria-controls="v-pills-garantias"
+                aria-controls="contracts-garantias"
                 aria-selected="false"
               >
-                <!-- ♕ -->
                 Garantías
               </button>
               <button
-                class="nav-link"
-                id="v-pills-procesos-tab"
+                class="nav-link text-left"
+                id="contracts-procesos-tab"
                 data-bs-toggle="pill"
-                data-bs-target="#v-pills-procesos"
+                data-bs-target="#contracts-procesos"
                 type="button"
                 role="tab"
-                aria-controls="v-pills-procesos"
+                aria-controls="contracts-procesos"
                 aria-selected="false"
               >
-                <!-- ℘ -->
                 Procesos relacionados
               </button>
               <button
-                class="nav-link"
-                id="v-pills-hitos-tab"
+                class="nav-link text-left"
+                id="contracts-hitos-tab"
                 data-bs-toggle="pill"
-                data-bs-target="#v-pills-hitos"
+                data-bs-target="#contracts-hitos"
                 type="button"
                 role="tab"
-                aria-controls="v-pills-hitos"
+                aria-controls="contracts-hitos"
                 aria-selected="false"
               >
-                <!-- ℘ -->
                 Hitos
               </button>
               <button
-                class="nav-link"
-                id="v-pills-enmiendas-tab"
+                class="nav-link text-left"
+                id="contracts-enmiendas-tab"
                 data-bs-toggle="pill"
-                data-bs-target="#v-pills-enmiendas"
+                data-bs-target="#contracts-enmiendas"
                 type="button"
                 role="tab"
-                aria-controls="v-pills-enmiendas"
+                aria-controls="contracts-enmiendas"
                 aria-selected="false"
               >
-                <!-- $ -->
                 Enmiendas
               </button>
               <button
                 class="nav-link btn btn-danger btn-add"
-                id="v-pills-nuevo-tab"
+                id="contracts-nuevo-tab"
                 data-bs-toggle="pill"
-                data-bs-target="#v-pills-contrato-definicion"
+                data-bs-target="#contracts-presentacion"
                 type="button"
                 role="tab"
-                aria-controls="v-pills-contrato-definicion"
+                aria-controls="contracts-presentacion"
                 aria-selected="false"
                 style="
                   background-color: #dc3545; /* Rojo de peligro */
@@ -144,7 +136,6 @@
                 "
                 (click)="onSubmit(idGlobal)"
               >
-                <!-- $ -->
                 Agregar contrato
               </button>
             </ng-container>
@@ -153,12 +144,12 @@
       </div>
       <!-- Termina Formulario lado derecho -->
       <div class="col-md-9 g-0">
-        <div class="tab-content" id="v-pills-tabContent">
+        <div class="tab-content" id="contracts-tabContent">
           <div
-            class="tab-pane fade show active"
-            id="v-pills-contrato-definicion"
+            class="tab-pane fade"
+            id="contracts-presentacion"
             role="tabpanel"
-            aria-labelledby="v-pills-contrato-definicion-tab"
+            aria-labelledby="contracts-presentacion-tab"
             tabindex="0"
           >
             <div class="form h-100">
@@ -286,13 +277,29 @@
               </form>
             </div>
           </div>
+
+          <div
+            class="tab-pane fade show active"
+            id="contracts-general"
+            role="tabpanel"
+            aria-labelledby="contracts-general-tab"
+            tabindex="0"
+          >
+            <div class="form">
+              <app-contracts-general
+                [contractForm]="contractForm"
+              ></app-contracts-general>
+            </div>
+          </div>
+
+          <!-- fin  -->
           <div class="col col-md-9">
-            <div class="tab-content" id="v-pills-tabContent">
+            <div class="tab-content" id="contracts-tabContent">
               <div
-                class="tab-pane fade"
-                id="v-pills-contrato"
+                class="tab-pane fade show active"
+                id="contracts-general"
                 role="tabpanel"
-                aria-labelledby="v-pills-contrato-tab"
+                aria-labelledby="contracts-general-tab"
                 tabindex="0"
               >
                 <div class="form h-100">
@@ -300,316 +307,9 @@
                   <form [formGroup]="contracts">
                     <fieldset class="border p-3 mb-3">
                       <legend class="w-auto px-2">Clasificación</legend>
-                      <div class="row">
-                        <div class="col-md-12 form-group mb-3">
-                          <div class="form-floating">
-                            <select
-                              class="form-select"
-                              id="status"
-                              aria-label="Estatus del contrato"
-                              formControlName="status"
-                              [ngClass]="{ readonly: isReadOnly }"
-                            >
-                              <option value="pending">Pendiente</option>
-                              <option value="active">Activo</option>
-                              <option value="cancelled">Cancelado</option>
-                              <option value="terminated">Terminado</option>
-                            </select>
-                            <label for="status"> Estatus del contrato: </label>
-                          </div>
-                        </div>
-                      </div>
 
                       <div class="row">
                         <div class="col col-md-12">
-                          <div class="form-floating mb-3">
-                            <input
-                              type="text"
-                              class="form-control"
-                              id="idContract"
-                              placeholder="Identificador del contrato"
-                              formControlName="id"
-                              [ngClass]="{ readonly: isReadOnly }"
-                            />
-                            <label for="idContract"
-                              >Identificador del contrato</label
-                            >
-                          </div>
-                          <div class="form-floating mb-3">
-                            <input
-                              type="text"
-                              class="form-control"
-                              id="awardID"
-                              placeholder="Identificador de la adjudicacion"
-                              formControlName="awardID"
-                              [ngClass]="{ readonly: isReadOnly }"
-                            />
-                            <label for="awardID"
-                              >Identificador de la adjudicación</label
-                            >
-                          </div>
-                          <div class="form-floating mb-3">
-                            <input
-                              type="text"
-                              class="form-control"
-                              id="title"
-                              placeholder="Titulo del contrato"
-                              formControlName="title"
-                              [ngClass]="{ readonly: isReadOnly }"
-                            />
-                            <label for="title">Titulo del contrato</label>
-                          </div>
-                          <div class="form-floating mb-3">
-                            <textarea
-                              class="form-control"
-                              id="descripcion"
-                              type="text"
-                              placeholder="Descripción del contrato"
-                              style="height: 10rem"
-                              data-sb-validations="required"
-                              formControlName="description"
-                              [ngClass]="{ readonly: isReadOnly }"
-                            ></textarea>
-                            <label for="descripcion"
-                              >Descripción del contrato</label
-                            >
-                            <div
-                              class="invalid-feedback"
-                              data-sb-feedback="descripcion:required"
-                            >
-                              La descripción del contratoes requerida.
-                            </div>
-                          </div>
-
-                          <div formGroupName="period">
-                            <fieldset class="border p-3 mb-3">
-                              <legend>Vigencia (Periodo)</legend>
-                              <div class="row">
-                                <div class="col-md-6">
-                                  <div class="form-floating mb-3">
-                                    <input
-                                      class="form-control"
-                                      id="fechaInicio"
-                                      type="date"
-                                      placeholder="fechaInicio"
-                                      data-sb-validations="required"
-                                      formControlName="startDate"
-                                      [ngClass]="{ readonly: isReadOnly }"
-                                    />
-                                    <label for="fechaInicio"
-                                      >Fecha inicio</label
-                                    >
-                                    <div
-                                      class="invalid-feedback"
-                                      data-sb-feedback="fechaInicio:required"
-                                    >
-                                      La fecha de inicio is required.
-                                    </div>
-                                  </div>
-                                </div>
-                                <div class="col-md-6">
-                                  <div class="form-floating mb-3">
-                                    <input
-                                      class="form-control"
-                                      id="fechaFin"
-                                      type="date"
-                                      placeholder="Fecha final"
-                                      data-sb-validations="required"
-                                      formControlName="endDate"
-                                      [ngClass]="{ readonly: isReadOnly }"
-                                    />
-                                    <label for="fechaFin">Fecha final</label>
-                                    <div
-                                      class="invalid-feedback"
-                                      data-sb-feedback="fechaFin:required"
-                                    >
-                                      Fecha final es requerido.
-                                    </div>
-                                  </div>
-                                </div>
-                              </div>
-                              <div class="row">
-                                <div class="col-md-6">
-                                  <div class="form-floating mb-3">
-                                    <input
-                                      class="form-control"
-                                      id="duracion"
-                                      type="text"
-                                      placeholder="Duracion en días"
-                                      data-sb-validations="required"
-                                      formControlName="durationInDays"
-                                      [ngClass]="{ readonly: isReadOnly }"
-                                    />
-                                    <label for="duracion"
-                                      >Duracion en días</label
-                                    >
-                                    <div
-                                      class="invalid-feedback"
-                                      data-sb-feedback="duracion:required"
-                                    >
-                                      Duracion en días es requerida.
-                                    </div>
-                                  </div>
-                                </div>
-                                <div class="col-md-6">
-                                  <div class="form-floating mb-3">
-                                    <input
-                                      class="form-control"
-                                      id="extension"
-                                      type="text"
-                                      placeholder="Extension máxima"
-                                      data-sb-validations="required"
-                                      formControlName="maxExtentDate"
-                                      [ngClass]="{ readonly: isReadOnly }"
-                                    />
-                                    <label for="extension"
-                                      >Extension máxima</label
-                                    >
-                                    <div
-                                      class="invalid-feedback"
-                                      data-sb-feedback="extension:required"
-                                    >
-                                      Extension máxima es requerida.
-                                    </div>
-                                  </div>
-                                </div>
-                              </div>
-                            </fieldset>
-                          </div>
-                          <div formGroupName="value">
-                            <fieldset class="border p-3 mb-3">
-                              <legend>Valor</legend>
-                              <div class="row">
-                                <div class="col-md-4">
-                                  <div class="form-floating mb-3">
-                                    <input
-                                      class="form-control"
-                                      id="montoSinImpuestos"
-                                      type="text"
-                                      placeholder="Monto sin impuestos"
-                                      formControlName="amountNet"
-                                      [ngClass]="{ readonly: isReadOnly }"
-                                    />
-                                    <label for="montoSinImpuestos"
-                                      >Monto sin impuestos</label
-                                    >
-                                  </div>
-                                </div>
-                                <div class="col-md-4">
-                                  <div class="form-floating mb-3">
-                                    <input
-                                      class="form-control"
-                                      id="montoTotal"
-                                      type="text"
-                                      placeholder="Monto total"
-                                      formControlName="amount"
-                                      [ngClass]="{ readonly: isReadOnly }"
-                                    />
-                                    <label for="montoTotal">Monto total</label>
-                                  </div>
-                                </div>
-                                <div class="col-md-4">
-                                  <div class="form-floating mb-3">
-                                    <input
-                                      class="form-control"
-                                      id="moneda"
-                                      type="text"
-                                      placeholder="Moneda"
-                                      formControlName="currency"
-                                      [ngClass]="{ readonly: isReadOnly }"
-                                    />
-                                    <label for="moneda">Moneda</label>
-                                  </div>
-                                </div>
-                              </div>
-
-                              <div formArrayName="exchangeRate">
-                                <div
-                                  *ngFor="
-                                    let rate of exchangeRates.controls;
-                                    let i = index
-                                  "
-                                  [formGroupName]="i"
-                                  class="mb-3"
-                                >
-                                  <div class="row">
-                                    <div class="col-md-3">
-                                      <div class="form-floating">
-                                        <input
-                                          class="form-control"
-                                          [id]="'rate' + i"
-                                          type="number"
-                                          placeholder="Tasa"
-                                          formControlName="rate"
-                                        />
-                                        <label [for]="'rate' + i">Tasa</label>
-                                      </div>
-                                    </div>
-                                    <div class="col-md-3">
-                                      <div class="form-floating">
-                                        <input
-                                          class="form-control"
-                                          [id]="'currency' + i"
-                                          type="text"
-                                          placeholder="Moneda"
-                                          formControlName="currency"
-                                        />
-                                        <label [for]="'currency' + i"
-                                          >Moneda</label
-                                        >
-                                      </div>
-                                    </div>
-                                    <div class="col-md-2">
-                                      <div class="form-floating">
-                                        <input
-                                          class="form-control"
-                                          [id]="'date' + i"
-                                          type="date"
-                                          placeholder="Fecha"
-                                          formControlName="date"
-                                        />
-                                        <label [for]="'date' + i">Fecha</label>
-                                      </div>
-                                    </div>
-                                    <div class="col-md-3">
-                                      <div class="form-floating">
-                                        <input
-                                          class="form-control"
-                                          [id]="'source' + i"
-                                          type="text"
-                                          placeholder="Fuente"
-                                          formControlName="source"
-                                        />
-                                        <label [for]="'source' + i"
-                                          >Fuente</label
-                                        >
-                                      </div>
-                                    </div>
-                                    <div class="col-md-1">
-                                      <button
-                                        type="button"
-                                        class="btn btn-danger"
-                                        (click)="removeExchangeRate(i)"
-                                      >
-                                        <i class="fas fa-trash"></i>
-                                      </button>
-                                    </div>
-                                  </div>
-                                </div>
-                              </div>
-                              <div class="row mt-3">
-                                <div class="col-md-12">
-                                  <button
-                                    type="button"
-                                    class="btn btn-danger btn-add"
-                                    (click)="addExchangeRate()"
-                                  >
-                                    Agregar tasa de cambio
-                                  </button>
-                                </div>
-                              </div>
-                            </fieldset>
-                          </div>
                           <div class="row">
                             <div
                               class="col-md-12"
@@ -668,12 +368,12 @@
                 </div>
               </div>
             </div>
-            <div class="tab-content" id="v-pills-tabContent">
+            <div class="tab-content" id="contracts-tabContent">
               <div
                 class="tab-pane fade"
-                id="v-pills-documentos"
+                id="contracts-documentos"
                 role="tabpanel"
-                aria-labelledby="v-pills-documentos-tab"
+                aria-labelledby="contracts-documentos-tab"
               >
                 <div class="form h-100">
                   <h3>Datos generales del contrato (Sección de documentos)</h3>
@@ -941,9 +641,9 @@
               </div>
               <div
                 class="tab-pane fade"
-                id="v-pills-items"
+                id="contracts-items"
                 role="tabpanel"
-                aria-labelledby="v-pills-items-tab"
+                aria-labelledby="contracts-items-tab"
               >
                 <div class="form h-100">
                   <form
@@ -1759,9 +1459,9 @@
               </div>
               <div
                 class="tab-pane fade"
-                id="v-pills-garantias"
+                id="contracts-garantias"
                 role="tabpanel"
-                aria-labelledby="v-pills-garantias-tab"
+                aria-labelledby="contracts-garantias-tab"
               >
                 <div class="form h-100">
                   <form [formGroup]="guarantees">
@@ -2109,9 +1809,9 @@
               </div>
               <div
                 class="tab-pane fade"
-                id="v-pills-procesos"
+                id="contracts-procesos"
                 role="tabpanel"
-                aria-labelledby="v-pills-procesos-tab"
+                aria-labelledby="contracts-procesos-tab"
               >
                 <div class="form h-100">
                   <form [formGroup]="relatedProcesses">
@@ -2336,9 +2036,9 @@
               </div>
               <div
                 class="tab-pane fade"
-                id="v-pills-hitos"
+                id="contracts-hitos"
                 role="tabpanel"
-                aria-labelledby="v-pills-hitos-tab"
+                aria-labelledby="contracts-hitos-tab"
               >
                 <div class="form h-100">
                   <form [formGroup]="milestones">
@@ -2604,9 +2304,9 @@
               </div>
               <div
                 class="tab-pane fade"
-                id="v-pills-enmiendas"
+                id="contracts-enmiendas"
                 role="tabpanel"
-                aria-labelledby="v-pills-enmiendas-tab"
+                aria-labelledby="contracts-enmiendas-tab"
               >
                 <div class="form h-100">
                   <form [formGroup]="amendments">
@@ -2812,12 +2512,12 @@
               </div>
             </div>
 
-            <div class="tab-content" id="v-pills-tabContent">
+            <div class="tab-content" id="contracts-tabContent">
               <div
                 class="tab-pane fade"
-                id="v-pills-implementation"
+                id="contracts-implementation"
                 role="tabpanel"
-                aria-labelledby="v-pills-implementation-tab"
+                aria-labelledby="contracts-implementation-tab"
               >
                 <app-contracts-implementation></app-contracts-implementation>
               </div>
