@@ -253,10 +253,115 @@
               </tr>
             </thead>
             <tbody>
-              <tr *ngFor="let item of contractForm.value.exchangeRates">
+              <tr
+                *ngFor="
+                  let item of contractForm.value.value.exchangeRates;
+                  index as i
+                "
+              >
                 <td>
                   {{ item.rate }}
                 </td>
+                <td>
+                  {{ item.currency }}
+                </td>
+                <td>
+                  {{ item.date }}
+                </td>
+                <td>{{ item.source }}</td>
+                <td>
+                  <button
+                    type="button"
+                    class="btn btn-danger btn-remove"
+                    (click)="deleteExchangeRates(i)"
+                  >
+                    Eliminar
+                  </button>
+                </td>
+              </tr>
+              <tr *ngIf="contractForm.value.value.exchangeRates.length === 0">
+                <th scope="row" colspan="5" class="text-center">
+                  Sin registros.
+                </th>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </fieldset>
+  <fieldset class="border p-3 mb-3">
+    <div class="row">
+      <div class="form-floating col-4 mb-5">
+        <input
+          class="form-control"
+          id="dateSigned"
+          type="date"
+          data-sb-validations="required"
+          formControlName="dateSigned"
+        />
+        <label for="dateSigned">Fecha de firma*</label>
+        <div class="invalid-feedback" data-sb-feedback="dateSigned:required">
+          Fecha de firma * es requerido.
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col">
+        <div class="table-responsive">
+          <table class="table table-hover table-striped">
+            <thead>
+              <tr>
+                <th scope="col">Mecanismos de vigilancia</th>
+                <th scope="col">Opciones</th>
+              </tr>
+              <tr>
+                <th>
+                  <select
+                    class="form-select"
+                    [(ngModel)]="surveillanceMechanismsValue"
+                    [ngModelOptions]="{ standalone: true }"
+                  >
+                    <option *ngFor="let d of [1, 2, 3]">
+                      Mecanismos #{{ d }}
+                    </option>
+                  </select>
+                </th>
+                <th>
+                  <button
+                    type="button"
+                    class="btn btn-danger btn-add"
+                    (click)="addSurveillanceMechanisms()"
+                  >
+                    Agregar
+                  </button>
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr
+                *ngFor="
+                  let item of contractForm.value.surveillanceMechanisms;
+                  index as i
+                "
+              >
+                <td scope="row">{{ item }}</td>
+                <td>
+                  <button
+                    type="button"
+                    class="btn btn-danger btn-remove"
+                    (click)="deleteSurveillanceMechanisms(i)"
+                  >
+                    Eliminar
+                  </button>
+                </td>
+              </tr>
+              <tr
+                *ngIf="contractForm.value.surveillanceMechanisms.length === 0"
+              >
+                <th scope="row" colspan="2" class="text-center">
+                  Sin registros.
+                </th>
               </tr>
             </tbody>
           </table>

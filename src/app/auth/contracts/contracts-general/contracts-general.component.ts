@@ -11,6 +11,7 @@ export class ContractsGeneralComponent implements OnInit {
   @Input() contractForm!: FormGroup;
 
   exchangeForm!: FormGroup;
+  surveillanceMechanismsValue: String = '';
 
   contractStatus = ContractStatus;
   currency = Currency;
@@ -18,10 +19,6 @@ export class ContractsGeneralComponent implements OnInit {
   get exchangeRatesArray() {
     const value = this.contractForm.get('value');
     return value?.get('exchangeRates') as FormArray;
-
-    // .controls[
-    //   'exchangeRates'
-    // ] as FormArray;
   }
 
   addExchangeRates(): void {
@@ -33,6 +30,20 @@ export class ContractsGeneralComponent implements OnInit {
   }
   deleteExchangeRates(index: number): void {
     this.exchangeRatesArray.removeAt(index);
+  }
+
+  get surveillanceMechanismsArray() {
+    return this.contractForm.controls['surveillanceMechanisms'] as FormArray;
+  }
+
+  addSurveillanceMechanisms() {
+    this.surveillanceMechanismsArray.push(
+      this.fb.control(this.surveillanceMechanismsValue)
+    );
+    this.surveillanceMechanismsValue = '';
+  }
+  deleteSurveillanceMechanisms(index: number) {
+    this.surveillanceMechanismsArray.removeAt(index);
   }
 
   getContractStatusDesc(code: string): string {

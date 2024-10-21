@@ -67,6 +67,8 @@ export class ContractsComponent implements OnInit {
         currency: ['MXN', [Validators.required]],
         exchangeRates: this.fb.array([]),
       }),
+      dateSigned: ['dateSigned', [Validators.required]],
+      surveillanceMechanisms: this.fb.array([]),
     });
   }
 
@@ -211,26 +213,6 @@ export class ContractsComponent implements OnInit {
       );
   }
   /******************* Termina la sección de métodos para llamar al api desde el servicio *******************/
-
-  /******************* Comienza sección de métodos para construir el objeto por subseccion *******************/
-  addGeneralContractToArray() {
-    let contractSend = this.contracts.value;
-
-    this.datacontract = {
-      _id: this.generarId(),
-      id: contractSend.id,
-      status: contractSend.status,
-      awardID: contractSend.awardID,
-      title: contractSend.title,
-      description: contractSend.description,
-      surveillanceMechanisms: contractSend.surveillanceMechanisms,
-      period: contractSend.period,
-      value: contractSend.value,
-      dateSignedContracts: contractSend.dateSignedContracts,
-      ...this.datacontract.contract,
-    };
-    console.log('Contrato agregado al array', this.datacontract);
-  }
 
   /********************  Comienza la sección de documentos ********************/
 
@@ -849,6 +831,11 @@ export class ContractsComponent implements OnInit {
   }
 
   onSubmit(idGlobal: string) {
+    console.log('idGlobal: ', idGlobal);
+    console.log('this.contractForm.value: ', this.contractForm.value);
+  }
+
+  onSubmit2(idGlobal: string) {
     if (this.banderaEditar) {
       this.getMethodById(this.idGlobal);
       // Encontrar el índice del contrato a actualizar
