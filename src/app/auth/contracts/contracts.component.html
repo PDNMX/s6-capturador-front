@@ -341,6 +341,22 @@
             </div>
           </div>
 
+          <div
+            class="tab-pane fade"
+            id="contracts-amendments"
+            role="tabpanel"
+            aria-labelledby="contracts-amendments-tab"
+            tabindex="0"
+          >
+            <div class="form">
+              <app-contracts-amendments
+                [amendmentsArray]="contractForm.value.amendments"
+                (addAmendment)="addAmendments($event)"
+                (deleteAmendment)="deleteAmendments($event)"
+              ></app-contracts-amendments>
+            </div>
+          </div>
+
           <!-- fin  -->
           <div class="col col-md-9">
             <div class="tab-content" id="contracts-tabContent">
@@ -1390,276 +1406,7 @@
                   </form>
                 </div>
               </div>
-              <div
-                class="tab-pane fade"
-                id="contracts-hitos"
-                role="tabpanel"
-                aria-labelledby="contracts-hitos-tab"
-              >
-                <div class="form h-100">
-                  <form [formGroup]="milestones">
-                    <fieldset class="border p-3 mb-3">
-                      <legend>
-                        Datos generales del contrato (Sección de hitos)
-                      </legend>
-                      <div class="row">
-                        <div class="col-md-4">
-                          <div class="form-floating mb-3">
-                            <input
-                              class="form-control"
-                              id="idHito"
-                              type="text"
-                              placeholder="Id del hito"
-                              data-sb-validations="required"
-                              formControlName="id"
-                              [ngClass]="{ readonly: isReadOnly }"
-                            />
-                            <label for="idHito">Id del hito</label>
-                            <div
-                              class="invalid-feedback"
-                              data-sb-feedback="idHito:required"
-                            >
-                              Id del hito es requerido.
-                            </div>
-                          </div>
-                        </div>
-                        <div class="col-md-4">
-                          <div class="form-floating mb-3">
-                            <input
-                              class="form-control"
-                              id="nombreHito"
-                              type="text"
-                              placeholder="Nombre del hito"
-                              data-sb-validations="required"
-                              formControlName="title"
-                              [ngClass]="{ readonly: isReadOnly }"
-                            />
-                            <label for="nombreHito">Titulo del hito</label>
-                            <div
-                              class="invalid-feedback"
-                              data-sb-feedback="nombreHito:required"
-                            >
-                              Nombre del hito es requerido.
-                            </div>
-                          </div>
-                        </div>
-                        <div class="col-md-4">
-                          <div class="form-floating mb-3">
-                            <input
-                              class="form-control"
-                              id="tipoHito"
-                              type="text"
-                              placeholder="Tipo del hito"
-                              data-sb-validations="required"
-                              formControlName="type"
-                              [ngClass]="{ readonly: isReadOnly }"
-                            />
-                            <label for="tipoHito">Tipo del hito</label>
-                            <div
-                              class="invalid-feedback"
-                              data-sb-feedback="tipoHito:required"
-                            >
-                              Tipo del hito es requerido.
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                      <div class="row">
-                        <div class="col-md-12">
-                          <div class="form-floating mb-3">
-                            <input
-                              class="form-control"
-                              id="descripcionHito"
-                              type="text"
-                              placeholder="Descripción del hito"
-                              data-sb-validations="required"
-                              formControlName="description"
-                              [ngClass]="{ readonly: isReadOnly }"
-                            />
-                            <label for="descripcionHito"
-                              >Descripción del hito</label
-                            >
-                            <div
-                              class="invalid-feedback"
-                              data-sb-feedback="descripcionHito:required"
-                            >
-                              Descripción del hito es requerida.
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                      <div class="row">
-                        <div class="col-md-6">
-                          <div class="form-floating mb-3">
-                            <input
-                              class="form-control"
-                              id="codeHito"
-                              type="text"
-                              placeholder="Código del hito"
-                              data-sb-validations="required"
-                              formControlName="code"
-                              [ngClass]="{ readonly: isReadOnly }"
-                            />
-                            <label for="codeHito">Código del hito</label>
-                            <div
-                              class="invalid-feedback"
-                              data-sb-feedback="codeHito:required"
-                            >
-                              Código del hito es requerido.
-                            </div>
-                          </div>
-                        </div>
-                        <div class="col-md-6">
-                          <div class="form-floating mb-3">
-                            <input
-                              class="form-control"
-                              id="statusHito"
-                              type="text"
-                              placeholder="Estatus del hito"
-                              data-sb-validations="required"
-                              formControlName="status"
-                              [ngClass]="{ readonly: isReadOnly }"
-                            />
-                            <label for="statusHito">Estatus del hito</label>
-                            <div
-                              class="invalid-feedback"
-                              data-sb-feedback="statusHito:required"
-                            >
-                              Estatus del hito es requerida.
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                      <div class="row">
-                        <div class="col-md-4">
-                          <div class="form-floating mb-3">
-                            <input
-                              class="form-control"
-                              id="vencimientoHito"
-                              type="date"
-                              placeholder="Fecha de vencimiento"
-                              data-sb-validations="required"
-                              formControlName="dueDate"
-                              [ngClass]="{ readonly: isReadOnly }"
-                            />
-                            <label for="vencimientoHito"
-                              >Fecha de vencimiento</label
-                            >
-                            <div
-                              class="invalid-feedback"
-                              data-sb-feedback="vencimientoHito:required"
-                            >
-                              Fecha de vencimiento es requerida.
-                            </div>
-                          </div>
-                        </div>
-                        <div class="col-md-4">
-                          <div class="form-floating mb-3">
-                            <input
-                              class="form-control"
-                              id="fechaCumplimiento"
-                              type="date"
-                              placeholder="Fecha de vencimiento"
-                              data-sb-validations="required"
-                              formControlName="dateMet"
-                              [ngClass]="{ readonly: isReadOnly }"
-                            />
-                            <label for="fechaCumplimiento"
-                              >Fecha de cumplimiento</label
-                            >
-                            <div
-                              class="invalid-feedback"
-                              data-sb-feedback="fechaCumplimiento:required"
-                            >
-                              Fecha de cumplimiento es requerida.
-                            </div>
-                          </div>
-                        </div>
-                        <div class="col-md-4">
-                          <div class="form-floating mb-3">
-                            <input
-                              class="form-control"
-                              id="fechaModificaionHito"
-                              type="date"
-                              placeholder="Fecha de modificación"
-                              data-sb-validations="required"
-                              formControlName="dateModified"
-                              [ngClass]="{ readonly: isReadOnly }"
-                            />
-                            <label for="fechaModificaionHito"
-                              >Fecha de modificación</label
-                            >
-                            <div
-                              class="invalid-feedback"
-                              data-sb-feedback="fechaModificaionHito:required"
-                            >
-                              Fecha de modificación es requerida.
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                      <div class="row">
-                        <div class="col-md-6">
-                          <!-- <button
-                            (click)="addMilestoneToArray()"
-                            class="btn btn-danger btn-add"
-                          >
-                            Agregar hito
-                          </button> -->
-                        </div>
-                        <div class="col-md-6">
-                          <!-- <button
-                            (click)="addMilestonesToArray()"
-                            class="btn btn-danger btn-add"
-                            [ngClass]="{ readonly: isReadOnly }"
-                          >
-                            Guardar sección
-                          </button> -->
-                        </div>
-                      </div>
-                      <div class="row">
-                        <div class="row mt-3">
-                          <div class="col-12">
-                            <h4>Lista de Hitos</h4>
-                            <table class="table table-striped">
-                              <thead>
-                                <tr>
-                                  <th>ID</th>
-                                  <th>Título</th>
-                                  <th>Tipo</th>
-                                  <th>Acciones</th>
-                                </tr>
-                              </thead>
-                              <tbody>
-                                <tr
-                                  *ngFor="
-                                    let milestone of [
-                                      { id: '', title: '', type: '' }
-                                    ];
-                                    let i = index
-                                  "
-                                >
-                                  <td>{{ milestone.id }}</td>
-                                  <td>{{ milestone.title }}</td>
-                                  <td>{{ milestone.type }}</td>
-                                  <td>
-                                    <!-- <button
-                                      class="btn btn-danger btn-sm"
-                                      (click)="deleteMilestone(i)"
-                                    >
-                                      Eliminar
-                                    </button> -->
-                                  </td>
-                                </tr>
-                              </tbody>
-                            </table>
-                          </div>
-                        </div>
-                      </div>
-                    </fieldset>
-                  </form>
-                </div>
-              </div>
+
               <div
                 class="tab-pane fade"
                 id="contracts-enmiendas"
@@ -1810,21 +1557,21 @@
                       </div>
                       <div class="row">
                         <div class="col-md-6">
-                          <button
+                          <!-- <button
                             (click)="addAmendmentToArray()"
                             class="btn btn-danger btn-add"
                           >
                             Agregar enmienda
-                          </button>
+                          </button> -->
                         </div>
                         <div class="col-md-6">
-                          <button
+                          <!-- <button
                             (click)="addAmendmentsToArray()"
                             class="btn btn-danger btn-add"
                             [ngClass]="{ readonly: isReadOnly }"
                           >
                             Guardar sección
-                          </button>
+                          </button> -->
                         </div>
                       </div>
                       <div class="row">
@@ -1843,7 +1590,9 @@
                               <tbody>
                                 <tr
                                   *ngFor="
-                                    let amendment of amendmentsArray;
+                                    let amendment of [
+                                      { id: '', description: '', rationale: '' }
+                                    ];
                                     let i = index
                                   "
                                 >
@@ -1851,12 +1600,12 @@
                                   <td>{{ amendment.description }}</td>
                                   <td>{{ amendment.rationale }}</td>
                                   <td>
-                                    <button
+                                    <!-- <button
                                       class="btn btn-danger btn-sm"
                                       (click)="deleteAmendment(i)"
                                     >
                                       Eliminar
-                                    </button>
+                                    </button> -->
                                   </td>
                                 </tr>
                               </tbody>

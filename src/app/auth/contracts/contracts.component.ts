@@ -66,6 +66,17 @@ export class ContractsComponent implements OnInit {
     this.milestonesArray.removeAt(index);
   }
 
+  get amendmentsArray() {
+    return this.contractForm.controls['amendments'] as FormArray;
+  }
+
+  addAmendments(opt: any): void {
+    this.amendmentsArray.push(opt);
+  }
+  deleteAmendments(index: number): void {
+    this.amendmentsArray.removeAt(index);
+  }
+
   ngOnInit() {
     this.route.paramMap.subscribe((params: any) => {
       this.record_id = params.get('id');
@@ -105,6 +116,7 @@ export class ContractsComponent implements OnInit {
       guarantees: this.fb.array([]),
       documents: this.fb.array([]),
       milestones: this.fb.array([]),
+      amendments: this.fb.array([]),
     });
   }
 
@@ -116,7 +128,7 @@ export class ContractsComponent implements OnInit {
   // documentsArray: any[] = [];
   relatedProcessesArray: any[] = [];
   // milestonesArray: any[] = [];
-  amendmentsArray: any[] = [];
+  // amendmentsArray: any[] = [];
   /* Variable que sirve para identificar si los botones deben ser visibles o no */
   mostrarBotones: boolean = false;
   /* Variable que contiene el objectId o id del mongo a actualizar */
@@ -473,22 +485,22 @@ export class ContractsComponent implements OnInit {
     releaseID: ['', Validators.required],
   });
 
-  addAmendmentToArray() {
-    const newAmendment = this.amendments.value;
-    this.amendmentsArray.push(newAmendment);
-    this.amendments.reset();
-  }
+  // addAmendmentToArray() {
+  //   const newAmendment = this.amendments.value;
+  //   this.amendmentsArray.push(newAmendment);
+  //   this.amendments.reset();
+  // }
 
-  deleteAmendment(index: number) {
-    this.amendmentsArray.splice(index, 1);
-  }
+  // deleteAmendment(index: number) {
+  //   this.amendmentsArray.splice(index, 1);
+  // }
 
-  addAmendmentsToArray() {
-    this.datacontract = {
-      ...this.datacontract,
-      amendments: this.amendmentsArray,
-    };
-  }
+  // addAmendmentsToArray() {
+  //   this.datacontract = {
+  //     ...this.datacontract,
+  //     amendments: this.amendmentsArray,
+  //   };
+  // }
 
   /******************* Termina la sección de modificaciones *******************/
 
@@ -838,7 +850,7 @@ export class ContractsComponent implements OnInit {
     // this.documentsArray = contract.documents || [];
     this.relatedProcessesArray = contract.relatedProcesses || [];
     // this.milestonesArray = contract.milestones || [];
-    this.amendmentsArray = contract.amendments || [];
+    // this.amendmentsArray = contract.amendments || [];
 
     // Desplazarse al formulario
     const element = document.getElementById('v-pills-contrato');
@@ -863,7 +875,7 @@ export class ContractsComponent implements OnInit {
     // this.documentsArray = [];
     this.relatedProcessesArray = [];
     // this.milestonesArray = [];
-    this.amendmentsArray = [];
+    // this.amendmentsArray = [];
   }
 
   onSubmit(idGlobal: string) {
