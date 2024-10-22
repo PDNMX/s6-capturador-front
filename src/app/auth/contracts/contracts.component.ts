@@ -77,6 +77,17 @@ export class ContractsComponent implements OnInit {
     this.amendmentsArray.removeAt(index);
   }
 
+  get itemsArray() {
+    return this.contractForm.controls['items'] as FormArray;
+  }
+
+  addItems(opt: any): void {
+    this.itemsArray.push(opt);
+  }
+  deleteItems(index: number): void {
+    this.itemsArray.removeAt(index);
+  }
+
   ngOnInit() {
     this.route.paramMap.subscribe((params: any) => {
       this.record_id = params.get('id');
@@ -113,6 +124,7 @@ export class ContractsComponent implements OnInit {
       }),
       dateSigned: ['dateSigned', [Validators.required]],
       surveillanceMechanisms: this.fb.array([]),
+      items: this.fb.array([]),
       guarantees: this.fb.array([]),
       documents: this.fb.array([]),
       milestones: this.fb.array([]),
@@ -123,7 +135,7 @@ export class ContractsComponent implements OnInit {
   // fin del codigo
 
   /* Arreglos que contienen los arreglos anidados de cada sección */
-  itemsArray: any[] = [];
+  // itemsArray: any[] = [];
   // guaranteesArray: any[] = [];
   // documentsArray: any[] = [];
   relatedProcessesArray: any[] = [];
@@ -264,17 +276,17 @@ export class ContractsComponent implements OnInit {
 
   /********************  Comienza la sección de documentos ********************/
 
-  documents = this.fb.group({
-    id: ['', Validators.required],
-    documentType: ['', Validators.required],
-    title: ['', Validators.required],
-    description: ['', Validators.required],
-    uri: ['', Validators.required],
-    datePublished: ['', Validators.required],
-    dateModified: ['', Validators.required],
-    format: ['', Validators.required],
-    language: ['', Validators.required],
-  });
+  // documents = this.fb.group({
+  //   id: ['', Validators.required],
+  //   documentType: ['', Validators.required],
+  //   title: ['', Validators.required],
+  //   description: ['', Validators.required],
+  //   uri: ['', Validators.required],
+  //   datePublished: ['', Validators.required],
+  //   dateModified: ['', Validators.required],
+  //   format: ['', Validators.required],
+  //   language: ['', Validators.required],
+  // });
 
   // addDocumentToArray() {
   //   const newDocument = this.documents.value;
@@ -297,76 +309,76 @@ export class ContractsComponent implements OnInit {
   /********************  Terminma la sección de documentos ********************/
 
   /******************* Comienza la sección de items ********************/
-  items = this.fb.group({
-    id: ['', Validators.required],
-    description: ['', Validators.required],
-    clasification: this.fb.group({
-      scheme: ['', Validators.required],
-      id: ['', Validators.required],
-      uri: ['', Validators.required],
-      description: ['', Validators.required],
-    }),
-    additionalClassifications: this.fb.group({
-      scheme: ['', Validators.required],
-      id: ['', Validators.required],
-      uri: ['', Validators.required],
-      description: ['', Validators.required],
-    }),
-    quantity: ['', Validators.required],
-    unit: this.fb.group({
-      scheme: ['', Validators.required],
-      id: ['', Validators.required],
-      name: ['', Validators.required],
-      uri: ['', Validators.required],
-      value: this.fb.group({
-        amount: ['', Validators.required],
-        currency: ['', Validators.required],
-      }),
-    }),
-    deliveryLocation: this.fb.group({
-      uri: ['', Validators.required],
-      description: ['', Validators.required],
-      geometry: this.fb.group({
-        type: ['', Validators.required],
-        coordinates: this.fb.group({
-          latitude: ['', Validators.required],
-          longitude: ['', Validators.required],
-        }),
-        gazetteer: this.fb.group({
-          scheme: ['', Validators.required],
-          identifiers: ['', Validators.required],
-        }),
-      }),
-    }),
-    deliveryAddress: this.fb.group({
-      uri: ['', Validators.required],
-      description: ['', Validators.required],
-      streetAddress: ['', Validators.required],
-      locality: ['', Validators.required],
-      region: ['', Validators.required],
-      postalCode: ['', Validators.required],
-      countryName: ['', Validators.required],
-    }),
-  });
+  // items = this.fb.group({
+  //   id: ['', Validators.required],
+  //   description: ['', Validators.required],
+  //   clasification: this.fb.group({
+  //     scheme: ['', Validators.required],
+  //     id: ['', Validators.required],
+  //     uri: ['', Validators.required],
+  //     description: ['', Validators.required],
+  //   }),
+  //   additionalClassifications: this.fb.group({
+  //     scheme: ['', Validators.required],
+  //     id: ['', Validators.required],
+  //     uri: ['', Validators.required],
+  //     description: ['', Validators.required],
+  //   }),
+  //   quantity: ['', Validators.required],
+  //   unit: this.fb.group({
+  //     scheme: ['', Validators.required],
+  //     id: ['', Validators.required],
+  //     name: ['', Validators.required],
+  //     uri: ['', Validators.required],
+  //     value: this.fb.group({
+  //       amount: ['', Validators.required],
+  //       currency: ['', Validators.required],
+  //     }),
+  //   }),
+  //   deliveryLocation: this.fb.group({
+  //     uri: ['', Validators.required],
+  //     description: ['', Validators.required],
+  //     geometry: this.fb.group({
+  //       type: ['', Validators.required],
+  //       coordinates: this.fb.group({
+  //         latitude: ['', Validators.required],
+  //         longitude: ['', Validators.required],
+  //       }),
+  //       gazetteer: this.fb.group({
+  //         scheme: ['', Validators.required],
+  //         identifiers: ['', Validators.required],
+  //       }),
+  //     }),
+  //   }),
+  //   deliveryAddress: this.fb.group({
+  //     uri: ['', Validators.required],
+  //     description: ['', Validators.required],
+  //     streetAddress: ['', Validators.required],
+  //     locality: ['', Validators.required],
+  //     region: ['', Validators.required],
+  //     postalCode: ['', Validators.required],
+  //     countryName: ['', Validators.required],
+  //   }),
+  // });
 
-  addItemToArray() {
-    const newItem = this.items.value;
-    this.itemsArray.push(newItem);
-    this.items.reset(); // Clear the form after adding
-  }
+  // addItemToArray() {
+  //   const newItem = this.items.value;
+  //   this.itemsArray.push(newItem);
+  //   this.items.reset(); // Clear the form after adding
+  // }
 
-  deleteItem(index: number) {
-    this.itemsArray.splice(index, 1);
-  }
+  // deleteItem(index: number) {
+  //   this.itemsArray.splice(index, 1);
+  // }
 
-  addItemsToArray() {
-    console.log('Agregando items al array');
-    this.datacontract = {
-      ...this.datacontract,
-      items: this.itemsArray,
-    };
-    console.log('Ítems agregados al array', this.datacontract);
-  }
+  // addItemsToArray() {
+  //   console.log('Agregando items al array');
+  //   this.datacontract = {
+  //     ...this.datacontract,
+  //     items: this.itemsArray,
+  //   };
+  //   console.log('Ítems agregados al array', this.datacontract);
+  // }
 
   /******************** Termina la sección de items ********************/
 
@@ -402,14 +414,14 @@ export class ContractsComponent implements OnInit {
   //   this.guaranteesArray.splice(index, 1);
   // }
 
-  addGuaranteesToArray() {
-    console.log('Agregando garantías al array');
-    this.datacontract = {
-      ...this.datacontract,
-      guarantees: this.guaranteesArray,
-    };
-    console.log('Garantías agregadas al array', this.datacontract);
-  }
+  // addGuaranteesToArray() {
+  //   console.log('Agregando garantías al array');
+  //   this.datacontract = {
+  //     ...this.datacontract,
+  //     guarantees: this.guaranteesArray,
+  //   };
+  //   console.log('Garantías agregadas al array', this.datacontract);
+  // }
 
   /******************* Termina la sección de garantías *******************/
 
@@ -444,17 +456,17 @@ export class ContractsComponent implements OnInit {
   /******************* Termina la sección de procesos relacionados *******************/
 
   /******************* Comienza la sección de hitos *******************/
-  milestones = this.fb.group({
-    id: ['', Validators.required],
-    title: ['', Validators.required],
-    type: ['', Validators.required],
-    description: ['', Validators.required],
-    code: ['', Validators.required],
-    dueDate: ['', Validators.required],
-    dateMet: ['', Validators.required],
-    dateModified: ['', Validators.required],
-    status: ['', Validators.required],
-  });
+  // milestones = this.fb.group({
+  //   id: ['', Validators.required],
+  //   title: ['', Validators.required],
+  //   type: ['', Validators.required],
+  //   description: ['', Validators.required],
+  //   code: ['', Validators.required],
+  //   dueDate: ['', Validators.required],
+  //   dateMet: ['', Validators.required],
+  //   dateModified: ['', Validators.required],
+  //   status: ['', Validators.required],
+  // });
 
   // addMilestoneToArray() {
   //   const newMilestone = this.milestones.value;
@@ -476,14 +488,14 @@ export class ContractsComponent implements OnInit {
   /******************* Termina la sección de hitos *******************/
 
   /******************* Comienza la sección de modificaciones *******************/
-  amendments = this.fb.group({
-    id: ['', Validators.required],
-    date: ['', Validators.required],
-    rationale: ['', Validators.required],
-    description: ['', Validators.required],
-    amendsReleaseID: ['', Validators.required],
-    releaseID: ['', Validators.required],
-  });
+  // amendments = this.fb.group({
+  //   id: ['', Validators.required],
+  //   date: ['', Validators.required],
+  //   rationale: ['', Validators.required],
+  //   description: ['', Validators.required],
+  //   amendsReleaseID: ['', Validators.required],
+  //   releaseID: ['', Validators.required],
+  // });
 
   // addAmendmentToArray() {
   //   const newAmendment = this.amendments.value;
@@ -510,12 +522,12 @@ export class ContractsComponent implements OnInit {
   addElementToObject() {
     //alert('Elemento agregado');
     let contractSend = this.contracts.value;
-    let items = this.items.value;
+    // let items = this.items.value;
     // let guarantees = this.guarantees.value;
-    let documents = this.documents.value;
+    // let documents = this.documents.value;
     let relatedProcesses = this.relatedProcesses.value;
-    let milestones = this.milestones.value;
-    let amendments = this.amendments.value;
+    // let milestones = this.milestones.value;
+    // let amendments = this.amendments.value;
 
     this.datacontract = {
       _id: this.generarId(),
@@ -528,16 +540,16 @@ export class ContractsComponent implements OnInit {
       period: contractSend.period,
       value: contractSend.value,
       dateSignedContracts: contractSend.dateSignedContracts,
-      items: {
-        id: items.id,
-        description: items.description,
-        clasification: items.clasification,
-        additionalClassifications: items.additionalClassifications,
-        quantity: items.quantity,
-        unit: items.unit,
-        deliveryLocation: items.deliveryLocation,
-        deliveryAddress: items.deliveryAddress,
-      },
+      // items: {
+      //   id: items.id,
+      //   description: items.description,
+      //   clasification: items.clasification,
+      //   additionalClassifications: items.additionalClassifications,
+      //   quantity: items.quantity,
+      //   unit: items.unit,
+      //   deliveryLocation: items.deliveryLocation,
+      //   deliveryAddress: items.deliveryAddress,
+      // },
       // guarantees: {
       //   id: guarantees.id,
       //   type: guarantees.type,
@@ -547,16 +559,16 @@ export class ContractsComponent implements OnInit {
       //   guarantor: guarantees.guarantor,
       //   period: guarantees.period,
       // },
-      documents: {
-        id: documents.id,
-        documentType: documents.documentType,
-        title: documents.title,
-        description: documents.description,
-        uri: documents.uri,
-        datePublished: documents.datePublished,
-        dateModified: documents.dateModified,
-        format: documents.format,
-      },
+      // documents: {
+      //   id: documents.id,
+      //   documentType: documents.documentType,
+      //   title: documents.title,
+      //   description: documents.description,
+      //   uri: documents.uri,
+      //   datePublished: documents.datePublished,
+      //   dateModified: documents.dateModified,
+      //   format: documents.format,
+      // },
       relatedProcesses: {
         id: relatedProcesses.id,
         relationship: relatedProcesses.relationship,
@@ -565,25 +577,25 @@ export class ContractsComponent implements OnInit {
         identifier: relatedProcesses.identifier,
         uri: relatedProcesses.uri,
       },
-      milestones: {
-        id: milestones.id,
-        title: milestones.title,
-        type: milestones.type,
-        description: milestones.description,
-        code: milestones.code,
-        dueDate: milestones.dueDate,
-        dateMet: milestones.dateMet,
-        dateModified: milestones.dateModified,
-        status: milestones.status,
-      },
-      amendments: {
-        id: amendments.id,
-        date: amendments.date,
-        rationale: amendments.rationale,
-        description: amendments.description,
-        amendsReleaseID: amendments.amendsReleaseID,
-        releaseID: amendments.releaseID,
-      },
+      // milestones: {
+      //   id: milestones.id,
+      //   title: milestones.title,
+      //   type: milestones.type,
+      //   description: milestones.description,
+      //   code: milestones.code,
+      //   dueDate: milestones.dueDate,
+      //   dateMet: milestones.dateMet,
+      //   dateModified: milestones.dateModified,
+      //   status: milestones.status,
+      // },
+      // amendments: {
+      //   id: amendments.id,
+      //   date: amendments.date,
+      //   rationale: amendments.rationale,
+      //   description: amendments.description,
+      //   amendsReleaseID: amendments.amendsReleaseID,
+      //   releaseID: amendments.releaseID,
+      // },
     };
   }
 
@@ -627,83 +639,83 @@ export class ContractsComponent implements OnInit {
           this.registroPorId.record.contracts.dateSignedContracts.dateSigned,
       },
     });
-    this.items.patchValue({
-      id: this.registroPorId.record.contracts.items.id,
-      description: this.registroPorId.record.contracts.items.description,
-      clasification: {
-        scheme: this.registroPorId.record.contracts.items.clasification.scheme,
-        id: this.registroPorId.record.contracts.items.clasification.id,
-        uri: this.registroPorId.record.contracts.items.clasification.uri,
-        description:
-          this.registroPorId.record.contracts.items.clasification.description,
-      },
-      additionalClassifications: {
-        scheme:
-          this.registroPorId.record.contracts.items.additionalClassifications
-            .scheme,
-        id: this.registroPorId.record.contracts.items.additionalClassifications
-          .id,
-        uri: this.registroPorId.record.contracts.items.additionalClassifications
-          .uri,
-        description:
-          this.registroPorId.record.contracts.items.additionalClassifications
-            .description,
-      },
-      quantity: this.registroPorId.record.contracts.items.quantity,
-      unit: {
-        scheme: this.registroPorId.record.contracts.items.unit.scheme,
-        id: this.registroPorId.record.contracts.items.unit.id,
-        name: this.registroPorId.record.contracts.items.unit.name,
-        uri: this.registroPorId.record.contracts.items.unit.uri,
-        value: {
-          amount: this.registroPorId.record.contracts.items.unit.value.amount,
-          currency:
-            this.registroPorId.record.contracts.items.unit.value.currency,
-        },
-      },
-      deliveryLocation: {
-        uri: this.registroPorId.record.contracts.items.deliveryLocation.uri,
-        description:
-          this.registroPorId.record.contracts.items.deliveryLocation
-            .description,
-        geometry: {
-          type: this.registroPorId.record.contracts.items.deliveryLocation
-            .geometry.type,
-          coordinates: {
-            latitude:
-              this.registroPorId.record.contracts.items.deliveryLocation
-                .geometry.coordinates.latitude,
-            longitude:
-              this.registroPorId.record.contracts.items.deliveryLocation
-                .geometry.coordinates.longitude,
-          },
-          gazetteer: {
-            scheme:
-              this.registroPorId.record.contracts.items.deliveryLocation
-                .geometry.gazetteer.scheme,
-            identifiers:
-              this.registroPorId.record.contracts.items.deliveryLocation
-                .geometry.gazetteer.identifiers,
-          },
-        },
-      },
-      deliveryAddress: {
-        uri: this.registroPorId.record.contracts.items.deliveryAddress.uri,
-        description:
-          this.registroPorId.record.contracts.items.deliveryAddress.description,
-        streetAddress:
-          this.registroPorId.record.contracts.items.deliveryAddress
-            .streetAddress,
-        locality:
-          this.registroPorId.record.contracts.items.deliveryAddress.locality,
-        region:
-          this.registroPorId.record.contracts.items.deliveryAddress.region,
-        postalCode:
-          this.registroPorId.record.contracts.items.deliveryAddress.postalCode,
-        countryName:
-          this.registroPorId.record.contracts.items.deliveryAddress.countryName,
-      },
-    });
+    // this.items.patchValue({
+    //   id: this.registroPorId.record.contracts.items.id,
+    //   description: this.registroPorId.record.contracts.items.description,
+    //   clasification: {
+    //     scheme: this.registroPorId.record.contracts.items.clasification.scheme,
+    //     id: this.registroPorId.record.contracts.items.clasification.id,
+    //     uri: this.registroPorId.record.contracts.items.clasification.uri,
+    //     description:
+    //       this.registroPorId.record.contracts.items.clasification.description,
+    //   },
+    //   additionalClassifications: {
+    //     scheme:
+    //       this.registroPorId.record.contracts.items.additionalClassifications
+    //         .scheme,
+    //     id: this.registroPorId.record.contracts.items.additionalClassifications
+    //       .id,
+    //     uri: this.registroPorId.record.contracts.items.additionalClassifications
+    //       .uri,
+    //     description:
+    //       this.registroPorId.record.contracts.items.additionalClassifications
+    //         .description,
+    //   },
+    //   quantity: this.registroPorId.record.contracts.items.quantity,
+    //   unit: {
+    //     scheme: this.registroPorId.record.contracts.items.unit.scheme,
+    //     id: this.registroPorId.record.contracts.items.unit.id,
+    //     name: this.registroPorId.record.contracts.items.unit.name,
+    //     uri: this.registroPorId.record.contracts.items.unit.uri,
+    //     value: {
+    //       amount: this.registroPorId.record.contracts.items.unit.value.amount,
+    //       currency:
+    //         this.registroPorId.record.contracts.items.unit.value.currency,
+    //     },
+    //   },
+    //   deliveryLocation: {
+    //     uri: this.registroPorId.record.contracts.items.deliveryLocation.uri,
+    //     description:
+    //       this.registroPorId.record.contracts.items.deliveryLocation
+    //         .description,
+    //     geometry: {
+    //       type: this.registroPorId.record.contracts.items.deliveryLocation
+    //         .geometry.type,
+    //       coordinates: {
+    //         latitude:
+    //           this.registroPorId.record.contracts.items.deliveryLocation
+    //             .geometry.coordinates.latitude,
+    //         longitude:
+    //           this.registroPorId.record.contracts.items.deliveryLocation
+    //             .geometry.coordinates.longitude,
+    //       },
+    //       gazetteer: {
+    //         scheme:
+    //           this.registroPorId.record.contracts.items.deliveryLocation
+    //             .geometry.gazetteer.scheme,
+    //         identifiers:
+    //           this.registroPorId.record.contracts.items.deliveryLocation
+    //             .geometry.gazetteer.identifiers,
+    //       },
+    //     },
+    //   },
+    //   deliveryAddress: {
+    //     uri: this.registroPorId.record.contracts.items.deliveryAddress.uri,
+    //     description:
+    //       this.registroPorId.record.contracts.items.deliveryAddress.description,
+    //     streetAddress:
+    //       this.registroPorId.record.contracts.items.deliveryAddress
+    //         .streetAddress,
+    //     locality:
+    //       this.registroPorId.record.contracts.items.deliveryAddress.locality,
+    //     region:
+    //       this.registroPorId.record.contracts.items.deliveryAddress.region,
+    //     postalCode:
+    //       this.registroPorId.record.contracts.items.deliveryAddress.postalCode,
+    //     countryName:
+    //       this.registroPorId.record.contracts.items.deliveryAddress.countryName,
+    //   },
+    // });
     // this.guarantees.patchValue({
     //   id: this.registroPorId.record.contracts.guarantees.id,
     //   type: this.registroPorId.record.contracts.guarantees.type,
@@ -727,17 +739,17 @@ export class ContractsComponent implements OnInit {
     //       this.registroPorId.record.contracts.guarantees.period.maxExtentDate,
     //   },
     // });
-    this.documents.patchValue({
-      id: this.registroPorId.record.contracts.documents.id,
-      documentType: this.registroPorId.record.contracts.documents.documentType,
-      title: this.registroPorId.record.contracts.documents.title,
-      description: this.registroPorId.record.contracts.documents.description,
-      uri: this.registroPorId.record.contracts.documents.uri,
-      datePublished:
-        this.registroPorId.record.contracts.documents.datePublished,
-      dateModified: this.registroPorId.record.contracts.documents.dateModified,
-      format: this.registroPorId.record.contracts.documents.format,
-    });
+    // this.documents.patchValue({
+    //   id: this.registroPorId.record.contracts.documents.id,
+    //   documentType: this.registroPorId.record.contracts.documents.documentType,
+    //   title: this.registroPorId.record.contracts.documents.title,
+    //   description: this.registroPorId.record.contracts.documents.description,
+    //   uri: this.registroPorId.record.contracts.documents.uri,
+    //   datePublished:
+    //     this.registroPorId.record.contracts.documents.datePublished,
+    //   dateModified: this.registroPorId.record.contracts.documents.dateModified,
+    //   format: this.registroPorId.record.contracts.documents.format,
+    // });
     this.relatedProcesses.patchValue({
       id: this.registroPorId.record.contracts.relatedProcesses.id,
       relationship:
@@ -748,26 +760,26 @@ export class ContractsComponent implements OnInit {
         this.registroPorId.record.contracts.relatedProcesses.identifier,
       uri: this.registroPorId.record.contracts.relatedProcesses.uri,
     });
-    this.milestones.patchValue({
-      id: this.registroPorId.record.contracts.milestones.id,
-      title: this.registroPorId.record.contracts.milestones.title,
-      type: this.registroPorId.record.contracts.milestones.type,
-      description: this.registroPorId.record.contracts.milestones.description,
-      code: this.registroPorId.record.contracts.milestones.code,
-      dueDate: this.registroPorId.record.contracts.milestones.dueDate,
-      dateMet: this.registroPorId.record.contracts.milestones.dateMet,
-      dateModified: this.registroPorId.record.contracts.milestones.dateModified,
-      status: this.registroPorId.record.contracts.milestones.status,
-    });
-    this.amendments.patchValue({
-      id: this.registroPorId.record.contracts.amendments.id,
-      date: this.registroPorId.record.contracts.amendments.date,
-      rationale: this.registroPorId.record.contracts.amendments.rationale,
-      description: this.registroPorId.record.contracts.amendments.description,
-      amendsReleaseID:
-        this.registroPorId.record.contracts.amendments.amendsReleaseID,
-      releaseID: this.registroPorId.record.contracts.amendments.releaseID,
-    });
+    // this.milestones.patchValue({
+    //   id: this.registroPorId.record.contracts.milestones.id,
+    //   title: this.registroPorId.record.contracts.milestones.title,
+    //   type: this.registroPorId.record.contracts.milestones.type,
+    //   description: this.registroPorId.record.contracts.milestones.description,
+    //   code: this.registroPorId.record.contracts.milestones.code,
+    //   dueDate: this.registroPorId.record.contracts.milestones.dueDate,
+    //   dateMet: this.registroPorId.record.contracts.milestones.dateMet,
+    //   dateModified: this.registroPorId.record.contracts.milestones.dateModified,
+    //   status: this.registroPorId.record.contracts.milestones.status,
+    // });
+    // this.amendments.patchValue({
+    //   id: this.registroPorId.record.contracts.amendments.id,
+    //   date: this.registroPorId.record.contracts.amendments.date,
+    //   rationale: this.registroPorId.record.contracts.amendments.rationale,
+    //   description: this.registroPorId.record.contracts.amendments.description,
+    //   amendsReleaseID:
+    //     this.registroPorId.record.contracts.amendments.amendsReleaseID,
+    //   releaseID: this.registroPorId.record.contracts.amendments.releaseID,
+    // });
     //console.log(this.registroPorId.record);
   }
 
@@ -845,7 +857,7 @@ export class ContractsComponent implements OnInit {
       dateSignedContracts: contract.dateSignedContracts,
     });
 
-    this.itemsArray = contract.items || [];
+    // this.itemsArray = contract.items || [];
     // this.guaranteesArray = contract.guarantees || [];
     // this.documentsArray = contract.documents || [];
     this.relatedProcessesArray = contract.relatedProcesses || [];
@@ -870,7 +882,7 @@ export class ContractsComponent implements OnInit {
     this.banderaEditar = false;
     this.contratoId = '';
     this.contracts.reset();
-    this.itemsArray = [];
+    // this.itemsArray = [];
     // this.guaranteesArray = [];
     // this.documentsArray = [];
     this.relatedProcessesArray = [];
@@ -896,22 +908,22 @@ export class ContractsComponent implements OnInit {
           ...this.contractsArrayToSend[index],
           ...this.contracts.value,
           items: this.itemsArray,
-          guarantees: this.guaranteesArray,
-          documents: this.documentsArray,
+          // guarantees: this.guaranteesArray,
+          // documents: this.documentsArray,
           relatedProcesses: this.relatedProcessesArray,
-          milestones: this.milestonesArray,
-          amendments: this.amendmentsArray,
+          // milestones: this.milestonesArray,
+          // amendments: this.amendmentsArray,
         };
       }
     } else {
       // Agregar un nuevo contrato
       this.addElementToObject();
       this.datacontract.items = this.itemsArray;
-      this.datacontract.guarantees = this.guaranteesArray;
-      this.datacontract.documents = this.documentsArray;
+      // this.datacontract.guarantees = this.guaranteesArray;
+      // this.datacontract.documents = this.documentsArray;
       this.datacontract.relatedProcesses = this.relatedProcessesArray;
-      this.datacontract.milestones = this.milestonesArray;
-      this.datacontract.amendments = this.amendmentsArray;
+      // this.datacontract.milestones = this.milestonesArray;
+      // this.datacontract.amendments = this.amendmentsArray;
       this.datacontract.implementation = {};
       this.contractsArrayToSend.push(this.datacontract);
     }
