@@ -279,7 +279,7 @@
           </div>
 
           <div
-            class="tab-pane fade show active"
+            class="tab-pane fade"
             id="contracts-general"
             role="tabpanel"
             aria-labelledby="contracts-general-tab"
@@ -289,6 +289,39 @@
               <app-contracts-general
                 [contractForm]="contractForm"
               ></app-contracts-general>
+            </div>
+          </div>
+
+          <div
+            class="tab-pane fade"
+            id="contracts-guarantees"
+            role="tabpanel"
+            aria-labelledby="contracts-guarantees-tab"
+            tabindex="0"
+          >
+            <div class="form">
+              <app-contracts-guarantees
+                [guaranteesArray]="contractForm.value.guarantees"
+                (addGuarante)="addGuarante($event)"
+                (deleteGuarante)="deleteGuarante($event)"
+              >
+              </app-contracts-guarantees>
+            </div>
+          </div>
+
+          <div
+            class="tab-pane fade show active"
+            id="contracts-documents"
+            role="tabpanel"
+            aria-labelledby="contracts-documents-tab"
+            tabindex="0"
+          >
+            <div class="form">
+              <!-- <app-tender-documents
+                [documentsArray]="contractForm.value.documents"
+                (addDocument)="addDocument($event)"
+                (deleteDocument)="deleteDocuments($event)"
+              ></app-tender-documents> -->
             </div>
           </div>
 
@@ -507,21 +540,21 @@
                       </div>
                       <div class="row">
                         <div class="col-md-6">
-                          <button
+                          <!-- <button
                             (click)="addDocumentToArray()"
                             class="btn btn-danger btn-add"
                           >
                             Agregar documento
-                          </button>
+                          </button> -->
                         </div>
                         <div class="col-md-6">
-                          <button
+                          <!-- <button
                             (click)="addDocumentsToArray()"
                             class="btn btn-danger btn-add"
                             [ngClass]="{ readonly: isReadOnly }"
                           >
                             Guardar sección
-                          </button>
+                          </button> -->
                         </div>
                       </div>
                       <div class="row">
@@ -540,7 +573,9 @@
                               <tbody>
                                 <tr
                                   *ngFor="
-                                    let document of documentsArray;
+                                    let document of [
+                                      { id: '', title: '', description: '' }
+                                    ];
                                     let i = index
                                   "
                                 >
@@ -548,12 +583,12 @@
                                   <td>{{ document.title }}</td>
                                   <td>{{ document.description }}</td>
                                   <td>
-                                    <button
+                                    <!-- <button
                                       class="btn btn-danger btn-sm"
                                       (click)="deleteDocument(i)"
                                     >
                                       Eliminar
-                                    </button>
+                                    </button> -->
                                   </td>
                                 </tr>
                               </tbody>
@@ -1383,356 +1418,7 @@
                   </form>
                 </div>
               </div>
-              <div
-                class="tab-pane fade"
-                id="contracts-garantias"
-                role="tabpanel"
-                aria-labelledby="contracts-garantias-tab"
-              >
-                <div class="form h-100">
-                  <form [formGroup]="guarantees">
-                    <fieldset class="border p-3 mb-3">
-                      <legend>
-                        Datos generales del contrato (Sección de garantías)
-                      </legend>
-                      <div class="row">
-                        <div class="col-md-6">
-                          <div class="form-floating mb-3">
-                            <input
-                              class="form-control"
-                              id="idGarantia"
-                              type="text"
-                              placeholder="Id de la garantía"
-                              data-sb-validations="required"
-                              formControlName="id"
-                              [ngClass]="{ readonly: isReadOnly }"
-                            />
-                            <label for="idGarantia">Id de la garantía</label>
-                            <div
-                              class="invalid-feedback"
-                              data-sb-feedback="idGarantia:required"
-                            >
-                              Id de la garantía es requerida.
-                            </div>
-                          </div>
-                        </div>
-                        <div class="col-md-6">
-                          <div class="form-floating mb-3">
-                            <input
-                              class="form-control"
-                              id="tipoGarantia"
-                              type="text"
-                              placeholder="Tipo de garantía"
-                              data-sb-validations="required"
-                              formControlName="type"
-                              [ngClass]="{ readonly: isReadOnly }"
-                            />
-                            <label for="tipoGarantia">Tipo de garantía</label>
-                            <div
-                              class="invalid-feedback"
-                              data-sb-feedback="tipoGarantia:required"
-                            >
-                              Tipo de garantía es requerida.
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                      <div class="row">
-                        <div class="col-md-6">
-                          <div class="form-floating mb-3">
-                            <input
-                              class="form-control"
-                              id="fechaGarantia"
-                              type="date"
-                              placeholder="Fecha de la garantía"
-                              data-sb-validations="required"
-                              formControlName="date"
-                              [ngClass]="{ readonly: isReadOnly }"
-                            />
-                            <label for="fechaGarantia"
-                              >Fecha de la garantía</label
-                            >
-                            <div
-                              class="invalid-feedback"
-                              data-sb-feedback="fechaGarantia:required"
-                            >
-                              Fecha de la garantía es requerida.
-                            </div>
-                          </div>
-                        </div>
-                        <div class="col-md-6">
-                          <div class="form-floating mb-3">
-                            <input
-                              class="form-control"
-                              id="obligacionesGarantia"
-                              type="text"
-                              placeholder="obligaciones de la garantía"
-                              data-sb-validations="required"
-                              formControlName="obligations"
-                              [ngClass]="{ readonly: isReadOnly }"
-                            />
-                            <label for="obligacionesGarantia"
-                              >obligaciones de la garantía</label
-                            >
-                            <div
-                              class="invalid-feedback"
-                              data-sb-feedback="obligacionesGarantia:required"
-                            >
-                              Moneda de la garantía es requerida.
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                      <div formGroupName="value">
-                        <div class="row">
-                          <div class="col-md-6">
-                            <div class="form-floating mb-3">
-                              <input
-                                class="form-control"
-                                id="montoGarantia"
-                                type="text"
-                                placeholder="Monto de la garantía"
-                                data-sb-validations="required"
-                                formControlName="amount"
-                                [ngClass]="{ readonly: isReadOnly }"
-                              />
-                              <label for="montoGarantia"
-                                >Monto de la garantía</label
-                              >
-                              <div
-                                class="invalid-feedback"
-                                data-sb-feedback="montoGarantia:required"
-                              >
-                                Monto de la garantía es requerido.
-                              </div>
-                            </div>
-                          </div>
-                          <div class="col-md-6">
-                            <div class="form-floating mb-3">
-                              <input
-                                class="form-control"
-                                id="monedaGarantia"
-                                type="text"
-                                placeholder="Moneda de la garantía"
-                                data-sb-validations="required"
-                                formControlName="currency"
-                                [ngClass]="{ readonly: isReadOnly }"
-                              />
-                              <label for="monedaGarantia"
-                                >Moneda de la garantía</label
-                              >
-                              <div
-                                class="invalid-feedback"
-                                data-sb-feedback="monedaGarantia:required"
-                              >
-                                Moneda de la garantía es requerida.
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                      <div formGroupName="guarantor">
-                        <fieldset class="border p-3 mb-3">
-                          <legend>Fiador</legend>
-                          <div class="row">
-                            <div class="col-md-6">
-                              <div class="form-floating mb-3">
-                                <input
-                                  class="form-control"
-                                  id="idGarante"
-                                  type="text"
-                                  placeholder="Id del garante"
-                                  data-sb-validations="required"
-                                  formControlName="id"
-                                  [ngClass]="{ readonly: isReadOnly }"
-                                />
-                                <label for="idGarante">Id del fiador</label>
-                                <div
-                                  class="invalid-feedback"
-                                  data-sb-feedback="idGarante:required"
-                                >
-                                  Id del fiador es requerido.
-                                </div>
-                              </div>
-                            </div>
-                            <div class="col-md-6">
-                              <div class="form-floating mb-3">
-                                <input
-                                  class="form-control"
-                                  id="nombreGarante"
-                                  type="text"
-                                  placeholder="Nombre del garante"
-                                  data-sb-validations="required"
-                                  formControlName="name"
-                                  [ngClass]="{ readonly: isReadOnly }"
-                                />
-                                <label for="nombreGarante"
-                                  >Nombre del fiador</label
-                                >
-                                <div
-                                  class="invalid-feedback"
-                                  data-sb-feedback="nombreGarante:required"
-                                >
-                                  Nombre del fiador es requerido.
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-                        </fieldset>
-                      </div>
-                      <div formGroupName="period">
-                        <fieldset class="border p-3 mb-3">
-                          <legend>Periodo de la garantía</legend>
-                          <div class="row">
-                            <div class="col-md-6">
-                              <div class="form-floating mb-3">
-                                <input
-                                  class="form-control"
-                                  id="fechaInicio"
-                                  type="date"
-                                  placeholder="Fecha de inicio"
-                                  data-sb-validations="required"
-                                  formControlName="startDate"
-                                  [ngClass]="{ readonly: isReadOnly }"
-                                />
-                                <label for="fechaInicio">Fecha de inicio</label>
-                                <div
-                                  class="invalid-feedback"
-                                  data-sb-feedback="fechaInicio:required"
-                                >
-                                  Fecha de inicio es requerida.
-                                </div>
-                              </div>
-                            </div>
-                            <div class="col-md-6">
-                              <div class="form-floating mb-3">
-                                <input
-                                  class="form-control"
-                                  id="fechaFin"
-                                  type="date"
-                                  placeholder="Fecha de fin"
-                                  data-sb-validations="required"
-                                  formControlName="endDate"
-                                  [ngClass]="{ readonly: isReadOnly }"
-                                />
-                                <label for="fechaFin">Fecha de fin</label>
-                                <div
-                                  class="invalid-feedback"
-                                  data-sb-feedback="fechaFin:required"
-                                >
-                                  Fecha de fin es requerida.
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-                          <div class="row">
-                            <div class="col-md-6">
-                              <div class="form-floating mb-3">
-                                <input
-                                  class="form-control"
-                                  id="dias"
-                                  type="text"
-                                  placeholder="Días"
-                                  data-sb-validations="required"
-                                  formControlName="durationInDays"
-                                  [ngClass]="{ readonly: isReadOnly }"
-                                />
-                                <label for="dias">Duración en días</label>
-                                <div
-                                  class="invalid-feedback"
-                                  data-sb-feedback="dias:required"
-                                >
-                                  Duración en días es requerido.
-                                </div>
-                              </div>
-                            </div>
-                            <div class="col-md-6">
-                              <div class="form-floating mb-3">
-                                <input
-                                  class="form-control"
-                                  id="maxExtentDate"
-                                  type="date"
-                                  placeholder="maxExtentDate"
-                                  data-sb-validations="required"
-                                  formControlName="maxExtentDate"
-                                  [ngClass]="{ readonly: isReadOnly }"
-                                />
-                                <label for="maxExtentDate"
-                                  >Fecha maxima de extension
-                                </label>
-                                <div
-                                  class="invalid-feedback"
-                                  data-sb-feedback="maxExtentDate:required"
-                                >
-                                  Fecha maxima de extension es requerida.
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-                        </fieldset>
-                      </div>
-                      <div class="row">
-                        <div class="col-md-6">
-                          <button
-                            (click)="addGuaranteeToArray()"
-                            class="btn btn-danger btn-add"
-                          >
-                            Agregar garantía
-                          </button>
-                        </div>
-                        <div class="col-md-6">
-                          <button
-                            (click)="addGuaranteesToArray()"
-                            class="btn btn-danger btn-add"
-                            [ngClass]="{ readonly: isReadOnly }"
-                          >
-                            Guardar sección
-                          </button>
-                        </div>
-                      </div>
-                      <div class="row">
-                        <div class="row mt-3">
-                          <div class="col-12">
-                            <h4>Lista de fiadores</h4>
-                            <table class="table table-striped">
-                              <thead>
-                                <tr>
-                                  <th>ID</th>
-                                  <th>Tipo</th>
-                                  <th>Fecha</th>
-                                  <th>Obligaciones</th>
-                                  <th>Acciones</th>
-                                </tr>
-                              </thead>
-                              <tbody>
-                                <tr
-                                  *ngFor="
-                                    let guarantee of guaranteesArray;
-                                    let i = index
-                                  "
-                                >
-                                  <td>{{ guarantee.id }}</td>
-                                  <td>{{ guarantee.type }}</td>
-                                  <td>{{ guarantee.date }}</td>
-                                  <td>{{ guarantee.obligations }}</td>
-                                  <td>
-                                    <button
-                                      class="btn btn-danger btn-sm"
-                                      (click)="deleteGuarantee(i)"
-                                    >
-                                      Delete
-                                    </button>
-                                  </td>
-                                </tr>
-                              </tbody>
-                            </table>
-                          </div>
-                        </div>
-                      </div>
-                    </fieldset>
-                  </form>
-                </div>
-              </div>
+
               <div
                 class="tab-pane fade"
                 id="contracts-procesos"

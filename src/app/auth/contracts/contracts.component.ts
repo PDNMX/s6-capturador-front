@@ -33,6 +33,28 @@ export class ContractsComponent implements OnInit {
     this.contractsArray.removeAt(index);
   }
 
+  get guaranteesArray() {
+    return this.contractForm.controls['guarantees'] as FormArray;
+  }
+
+  addGuarante(opt: any): void {
+    this.guaranteesArray.push(opt);
+  }
+  deleteGuarante(index: number): void {
+    this.guaranteesArray.removeAt(index);
+  }
+
+  get documentsArray() {
+    return this.contractForm.controls['documents'] as FormArray;
+  }
+
+  addDocument(opt: any): void {
+    this.documentsArray.push(opt);
+  }
+  deleteDocuments(index: number): void {
+    this.documentsArray.removeAt(index);
+  }
+
   ngOnInit() {
     this.route.paramMap.subscribe((params: any) => {
       this.record_id = params.get('id');
@@ -69,6 +91,8 @@ export class ContractsComponent implements OnInit {
       }),
       dateSigned: ['dateSigned', [Validators.required]],
       surveillanceMechanisms: this.fb.array([]),
+      guarantees: this.fb.array([]),
+      documents: this.fb.array([]),
     });
   }
 
@@ -76,8 +100,8 @@ export class ContractsComponent implements OnInit {
 
   /* Arreglos que contienen los arreglos anidados de cada sección */
   itemsArray: any[] = [];
-  guaranteesArray: any[] = [];
-  documentsArray: any[] = [];
+  // guaranteesArray: any[] = [];
+  // documentsArray: any[] = [];
   relatedProcessesArray: any[] = [];
   milestonesArray: any[] = [];
   amendmentsArray: any[] = [];
@@ -228,23 +252,23 @@ export class ContractsComponent implements OnInit {
     language: ['', Validators.required],
   });
 
-  addDocumentToArray() {
-    const newDocument = this.documents.value;
-    this.documentsArray.push(newDocument);
-    this.documents.reset();
-  }
+  // addDocumentToArray() {
+  //   const newDocument = this.documents.value;
+  //   this.documentsArray.push(newDocument);
+  //   this.documents.reset();
+  // }
 
-  deleteDocument(index: number) {
-    this.documentsArray.splice(index, 1);
-  }
+  // deleteDocument(index: number) {
+  //   this.documentsArray.splice(index, 1);
+  // }
 
-  //para agregar contenido al arreglo
-  addDocumentsToArray() {
-    this.datacontract = {
-      ...this.datacontract,
-      documents: this.documentsArray,
-    };
-  }
+  // //para agregar contenido al arreglo
+  // addDocumentsToArray() {
+  //   this.datacontract = {
+  //     ...this.datacontract,
+  //     documents: this.documentsArray,
+  //   };
+  // }
 
   /********************  Terminma la sección de documentos ********************/
 
@@ -323,36 +347,36 @@ export class ContractsComponent implements OnInit {
   /******************** Termina la sección de items ********************/
 
   /******************* Comienza la sección de garantías *******************/
-  guarantees = this.fb.group({
-    id: ['', Validators.required],
-    type: ['', Validators.required],
-    date: ['', Validators.required],
-    obligations: ['', Validators.required],
-    value: this.fb.group({
-      amount: ['', Validators.required],
-      currency: ['', Validators.required],
-    }),
-    guarantor: this.fb.group({
-      id: ['', Validators.required],
-      name: ['', Validators.required],
-    }),
-    period: this.fb.group({
-      startDate: ['', Validators.required],
-      endDate: ['', Validators.required],
-      durationInDays: ['', Validators.required],
-      maxExtentDate: ['', Validators.required],
-    }),
-  });
+  // guarantees = this.fb.group({
+  //   id: ['', Validators.required],
+  //   type: ['', Validators.required],
+  //   date: ['', Validators.required],
+  //   obligations: ['', Validators.required],
+  //   value: this.fb.group({
+  //     amount: ['', Validators.required],
+  //     currency: ['', Validators.required],
+  //   }),
+  //   guarantor: this.fb.group({
+  //     id: ['', Validators.required],
+  //     name: ['', Validators.required],
+  //   }),
+  //   period: this.fb.group({
+  //     startDate: ['', Validators.required],
+  //     endDate: ['', Validators.required],
+  //     durationInDays: ['', Validators.required],
+  //     maxExtentDate: ['', Validators.required],
+  //   }),
+  // });
 
-  addGuaranteeToArray() {
-    const newGuarantee = this.guarantees.value;
-    this.guaranteesArray.push(newGuarantee);
-    this.guarantees.reset(); // Clear the form after adding
-  }
+  // addGuaranteeToArray() {
+  //   const newGuarantee = this.guarantees.value;
+  //   this.guaranteesArray.push(newGuarantee);
+  //   this.guarantees.reset(); // Clear the form after adding
+  // }
 
-  deleteGuarantee(index: number) {
-    this.guaranteesArray.splice(index, 1);
-  }
+  // deleteGuarantee(index: number) {
+  //   this.guaranteesArray.splice(index, 1);
+  // }
 
   addGuaranteesToArray() {
     console.log('Agregando garantías al array');
@@ -463,7 +487,7 @@ export class ContractsComponent implements OnInit {
     //alert('Elemento agregado');
     let contractSend = this.contracts.value;
     let items = this.items.value;
-    let guarantees = this.guarantees.value;
+    // let guarantees = this.guarantees.value;
     let documents = this.documents.value;
     let relatedProcesses = this.relatedProcesses.value;
     let milestones = this.milestones.value;
@@ -490,15 +514,15 @@ export class ContractsComponent implements OnInit {
         deliveryLocation: items.deliveryLocation,
         deliveryAddress: items.deliveryAddress,
       },
-      guarantees: {
-        id: guarantees.id,
-        type: guarantees.type,
-        date: guarantees.date,
-        obligations: guarantees.obligations,
-        value: guarantees.value,
-        guarantor: guarantees.guarantor,
-        period: guarantees.period,
-      },
+      // guarantees: {
+      //   id: guarantees.id,
+      //   type: guarantees.type,
+      //   date: guarantees.date,
+      //   obligations: guarantees.obligations,
+      //   value: guarantees.value,
+      //   guarantor: guarantees.guarantor,
+      //   period: guarantees.period,
+      // },
       documents: {
         id: documents.id,
         documentType: documents.documentType,
@@ -656,29 +680,29 @@ export class ContractsComponent implements OnInit {
           this.registroPorId.record.contracts.items.deliveryAddress.countryName,
       },
     });
-    this.guarantees.patchValue({
-      id: this.registroPorId.record.contracts.guarantees.id,
-      type: this.registroPorId.record.contracts.guarantees.type,
-      date: this.registroPorId.record.contracts.guarantees.date,
-      obligations: this.registroPorId.record.contracts.guarantees.obligations,
-      value: {
-        amount: this.registroPorId.record.contracts.guarantees.value.amount,
-        currency: this.registroPorId.record.contracts.guarantees.value.currency,
-      },
-      guarantor: {
-        id: this.registroPorId.record.contracts.guarantees.guarantor.id,
-        name: this.registroPorId.record.contracts.guarantees.guarantor.name,
-      },
-      period: {
-        startDate:
-          this.registroPorId.record.contracts.guarantees.period.startDate,
-        endDate: this.registroPorId.record.contracts.guarantees.period.endDate,
-        durationInDays:
-          this.registroPorId.record.contracts.guarantees.period.durationInDays,
-        maxExtentDate:
-          this.registroPorId.record.contracts.guarantees.period.maxExtentDate,
-      },
-    });
+    // this.guarantees.patchValue({
+    //   id: this.registroPorId.record.contracts.guarantees.id,
+    //   type: this.registroPorId.record.contracts.guarantees.type,
+    //   date: this.registroPorId.record.contracts.guarantees.date,
+    //   obligations: this.registroPorId.record.contracts.guarantees.obligations,
+    //   value: {
+    //     amount: this.registroPorId.record.contracts.guarantees.value.amount,
+    //     currency: this.registroPorId.record.contracts.guarantees.value.currency,
+    //   },
+    //   guarantor: {
+    //     id: this.registroPorId.record.contracts.guarantees.guarantor.id,
+    //     name: this.registroPorId.record.contracts.guarantees.guarantor.name,
+    //   },
+    //   period: {
+    //     startDate:
+    //       this.registroPorId.record.contracts.guarantees.period.startDate,
+    //     endDate: this.registroPorId.record.contracts.guarantees.period.endDate,
+    //     durationInDays:
+    //       this.registroPorId.record.contracts.guarantees.period.durationInDays,
+    //     maxExtentDate:
+    //       this.registroPorId.record.contracts.guarantees.period.maxExtentDate,
+    //   },
+    // });
     this.documents.patchValue({
       id: this.registroPorId.record.contracts.documents.id,
       documentType: this.registroPorId.record.contracts.documents.documentType,
@@ -798,8 +822,8 @@ export class ContractsComponent implements OnInit {
     });
 
     this.itemsArray = contract.items || [];
-    this.guaranteesArray = contract.guarantees || [];
-    this.documentsArray = contract.documents || [];
+    // this.guaranteesArray = contract.guarantees || [];
+    // this.documentsArray = contract.documents || [];
     this.relatedProcessesArray = contract.relatedProcesses || [];
     this.milestonesArray = contract.milestones || [];
     this.amendmentsArray = contract.amendments || [];
@@ -823,8 +847,8 @@ export class ContractsComponent implements OnInit {
     this.contratoId = '';
     this.contracts.reset();
     this.itemsArray = [];
-    this.guaranteesArray = [];
-    this.documentsArray = [];
+    // this.guaranteesArray = [];
+    // this.documentsArray = [];
     this.relatedProcessesArray = [];
     this.milestonesArray = [];
     this.amendmentsArray = [];
