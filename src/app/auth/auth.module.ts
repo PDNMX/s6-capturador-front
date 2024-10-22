@@ -48,6 +48,7 @@ import { PlanningRequestForQuotesQuotesComponent } from './planning/planning-req
 import { PlanningRequestForQuotesComponent } from './planning/planning-request-for-quotes/planning-request-for-quotes.component';
 import { ContractsGeneralComponent } from './contracts/contracts-general/contracts-general.component';
 import { ContractsGuaranteesComponent } from './contracts/contracts-guarantees/contracts-guarantees.component';
+import { ContractsDocumentsComponent } from './contracts/contracts-documents/contracts-documents.component';
 
 @NgModule({
   declarations: [
@@ -95,6 +96,7 @@ import { ContractsGuaranteesComponent } from './contracts/contracts-guarantees/c
     PlanningRequestForQuotesComponent,
     ContractsGeneralComponent,
     ContractsGuaranteesComponent,
+    ContractsDocumentsComponent,
   ],
   imports: [CommonModule, AuthRoutingModule, ReactiveFormsModule, FormsModule],
   exports: [
