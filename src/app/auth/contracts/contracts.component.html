@@ -23,30 +23,6 @@
             </h3>
             <ng-container *ngIf="!mostrarBotones">
               <button
-                class="nav-link text-left active"
-                id="contracts-general-tab"
-                data-bs-toggle="pill"
-                data-bs-target="#contracts-general"
-                type="button"
-                role="tab"
-                aria-controls="contracts-general"
-                aria-selected="false"
-              >
-                Datos generales del contrato
-              </button>
-              <button
-                class="nav-link text-left"
-                id="contracts-documentos-tab"
-                data-bs-toggle="pill"
-                data-bs-target="#contracts-documentos"
-                type="button"
-                role="tab"
-                aria-controls="contracts-documentos"
-                aria-selected="false"
-              >
-                Documentos
-              </button>
-              <button
                 class="nav-link text-left"
                 id="contracts-implementation-tab"
                 data-bs-toggle="pill"
@@ -70,18 +46,7 @@
               >
                 Ítems del contrato
               </button>
-              <button
-                class="nav-link text-left"
-                id="contracts-garantias-tab"
-                data-bs-toggle="pill"
-                data-bs-target="#contracts-garantias"
-                type="button"
-                role="tab"
-                aria-controls="contracts-garantias"
-                aria-selected="false"
-              >
-                Garantías
-              </button>
+
               <button
                 class="nav-link text-left"
                 id="contracts-procesos-tab"
@@ -94,18 +59,7 @@
               >
                 Procesos relacionados
               </button>
-              <button
-                class="nav-link text-left"
-                id="contracts-hitos-tab"
-                data-bs-toggle="pill"
-                data-bs-target="#contracts-hitos"
-                type="button"
-                role="tab"
-                aria-controls="contracts-hitos"
-                aria-selected="false"
-              >
-                Hitos
-              </button>
+
               <button
                 class="nav-link text-left"
                 id="contracts-enmiendas-tab"
@@ -117,6 +71,72 @@
                 aria-selected="false"
               >
                 Enmiendas
+              </button>
+
+              <!-- ini -->
+              <button
+                class="nav-link text-left"
+                id="contracts-general-tab"
+                data-bs-toggle="pill"
+                data-bs-target="#contracts-general"
+                type="button"
+                role="tab"
+                aria-controls="contracts-general"
+                aria-selected="false"
+              >
+                Datos generales del contrato
+              </button>
+
+              <button
+                class="nav-link text-left"
+                id="contracts-guarantees-tab"
+                data-bs-toggle="pill"
+                data-bs-target="#contracts-guarantees"
+                type="button"
+                role="tab"
+                aria-controls="contracts-guarantees"
+                aria-selected="false"
+              >
+                Garantías
+              </button>
+
+              <button
+                class="nav-link text-left"
+                id="contracts-documents-tab"
+                data-bs-toggle="pill"
+                data-bs-target="#contracts-documents"
+                type="button"
+                role="tab"
+                aria-controls="contracts-documents"
+                aria-selected="false"
+              >
+                Documentos
+              </button>
+
+              <button
+                class="nav-link text-left"
+                id="contracts-milestones-tab"
+                data-bs-toggle="pill"
+                data-bs-target="#contracts-milestones"
+                type="button"
+                role="tab"
+                aria-controls="contracts-milestones"
+                aria-selected="false"
+              >
+                Hitos
+              </button>
+
+              <button
+                class="nav-link text-left"
+                id="contracts-amendments-tab"
+                data-bs-toggle="pill"
+                data-bs-target="#contracts-amendments"
+                type="button"
+                role="tab"
+                aria-controls="contracts-amendments"
+                aria-selected="false"
+              >
+                Modificaciones
               </button>
               <button
                 class="nav-link btn btn-danger btn-add"
@@ -1167,445 +1187,6 @@
                                     >
                                       Delete
                                     </button>
-                                  </td>
-                                </tr>
-                              </tbody>
-                            </table>
-                          </div>
-                        </div>
-                      </div>
-                    </fieldset>
-                  </form>
-                </div>
-              </div>
-
-              <div
-                class="tab-pane fade"
-                id="contracts-procesos"
-                role="tabpanel"
-                aria-labelledby="contracts-procesos-tab"
-              >
-                <div class="form h-100">
-                  <form [formGroup]="relatedProcesses">
-                    <fieldset class="border p-3 mb-3">
-                      <legend>
-                        Datos generales del contrato (Sección de procesos
-                        relacionados)
-                      </legend>
-                      <div class="row">
-                        <div class="col-md-6">
-                          <div class="form-floating mb-3">
-                            <input
-                              class="form-control"
-                              id="idProcesoRelacionado"
-                              type="text"
-                              placeholder="Id del proceso relacionado"
-                              data-sb-validations="required"
-                              formControlName="id"
-                              [ngClass]="{ readonly: isReadOnly }"
-                            />
-                            <label for="idProcesoRelacionado"
-                              >Id del proceso relacionado</label
-                            >
-                            <div
-                              class="invalid-feedback"
-                              data-sb-feedback="idProcesoRelacionado:required"
-                            >
-                              Id del proceso relacionado es requerido.
-                            </div>
-                          </div>
-                        </div>
-                        <div class="col-md-6">
-                          <div class="form-floating mb-3">
-                            <input
-                              class="form-control"
-                              id="idProceso"
-                              type="text"
-                              placeholder="Id del proceso"
-                              data-sb-validations="required"
-                              formControlName="identifier"
-                              [ngClass]="{ readonly: isReadOnly }"
-                            />
-                            <label for="idProceso"
-                              >Identificador del proceso</label
-                            >
-                            <div
-                              class="invalid-feedback"
-                              data-sb-feedback="idProceso:required"
-                            >
-                              Identificador del proceso es requerido.
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                      <div class="row">
-                        <div class="col-md-12">
-                          <div class="form-floating mb-3">
-                            <input
-                              class="form-control"
-                              id="tipoProcesoRelacionado"
-                              type="text"
-                              placeholder="Tipo del proceso relacionado"
-                              data-sb-validations="required"
-                              formControlName="relationship"
-                              [ngClass]="{ readonly: isReadOnly }"
-                            />
-                            <label for="tipoProcesoRelacionado"
-                              >Relacion del proceso relacionado</label
-                            >
-                            <div
-                              class="invalid-feedback"
-                              data-sb-feedback="tipoProcesoRelacionado:required"
-                            >
-                              Relacion del proceso relacionado es requerido.
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                      <div class="row">
-                        <div class="col-md-4">
-                          <div class="form-floating mb-3">
-                            <input
-                              class="form-control"
-                              id="nombreProceso"
-                              type="text"
-                              placeholder="Nombre del proceso"
-                              data-sb-validations="required"
-                              formControlName="title"
-                              [ngClass]="{ readonly: isReadOnly }"
-                            />
-                            <label for="nombreProceso"
-                              >Titulo del proceso</label
-                            >
-                            <div
-                              class="invalid-feedback"
-                              data-sb-feedback="nombreProceso:required"
-                            >
-                              Nombre del proceso es requerido.
-                            </div>
-                          </div>
-                        </div>
-                        <div class="col-md-4">
-                          <div class="form-floating mb-3">
-                            <select
-                              class="form-select"
-                              id="scheme"
-                              aria-label="Esquema"
-                              formControlName="scheme"
-                              [ngClass]="{ readonly: isReadOnly }"
-                            >
-                              <option value="ocid">
-                                OCID (Open Contracting ID)
-                              </option>
-                              <option value="compranet">
-                                CompraNet (Sistema de Compras Gubernamentales)
-                              </option>
-                              <option value="sfp">
-                                SFP (Secretaría de la Función Pública)
-                              </option>
-                              <option value="rfc">
-                                RFC (Registro Federal de Contribuyentes)
-                              </option>
-                              <option value="sicom">
-                                SICOM (Sistema de Información y Control de Obra
-                                Municipal)
-                              </option>
-                            </select>
-                            <label for="scheme"
-                              >Esquema de identificación del proceso
-                              relacionado</label
-                            >
-                            <div
-                              class="invalid-feedback"
-                              data-sb-feedback="scheme:required"
-                            >
-                              El esquema de identificación es requerido.
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                      <div class="row">
-                        <div class="col-md-12">
-                          <div class="form-floating mb-3">
-                            <input
-                              class="form-control"
-                              id="urlProceso"
-                              type="text"
-                              placeholder="URL del proceso"
-                              data-sb-validations="required"
-                              formControlName="uri"
-                              [ngClass]="{ readonly: isReadOnly }"
-                            />
-                            <label for="urlProceso">URL del proceso</label>
-                            <div
-                              class="invalid-feedback"
-                              data-sb-feedback="urlProceso:required"
-                            >
-                              URL del proceso es requerido.
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                      <div class="row">
-                        <div class="col-md-6">
-                          <button
-                            (click)="addRelatedProcessToArray()"
-                            class="btn btn-danger btn-add"
-                          >
-                            Agregar proceso
-                          </button>
-                        </div>
-                        <div class="col-md-6">
-                          <button
-                            (click)="addRelatedProcessesToArray()"
-                            class="btn btn-danger btn-add"
-                            [ngClass]="{ readonly: isReadOnly }"
-                          >
-                            Guardar sección
-                          </button>
-                        </div>
-                      </div>
-                      <div class="row">
-                        <div class="row mt-3">
-                          <div class="col-12">
-                            <h4>Lista de Procesos Relacionados</h4>
-                            <table class="table table-striped">
-                              <thead>
-                                <tr>
-                                  <th>ID</th>
-                                  <th>Relación</th>
-                                  <th>Título</th>
-                                  <th>Acciones</th>
-                                </tr>
-                              </thead>
-                              <tbody>
-                                <tr
-                                  *ngFor="
-                                    let process of relatedProcessesArray;
-                                    let i = index
-                                  "
-                                >
-                                  <td>{{ process.id }}</td>
-                                  <td>{{ process.relationship }}</td>
-                                  <td>{{ process.title }}</td>
-                                  <td>
-                                    <button
-                                      class="btn btn-danger btn-sm"
-                                      (click)="deleteRelatedProcess(i)"
-                                    >
-                                      Eliminar
-                                    </button>
-                                  </td>
-                                </tr>
-                              </tbody>
-                            </table>
-                          </div>
-                        </div>
-                      </div>
-                    </fieldset>
-                  </form>
-                </div>
-              </div>
-
-              <div
-                class="tab-pane fade"
-                id="contracts-enmiendas"
-                role="tabpanel"
-                aria-labelledby="contracts-enmiendas-tab"
-              >
-                <div class="form h-100">
-                  <form [formGroup]="amendments">
-                    <h4>Datos generales del contrato (Sección de enmiendas)</h4>
-                    <fieldset class="border p-3 mb-3">
-                      <div class="row">
-                        <div class="col-md-6">
-                          <div class="form-floating mb-3">
-                            <input
-                              class="form-control"
-                              id="idEnmienda"
-                              type="text"
-                              placeholder="Id de la enmienda"
-                              data-sb-validations="required"
-                              formControlName="id"
-                              [ngClass]="{ readonly: isReadOnly }"
-                            />
-                            <label for="idEnmienda">Id de la enmienda</label>
-                            <div
-                              class="invalid-feedback"
-                              data-sb-feedback="idEnmienda:required"
-                            >
-                              Id de la enmienda es requerido.
-                            </div>
-                          </div>
-                        </div>
-                        <div class="col-md-6">
-                          <div class="form-floating mb-3">
-                            <input
-                              class="form-control"
-                              id="fechaEnmienda"
-                              type="date"
-                              placeholder="Fecha de enmienda"
-                              data-sb-validations="required"
-                              formControlName="date"
-                              [ngClass]="{ readonly: isReadOnly }"
-                            />
-                            <label for="fechaEnmienda">Fecha de enmienda</label>
-                            <div
-                              class="invalid-feedback"
-                              data-sb-feedback="fechaEnmienda:required"
-                            >
-                              Fecha de enmienda es requerido.
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                      <div class="row">
-                        <div class="col-md-12">
-                          <div class="form-floating mb-3">
-                            <input
-                              class="form-control"
-                              id="justificacionEnmienda"
-                              type="text"
-                              placeholder="Justificación de la enmienda"
-                              data-sb-validations="required"
-                              formControlName="rationale"
-                              [ngClass]="{ readonly: isReadOnly }"
-                            />
-                            <label for="justificacionEnmienda"
-                              >Justificación de la enmienda</label
-                            >
-                            <div
-                              class="invalid-feedback"
-                              data-sb-feedback="justificacionEnmienda:required"
-                            >
-                              Justificación de la enmienda es requerida.
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                      <div class="row">
-                        <div class="col-md-6">
-                          <div class="form-floating mb-3">
-                            <input
-                              class="form-control"
-                              id="idReleaseEnmienda"
-                              type="text"
-                              placeholder="Id de liberación de la enmienda"
-                              data-sb-validations="required"
-                              formControlName="amendsReleaseID"
-                              [ngClass]="{ readonly: isReadOnly }"
-                            />
-                            <label for="idReleaseEnmienda"
-                              >Id de liberación de la enmienda</label
-                            >
-                            <div
-                              class="invalid-feedback"
-                              data-sb-feedback="idReleaseEnmienda:required"
-                            >
-                              Id de liberación de la enmienda es requerida.
-                            </div>
-                          </div>
-                        </div>
-                        <div class="col-md-6">
-                          <div class="form-floating mb-3">
-                            <input
-                              class="form-control"
-                              id="releaseID"
-                              type="text"
-                              placeholder="Id final de liberación de la enmienda"
-                              data-sb-validations="required"
-                              formControlName="releaseID"
-                              [ngClass]="{ readonly: isReadOnly }"
-                            />
-                            <label for="releaseID"
-                              >Id final de liberación de la enmienda</label
-                            >
-                            <div
-                              class="invalid-feedback"
-                              data-sb-feedback="releaseID:required"
-                            >
-                              Id final de liberación de la enmienda es
-                              requerida.
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                      <div class="row">
-                        <div class="col-md-12">
-                          <div class="form-floating mb-3">
-                            <textarea
-                              class="form-control"
-                              id="amendmentDescription"
-                              type="text"
-                              placeholder="Descripción"
-                              style="height: 10rem"
-                              data-sb-validations="required"
-                              formControlName="description"
-                              [ngClass]="{ readonly: isReadOnly }"
-                            ></textarea>
-                            <label for="amendmentDescription"
-                              >Descripción</label
-                            >
-                            <div
-                              class="invalid-feedback"
-                              data-sb-feedback="amendmentDescription:required"
-                            >
-                              Descripción is required.
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                      <div class="row">
-                        <div class="col-md-6">
-                          <!-- <button
-                            (click)="addAmendmentToArray()"
-                            class="btn btn-danger btn-add"
-                          >
-                            Agregar enmienda
-                          </button> -->
-                        </div>
-                        <div class="col-md-6">
-                          <!-- <button
-                            (click)="addAmendmentsToArray()"
-                            class="btn btn-danger btn-add"
-                            [ngClass]="{ readonly: isReadOnly }"
-                          >
-                            Guardar sección
-                          </button> -->
-                        </div>
-                      </div>
-                      <div class="row">
-                        <div class="row mt-3">
-                          <div class="col-12">
-                            <h4>Lista de Enmiendas</h4>
-                            <table class="table table-striped">
-                              <thead>
-                                <tr>
-                                  <th>ID</th>
-                                  <th>Fecha</th>
-                                  <th>Justificación</th>
-                                  <th>Acciones</th>
-                                </tr>
-                              </thead>
-                              <tbody>
-                                <tr
-                                  *ngFor="
-                                    let amendment of [
-                                      { id: '', description: '', rationale: '' }
-                                    ];
-                                    let i = index
-                                  "
-                                >
-                                  <td>{{ amendment.id }}</td>
-                                  <td>{{ amendment.description }}</td>
-                                  <td>{{ amendment.rationale }}</td>
-                                  <td>
-                                    <!-- <button
-                                      class="btn btn-danger btn-sm"
-                                      (click)="deleteAmendment(i)"
-                                    >
-                                      Eliminar
-                                    </button> -->
                                   </td>
                                 </tr>
                               </tbody>
