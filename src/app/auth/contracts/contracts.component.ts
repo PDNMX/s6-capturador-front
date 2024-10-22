@@ -55,6 +55,17 @@ export class ContractsComponent implements OnInit {
     this.documentsArray.removeAt(index);
   }
 
+  get milestonesArray() {
+    return this.contractForm.controls['milestones'] as FormArray;
+  }
+
+  addMileston(opt: any): void {
+    this.milestonesArray.push(opt);
+  }
+  deleteMileston(index: number): void {
+    this.milestonesArray.removeAt(index);
+  }
+
   ngOnInit() {
     this.route.paramMap.subscribe((params: any) => {
       this.record_id = params.get('id');
@@ -93,6 +104,7 @@ export class ContractsComponent implements OnInit {
       surveillanceMechanisms: this.fb.array([]),
       guarantees: this.fb.array([]),
       documents: this.fb.array([]),
+      milestones: this.fb.array([]),
     });
   }
 
@@ -103,7 +115,7 @@ export class ContractsComponent implements OnInit {
   // guaranteesArray: any[] = [];
   // documentsArray: any[] = [];
   relatedProcessesArray: any[] = [];
-  milestonesArray: any[] = [];
+  // milestonesArray: any[] = [];
   amendmentsArray: any[] = [];
   /* Variable que sirve para identificar si los botones deben ser visibles o no */
   mostrarBotones: boolean = false;
@@ -432,22 +444,22 @@ export class ContractsComponent implements OnInit {
     status: ['', Validators.required],
   });
 
-  addMilestoneToArray() {
-    const newMilestone = this.milestones.value;
-    this.milestonesArray.push(newMilestone);
-    this.milestones.reset();
-  }
+  // addMilestoneToArray() {
+  //   const newMilestone = this.milestones.value;
+  //   this.milestonesArray.push(newMilestone);
+  //   this.milestones.reset();
+  // }
 
-  deleteMilestone(index: number) {
-    this.milestonesArray.splice(index, 1);
-  }
+  // deleteMilestone(index: number) {
+  //   this.milestonesArray.splice(index, 1);
+  // }
 
-  addMilestonesToArray() {
-    this.datacontract = {
-      ...this.datacontract,
-      milestones: this.milestonesArray,
-    };
-  }
+  // addMilestonesToArray() {
+  //   this.datacontract = {
+  //     ...this.datacontract,
+  //     milestones: this.milestonesArray,
+  //   };
+  // }
 
   /******************* Termina la sección de hitos *******************/
 
@@ -825,7 +837,7 @@ export class ContractsComponent implements OnInit {
     // this.guaranteesArray = contract.guarantees || [];
     // this.documentsArray = contract.documents || [];
     this.relatedProcessesArray = contract.relatedProcesses || [];
-    this.milestonesArray = contract.milestones || [];
+    // this.milestonesArray = contract.milestones || [];
     this.amendmentsArray = contract.amendments || [];
 
     // Desplazarse al formulario
@@ -850,7 +862,7 @@ export class ContractsComponent implements OnInit {
     // this.guaranteesArray = [];
     // this.documentsArray = [];
     this.relatedProcessesArray = [];
-    this.milestonesArray = [];
+    // this.milestonesArray = [];
     this.amendmentsArray = [];
   }
 

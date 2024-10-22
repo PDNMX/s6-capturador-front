@@ -310,7 +310,7 @@
           </div>
 
           <div
-            class="tab-pane fade show active"
+            class="tab-pane fade"
             id="contracts-documents"
             role="tabpanel"
             aria-labelledby="contracts-documents-tab"
@@ -322,6 +322,22 @@
                 (addDocument)="addDocument($event)"
                 (deleteDocument)="deleteDocuments($event)"
               ></app-contracts-documents>
+            </div>
+          </div>
+
+          <div
+            class="tab-pane fade"
+            id="contracts-milestones"
+            role="tabpanel"
+            aria-labelledby="contracts-milestones-tab"
+            tabindex="0"
+          >
+            <div class="form">
+              <app-contracts-milestones
+                [milestonesArray]="contractForm.value.milestones"
+                (addMilestone)="addMileston($event)"
+                (deleteMilestone)="deleteMileston($event)"
+              ></app-contracts-milestones>
             </div>
           </div>
 
@@ -1584,21 +1600,21 @@
                       </div>
                       <div class="row">
                         <div class="col-md-6">
-                          <button
+                          <!-- <button
                             (click)="addMilestoneToArray()"
                             class="btn btn-danger btn-add"
                           >
                             Agregar hito
-                          </button>
+                          </button> -->
                         </div>
                         <div class="col-md-6">
-                          <button
+                          <!-- <button
                             (click)="addMilestonesToArray()"
                             class="btn btn-danger btn-add"
                             [ngClass]="{ readonly: isReadOnly }"
                           >
                             Guardar sección
-                          </button>
+                          </button> -->
                         </div>
                       </div>
                       <div class="row">
@@ -1617,7 +1633,9 @@
                               <tbody>
                                 <tr
                                   *ngFor="
-                                    let milestone of milestonesArray;
+                                    let milestone of [
+                                      { id: '', title: '', type: '' }
+                                    ];
                                     let i = index
                                   "
                                 >
@@ -1625,12 +1643,12 @@
                                   <td>{{ milestone.title }}</td>
                                   <td>{{ milestone.type }}</td>
                                   <td>
-                                    <button
+                                    <!-- <button
                                       class="btn btn-danger btn-sm"
                                       (click)="deleteMilestone(i)"
                                     >
                                       Eliminar
-                                    </button>
+                                    </button> -->
                                   </td>
                                 </tr>
                               </tbody>
