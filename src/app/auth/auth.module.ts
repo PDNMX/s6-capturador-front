@@ -51,6 +51,7 @@ import { ContractsGuaranteesComponent } from './contracts/contracts-guarantees/c
 import { ContractsDocumentsComponent } from './contracts/contracts-documents/contracts-documents.component';
 import { ContractsMilestonesComponent } from './contracts/contracts-milestones/contracts-milestones.component';
 import { ContractsAmendmentsComponent } from './contracts/contracts-amendments/contracts-amendments.component';
+import { ContractsItemsComponent } from './contracts/contracts-items/contracts-items.component';
 
 @NgModule({
   declarations: [
@@ -101,6 +102,7 @@ import { ContractsAmendmentsComponent } from './contracts/contracts-amendments/c
     ContractsDocumentsComponent,
     ContractsMilestonesComponent,
     ContractsAmendmentsComponent,
+    ContractsItemsComponent,
   ],
   imports: [CommonModule, AuthRoutingModule, ReactiveFormsModule, FormsModule],
   exports: [

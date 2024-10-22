@@ -73,6 +73,16 @@
                 Enmiendas
               </button>
 
+
+              <button
+                class="nav-link text-left"
+                data-bs-toggle="pill"
+                type="button"
+                role="tab"
+                aria-selected="false"
+              >
+              </button>
+
               <!-- ini -->
               <button
                 class="nav-link text-left"
@@ -138,7 +148,7 @@
               >
                 Modificaciones
               </button>
-              <button
+              <!-- <button
                 class="nav-link btn btn-danger btn-add"
                 id="contracts-nuevo-tab"
                 data-bs-toggle="pill"
@@ -154,6 +164,14 @@
                   text-align: center;
                   padding: 1rem;
                 "
+                (click)="onSubmit(idGlobal)"
+              >
+                Agregar contrato
+              </button> -->
+
+              <button
+                type="button"
+                class="btn btn-danger btn-add"
                 (click)="onSubmit(idGlobal)"
               >
                 Agregar contrato
