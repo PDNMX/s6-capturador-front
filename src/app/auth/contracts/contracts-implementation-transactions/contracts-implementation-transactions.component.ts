@@ -6,6 +6,8 @@ import {
   FormBuilder,
   FormArray,
 } from '@angular/forms';
+import { ActivatedRoute } from '@angular/router';
+import { ApiService, IPartieList } from 'src/app/services/api.service';
 import { ImplementationStatus, Currency } from 'src/utils';
 
 @Component({
@@ -18,34 +20,43 @@ export class ContractsImplementationTransactionsComponent implements OnInit {
   @Output() addTransaction = new EventEmitter<any>();
   @Output() deleteTransaction = new EventEmitter<any>();
 
-  implementationStatus = ImplementationStatus;
+  record_id = null;
   currency = Currency;
-
-  statusForm!: FormGroup;
   transactionsForm!: FormGroup;
 
-  payers: Array<{ id: number; name: string }> = [
-    { id: 1, name: 'pagador 1' },
-    { id: 2, name: 'pagador 2' },
-    { id: 3, name: 'pagador 3' },
-  ];
+  payers: Array<any> = [];
+  payee: Array<any> = [];
 
-  payee: Array<{ id: number; name: string }> = [
-    { id: 1, name: 'beneficiario 1' },
-    { id: 2, name: 'beneficiario 2' },
-    { id: 3, name: 'beneficiario 3' },
-  ];
-
-  constructor(private fb: FormBuilder) {}
+  constructor(
+    private fb: FormBuilder,
+    private route: ActivatedRoute,
+    private api: ApiService
+  ) {}
 
   ngOnInit(): void {
+    this.route.paramMap.subscribe((params: any) => {
+      this.record_id = params.get('id');
+    });
+
+    if (this.record_id) {
+      this.api
+        .getPartiesByType(this.record_id, 'payer')
+        .subscribe((d: IPartieList) => {
+          this.payers = d.data;
+        });
+
+      this.api
+        .getPartiesByType(this.record_id, 'payee')
+        .subscribe((d: IPartieList) => {
+          this.payee = d.data;
+        });
+    }
+
     this.initForm();
   }
   initForm(): void {
-    this.statusForm = this.fb.group({
-      status: ['', Validators.required],
-    });
     this.transactionsForm = this.fb.group({
+      id: ['', Validators.required],
       source: ['', Validators.required],
       date: ['', Validators.required],
       paymentMethod: ['', Validators.required],
@@ -57,15 +68,6 @@ export class ContractsImplementationTransactionsComponent implements OnInit {
       payee: [null, Validators.required],
       uri: ['', Validators.required],
     });
-  }
-
-  // Método para obtener la descripción basada en el código seleccionado
-  getImplementationStatusDesc(code: string): string {
-    let dec = '';
-    this.implementationStatus.forEach((t) => {
-      if (t.code === code) dec = t.description;
-    });
-    return dec;
   }
 
   addNewTransactions(): void {

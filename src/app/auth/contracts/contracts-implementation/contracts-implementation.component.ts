@@ -1,19 +1,8 @@
-import { getDocumentType } from 'src/utils';
-import { Component, OnInit, Output, EventEmitter } from '@angular/core';
-import {
-  FormGroup,
-  FormControl,
-  FormArray,
-  Validators,
-  FormBuilder,
-} from '@angular/forms';
-
-import { Title } from '@angular/platform-browser';
-import { map, Observable, of, tap, catchError, throwError } from 'rxjs';
-//import { HttpClient } from '@angular/common/http';
-import { ApiService } from 'src/app/services/api.service';
+import { Component, Input, OnInit } from '@angular/core';
+import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
-import { Language } from 'src/utils';
+import { ApiService } from 'src/app/services/api.service';
+import { ImplementationStatus } from 'src/utils';
 
 @Component({
   selector: 'app-contracts-implementation',
@@ -21,8 +10,11 @@ import { Language } from 'src/utils';
   styleUrls: ['./contracts-implementation.component.css'],
 })
 export class ContractsImplementationComponent implements OnInit {
-  implementationForm!: FormGroup;
-  record_id: string = '';
+  @Input() implementationForm!: FormGroup;
+
+  record_id = null;
+  implementationStatus = ImplementationStatus;
+
   object_implementation: any = {};
 
   constructor(
@@ -56,7 +48,7 @@ export class ContractsImplementationComponent implements OnInit {
   }
 
   get milestonesArray() {
-    return this.implementationForm.controls['milestone'] as FormArray;
+    return this.implementationForm.controls['milestones'] as FormArray;
   }
 
   addMilestone(opt: any): void {
@@ -71,19 +63,13 @@ export class ContractsImplementationComponent implements OnInit {
     this.route.paramMap.subscribe((params: any) => {
       this.record_id = params.get('id');
     });
-    this.implementationForm = this.fb.group({
-      transactions: this.fb.array([], [Validators.required]),
-      milestone: this.fb.array([], [Validators.required]),
-      documents: this.fb.array([], [Validators.required]),
-    });
-    console.log(' CONTRACTS IMPLEMENTATION COMPONENT INTO CONTRACTS');
-    console.log('this.implementationForm: ', this.implementationForm);
   }
-  submit(): void {
-    console.log(
-      ' METHOD SUBMIT CONTRACTS IMPLEMENTATION COMPONENT INTO CONTRACTS'
-    );
-    console.log(this.implementationForm.value);
-    this.api;
+
+  getImplementationStatusDesc(code: string): string {
+    let dec = '';
+    this.implementationStatus.forEach((t) => {
+      if (t.code === code) dec = t.description;
+    });
+    return dec;
   }
 }

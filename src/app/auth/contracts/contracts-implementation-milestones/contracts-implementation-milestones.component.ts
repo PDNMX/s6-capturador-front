@@ -43,20 +43,19 @@ export class ContractsImplementationMilestonesComponent {
   }
   initForm(): void {
     this.milestoneForm = this.fb.group({
-      title: ['', Validators.required],
-      type: ['', Validators.required],
-      description: ['', Validators.required],
-      code: ['', Validators.required],
-      dueDate: ['', Validators.required],
-      dateMet: ['', Validators.required],
-      dateModified: ['', Validators.required],
-      status: ['', Validators.required],
+      title: ['title', Validators.required],
+      type: ['type', Validators.required],
+      description: ['description', Validators.required],
+      code: ['code', Validators.required],
+      dueDate: ['dueDate', Validators.required],
+      dateMet: ['dateMet', Validators.required],
+      dateModified: ['dateModified', Validators.required],
+      status: ['status', Validators.required],
     });
   }
 
   addNewMilestone(): void {
     this.addMilestone.emit(this.milestoneForm);
-    console.log(this.milestoneForm.value);
     this.initForm();
   }
 }
