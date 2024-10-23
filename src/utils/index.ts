@@ -15,6 +15,7 @@ import AwardStatus from './awardStatus';
 import PartyRole from './partyRole';
 import ImplementationStatus from './implementationStatus';
 import ContractStatus from './contractStatus';
+import RelatedProcesses from './relatedProcesses';
 
 export {
   Currency,
@@ -34,4 +35,5 @@ export {
   PartyRole,
   ImplementationStatus,
   ContractStatus,
+  RelatedProcesses,
 };
