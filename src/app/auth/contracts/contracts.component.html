@@ -21,55 +21,7 @@
             >
               &nbsp;&nbsp;4. Contrato
             </h3>
-            <ng-container *ngIf="!mostrarBotones">
-              <button
-                class="nav-link text-left"
-                id="contracts-implementation-tab"
-                data-bs-toggle="pill"
-                data-bs-target="#contracts-implementation"
-                type="button"
-                role="tab"
-                aria-controls="contracts-implementation"
-                aria-selected="false"
-              >
-                Ejecución
-              </button>
-
-              <button
-                class="nav-link text-left"
-                id="contracts-procesos-tab"
-                data-bs-toggle="pill"
-                data-bs-target="#contracts-procesos"
-                type="button"
-                role="tab"
-                aria-controls="contracts-procesos"
-                aria-selected="false"
-              >
-                Procesos relacionados
-              </button>
-
-              <button
-                class="nav-link text-left"
-                id="contracts-enmiendas-tab"
-                data-bs-toggle="pill"
-                data-bs-target="#contracts-enmiendas"
-                type="button"
-                role="tab"
-                aria-controls="contracts-enmiendas"
-                aria-selected="false"
-              >
-                Enmiendas
-              </button>
-
-              <button
-                class="nav-link text-left"
-                data-bs-toggle="pill"
-                type="button"
-                role="tab"
-                aria-selected="false"
-              ></button>
-
-              <!-- ini -->
+            <ng-container *ngIf="!editMode">
               <button
                 class="nav-link text-left"
                 id="contracts-general-tab"
@@ -124,6 +76,19 @@
 
               <button
                 class="nav-link text-left"
+                id="contracts-implementation-tab"
+                data-bs-toggle="pill"
+                data-bs-target="#contracts-implementation"
+                type="button"
+                role="tab"
+                aria-controls="contracts-implementation"
+                aria-selected="false"
+              >
+                Ejecución
+              </button>
+
+              <button
+                class="nav-link text-left"
                 id="contracts-milestones-tab"
                 data-bs-toggle="pill"
                 data-bs-target="#contracts-milestones"
@@ -147,31 +112,11 @@
               >
                 Modificaciones
               </button>
-              <!-- <button
-                class="nav-link btn btn-danger btn-add"
-                id="contracts-nuevo-tab"
-                data-bs-toggle="pill"
-                data-bs-target="#contracts-presentacion"
-                type="button"
-                role="tab"
-                aria-controls="contracts-presentacion"
-                aria-selected="false"
-                style="
-                  background-color: #dc3545; /* Rojo de peligro */
-                  border: 1px solid #dc3545;
-                  color: #fff; /* Blanco para contraste */
-                  text-align: center;
-                  padding: 1rem;
-                "
-                (click)="onSubmit(idGlobal)"
-              >
-                Agregar contrato
-              </button> -->
 
               <button
                 type="button"
-                class="btn btn-danger btn-add"
-                (click)="onSubmit(idGlobal)"
+                class="btn btn-danger btn-add text-center p-3"
+                (click)="saveData()"
               >
                 Agregar contrato
               </button>
@@ -208,13 +153,13 @@
                 </div>
                 <div class="row">
                   <div class="col">
-                    <button
+                    <!-- <button
                       type="button"
                       class="btn btn-danger btn-add"
                       (click)="newContract()"
                     >
                       Agregar contrato
-                    </button>
+                    </button> -->
                   </div>
                 </div>
                 <div class="contractsArray">
@@ -235,16 +180,19 @@
                               </tr>
                             </thead>
                             <tbody>
-                              <tr *ngIf="!registroPorId">
+                              <tr *ngIf="true">
                                 <th scope="row" colspan="8" class="text-center">
                                   Sin registros.
                                 </th>
                               </tr>
-                              <ng-container *ngIf="registroPorId">
+                              <ng-container *ngIf="true">
                                 <tr
                                   *ngFor="
-                                    let contract of registroPorId.record
-                                      .contracts;
+                                    let contract of {
+                                      record: {
+                                        contracts: [{ id: '', title: '' }]
+                                      }
+                                    }.record.contracts;
                                     index as i
                                   "
                                 >
@@ -255,7 +203,7 @@
                                   <td>{{ contract?.id }}</td>
                                   <td>{{ contract?.title }}</td>
                                   <!-- (click)="editElement(contract._id)" -->
-                                  <td (click)="editElement(contract)">
+                                  <!-- <td (click)="editElement(contract)">
                                     <svg
                                       xmlns="http://www.w3.org/2000/svg"
                                       height="24px"
@@ -269,8 +217,8 @@
                                       />
                                     </svg>
                                     Editar
-                                  </td>
-                                  <td (click)="viewElement(contract)">
+                                  </td> -->
+                                  <!-- <td (click)="viewElement(contract)">
                                     <svg
                                       xmlns="http://www.w3.org/2000/svg"
                                       height="24px"
@@ -284,7 +232,7 @@
                                       />
                                     </svg>
                                     Visualizar
-                                  </td>
+                                  </td> -->
                                   <!--  <td (click)="deleteElement(contract)">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -316,7 +264,7 @@
           </div>
 
           <div
-            class="tab-pane fade"
+            class="tab-pane fade show active"
             id="contracts-general"
             role="tabpanel"
             aria-labelledby="contracts-general-tab"
@@ -330,7 +278,7 @@
           </div>
 
           <div
-            class="tab-pane fade show active"
+            class="tab-pane fade"
             id="contracts-items"
             role="tabpanel"
             aria-labelledby="contracts-items-tab"
@@ -380,6 +328,20 @@
 
           <div
             class="tab-pane fade"
+            id="contracts-implementation"
+            role="tabpanel"
+            aria-labelledby="contracts-implementation-tab"
+            tabindex="0"
+          >
+            <div class="form">
+              <app-contracts-implementation
+                [implementationForm]="implementationForm"
+              ></app-contracts-implementation>
+            </div>
+          </div>
+
+          <div
+            class="tab-pane fade"
             id="contracts-milestones"
             role="tabpanel"
             aria-labelledby="contracts-milestones-tab"
@@ -407,20 +369,6 @@
                 (addAmendment)="addAmendments($event)"
                 (deleteAmendment)="deleteAmendments($event)"
               ></app-contracts-amendments>
-            </div>
-          </div>
-
-          <!-- fin  -->
-          <div class="col col-md-9">
-            <div class="tab-content" id="contracts-tabContent">
-              <div
-                class="tab-pane fade"
-                id="contracts-implementation"
-                role="tabpanel"
-                aria-labelledby="contracts-implementation-tab"
-              >
-                <app-contracts-implementation></app-contracts-implementation>
-              </div>
             </div>
           </div>
         </div>
