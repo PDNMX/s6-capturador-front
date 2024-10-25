@@ -7,7 +7,7 @@
   </div>
   <form [formGroup]="generalForm">
     <div class="row">
-      <div class="form-floating col mb-5">
+      <div class="form-floating col mb-2">
         <input
           class="form-control"
           id="name"
@@ -21,10 +21,18 @@
           Nombre común * es requerido.
         </div>
       </div>
+      <div class="form-text">
+        Un nombre común para esta organización u otro participante en el proceso
+        de contrataciones. El objeto identificador da un espacio para un nombre
+        legal formal, y esto podría repetir el valor o dar un nombre común por
+        el cual se conoce a la organización o entidad. Este campo también pude
+        incluir detalles del departamento o sub-unidad involucrada en este
+        proceso de contrataciones.
+      </div>
     </div>
 
     <div class="row">
-      <div class="form-floating col mb-5">
+      <div class="form-floating col mb-2">
         <input
           class="form-control"
           id="position"
@@ -38,15 +46,27 @@
           Cargo * es requerido.
         </div>
       </div>
+      <div class="form-text">
+        El cargo que ocupa el actor. Puede utilizarse para definir el cargo
+        específico que ocupa el servidor público involucrado en el proceso de
+        contratación.
+      </div>
     </div>
 
     <fieldset class="border p-3 mb-3">
-      <legend>Papeles de los actores</legend>
-
+      <legend>Roles de las partes</legend>
+      <small
+        >El rol (o roles) de las partes involucradas en el proceso de
+        contrataciones, utilizando la lista de código abierta
+        <a
+          href="https://standard.open-contracting.org/1.1/es/schema/codelists/#party-role"
+          >Roles de las partes</a
+        >.</small
+      >
       <div class="row">
         <div class="col-10">
           <div class="row">
-            <div class="form-floating col mb-5">
+            <div class="form-floating col mb-2">
               <select
                 class="form-select"
                 [(ngModel)]="optRole"
@@ -112,7 +132,10 @@
 
     <fieldset class="border p-3 mb-3">
       <legend>Miembro de</legend>
-
+      <small
+        >Una lista con las partes involucradas que pueden estar dentro de una
+        organización.</small
+      >
       <div class="row">
         <div class="col-10">
           <div class="row">
@@ -182,10 +205,19 @@
     </fieldset>
 
     <fieldset class="border p-3 mb-3" formGroupName="identifier">
-      <legend class="w-auto px-1">Identificador principal</legend>
-
+      <legend>Identificador principal</legend>
+      <small
+        >El identificador primario para esta organización o participante. Son
+        preferibles los identificadores que denotan de forma única a una entidad
+        legal. Consulta la
+        <a
+          href="https://standard.open-contracting.org/latest/es/schema/reference/#identifier"
+          >guía de identificadores de organización</a
+        >
+        para el esquema e identificador preferido.</small
+      >
       <div class="row">
-        <div class="form-floating col mb-5">
+        <div class="form-floating col mb-2">
           <input
             class="form-control"
             id="legalPersonality"
@@ -202,10 +234,14 @@
             Personalidad jurídica * es requerido.
           </div>
         </div>
+        <div class="form-text">
+          Especifica la personalidad jurídica de la entidad que participa en
+          este proceso. Utilizando la lista de códigos 'Personalidad jurídica'.
+        </div>
       </div>
 
       <div class="row">
-        <div class="form-floating col mb-5">
+        <div class="form-floating col mb-2">
           <input
             class="form-control"
             id="legalName"
@@ -219,104 +255,139 @@
             Nombre legal * es requerido.
           </div>
         </div>
-      </div>
-
-      <div class="row">
-        <div class="form-floating col mb-5">
-          <input
-            class="form-control"
-            id="givenName"
-            type="text"
-            data-sb-validations="required"
-            placeholder="Nombre*"
-            formControlName="givenName"
-          />
-          <label for="givenName">Nombre*</label>
-          <div class="invalid-feedback" data-sb-feedback="givenName:required">
-            Nombre * es requerido.
-          </div>
-        </div>
-
-        <div class="form-floating col mb-5">
-          <input
-            class="form-control"
-            id="patronymicName"
-            type="text"
-            data-sb-validations="required"
-            placeholder="Primer apellido*"
-            formControlName="patronymicName"
-          />
-          <label for="patronymicName">Primer apellido*</label>
-          <div
-            class="invalid-feedback"
-            data-sb-feedback="patronymicName:required"
-          >
-            Primer apellido * es requerido.
-          </div>
-        </div>
-
-        <div class="form-floating col mb-5">
-          <input
-            class="form-control"
-            id="matronymicName"
-            type="text"
-            data-sb-validations="required"
-            placeholder="Segundo apellido*"
-            formControlName="matronymicName"
-          />
-          <label for="matronymicName">Segundo apellido*</label>
-          <div
-            class="invalid-feedback"
-            data-sb-feedback="matronymicName:required"
-          >
-            Segundo apellido * es requerido.
-          </div>
+        <div class="form-text">
+          El nombre legalmente registrado de la organización.
         </div>
       </div>
 
       <div class="row">
-        <div class="form-floating col-4 mb-5">
-          <input
-            class="form-control"
-            id="schema"
-            type="text"
-            data-sb-validations="required"
-            placeholder="Esquema*"
-            formControlName="schema"
-          />
-          <label for="schema">Esquema*</label>
-          <div class="invalid-feedback" data-sb-feedback="schema:required">
-            Esquema * es requerido.
+        <div class="col-md-4 mb-2">
+          <div class="form-floating">
+            <input
+              class="form-control"
+              id="givenName"
+              type="text"
+              data-sb-validations="required"
+              placeholder="Nombre*"
+              formControlName="givenName"
+            />
+            <label for="givenName">Nombre*</label>
+            <div class="invalid-feedback" data-sb-feedback="givenName:required">
+              Nombre * es requerido.
+            </div>
+          </div>
+          <div class="form-text">Nombre de la persona física.</div>
+        </div>
+
+        <div class="col-md-4 mb-2">
+          <div class="form-floating">
+            <input
+              class="form-control"
+              id="patronymicName"
+              type="text"
+              data-sb-validations="required"
+              placeholder="Primer apellido*"
+              formControlName="patronymicName"
+            />
+            <label for="patronymicName">Primer apellido*</label>
+            <div
+              class="invalid-feedback"
+              data-sb-feedback="patronymicName:required"
+            >
+              Primer apellido * es requerido.
+            </div>
+          </div>
+          <div class="form-text">Primer apellido de la persona física.</div>
+        </div>
+
+        <div class="col-md-4 mb-2">
+          <div class="form-floating">
+            <input
+              class="form-control"
+              id="matronymicName"
+              type="text"
+              data-sb-validations="required"
+              placeholder="Segundo apellido*"
+              formControlName="matronymicName"
+            />
+            <label for="matronymicName">Segundo apellido*</label>
+            <div
+              class="invalid-feedback"
+              data-sb-feedback="matronymicName:required"
+            >
+              Segundo apellido * es requerido.
+            </div>
+          </div>
+          <div class="form-text">Segundo apellido de la persona física.</div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-4 mb-3">
+          <div class="form-floating">
+            <input
+              class="form-control"
+              id="schema"
+              type="text"
+              data-sb-validations="required"
+              placeholder="Esquema*"
+              formControlName="schema"
+            />
+            <label for="schema">Esquema*</label>
+            <div class="invalid-feedback" data-sb-feedback="schema:required">
+              Esquema * es requerido.
+            </div>
+          </div>
+          <div class="form-text">
+            El campo esquema se usa para indicar o registrar de dónde se toma el
+            identificador. Este valor debería tomarse del
+            <a
+              href="https://standard.open-contracting.org/1.1/es/schema/codelists/#organization-identifier-scheme"
+              >Esquema de Identificadores de Organizaciones</a
+            >.
           </div>
         </div>
 
-        <div class="form-floating col-4 mb-5">
-          <input
-            class="form-control"
-            id="id"
-            type="text"
-            data-sb-validations="required"
-            placeholder="RFC*"
-            formControlName="id"
-          />
-          <label for="id">RFC*</label>
-          <div class="invalid-feedback" data-sb-feedback="id:required">
-            RFC * es requerido.
+        <div class="col-md-4 mb-3">
+          <div class="form-floating">
+            <input
+              class="form-control"
+              id="id"
+              type="text"
+              data-sb-validations="required"
+              placeholder="RFC*"
+              formControlName="id"
+            />
+            <label for="id">RFC*</label>
+            <div class="invalid-feedback" data-sb-feedback="id:required">
+              RFC * es requerido.
+            </div>
+          </div>
+          <div class="form-text">
+            El identificador de la organización en el esquema seleccionado.
           </div>
         </div>
 
-        <div class="form-floating col-4 mb-5">
-          <input
-            class="form-control"
-            id="uri"
-            type="text"
-            data-sb-validations="required"
-            placeholder="URI*"
-            formControlName="uri"
-          />
-          <label for="uri">URI*</label>
-          <div class="invalid-feedback" data-sb-feedback="uri:required">
-            URI * es requerido.
+        <div class="col-md-4 mb-3">
+          <div class="form-floating">
+            <input
+              class="form-control"
+              id="uri"
+              type="text"
+              data-sb-validations="required"
+              placeholder="URI*"
+              formControlName="uri"
+            />
+            <label for="uri">URI*</label>
+            <div class="invalid-feedback" data-sb-feedback="uri:required">
+              URI * es requerido.
+            </div>
+          </div>
+          <div class="form-text">
+            Una URI para identificar a la organización, como los proveídos por
+            <a href="https://opencorporates.com/">Open Corporates</a> o algún
+            otro proveedor relevante de URIs. Este campo no debe ser utilizado
+            para especificar el sitio web de la organización.
           </div>
         </div>
       </div>

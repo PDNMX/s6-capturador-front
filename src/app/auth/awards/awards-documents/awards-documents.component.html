@@ -3,6 +3,10 @@
     <div class="col">
       <h3>Documentos</h3>
       <hr />
+      <p>
+        Todos los documentos y archivos adjuntos relacionados con la
+        adjudicación, incluyendo cualquier aviso o notificación.
+      </p>
     </div>
   </div>
 
@@ -63,7 +67,7 @@
       <div class="col-12">
         <label for="">Tipo de documento</label>
       </div>
-      <div class="form-floating col mb-5">
+      <div class="form-floating col mb-2">
         <select class="form-select" formControlName="documentType">
           <option *ngFor="let d of documents" [ngValue]="d.code">
             {{ d.title }}
@@ -76,7 +80,7 @@
     </div>
 
     <div class="row">
-      <div class="form-floating col mb-5">
+      <div class="form-floating col mb-2">
         <input
           class="form-control"
           id="title"
@@ -90,10 +94,11 @@
           Titulo * es requerido.
         </div>
       </div>
+      <div class="form-text">El título del documento.</div>
     </div>
 
     <div class="row">
-      <div class="form-floating col-12 mb-5">
+      <div class="form-floating col-12 mb-2">
         <textarea
           class="form-control"
           id="description"
@@ -107,10 +112,14 @@
           Descripción * es requerido.
         </div>
       </div>
+      <div class="form-text">
+        Una descripción corta del documento. Se recomienda que las descripciones
+        no excedan 250 palabras.
+      </div>
     </div>
 
     <div class="row">
-      <div class="form-floating col mb-5">
+      <div class="form-floating col mb-2">
         <input
           class="form-control"
           id="URL"
@@ -124,33 +133,50 @@
           URL * es requerido.
         </div>
       </div>
+      <div class="form-text">
+        Un enlace directo al documento o archivo adjunto. El servidor que da
+        acceso a este documento debe de estar configurado para reportar
+        correctamente el tipo MIME de documento.
+      </div>
     </div>
-
     <div class="row">
-      <div class="form-floating col-6 mb-5">
-        <input
-          class="form-control"
-          id="datePublished"
-          type="date"
-          data-sb-validations="required"
-          formControlName="datePublished"
-        />
-        <label for="datePublished">Fecha de publicación *</label>
-        <div class="invalid-feedback" data-sb-feedback="title:required">
-          Fecha de publicación * es requerido.
+      <div class="col-md-6 mb-2">
+        <div class="form-floating">
+          <input
+            class="form-control"
+            id="datePublished"
+            type="date"
+            data-sb-validations="required"
+            formControlName="datePublished"
+          />
+          <label for="datePublished">Fecha de publicación *</label>
+          <div class="invalid-feedback" data-sb-feedback="title:required">
+            Fecha de publicación * es requerido.
+          </div>
+        </div>
+        <div class="form-text">
+          La fecha de publicación del documento. Esto es particularmente
+          importante para documentos relevantes desde el punto de vista legal,
+          como los avisos de licitación.
         </div>
       </div>
-      <div class="form-floating col-6 mb-5">
-        <input
-          class="form-control"
-          id="dateModified"
-          type="date"
-          data-sb-validations="required"
-          formControlName="dateModified"
-        />
-        <label for="dateModified">Fecha de modificación*</label>
-        <div class="invalid-feedback" data-sb-feedback="title:required">
-          Fecha de modificación * es requerido.
+
+      <div class="col-md-6 mb-2">
+        <div class="form-floating">
+          <input
+            class="form-control"
+            id="dateModified"
+            type="date"
+            data-sb-validations="required"
+            formControlName="dateModified"
+          />
+          <label for="dateModified">Fecha de modificación *</label>
+          <div class="invalid-feedback" data-sb-feedback="title:required">
+            Fecha de modificación * es requerido.
+          </div>
+        </div>
+        <div class="form-text">
+          Fecha en que se modificó por última vez el documento.
         </div>
       </div>
     </div>
@@ -166,6 +192,7 @@
                 {{ d.name }}
               </option>
             </select>
+            <div class="form-text">El formato del documento</div>
           </div>
         </div>
       </div>
@@ -180,6 +207,7 @@
                 {{ d.name }}
               </option>
             </select>
+            <div class="form-text">El lenguaje del documento</div>
           </div>
         </div>
       </div>

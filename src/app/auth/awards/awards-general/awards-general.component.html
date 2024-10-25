@@ -47,19 +47,25 @@
       </div>
     </div>
     <div class="row">
-      <div class="form-floating col-md-12 mb-5">
+      <div class="form-floating col mb-2">
         <textarea
           class="form-control"
           id="AwardsRationale"
           type="text"
           placeholder="Justificación"
+          style="height: 100px"
           formControlName="rationale"
         ></textarea>
         <label for="AwardsRationale">Justificación</label>
       </div>
+      <div class="form-text">
+        Una breve descripción de las razones por las cuales se justifica la
+        elección del proveedor o contratista. Detalles adicionales pueden
+        proveerse en los documentos adjuntos.
+      </div>
     </div>
     <div class="row">
-      <div class="form-floating col-md-4 mb-5">
+      <div class="form-floating col-md-4 mb-2">
         <input
           type="date"
           class="form-control"
@@ -69,85 +75,146 @@
         />
         <label for="AwardsDate">Fecha de la adjudicación</label>
       </div>
+      <div class="form-text">
+        La fecha de la adjudicación del contrato. Usualmente es la fecha en que
+        se tomó la decisión de adjudicar.
+      </div>
     </div>
     <!-- fieldset value -->
     <fieldset class="border p-3 mb-3" formGroupName="value">
       <legend class="w-auto px-2">Valor</legend>
       <div class="row">
-        <div class="form-floating form-group col-md-6 mb-5">
-          <input
-            type="number"
-            class="form-control"
-            id="AwardsValueAmount"
-            placeholder="Monto total de la adjudicación *"
-            formControlName="amount"
-          />
-          <label for="AwardsValueAmount"
-            >Monto total de la adjudicación *</label
-          >
+        <div class="col">
+          <p>
+            El valor o monto total de esta adjudicación. En el caso de un
+            contracto marco este puede ser el estimado del valor total o valor
+            máximo del acuerdo. Puede haber más de una adjudicación por proceso
+            de contratación. Un valor negativo indica que la adjudicación puede
+            implicar pagos del proveedor al comprador (comúnmente utilizado en
+            contratos de concesiones).
+          </p>
         </div>
-        <div class="form-floating form-group col-md-6 mb-5">
-          <select
-            class="form-select"
-            id="AwardsValueCurrency"
-            formControlName="currency"
-          >
-            <option value="" selected>
-              -- Seleccione el tipo de moneda --
-            </option>
-            <option *ngFor="let m of currency" value="{{ m.code }}">
-              {{ m.title }}
-            </option>
-          </select>
-          <label for="AwardsValueCurrency">Moneda</label>
+      </div>
+      <div class="row">
+        <div class="col-md-6 mb-2">
+          <div class="form-floating form-group">
+            <input
+              type="number"
+              class="form-control"
+              id="AwardsValueAmount"
+              placeholder="Monto total de la adjudicación *"
+              formControlName="amount"
+            />
+            <label for="AwardsValueAmount">Monto como una cifra *</label>
+          </div>
+        </div>
+        <div class="col-md-6 mb-2">
+          <div class="form-floating form-group">
+            <select
+              class="form-select"
+              id="AwardsValueCurrency"
+              formControlName="currency"
+            >
+              <option value="" selected>
+                -- Seleccione el tipo de moneda --
+              </option>
+              <option *ngFor="let m of currency" value="{{ m.code }}">
+                {{ m.title }}
+              </option>
+            </select>
+            <label for="AwardsValueCurrency">Moneda</label>
+          </div>
+          <div class="form-text">
+            La moneda del monto, de la lista de código cerrada
+            <a
+              href="https://standard.open-contracting.org/1.1/es/schema/codelists/#currency"
+              >'Moneda'</a
+            >
+          </div>
         </div>
       </div>
     </fieldset>
     <!-- End fieldset value -->
 
     <!-- fieldset contracts period -->
-    <fieldset class="border p-3 mb-3">
+    <fieldset class="border p-3 mb-2">
       <legend class="w-auto px-2">Periodo del contrato</legend>
-      <div class="row" formGroupName="contractPeriod">
-        <div class="form-floating form-group col-md-3 mb-5">
-          <input
-            type="date"
-            class="form-control"
-            id="ContractPeriodStartDate"
-            placeholder="Fecha de inicio del contrato"
-            formControlName="startDate"
-          />
-          <label for="ContractPeriodStartDate">Fecha de inicio</label>
+      <div class="row mb-3">
+        <div class="col">
+          <p>El periodo por el cual se ha adjudicado el contrato.</p>
         </div>
-        <div class="form-floating form-group col-md-3 mb-5">
-          <input
-            type="date"
-            class="form-control"
-            id="ContractPeriodendDate"
-            placeholder="Fecha de la adjudicación"
-            formControlName="endDate"
-          />
-          <label for="ContractPeriodendDate">Fecha de término</label>
+      </div>
+      <div formGroupName="contractPeriod">
+        <!-- Primera fila -->
+        <div class="row mb-4">
+          <div class="col-md-6 mb-2">
+            <div class="form-floating form-group">
+              <input
+                type="date"
+                class="form-control"
+                id="ContractPeriodStartDate"
+                placeholder="Fecha de inicio del contrato"
+                formControlName="startDate"
+              />
+              <label for="ContractPeriodStartDate">Fecha de inicio</label>
+            </div>
+            <div class="form-text">
+              La fecha de inicio del período. Cuando se sabe, se debe dar una
+              fecha de inicio precisa.
+            </div>
+          </div>
+
+          <div class="col-md-6 mb-2">
+            <div class="form-floating form-group">
+              <input
+                type="date"
+                class="form-control"
+                id="ContractPeriodendDate"
+                placeholder="Fecha de la adjudicación"
+                formControlName="endDate"
+              />
+              <label for="ContractPeriodendDate">Fecha de término</label>
+            </div>
+            <div class="form-text">
+              La fecha de conclusión del período. Cuando se sabe, se debe dar
+              una fecha de conclusión precisa.
+            </div>
+          </div>
         </div>
-        <div class="form-floating form-group col-md-3 mb-5">
-          <input
-            type="date"
-            class="form-control"
-            id="ContractPeriodMaxExtentDate"
-            placeholder="Fecha de la adjudicación"
-            formControlName="maxExtentDate"
-          />
-          <label for="ContractPeriodMaxExtentDate">Extensión máxima</label>
-        </div>
-        <div class="form-floating form-group col-md-3 mb-5">
-          <input
-            type="number"
-            class="form-control"
-            id="ContractPeriodDurationInDays"
-            placeholder="Duración en dias"
-            formControlName="durationInDays"
-          />
-          <label for="ContractPeriodDurationInDays">Duración (días)</label>
+        <div class="row">
+          <div class="col-md-6 mb-2">
+            <div class="form-floating form-group">
+              <input
+                type="date"
+                class="form-control"
+                id="ContractPeriodMaxExtentDate"
+                placeholder="Fecha de la adjudicación"
+                formControlName="maxExtentDate"
+              />
+              <label for="ContractPeriodMaxExtentDate">Extensión máxima</label>
+            </div>
+            <div class="form-text">
+              El período no puede extenderse después de esta fecha. Este campo
+              debe usarse para expresar la fecha máxima disponible para la
+              extensión o renovación de este período.
+            </div>
+          </div>
+
+          <div class="col-md-6 mb-2">
+            <div class="form-floating form-group">
+              <input
+                type="number"
+                class="form-control"
+                id="ContractPeriodDurationInDays"
+                placeholder="Duración en dias"
+                formControlName="durationInDays"
+              />
+              <label for="ContractPeriodDurationInDays">Duración (días)</label>
+            </div>
+            <div class="form-text">
+              El nivel máximo de duración de este período en días.
+            </div>
+          </div>
         </div>
       </div>
     </fieldset>

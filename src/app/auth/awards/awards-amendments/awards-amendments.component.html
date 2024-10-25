@@ -1,8 +1,14 @@
 <div class="container">
   <div class="row">
     <div class="col">
-      <h3>Modificaciones</h3>
+      <h3>Enmienda</h3>
       <hr />
+      <p>
+        Una enmienda a la adjudicación es un cambio formal a los detalles de la
+        adjudicación y generalmente implica la publicación de una nueva entrega
+        o aviso de una nueva adjudicación. La justificación y descripción de los
+        cambios realizados pueden ser proveídos aquí.
+      </p>
     </div>
   </div>
 
@@ -53,7 +59,7 @@
 
   <form [formGroup]="amendmentsForm">
     <div class="row">
-      <div class="form-floating col-6 mb-5">
+      <div class="form-floating col-6 mb-2">
         <input
           class="form-control"
           id="date"
@@ -61,15 +67,16 @@
           data-sb-validations="required"
           formControlName="date"
         />
-        <label for="datePublished">Fecha de modificación*</label>
+        <label for="datePublished">Fecha de enmienda *</label>
         <div class="invalid-feedback" data-sb-feedback="title:required">
-          Fecha de modificación * es requerido.
+          Fecha de enmienda * es requerido.
         </div>
       </div>
+      <div class="form-text">La fecha de esta enmienda.</div>
     </div>
 
     <div class="row">
-      <div class="form-floating col-12 mb-5">
+      <div class="form-floating col-12 mb-2">
         <textarea
           class="form-control"
           id="Justificación"
@@ -83,10 +90,11 @@
           Justificación * es requerido.
         </div>
       </div>
+      <div class="form-text">Una explicación de la enmienda.</div>
     </div>
 
     <div class="row">
-      <div class="form-floating col-12 mb-5">
+      <div class="form-floating col-12 mb-2">
         <textarea
           class="form-control"
           id="description"
@@ -100,10 +108,14 @@
           Descripción * es requerido.
         </div>
       </div>
+      <div class="form-text">
+        Un texto libre o semi estructurado, describiendo los cambios hechos en
+        esta enmienda.
+      </div>
     </div>
 
     <div class="row">
-      <div class="form-floating col mb-5">
+      <div class="form-floating col mb-2">
         <input
           class="form-control"
           id="amendsReleaseID"
@@ -112,15 +124,20 @@
           placeholder="URL*"
           formControlName="amendsReleaseID"
         />
-        <label for="URL">Liberación modificada (identificador)*</label>
+        <label for="URL">Entrega enmendada (identificador) *</label>
         <div class="invalid-feedback" data-sb-feedback="title:required">
           * es requerido.
         </div>
       </div>
+      <div class="form-text">
+        Provee el identificador (release.id) de la entrega OCDS (de este proceso
+        de contratación) que provee los valores para este proceso de
+        contratación antes de realizada la enmienda.
+      </div>
     </div>
 
     <div class="row">
-      <div class="form-floating col mb-5">
+      <div class="form-floating col mb-2">
         <input
           class="form-control"
           id="releaseID"
@@ -129,10 +146,15 @@
           placeholder="URL*"
           formControlName="releaseID"
         />
-        <label for="URL">Difusión de la modificación (identificador)*</label>
+        <label for="URL">Entrega de enmienda (identificador) *</label>
         <div class="invalid-feedback" data-sb-feedback="title:required">
           * es requerido.
         </div>
+      </div>
+      <div class="form-text">
+        Provee el identificador (release.id) de la entrega OCDS (de este proceso
+        de contratación) que provee los valores para este proceso de
+        contratación después de realizada la enmienda.
       </div>
     </div>
 

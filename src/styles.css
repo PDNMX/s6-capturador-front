@@ -308,3 +308,11 @@ margin: 0 0 80px 0;
   overflow-y: auto;
   height: 65lvh;
 }
+
+.form-text {
+  font-size: 0.875rem;
+  color: #6c757d;
+  margin-top: 0.25rem;
+  margin-bottom: 0.875rem;
+  font-style: italic;
+}
