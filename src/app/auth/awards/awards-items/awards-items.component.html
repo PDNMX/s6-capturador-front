@@ -3,7 +3,7 @@
     <div class="col">
       <h3>Artículos adjudicados</h3>
       <hr />
-      <p class="small">
+      <p>
         Los bienes y servicios adjudicados en esta adjudicación, desglosados en
         tipos de artículos de una clasificación preexistente cuando sea posible.
         Los artículos no deberían de estar duplicados, sino se debe especificar
@@ -82,6 +82,10 @@
           Descripción * es requerido.
         </div>
       </div>
+      <div class="form-text">
+        Una descripción de los bienes o servicios objetos del procedimiento de
+        contratación.
+      </div>
     </div>
 
     <div class="row">
@@ -100,6 +104,7 @@
         </select>
         <!-- <p>{{ getMilestoneTypeDesc(milestoneForm.value.type) }}</p> -->
       </div>
+      <div class="form-text">La clasificación primaria para un artículo.</div>
     </div>
 
     <fieldset class="border p-3 mb-3">
@@ -117,6 +122,9 @@
               {{ d.description }}
             </option>
           </select>
+          <div class="form-text">
+            Una lista de clasificaciones adicionales para el artículo.
+          </div>
           <!-- <p>{{ getMilestoneTypeDesc(milestoneForm.value.type) }}</p> -->
         </div>
         <div class="col-2">
@@ -188,6 +196,7 @@
           Cantidad * es requerido.
         </div>
       </div>
+      <div class="form-text">El número de unidades que se dan.</div>
     </div>
 
     <div class="row" formGroupName="unit">
@@ -205,31 +214,50 @@
           Unidad * es requerido.
         </div>
       </div>
-
+      <div class="form-text">
+        Una descripción de la unidad en la cual los suministros, servicios o
+        trabajos están provistos (ej. horas, kilos) y el precio por unidad.
+      </div>
       <div class="col-12" formGroupName="value">
         <div class="row">
-          <div class="form-floating col-4 mb-2">
-            <input
-              class="form-control"
-              id="amount"
-              type="text"
-              data-sb-validations="required"
-              placeholder="Monto*"
-              formControlName="amount"
-            />
-            <label for="amount">Monto *</label>
-            <div class="invalid-feedback" data-sb-feedback="amount:required">
-              Monto * es requerido.
+          <div class="col-md-4 mb-3">
+            <div class="form-floating">
+              <input
+                class="form-control"
+                id="amount"
+                type="text"
+                data-sb-validations="required"
+                placeholder="Monto*"
+                formControlName="amount"
+              />
+              <label for="amount">Monto *</label>
+              <div class="invalid-feedback" data-sb-feedback="amount:required">
+                Monto * es requerido.
+              </div>
             </div>
+            <div class="form-text">Monto como una cifra.</div>
           </div>
-          <div class="form-floating col-4 mb-2">
-            <select class="form-select" formControlName="currency">
-              <option *ngFor="let d of currency" [ngValue]="d.code">
-                {{ d.title }}
-              </option>
-            </select>
-            <label for="type">Moneda</label>
-            <!-- <p>{{ getMilestoneTypeDesc(milestoneForm.value.type) }}</p> -->
+
+          <div class="col-md-4 mb-3">
+            <div class="form-floating">
+              <select
+                class="form-select"
+                id="currency"
+                formControlName="currency"
+              >
+                <option *ngFor="let d of currency" [ngValue]="d.code">
+                  {{ d.title }}
+                </option>
+              </select>
+              <label for="currency">Moneda</label>
+            </div>
+            <div class="form-text">
+              La moneda del monto, de la lista de código cerrada
+              <a
+                href="https://standard.open-contracting.org/1.1/es/schema/codelists/#currency"
+                >'Moneda'</a
+              >
+            </div>
           </div>
         </div>
       </div>
