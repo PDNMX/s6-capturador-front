@@ -3,6 +3,15 @@
     <div class="col">
       <h3>Proveedores</h3>
       <hr />
+      <div class="row">
+        <div class="col">
+          <p>
+            Los proveedores adjudicados. Si hay diferentes proveedores
+            adjudicados para los artículos del procedimiento de contratación,
+            deberían ser separados en diferentes bloques de adjudicación.
+          </p>
+        </div>
+      </div>
     </div>
   </div>
   <!-- Tabla de proveedores de la adjudicación-->
@@ -22,7 +31,10 @@
               <th scope="row">{{ opt.id }}</th>
               <td>{{ opt.name }}</td>
               <td>
-                <button class="btn btn-sm btn-danger btn-delete" (click)="deleteSupplier.emit(i)">
+                <button
+                  class="btn btn-sm btn-danger btn-delete"
+                  (click)="deleteSupplier.emit(i)"
+                >
                   Eliminar
                 </button>
               </td>
@@ -63,16 +75,25 @@
   <div class="row">
     <div class="form-floating col-10 mb-5">
       <select name="select" class="form-select" [(ngModel)]="suppliersValue">
-        <option *ngIf="suppliers.length === 0" [disabled] = "suppliers.length === 0">
+        <option
+          *ngIf="suppliers.length === 0"
+          [disabled]="suppliers.length === 0"
+        >
           No hay registros de proveedores para esta adjudicación
         </option>
         <option *ngFor="let c of suppliers" [ngValue]="c">
           proveedor {{ c?.name }}
+        </option>
       </select>
+
       <label for="AwardsSuppliersName">Seleccione proveedor</label>
     </div>
     <div class="col-2">
-      <button type="button" class="btn btn-danger btn-add" (click)="addNewSupplier()">
+      <button
+        type="button"
+        class="btn btn-danger btn-add"
+        (click)="addNewSupplier()"
+      >
         Agregar proveedor
       </button>
     </div>

@@ -7,7 +7,7 @@
   </div>
   <form [formGroup]="addressForm">
     <div class="row">
-      <div class="form-floating col mb-5">
+      <div class="form-floating col mb-2">
         <input
           class="form-control"
           id="streetAddress"
@@ -21,10 +21,11 @@
           Calle y número * es requerido.
         </div>
       </div>
+      <div class="form-text">La dirección de la calle. Por ejemplo: Viaducto 105</div>
     </div>
 
     <div class="row">
-      <div class="form-floating col mb-5">
+      <div class="form-floating col mb-2">
         <input
           class="form-control"
           id="locality"
@@ -38,10 +39,11 @@
           Localidad * es requerido.
         </div>
       </div>
+      <div class="form-text">La localidad. Por ejemplo: Alcaldia Miguel Hidalgo</div>
     </div>
 
     <div class="row">
-      <div class="form-floating col mb-5">
+      <div class="form-floating col mb-2">
         <input
           class="form-control"
           id="region"
@@ -55,10 +57,13 @@
           Región * es requerido.
         </div>
       </div>
+      <div class="form-text">
+        La región. Por ejemplo: Ciudad de México
+      </div>
     </div>
 
     <div class="row">
-      <div class="form-floating col mb-5">
+      <div class="form-floating col mb-2">
         <input
           class="form-control"
           id="postalCode"
@@ -72,10 +77,13 @@
           Código postal * es requerido.
         </div>
       </div>
+      <div class="form-text">
+        El código postal. Por ejemplo: 11800
+      </div>
     </div>
 
     <div class="row">
-      <div class="form-floating col mb-5">
+      <div class="form-floating col mb-2">
         <input
           class="form-control"
           id="countryName"
@@ -88,6 +96,9 @@
         <div class="invalid-feedback" data-sb-feedback="countryName:required">
           País * es requerido.
         </div>
+      </div>
+      <div class="form-text">
+        El nombre del país. Por ejemplo: México.
       </div>
     </div>
 
