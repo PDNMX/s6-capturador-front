@@ -47,6 +47,12 @@ import { PlanningRequestForQuotesItemsComponent } from './planning/planning-requ
 import { PlanningRequestForQuotesQuotesComponent } from './planning/planning-request-for-quotes-quotes/planning-request-for-quotes-quotes.component';
 import { PlanningRequestForQuotesComponent } from './planning/planning-request-for-quotes/planning-request-for-quotes.component';
 import { ContractsGeneralComponent } from './contracts/contracts-general/contracts-general.component';
+import { ContractsGuaranteesComponent } from './contracts/contracts-guarantees/contracts-guarantees.component';
+import { ContractsDocumentsComponent } from './contracts/contracts-documents/contracts-documents.component';
+import { ContractsMilestonesComponent } from './contracts/contracts-milestones/contracts-milestones.component';
+import { ContractsAmendmentsComponent } from './contracts/contracts-amendments/contracts-amendments.component';
+import { ContractsItemsComponent } from './contracts/contracts-items/contracts-items.component';
+import { ContractsPresentationComponent } from './contracts/contracts-presentation/contracts-presentation.component';
 
 @NgModule({
   declarations: [
@@ -93,6 +99,12 @@ import { ContractsGeneralComponent } from './contracts/contracts-general/contrac
     PlanningRequestForQuotesQuotesComponent,
     PlanningRequestForQuotesComponent,
     ContractsGeneralComponent,
+    ContractsGuaranteesComponent,
+    ContractsDocumentsComponent,
+    ContractsMilestonesComponent,
+    ContractsAmendmentsComponent,
+    ContractsItemsComponent,
+    ContractsPresentationComponent,
   ],
   imports: [CommonModule, AuthRoutingModule, ReactiveFormsModule, FormsModule],
   exports: [

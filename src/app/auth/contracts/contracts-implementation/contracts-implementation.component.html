@@ -1,16 +1,114 @@
-<app-contracts-implementation-transactions
-  [transactionsArray]="implementationForm.value.transactions"
-  (addTransaction)="addTransaction($event)"
-  (deleteTransaction)="deleteTransaction($event)"
-></app-contracts-implementation-transactions>
-<app-contracts-implementation-documents
-  [documentsArray]="implementationForm.value.documents"
-  (addDocument)="addDocument($event)"
-  (deleteDocument)="deleteDocument($event)"
-></app-contracts-implementation-documents>
-<app-contracts-implementation-milestones
-  [milestonesArray]="implementationForm.value.milestone"
-  (addMilestone)="addMilestone($event)"
-  (deleteMilestone)="deleteMilestone($event)"
-></app-contracts-implementation-milestones>
-<button (click)="submit()">Guardar</button>
+<div class="content">
+  <div class="container">
+    <div class="row">
+      <div class="col">
+        <h3>Ejecución del contrato</h3>
+        <hr />
+      </div>
+    </div>
+    <form>
+      <div class="row">
+        <div class="form-floating col" [formGroup]="implementationForm">
+          <select class="form-select" formControlName="status">
+            <option
+              *ngFor="let s of implementationStatus"
+              [value]="s.code"
+              [selected]="s.code === implementationForm.value.status"
+            >
+              {{ s.title }}
+            </option>
+          </select>
+          <label for="">Estatus de la implementación</label>
+          <p>
+            {{ getImplementationStatusDesc(implementationForm.value.status) }}
+          </p>
+        </div>
+      </div>
+      <ul class="nav nav-tabs" id="implemetation" role="tablist">
+        <li class="nav-transactions" role="presentation">
+          <button
+            class="nav-link"
+            id="transactions-tab"
+            data-bs-toggle="tab"
+            data-bs-target="#transactions-tab-pane"
+            type="button"
+            role="tab"
+            aria-controls="transactions-tab-pane"
+            aria-selected="true"
+          >
+            Transacciones
+          </button>
+        </li>
+        <li class="nav-milestones" role="presentation">
+          <button
+            class="nav-link"
+            id="milestones-tab"
+            data-bs-toggle="tab"
+            data-bs-target="#milestones-tab-pane"
+            type="button"
+            role="tab"
+            aria-controls="milestones-tab-pane"
+            aria-selected="false"
+          >
+            Hitos
+          </button>
+        </li>
+        <li class="nav-documents" role="presentation">
+          <button
+            class="nav-link"
+            id="documents-tab"
+            data-bs-toggle="tab"
+            data-bs-target="#documents-tab-pane"
+            type="button"
+            role="tab"
+            aria-controls="documents-tab-pane"
+            aria-selected="false"
+          >
+            Documentos
+          </button>
+        </li>
+      </ul>
+      <div class="tab-content" id="myTabContent">
+        <div
+          class="tab-pane fade"
+          id="transactions-tab-pane"
+          role="tabpanel"
+          aria-labelledby="transactions-tab"
+          tabindex="0"
+        >
+          <app-contracts-implementation-transactions
+            [transactionsArray]="implementationForm.value.transactions"
+            (addTransaction)="addTransaction($event)"
+            (deleteTransaction)="deleteTransaction($event)"
+          ></app-contracts-implementation-transactions>
+        </div>
+        <div
+          class="tab-pane fade"
+          id="milestones-tab-pane"
+          role="tabpanel"
+          aria-labelledby="milestones-tab"
+          tabindex="0"
+        >
+          <app-contracts-implementation-milestones
+            [milestonesArray]="implementationForm.value.milestones"
+            (addMilestone)="addMilestone($event)"
+            (deleteMilestone)="deleteMilestone($event)"
+          ></app-contracts-implementation-milestones>
+        </div>
+        <div
+          class="tab-pane fade"
+          id="documents-tab-pane"
+          role="tabpanel"
+          aria-labelledby="documents-tab"
+          tabindex="0"
+        >
+          <app-contracts-implementation-documents
+            [documentsArray]="implementationForm.value.documents"
+            (addDocument)="addDocument($event)"
+            (deleteDocument)="deleteDocument($event)"
+          ></app-contracts-implementation-documents>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>

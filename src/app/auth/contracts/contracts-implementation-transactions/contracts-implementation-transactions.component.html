@@ -1,194 +1,173 @@
-<div class="container">
-  <div class="row">
-    <div class="col">
-      <h3>Implementación</h3>
-      <hr />
-    </div>
-  </div>
-
-  <div class="row">
-    <div class="form-floating col mb-5" [formGroup]="statusForm">
-      <select class="form-select" formControlName="status">
-        <option *ngFor="let s of implementationStatus" [ngValue]="s.code">
-          {{ s.title }}
-        </option>
-      </select>
-      <label for="">Estatus de la implementación</label>
-      <p>{{ getImplementationStatusDesc(statusForm.value.status) }}</p>
-    </div>
-  </div>
-  <!--  Transactions Fieldset -->
-  <div class="row">
-    <div class="col">
-      <h3>Transacciones</h3>
-      <hr />
-      <p>Una lista de transacciones de pago realizadas contra este contrato.</p>
-    </div>
-  </div>
-  <div class="row">
-    <div class="col">
-      <div class="table-responsive-sm">
-        <table class="table table-hover table-striped mb-10">
-          <thead>
-            <tr>
-              <th scope="col">ID</th>
-              <th scope="col">Fecha de transacción</th>
-              <th scope="col">Método de pago</th>
-              <th scope="col">Monto</th>
-              <th scope="col">Moneda</th>
-              <th scope="col">Pagador</th>
-              <th scope="col">Beneficiario</th>
-              <th scope="col">Opciones</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr *ngFor="let transaction of transactionsArray; let i = index">
-              <td>{{ transaction.id || i + 1 }}</td>
-              <td>{{ transaction.date }}</td>
-              <td>{{ transaction.paymentMethod }}</td>
-              <td>{{ transaction.value.amount }}</td>
-              <td>{{ transaction.value.currency }}</td>
-              <td>{{ transaction.payer?.name }}</td>
-              <td>{{ transaction.payee?.name }}</td>
-              <td>
-                <button
-                  type="button"
-                  class="btn btn-danger btn-delete"
-                  (click)="deleteTransaction.emit(i)"
-                >
-                  Eliminar
-                </button>
-              </td>
-            </tr>
-            <tr *ngIf="transactionsArray.length === 0">
-              <th scope="row" colspan="8" class="text-center">
-                Sin registros.
-              </th>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-    </div>
-  </div>
-
-  <form [formGroup]="transactionsForm">
-    <div class="row mb-3">
-      <div class="form-floating col">
-        <input
-          type="text"
-          class="form-control"
-          id="TransactionsSource"
-          placeholder="Fuente de datos"
-          formControlName="source"
-        />
-        <label for="TransactionsSource" class="form-label"
-          >Fuente de datos</label
-        >
-      </div>
-    </div>
-    <div class="row mb-3">
-      <div class="form-floating col-md-6">
-        <input
-          type="date"
-          class="form-control"
-          id="TransacctionsDate"
-          placeholder="Fecha de la transacción"
-          formControlName="date"
-        />
-        <label for="TransacctionsDate" class="form-label"
-          >Fecha de la transacción</label
-        >
-      </div>
-      <div class="form-floating col-md-6">
-        <input
-          type="text"
-          class="form-control"
-          id="TransactionsPaymentMethod"
-          placeholder="Método de pago"
-          formControlName="paymentMethod"
-        />
-        <label for="TransactionsPaymentMethod" class="form-label"
-          >Método de pago</label
-        >
-      </div>
-    </div>
-
-    <fieldset class="border p-3 mb-3">
-      <legend class="w-auto px-2">Valor</legend>
-      <div class="row" formGroupName="value">
-        <div class="form-floating col-md-6">
-          <input
-            type="number"
-            class="form-control"
-            id="TransactionsValueAmount"
-            placeholder="Monto de la transacción"
-            formControlName="amount"
-          />
-          <label for="TransactionsValueAmount">Monto</label>
-        </div>
-
-        <div class="form-floating form-group col-md-6">
-          <select
-            class="form-select"
-            aria-label="moneda"
-            formControlName="currency"
-          >
-            <option *ngFor="let c of currency" [ngValue]="c.code">
-              {{ c.title }}
-            </option>
-          </select>
-          <label for="TransactionsValueCurrency">Moneda</label>
-        </div>
-      </div>
-    </fieldset>
-
-    <fieldset class="border p-3 mb-3">
-      <legend class="w-auto px-2">Pagador</legend>
-      <div class="row">
-        <div class="form-floating col-10 mb-5">
-          <select class="form-select" formControlName="payer">
-            <option selected>Seleccione un pagador</option>
-            <option *ngFor="let p of payers" [ngValue]="p">
-              Actor {{ p?.name }}
-            </option>
-          </select>
-        </div>
-      </div>
-    </fieldset>
-    <fieldset class="border p-3 mb-3">
-      <legend class="w-auto px-2">Beneficiario</legend>
-      <div class="row">
-        <div class="form-floating col-10 mb-5">
-          <select class="form-select" formControlName="payee">
-            <option selected>Seleccione un pagador</option>
-            <option *ngFor="let b of payee" [ngValue]="b">
-              Actor {{ b?.name }}
-            </option>
-          </select>
-        </div>
-      </div>
-    </fieldset>
-    <div class="row">
-      <div class="form-floating col-md-12 mb-5">
-        <input
-          type="text"
-          class="form-control"
-          id="TransactionsUri"
-          placeholder="URI"
-        />
-        <label for="TransactionsUri">URI</label>
+<div class="content">
+  <div class="container">
+    <div class="row mt-3">
+      <div class="col">
+        <!-- <p>
+          Una lista de transacciones de pago realizadas contra este contrato.
+        </p> -->
       </div>
     </div>
     <div class="row">
       <div class="col">
-        <button
-          type="button"
-          class="btn btn-danger btn-add"
-          (click)="addNewTransactions()"
-        >
-          Agregar transacción
-        </button>
+        <div class="table-responsive-sm">
+          <table class="table table-hover table-striped mb-10">
+            <thead>
+              <tr>
+                <th scope="col">ID</th>
+                <th scope="col">Fecha de transacción</th>
+                <th scope="col">Método de pago</th>
+                <th scope="col">Monto</th>
+                <th scope="col">Moneda</th>
+                <th scope="col">Pagador</th>
+                <th scope="col">Beneficiario</th>
+                <th scope="col">Opciones</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let transaction of transactionsArray; let i = index">
+                <td>{{ transaction.id || i + 1 }}</td>
+                <td>{{ transaction.date }}</td>
+                <td>{{ transaction.paymentMethod }}</td>
+                <td>{{ transaction.value.amount }}</td>
+                <td>{{ transaction.value.currency }}</td>
+                <td>{{ transaction.payer?.name }}</td>
+                <td>{{ transaction.payee?.name }}</td>
+                <td>
+                  <button
+                    type="button"
+                    class="btn btn-danger btn-delete"
+                    (click)="deleteTransaction.emit(i)"
+                  >
+                    Eliminar
+                  </button>
+                </td>
+              </tr>
+              <tr *ngIf="transactionsArray.length === 0">
+                <th scope="row" colspan="8" class="text-center">
+                  Sin registros.
+                </th>
+              </tr>
+            </tbody>
+          </table>
+        </div>
       </div>
     </div>
-  </form>
+    <form [formGroup]="transactionsForm">
+      <div class="row">
+        <div class="form-floating col mb-2">
+          <input
+            type="text"
+            class="form-control"
+            id="TransactionsSource"
+            placeholder="Fuente de datos"
+            formControlName="source"
+          />
+          <label for="TransactionsSource" class="form-label"
+            >Fuente de datos</label
+          >
+        </div>
+      </div>
+      <div class="row">
+        <div class="form-floating col mb-2">
+          <input
+            type="date"
+            class="form-control"
+            id="TransacctionsDate"
+            placeholder="Fecha de la transacción"
+            formControlName="date"
+          />
+          <label for="TransacctionsDate" class="form-label"
+            >Fecha de la transacción</label
+          >
+        </div>
+        <div class="form-floating col mb-2">
+          <input
+            type="text"
+            class="form-control"
+            id="TransactionsPaymentMethod"
+            placeholder="Método de pago"
+            formControlName="paymentMethod"
+          />
+          <label for="TransactionsPaymentMethod" class="form-label"
+            >Método de pago</label
+          >
+        </div>
+      </div>
+
+      <fieldset class="border p-3 mb-3">
+        <legend class="w-auto px-2">Valor</legend>
+        <div class="row" formGroupName="value">
+          <div class="form-floating col-md-6">
+            <input
+              type="number"
+              class="form-control"
+              id="TransactionsValueAmount"
+              placeholder="Monto de la transacción"
+              formControlName="amount"
+            />
+            <label for="TransactionsValueAmount">Monto</label>
+          </div>
+
+          <div class="form-floating form-group col-md-6">
+            <select
+              class="form-select"
+              aria-label="moneda"
+              formControlName="currency"
+            >
+              <option *ngFor="let c of currency" [ngValue]="c.code">
+                {{ c.title }}
+              </option>
+            </select>
+            <label for="TransactionsValueCurrency">Moneda</label>
+          </div>
+        </div>
+      </fieldset>
+
+      <div class="row">
+        <div class="form-floating col mb-2">
+          <select class="form-select" formControlName="payer">
+            <option *ngFor="let p of payers" [ngValue]="p">
+              {{ p?.name }}
+            </option>
+          </select>
+          <label for="">Pagador</label>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="form-floating col mb-2">
+          <select class="form-select" formControlName="payee">
+            <option *ngFor="let b of payee" [ngValue]="b">
+              {{ b?.name }}
+            </option>
+          </select>
+          <label for="">Beneficiario</label>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="form-floating col mb-2">
+          <input
+            type="text"
+            class="form-control"
+            id="TransactionsUri"
+            placeholder="URI"
+            formControlName="uri"
+          />
+          <label for="TransactionsUri">URI</label>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col">
+          <button
+            type="button"
+            class="btn btn-danger btn-add"
+            (click)="addNewTransactions()"
+          >
+            Agregar transacción
+          </button>
+        </div>
+      </div>
+    </form>
+  </div>
 </div>

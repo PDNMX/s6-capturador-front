@@ -1,22 +1,22 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { ApiService } from 'src/app/services/api.service';
 import { FormatDocument, getDocumentType, Language } from 'src/utils';
 
 @Component({
-  selector: 'app-planning-documents',
-  templateUrl: './planning-documents.component.html',
-  styleUrls: ['./planning-documents.component.css'],
+  selector: 'app-contracts-documents',
+  templateUrl: './contracts-documents.component.html',
+  styleUrls: ['./contracts-documents.component.css'],
 })
-export class PlanningDocumentsComponent implements OnInit {
+export class ContractsDocumentsComponent {
   @Input() documentsArray: Array<any> = [];
   @Output() addDocument = new EventEmitter<any>();
   @Output() deleteDocument = new EventEmitter<any>();
 
-  record_id = '';
+  record_id = null;
 
-  documents = getDocumentType('planning');
+  documents = getDocumentType('contract');
   formatDocument = FormatDocument;
   language = Language;
 
@@ -75,14 +75,14 @@ export class PlanningDocumentsComponent implements OnInit {
       this.record_id = params.get('id');
     });
 
-    this.api.getMethod(`/planning/${this.record_id}`).subscribe((d: any) => {
-      const { planning, error, message } = d;
+    this.api.getMethod(`/tender/${this.record_id}`).subscribe((d: any) => {
+      const { tender, error, message } = d;
 
       if (error) {
         console.log('message: ', message);
       } else {
         // load forms
-        if (planning !== null) this.loadForm(planning.documents);
+        // if (contract !== null) this.loadForm(tender.documents);
       }
     });
   }

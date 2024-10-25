@@ -1,269 +1,585 @@
-<div class="container">
-  <div class="row">
-    <div class="col">
-      <h3>Información general</h3>
-      <hr />
-    </div>
-  </div>
-</div>
-<form [formGroup]="contractForm">
-  <div class="row">
-    <div class="form-floating col mb-5">
-      <input
-        class="form-control"
-        id="id"
-        type="text"
-        data-sb-validations="required"
-        placeholder="Identificador del contrato*"
-        formControlName="id"
-        readonly
-      />
-      <label for="id">Identificador del contrato*</label>
-      <div class="invalid-feedback" data-sb-feedback="id:required">
-        Identificador del contrato * es requerido.
-      </div>
-    </div>
-
-    <div class="form-floating col mb-5">
-      <input
-        class="form-control"
-        id="awardID"
-        type="text"
-        data-sb-validations="required"
-        placeholder="Identificador de la adjudicación*"
-        formControlName="awardID"
-        readonly
-      />
-      <label for="id">Identificador de la adjudicación*</label>
-      <div class="invalid-feedback" data-sb-feedback="awardID:required">
-        Identificador de la adjudicación * es requerido.
-      </div>
-    </div>
-  </div>
-
-  <div class="row">
-    <div class="form-floating col mb-5">
-      <input
-        class="form-control"
-        id="title"
-        type="text"
-        data-sb-validations="required"
-        placeholder="Título del contrato*"
-        formControlName="title"
-      />
-      <label for="title">Título del contrato*</label>
-      <div class="invalid-feedback" data-sb-feedback="title:required">
-        Título del contrato * es requerido.
-      </div>
-    </div>
-  </div>
-
-  <div class="row">
-    <div class="form-floating col-12 mb-5">
-      <textarea
-        class="form-control"
-        id="description"
-        type="text"
-        placeholder="Descripción*"
-        style="height: 100px"
-        formControlName="description"
-      ></textarea>
-      <label for="description">Descripción*</label>
-      <div class="invalid-feedback" data-sb-feedback="description:required">
-        Descripción * es requerido.
-      </div>
-    </div>
-  </div>
-
-  <div class="row">
-    <div class="form-floating col mb-5">
-      <select class="form-select" formControlName="status">
-        <option *ngFor="let d of contractStatus" [ngValue]="d.code">
-          {{ d.title }}
-        </option>
-      </select>
-      <label for="status"> Estatus </label>
-      <p>
-        {{ getContractStatusDesc("pending") }}
-      </p>
-    </div>
-  </div>
-
-  <fieldset class="border p-3 mb-3" formGroupName="period">
-    <legend class="w-auto px-1">Periodo del contrato</legend>
-
-    <div class="row">
-      <div class="form-floating col-6 mb-5">
-        <input
-          class="form-control"
-          id="startDate"
-          type="date"
-          data-sb-validations="required"
-          formControlName="startDate"
-        />
-        <label for="startDate">Fecha de inicio*</label>
-        <div class="invalid-feedback" data-sb-feedback="title:required">
-          Fecha de inicio * es requerido.
-        </div>
-      </div>
-      <div class="form-floating col-6 mb-5">
-        <input
-          class="form-control"
-          id="endDate"
-          type="date"
-          data-sb-validations="required"
-          formControlName="endDate"
-        />
-        <label for="endDate">Fecha de término*</label>
-        <div class="invalid-feedback" data-sb-feedback="title:required">
-          Fecha de término * es requerido.
-        </div>
-      </div>
-    </div>
-
-    <div class="row">
-      <div class="form-floating col-6 mb-5">
-        <input
-          class="form-control"
-          id="maxExtentDate"
-          type="date"
-          data-sb-validations="required"
-          formControlName="maxExtentDate"
-        />
-        <label for="maxExtentDate">Extension máxima*</label>
-        <div class="invalid-feedback" data-sb-feedback="title:required">
-          Extension máxima * es requerido.
-        </div>
-      </div>
-      <div class="form-floating col-6 mb-5">
-        <input
-          class="form-control"
-          id="durationInDays"
-          type="number"
-          data-sb-validations="required"
-          placeholder="Duración (días)*"
-          formControlName="durationInDays"
-        />
-        <label for="durationInDays">Duración (dias)*</label>
-        <div class="invalid-feedback" data-sb-feedback="title:required">
-          Duración * es requerido.
-        </div>
-      </div>
-    </div>
-  </fieldset>
-
-  <fieldset class="border p-3 mb-3">
-    <legend class="w-auto px-1">Valor del contrato</legend>
-    <div class="row" formGroupName="value">
-      <div class="form-floating col-4 mb-2">
-        <input
-          class="form-control"
-          id="amount"
-          type="text"
-          data-sb-validations="required"
-          placeholder="Monto*"
-          formControlName="amount"
-        />
-        <label for="amount">Monto*</label>
-        <div class="invalid-feedback" data-sb-feedback="amount:required">
-          Monto * es requerido.
-        </div>
-      </div>
-
-      <div class="form-floating col-4 mb-2">
-        <input
-          class="form-control"
-          id="amountNet"
-          type="text"
-          data-sb-validations="required"
-          placeholder="Monto sin impuestos*"
-          formControlName="amountNet"
-        />
-        <label for="amountNet">Monto sin impuestos*</label>
-        <div class="invalid-feedback" data-sb-feedback="amountNet:required">
-          Monto sin impuestos* es requerido.
-        </div>
-      </div>
-
-      <div class="form-floating col-4 mb-2">
-        <select class="form-select" formControlName="currency">
-          <option *ngFor="let d of currency" [ngValue]="d.code">
-            {{ d.title }}
-          </option>
-        </select>
-        <label for="type">Moneda</label>
-      </div>
-    </div>
+<div class="content">
+  <div class="container">
     <div class="row">
       <div class="col">
-        <div class="table-responsive">
-          <table class="table table-hover table-striped">
-            <thead>
-              <tr>
-                <th scope="col">Tasa de conversión</th>
-                <th scope="col">Moneda</th>
-                <th scope="col">Fecha de la tasa</th>
-                <th scope="col">Fuente de la tasa</th>
-                <th scope="col">Opciones</th>
-              </tr>
-              <tr [formGroup]="exchangeForm">
-                <th>
-                  <input
-                    class="form-control"
-                    id="rate"
-                    type="text"
-                    data-sb-validations="required"
-                    formControlName="rate"
-                  />
-                </th>
-                <th>
-                  <select class="form-select" formControlName="currency">
-                    <option *ngFor="let d of currency" [ngValue]="d.code">
-                      {{ d.title }}
-                    </option>
-                  </select>
-                </th>
-                <th>
-                  <input
-                    class="form-control"
-                    id="date"
-                    type="date"
-                    data-sb-validations="required"
-                    formControlName="date"
-                  />
-                </th>
-                <th>
-                  <input
-                    class="form-control"
-                    id="source"
-                    type="text"
-                    data-sb-validations="required"
-                    formControlName="source"
-                  />
-                </th>
-                <th>
-                  <button
-                    type="button"
-                    class="btn btn-danger btn-add"
-                    (click)="addExchangeRates()"
-                  >
-                    Agregar
-                  </button>
-                </th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr *ngFor="let item of contractForm.value.exchangeRates">
-                <td>
-                  {{ item.rate }}
-                </td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
+        <h3>Información general</h3>
+        <hr />
       </div>
     </div>
-  </fieldset>
+    <form [formGroup]="contractForm">
+      <div class="row">
+        <!-- <div class="form-floating col mb-3">
+          <input
+            class="form-control"
+            id="id"
+            type="text"
+            data-sb-validations="required"
+            placeholder="Identificador del contrato*"
+            formControlName="id"
+            readonly
+          />
+          <label for="id">Identificador del contrato*</label>
+          <div class="invalid-feedback" data-sb-feedback="id:required">
+            Identificador del contrato * es requerido.
+          </div>
+        </div> -->
 
-  <!-- fin form -->
-</form>
+        <div class="form-floating col mb-3">
+          <input
+            class="form-control"
+            id="awardID"
+            type="text"
+            data-sb-validations="required"
+            placeholder="Identificador de la adjudicación*"
+            formControlName="awardID"
+          />
+          <label for="id">Identificador de la adjudicación*</label>
+          <div class="invalid-feedback" data-sb-feedback="awardID:required">
+            Identificador de la adjudicación * es requerido.
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="form-floating col mb-3">
+          <input
+            class="form-control"
+            id="title"
+            type="text"
+            data-sb-validations="required"
+            placeholder="Título del contrato*"
+            formControlName="title"
+          />
+          <label for="title">Título del contrato*</label>
+          <div class="invalid-feedback" data-sb-feedback="title:required">
+            Título del contrato * es requerido.
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="form-floating col-12 mb-3">
+          <textarea
+            class="form-control"
+            id="description"
+            type="text"
+            placeholder="Descripción*"
+            style="height: 100px"
+            formControlName="description"
+          ></textarea>
+          <label for="description">Descripción*</label>
+          <div class="invalid-feedback" data-sb-feedback="description:required">
+            Descripción * es requerido.
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="form-floating col mb-3">
+          <select class="form-select" formControlName="status">
+            <option *ngFor="let d of contractStatus" [ngValue]="d.code">
+              {{ d.title }}
+            </option>
+          </select>
+          <label for="status"> Estatus </label>
+          <p>
+            {{ getContractStatusDesc("pending") }}
+          </p>
+        </div>
+      </div>
+
+      <fieldset class="border p-3 mb-3" formGroupName="period">
+        <legend class="w-auto px-1">Periodo del contrato</legend>
+
+        <div class="row">
+          <div class="form-floating col-6 mb-3">
+            <input
+              class="form-control"
+              id="startDate"
+              type="date"
+              data-sb-validations="required"
+              formControlName="startDate"
+            />
+            <label for="startDate">Fecha de inicio*</label>
+            <div class="invalid-feedback" data-sb-feedback="title:required">
+              Fecha de inicio * es requerido.
+            </div>
+          </div>
+          <div class="form-floating col-6 mb-3">
+            <input
+              class="form-control"
+              id="endDate"
+              type="date"
+              data-sb-validations="required"
+              formControlName="endDate"
+            />
+            <label for="endDate">Fecha de término*</label>
+            <div class="invalid-feedback" data-sb-feedback="title:required">
+              Fecha de término * es requerido.
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="form-floating col-6 mb-3">
+            <input
+              class="form-control"
+              id="maxExtentDate"
+              type="date"
+              data-sb-validations="required"
+              formControlName="maxExtentDate"
+            />
+            <label for="maxExtentDate">Extension máxima*</label>
+            <div class="invalid-feedback" data-sb-feedback="title:required">
+              Extension máxima * es requerido.
+            </div>
+          </div>
+          <div class="form-floating col-6 mb-3">
+            <input
+              class="form-control"
+              id="durationInDays"
+              type="number"
+              data-sb-validations="required"
+              placeholder="Duración (días)*"
+              formControlName="durationInDays"
+            />
+            <label for="durationInDays">Duración (dias)*</label>
+            <div class="invalid-feedback" data-sb-feedback="title:required">
+              Duración * es requerido.
+            </div>
+          </div>
+        </div>
+      </fieldset>
+
+      <fieldset class="border p-3 mb-3">
+        <legend class="w-auto px-1">Valor del contrato</legend>
+        <div class="row" formGroupName="value">
+          <div class="form-floating col-4 mb-3">
+            <input
+              class="form-control"
+              id="amount"
+              type="text"
+              data-sb-validations="required"
+              placeholder="Monto*"
+              formControlName="amount"
+            />
+            <label for="amount">Monto*</label>
+            <div class="invalid-feedback" data-sb-feedback="amount:required">
+              Monto * es requerido.
+            </div>
+          </div>
+
+          <div class="form-floating col-4 mb-3">
+            <input
+              class="form-control"
+              id="amountNet"
+              type="text"
+              data-sb-validations="required"
+              placeholder="Monto sin impuestos*"
+              formControlName="amountNet"
+            />
+            <label for="amountNet">Monto sin impuestos*</label>
+            <div class="invalid-feedback" data-sb-feedback="amountNet:required">
+              Monto sin impuestos* es requerido.
+            </div>
+          </div>
+
+          <div class="form-floating col-4 mb-3">
+            <select class="form-select" formControlName="currency">
+              <option *ngFor="let d of currency" [ngValue]="d.code">
+                {{ d.title }}
+              </option>
+            </select>
+            <label for="type">Moneda</label>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <div class="table-responsive">
+              <table class="table table-hover table-striped">
+                <thead>
+                  <tr>
+                    <th scope="col">Tasa de conversión</th>
+                    <th scope="col">Moneda</th>
+                    <th scope="col">Fecha de la tasa</th>
+                    <th scope="col">Fuente de la tasa</th>
+                    <th scope="col">Opciones</th>
+                  </tr>
+                  <tr [formGroup]="exchangeForm">
+                    <th>
+                      <input
+                        class="form-control"
+                        id="rate"
+                        type="text"
+                        data-sb-validations="required"
+                        formControlName="rate"
+                      />
+                    </th>
+                    <th>
+                      <select class="form-select" formControlName="currency">
+                        <option *ngFor="let d of currency" [ngValue]="d.code">
+                          {{ d.title }}
+                        </option>
+                      </select>
+                    </th>
+                    <th>
+                      <input
+                        class="form-control"
+                        id="date"
+                        type="date"
+                        data-sb-validations="required"
+                        formControlName="date"
+                      />
+                    </th>
+                    <th>
+                      <input
+                        class="form-control"
+                        id="source"
+                        type="text"
+                        data-sb-validations="required"
+                        formControlName="source"
+                      />
+                    </th>
+                    <th>
+                      <button
+                        type="button"
+                        class="btn btn-danger btn-add"
+                        (click)="addExchangeRates()"
+                      >
+                        Agregar
+                      </button>
+                    </th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr
+                    *ngFor="
+                      let item of contractForm.value.value.exchangeRates;
+                      index as i
+                    "
+                  >
+                    <td>
+                      {{ item.rate }}
+                    </td>
+                    <td>
+                      {{ item.currency }}
+                    </td>
+                    <td>
+                      {{ item.date }}
+                    </td>
+                    <td>{{ item.source }}</td>
+                    <td>
+                      <button
+                        type="button"
+                        class="btn btn-danger btn-remove"
+                        (click)="deleteExchangeRates(i)"
+                      >
+                        Eliminar
+                      </button>
+                    </td>
+                  </tr>
+                  <tr
+                    *ngIf="contractForm.value.value.exchangeRates.length === 0"
+                  >
+                    <th scope="row" colspan="5" class="text-center">
+                      Sin registros.
+                    </th>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </fieldset>
+      <fieldset class="border p-3 mb-3">
+        <div class="row">
+          <div class="form-floating col-4 mb-3">
+            <input
+              class="form-control"
+              id="dateSigned"
+              type="date"
+              data-sb-validations="required"
+              formControlName="dateSigned"
+            />
+            <label for="dateSigned">Fecha de firma*</label>
+            <div
+              class="invalid-feedback"
+              data-sb-feedback="dateSigned:required"
+            >
+              Fecha de firma * es requerido.
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <div class="table-responsive">
+              <table class="table table-hover table-striped">
+                <thead>
+                  <tr>
+                    <th scope="col">Mecanismos de vigilancia</th>
+                    <th scope="col">Opciones</th>
+                  </tr>
+                  <tr>
+                    <th>
+                      <select
+                        class="form-select"
+                        [(ngModel)]="surveillanceMechanismsValue"
+                        [ngModelOptions]="{ standalone: true }"
+                      >
+                        <option *ngFor="let d of [1, 2, 3]">
+                          Mecanismos #{{ d }}
+                        </option>
+                      </select>
+                    </th>
+                    <th>
+                      <button
+                        type="button"
+                        class="btn btn-danger btn-add"
+                        (click)="addSurveillanceMechanisms()"
+                      >
+                        Agregar
+                      </button>
+                    </th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr
+                    *ngFor="
+                      let item of contractForm.value.surveillanceMechanisms;
+                      index as i
+                    "
+                  >
+                    <td scope="row">{{ item }}</td>
+                    <td>
+                      <button
+                        type="button"
+                        class="btn btn-danger btn-remove"
+                        (click)="deleteSurveillanceMechanisms(i)"
+                      >
+                        Eliminar
+                      </button>
+                    </td>
+                  </tr>
+                  <tr
+                    *ngIf="
+                      contractForm.value.surveillanceMechanisms.length === 0
+                    "
+                  >
+                    <th scope="row" colspan="2" class="text-center">
+                      Sin registros.
+                    </th>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </fieldset>
+
+      <fieldset class="border p-3 mb-3" [formGroup]="relatedProcessesForm">
+        <legend>Procesos relacionados</legend>
+        <div class="row">
+          <div class="col">
+            <div class="table-responsive">
+              <table class="table table-striped table-hover">
+                <thead>
+                  <tr>
+                    <th scope="col">ID</th>
+                    <th scope="col">Relación</th>
+                    <th scope="col">Titulo del proceso relacionado</th>
+                    <th scope="col">Esquema</th>
+                    <th scope="col">Identificador</th>
+                    <th scope="col">URI</th>
+                    <th scope="col">Opciones</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr
+                    *ngFor="
+                      let item of contractForm.value.relatedProcesses;
+                      index as i
+                    "
+                  >
+                    <td scope="row">
+                      {{ item.id || i + 1 }}
+                    </td>
+                    <td>
+                      <ul *ngFor="let relation of item.relationship">
+                        <li>{{ relation }}</li>
+                      </ul>
+                    </td>
+                    <td>{{ item.title }}</td>
+                    <td>{{ item.scheme }}</td>
+                    <td>{{ item.identifier }}</td>
+                    <td>{{ item.uri }}</td>
+                    <td>
+                      <button
+                        type="button"
+                        class="btn btn-danger btn-delete"
+                        (click)="deleteRelatedProcesses(i)"
+                      >
+                        Eliminar
+                      </button>
+                    </td>
+                  </tr>
+                  <tr *ngIf="contractForm.value.relatedProcesses.length === 0">
+                    <th scope="row" colspan="7" class="text-center">
+                      Sin registros.
+                    </th>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col">
+            <div class="table-responsive">
+              <table class="table table-striped table-hover">
+                <thead>
+                  <tr>
+                    <th scope="col">Relación</th>
+                    <th scope="col">Opciones</th>
+                  </tr>
+                  <tr>
+                    <th>
+                      <select
+                        class="form-select"
+                        [(ngModel)]="relationshipValue"
+                        [ngModelOptions]="{ standalone: true }"
+                      >
+                        <option
+                          *ngFor="let d of relatedProcesses"
+                          [value]="d.code"
+                        >
+                          {{ d.title }}
+                        </option>
+                      </select>
+                    </th>
+                    <th>
+                      <button
+                        type="button"
+                        class="btn btn-danger btn-add"
+                        (click)="addRelationship()"
+                      >
+                        Agregar
+                      </button>
+                    </th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr
+                    *ngFor="
+                      let item of relatedProcessesForm.value.relationship;
+                      index as i
+                    "
+                  >
+                    <td scope="row">{{ item }}</td>
+                    <td>
+                      <button
+                        type="button"
+                        class="btn btn-danger btn-remove"
+                        (click)="deleteRelationship(i)"
+                      >
+                        Eliminar
+                      </button>
+                    </td>
+                  </tr>
+                  <tr
+                    *ngIf="relatedProcessesForm.value.relationship.length === 0"
+                  >
+                    <th scope="row" colspan="2" class="text-center">
+                      Sin registros.
+                    </th>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="form-floating col mb-3">
+            <input
+              class="form-control"
+              id="title"
+              type="text"
+              data-sb-validations="required"
+              placeholder="title*"
+              formControlName="title"
+            />
+            <label for="title">Titulo *</label>
+            <div class="invalid-feedback" data-sb-feedback="title:required">
+              Titulo * es requerido.
+            </div>
+          </div>
+
+          <div class="form-floating col mb-3">
+            <input
+              class="form-control"
+              id="scheme"
+              type="text"
+              data-sb-validations="required"
+              placeholder="Esquema*"
+              formControlName="scheme"
+            />
+            <label for="scheme">Esquema *</label>
+            <div class="invalid-feedback" data-sb-feedback="scheme:required">
+              Esquema * es requerido.
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="form-floating col mb-3">
+            <input
+              class="form-control"
+              id="identifier"
+              type="text"
+              data-sb-validations="required"
+              placeholder="Identificador*"
+              formControlName="identifier"
+            />
+            <label for="identifier">Identificador *</label>
+            <div
+              class="invalid-feedback"
+              data-sb-feedback="identifier:required"
+            >
+              Identificador * es requerido.
+            </div>
+          </div>
+
+          <div class="form-floating col mb-3">
+            <input
+              class="form-control"
+              id="uri"
+              type="text"
+              data-sb-validations="required"
+              placeholder="URI*"
+              formControlName="uri"
+            />
+            <label for="uri">URI *</label>
+            <div class="invalid-feedback" data-sb-feedback="uri:required">
+              URI * es requerido.
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col">
+            <button
+              type="button"
+              class="btn btn-danger btn-add"
+              (click)="addRelatedProcesses()"
+            >
+              Agregar proceso relacionado
+            </button>
+          </div>
+        </div>
+      </fieldset>
+
+      <!-- fin form -->
+    </form>
+  </div>
+</div>

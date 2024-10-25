@@ -56,7 +56,6 @@ export class ContractsImplementationMilestonesComponent {
 
   addNewMilestone(): void {
     this.addMilestone.emit(this.milestoneForm);
-    console.log(this.milestoneForm.value);
     this.initForm();
   }
 }

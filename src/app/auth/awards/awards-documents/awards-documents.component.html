@@ -39,7 +39,7 @@
               <td>{{ doc.datePublished }}</td>
               <td>{{ doc.dateModified }}</td>
               <td>{{ getFormatDocument(doc.format) }}</td>
-              <td>{{ getLanguaje(doc.language) }}</td>
+              <td>{{ getLanguage(doc.language) }}</td>
               <td>
                 <button
                   type="button"
@@ -203,7 +203,7 @@
           </div>
           <div class="form-floating col mb-5">
             <select class="form-select" formControlName="language">
-              <option *ngFor="let d of languaje" [ngValue]="d.code">
+              <option *ngFor="let d of language" [ngValue]="d.code">
                 {{ d.name }}
               </option>
             </select>

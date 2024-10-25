@@ -1,7 +1,7 @@
 <div class="container">
   <div class="row">
     <div class="col">
-      <h3>Documentos</h3>
+      <h3>Hitos</h3>
       <hr />
     </div>
   </div>
@@ -13,40 +13,40 @@
           <thead>
             <tr>
               <th scope="col">ID</th>
-              <th scope="col">Tipo de documento</th>
               <th scope="col">Titulo</th>
+              <th scope="col">Tipo</th>
               <th scope="col">Descripción</th>
-              <th scope="col">URL</th>
-              <th scope="col">Fecha de publicación</th>
-              <th scope="col">Fecha de Modificación</th>
-              <th scope="col">Formato</th>
-              <th scope="col">Idioma</th>
+              <th scope="col">Codigo</th>
+              <th scope="col">Fecha de vencimiento</th>
+              <th scope="col">Fecha de cumplimiento</th>
+              <th scope="col">Fecha de modificación</th>
+              <th scope="col">Estatus</th>
 
               <th scope="col">Opciones</th>
             </tr>
           </thead>
           <tbody>
-            <tr *ngFor="let doc of documentsArray; index as i">
-              <th scope="row">{{ doc.id || i + 1 }}</th>
-              <td>{{ getDocumentTypeTitle(doc.documentType) }}</td>
-              <td>{{ doc.title }}</td>
-              <td>{{ doc.description }}</td>
-              <td>{{ doc.url }}</td>
-              <td>{{ doc.datePublished }}</td>
-              <td>{{ doc.dateModified }}</td>
-              <td>{{ getFormatDocument(doc.format) }}</td>
-              <td>{{ getLanguage(doc.language) }}</td>
+            <tr *ngFor="let ele of milestonesArray; index as i">
+              <th scope="row">{{ ele.id || i + 1 }}</th>
+              <td>{{ ele.title }}</td>
+              <td>{{ getMilestoneTypeDesc(ele.type) }}</td>
+              <td>{{ ele.description }}</td>
+              <td>{{ ele.code }}</td>
+              <td>{{ ele.dueDate }}</td>
+              <td>{{ ele.dateMet }}</td>
+              <td>{{ ele.dateModified }}</td>
+              <td>{{ getMilestoneStatusDesc(ele.status) }}</td>
               <td>
                 <button
                   type="button"
                   class="btn btn-danger btn-delete"
-                  (click)="deleteDocument.emit(i)"
+                  (click)="deleteMilestone.emit(i)"
                 >
                   Eliminar
                 </button>
               </td>
             </tr>
-            <tr *ngIf="documentsArray.length === 0">
+            <tr *ngIf="milestonesArray.length === 0">
               <th scope="row" colspan="10" class="text-center">
                 Sin registros.
               </th>
@@ -57,24 +57,7 @@
     </div>
   </div>
   <hr />
-
-  <form [formGroup]="documentsForm">
-    <div class="row">
-      <div class="col-12">
-        <label for="">Tipo de documento</label>
-      </div>
-      <div class="form-floating col mb-5">
-        <select class="form-select" formControlName="documentType">
-          <option *ngFor="let d of documents" [ngValue]="d.code">
-            {{ d.title }}
-          </option>
-        </select>
-        <p>
-          {{ getDocumentTypeDesc(documentsForm.value.documentType) }}
-        </p>
-      </div>
-    </div>
-
+  <form [formGroup]="milestoneForm">
     <div class="row">
       <div class="form-floating col mb-5">
         <input
@@ -85,10 +68,24 @@
           placeholder="URL*"
           formControlName="title"
         />
-        <label for="title">Titulo *</label>
+        <label for="title">Titulo*</label>
         <div class="invalid-feedback" data-sb-feedback="title:required">
           Titulo * es requerido.
         </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-12">
+        <label for="type">Tipo de hito</label>
+      </div>
+      <div class="form-floating col mb-5">
+        <select class="form-select" formControlName="type">
+          <option *ngFor="let d of milestoneType" [ngValue]="d.code">
+            {{ d.title }}
+          </option>
+        </select>
+        <p>{{ getMilestoneTypeDesc(milestoneForm.value.type) }}</p>
       </div>
     </div>
 
@@ -102,7 +99,7 @@
           style="height: 100px"
           formControlName="description"
         ></textarea>
-        <label for="description">Descripción *</label>
+        <label for="description">Descripción*</label>
         <div class="invalid-feedback" data-sb-feedback="description:required">
           Descripción * es requerido.
         </div>
@@ -117,30 +114,45 @@
           type="text"
           data-sb-validations="required"
           placeholder="URL*"
-          formControlName="url"
+          formControlName="code"
         />
-        <label for="URL">URL *</label>
+        <label for="URL">Codigo*</label>
         <div class="invalid-feedback" data-sb-feedback="title:required">
-          URL * es requerido.
+          Codigo * es requerido.
         </div>
       </div>
     </div>
 
     <div class="row">
-      <div class="form-floating col-6 mb-5">
+      <div class="form-floating col mb-5">
         <input
           class="form-control"
           id="datePublished"
           type="date"
           data-sb-validations="required"
-          formControlName="datePublished"
+          formControlName="dueDate"
         />
-        <label for="datePublished">Fecha de publicación *</label>
+        <label for="datePublished">Fecha de vencimiento*</label>
         <div class="invalid-feedback" data-sb-feedback="title:required">
-          Fecha de publicación * es requerido.
+          Fecha de vencimiento * es requerido.
         </div>
       </div>
-      <div class="form-floating col-6 mb-5">
+
+      <div class="form-floating col mb-5">
+        <input
+          class="form-control"
+          id="datePublished"
+          type="date"
+          data-sb-validations="required"
+          formControlName="dateMet"
+        />
+        <label for="datePublished">Fecha de cumplimiento*</label>
+        <div class="invalid-feedback" data-sb-feedback="title:required">
+          Fecha de cumplimiento * es requerido.
+        </div>
+      </div>
+
+      <div class="form-floating col mb-5">
         <input
           class="form-control"
           id="dateModified"
@@ -155,33 +167,18 @@
       </div>
     </div>
     <div class="row">
-      <div class="col-6">
-        <div class="row">
-          <div class="col-12">
-            <label for="format">Formato</label>
-          </div>
-          <div class="form-floating col mb-5">
-            <select class="form-select" formControlName="format">
-              <option *ngFor="let d of formatDocument" [ngValue]="d.template">
-                {{ d.name }}
-              </option>
-            </select>
-          </div>
-        </div>
+      <div class="col-12">
+        <label for="status"> Estatus </label>
       </div>
-      <div class="col-6">
-        <div class="row">
-          <div class="col-12">
-            <label for="language">Idioma</label>
-          </div>
-          <div class="form-floating col mb-5">
-            <select class="form-select" formControlName="language">
-              <option *ngFor="let d of language" [ngValue]="d.code">
-                {{ d.name }}
-              </option>
-            </select>
-          </div>
-        </div>
+      <div class="form-floating col mb-5">
+        <select class="form-select" formControlName="status">
+          <option *ngFor="let d of milestoneStatus" [ngValue]="d.code">
+            {{ d.title }}
+          </option>
+        </select>
+        <p>
+          {{ getMilestoneStatusDesc(milestoneForm.value.status) }}
+        </p>
       </div>
     </div>
 
@@ -190,9 +187,9 @@
         <button
           type="button"
           class="btn btn-danger btn-add"
-          (click)="addNewDocument()"
+          (click)="addNewMilestone()"
         >
-          Agregar documento
+          Agregar hito
         </button>
       </div>
     </div>
