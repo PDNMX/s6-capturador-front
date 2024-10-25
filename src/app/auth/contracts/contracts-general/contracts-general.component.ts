@@ -92,10 +92,10 @@ export class ContractsGeneralComponent implements OnInit {
 
   initExchangeForm(): void {
     this.exchangeForm = this.fb.group({
-      rate: ['rate', [Validators.required]],
+      rate: ['', [Validators.required]],
       currency: ['MXN', [Validators.required]],
-      date: ['date', [Validators.required]],
-      source: ['source', [Validators.required]],
+      date: ['', [Validators.required]],
+      source: ['', [Validators.required]],
     });
   }
 
@@ -103,10 +103,10 @@ export class ContractsGeneralComponent implements OnInit {
     this.relatedProcessesForm = this.fb.group({
       id: ['', [Validators.required]],
       relationship: this.fb.array([]),
-      title: ['title', [Validators.required]],
-      scheme: ['scheme', [Validators.required]],
-      identifier: ['identifier', [Validators.required]],
-      uri: ['uri', [Validators.required]],
+      title: ['', [Validators.required]],
+      scheme: ['', [Validators.required]],
+      identifier: ['', [Validators.required]],
+      uri: ['', [Validators.required]],
     });
   }
 }

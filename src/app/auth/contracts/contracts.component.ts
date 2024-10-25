@@ -18,7 +18,6 @@ export class ContractsComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private api: ApiService,
-    private apiService: ApiService,
     private route: ActivatedRoute
   ) {}
 
@@ -93,6 +92,41 @@ export class ContractsComponent implements OnInit {
     return this.contractForm.controls['implementation'] as FormGroup;
   }
 
+  loadForm(data: any): void {
+    data.forEach((contract: any) => {
+      this.contractsArray.push(this.fb.control(contract));
+      this.contractForm.patchValue(contract);
+
+      const { items, guarantees, documents } = contract;
+
+      items.forEach((item: any) => {
+        this.itemsArray.push(this.fb.control(item));
+      });
+
+      guarantees.forEach((guarante: any) => {
+        this.guaranteesArray.push(this.fb.control(guarante));
+      });
+
+      documents.forEach((document: any) => {
+        this.documentsArray.push(this.fb.control(document));
+      });
+    });
+  }
+
+  loadData(): void {
+    this.api.getMethod(`/contracts/${this.record_id}`).subscribe((d: any) => {
+      const { contracts, error, message } = d;
+      console.log('contracts: ', contracts);
+
+      if (error) {
+        console.log('message: ', message);
+      } else {
+        // load forms
+        if (contracts !== null) this.loadForm(contracts);
+      }
+    });
+  }
+
   ngOnInit() {
     this.route.paramMap.subscribe((params: any) => {
       this.record_id = params.get('id');
@@ -100,6 +134,7 @@ export class ContractsComponent implements OnInit {
 
     this.initForm();
     this.initContractForm();
+    this.loadData();
   }
 
   initForm(): void {
@@ -110,16 +145,16 @@ export class ContractsComponent implements OnInit {
 
   initContractForm(): void {
     this.contractForm = this.fb.group({
-      id: ['id', [Validators.required]],
-      awardID: ['awardID', [Validators.required]],
-      title: ['title', [Validators.required]],
-      description: ['description', [Validators.required]],
-      status: ['pending', [Validators.required]],
+      id: [null, [Validators.required]],
+      awardID: ['', [Validators.required]],
+      title: ['', [Validators.required]],
+      description: ['', [Validators.required]],
+      status: ['', [Validators.required]],
       period: this.fb.group({
-        startDate: ['startDate', [Validators.required]],
-        endDate: ['endDate', [Validators.required]],
-        maxExtentDate: ['maxExtentDate', [Validators.required]],
-        durationInDays: ['durationInDays', [Validators.required]],
+        startDate: ['', [Validators.required]],
+        endDate: ['', [Validators.required]],
+        maxExtentDate: ['', [Validators.required]],
+        durationInDays: ['', [Validators.required]],
       }),
       value: this.fb.group({
         amount: [0, [Validators.required]],
@@ -127,13 +162,13 @@ export class ContractsComponent implements OnInit {
         currency: ['MXN', [Validators.required]],
         exchangeRates: this.fb.array([]),
       }),
-      dateSigned: ['dateSigned', [Validators.required]],
+      dateSigned: ['', [Validators.required]],
       surveillanceMechanisms: this.fb.array([]),
       items: this.fb.array([]),
       guarantees: this.fb.array([]),
       documents: this.fb.array([]),
       implementation: this.fb.group({
-        status: ['pending', [Validators.required]],
+        status: ['', [Validators.required]],
         transactions: this.fb.array([]),
         milestones: this.fb.array([]),
         documents: this.fb.array([]),
@@ -146,24 +181,21 @@ export class ContractsComponent implements OnInit {
 
   saveData(): void {
     console.log('this.contractForm.value: ', this.contractForm.value);
-
     this.contractsArray.push(this.contractForm);
-    this.initContractForm();
+    // this.initContractForm();
 
-    console.log('this.contractsForm.value: ', this.contractsForm.value);
-
-    this.api
-      .postMethod(
-        { ...this.contractsForm.value },
-        `/contracts/${this.record_id}`
-      )
-      .subscribe((r: any) => {
-        console.log('r: ', r);
-        if (r.err) {
-          console.log('r: ', r);
-        } else {
-          this.initForm();
-        }
-      });
+    // this.api
+    //   .postMethod(
+    //     { ...this.contractsForm.value },
+    //     `/contracts/${this.record_id}`
+    //   )
+    //   .subscribe((r: any) => {
+    //     console.log('r: ', r);
+    //     if (r.err) {
+    //       console.log('r: ', r);
+    //     } else {
+    //       this.initForm();
+    //     }
+    //   });
   }
 }
