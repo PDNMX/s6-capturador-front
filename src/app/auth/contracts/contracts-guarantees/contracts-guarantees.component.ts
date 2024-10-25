@@ -47,19 +47,19 @@ export class ContractsGuaranteesComponent implements OnInit {
 
   initForm(): void {
     this.guaranteesForm = this.fb.group({
-      type: ['type', [Validators.required]],
-      date: ['date', [Validators.required]],
-      obligations: ['obligations', [Validators.required]],
+      type: ['', [Validators.required]],
+      date: ['', [Validators.required]],
+      obligations: ['', [Validators.required]],
       value: this.fb.group({
         amount: ['0', [Validators.required]],
         currency: ['MXN', [Validators.required]],
       }),
-      guarantor: ['guarantor', [Validators.required]],
+      guarantor: ['', [Validators.required]],
       period: this.fb.group({
-        startDate: ['startDate', [Validators.required]],
-        endDate: ['endDate', [Validators.required]],
-        durationInDays: ['durationInDays', [Validators.required]],
-        maxExtentDate: ['maxExtentDate', [Validators.required]],
+        startDate: ['', [Validators.required]],
+        endDate: ['', [Validators.required]],
+        durationInDays: ['', [Validators.required]],
+        maxExtentDate: ['', [Validators.required]],
       }),
     });
   }

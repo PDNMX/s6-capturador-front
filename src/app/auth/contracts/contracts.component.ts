@@ -134,6 +134,11 @@ export class ContractsComponent implements OnInit {
     this.initContractForm();
   }
 
+  cancelContract(): void {
+    this.editMode = false;
+    this.initContractForm();
+  }
+
   ngOnInit() {
     this.route.paramMap.subscribe((params: any) => {
       this.record_id = params.get('id');
@@ -190,7 +195,7 @@ export class ContractsComponent implements OnInit {
   saveData(): void {
     console.log('this.contractForm.value: ', this.contractForm.value);
     this.contractsArray.push(this.contractForm);
-    // this.editMode = false;
+    this.editMode = false;
     this.initContractForm();
 
     this.save();

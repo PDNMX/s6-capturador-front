@@ -10,7 +10,7 @@
             aria-orientation="vertical"
           >
             <h3
-              class="active text-left"
+              class="text-left"
               id="contracts-presentacion-tab"
               data-bs-toggle="pill"
               data-bs-target="#contracts-presentacion"
@@ -23,7 +23,7 @@
             </h3>
             <ng-container *ngIf="editMode">
               <button
-                class="nav-link text-left"
+                class="nav-link text-left active"
                 id="contracts-general-tab"
                 data-bs-toggle="pill"
                 data-bs-target="#contracts-general"
@@ -113,13 +113,24 @@
                 Modificaciones
               </button>
 
-              <button
-                type="button"
-                class="btn btn-danger btn-add text-center p-3"
-                (click)="saveData()"
-              >
-                Agregar contrato
-              </button>
+              <div class="d-flex flex-column mb-3">
+                <button
+                  type="button"
+                  class="btn btn-danger btn-add text-center p-3"
+                  (click)="saveData()"
+                >
+                  Agregar contrato
+                </button>
+              </div>
+              <div class="d-flex flex-column">
+                <button
+                  type="button"
+                  class="btn btn-success btn-add text-center p-3"
+                  (click)="cancelContract()"
+                >
+                  Cancelar
+                </button>
+              </div>
             </ng-container>
           </div>
         </div>
@@ -129,7 +140,9 @@
         <div class="tab-content" id="contracts-tabContent">
           <ng-container *ngIf="!editMode">
             <div
-              class="tab-pane fade show active"
+              class="tab-pane fade"
+              [class.active]="!editMode"
+              [class.show]="!editMode"
               id="contracts-presentacion"
               role="tabpanel"
               aria-labelledby="contracts-presentacion-tab"
