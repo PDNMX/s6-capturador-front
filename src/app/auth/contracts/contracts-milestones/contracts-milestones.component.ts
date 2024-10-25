@@ -73,7 +73,6 @@ export class ContractsMilestonesComponent {
 
   initForm(): void {
     this.milestoneForm = this.fb.group({
-      id: ['', [Validators.required]],
       title: ['', [Validators.required]],
       type: ['', [Validators.required]],
       description: ['', [Validators.required]],

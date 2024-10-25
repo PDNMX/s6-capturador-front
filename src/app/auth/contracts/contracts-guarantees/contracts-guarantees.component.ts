@@ -47,7 +47,6 @@ export class ContractsGuaranteesComponent implements OnInit {
 
   initForm(): void {
     this.guaranteesForm = this.fb.group({
-      id: ['', [Validators.required]],
       type: ['type', [Validators.required]],
       date: ['date', [Validators.required]],
       obligations: ['obligations', [Validators.required]],

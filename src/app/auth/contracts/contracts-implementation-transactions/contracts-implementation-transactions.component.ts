@@ -56,7 +56,6 @@ export class ContractsImplementationTransactionsComponent implements OnInit {
   }
   initForm(): void {
     this.transactionsForm = this.fb.group({
-      id: ['', Validators.required],
       source: ['', Validators.required],
       date: ['', Validators.required],
       paymentMethod: ['', Validators.required],
