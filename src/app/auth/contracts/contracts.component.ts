@@ -31,6 +31,8 @@ export class ContractsComponent implements OnInit {
 
   deleteContract(index: number): void {
     this.contractsArray.removeAt(index);
+    this.save();
+    this.loadData();
   }
 
   get guaranteesArray() {
@@ -127,6 +129,11 @@ export class ContractsComponent implements OnInit {
     });
   }
 
+  addNewContract(): void {
+    this.editMode = true;
+    this.initContractForm();
+  }
+
   ngOnInit() {
     this.route.paramMap.subscribe((params: any) => {
       this.record_id = params.get('id');
@@ -135,6 +142,8 @@ export class ContractsComponent implements OnInit {
     this.initForm();
     this.initContractForm();
     this.loadData();
+
+    console.log('this.contractsForm: ', this.contractsForm.value);
   }
 
   initForm(): void {
@@ -145,7 +154,6 @@ export class ContractsComponent implements OnInit {
 
   initContractForm(): void {
     this.contractForm = this.fb.group({
-      id: [null, [Validators.required]],
       awardID: ['', [Validators.required]],
       title: ['', [Validators.required]],
       description: ['', [Validators.required]],
@@ -182,20 +190,26 @@ export class ContractsComponent implements OnInit {
   saveData(): void {
     console.log('this.contractForm.value: ', this.contractForm.value);
     this.contractsArray.push(this.contractForm);
-    // this.initContractForm();
+    // this.editMode = false;
+    this.initContractForm();
 
-    // this.api
-    //   .postMethod(
-    //     { ...this.contractsForm.value },
-    //     `/contracts/${this.record_id}`
-    //   )
-    //   .subscribe((r: any) => {
-    //     console.log('r: ', r);
-    //     if (r.err) {
-    //       console.log('r: ', r);
-    //     } else {
-    //       this.initForm();
-    //     }
-    //   });
+    this.save();
+    this.loadData();
+  }
+
+  save(): void {
+    this.api
+      .postMethod(
+        { ...this.contractsForm.value },
+        `/contracts/${this.record_id}`
+      )
+      .subscribe((r: any) => {
+        console.log('r: ', r);
+        if (r.err) {
+          console.log('r: ', r);
+        } else {
+          this.initForm();
+        }
+      });
   }
 }

@@ -21,7 +21,7 @@
             >
               &nbsp;&nbsp;4. Contrato
             </h3>
-            <ng-container *ngIf="!editMode">
+            <ng-container *ngIf="editMode">
               <button
                 class="nav-link text-left"
                 id="contracts-general-tab"
@@ -124,253 +124,135 @@
           </div>
         </div>
       </div>
-      <!-- Termina Formulario lado derecho -->
+
       <div class="col-md-9 g-0">
         <div class="tab-content" id="contracts-tabContent">
-          <div
-            class="tab-pane fade"
-            id="contracts-presentacion"
-            role="tabpanel"
-            aria-labelledby="contracts-presentacion-tab"
-            tabindex="0"
-          >
-            <div class="form h-100">
-              <form
-                class=""
-                method="post"
-                id="planning-Form-StartAward"
-                name="planning-Form-StartAward"
-                novalidate="novalidate"
-              >
-                <div class="row">
-                  <h3>Contratación</h3>
-                  <hr />
-                  <p>
-                    La fase de Contratación consiste en registro del o los
-                    'items' o servicios que se requieren adquirir en el contrato
-                    de acuerdo con la evaluación de las propuestas.
-                  </p>
-                </div>
-                <div class="row">
-                  <div class="col">
-                    <!-- <button
-                      type="button"
-                      class="btn btn-danger btn-add"
-                      (click)="newContract()"
-                    >
-                      Agregar contrato
-                    </button> -->
-                  </div>
-                </div>
-                <div class="contractsArray">
-                  <div class="row">
-                    <div class="row mt-3">
-                      <div class="col-md-12">
-                        <div class="table-responsive">
-                          <table class="table table-striped table-hover">
-                            <thead>
-                              <tr>
-                                <!--  <th scope="col">_ID</th> -->
-                                <th scope="col">ID</th>
-                                <th scope="col">Identificador</th>
-                                <th scope="col">Título</th>
-                                <th scope="col">Editar</th>
-                                <th scope="col">Visualizar</th>
-                                <!-- <th scope="col">Eliminar</th> -->
-                              </tr>
-                            </thead>
-                            <tbody>
-                              <tr *ngIf="true">
-                                <th scope="row" colspan="8" class="text-center">
-                                  Sin registros.
-                                </th>
-                              </tr>
-                              <ng-container *ngIf="true">
-                                <tr
-                                  *ngFor="
-                                    let contract of {
-                                      record: {
-                                        contracts: [{ id: '', title: '' }]
-                                      }
-                                    }.record.contracts;
-                                    index as i
-                                  "
-                                >
-                                  <td scope="row">
-                                    {{ i + 1 }}
-                                  </td>
-                                  <!-- <td>{{ contract._id }}</td> -->
-                                  <td>{{ contract?.id }}</td>
-                                  <td>{{ contract?.title }}</td>
-                                  <!-- (click)="editElement(contract._id)" -->
-                                  <!-- <td (click)="editElement(contract)">
-                                    <svg
-                                      xmlns="http://www.w3.org/2000/svg"
-                                      height="24px"
-                                      viewBox="0 0 24 24"
-                                      width="24px"
-                                      fill="#5f6368"
-                                    >
-                                      <path d="M0 0h24v24H0z" fill="none" />
-                                      <path
-                                        d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04c.39-.39.39-1.02 0-1.41l-2.34-2.34c-.39-.39-1.02-.39-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z"
-                                      />
-                                    </svg>
-                                    Editar
-                                  </td> -->
-                                  <!-- <td (click)="viewElement(contract)">
-                                    <svg
-                                      xmlns="http://www.w3.org/2000/svg"
-                                      height="24px"
-                                      viewBox="0 0 24 24"
-                                      width="24px"
-                                      fill="#5f6368"
-                                    >
-                                      <path d="M0 0h24v24H0z" fill="none" />
-                                      <path
-                                        d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"
-                                      />
-                                    </svg>
-                                    Visualizar
-                                  </td> -->
-                                  <!--  <td (click)="deleteElement(contract)">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  height="24px"
-                  viewBox="0 0 24 24"
-                  width="24px"
-                  fill="#5f6368"
+          <ng-container *ngIf="!editMode">
+            <div
+              class="tab-pane fade show active"
+              id="contracts-presentacion"
+              role="tabpanel"
+              aria-labelledby="contracts-presentacion-tab"
+              tabindex="0"
+            >
+              <app-contracts-presentation
+                [contractsArray]="contractsForm.value.contracts"
+                (addNewContract)="addNewContract()"
+                (deleteContract)="deleteContract($event)"
+              ></app-contracts-presentation>
+            </div>
+          </ng-container>
+
+          <ng-container *ngIf="editMode">
+            <div
+              class="tab-pane fade show active"
+              id="contracts-general"
+              role="tabpanel"
+              aria-labelledby="contracts-general-tab"
+              tabindex="0"
+            >
+              <div class="form">
+                <app-contracts-general
+                  [contractForm]="contractForm"
+                ></app-contracts-general>
+              </div>
+            </div>
+
+            <div
+              class="tab-pane fade"
+              id="contracts-items"
+              role="tabpanel"
+              aria-labelledby="contracts-items-tab"
+              tabindex="0"
+            >
+              <div class="form">
+                <app-contracts-items
+                  [itemsArray]="contractForm.value.items"
+                  (addItem)="addItems($event)"
+                  (deleteItem)="deleteItems($event)"
+                ></app-contracts-items>
+              </div>
+            </div>
+
+            <div
+              class="tab-pane fade"
+              id="contracts-guarantees"
+              role="tabpanel"
+              aria-labelledby="contracts-guarantees-tab"
+              tabindex="0"
+            >
+              <div class="form">
+                <app-contracts-guarantees
+                  [guaranteesArray]="contractForm.value.guarantees"
+                  (addGuarante)="addGuarante($event)"
+                  (deleteGuarante)="deleteGuarante($event)"
                 >
-                  <path d="M0 0h24v24H0z" fill="none" />
-                  <path d="M0 0h24v24H0z" fill="none" />
-                  <path d="M8 9h8v10H8z" />
-                  <path
-                    d="M18 2H6c-1.1 0-1.99.9-1.99 2L4 20c0 1.1.89 2 1.99 2H18c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm-1 16H7V7h10v11z"
-                  />
-                </svg>
-                Eliminar
-              </td> -->
-                                </tr>
-                              </ng-container>
-                            </tbody>
-                          </table>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </form>
+                </app-contracts-guarantees>
+              </div>
             </div>
-          </div>
 
-          <div
-            class="tab-pane fade show active"
-            id="contracts-general"
-            role="tabpanel"
-            aria-labelledby="contracts-general-tab"
-            tabindex="0"
-          >
-            <div class="form">
-              <app-contracts-general
-                [contractForm]="contractForm"
-              ></app-contracts-general>
+            <div
+              class="tab-pane fade"
+              id="contracts-documents"
+              role="tabpanel"
+              aria-labelledby="contracts-documents-tab"
+              tabindex="0"
+            >
+              <div class="form">
+                <app-contracts-documents
+                  [documentsArray]="contractForm.value.documents"
+                  (addDocument)="addDocument($event)"
+                  (deleteDocument)="deleteDocuments($event)"
+                ></app-contracts-documents>
+              </div>
             </div>
-          </div>
 
-          <div
-            class="tab-pane fade"
-            id="contracts-items"
-            role="tabpanel"
-            aria-labelledby="contracts-items-tab"
-            tabindex="0"
-          >
-            <div class="form">
-              <app-contracts-items
-                [itemsArray]="contractForm.value.items"
-                (addItem)="addItems($event)"
-                (deleteItem)="deleteItems($event)"
-              ></app-contracts-items>
+            <div
+              class="tab-pane fade"
+              id="contracts-implementation"
+              role="tabpanel"
+              aria-labelledby="contracts-implementation-tab"
+              tabindex="0"
+            >
+              <div class="form">
+                <app-contracts-implementation
+                  [implementationForm]="implementationForm"
+                ></app-contracts-implementation>
+              </div>
             </div>
-          </div>
 
-          <div
-            class="tab-pane fade"
-            id="contracts-guarantees"
-            role="tabpanel"
-            aria-labelledby="contracts-guarantees-tab"
-            tabindex="0"
-          >
-            <div class="form">
-              <app-contracts-guarantees
-                [guaranteesArray]="contractForm.value.guarantees"
-                (addGuarante)="addGuarante($event)"
-                (deleteGuarante)="deleteGuarante($event)"
-              >
-              </app-contracts-guarantees>
+            <div
+              class="tab-pane fade"
+              id="contracts-milestones"
+              role="tabpanel"
+              aria-labelledby="contracts-milestones-tab"
+              tabindex="0"
+            >
+              <div class="form">
+                <app-contracts-milestones
+                  [milestonesArray]="contractForm.value.milestones"
+                  (addMilestone)="addMileston($event)"
+                  (deleteMilestone)="deleteMileston($event)"
+                ></app-contracts-milestones>
+              </div>
             </div>
-          </div>
 
-          <div
-            class="tab-pane fade"
-            id="contracts-documents"
-            role="tabpanel"
-            aria-labelledby="contracts-documents-tab"
-            tabindex="0"
-          >
-            <div class="form">
-              <app-contracts-documents
-                [documentsArray]="contractForm.value.documents"
-                (addDocument)="addDocument($event)"
-                (deleteDocument)="deleteDocuments($event)"
-              ></app-contracts-documents>
+            <div
+              class="tab-pane fade"
+              id="contracts-amendments"
+              role="tabpanel"
+              aria-labelledby="contracts-amendments-tab"
+              tabindex="0"
+            >
+              <div class="form">
+                <app-contracts-amendments
+                  [amendmentsArray]="contractForm.value.amendments"
+                  (addAmendment)="addAmendments($event)"
+                  (deleteAmendment)="deleteAmendments($event)"
+                ></app-contracts-amendments>
+              </div>
             </div>
-          </div>
-
-          <div
-            class="tab-pane fade"
-            id="contracts-implementation"
-            role="tabpanel"
-            aria-labelledby="contracts-implementation-tab"
-            tabindex="0"
-          >
-            <div class="form">
-              <app-contracts-implementation
-                [implementationForm]="implementationForm"
-              ></app-contracts-implementation>
-            </div>
-          </div>
-
-          <div
-            class="tab-pane fade"
-            id="contracts-milestones"
-            role="tabpanel"
-            aria-labelledby="contracts-milestones-tab"
-            tabindex="0"
-          >
-            <div class="form">
-              <app-contracts-milestones
-                [milestonesArray]="contractForm.value.milestones"
-                (addMilestone)="addMileston($event)"
-                (deleteMilestone)="deleteMileston($event)"
-              ></app-contracts-milestones>
-            </div>
-          </div>
-
-          <div
-            class="tab-pane fade"
-            id="contracts-amendments"
-            role="tabpanel"
-            aria-labelledby="contracts-amendments-tab"
-            tabindex="0"
-          >
-            <div class="form">
-              <app-contracts-amendments
-                [amendmentsArray]="contractForm.value.amendments"
-                (addAmendment)="addAmendments($event)"
-                (deleteAmendment)="deleteAmendments($event)"
-              ></app-contracts-amendments>
-            </div>
-          </div>
+          </ng-container>
         </div>
       </div>
     </div>
