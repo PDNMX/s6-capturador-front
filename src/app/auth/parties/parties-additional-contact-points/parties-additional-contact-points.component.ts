@@ -15,7 +15,7 @@ export class PartiesAdditionalContactPointsComponent implements OnInit {
   additionalContactPointsForm!: FormGroup;
 
   optsLanguage = Language;
-  optLanguaje: string = '';
+  optLanguage: string = '';
 
   constructor(private fb: FormBuilder) {}
 
@@ -26,14 +26,14 @@ export class PartiesAdditionalContactPointsComponent implements OnInit {
   }
 
   addAvailableLanguage(): void {
-    this.availableLanguageArray.push(this.fb.control(this.optLanguaje));
+    this.availableLanguageArray.push(this.fb.control(this.optLanguage));
   }
 
   deleteAvailableLanguage(index: number): void {
     this.availableLanguageArray.removeAt(index);
   }
 
-  getLanguajeData(code: string): any {
+  getLanguageData(code: string): any {
     return this.optsLanguage.find((e) => e.code === code);
   }
 

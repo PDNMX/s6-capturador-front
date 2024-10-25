@@ -15,7 +15,7 @@ export class ContractsImplementationDocumentsComponent implements OnInit {
   @Output() deleteDocument = new EventEmitter<any>();
 
   formatDocument = FormatDocument;
-  languaje = Language;
+  language = Language;
   documents = getDocumentType('award');
 
   documentsForm!: FormGroup;
@@ -56,9 +56,9 @@ export class ContractsImplementationDocumentsComponent implements OnInit {
     return desc;
   }
 
-  getLanguaje(code: string): string {
+  getLanguage(code: string): string {
     let desc = '';
-    this.languaje.forEach((d) => {
+    this.language.forEach((d) => {
       if (d.code === code) {
         desc = d?.name;
       }

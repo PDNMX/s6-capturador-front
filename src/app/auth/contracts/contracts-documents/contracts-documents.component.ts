@@ -18,7 +18,7 @@ export class ContractsDocumentsComponent {
 
   documents = getDocumentType('contract');
   formatDocument = FormatDocument;
-  languaje = Language;
+  language = Language;
 
   documentForm!: FormGroup;
 
@@ -55,9 +55,9 @@ export class ContractsDocumentsComponent {
     return desc;
   }
 
-  getLanguaje(code: string): string {
+  getLanguage(code: string): string {
     let desc = '';
-    this.languaje.forEach((d) => {
+    this.language.forEach((d) => {
       if (d.code === code) desc = d.name;
     });
 
@@ -94,7 +94,6 @@ export class ContractsDocumentsComponent {
 
   initForm(): void {
     this.documentForm = this.fb.group({
-      id: ['', [Validators.required]],
       documentType: ['', [Validators.required]],
       title: ['', [Validators.required]],
       description: ['', [Validators.required]],
@@ -102,7 +101,7 @@ export class ContractsDocumentsComponent {
       datePublished: ['', [Validators.required]],
       dateModified: ['', [Validators.required]],
       format: ['', [Validators.required]],
-      languaje: ['', [Validators.required]],
+      language: ['', [Validators.required]],
     });
   }
 

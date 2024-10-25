@@ -174,7 +174,7 @@
             <div class="form-floating col mb-5">
               <select
                 class="form-select"
-                [(ngModel)]="optLanguaje"
+                [(ngModel)]="optLanguage"
                 [ngModelOptions]="{ standalone: true }"
               >
                 <option *ngFor="let d of optsLanguage" [ngValue]="d.code">
@@ -212,7 +212,7 @@
                     index as i
                   "
                 >
-                  <td scope="row">{{ getLanguajeData(item)?.name }}</td>
+                  <td scope="row">{{ getLanguageData(item)?.name }}</td>
                   <td>
                     <button
                       type="button"
