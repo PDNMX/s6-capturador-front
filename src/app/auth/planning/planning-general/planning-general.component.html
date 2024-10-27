@@ -9,7 +9,7 @@
 
     <form [formGroup]="generalForm">
       <div class="row">
-        <div class="form-floating col mb-5">
+        <div class="form-floating col mb-2">
           <textarea
             class="form-control"
             id="rationale"
@@ -20,10 +20,14 @@
           ></textarea>
           <label for="rationale">Justificación *</label>
         </div>
+        <div class="form-text">
+          La justificación para la adquisición provista en texto libre. Se puede
+          proveer más detalle en un documento adjunto.
+        </div>
       </div>
 
       <div class="row">
-        <div class="form-floating col mb-5">
+        <div class="form-floating col mb-2">
           <div class="form-check">
             <input
               class="form-check-input"
@@ -36,14 +40,20 @@
             </label>
           </div>
         </div>
+        <div class="form-text">
+          Campo Sí / No para indicar si hubo cotizaciones.
+        </div>
       </div>
     </form>
 
     <form [formGroup]="selectForm">
       <fieldset class="border p-3 mb-3">
-        <legend class="w-auto px-1">
-          Unidades administrativas requirentes
-        </legend>
+        <legend class="w-auto px-1">Unidades administrativas requirentes</legend>
+        <p>
+          Las unidades específicas dentro del comprador que requieran la
+          adquisición o arrendamiento de bienes, o la prestación de servicios, o
+          las que se beneficiarán de la contratación.
+        </p>
         <div class="row">
           <div class="form-floating col-10 mb-5">
             <select class="form-select" formControlName="requestingUnits">
@@ -110,9 +120,13 @@
       </fieldset>
 
       <fieldset class="border p-3 mb-3">
-        <legend class="w-auto px-1">
-          Unidades administrativas contratantes
-        </legend>
+        <legend class="w-auto px-1">Unidades administrativas contratantes</legend>
+        <p>
+          Las unidades específicas dentro del comprador o entidad adjudicadora
+          que se encargan de llevar a cabo el proceso de contratación.
+          Generalmente participan en las etapas de licitación, adjudicación y
+          contratación.
+        </p>
         <div class="row">
           <div class="form-floating col-10 mb-5">
             <select class="form-select" formControlName="responsibleUnits">
@@ -182,6 +196,10 @@
         <legend class="w-auto px-1">
           Unidades responsables de la ejecución del contrato
         </legend>
+        <p>
+          Las unidades específicas dentro del comprador que son responsables de
+          la supervisión de la ejecución de los contratos.
+        </p>
         <div class="row">
           <div class="form-floating col-10 mb-5">
             <select class="form-select" formControlName="contractingUnits">

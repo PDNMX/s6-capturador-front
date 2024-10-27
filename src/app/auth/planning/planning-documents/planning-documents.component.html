@@ -2,6 +2,7 @@
   <div class="row">
     <div class="col">
       <h3>Documentos</h3>
+      <p>Una lista de documentos relacionados con la etapa de planeación.</p>
       <hr />
     </div>
   </div>
@@ -89,7 +90,7 @@
       </div> -->
 
     <div class="row">
-      <div class="form-floating col mb-5">
+      <div class="form-floating col mb-2">
         <input
           class="form-control"
           id="title"
@@ -103,10 +104,11 @@
           Titulo * es requerido.
         </div>
       </div>
+      <div class="form-text">El título del documento.</div>
     </div>
 
     <div class="row">
-      <div class="form-floating col-12 mb-5">
+      <div class="form-floating col-12 mb-2">
         <textarea
           class="form-control"
           id="description"
@@ -120,10 +122,16 @@
           Descripción * es requerido.
         </div>
       </div>
+      <div class="form-text">
+        Una breve descripción del documento. Se recomienda no exceder las 250
+        palabras. En el caso que el documento no esté disponible en línea, el
+        campo podrá utilizarse para describir el proceso para acceder a una
+        copia del mismo.
+      </div>
     </div>
 
     <div class="row">
-      <div class="form-floating col mb-5">
+      <div class="form-floating col mb-2">
         <input
           class="form-control"
           id="URL"
@@ -137,33 +145,48 @@
           URL * es requerido.
         </div>
       </div>
+      <div class="form-text">
+        Enlace directo al documento o archivo adjunto.
+      </div>
     </div>
 
     <div class="row">
-      <div class="form-floating col-6 mb-5">
-        <input
-          class="form-control"
-          id="datePublished"
-          type="date"
-          data-sb-validations="required"
-          formControlName="datePublished"
-        />
-        <label for="datePublished">Fecha de publicación*</label>
-        <div class="invalid-feedback" data-sb-feedback="title:required">
-          Fecha de publicación * es requerido.
+      <div class="col-6 mb-2">
+        <div class="form-floating">
+          <input
+            class="form-control"
+            id="datePublished"
+            type="date"
+            data-sb-validations="required"
+            formControlName="datePublished"
+          />
+          <label for="datePublished">Fecha de publicación*</label>
+          <div class="invalid-feedback" data-sb-feedback="title:required">
+            Fecha de publicación * es requerido.
+          </div>
+        </div>
+        <div class="form-text">
+          La fecha de publicación del documento. Esto es particularmente
+          importante para documentos relevantes desde el punto de vista legal,
+          como las convocatorias a licitación.
         </div>
       </div>
-      <div class="form-floating col-6 mb-5">
-        <input
-          class="form-control"
-          id="dateModified"
-          type="date"
-          data-sb-validations="required"
-          formControlName="dateModified"
-        />
-        <label for="dateModified">Fecha de modificación*</label>
-        <div class="invalid-feedback" data-sb-feedback="title:required">
-          Fecha de modificación * es requerido.
+      <div class="col-6 mb-2">
+        <div class="form-floating">
+          <input
+            class="form-control"
+            id="dateModified"
+            type="date"
+            data-sb-validations="required"
+            formControlName="dateModified"
+          />
+          <label for="dateModified">Fecha de modificación*</label>
+          <div class="invalid-feedback" data-sb-feedback="title:required">
+            Fecha de modificación * es requerido.
+          </div>
+        </div>
+        <div class="form-text">
+          Fecha en que se modificó por última vez el documento.
         </div>
       </div>
     </div>
@@ -173,13 +196,14 @@
           <div class="col-12">
             <label for="format">Formato</label>
           </div>
-          <div class="form-floating col mb-5">
+          <div class="form-floating col mb-2">
             <select class="form-select" formControlName="format">
               <option *ngFor="let d of formatDocument" [ngValue]="d.template">
                 {{ d.name }}
               </option>
             </select>
           </div>
+          <div class="form-text">El formato del documento</div>
         </div>
       </div>
       <div class="col-6">
@@ -187,13 +211,14 @@
           <div class="col-12">
             <label for="language">Idioma</label>
           </div>
-          <div class="form-floating col mb-5">
+          <div class="form-floating col mb-2">
             <select class="form-select" formControlName="language">
               <option *ngFor="let d of language" [ngValue]="d.code">
                 {{ d.name }}
               </option>
             </select>
           </div>
+          <div class="form-text">Especifica el idioma del documento.</div>
         </div>
       </div>
     </div>

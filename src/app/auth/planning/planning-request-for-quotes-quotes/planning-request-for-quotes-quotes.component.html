@@ -3,6 +3,10 @@
     <div class="row">
       <div class="col">
         <h3>Cotizaciones</h3>
+        <p>
+          Una lista de las cotizaciones recibidas por parte de los proveedores
+          invitados.
+        </p>
         <hr />
       </div>
     </div>
@@ -54,7 +58,7 @@
 
     <form [formGroup]="quotesForm">
       <div class="row">
-        <div class="form-floating col-12 mb-5">
+        <div class="form-floating col-12 mb-2">
           <textarea
             class="form-control"
             id="description"
@@ -68,45 +72,70 @@
             Descripción * es requerido.
           </div>
         </div>
+        <div class="form-text">
+          Una descripción de los bienes, servicios u obras públicas a ser
+          contratadas.
+        </div>
       </div>
 
       <div class="row">
-        <div class="form-floating col-4 mb-5">
-          <input
-            class="form-control"
-            id="date"
-            type="date"
-            data-sb-validations="required"
-            formControlName="date"
-          />
-          <label for="date">Fecha de la cotización*</label>
-          <div class="invalid-feedback" data-sb-feedback="date:required">
-            Fecha de la cotización * es requerido.
+        <div class="col-4 mb-2">
+          <div class="form-floating">
+            <input
+              class="form-control"
+              id="date"
+              type="date"
+              data-sb-validations="required"
+              formControlName="date"
+            />
+            <label for="date">Fecha de la cotización*</label>
+            <div class="invalid-feedback" data-sb-feedback="date:required">
+              Fecha de la cotización * es requerido.
+            </div>
+          </div>
+          <div class="form-text">
+            La fecha de la cotización. Se refiere a la fecha en la que se
+            recibió la cotización.
           </div>
         </div>
         <div class="col-8">
           <div class="row" formGroupName="value">
-            <div class="form-floating col mb-5">
-              <input
-                class="form-control"
-                id="amount"
-                type="text"
-                data-sb-validations="required"
-                formControlName="amount"
-              />
-              <label for="amount">Cantidad*</label>
-              <div class="invalid-feedback" data-sb-feedback="amount:required">
-                Cantidas * es requerido.
+            <div class="col mb-2">
+              <div class="form-floating">
+                <input
+                  class="form-control"
+                  id="amount"
+                  type="text"
+                  data-sb-validations="required"
+                  formControlName="amount"
+                />
+                <label for="amount">Cantidad*</label>
+                <div
+                  class="invalid-feedback"
+                  data-sb-feedback="amount:required"
+                >
+                  Cantidad * es requerido.
+                </div>
               </div>
+              <div class="form-text">Monto como número.</div>
             </div>
-            <div class="form-floating col mb-5">
-              <select class="form-select" formControlName="currency">
-                <option selected>Seleccione un moneda</option>
-                <option *ngFor="let m of currency" value="{{ m.code }}">
-                  {{ m.title }}
-                </option>
-              </select>
-              <label for="currency">Moneda*</label>
+            <div class="col mb-2">
+              <div class="form-floating">
+                <select class="form-select" formControlName="currency">
+                  <option selected>Seleccione un moneda</option>
+                  <option *ngFor="let m of currency" value="{{ m.code }}">
+                    {{ m.title }}
+                  </option>
+                </select>
+                <label for="currency">Moneda*</label>
+              </div>
+              <div class="form-text">
+                La moneda del monto, de la lista de código cerrada
+                <a
+                  href="https://standard.open-contracting.org/1.1/es/schema/codelists/#currency"
+                  >'Moneda'</a
+                >
+              </div>
             </div>
           </div>
         </div>
@@ -114,69 +143,93 @@
 
       <fieldset class="border p-3 mb-3" formGroupName="period">
         <legend class="w-auto px-1">Periodo de la cotización</legend>
-
+        <p>El periodo durante el cual esta cotización es válida.</p>
         <div class="row">
-          <div class="form-floating col-6 mb-5">
-            <input
-              class="form-control"
-              id="startDate"
-              type="date"
-              data-sb-validations="required"
-              formControlName="startDate"
-            />
-            <label for="startDate">Fecha de inicio*</label>
-            <div class="invalid-feedback" data-sb-feedback="title:required">
-              Fecha de inicio * es requerido.
+          <div class="col-6 mb-2">
+            <div class="form-floating">
+              <input
+                class="form-control"
+                id="startDate"
+                type="date"
+                data-sb-validations="required"
+                formControlName="startDate"
+              />
+              <label for="startDate">Fecha de inicio*</label>
+              <div class="invalid-feedback" data-sb-feedback="title:required">
+                Fecha de inicio * es requerido.
+              </div>
+            </div>
+            <div class="form-text">
+              Fecha de inicio del periodo. Cuando se conozca, debe
+              proporcionarse una fecha precisa de inicio.
             </div>
           </div>
-          <div class="form-floating col-6 mb-5">
-            <input
-              class="form-control"
-              id="endDate"
-              type="date"
-              data-sb-validations="required"
-              formControlName="endDate"
-            />
-            <label for="endDate">Fecha de término*</label>
-            <div class="invalid-feedback" data-sb-feedback="title:required">
-              Fecha de término * es requerido.
+          <div class="col-6 mb-2">
+            <div class="form-floating">
+              <input
+                class="form-control"
+                id="endDate"
+                type="date"
+                data-sb-validations="required"
+                formControlName="endDate"
+              />
+              <label for="endDate">Fecha de término*</label>
+              <div class="invalid-feedback" data-sb-feedback="title:required">
+                Fecha de término * es requerido.
+              </div>
+            </div>
+            <div class="form-text">
+              Fecha de término del periodo. Cuando se conozca, debe
+              proporcionarse una fehca precisa de término.
             </div>
           </div>
         </div>
 
         <div class="row">
-          <div class="form-floating col-6 mb-5">
-            <input
-              class="form-control"
-              id="maxExtentDate"
-              type="date"
-              data-sb-validations="required"
-              formControlName="maxExtentDate"
-            />
-            <label for="maxExtentDate">Extension máxima*</label>
-            <div class="invalid-feedback" data-sb-feedback="title:required">
-              Extension máxima * es requerido.
+          <div class="col-6 mb-2">
+            <div class="form-floating">
+              <input
+                class="form-control"
+                id="maxExtentDate"
+                type="date"
+                data-sb-validations="required"
+                formControlName="maxExtentDate"
+              />
+              <label for="maxExtentDate">Extension máxima*</label>
+              <div class="invalid-feedback" data-sb-feedback="title:required">
+                Extension máxima * es requerido.
+              </div>
+            </div>
+            <div class="form-text">
+              El periodo no puede extenderse más allá de esta fecha. Este campo
+              es opcional y puede usarse para expresar la fecha límite de
+              extensión o renovación de este período.
             </div>
           </div>
-          <div class="form-floating col-6 mb-5">
-            <input
-              class="form-control"
-              id="durationInDays"
-              type="number"
-              data-sb-validations="required"
-              placeholder="Duración (días)*"
-              formControlName="durationInDays"
-            />
-            <label for="durationInDays">Duración (dias)*</label>
-            <div class="invalid-feedback" data-sb-feedback="title:required">
-              Duración * es requerido.
+          <div class="col-6 mb-2">
+            <div class="form-floating">
+              <input
+                class="form-control"
+                id="durationInDays"
+                type="number"
+                data-sb-validations="required"
+                placeholder="Duración (días)*"
+                formControlName="durationInDays"
+              />
+              <label for="durationInDays">Duración (dias)*</label>
+              <div class="invalid-feedback" data-sb-feedback="title:required">
+                Duración * es requerido.
+              </div>
+            </div>
+            <div class="form-text">
+              La duración máxima de este período en días.
             </div>
           </div>
         </div>
       </fieldset>
 
       <div class="row">
-        <div class="form-floating col mb-5">
+        <div class="form-floating col mb-2">
           <select class="form-select" formControlName="issuingSupplier">
             <option
               *ngIf="issuingSupplier.length === 0"
@@ -189,6 +242,9 @@
             </option>
           </select>
           <label for="issuingSupplier">Proveedor emisor</label>
+        </div>
+        <div class="form-text">
+          El proveedor que envió una cotización.
         </div>
       </div>
 

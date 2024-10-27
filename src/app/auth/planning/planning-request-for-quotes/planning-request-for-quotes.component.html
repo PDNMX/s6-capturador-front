@@ -3,6 +3,10 @@
     <div class="row">
       <div class="col">
         <h3>Solicitudes de Cotizaciones</h3>
+        <p>
+          Una lista de las solicitudes de cotizaciones realizadas para elaborar
+          el estudio de mercado.
+        </p>
         <hr />
       </div>
     </div>
@@ -106,7 +110,7 @@
         <fieldset class="border p-3 mb-3">
           <form [formGroup]="requestForQuotesForm">
             <div class="row">
-              <div class="form-floating col mb-5">
+              <div class="form-floating col mb-2">
                 <input
                   class="form-control"
                   id="title"
@@ -120,10 +124,13 @@
                   Titulo * es requerido.
                 </div>
               </div>
+              <div class="form-text">
+                El título de la solicitud de cotización.
+              </div>
             </div>
 
             <div class="row">
-              <div class="form-floating col mb-5">
+              <div class="form-floating col mb-2">
                 <textarea
                   class="form-control"
                   id="description"
@@ -140,80 +147,115 @@
                   Descripción * es requerido.
                 </div>
               </div>
+              <div class="form-text">
+                Una breve descripción de la solicitud de cotización. Puede ser
+                el texto enviado a los proveedores invitados.
+              </div>
             </div>
 
             <fieldset class="border p-3 mb-3" formGroupName="period">
               <legend class="w-auto px-1">
                 Periodo para recibir cotizaciones
               </legend>
+              <p>
+                El periodo comprendido entre la fecha en la que se elaboró la
+                solicitud de cotizaciones y la fecha límite para recibir
+                cotizaciones.
+              </p>
 
-              <div class="row">
-                <div class="form-floating col-6 mb-5">
-                  <input
-                    class="form-control"
-                    id="startDate"
-                    type="date"
-                    data-sb-validations="required"
-                    formControlName="startDate"
-                  />
-                  <label for="startDate">Fecha de inicio*</label>
-                  <div
-                    class="invalid-feedback"
-                    data-sb-feedback="title:required"
-                  >
-                    Fecha de inicio * es requerido.
+              <div class="row mb-4">
+                <div class="col-md-6 mb-3">
+                  <div class="form-floating">
+                    <input
+                      class="form-control"
+                      id="startDate"
+                      type="date"
+                      data-sb-validations="required"
+                      formControlName="startDate"
+                    />
+                    <label for="startDate">Fecha de inicio*</label>
+                    <div
+                      class="invalid-feedback"
+                      data-sb-feedback="startDate:required"
+                    >
+                      Fecha de inicio * es requerido.
+                    </div>
+                  </div>
+                  <div class="form-text">
+                    Fecha de inicio del periodo. Cuando se conozca, debe
+                    proporcionarse una fecha precisa de inicio.
                   </div>
                 </div>
-                <div class="form-floating col-6 mb-5">
-                  <input
-                    class="form-control"
-                    id="endDate"
-                    type="date"
-                    data-sb-validations="required"
-                    formControlName="endDate"
-                  />
-                  <label for="endDate">Fecha de término*</label>
-                  <div
-                    class="invalid-feedback"
-                    data-sb-feedback="title:required"
-                  >
-                    Fecha de término * es requerido.
+
+                <div class="col-md-6 mb-3">
+                  <div class="form-floating">
+                    <input
+                      class="form-control"
+                      id="endDate"
+                      type="date"
+                      data-sb-validations="required"
+                      formControlName="endDate"
+                    />
+                    <label for="endDate">Fecha de término*</label>
+                    <div
+                      class="invalid-feedback"
+                      data-sb-feedback="endDate:required"
+                    >
+                      Fecha de término * es requerido.
+                    </div>
+                  </div>
+                  <div class="form-text">
+                    Fecha de término del periodo. Cuando se conozca, debe
+                    proporcionarse una fecha precisa de término.
                   </div>
                 </div>
               </div>
 
               <div class="row">
-                <div class="form-floating col-6 mb-5">
-                  <input
-                    class="form-control"
-                    id="maxExtentDate"
-                    type="date"
-                    data-sb-validations="required"
-                    formControlName="maxExtentDate"
-                  />
-                  <label for="maxExtentDate">Extension máxima*</label>
-                  <div
-                    class="invalid-feedback"
-                    data-sb-feedback="title:required"
-                  >
-                    Extension máxima * es requerido.
+                <div class="col-md-6 mb-3">
+                  <div class="form-floating">
+                    <input
+                      class="form-control"
+                      id="maxExtentDate"
+                      type="date"
+                      data-sb-validations="required"
+                      formControlName="maxExtentDate"
+                    />
+                    <label for="maxExtentDate">Extensión máxima*</label>
+                    <div
+                      class="invalid-feedback"
+                      data-sb-feedback="maxExtentDate:required"
+                    >
+                      Extensión máxima * es requerido.
+                    </div>
+                  </div>
+                  <div class="form-text">
+                    El periodo no puede extenderse más allá de esta fecha. Este
+                    campo es opcional y puede usarse para expresar la fecha
+                    límite de extensión o renovación de este período.
                   </div>
                 </div>
-                <div class="form-floating col-6 mb-5">
-                  <input
-                    class="form-control"
-                    id="durationInDays"
-                    type="number"
-                    data-sb-validations="required"
-                    placeholder="Duración (días)*"
-                    formControlName="durationInDays"
-                  />
-                  <label for="durationInDays">Duración (dias)*</label>
-                  <div
-                    class="invalid-feedback"
-                    data-sb-feedback="title:required"
-                  >
-                    Duración * es requerido.
+
+                <div class="col-md-6 mb-3">
+                  <div class="form-floating">
+                    <input
+                      class="form-control"
+                      id="durationInDays"
+                      type="number"
+                      data-sb-validations="required"
+                      placeholder="Duración (días)*"
+                      formControlName="durationInDays"
+                    />
+                    <label for="durationInDays">Duración (días)*</label>
+                    <div
+                      class="invalid-feedback"
+                      data-sb-feedback="durationInDays:required"
+                    >
+                      Duración * es requerido.
+                    </div>
+                  </div>
+                  <div class="form-text">
+                    La duración máxima de este período en días.
                   </div>
                 </div>
               </div>
@@ -221,6 +263,10 @@
 
             <fieldset class="border p-3 mb-3" [formGroup]="selectForm">
               <legend class="w-auto px-1">Proveedores invitados</legend>
+              <p>
+                Una lista de los proveedores invitados a los que se les envío
+                una solicitud de cotización.
+              </p>
               <div class="row">
                 <div class="form-floating col-10 mb-5">
                   <select
