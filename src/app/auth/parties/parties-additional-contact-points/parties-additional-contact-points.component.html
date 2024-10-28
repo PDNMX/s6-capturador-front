@@ -3,6 +3,11 @@
     <div class="col">
       <h3>Punto de contacto</h3>
       <hr />
+      <p>
+        Una serie de puntos de contacto adicionales que se pueden consultar. Se
+        debe enumerar cada uno de los idiomas en el que opera el punto de
+        contacto, de acuerdo con la lista de códigos 'Idioma(s) disponible(s)'.
+      </p>
     </div>
   </div>
   <div class="row">
@@ -67,7 +72,7 @@
   <hr />
   <form [formGroup]="additionalContactPointsForm">
     <div class="row">
-      <div class="form-floating col mb-5">
+      <div class="form-floating col mb-2">
         <input
           class="form-control"
           id="type"
@@ -81,10 +86,14 @@
           Tipo de punto de contacto * es requerido.
         </div>
       </div>
+      <div class="form-text">
+        Especificar el tipo de punto de contacto de acuerdo con la lista de
+        códigos 'Tipo de punto de contacto'.
+      </div>
     </div>
 
     <div class="row">
-      <div class="form-floating col mb-5">
+      <div class="form-floating col mb-2">
         <input
           class="form-control"
           id="name"
@@ -98,10 +107,14 @@
           Nombre completo * es requerido.
         </div>
       </div>
+      <div class="form-text">
+        El nombre de la persona de contacto, departamento o punto de contacto en
+        relación a este proceso de contratación.
+      </div>
     </div>
 
     <div class="row">
-      <div class="form-floating col mb-5">
+      <div class="form-floating col mb-2">
         <input
           class="form-control"
           id="givenName"
@@ -115,10 +128,11 @@
           Nombre * es requerido.
         </div>
       </div>
+      <div class="form-text">Nombre de la persona física.</div>
     </div>
 
     <div class="row">
-      <div class="form-floating col mb-5">
+      <div class="form-floating col mb-2">
         <input
           class="form-control"
           id="patronymicName"
@@ -135,10 +149,15 @@
           Primer apellido * es requerido.
         </div>
       </div>
+      <div class="form-text">
+        Primer apellido de la persona física. Puede ser utilizado para capturar
+        el apellido común de la persona física o el primer apellido en países
+        hispanoparlantes (típicamente el apellido paterno).
+      </div>
     </div>
 
     <div class="row">
-      <div class="form-floating col mb-5">
+      <div class="form-floating col mb-2">
         <input
           class="form-control"
           id="matronymicName"
@@ -155,10 +174,15 @@
           Segundo apellido * es requerido.
         </div>
       </div>
+      <div class="form-text">
+        Segundo apellido de la persona física. Puede ser utilizado para el
+        segundo apellido en países hispanoparlantes (típicamente el apellido
+        materno).
+      </div>
     </div>
 
     <div class="row">
-      <div class="form-floating col mb-5">
+      <div class="form-floating col mb-2">
         <input
           class="form-control"
           id="email"
@@ -172,10 +196,13 @@
           Correo electrónico * es requerido.
         </div>
       </div>
+      <div class="form-text">
+        La dirección de correo del punto o persona de contacto.
+      </div>
     </div>
 
     <div class="row">
-      <div class="form-floating col mb-5">
+      <div class="form-floating col mb-2">
         <input
           class="form-control"
           id="telephone"
@@ -189,10 +216,14 @@
           Teléfono * es requerido.
         </div>
       </div>
+      <div class="form-text">
+        El número de teléfono del punto o persona de contacto. Este debe de
+        incluir el código de marcación internacional.
+      </div>
     </div>
 
     <div class="row">
-      <div class="form-floating col mb-5">
+      <div class="form-floating col mb-2">
         <input
           class="form-control"
           id="faxNumber"
@@ -206,10 +237,14 @@
           Número de fax * es requerido.
         </div>
       </div>
+      <div class="form-text">
+        El número de fax del punto o persona de contacto. Este debe de incluir
+        el código de marcación internacional.
+      </div>
     </div>
 
     <div class="row">
-      <div class="form-floating col mb-5">
+      <div class="form-floating col mb-2">
         <input
           class="form-control"
           id="url"
@@ -223,11 +258,14 @@
           URL * es requerido.
         </div>
       </div>
+      <div class="form-text">
+        Una dirección web para el punto o persona de contacto.
+      </div>
     </div>
 
     <fieldset class="border p-3 mb-3">
       <legend>Idioma(s) disponible(s)</legend>
-
+      <small>Una matriz de códigos de idioma (por ejemplo, en, es, uk).</small>
       <div class="row">
         <div class="col-10">
           <div class="row">

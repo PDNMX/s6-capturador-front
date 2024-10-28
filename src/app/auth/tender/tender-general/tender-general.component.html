@@ -8,7 +8,7 @@
 
   <form [formGroup]="generalForm">
     <div class="row">
-      <div class="form-floating col mb-5">
+      <div class="form-floating col mb-2">
         <input
           class="form-control"
           id="title"
@@ -22,10 +22,15 @@
           Titulo * es requerido.
         </div>
       </div>
+      <div class="form-text">
+        Un título para esta licitación. Éste se usará por aplicaciones como una
+        cabecera para atraer interés y ayudar a los analistas a entender la
+        naturaleza de esta contratación.
+      </div>
     </div>
 
     <div class="row">
-      <div class="form-floating col-12 mb-5">
+      <div class="form-floating col-12 mb-2">
         <textarea
           class="form-control"
           id="description"
@@ -39,10 +44,16 @@
           Descripción * es requerido.
         </div>
       </div>
+      <div class="form-text">
+        Una descripción breve de la licitación. Esto complementa cualquier
+        información estructurada que se da utilizando la lista de artículos. Las
+        descripciones deben de ser cortas y fáciles de leer. Evite utilizar
+        MAYÚSCULAS.
+      </div>
     </div>
 
     <div class="row">
-      <div class="form-floating col mb-5">
+      <div class="form-floating col mb-2">
         <label for="">Estatus de la licitación</label>
         <select class="form-select" formControlName="status">
           <option *ngFor="let d of tenderStatus" [ngValue]="d.code">
@@ -51,13 +62,20 @@
         </select>
         <p class="mt-2">{{ getTenderStatusDesc(generalForm.value.status) }}</p>
       </div>
+      <div class="form-text">
+        El estatus actual de la licitación, desde la lista de código cerrada
+        <a
+          href="https://standard.open-contracting.org/1.1/es/schema/codelists/#tender-status"
+          >tenderStatus</a
+        >.
+      </div>
     </div>
 
     <div class="row">
       <div class="col-12">
         <label for="">Entidad contratante</label>
       </div>
-      <div class="form-floating col mb-5">
+      <div class="form-floating col mb-2">
         <select class="form-select" formControlName="procuringEntity">
           <option
             *ngIf="procuringEntity.length === 0"
@@ -69,6 +87,10 @@
             {{ d.name }}
           </option>
         </select>
+      </div>
+      <div class="form-text">
+        La entidad que gestiona el proceso de contratación. Esta puede ser
+        distinta del comprador que paga/usa los artículos adquiridos.
       </div>
     </div>
 
@@ -85,28 +107,41 @@
       </div>
 
       <div class="row">
-        <div class="form-floating col-4 mb-5">
-          <input
-            class="form-control"
-            id="amount"
-            type="text"
-            data-sb-validations="required"
-            placeholder="ID de Organización*"
-            formControlName="amount"
-          />
-          <label for="amount">Cantidad*</label>
-          <div class="invalid-feedback" data-sb-feedback="title:required">
-            Cantidas * es requerido.
+        <div class="col-4 mb-2">
+          <div class="form-floating">
+            <input
+              class="form-control"
+              id="amount"
+              type="text"
+              data-sb-validations="required"
+              placeholder="ID de Organización*"
+              formControlName="amount"
+            />
+            <label for="amount">Cantidad*</label>
+            <div class="invalid-feedback" data-sb-feedback="title:required">
+              Cantidad * es requerido.
+            </div>
           </div>
+          <div class="form-text">Monto como una cifra.</div>
         </div>
-        <div class="form-floating col-8 mb-5">
-          <select class="form-select" formControlName="currency">
+        <div class="col-8 mb-2">
+          <div class="form-floating">
+            <select class="form-select" formControlName="currency">
+              <label for="currency">Moneda*</label>
+              <option selected>Seleccione un moneda</option>
+              <option *ngFor="let m of currency" value="{{ m.code }}">
+                {{ m.title }}
+              </option>
+            </select>
             <label for="currency">Moneda*</label>
-            <option selected>Seleccione un moneda</option>
-            <option *ngFor="let m of currency" value="{{ m.code }}">
-              {{ m.title }}
-            </option>
-          </select>
+          </div>
+          <div class="form-text">
+            La moneda del monto, de la lista de código cerrada
+            <a
+              href="https://standard.open-contracting.org/1.1/es/schema/codelists/#currency"
+              >'Moneda'</a
+            >
+          </div>
         </div>
       </div>
     </fieldset>
@@ -124,28 +159,41 @@
       </div>
 
       <div class="row">
-        <div class="form-floating col-4 mb-5">
-          <input
-            class="form-control"
-            id="amount"
-            type="text"
-            data-sb-validations="required"
-            placeholder="ID de Organización*"
-            formControlName="amount"
-          />
-          <label for="amount">Cantidad*</label>
-          <div class="invalid-feedback" data-sb-feedback="title:required">
-            Cantidas * es requerido.
+        <div class="col-4 mb-2">
+          <div class="form-floating">
+            <input
+              class="form-control"
+              id="amount"
+              type="text"
+              data-sb-validations="required"
+              placeholder="ID de Organización*"
+              formControlName="amount"
+            />
+            <label for="amount">Cantidad*</label>
+            <div class="invalid-feedback" data-sb-feedback="title:required">
+              Cantidad * es requerido.
+            </div>
           </div>
+          <div class="form-text">Monto como una cifra.</div>
         </div>
-        <div class="form-floating col-8 mb-5">
-          <select class="form-select" formControlName="currency">
+        <div class="col-8 mb-2">
+          <div class="form-floating">
+            <select class="form-select" formControlName="currency">
+              <label for="currency">Moneda*</label>
+              <option selected>Seleccione un moneda</option>
+              <option *ngFor="let m of currency" value="{{ m.code }}">
+                {{ m.title }}
+              </option>
+            </select>
             <label for="currency">Moneda*</label>
-            <option selected>Seleccione un moneda</option>
-            <option *ngFor="let m of currency" value="{{ m.code }}">
-              {{ m.title }}
-            </option>
-          </select>
+          </div>
+          <div class="form-text">
+            La moneda del monto, de la lista de código cerrada
+            <a
+              href="https://standard.open-contracting.org/1.1/es/schema/codelists/#currency"
+              >'Moneda'</a
+            >
+          </div>
         </div>
       </div>
     </fieldset>
@@ -154,7 +202,7 @@
       <div class="col-12">
         <label for="">Método de contratación</label>
       </div>
-      <div class="form-floating col mb-5">
+      <div class="form-floating col mb-2">
         <select class="form-select" formControlName="procurementMethod">
           <option *ngFor="let d of procurementMethod" [ngValue]="d.code">
             {{ d.title }}
@@ -164,10 +212,17 @@
           {{ getProcurementMethod(generalForm.value.procurementMethod) }}
         </p>
       </div>
+      <div class="form-text">
+        El método de adquisición, de la lista de código cerrada
+        <a
+          href="https://standard.open-contracting.org/1.1/es/schema/codelists/#method"
+          >method</a
+        >.
+      </div>
     </div>
 
     <div class="row">
-      <div class="form-floating col-12 mb-5">
+      <div class="form-floating col-12 mb-2">
         <textarea
           class="form-control"
           id="procurementMethodDetails"
@@ -186,10 +241,15 @@
           Detalles del método de contratación * es requerido.
         </div>
       </div>
+      <div class="form-text">
+        Detalles adicionales sobre el método de adquisiciones utilizado. Este
+        campo puede usarse para dar el nombre local del método de adquisición
+        particular que se utilizó.
+      </div>
     </div>
 
     <div class="row">
-      <div class="form-floating col-12 mb-5">
+      <div class="form-floating col-12 mb-2">
         <textarea
           class="form-control"
           id="procurementMethodRationale"
@@ -208,15 +268,28 @@
           Justificación * es requerido.
         </div>
       </div>
+      <div class="form-text">
+        Justificación para el método de compra elegido. Esto es especialmente
+        importante para dar una justificación en el caso de licitaciones
+        limitadas o adjudicaciones directas.
+      </div>
     </div>
 
     <fieldset class="border p-3 mb-3">
       <legend class="w-auto px-1">Categoria de la contratacion</legend>
+      <p>
+        La principal categoría describiendo el objeto principal de este proceso
+        de contrataciones, de la lista de código cerrada
+        <a
+          href="https://standard.open-contracting.org/1.1/es/schema/codelists/#procurement-category"
+          >procurementCategory</a
+        >.
+      </p>
       <div class="row">
         <div class="col-12">
           <label for="">Categoria principal*</label>
         </div>
-        <div class="form-floating col mb-5">
+        <div class="form-floating col mb-2">
           <select class="form-select" formControlName="mainProcurementCategory">
             <option
               *ngFor="let d of mainProcurementCategory"
@@ -240,18 +313,29 @@
           <label for="">Categorias adicionales*</label>
         </div>
         <div
-          class="form-floating col-10 mb-5"
+          class="col-10 mb-2"
           [formGroup]="additionalProcurementCategoriesForm"
         >
-          <select class="form-select" formControlName="data">
-            <option
-              *ngFor="let d of additionalProcurementCategories"
-              [ngValue]="d.code"
+          <div class="form-floating">
+            <select class="form-select" formControlName="data">
+              <option
+                *ngFor="let d of additionalProcurementCategories"
+                [ngValue]="d.code"
+              >
+                {{ d.title }}
+              </option>
+            </select>
+          </div>
+          <div class="form-text">
+            Cualquier categoría adicional que describe los objetos del proceso
+            de contrataciones, utilizando la lista de código abierta
+            <a
+              href="https://standard.open-contracting.org/1.1/es/schema/codelists/#extended-procurement-category"
+              >extendedProcurementCategory.</a
             >
-              {{ d.title }}
-            </option>
-          </select>
+          </div>
         </div>
+
         <div class="col-2">
           <button
             type="button"
@@ -314,7 +398,14 @@
 
     <fieldset class="border p-3 mb-3">
       <legend class="w-auto px-1">Criterios de adjudicación</legend>
-
+      <p>
+        Los criterios de adjudicación para esta compra, utilizando la lista de
+        código abierta
+        <a
+          href="https://standard.open-contracting.org/1.1/es/schema/codelists/#award-criteria"
+          >awardCriteria</a
+        >.
+      </p>
       <div class="row">
         <div class="col-12">
           <label for="">Criterio de adjudicación*</label>
@@ -336,7 +427,7 @@
       </div>
 
       <div class="row">
-        <div class="form-floating col-12 mb-5">
+        <div class="form-floating col-12 mb-2">
           <textarea
             class="form-control"
             id="awardCriteriaDetails"
@@ -353,6 +444,10 @@
             Detalles * es requerido.
           </div>
         </div>
+        <div class="form-text">
+          Cualquier detalle o información adicional sobre la adjudicación o
+          criterios de selección.
+        </div>
       </div>
     </fieldset>
 
@@ -362,15 +457,22 @@
         <div class="col-12">
           <label for="">Método de presentación*</label>
         </div>
-        <div
-          class="form-floating col-10 mb-5"
-          [formGroup]="submissionMethodForm"
-        >
-          <select class="form-select" formControlName="data">
-            <option *ngFor="let d of submissionMethod" [ngValue]="d.code">
-              {{ d.title }}
-            </option>
-          </select>
+        <div class="col-10 mb-2" [formGroup]="submissionMethodForm">
+          <div class="form-floating">
+            <select class="form-select" formControlName="data">
+              <option *ngFor="let d of submissionMethod" [ngValue]="d.code">
+                {{ d.title }}
+              </option>
+            </select>
+          </div>
+          <div class="form-text">
+            El método de presentación de ofertas, utilizando la lista de código
+            abierta
+            <a
+              href="https://standard.open-contracting.org/1.1/es/schema/codelists/#submission-method"
+              >submissionMethod.</a
+            >
+          </div>
         </div>
 
         <div class="col-2">

@@ -5,6 +5,7 @@
         <h3>
           {{ title }}
         </h3>
+        <p>Bienes, servicios u obra pública a ser cotizados. Los Artículos no se deben duplicar, en su lugar se deberá especificar la cantidad, ejemplo: 2.</p>
         <hr />
       </div>
     </div>
@@ -85,6 +86,10 @@
             Descripción * es requerido.
           </div>
         </div>
+        <div class="form-text">
+          Una descripción de los bienes, servicios u obras públicas a ser
+          contratadas.
+        </div>
       </div>
 
       <div class="row">
@@ -99,10 +104,16 @@
           </select>
           <!-- <p>{{ getMilestoneTypeDesc(milestoneForm.value.type) }}</p> -->
         </div>
+        <div class="form-text">
+          Una clasificación consta de al menos dos partes: una denominación para
+          la lista (esquema) del cual se extrae la clasificación, y el valor
+          (código) de la lista que se utiliza.
+        </div>
       </div>
 
       <fieldset class="border p-3 mb-3">
         <legend class="w-auto px-1">Clasificaciones adicionales</legend>
+        <p>Una lista de clasificaciones adicionales para el artículo.</p>
         <div class="row">
           <div class="col-12">
             <label for="type">Clasificaciones adicionales</label>
@@ -187,6 +198,7 @@
             Cantidad * es requerido.
           </div>
         </div>
+        <div class="form-text">El número de unidades requeridas.</div>
       </div>
 
       <div class="row" formGroupName="unit">
@@ -204,31 +216,52 @@
             Unidad * es requerido.
           </div>
         </div>
+        <div class="form-text">
+          Una descripción de la unidad de medida en la cual se proporcionan los
+          bienes, servicios u obra pública (p. ej. horas, kilogramos) así como
+          el precio unitario.
+        </div>
 
         <div class="col-12" formGroupName="value">
           <div class="row">
-            <div class="form-floating col-4 mb-2">
-              <input
-                class="form-control"
-                id="amount"
-                type="text"
-                data-sb-validations="required"
-                placeholder="Monto*"
-                formControlName="amount"
-              />
-              <label for="amount">Monto*</label>
-              <div class="invalid-feedback" data-sb-feedback="amount:required">
-                Monto * es requerido.
+            <div class="col-4 mb-2">
+              <div class="form-floating">
+                <input
+                  class="form-control"
+                  id="amount"
+                  type="number"
+                  data-sb-validations="required"
+                  placeholder="Monto*"
+                  formControlName="amount"
+                />
+                <label for="amount">Monto*</label>
+                <div
+                  class="invalid-feedback"
+                  data-sb-feedback="amount:required"
+                >
+                  Monto * es requerido.
+                </div>
               </div>
+              <div class="form-text">Monto como número.</div>
             </div>
-            <div class="form-floating col-4 mb-2">
-              <select class="form-select" formControlName="currency">
-                <option *ngFor="let d of currency" [ngValue]="d.code">
-                  {{ d.title }}
-                </option>
-              </select>
-              <label for="type">Moneda</label>
-              <!-- <p>{{ getMilestoneTypeDesc(milestoneForm.value.type) }}</p> -->
+
+            <div class="col-4 mb-2">
+              <div class="form-floating">
+                <select class="form-select" formControlName="currency">
+                  <option *ngFor="let d of currency" [ngValue]="d.code">
+                    {{ d.title }}
+                  </option>
+                </select>
+                <label for="type">Moneda</label>
+                <!-- <p>{{ getMilestoneTypeDesc(milestoneForm.value.type) }}</p> -->
+              </div>
+              <div class="form-text">
+                La moneda del monto, de la lista de código cerrada
+                <a
+                  href="https://standard.open-contracting.org/1.1/es/schema/codelists/#currency"
+                  >'Moneda'</a
+                >
+              </div>
             </div>
           </div>
         </div>

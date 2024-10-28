@@ -1,5 +1,9 @@
 <fieldset class="border p-3 mb-3">
   <legend class="w-auto px-1">Desgloce del presupuesto</legend>
+  <p>
+    Un desglose detallado del presupuesto por período y/o financiadores
+    participantes.
+  </p>
   <hr />
   <div class="row">
     <table class="table table-hover table-striped mb-10">
@@ -46,7 +50,7 @@
   </div>
   <form [formGroup]="budgetBreakdownForm">
     <div class="row">
-      <div class="col-md-12 form-floating mb-3">
+      <div class="col-md-12 form-floating mb-2">
         <input
           type="text"
           class="form-control"
@@ -56,10 +60,13 @@
         />
         <label for="description">Descripción</label>
       </div>
+      <div class="form-text">
+        Una breve descripción de texto libre de esta entrada de presupuesto.
+      </div>
     </div>
 
     <div class="row">
-      <div class="col-md-12 form-floating mb-3">
+      <div class="col-md-12 form-floating mb-2">
         <input
           type="text"
           class="form-control"
@@ -71,10 +78,14 @@
           >Información Presupuestaria vinculada</label
         >
       </div>
+      <div class="form-text">
+        Un URI que apunta directamente a una información legible por máquinas
+        sobre esta entrada de presupuesto.
+      </div>
     </div>
 
     <div class="row">
-      <div class="form-floating col mb-5">
+      <div class="form-floating col mb-2">
         <select
           name="sourceParty"
           class="form-select"
@@ -86,6 +97,10 @@
         </select>
         <label for="sourceParty"> Actor fuente </label>
       </div>
+      <div class="form-text">
+        La organización u otro actor relacionado con esta entrada de
+        presupuesto.
+      </div>
     </div>
 
     <fieldset class="border p-3 mb-3">
@@ -94,28 +109,44 @@
       </legend>
       <div class="col-12" formGroupName="amount">
         <div class="row">
-          <div class="form-floating col-2 mb-2">
-            <input
-              class="form-control"
-              id="amount"
-              type="text"
-              data-sb-validations="required"
-              placeholder="Monto*"
-              formControlName="amount"
-            />
-            <label for="amount">Monto*</label>
-            <div class="invalid-feedback" data-sb-feedback="amount:required">
-              Monto * es requerido.
+          <div class="col-md-6 mb-2">
+            <div class="form-floating">
+              <input
+                class="form-control"
+                id="amount"
+                type="text"
+                data-sb-validations="required"
+                placeholder="Monto*"
+                formControlName="amount"
+              />
+              <label for="amount">Monto*</label>
+              <div class="invalid-feedback" data-sb-feedback="amount:required">
+                Monto * es requerido.
+              </div>
             </div>
+            <div class="form-text">Monto como una cifra</div>
           </div>
 
-          <div class="form-floating col-4 mb-2">
-            <select class="form-select" formControlName="currency">
-              <option *ngFor="let d of currency" [ngValue]="d.code">
-                {{ d.title }}
-              </option>
-            </select>
-            <label for="type">Moneda</label>
+          <div class="col-md-6 mb-2">
+            <div class="form-floating">
+              <select
+                class="form-select"
+                id="currency"
+                formControlName="currency"
+              >
+                <option *ngFor="let d of currency" [ngValue]="d.code">
+                  {{ d.title }}
+                </option>
+              </select>
+              <label for="currency">Moneda</label>
+            </div>
+            <div class="form-text">
+              La moneda del monto, de la lista de código cerrada
+              <a
+                href="https://standard.open-contracting.org/1.1/es/schema/codelists/#currency"
+                >'Moneda'</a
+              >
+            </div>
           </div>
         </div>
       </div>
@@ -125,60 +156,92 @@
       <legend class="w-auto px-1">Periodo de presupuesto</legend>
 
       <div class="row">
-        <div class="form-floating col-6 mb-5">
-          <input
-            class="form-control"
-            id="startDate"
-            type="date"
-            data-sb-validations="required"
-            formControlName="startDate"
-          />
-          <label for="startDate">Fecha de inicio*</label>
-          <div class="invalid-feedback" data-sb-feedback="title:required">
-            Fecha de inicio * es requerido.
+        <div class="col-md-6 mb-3">
+          <div class="form-floating">
+            <input
+              class="form-control"
+              id="startDate"
+              type="date"
+              data-sb-validations="required"
+              formControlName="startDate"
+            />
+            <label for="startDate">Fecha de inicio*</label>
+            <div class="invalid-feedback" data-sb-feedback="startDate:required">
+              Fecha de inicio * es requerido.
+            </div>
+          </div>
+          <div class="form-text">
+            Fecha de inicio del periodo. Cuando se conozca, debe proporcionarse
+            una fecha precisa de inicio.
           </div>
         </div>
-        <div class="form-floating col-6 mb-5">
-          <input
-            class="form-control"
-            id="endDate"
-            type="date"
-            data-sb-validations="required"
-            formControlName="endDate"
-          />
-          <label for="endDate">Fecha de término*</label>
-          <div class="invalid-feedback" data-sb-feedback="title:required">
-            Fecha de término * es requerido.
+
+        <div class="col-md-6 mb-3">
+          <div class="form-floating">
+            <input
+              class="form-control"
+              id="endDate"
+              type="date"
+              data-sb-validations="required"
+              formControlName="endDate"
+            />
+            <label for="endDate">Fecha de término*</label>
+            <div class="invalid-feedback" data-sb-feedback="endDate:required">
+              Fecha de término * es requerido.
+            </div>
+          </div>
+          <div class="form-text">
+            Fecha de término del periodo. Cuando se conozca, debe proporcionarse
+            una fecha precisa de término.
           </div>
         </div>
       </div>
 
       <div class="row">
-        <div class="form-floating col-6 mb-5">
-          <input
-            class="form-control"
-            id="maxExtentDate"
-            type="date"
-            data-sb-validations="required"
-            formControlName="maxExtentDate"
-          />
-          <label for="maxExtentDate">Extension máxima*</label>
-          <div class="invalid-feedback" data-sb-feedback="title:required">
-            Extension máxima * es requerido.
+        <div class="col-md-6 mb-3">
+          <div class="form-floating">
+            <input
+              class="form-control"
+              id="maxExtentDate"
+              type="date"
+              data-sb-validations="required"
+              formControlName="maxExtentDate"
+            />
+            <label for="maxExtentDate">Extensión máxima*</label>
+            <div
+              class="invalid-feedback"
+              data-sb-feedback="maxExtentDate:required"
+            >
+              Extensión máxima * es requerido.
+            </div>
+          </div>
+          <div class="form-text">
+            El periodo no puede extenderse más allá de esta fecha. Este campo es
+            opcional y puede usarse para expresar la fecha límite de extensión o
+            renovación de este período.
           </div>
         </div>
-        <div class="form-floating col-6 mb-5">
-          <input
-            class="form-control"
-            id="durationInDays"
-            type="number"
-            data-sb-validations="required"
-            placeholder="Duración (días)*"
-            formControlName="durationInDays"
-          />
-          <label for="durationInDays">Duración (dias)*</label>
-          <div class="invalid-feedback" data-sb-feedback="title:required">
-            Duración * es requerido.
+
+        <div class="col-md-6 mb-3">
+          <div class="form-floating">
+            <input
+              class="form-control"
+              id="durationInDays"
+              type="number"
+              data-sb-validations="required"
+              placeholder="Duración (días)*"
+              formControlName="durationInDays"
+            />
+            <label for="durationInDays">Duración (días)*</label>
+            <div
+              class="invalid-feedback"
+              data-sb-feedback="durationInDays:required"
+            >
+              Duración * es requerido.
+            </div>
+          </div>
+          <div class="form-text">
+            La duración máxima de este período en días.
           </div>
         </div>
       </div>
@@ -186,6 +249,7 @@
 
     <fieldset class="border p-3 mb-3">
       <legend class="w-auto px-1">Líneas presupuestarias</legend>
+      <p>Una lista de las líneas presupuestarias de este actor fuente.</p>
       <div class="row">
         <div class="col-12">
           <div class="table-responsive-sm">
@@ -255,6 +319,10 @@
       </form>
       <fieldset class="border p-3 mb-3">
         <legend class="w-auto px-1">Componentes</legend>
+        <p>
+          Una lista de los componentes que constituyen el identificador para
+          esta línea presupuestaria.
+        </p>
         <div class="row">
           <div class="col-12">
             <div class="table-responsive-sm">
@@ -273,6 +341,7 @@
                         type="text"
                         class="form-control"
                         id="BudgetComponentsName"
+                        placeholder="Nombre"
                         formControlName="name"
                       />
                     </th>

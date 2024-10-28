@@ -1,35 +1,54 @@
 <div class="form">
   <div class="row">
     <h3>Presupuesto</h3>
+    <p>
+      Detalles sobre el presupuesto que financia este proceso de contratación.
+      Esta sección contiene información sobre las líneas o claves
+      presupuestarias y proyectos asociados, a través de los cuales se financia
+      este proceso de contratación.
+    </p>
     <hr />
   </div>
   <form [formGroup]="budgetForm" class="mb-5">
     <div class="row">
-      <div class="col-md-4 form-floating mb-3">
-        <input
-          type="text"
-          class="form-control"
-          id="ProjectId"
-          placeholder="ProjectId"
-          formControlName="projectID"
-        />
-        <label for="ProjectId">Identificador de proyecto</label>
+      <div class="col-md-4 mb-2">
+        <div class="form-floating">
+          <input
+            type="text"
+            class="form-control"
+            id="ProjectId"
+            placeholder="ProjectId"
+            formControlName="projectID"
+          />
+          <label for="ProjectId">Identificador de proyecto</label>
+        </div>
+        <div class="form-text">
+          Un identificador externo para el proyecto del que forma parte este
+          proceso de contratación o a través del cual está financiado (si
+          aplica).
+        </div>
       </div>
 
-      <div class="col-md-8 form-floating mb-3">
-        <input
-          type="text"
-          class="form-control"
-          id="Project"
-          placeholder="Project"
-          formControlName="project"
-        />
-        <label for="Project">Título del proyecto</label>
+      <div class="col-md-8 mb-2">
+        <div class="form-floating">
+          <input
+            type="text"
+            class="form-control"
+            id="Project"
+            placeholder="Project"
+            formControlName="project"
+          />
+          <label for="Project">Título del proyecto</label>
+        </div>
+        <div class="form-text">
+          El nombre del proyecto a través del cual el proceso de contrataciones
+          está financiado (si aplica).
+        </div>
       </div>
     </div>
 
     <div class="row">
-      <div class="col-md-12 form-floating mb-3">
+      <div class="col-md-12 form-floating mb-2">
         <input
           type="text"
           class="form-control"
@@ -37,10 +56,15 @@
           placeholder="Description"
           formControlName="description"
         />
-        <label for="Description">Fuente presupuestaria</label>
+        <label for="Description">Fuente del Presupuesto</label>
+      </div>
+      <div class="form-text">
+        Un texto descriptivo breve de la fuente del presupuesto. Puede usarse
+        para proveer el título del la partida presupuestaria o el programa usado
+        para financiar este proyecto.
       </div>
 
-      <div class="col-md-12 form-floating mb-3">
+      <div class="col-md-12 form-floating mb-2">
         <input
           type="text"
           class="form-control"
@@ -48,36 +72,64 @@
           placeholder="URI"
           formControlName="uri"
         />
-        <label for="URI">Información Presupuestaria vinculada</label>
+        <label for="URI">Información vinculada de presupuesto</label>
+      </div>
+      <div class="form-text">
+        Una URI que apunta a un registro leíble por máquina sobre la línea (o
+        líneas) de presupuesto que financian este proceso de contrataciones. Se
+        puede dar información en un rango de formatos, incluyendo IATI, el
+        Estándar de Datos Fiscales Abiertos o cualquier otro estándar que dé
+        datos estructurados sobre fuentes de presupuesto.
       </div>
     </div>
 
     <fieldset class="border p-3 mb-3">
       <legend>Valor reservado del presupuesto</legend>
+      <p>
+        El valor reservado en el presupuesto para este proceso de contratación.
+        Un valor negativo indica ingresos anticipados al presupuesto como
+        resultado de este proceso de contratación, en lugar de gastos.
+      </p>
       <div class="col-12" formGroupName="value">
         <div class="row">
-          <div class="form-floating col-2 mb-2">
-            <input
-              class="form-control"
-              id="amount"
-              type="text"
-              data-sb-validations="required"
-              placeholder="Monto*"
-              formControlName="amount"
-            />
-            <label for="amount">Monto*</label>
-            <div class="invalid-feedback" data-sb-feedback="amount:required">
-              Monto * es requerido.
+          <div class="col-md-6 mb-2">
+            <div class="form-floating">
+              <input
+                class="form-control"
+                id="amount"
+                type="number"
+                data-sb-validations="required"
+                placeholder="Monto*"
+                formControlName="amount"
+              />
+              <label for="amount">Monto*</label>
+              <div class="invalid-feedback" data-sb-feedback="amount:required">
+                Monto * es requerido.
+              </div>
             </div>
+            <div class="form-text">Monto como una cifra.</div>
           </div>
 
-          <div class="form-floating col-4 mb-2">
-            <select class="form-select" formControlName="currency">
-              <option *ngFor="let d of currency" [ngValue]="d.code">
-                {{ d.title }}
-              </option>
-            </select>
-            <label for="type">Moneda</label>
+          <div class="col-md-6 mb-2">
+            <div class="form-floating">
+              <select
+                class="form-select"
+                id="currency"
+                formControlName="currency"
+              >
+                <option *ngFor="let d of currency" [ngValue]="d.code">
+                  {{ d.title }}
+                </option>
+              </select>
+              <label for="currency">Moneda</label>
+            </div>
+            <div class="form-text">
+              La moneda del monto, de la lista de código cerrada
+              <a
+                href="https://standard.open-contracting.org/1.1/es/schema/codelists/#currency"
+                >'Moneda'</a
+              >
+            </div>
           </div>
         </div>
       </div>
