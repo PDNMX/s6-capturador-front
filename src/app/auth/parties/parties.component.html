@@ -24,7 +24,9 @@
 
             <ng-container *ngIf="editMode">
               <button
-                class="nav-link text-left active"
+                class="nav-link text-left"
+                [class.active]="!editMode"
+                [class.show]="!editMode"
                 id="parties-general-tab"
                 data-bs-toggle="pill"
                 data-bs-target="#parties-general"

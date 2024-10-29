@@ -122,8 +122,7 @@ export class AwardsComponent implements OnInit {
   }
 
   saveAward(): void {
-    
-   /*  const awardData = this.awardForm.value;
+    /*  const awardData = this.awardForm.value;
     if (!awardData.title || !awardData.description || !awardData.date) {
       console.log('Faltan datos obligatorios');
       this.savingMessage = 'Faltan datos obligatorios';
@@ -131,9 +130,15 @@ export class AwardsComponent implements OnInit {
     } */
     const awards = this.awardsArray;
     awards.push(this.awardForm);
-    this.initAwardForm();
     this.saveData();
+
+    this.initAwardForm();
     this.editMode = false;
+  }
+
+  cancelAward(): void {
+    this.editMode = false;
+    this.initAwardForm();
   }
 
   loadData(): void {
@@ -144,7 +149,10 @@ export class AwardsComponent implements OnInit {
           console.log('message: ', message);
         } else {
           if (Array.isArray(awards)) {
-            this.awardsForm.setControl('awards', this.fb.array(awards.map(award => this.fb.group(award))));
+            this.awardsForm.setControl(
+              'awards',
+              this.fb.array(awards.map((award) => this.fb.group(award)))
+            );
           } else {
             console.error('Awards is not an array:', awards);
             this.awardsForm.setControl('awards', this.fb.array([]));
@@ -154,7 +162,7 @@ export class AwardsComponent implements OnInit {
       error: (err) => {
         console.error('Error loading awards:', err);
         this.awardsForm.setControl('awards', this.fb.array([]));
-      }
+      },
     });
   }
 
@@ -171,12 +179,12 @@ export class AwardsComponent implements OnInit {
   initAwardForm(): void {
     this.awardForm = this.fb.group({
       title: ['', Validators.required],
-    description: ['', Validators.required],
-    date: [''],
-    value: this.fb.group({
-      amount: [''],
-      currency: ['']
-    }),
+      description: ['', Validators.required],
+      date: [''],
+      value: this.fb.group({
+        amount: [''],
+        currency: [''],
+      }),
       suppliers: this.fb.array([], [Validators.required]),
       items: this.fb.array([], [Validators.required]),
       documents: this.fb.array([], [Validators.required]),
@@ -225,11 +233,12 @@ export class AwardsComponent implements OnInit {
         },
         error: (err) => {
           console.error('Error HTTP:', err);
-          this.savingMessage = 'Error de conexión. Por favor, intente de nuevo.';
+          this.savingMessage =
+            'Error de conexión. Por favor, intente de nuevo.';
         },
         complete: () => {
           this.isSaving = false;
-        }
+        },
       });
   }
 }
