@@ -10,7 +10,7 @@
             aria-orientation="vertical"
           >
             <h3
-              class="active text-left"
+              class="text-left"
               id="definicion-adjudicacion-tab"
               data-bs-toggle="pill"
               data-bs-target="#definicion-adjudicacion"
@@ -21,258 +21,264 @@
             >
               &nbsp;&nbsp;3. Adjudicación
             </h3>
-            <button
-              class="nav-link text-left"
-              id="adjudicacion-general-tab"
-              data-bs-toggle="pill"
-              data-bs-target="#adjudicacion-general"
-              type="button"
-              role="tab"
-              aria-controls="adjudicacion-general"
-              aria-selected="false"
-              *ngIf="editMode"
-            >
-              Información General
-            </button>
-            <button
-              class="nav-link text-left"
-              id="adjudicacion-proveedores-tab"
-              data-bs-toggle="pill"
-              data-bs-target="#adjudicacion-proveedores"
-              type="button"
-              role="tab"
-              aria-controls="adjudicacion-proveedores"
-              aria-selected="false"
-              *ngIf="editMode"
-            >
-              Proveedores
-            </button>
-            <button
-              class="nav-link"
-              id="adjudicacion-items-tab"
-              data-bs-toggle="pill"
-              data-bs-target="#adjudicacion-items"
-              type="button"
-              role="tab"
-              aria-controls="adjudicacion-items"
-              aria-selected="false"
-              *ngIf="editMode"
-            >
-              Artículos
-            </button>
-            <button
-              class="nav-link"
-              id="adjudicacion-documentos-tab"
-              data-bs-toggle="pill"
-              data-bs-target="#adjudicacion-documentos"
-              type="button"
-              role="tab"
-              aria-controls="adjudicacion-documentos"
-              aria-selected="false"
-              *ngIf="editMode"
-            >
-              Documentos
-            </button>
-            <button
-              class="nav-link"
-              id="adjudicacion-mofificaciones-tab"
-              data-bs-toggle="pill"
-              data-bs-target="#adjudicacion-mofificaciones"
-              type="button"
-              role="tab"
-              aria-controls="adjudicacion-mofificaciones"
-              aria-selected="false"
-              *ngIf="editMode"
-            >
-              Enmiendas
-            </button>
-          </div>
-          <div class="d-flex flex-column">
-            <button
-              type="button"
-              class="btn btn-danger text-center p-3"
-              (click)="saveAward()"
-              *ngIf="editMode"
-            >
-              Guardar Adjudicación
-            </button>
+            <ng-container *ngIf="editMode">
+              <button
+                class="nav-link text-left active"
+                id="adjudicacion-general-tab"
+                data-bs-toggle="pill"
+                data-bs-target="#adjudicacion-general"
+                type="button"
+                role="tab"
+                aria-controls="adjudicacion-general"
+                aria-selected="false"
+              >
+                Información General
+              </button>
+              <button
+                class="nav-link text-left"
+                id="adjudicacion-proveedores-tab"
+                data-bs-toggle="pill"
+                data-bs-target="#adjudicacion-proveedores"
+                type="button"
+                role="tab"
+                aria-controls="adjudicacion-proveedores"
+                aria-selected="false"
+              >
+                Proveedores
+              </button>
+              <button
+                class="nav-link"
+                id="adjudicacion-items-tab"
+                data-bs-toggle="pill"
+                data-bs-target="#adjudicacion-items"
+                type="button"
+                role="tab"
+                aria-controls="adjudicacion-items"
+                aria-selected="false"
+              >
+                Artículos
+              </button>
+              <button
+                class="nav-link"
+                id="adjudicacion-documentos-tab"
+                data-bs-toggle="pill"
+                data-bs-target="#adjudicacion-documentos"
+                type="button"
+                role="tab"
+                aria-controls="adjudicacion-documentos"
+                aria-selected="false"
+              >
+                Documentos
+              </button>
+              <button
+                class="nav-link"
+                id="adjudicacion-mofificaciones-tab"
+                data-bs-toggle="pill"
+                data-bs-target="#adjudicacion-mofificaciones"
+                type="button"
+                role="tab"
+                aria-controls="adjudicacion-mofificaciones"
+                aria-selected="false"
+              >
+                Enmiendas
+              </button>
+
+              <div class="d-flex flex-column mb-3">
+                <button
+                  type="button"
+                  class="btn btn-danger text-center p-3"
+                  (click)="saveAward()"
+                >
+                  Guardar Adjudicación
+                </button>
+              </div>
+
+              <div class="d-flex flex-column">
+                <button
+                  type="button"
+                  class="btn btn-success btn-add text-center p-3"
+                  (click)="cancelAward()"
+                >
+                  Cancelar
+                </button>
+              </div>
+            </ng-container>
           </div>
         </div>
       </div>
       <div class="col-md-9 g-0">
-        <div class="tab-content" id="adjudicaciones-tabContent" *ngIf="!editMode">
-          <div
-            class="tab-pane fade show active"
-            id="definicion-adjudicacion"
-            role="tabpanel"
-            aria-labelledby="definicion-adjudicacion-tab"
-            tabindex="0"
-          >
-            <div class="form h-100">
-              <form
-                class=""
-                method="post"
-                id="planning-Form-StartAward"
-                name="planning-Form-StartAward"
-                novalidate="novalidate"
-              >
-                <!-- <div class="row imageP"></div> -->
-                <div class="row">
-                  <h3>Adjudicación</h3>
-                  <hr />
-                  <p>
-                    La fase de Adjudicación consiste en registro del o los
-                    participantes que resultaron ganadores del contrato de
-                    acuerdo con la evaluación de las propuestas.
-                  </p>
-                </div>
-                <div class="row">
-                  <div class="col">
-                    <button
-                      type="button"
-                      class="btn btn-danger btn-add"
-                      (click)="newAward()"
-                    >
-                      Agregar adjudicación
-                    </button>
+        <div class="tab-content" id="adjudicaciones-tabContent">
+          <ng-container *ngIf="!editMode">
+            <div
+              class="tab-pane fade"
+              [class.active]="!editMode"
+              [class.show]="!editMode"
+              id="definicion-adjudicacion"
+              role="tabpanel"
+              aria-labelledby="definicion-adjudicacion-tab"
+              tabindex="0"
+            >
+              <div class="form h-100">
+                <form
+                  class=""
+                  method="post"
+                  id="planning-Form-StartAward"
+                  name="planning-Form-StartAward"
+                  novalidate="novalidate"
+                >
+                  <!-- <div class="row imageP"></div> -->
+                  <div class="row">
+                    <h3>Adjudicación</h3>
+                    <hr />
+                    <p>
+                      La fase de Adjudicación consiste en registro del o los
+                      participantes que resultaron ganadores del contrato de
+                      acuerdo con la evaluación de las propuestas.
+                    </p>
                   </div>
-                </div>
-                <div class="row">
-                  <div class="col">
-                    <div class="table-responsive">
-                      <table class="table table-striped table-hover">
-                        <thead>
-                          <tr>
-                            <th scope="col">ID</th>
-                            <th scope="col">Título</th>
-                            <th scope="col">Descripción</th>
-                            <th scope="col">Fecha</th>
-                            <th scope="col">Valor</th>
-                            <th scope="col">Proveedor</th>
-                            <th scope="col">Opciones</th>
-                          </tr>
-                        </thead>
-                        <tbody>
-                          <tr *ngFor="let award of awardsForm.value.awards; index as i">
-                            <td scope="row">{{ i + 1 }}</td>
-                            <td>{{ award.title }}</td>
-                            <td>{{ award.description }}</td>
-                            <td>{{ award.date | date:'shortDate' }}</td>
-                            <td>{{ award.value?.amount }} {{ award.value?.currency }}</td>
-                            <td>{{ award.suppliers?.name }}</td>
-                            <td>
-                              <button
-                                type="button"
-                                class="btn btn-danger btn-delete"
-                                (click)="deleteAward(i)"
-                              >
-                                Eliminar
-                              </button>
-                            </td>
-                          </tr>
-                          <tr *ngIf="awardsForm.value.awards.length === 0">
-                            <th scope="row" colspan="7" class="text-center">
-                              Sin registros.
-                            </th>
-                          </tr>
-                        </tbody>
-                      </table>
+                  <div class="row">
+                    <div class="col">
+                      <button
+                        type="button"
+                        class="btn btn-danger btn-add"
+                        (click)="newAward()"
+                      >
+                        Agregar adjudicación
+                      </button>
                     </div>
                   </div>
-                </div>
-              </form>
+                  <div class="row">
+                    <div class="col">
+                      <div class="table-responsive">
+                        <table class="table table-striped table-hover">
+                          <thead>
+                            <tr>
+                              <th scope="col">ID</th>
+                              <th scope="col">Título</th>
+                              <th scope="col">Descripción</th>
+                              <th scope="col">Fecha</th>
+                              <th scope="col">Valor</th>
+                              <th scope="col">Proveedor</th>
+                              <th scope="col">Opciones</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            <tr
+                              *ngFor="
+                                let award of awardsForm.value.awards;
+                                index as i
+                              "
+                            >
+                              <td scope="row">{{ i + 1 }}</td>
+                              <td>{{ award.title }}</td>
+                              <td>{{ award.description }}</td>
+                              <td>{{ award.date | date : "shortDate" }}</td>
+                              <td>
+                                {{ award.value?.amount }}
+                                {{ award.value?.currency }}
+                              </td>
+                              <td>{{ award.suppliers?.name }}</td>
+                              <td>
+                                <button
+                                  type="button"
+                                  class="btn btn-danger btn-delete"
+                                  (click)="deleteAward(i)"
+                                >
+                                  Eliminar
+                                </button>
+                              </td>
+                            </tr>
+                            <tr *ngIf="awardsForm.value.awards.length === 0">
+                              <th scope="row" colspan="7" class="text-center">
+                                Sin registros.
+                              </th>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </div>
+                  </div>
+                </form>
+              </div>
             </div>
-          </div>
-        </div>
+          </ng-container>
+          <ng-container *ngIf="editMode">
+            <div
+              class="tab-pane fade show active"
+              id="adjudicacion-general"
+              role="tabpanel"
+              aria-labelledby="adjudicacion-general-tab"
+            >
+              <div class="form">
+                <app-awards-general
+                  (saveGeneralDataForm)="saveGeneralDataForm($event)"
+                ></app-awards-general>
+              </div>
+            </div>
 
-        <!-- Inicia formulario de datos generales de la adjudicación -->
-        <div class="tab-content" id="adjudicaciones-tabContent" *ngIf="editMode">
-          <div
-            class="tab-pane fade"
-            id="adjudicacion-general"
-            role="tabpanel"
-            aria-labelledby="adjudicacion-general-tab"
-          >
-            <div class="form">
-              <app-awards-general
-                (saveGeneralDataForm)="saveGeneralDataForm($event)"
-              ></app-awards-general>
+            <div
+              class="tab-pane fade"
+              id="adjudicacion-proveedores"
+              role="tabpanel"
+              aria-labelledby="adjudicacion-proveedores-tab"
+            >
+              <div class="form">
+                <app-awards-suppliers
+                  [suppliersArray]="awardForm.value.suppliers"
+                  (addSupplier)="addSupplier($event)"
+                  (deleteSupplier)="deleteSupplier($event)"
+                ></app-awards-suppliers>
+              </div>
             </div>
-          </div>
-        </div>
 
-        <!-- Inicia formulario de agregar uno o varios proveedores -->
-        <div class="tab-content" id="adjudicaciones-tabContent">
-          <div
-            class="tab-pane fade"
-            id="adjudicacion-proveedores"
-            role="tabpanel"
-            aria-labelledby="adjudicacion-proveedores-tab" *ngIf="editMode"
-          >
-            <div class="form">
-              <app-awards-suppliers
-                [suppliersArray]="awardForm.value.suppliers"
-                (addSupplier)="addSupplier($event)"
-                (deleteSupplier)="deleteSupplier($event)"
-              ></app-awards-suppliers>
+            <div
+              class="tab-pane fade"
+              id="adjudicacion-items"
+              role="tabpanel"
+              aria-labelledby="adjudicacion-items-tab"
+            >
+              <div class="form">
+                <app-awards-items
+                  [itemsArray]="awardForm.value.items"
+                  (addItem)="addItem($event)"
+                  (deleteItem)="deleteItem($event)"
+                ></app-awards-items>
+              </div>
             </div>
-          </div>
-        </div>
 
-        <!-- Inicia formulario Items -->
-        <div class="tab-content" id="adjudicaciones-tabContent" *ngIf="editMode">
-          <div
-            class="tab-pane fade"
-            id="adjudicacion-items"
-            role="tabpanel"
-            aria-labelledby="adjudicacion-items-tab"
-          >
-            <div class="form">
-              <app-awards-items
-                [itemsArray]="awardForm.value.items"
-                (addItem)="addItem($event)"
-                (deleteItem)="deleteItem($event)"
-              ></app-awards-items>
+            <div
+              class="tab-pane fade"
+              id="adjudicacion-documentos"
+              role="tabpanel"
+              aria-labelledby="adjudicacion-documentos-tab"
+            >
+              <div class="form h-100">
+                <app-awards-documents
+                  [documentsArray]="awardForm.value.documents"
+                  (addDocument)="addDocument($event)"
+                  (deleteDocument)="deleteDocument($event)"
+                ></app-awards-documents>
+              </div>
             </div>
-          </div>
-        </div>
 
-        <!-- Inicia formulario Documentos -->
-        <div class="tab-content" id="adjudicaciones-tabContent" *ngIf="editMode">
-          <div
-            class="tab-pane fade"
-            id="adjudicacion-documentos"
-            role="tabpanel"
-            aria-labelledby="adjudicacion-documentos-tab"
-          >
-            <div class="form h-100">
-              <app-awards-documents
-                [documentsArray]="awardForm.value.documents"
-                (addDocument)="addDocument($event)"
-                (deleteDocument)="deleteDocument($event)"
-              ></app-awards-documents>
+            <div
+              class="tab-pane fade"
+              id="adjudicacion-mofificaciones"
+              role="tabpanel"
+              aria-labelledby="adjudicacion-mofificaciones-tab"
+            >
+              <div class="form h-100">
+                <app-awards-amendments
+                  [amendmentsArray]="awardForm.value.amendments"
+                  (addAmendment)="addAmendment($event)"
+                  (deleteAmendment)="deleteAmendment($event)"
+                ></app-awards-amendments>
+              </div>
             </div>
-          </div>
-        </div>
 
-        <!-- Inicia formulario Enmiendas -->
-        <div class="tab-content" id="adjudicaciones-tabContent" *ngIf="editMode">
-          <div
-            class="tab-pane fade"
-            id="adjudicacion-mofificaciones"
-            role="tabpanel"
-            aria-labelledby="adjudicacion-mofificaciones-tab"
-          >
-            <div class="form h-100">
-              <app-awards-amendments
-                [amendmentsArray]="awardForm.value.amendments"
-                (addAmendment)="addAmendment($event)"
-                (deleteAmendment)="deleteAmendment($event)"
-              ></app-awards-amendments>
-            </div>
-          </div>
+            <!-- fin -->
+          </ng-container>
         </div>
-        <!-- Mensaje de guardando -->
         <div class="row">
           <div class="col-md-12 text-center mt-5">
             <div *ngIf="isSaving" class="alert alert-info">
