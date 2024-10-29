@@ -52,6 +52,11 @@ export class PartiesComponent implements OnInit {
     this.editMode = false;
   }
 
+  cancelPartie(): void {
+    this.initPartieForm();
+    this.editMode = false;
+  }
+
   saveGeneral(general: FormGroup): void {
     this.partieForm = this.fb.group({
       ...general.controls,
