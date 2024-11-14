@@ -6,53 +6,6 @@
     </div>
   </div>
   <form [formGroup]="generalForm">
-    <div class="row">
-      <div class="form-floating col mb-2">
-        <input
-          class="form-control"
-          id="name"
-          type="text"
-          data-sb-validations="required"
-          placeholder="Nombre común*"
-          formControlName="name"
-        />
-        <label for="name">Nombre común*</label>
-        <div class="invalid-feedback" data-sb-feedback="name:required">
-          Nombre común * es requerido.
-        </div>
-      </div>
-      <div class="form-text">
-        Un nombre común para esta organización u otro participante en el proceso
-        de contrataciones. El objeto identificador da un espacio para un nombre
-        legal formal, y esto podría repetir el valor o dar un nombre común por
-        el cual se conoce a la organización o entidad. Este campo también pude
-        incluir detalles del departamento o sub-unidad involucrada en este
-        proceso de contrataciones.
-      </div>
-    </div>
-
-    <div class="row">
-      <div class="form-floating col mb-2">
-        <input
-          class="form-control"
-          id="position"
-          type="text"
-          data-sb-validations="required"
-          placeholder="Cargo*"
-          formControlName="position"
-        />
-        <label for="position">Cargo*</label>
-        <div class="invalid-feedback" data-sb-feedback="position:required">
-          Cargo * es requerido.
-        </div>
-      </div>
-      <div class="form-text">
-        El cargo que ocupa el actor. Puede utilizarse para definir el cargo
-        específico que ocupa el servidor público involucrado en el proceso de
-        contratación.
-      </div>
-    </div>
-
     <fieldset class="border p-3 mb-3">
       <legend>Roles de las partes</legend>
       <small
@@ -129,6 +82,54 @@
         </div>
       </div>
     </fieldset>
+    <div class="row">
+      <div class="form-floating col mb-2">
+        <input
+          class="form-control"
+          id="name"
+          type="text"
+          data-sb-validations="required"
+          placeholder="Nombre común*"
+          formControlName="name"
+        />
+        <label for="name">Nombre común*</label>
+        <div class="invalid-feedback" data-sb-feedback="name:required">
+          Nombre común * es requerido.
+        </div>
+      </div>
+      <div class="form-text">
+        Un nombre común para esta organización u otro participante en el proceso
+        de contrataciones. El objeto identificador da un espacio para un nombre
+        legal formal, y esto podría repetir el valor o dar un nombre común por
+        el cual se conoce a la organización o entidad. Este campo también pude
+        incluir detalles del departamento o sub-unidad involucrada en este
+        proceso de contrataciones.
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="form-floating col mb-2">
+        <input
+          class="form-control"
+          id="position"
+          type="text"
+          data-sb-validations="required"
+          placeholder="Cargo*"
+          formControlName="position"
+        />
+        <label for="position">Cargo*</label>
+        <div class="invalid-feedback" data-sb-feedback="position:required">
+          Cargo * es requerido.
+        </div>
+      </div>
+      <div class="form-text">
+        El cargo que ocupa el actor. Puede utilizarse para definir el cargo
+        específico que ocupa el servidor público involucrado en el proceso de
+        contratación.
+      </div>
+    </div>
+
+
 
     <fieldset class="border p-3 mb-3">
       <legend>Miembro de</legend>
