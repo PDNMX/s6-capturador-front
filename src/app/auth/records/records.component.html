@@ -23,11 +23,22 @@
                   Proceso de compra: <br />
                   <strong>{{ n.ocid }}</strong>
                 </p>
+                <div *ngIf="n.contracts?.length">
+                  <div *ngFor="let contract of n.contracts">
+                    <p>
+                      Número de contrato: <br />
+                      <strong>{{ contract.id }}</strong>
+                    </p>
+                  </div>
+                </div>
               </div>
               <div class="card-body">
                 <div class="row">
                   <div class="col">
-                    <h3>Detalle de contratación</h3>
+                    <h3>
+                      Detalle del registro del proceso de la contratación
+                      pública
+                    </h3>
                   </div>
                 </div>
 
@@ -39,7 +50,7 @@
                 </fieldset>
 
                 <fieldset class="border p-3 mb-3">
-                  <legend>Planeacion</legend>
+                  <legend>Planeación</legend>
                   <ul>
                     <li>
                       <strong>Justificación:</strong>&nbsp;{{
@@ -50,7 +61,7 @@
                 </fieldset>
 
                 <fieldset class="border p-3 mb-3">
-                  <legend>Licitacion</legend>
+                  <legend>Contratación pública</legend>
                   <ul>
                     <li>
                       <strong>Titulo:</strong>&nbsp;{{
@@ -66,7 +77,7 @@
                 </fieldset>
 
                 <fieldset class="border p-3 mb-3">
-                  <legend>Adjudicaciones</legend>
+                  <legend>Adjudicación</legend>
                   <ul
                     *ngFor="
                       let l of n.awards || [
@@ -89,10 +100,10 @@
                 </fieldset>
 
                 <fieldset class="border p-3 mb-3">
-                  <legend>Contratos</legend>
+                  <legend>Contrato</legend>
                   <ul
                     *ngFor="
-                      let l of n.awards || [
+                      let l of n.contracts || [
                         {
                           title: 'titulo ejemplo 1',
                           description: 'descripción de ejemplo 1'
