@@ -23,7 +23,20 @@
             Identificador del contrato * es requerido.
           </div>
         </div> -->
-
+        <div class="form-floating col mb-3">
+          <input
+            class="form-control"
+            id="contractId"
+            type="text"
+            data-sb-validations="required"
+            placeholder="Identificador del contrato*"
+            formControlName="contractId"
+          />
+          <label for="contractId">Identificador del contrato*</label>
+          <div class="invalid-feedback" data-sb-feedback="contractId:required">
+            Identificador del contrato * es requerido.
+          </div>
+        </div>
         <div class="form-floating col mb-3">
           <input
             class="form-control"
