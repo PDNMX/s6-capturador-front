@@ -97,7 +97,10 @@ export class ContractsComponent implements OnInit {
   loadForm(data: any): void {
     data.forEach((contract: any) => {
       this.contractsArray.push(this.fb.control(contract));
-      this.contractForm.patchValue(contract);
+      this.contractForm.patchValue({
+        ...contract,
+        contractId: contract.id || '',
+      });
 
       const { items, guarantees, documents } = contract;
 
@@ -159,6 +162,7 @@ export class ContractsComponent implements OnInit {
 
   initContractForm(): void {
     this.contractForm = this.fb.group({
+      contractId: ['', [Validators.required]],
       awardID: ['', [Validators.required]],
       title: ['', [Validators.required]],
       description: ['', [Validators.required]],
@@ -193,8 +197,15 @@ export class ContractsComponent implements OnInit {
   }
 
   saveData(): void {
-    console.log('this.contractForm.value: ', this.contractForm.value);
-    this.contractsArray.push(this.contractForm);
+    const formValue = this.contractForm.value;
+    const contractData = {
+      ...formValue,
+      id: formValue.contractId, // Usamos el ID manual como id
+      _id: this.record_id, // Mantenemos el _id automático
+    };
+
+    console.log('contractData: ', contractData);
+    this.contractsArray.push(this.fb.control(contractData));
     this.editMode = false;
     this.initContractForm();
 

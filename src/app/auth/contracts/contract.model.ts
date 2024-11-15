@@ -1,5 +1,7 @@
 export interface Contract {
-  id: number;
+  _id: string;
+  id: string;
+  contractId: string;
   awardID: string;
   title: string;
   description: string;
