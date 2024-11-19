@@ -4,9 +4,9 @@
       <h3>Domicilio</h3>
       <hr />
       <p>
-        El domicilio de la parte involucrada. Puede ser el domicilio fiscal, legalmente
-        registrado por el actor, o ser la dirección postal para este proceso de
-        contratación en específico.
+        El domicilio de la parte involucrada. Puede ser el domicilio fiscal,
+        legalmente registrado por el actor, o ser la dirección postal para este
+        proceso de contratación en específico.
       </p>
     </div>
   </div>
@@ -89,21 +89,25 @@
     </div>
 
     <div class="row">
-      <div class="form-floating col mb-2">
-        <input
-          class="form-control"
-          id="countryName"
-          type="text"
-          data-sb-validations="required"
-          placeholder="País*"
-          formControlName="countryName"
-        />
-        <label for="countryName">País*</label>
-        <div class="invalid-feedback" data-sb-feedback="countryName:required">
-          País * es requerido.
-        </div>
+      <div class="col-12">
+        <label for="countryName">País</label>
       </div>
-      <div class="form-text">El nombre del país. Por ejemplo: México.</div>
+      <div class="form-floating col mb-5">
+        <select
+          class="form-select"
+          formControlName="countryName"
+          id="countryName"
+        >
+          <option
+            *ngFor="let country of countries"
+            [ngValue]="country.name"
+            [selected]="country.name === addressForm.get('countryName')?.value"
+          >
+            {{ country.name }}
+          </option>
+        </select>
+        <div class="form-text">El nombre del país. Por ejemplo: México.</div>
+      </div>
     </div>
 
     <div class="row">
