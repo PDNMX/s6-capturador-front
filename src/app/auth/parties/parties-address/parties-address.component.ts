@@ -1,5 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import Countries from 'src/utils/countries';
 
 @Component({
   selector: 'app-parties-address',
@@ -10,6 +11,8 @@ export class PartiesAddressComponent implements OnInit {
   @Output() saveAddress = new EventEmitter<any>();
 
   addressForm!: FormGroup;
+  countries = Countries; // importamos los países de la lista countries.ts
+  searchText: string = '';
 
   constructor(private fb: FormBuilder) {}
 
@@ -28,7 +31,7 @@ export class PartiesAddressComponent implements OnInit {
   }
 
   save(): void {
-    // console.log(this.addressForm.value);
+    //console.log(this.addressForm.value);
     this.saveAddress.emit(this.addressForm);
   }
 }
