@@ -36,6 +36,12 @@
           <div class="invalid-feedback" data-sb-feedback="contractId:required">
             Identificador del contrato * es requerido.
           </div>
+          <div class="form-text">
+            El identificador para este contrato. Debe ser único y no debe
+            cambiar en el Proceso de Contrataciones Abiertas del cual es parte
+            (definido por un ocid único). Vea la guía de identificadores para
+            más detalles.
+          </div>
         </div>
         <div class="form-floating col mb-3">
           <input
@@ -49,6 +55,9 @@
           <label for="id">Identificador de la adjudicación*</label>
           <div class="invalid-feedback" data-sb-feedback="awardID:required">
             Identificador de la adjudicación * es requerido.
+          </div>
+          <div class="form-text">
+            Identificador de la adjudicación en la cual se expide este contrato.
           </div>
         </div>
       </div>
@@ -67,6 +76,7 @@
           <div class="invalid-feedback" data-sb-feedback="title:required">
             Título del contrato * es requerido.
           </div>
+          <div class="form-text">Título del contrato</div>
         </div>
       </div>
 
@@ -77,18 +87,19 @@
             id="description"
             type="text"
             placeholder="Descripción*"
-            style="height: 100px"
+            style="height: 150px"
             formControlName="description"
           ></textarea>
           <label for="description">Descripción*</label>
           <div class="invalid-feedback" data-sb-feedback="description:required">
             Descripción * es requerido.
           </div>
+          <div class="form-text">Descripción del contrato.</div>
         </div>
       </div>
 
       <div class="row">
-        <div class="form-floating col mb-3">
+        <div class="form-floating col mb-0">
           <select class="form-select" formControlName="status">
             <option *ngFor="let d of contractStatus" [ngValue]="d.code">
               {{ d.title }}
@@ -96,14 +107,30 @@
           </select>
           <label for="status"> Estatus </label>
           <p>
-            {{ getContractStatusDesc("pending") }}
+            {{ getContractStatusDesc(contractForm.value.status) }}
           </p>
+        </div>
+        <div class="form-text">
+          El estatus actual del contrato, de la lista de código cerrada
+          <a
+            href="https://standard.open-contracting.org/1.1/es/schema/codelists/#contract-status"
+            target="_blank"
+            >contractStatus</a
+          >.
         </div>
       </div>
 
       <fieldset class="border p-3 mb-3" formGroupName="period">
         <legend class="w-auto px-1">Periodo del contrato</legend>
-
+        <p>Las fechas de inicio y fin del contrato.</p>
+        <p>
+          Los eventos clave durante un proceso de contratación pueden tener una
+          fecha de inicio, una fecha de finalización, una duración o un alcance
+          máximo conocidos (la última fecha a la que se puede extender el
+          período). En algunos casos, no todos estos campos tendrán valores
+          conocidos o relevantes.
+        </p>
+        <hr />
         <div class="row">
           <div class="form-floating col-6 mb-3">
             <input
@@ -117,6 +144,10 @@
             <div class="invalid-feedback" data-sb-feedback="title:required">
               Fecha de inicio * es requerido.
             </div>
+            <div class="form-text">
+              La fecha de inicio del período. Cuando se sabe, se debe dar una
+              fecha de inicio precisa.
+            </div>
           </div>
           <div class="form-floating col-6 mb-3">
             <input
@@ -129,6 +160,10 @@
             <label for="endDate">Fecha de término*</label>
             <div class="invalid-feedback" data-sb-feedback="title:required">
               Fecha de término * es requerido.
+            </div>
+            <div class="form-text">
+              La fecha de conclusión del período. Cuando se sabe, se debe dar
+              una fecha de conclusión precisa.
             </div>
           </div>
         </div>
@@ -146,6 +181,11 @@
             <div class="invalid-feedback" data-sb-feedback="title:required">
               Extension máxima * es requerido.
             </div>
+            <div class="form-text">
+              El período no puede extenderse después de esta fecha. Este campo
+              debe usarse para expresar la fecha máxima disponible para la
+              extensión o renovación de este período.
+            </div>
           </div>
           <div class="form-floating col-6 mb-3">
             <input
@@ -160,12 +200,17 @@
             <div class="invalid-feedback" data-sb-feedback="title:required">
               Duración * es requerido.
             </div>
+            <div class="form-text">
+              El nivel máximo de duración de este período en días.
+            </div>
           </div>
         </div>
       </fieldset>
 
       <fieldset class="border p-3 mb-3">
         <legend class="w-auto px-1">Valor del contrato</legend>
+        <p>Un valor o monto total de este contrato</p>
+        <hr />
         <div class="row" formGroupName="value">
           <div class="form-floating col-4 mb-3">
             <input
@@ -180,6 +225,7 @@
             <div class="invalid-feedback" data-sb-feedback="amount:required">
               Monto * es requerido.
             </div>
+            <div class="form-text">Monto como número.</div>
           </div>
 
           <div class="form-floating col-4 mb-3">
@@ -195,6 +241,7 @@
             <div class="invalid-feedback" data-sb-feedback="amountNet:required">
               Monto sin impuestos* es requerido.
             </div>
+            <div class="form-text">Monto sin impuestos.</div>
           </div>
 
           <div class="form-floating col-4 mb-3">
@@ -204,6 +251,14 @@
               </option>
             </select>
             <label for="type">Moneda</label>
+            <div class="form-text">
+              La moneda del monto, tomado de la lista de códigos
+              <a
+                href="https://standard.open-contracting.org/1.1/es/schema/codelists/#currency"
+                target="_blank"
+                >'Moneda'</a
+              >.
+            </div>
           </div>
         </div>
         <div class="row">
@@ -321,6 +376,10 @@
             >
               Fecha de firma * es requerido.
             </div>
+            <div class="form-text">
+              La fecha en la que se firmó el contrato. En el caso de múltiples
+              firmas, la fecha de la última firma.
+            </div>
           </div>
         </div>
         <div class="row">
@@ -329,25 +388,39 @@
               <table class="table table-hover table-striped">
                 <thead>
                   <tr>
-                    <th scope="col">Mecanismos de vigilancia</th>
-                    <th scope="col">Opciones</th>
+                    <th>Mecanismos de vigilancia</th>
+                    <th style="width: 100px">Opciones</th>
                   </tr>
                   <tr>
                     <th>
-                      <select
-                        class="form-select"
-                        [(ngModel)]="surveillanceMechanismsValue"
-                        [ngModelOptions]="{ standalone: true }"
-                      >
-                        <option *ngFor="let d of [1, 2, 3]">
-                          Mecanismos #{{ d }}
-                        </option>
-                      </select>
+                      <div class="d-flex align-items-start">
+                        <div class="flex-grow-1">
+                          <div class="form-floating">
+                            <select
+                              class="form-select"
+                              [formControl]="surveillanceMechanismsControl"
+                            >
+                              <option value="">Seleccione una opción</option>
+                              <option
+                                *ngFor="let d of surveillanceMechanismsType"
+                                [value]="d.code"
+                              >
+                                {{ d.title }}
+                              </option>
+                            </select>
+                          </div>
+                          <div *ngIf="selectedMechanism" class="mt-2">
+                            <p>
+                              {{ selectedMechanism.description }}
+                            </p>
+                          </div>
+                        </div>
+                      </div>
                     </th>
-                    <th>
+                    <th class="align-top">
                       <button
                         type="button"
-                        class="btn btn-danger btn-add"
+                        class="btn btn-danger"
                         (click)="addSurveillanceMechanisms()"
                       >
                         Agregar
@@ -358,27 +431,23 @@
                 <tbody>
                   <tr
                     *ngFor="
-                      let item of contractForm.value.surveillanceMechanisms;
-                      index as i
+                      let item of surveillanceMechanismsArray.controls;
+                      let i = index
                     "
                   >
-                    <td scope="row">{{ item }}</td>
+                    <td>{{ getMechanismTitle(item.value) }}</td>
                     <td>
                       <button
                         type="button"
-                        class="btn btn-danger btn-remove"
+                        class="btn btn-danger"
                         (click)="deleteSurveillanceMechanisms(i)"
                       >
                         Eliminar
                       </button>
                     </td>
                   </tr>
-                  <tr
-                    *ngIf="
-                      contractForm.value.surveillanceMechanisms.length === 0
-                    "
-                  >
-                    <th scope="row" colspan="2" class="text-center">
+                  <tr *ngIf="surveillanceMechanismsArray.controls.length === 0">
+                    <th scope="row" colspan="5" class="text-center">
                       Sin registros.
                     </th>
                   </tr>
@@ -391,6 +460,14 @@
 
       <fieldset class="border p-3 mb-3" [formGroup]="relatedProcessesForm">
         <legend>Procesos relacionados</legend>
+        <p>
+          Los detalles de procesos relacionados, por ejemplo, si el proceso es
+          seguido por uno o más procesos de contrataciones, representados bajo
+          diferentes identificadores de contrataciones abiertas (ocid). Esto se
+          utiliza normalmente para referir a subcontratos o renovaciones y
+          reemplazos de este contrato.
+        </p>
+        <hr />
         <div class="row">
           <div class="col">
             <div class="table-responsive">
@@ -452,28 +529,39 @@
               <table class="table table-striped table-hover">
                 <thead>
                   <tr>
-                    <th scope="col">Relación</th>
-                    <th scope="col">Opciones</th>
+                    <th>Relación</th>
+                    <th style="width: 100px">Opciones</th>
                   </tr>
                   <tr>
                     <th>
-                      <select
-                        class="form-select"
-                        [(ngModel)]="relationshipValue"
-                        [ngModelOptions]="{ standalone: true }"
-                      >
-                        <option
-                          *ngFor="let d of relatedProcesses"
-                          [value]="d.code"
-                        >
-                          {{ d.title }}
-                        </option>
-                      </select>
+                      <div class="d-flex align-items-start">
+                        <div class="flex-grow-1">
+                          <div class="form-floating">
+                            <select
+                              class="form-select"
+                              [formControl]="relatedProcessControl"
+                            >
+                              <option value="">Seleccione una opción</option>
+                              <option
+                                *ngFor="let d of relatedProcesses"
+                                [value]="d.code"
+                              >
+                                {{ d.title }}
+                              </option>
+                            </select>
+                          </div>
+                          <div *ngIf="selectedRelatedProcess" class="mt-2">
+                            <p>
+                              {{ selectedRelatedProcess.description }}
+                            </p>
+                          </div>
+                        </div>
+                      </div>
                     </th>
-                    <th>
+                    <th class="align-top">
                       <button
                         type="button"
-                        class="btn btn-danger btn-add"
+                        class="btn btn-danger"
                         (click)="addRelationship()"
                       >
                         Agregar
@@ -484,27 +572,23 @@
                 <tbody>
                   <tr
                     *ngFor="
-                      let item of relatedProcessesForm.value.relationship;
-                      index as i
+                      let item of relationshipArray.controls;
+                      let i = index
                     "
                   >
-                    <td scope="row">{{ item }}</td>
+                    <td>{{ getRelatedProcessTitle(item.value) }}</td>
                     <td>
                       <button
                         type="button"
-                        class="btn btn-danger btn-remove"
+                        class="btn btn-danger"
                         (click)="deleteRelationship(i)"
                       >
                         Eliminar
                       </button>
                     </td>
                   </tr>
-                  <tr
-                    *ngIf="relatedProcessesForm.value.relationship.length === 0"
-                  >
-                    <th scope="row" colspan="2" class="text-center">
-                      Sin registros.
-                    </th>
+                  <tr *ngIf="relationshipArray.controls.length === 0">
+                    <td colspan="2" class="text-center">Sin registros.</td>
                   </tr>
                 </tbody>
               </table>
@@ -522,24 +606,36 @@
               placeholder="title*"
               formControlName="title"
             />
-            <label for="title">Titulo *</label>
+            <label for="title">Título del proceso relacionado *</label>
             <div class="invalid-feedback" data-sb-feedback="title:required">
               Titulo * es requerido.
+            </div>
+            <div class="form-text">
+              El título del proceso relacionado, cuando se hace referencia a un
+              proceso de contratación abierta, este debe de ser el mismo que el
+              campo de tender/title en el proceso relacionado.
             </div>
           </div>
 
           <div class="form-floating col mb-3">
-            <input
-              class="form-control"
+            <select
+              class="form-select"
               id="scheme"
-              type="text"
               data-sb-validations="required"
-              placeholder="Esquema*"
               formControlName="scheme"
-            />
-            <label for="scheme">Esquema *</label>
+            >
+              <option value="">Seleccione un esquema</option>
+              <option value="ocid">Open Contracting ID (OCID)</option>
+            </select>
+            <label for="scheme">Esquema de identificaión *</label>
             <div class="invalid-feedback" data-sb-feedback="scheme:required">
               Esquema * es requerido.
+            </div>
+            <div class="form-text">
+              El esquema de identificación usado por esta referencia de la lista
+              de códigos de proceso relacionado. Cuando se referencia
+              información también publicada usando OCDS, se debe usar un Open
+              Contracting ID (ocid).
             </div>
           </div>
         </div>
@@ -554,12 +650,19 @@
               placeholder="Identificador*"
               formControlName="identifier"
             />
-            <label for="identifier">Identificador *</label>
+            <label for="identifier"
+              >Identificador del proceso relacionado*</label
+            >
             <div
               class="invalid-feedback"
               data-sb-feedback="identifier:required"
             >
               Identificador * es requerido.
+            </div>
+            <div class="form-text">
+              El identificador del proceso relacionado. Cuando se refiere a
+              información que también se publica usando OCDS, este debe ser el
+              Open Contracting ID (ocid).
             </div>
           </div>
 
@@ -572,9 +675,14 @@
               placeholder="URI*"
               formControlName="uri"
             />
-            <label for="uri">URI *</label>
+            <label for="uri">URI del procedimiento relacionado *</label>
             <div class="invalid-feedback" data-sb-feedback="uri:required">
               URI * es requerido.
+            </div>
+            <div class="form-text">
+              Una URI que apunta a un documento legible por máquinas, liberación
+              o paquete de registro que contenga el proceso relacionado
+              identificado.
             </div>
           </div>
         </div>

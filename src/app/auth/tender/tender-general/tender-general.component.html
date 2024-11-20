@@ -54,16 +54,16 @@
 
     <div class="row">
       <div class="form-floating col mb-2">
-        <label for="">Estatus de la licitación</label>
         <select class="form-select" formControlName="status">
           <option *ngFor="let d of tenderStatus" [ngValue]="d.code">
             {{ d.title }}
           </option>
         </select>
+        <label for="">Estatus de la contratación pública</label>
         <p class="mt-2">{{ getTenderStatusDesc(generalForm.value.status) }}</p>
       </div>
       <div class="form-text">
-        El estatus actual de la licitación, desde la lista de código cerrada
+        El estatus actual de la contratación pública, desde la lista de código cerrada
         <a
           href="https://standard.open-contracting.org/1.1/es/schema/codelists/#tender-status"
           >tenderStatus</a
