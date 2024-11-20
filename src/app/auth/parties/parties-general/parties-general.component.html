@@ -129,8 +129,6 @@
       </div>
     </div>
 
-
-
     <fieldset class="border p-3 mb-3">
       <legend>Miembro de</legend>
       <small
@@ -219,22 +217,25 @@
       >
       <div class="row">
         <div class="form-floating col mb-2">
-          <input
-            class="form-control"
+          <select
+            class="form-select"
             id="legalPersonality"
-            type="text"
-            data-sb-validations="required"
-            placeholder="Personalidad jurídica*"
             formControlName="legalPersonality"
-          />
+          >
+            <option value="">Seleccione una opción</option>
+            <option value="fisica">Persona Física</option>
+            <option value="moral">Persona Moral</option>
+          </select>
           <label for="legalPersonality">Personalidad jurídica*</label>
           <div
             class="invalid-feedback"
-            data-sb-feedback="legalPersonality:required"
+            *ngIf="generalForm.get('identifier.legalPersonality')?.errors?.['required'] && 
+                   generalForm.get('identifier.legalPersonality')?.touched"
           >
-            Personalidad jurídica * es requerido.
+            Personalidad jurídica es requerido.
           </div>
         </div>
+
         <div class="form-text">
           Especifica la personalidad jurídica de la entidad que participa en
           este proceso. Utilizando la lista de códigos 'Personalidad jurídica'.
@@ -268,12 +269,16 @@
               class="form-control"
               id="givenName"
               type="text"
-              data-sb-validations="required"
               placeholder="Nombre*"
               formControlName="givenName"
             />
             <label for="givenName">Nombre*</label>
-            <div class="invalid-feedback" data-sb-feedback="givenName:required">
+            <div
+              class="invalid-feedback"
+              *ngIf="generalForm.get('identifier.givenName')?.errors?.['required'] && 
+                     generalForm.get('identifier.givenName')?.touched &&
+                     generalForm.get('identifier.legalPersonality')?.value === 'fisica'"
+            >
               Nombre * es requerido.
             </div>
           </div>
@@ -286,14 +291,15 @@
               class="form-control"
               id="patronymicName"
               type="text"
-              data-sb-validations="required"
               placeholder="Primer apellido*"
               formControlName="patronymicName"
             />
             <label for="patronymicName">Primer apellido*</label>
             <div
               class="invalid-feedback"
-              data-sb-feedback="patronymicName:required"
+              *ngIf="generalForm.get('identifier.patronymicName')?.errors?.['required'] && 
+                     generalForm.get('identifier.patronymicName')?.touched &&
+                     generalForm.get('identifier.legalPersonality')?.value === 'fisica'"
             >
               Primer apellido * es requerido.
             </div>
@@ -307,14 +313,15 @@
               class="form-control"
               id="matronymicName"
               type="text"
-              data-sb-validations="required"
               placeholder="Segundo apellido*"
               formControlName="matronymicName"
             />
             <label for="matronymicName">Segundo apellido*</label>
             <div
               class="invalid-feedback"
-              data-sb-feedback="matronymicName:required"
+              *ngIf="generalForm.get('identifier.matronymicName')?.errors?.['required'] && 
+                     generalForm.get('identifier.matronymicName')?.touched &&
+                     generalForm.get('identifier.legalPersonality')?.value === 'fisica'"
             >
               Segundo apellido * es requerido.
             </div>
