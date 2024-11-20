@@ -20,7 +20,6 @@ export class PartiesGeneralComponent implements OnInit {
   optRole: string = '';
 
   optMemberOf: string = '';
-
   memberOfList: any = [];
 
   constructor(
@@ -71,8 +70,36 @@ export class PartiesGeneralComponent implements OnInit {
     this.additionalIdentifiersArray.removeAt(index);
   }
 
+  // Método para controlar los campos de persona física
+  private handlePersonaFields(isPersonaFisica: boolean): void {
+    const fields = ['givenName', 'patronymicName', 'matronymicName'];
+    const identifierGroup = this.generalForm.get('identifier');
+
+    fields.forEach((field) => {
+      const control = identifierGroup?.get(field);
+      if (control) {
+        if (isPersonaFisica) {
+          control.enable();
+        } else {
+          control.disable();
+          control.setValue('');
+        }
+      }
+    });
+  }
+
   ngOnInit(): void {
     this.initForm();
+
+    // Suscribirse a cambios en legalPersonality
+    this.generalForm
+      .get('identifier.legalPersonality')
+      ?.valueChanges.subscribe((value) => {
+        this.handlePersonaFields(value === 'fisica');
+      });
+
+    // Deshabilitar campos por defecto
+    this.handlePersonaFields(false);
 
     this.route.paramMap.subscribe((params: any) => {
       this.record_id = params.get('id');
@@ -104,7 +131,7 @@ export class PartiesGeneralComponent implements OnInit {
       roles: this.fb.array([]),
       memberOf: this.fb.array([]),
       identifier: this.fb.group({
-        legalPersonality: ['', [Validators.required]],
+        legalPersonality: ['', Validators.required],
         schema: ['MX-RFC', [Validators.required]],
         id: ['', [Validators.required]],
         uri: [
@@ -126,7 +153,6 @@ export class PartiesGeneralComponent implements OnInit {
   }
 
   save(): void {
-    // console.log(this.generalForm.value);
     this.saveGeneral.emit(this.generalForm);
   }
 }

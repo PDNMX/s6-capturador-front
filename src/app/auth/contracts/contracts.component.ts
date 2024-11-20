@@ -200,8 +200,7 @@ export class ContractsComponent implements OnInit {
     const formValue = this.contractForm.value;
     const contractData = {
       ...formValue,
-      id: formValue.contractId, // Usamos el ID manual como id
-      _id: this.record_id, // Mantenemos el _id automático
+      id: formValue.contractId, // el id es el número de contrato ingresado por el usuario
     };
 
     console.log('contractData: ', contractData);
