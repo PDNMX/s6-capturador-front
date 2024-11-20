@@ -78,19 +78,22 @@
     </div>
 
     <div class="row">
-      <div class="col-12">
-        <label for="type">Tipo de hito</label>
-      </div>
-      <div class="form-floating col mb-2">
+      <div class="form-floating col mb-0">
         <select class="form-select" formControlName="type">
           <option *ngFor="let d of milestoneType" [ngValue]="d.code">
             {{ d.title }}
           </option>
         </select>
-        <p>{{ getMilestoneTypeDesc(milestoneForm.value.type) }}</p>
+        <label for="type">Tipo de hito</label>
+        <p class="mt-2">{{ getMilestoneTypeDesc(milestoneForm.value.type) }}</p>
       </div>
       <div class="form-text">
-        La naturaleza del hito, tomado de la lista de códigos milestoneType.
+        La naturaleza del hito, tomado de la lista de códigos
+        <a
+          href="https://standard.open-contracting.org/1.1/es/schema/codelists/#milestone-type"
+          target="_blank"
+          >milestoneType</a
+        >.
       </div>
     </div>
 
@@ -191,22 +194,21 @@
         </div>
       </div>
     </div>
+
     <div class="row">
-      <div class="col-12">
-        <label for="status"> Estatus </label>
-      </div>
-      <div class="form-floating col mb-2">
+      <div class="form-floating col mb-0">
         <select class="form-select" formControlName="status">
           <option *ngFor="let d of milestoneStatus" [ngValue]="d.code">
             {{ d.title }}
           </option>
         </select>
-        <p>
+        <label for="status">Estatus</label>
+        <p class="mt-2">
           {{ getMilestoneStatusDesc(milestoneForm.value.status) }}
         </p>
       </div>
       <div class="form-text">
-        El estado que fue alcanzado en la fecha proporcionada en 'Fecha de modificación'.
+        El estatus que se realizó en la fecha en 'fecha modificada', de la lista de código cerrada <a href="https://standard.open-contracting.org/1.1/es/schema/codelists/#milestone-status" target="_blank">milestoneStatus</a>.
       </div>
     </div>
 
