@@ -28,6 +28,9 @@ export class PlanningGeneralComponent implements OnInit {
   responsibleUnit = null;
   contractingUnit = null;
 
+  isSaving: boolean = false;
+  mostrarSpinner = false;
+
   constructor(
     private fb: FormBuilder,
     private route: ActivatedRoute,
@@ -127,7 +130,12 @@ export class PlanningGeneralComponent implements OnInit {
   }
 
   saveForm(): void {
+    this.mostrarSpinner = true;
     this.saveGeneralData.emit(this.generalForm.controls);
+    setTimeout(() => {
+      this.mostrarSpinner = false;
+      console.log('agregando al arreglo');
+    }, 1000);
   }
 
   get contractingUnitsFormArray() {

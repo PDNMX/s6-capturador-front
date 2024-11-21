@@ -20,6 +20,7 @@ export class PlanningMilestonesComponent implements OnInit {
   milestoneStatus = MilestoneStatus;
 
   milestoneForm!: FormGroup;
+  mostrarSpinner = false;
 
   constructor(
     private fb: FormBuilder,
@@ -85,7 +86,12 @@ export class PlanningMilestonesComponent implements OnInit {
   }
 
   addNewMilestone(): void {
+    this.mostrarSpinner = true;
     this.addMilestone.emit(this.milestoneForm);
     this.initForm();
+    setTimeout(() => {
+      this.mostrarSpinner = false;
+      console.log('agregando al arreglo');
+    }, 1000);
   }
 }

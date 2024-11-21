@@ -22,6 +22,8 @@ export class PlanningBudgetBudgetBreakdownComponent implements OnInit {
   record_id = null;
   sourceParty: any = [];
 
+  mostrarSpinner = false;
+
   constructor(
     private fb: FormBuilder,
     private route: ActivatedRoute,
@@ -120,5 +122,10 @@ export class PlanningBudgetBudgetBreakdownComponent implements OnInit {
   addNewBudgetBreakdown(): void {
     this.addBudgetBreakdown.emit(this.budgetBreakdownForm);
     this.initForm();
+    this.mostrarSpinner = true;
+    setTimeout(() => {
+      this.mostrarSpinner = false;
+      console.log('agregando al arreglo');
+    }, 1000);
   }
 }

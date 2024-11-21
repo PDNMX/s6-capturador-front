@@ -21,6 +21,7 @@ export class PlanningRequestForQuotesComponent implements OnInit {
   selectForm!: FormGroup;
 
   invitedSuppliers: any = [];
+  mostrarSpinner = false;
 
   constructor(
     private fb: FormBuilder,
@@ -135,8 +136,13 @@ export class PlanningRequestForQuotesComponent implements OnInit {
   }
 
   addNewRequestForQuotes(): void {
+    this.mostrarSpinner = true;
     this.addRequestForQuotes.emit(this.requestForQuotesForm);
     console.log('this.requestForQuotesForm: ', this.requestForQuotesForm.value);
     this.initForm();
+    setTimeout(() => {
+      this.mostrarSpinner = false;
+      console.log('agregando al arreglo');
+    }, 1000);
   }
 }
