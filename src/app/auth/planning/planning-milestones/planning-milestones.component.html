@@ -208,7 +208,13 @@
         </p>
       </div>
       <div class="form-text">
-        El estatus que se realizó en la fecha en 'fecha modificada', de la lista de código cerrada <a href="https://standard.open-contracting.org/1.1/es/schema/codelists/#milestone-status" target="_blank">milestoneStatus</a>.
+        El estatus que se realizó en la fecha en 'fecha modificada', de la lista
+        de código cerrada
+        <a
+          href="https://standard.open-contracting.org/1.1/es/schema/codelists/#milestone-status"
+          target="_blank"
+          >milestoneStatus</a
+        >.
       </div>
     </div>
 
@@ -221,6 +227,17 @@
         >
           Agregar hito
         </button>
+      </div>
+    </div>
+    <br />
+    <div class="row">
+      <div class="col-12 spin">
+        <div *ngIf="mostrarSpinner" class="spinner-container">
+          <div class="spinner-border" role="status">
+            <span class="visually-hidden">Guardando...</span>
+          </div>
+          <p class="mt-2">Guardando...</p>
+        </div>
       </div>
     </div>
   </form>

@@ -21,6 +21,7 @@ export class PlanningDocumentsComponent implements OnInit {
   language = Language;
 
   documentForm!: FormGroup;
+  mostrarSpinner = false;
 
   constructor(
     private fb: FormBuilder,
@@ -106,7 +107,12 @@ export class PlanningDocumentsComponent implements OnInit {
   }
 
   addNewDocument(): void {
+    this.mostrarSpinner = true;
     this.addDocument.emit(this.documentForm);
     this.initForm();
+    setTimeout(() => {
+      this.mostrarSpinner = false;
+      console.log('agregando al arreglo');
+    }, 1000);
   }
 }

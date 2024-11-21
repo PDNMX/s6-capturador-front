@@ -49,7 +49,9 @@
 
     <form [formGroup]="selectForm">
       <fieldset class="border p-3 mb-3">
-        <legend class="w-auto px-1">Unidades administrativas requirentes</legend>
+        <legend class="w-auto px-1">
+          Unidades administrativas requirentes
+        </legend>
         <p>
           Las unidades específicas dentro del comprador que requieran la
           adquisición o arrendamiento de bienes, o la prestación de servicios, o
@@ -121,7 +123,9 @@
       </fieldset>
 
       <fieldset class="border p-3 mb-3">
-        <legend class="w-auto px-1">Unidades administrativas contratantes</legend>
+        <legend class="w-auto px-1">
+          Unidades administrativas contratantes
+        </legend>
         <p>
           Las unidades específicas dentro del comprador o entidad adjudicadora
           que se encargan de llevar a cabo el proceso de contratación.
@@ -268,7 +272,7 @@
     </form>
 
     <div class="row">
-      <div class="col">
+      <div class="col-12">
         <button
           type="button"
           class="btn btn-danger btn-save"
@@ -278,7 +282,17 @@
         </button>
       </div>
     </div>
-
+    <br />
+    <div class="row">
+      <div class="col-12 spin">
+        <div *ngIf="mostrarSpinner" class="spinner-container">
+          <div class="spinner-border" role="status">
+            <span class="visually-hidden">Guardando...</span>
+          </div>
+          <p class="mt-2">Guardando...</p>
+        </div>
+      </div>
+    </div>
     <!-- fin -->
   </div>
 </div>
