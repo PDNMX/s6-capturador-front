@@ -25,7 +25,7 @@ export class AwardsItemsComponent implements OnInit {
     uri: m.uri,
   }));
   currency = Currency;
-
+  mostrarSpinner = false;
   constructor(
     private fb: FormBuilder,
     private api: ApiService,
@@ -127,8 +127,13 @@ export class AwardsItemsComponent implements OnInit {
   }
 
   addNewItem(): void {
+    this.mostrarSpinner = true;
     this.addItem.emit(this.itemsForm);
     //console.log(this.itemsForm.value);
     this.initForm();
+    setTimeout(() => {
+      this.mostrarSpinner = false;
+      console.log('agregando al arreglo');
+    }, 1000);
   }
 }

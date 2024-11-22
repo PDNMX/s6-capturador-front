@@ -26,6 +26,7 @@ export class ContractsImplementationTransactionsComponent implements OnInit {
 
   payers: Array<any> = [];
   payee: Array<any> = [];
+  mostrarSpinner = false;
 
   constructor(
     private fb: FormBuilder,
@@ -70,8 +71,13 @@ export class ContractsImplementationTransactionsComponent implements OnInit {
   }
 
   addNewTransactions(): void {
+    this.mostrarSpinner = true;
     this.addTransaction.emit(this.transactionsForm);
     console.log(this.transactionsForm.value);
     this.initForm();
+    setTimeout(() => {
+      this.mostrarSpinner = false;
+      console.log('agregando al arreglo');
+    }, 1000);
   }
 }

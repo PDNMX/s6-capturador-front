@@ -36,7 +36,7 @@ export class TenderGeneralComponent implements OnInit {
   generalForm!: FormGroup;
   additionalProcurementCategoriesForm!: FormGroup;
   submissionMethodForm!: FormGroup;
-
+  mostrarSpinner = false;
   constructor(
     private fb: FormBuilder,
     private route: ActivatedRoute,
@@ -210,7 +210,12 @@ export class TenderGeneralComponent implements OnInit {
   }
 
   saveForm(): void {
+    this.mostrarSpinner = true;
     this.saveGeneralData.emit(this.generalForm.controls);
+    setTimeout(() => {
+      this.mostrarSpinner = false;
+      console.log('agregando al arreglo');
+    }, 1000);
   }
 
   get additionalProcurementCategoriesArray() {

@@ -15,7 +15,7 @@ export class ContractsAmendmentsComponent {
 
   record_id = null;
   amendmentsForm!: FormGroup;
-
+  mostrarSpinner = false;
   constructor(
     private fb: FormBuilder,
     private route: ActivatedRoute,
@@ -61,7 +61,12 @@ export class ContractsAmendmentsComponent {
   }
 
   addNewAmendment(): void {
+    this.mostrarSpinner = true;
     this.addAmendment.emit(this.amendmentsForm);
     this.initForm();
+    setTimeout(() => {
+      this.mostrarSpinner = false;
+      console.log('agregando al arreglo');
+    }, 1000);
   }
 }

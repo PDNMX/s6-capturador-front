@@ -56,12 +56,17 @@
         <div class="form-floating col mb-2">
           <select class="form-select" formControlName="type">
             <option value="">Seleccione una garantía</option>
-            <option *ngFor="let guarantee of guarantees" [value]="guarantee.code">
-              {{guarantee.title}}
+            <option
+              *ngFor="let guarantee of guarantees"
+              [value]="guarantee.code"
+            >
+              {{ guarantee.title }}
             </option>
           </select>
           <label for="">Forma de garantía</label>
-          <p *ngIf="guaranteesForm.value.type">{{ getGuaranteeDesc(guaranteesForm.value.type) }}</p>
+          <p *ngIf="guaranteesForm.value.type">
+            {{ getGuaranteeDesc(guaranteesForm.value.type) }}
+          </p>
         </div>
         <div class="form-floating col mb-5">
           <input
@@ -82,12 +87,17 @@
         <div class="form-floating col mb-2">
           <select class="form-select" formControlName="obligations">
             <option value="">Seleccione una obligación</option>
-            <option *ngFor="let guarantee of guaranteeTypes" [value]="guarantee.code">
-              {{guarantee.title}}
+            <option
+              *ngFor="let guarantee of guaranteeTypes"
+              [value]="guarantee.code"
+            >
+              {{ guarantee.title }}
             </option>
           </select>
           <label for="">Obligaciones garantizadas</label>
-          <p *ngIf="guaranteesForm.value.obligations">{{ getGuaranteeTypeDesc(guaranteesForm.value.obligations) }}</p>
+          <p *ngIf="guaranteesForm.value.obligations">
+            {{ getGuaranteeTypeDesc(guaranteesForm.value.obligations) }}
+          </p>
         </div>
       </div>
 
@@ -214,6 +224,17 @@
         >
           Agregar garantía
         </button>
+      </div>
+    </div>
+    <br />
+    <div class="row">
+      <div class="col-12 spin">
+        <div *ngIf="mostrarSpinner" class="spinner-container">
+          <div class="spinner-border" role="status">
+            <span class="visually-hidden">Guardando...</span>
+          </div>
+          <p class="mt-2">Guardando...</p>
+        </div>
       </div>
     </div>
   </div>
