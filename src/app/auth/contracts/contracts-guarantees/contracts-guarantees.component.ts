@@ -1,4 +1,4 @@
-import { Currency } from 'src/utils';
+import { Currency, Guarantees, GuaranteeTypes } from 'src/utils';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
@@ -19,6 +19,9 @@ export class ContractsGuaranteesComponent implements OnInit {
   currency = Currency;
   guarantor: any = [];
 
+  guarantees = Guarantees;
+  guaranteeTypes = GuaranteeTypes;
+  
   constructor(
     private fb: FormBuilder,
     private route: ActivatedRoute,
@@ -29,6 +32,16 @@ export class ContractsGuaranteesComponent implements OnInit {
     this.addGuarante.emit(this.guaranteesForm);
     console.log('this.guaranteesForm: ', this.guaranteesForm.value);
     this.initForm();
+  }
+
+  getGuaranteeDesc(code: string): string {
+    const guarantee = this.guarantees.find(g => g.code === code);
+    return guarantee ? guarantee.description : '';
+  }
+
+  getGuaranteeTypeDesc(code: string): string {
+    const guaranteeType = this.guaranteeTypes.find(g => g.code === code);
+    return guaranteeType ? guaranteeType.description : '';
   }
 
   ngOnInit(): void {
