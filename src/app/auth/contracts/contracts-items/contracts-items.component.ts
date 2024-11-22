@@ -24,7 +24,7 @@ export class ContractsItemsComponent {
     uri: m.uri,
   }));
   currency = Currency;
-
+  mostrarSpinner = false;
   constructor(
     private fb: FormBuilder,
     private route: ActivatedRoute,
@@ -131,7 +131,12 @@ export class ContractsItemsComponent {
   }
 
   addNewItem(): void {
+    this.mostrarSpinner = true;
     this.addItem.emit(this.itemsForm);
     this.initForm();
+    setTimeout(() => {
+      this.mostrarSpinner = false;
+      console.log('agregando al arreglo');
+    }, 1000);
   }
 }

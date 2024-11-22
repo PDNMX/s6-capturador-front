@@ -1,5 +1,11 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { FormArray, FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
+import {
+  FormArray,
+  FormBuilder,
+  FormGroup,
+  FormControl,
+  Validators,
+} from '@angular/forms';
 import { ContractStatus, Currency, RelatedProcesses } from 'src/utils';
 import SurveillanceMechanismsType from 'src/utils/surveillanceMechanismsType';
 
@@ -34,6 +40,8 @@ export class ContractsGeneralComponent implements OnInit {
   relatedProcesses = RelatedProcesses;
   surveillanceMechanismsType = SurveillanceMechanismsType;
 
+  mostrarSpinner = false;
+
   constructor(private fb: FormBuilder) {}
 
   ngOnInit(): void {
@@ -44,32 +52,32 @@ export class ContractsGeneralComponent implements OnInit {
   }
 
   initSurveillanceMechanismsControl(): void {
-    this.surveillanceMechanismsControl.valueChanges.subscribe(value => {
+    this.surveillanceMechanismsControl.valueChanges.subscribe((value) => {
       if (value) {
         this.selectedMechanism = this.surveillanceMechanismsType.find(
-          type => type.code === value
+          (type) => type.code === value
         );
       }
     });
   }
 
   initRelatedProcessControl(): void {
-    this.relatedProcessControl.valueChanges.subscribe(value => {
+    this.relatedProcessControl.valueChanges.subscribe((value) => {
       if (value) {
         this.selectedRelatedProcess = this.relatedProcesses.find(
-          type => type.code === value
+          (type) => type.code === value
         );
       }
     });
   }
 
   getRelatedProcessesDesc(code: string): string {
-    const process = this.relatedProcesses.find(p => p.code === code);
+    const process = this.relatedProcesses.find((p) => p.code === code);
     return process?.description || '';
   }
 
   getRelatedProcessTitle(code: string): string {
-    const process = this.relatedProcesses.find(p => p.code === code);
+    const process = this.relatedProcesses.find((p) => p.code === code);
     return process ? process.title : code;
   }
 
@@ -102,16 +110,16 @@ export class ContractsGeneralComponent implements OnInit {
   addSurveillanceMechanisms() {
     if (this.surveillanceMechanismsControl.value) {
       const selectedMechanism = this.surveillanceMechanismsType.find(
-        type => type.code === this.surveillanceMechanismsControl.value
+        (type) => type.code === this.surveillanceMechanismsControl.value
       );
-      
+
       if (selectedMechanism) {
         this.surveillanceMechanismsArray.push(
           this.fb.control(selectedMechanism.code) // Guardamos el título en lugar del código
         );
 
         console.log('Array despues de agregar:', {
-          surveillanceMechanisms: this.surveillanceMechanismsArray.value
+          surveillanceMechanisms: this.surveillanceMechanismsArray.value,
         });
 
         this.surveillanceMechanismsControl.reset();
@@ -121,7 +129,9 @@ export class ContractsGeneralComponent implements OnInit {
   }
 
   getMechanismTitle(code: string): string {
-    const mechanism = this.surveillanceMechanismsType.find(type => type.code === code);
+    const mechanism = this.surveillanceMechanismsType.find(
+      (type) => type.code === code
+    );
     return mechanism ? mechanism.title : code;
   }
 
@@ -139,7 +149,12 @@ export class ContractsGeneralComponent implements OnInit {
   }
 
   addRelatedProcesses(): void {
+    this.mostrarSpinner = true;
     this.relatedProcessesArray.push(this.relatedProcessesForm);
+    setTimeout(() => {
+      this.mostrarSpinner = false;
+      console.log('agregando al arreglo');
+    }, 1000);
   }
 
   deleteRelatedProcesses(index: number): void {
@@ -156,7 +171,7 @@ export class ContractsGeneralComponent implements OnInit {
         this.fb.control(this.relatedProcessControl.value)
       );
       console.log('Relación agregada:', {
-        relationships: this.relationshipArray.value
+        relationships: this.relationshipArray.value,
       });
       this.relatedProcessControl.reset();
       this.selectedRelatedProcess = null;
@@ -186,5 +201,4 @@ export class ContractsGeneralComponent implements OnInit {
       uri: ['', [Validators.required]],
     });
   }
-  
 }

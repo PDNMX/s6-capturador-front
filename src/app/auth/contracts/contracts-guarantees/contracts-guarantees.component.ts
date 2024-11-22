@@ -21,7 +21,7 @@ export class ContractsGuaranteesComponent implements OnInit {
 
   guarantees = Guarantees;
   guaranteeTypes = GuaranteeTypes;
-  
+  mostrarSpinner = false;
   constructor(
     private fb: FormBuilder,
     private route: ActivatedRoute,
@@ -29,18 +29,23 @@ export class ContractsGuaranteesComponent implements OnInit {
   ) {}
 
   addNewGuarante(): void {
+    this.mostrarSpinner = true;
     this.addGuarante.emit(this.guaranteesForm);
     console.log('this.guaranteesForm: ', this.guaranteesForm.value);
     this.initForm();
+    setTimeout(() => {
+      this.mostrarSpinner = false;
+      console.log('agregando al arreglo');
+    }, 1000);
   }
 
   getGuaranteeDesc(code: string): string {
-    const guarantee = this.guarantees.find(g => g.code === code);
+    const guarantee = this.guarantees.find((g) => g.code === code);
     return guarantee ? guarantee.description : '';
   }
 
   getGuaranteeTypeDesc(code: string): string {
-    const guaranteeType = this.guaranteeTypes.find(g => g.code === code);
+    const guaranteeType = this.guaranteeTypes.find((g) => g.code === code);
     return guaranteeType ? guaranteeType.description : '';
   }
 

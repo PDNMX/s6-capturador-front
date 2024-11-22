@@ -24,7 +24,7 @@ export class TenderMeetingsComponent implements OnInit {
   attendees: any = [];
 
   officials: any = [];
-
+  mostrarSpinner = false;
   constructor(
     private fb: FormBuilder,
     private route: ActivatedRoute,
@@ -132,7 +132,12 @@ export class TenderMeetingsComponent implements OnInit {
   }
 
   addNewClarificationMeeting(): void {
+    this.mostrarSpinner = true;
     this.addClarificationMeeting.emit(this.meetingForm);
     this.initForm();
+    setTimeout(() => {
+      this.mostrarSpinner = false;
+      console.log('agregando al arreglo');
+    }, 1000);
   }
 }
