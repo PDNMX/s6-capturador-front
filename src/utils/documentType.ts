@@ -5,7 +5,7 @@ const DocumentType = [
     code: 'plannedProcurementNotice',
     title: 'Aviso de compra planeada',
     description:
-      'Un aviso publicado por la entidad procuradora sobre los planes para las compras futuras, también conocidos como un aviso de información previa. La entidad procuradora puede usar el aviso de compra planeada como un aviso de licitación.',
+      'Es un registro en donde se da a conocer el proceso en el que se anticipa, organiza y coordina la adquisición del bien, servicios u obra.',
   },
   {
     category: 'basic',
@@ -45,7 +45,7 @@ const DocumentType = [
     code: 'procurementPlan',
     title: 'Plan de adquisiciones',
     description:
-      'Documentación que establece las bases para este proceso de contratación en particular.',
+      'Documento en el que se establecen las estrategias y acciones relacionadas con la adquisición bienes, servicios y recursos humanos necesarios para llevar a cabo un proyecto.',
   },
   {
     category: 'basic',
@@ -146,7 +146,7 @@ const DocumentType = [
     code: 'marketStudies',
     title: 'Estudios de mercado',
     description:
-      'Documentación de cualquier estudio de mercado que haya ocurrido como parte de la planeación de este proceso de contrato.',
+      'Es un registro del proceso sistemático de la recolección, análisis e interpretación de datos sobre un mercado (bien, producto o servicio).',
   },
   {
     category: 'intermediate',
@@ -178,7 +178,7 @@ const DocumentType = [
     code: 'environmentalImpact',
     title: 'Impacto medioambiental',
     description:
-      'Documentación de reportes de impacto medioambiental (e.j. impacto en flora, fauna y bosques, zonas de belleza natural, emisiones de carbono etc.) y medidas de mitigación (e.j control de contaminación, soluciones bajas en carbono, madera sostenible, etc.) para el proceso de contratación.',
+      'Es un expediente donde se analizan y describen las condiciones ambientales anteriores a la realización del proyecto con la finalidad de evaluar los impactos potenciales que la construcción y operación de dichas obras o la realización de las actividades podría causar al ambiente.',
   },
   {
     category: 'advanced',
@@ -186,7 +186,7 @@ const DocumentType = [
     code: 'assetAndLiabilityAssessment',
     title: 'Evaluación de los activos y responsabilidades del gobierno',
     description:
-      'Documentación que cubre las evaluaciones de los activos y responsabilidades del gobierno relacionados con este proceso de contratación.',
+      'Es una minuta en la cual se da a conocer la planeación en la que se fijarán objetivos, metas, estrategias y prioridades; se asignarán recursos, responsabilidades y tiempos de ejecución, se coordinarán acciones y se evaluarán resultados.',
   },
   {
     category: 'advanced',
@@ -194,7 +194,7 @@ const DocumentType = [
     code: 'riskProvisions',
     title: 'Cláusulas para el manejo de riesgos y responsabilidades',
     description:
-      'Documentación que cubre cómo se manejarán los riesgos como parte de este proceso de contratación.',
+      'Clausulas para el manejo de riesgos y responsabilidades: Se asientan en el Contrato, la cuales son obligaciones contractuales entre los Actores.',
   },
   {
     category: 'advanced',
@@ -242,7 +242,7 @@ const DocumentType = [
     code: 'needsAssessment',
     title: 'Evaluación de necesidades',
     description:
-      'Documentación de la evaluación de necesidad llevada a cabo para este proceso de contratación, cubriendo la demanda para el proyecto o inversión de la comunidad o usuarios afectados',
+      'Evaluación de necesidades: Es un registro donde se exploran los requerimientos específicos del proyecto y las medidas que puede tomar para alcanzarlas.',
   },
   {
     category: 'advanced',
@@ -250,7 +250,7 @@ const DocumentType = [
     code: 'feasibilityStudy',
     title: 'Estudio de factibilidad',
     description:
-      'Documentación de la evaluación de factibilidad llevada a cabo para este proceso de contratación, proveyendo información sobre los beneficios o costos netos de los bienes, obras o servicios propuestos.',
+      'Escrito donde se registra el análisis que se realiza para evaluar la viabilidad de un proyecto antes de implementarlo.',
   },
   {
     category: 'advanced',
@@ -258,7 +258,7 @@ const DocumentType = [
     code: 'projectPlan',
     title: 'Plan de proyecto',
     description:
-      'Documentación de la planeación de proyecto para este proceso de contratación y, donde aplique, una copia del documento del plan de proyecto',
+      'Es un esquema que detalla los elementos clave necesarios para alcanzar los objetivos del proyecto, (objetivo, justificación, calendario, presupuesto, entre otros).',
   },
   {
     category: 'advanced',
