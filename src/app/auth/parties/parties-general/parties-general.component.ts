@@ -26,6 +26,8 @@ export class PartiesGeneralComponent implements OnInit {
 
   showBeneficiariesSection: boolean = false;
 
+  mostrarSpinner = false;
+
   organizationSchemes = OrganizationSchemes.filter(
     (scheme) => !scheme.deprecated
   );
@@ -191,6 +193,11 @@ export class PartiesGeneralComponent implements OnInit {
   }
 
   save(): void {
+    this.mostrarSpinner = true;
     this.saveGeneral.emit(this.generalForm);
+    setTimeout(() => {
+      this.mostrarSpinner = false;
+      console.log('agregando al arreglo');
+    }, 1000);
   }
 }

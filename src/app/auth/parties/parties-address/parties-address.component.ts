@@ -15,6 +15,7 @@ export class PartiesAddressComponent implements OnInit {
   searchText: string = '';
 
   constructor(private fb: FormBuilder) {}
+  mostrarSpinner = false;
 
   ngOnInit(): void {
     this.initForm();
@@ -31,7 +32,12 @@ export class PartiesAddressComponent implements OnInit {
   }
 
   save(): void {
+    this.mostrarSpinner = true;
     //console.log(this.addressForm.value);
     this.saveAddress.emit(this.addressForm);
+    setTimeout(() => {
+      this.mostrarSpinner = false;
+      console.log('agregando al arreglo');
+    }, 1000);
   }
 }
