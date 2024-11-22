@@ -47,6 +47,12 @@ const PartyRole = [
       'El financiador es una entidad que provee dinero o financia este proceso de contratación.',
   },
   {
+    code: 'funder',
+    title: 'Entidad Financiera',
+    description:
+      'Entidad que proporciona el financiamiento para este procedimiento de contratación.',
+  },
+  {
     code: 'enquirer',
     title: 'Persona que solicita información',
     description:
