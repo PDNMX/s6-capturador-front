@@ -1,0 +1,218 @@
+<div class="content">
+  <div class="container">
+    <div class="row">
+      <div class="col">
+        <h3>Garantías</h3>
+        <hr />
+      </div>
+    </div>
+    <div class="row">
+      <div class="col">
+        <div class="table-responsive">
+          <table class="table table-striped table-hover">
+            <thead>
+              <tr>
+                <th scope="col">ID</th>
+                <th scope="col">Forma de garantía</th>
+                <th scope="col">Fecha de expedición</th>
+                <th scope="col">Obligaciones garantizadas</th>
+                <th scope="col">Monto total de la garantía</th>
+                <th scope="col">Opciones</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let item of guaranteesArray; index as i">
+                <td scope="row">
+                  {{ item.id || i + 1 }}
+                </td>
+                <td>Garantia #{{ item.type }}</td>
+                <td>
+                  {{ item.date }}
+                </td>
+                <td>Obligaciones #{{ item.obligations }}</td>
+                <td>{{ item.value.amount }} {{ item.value.currency }}</td>
+                <td>
+                  <button
+                    type="button"
+                    class="btn btn-danger btn-delete"
+                    (click)="deleteGuarante.emit(i)"
+                  >
+                    Eliminar
+                  </button>
+                </td>
+              </tr>
+              <tr *ngIf="guaranteesArray.length === 0">
+                <th scope="row" colspan="6" class="text-center">
+                  Sin registros.
+                </th>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+    <form [formGroup]="guaranteesForm">
+      <div class="row">
+        <div class="form-floating col mb-2">
+          <select class="form-select" formControlName="type">
+            <option *ngFor="let d of [1, 2, 3]" [ngValue]="d">
+              Garantia #{{ d }}
+            </option>
+          </select>
+          <label for="">Forma de garantía</label>
+          <!-- <p>{{ getMilestoneTypeDesc(milestoneForm.value.type) }}</p> -->
+        </div>
+        <div class="form-floating col mb-5">
+          <input
+            class="form-control"
+            id="date"
+            type="date"
+            data-sb-validations="required"
+            formControlName="date"
+          />
+          <label for="date">Fecha de expedición*</label>
+          <div class="invalid-feedback" data-sb-feedback="date:required">
+            Fecha de expedición * es requerido.
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="form-floating col mb-2">
+          <select class="form-select" formControlName="obligations">
+            <option *ngFor="let d of [1, 2, 3]" [ngValue]="d">
+              Obligaciones #{{ d }}
+            </option>
+          </select>
+          <label for="">Obligaciones garantizadas</label>
+          <!-- <p>{{ getMilestoneTypeDesc(milestoneForm.value.type) }}</p> -->
+        </div>
+      </div>
+
+      <fieldset class="border p-3 mb-3">
+        <legend>Monto total de la garantía.</legend>
+        <div class="col-12" formGroupName="value">
+          <div class="row">
+            <div class="form-floating col-2 mb-2">
+              <input
+                class="form-control"
+                id="amount"
+                type="text"
+                data-sb-validations="required"
+                placeholder="Monto*"
+                formControlName="amount"
+              />
+              <label for="amount">Monto*</label>
+              <div class="invalid-feedback" data-sb-feedback="amount:required">
+                Monto * es requerido.
+              </div>
+            </div>
+
+            <div class="form-floating col-4 mb-2">
+              <select class="form-select" formControlName="currency">
+                <option *ngFor="let d of currency" [ngValue]="d.code">
+                  {{ d.title }}
+                </option>
+              </select>
+              <label for="type">Moneda</label>
+            </div>
+          </div>
+        </div>
+      </fieldset>
+
+      <div class="row">
+        <div class="form-floating col mb-5">
+          <select class="form-select" formControlName="guarantor">
+            <option
+              *ngIf="guarantor.length === 0"
+              [disabled]="guarantor.length === 0"
+            >
+              No hay registros de Actores para este proceso de contratación.
+            </option>
+            <option *ngFor="let c of guarantor" [ngValue]="c">
+              {{ c?.name }}
+            </option>
+          </select>
+          <label for="guarantor">Institución que expide la garantía</label>
+        </div>
+      </div>
+
+      <fieldset class="border p-3 mb-3" formGroupName="period">
+        <legend class="w-auto px-1">Periodo de la garantía</legend>
+
+        <div class="row">
+          <div class="form-floating col-6 mb-5">
+            <input
+              class="form-control"
+              id="startDate"
+              type="date"
+              data-sb-validations="required"
+              formControlName="startDate"
+            />
+            <label for="startDate">Fecha de inicio*</label>
+            <div class="invalid-feedback" data-sb-feedback="title:required">
+              Fecha de inicio * es requerido.
+            </div>
+          </div>
+          <div class="form-floating col-6 mb-5">
+            <input
+              class="form-control"
+              id="endDate"
+              type="date"
+              data-sb-validations="required"
+              formControlName="endDate"
+            />
+            <label for="endDate">Fecha de término*</label>
+            <div class="invalid-feedback" data-sb-feedback="title:required">
+              Fecha de término * es requerido.
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="form-floating col-6 mb-5">
+            <input
+              class="form-control"
+              id="maxExtentDate"
+              type="date"
+              data-sb-validations="required"
+              formControlName="maxExtentDate"
+            />
+            <label for="maxExtentDate">Extension máxima*</label>
+            <div class="invalid-feedback" data-sb-feedback="title:required">
+              Extension máxima * es requerido.
+            </div>
+          </div>
+          <div class="form-floating col-6 mb-5">
+            <input
+              class="form-control"
+              id="durationInDays"
+              type="number"
+              data-sb-validations="required"
+              placeholder="Duración (días)*"
+              formControlName="durationInDays"
+            />
+            <label for="durationInDays">Duración (dias)*</label>
+            <div class="invalid-feedback" data-sb-feedback="title:required">
+              Duración * es requerido.
+            </div>
+          </div>
+        </div>
+      </fieldset>
+
+      <!-- fin del form  -->
+    </form>
+
+    <div class="row">
+      <div class="col">
+        <button
+          type="button"
+          class="btn btn-danger btn-add"
+          (click)="addNewGuarante()"
+        >
+          Agregar garantía
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

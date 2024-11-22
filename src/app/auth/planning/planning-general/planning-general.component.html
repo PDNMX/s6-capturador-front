@@ -1,0 +1,284 @@
+<div class="content">
+  <div class="container">
+    <div class="row">
+      <div class="col">
+        <h3>Información general</h3>
+        <hr />
+      </div>
+    </div>
+
+    <form [formGroup]="generalForm">
+      <div class="row">
+        <div class="form-floating col mb-2">
+          <textarea
+            class="form-control"
+            id="rationale"
+            type="text"
+            placeholder="Escriba la justificación de la contratación"
+            data-sb-validations=""
+            formControlName="rationale"
+            style="height: 150px"
+          ></textarea>
+          <label for="rationale">Justificación *</label>
+        </div>
+        <div class="form-text">
+          La justificación para la adquisición provista en texto libre. Se puede
+          proveer más detalle en un documento adjunto.
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="form-floating col mb-2">
+          <div class="form-check">
+            <input
+              class="form-check-input"
+              type="checkbox"
+              id="hasQuotes"
+              formControlName="hasQuotes"
+            />
+            <label class="form-check-label" for="hasQuotes">
+              ¿Tiene cotizaciones?
+            </label>
+          </div>
+        </div>
+        <div class="form-text">
+          Campo Sí / No para indicar si hubo cotizaciones.
+        </div>
+      </div>
+    </form>
+
+    <form [formGroup]="selectForm">
+      <fieldset class="border p-3 mb-3">
+        <legend class="w-auto px-1">Unidades administrativas requirentes</legend>
+        <p>
+          Las unidades específicas dentro del comprador que requieran la
+          adquisición o arrendamiento de bienes, o la prestación de servicios, o
+          las que se beneficiarán de la contratación.
+        </p>
+        <div class="row">
+          <div class="form-floating col-10 mb-5">
+            <select class="form-select" formControlName="requestingUnits">
+              <option
+                *ngIf="requestings.length === 0"
+                [disabled]="requestings.length === 0"
+              >
+                No hay registros de Actores para este proceso de contratación.
+              </option>
+              <option *ngFor="let c of requestings" [ngValue]="c">
+                {{ c?.name }}
+              </option>
+            </select>
+          </div>
+          <div class="col-2">
+            <button
+              type="button"
+              class="btn btn-danger btn-add"
+              (click)="addRequestingUnit()"
+            >
+              Agregar
+            </button>
+          </div>
+        </div>
+        <div class="row">
+          <div class="table-responsive">
+            <table class="table table-hover table-striped mb-10">
+              <thead>
+                <tr>
+                  <th scope="col">ID</th>
+                  <th scope="col">Nombre</th>
+                  <th scope="col">Opciones</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr
+                  class=""
+                  *ngFor="
+                    let assists of generalForm.value.requestingUnits;
+                    index as i
+                  "
+                >
+                  <td scope="row">{{ assists.id }}</td>
+                  <td>{{ assists.name }}</td>
+                  <td>
+                    <button
+                      type="button"
+                      class="btn btn-danger btn-delete"
+                      (click)="deleteRequestingUnit(i)"
+                    >
+                      Eliminar
+                    </button>
+                  </td>
+                </tr>
+                <tr *ngIf="generalForm.value.requestingUnits.length === 0">
+                  <th scope="row" colspan="3" class="text-center">
+                    Sin registros.
+                  </th>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </fieldset>
+
+      <fieldset class="border p-3 mb-3">
+        <legend class="w-auto px-1">Unidades administrativas contratantes</legend>
+        <p>
+          Las unidades específicas dentro del comprador o entidad adjudicadora
+          que se encargan de llevar a cabo el proceso de contratación.
+          Generalmente participan en las etapas de licitación, adjudicación y
+          contratación.
+        </p>
+        <div class="row">
+          <div class="form-floating col-10 mb-5">
+            <select class="form-select" formControlName="responsibleUnits">
+              <option
+                *ngIf="responsibles.length === 0"
+                [disabled]="responsibles.length === 0"
+              >
+                No hay registros de Actores para este proceso de contratación.
+              </option>
+              <option *ngFor="let c of responsibles" [ngValue]="c">
+                {{ c?.name }}
+              </option>
+            </select>
+          </div>
+          <div class="col-2">
+            <button
+              type="button"
+              class="btn btn-danger btn-add"
+              (click)="addResponsibleUnit()"
+            >
+              Agregar
+            </button>
+          </div>
+        </div>
+        <div class="row">
+          <div class="table-responsive">
+            <table class="table table-hover table-striped mb-10">
+              <thead>
+                <tr>
+                  <th scope="col">ID</th>
+                  <th scope="col">Nombre</th>
+                  <th scope="col">Opciones</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr
+                  class=""
+                  *ngFor="
+                    let assists of generalForm.value.responsibleUnits;
+                    index as i
+                  "
+                >
+                  <td scope="row">{{ assists.id }}</td>
+                  <td>{{ assists.name }}</td>
+                  <td>
+                    <button
+                      type="button"
+                      class="btn btn-danger btn-delete"
+                      (click)="deleteResponsibleUnit(i)"
+                    >
+                      Eliminar
+                    </button>
+                  </td>
+                </tr>
+                <tr *ngIf="generalForm.value.responsibleUnits.length === 0">
+                  <th scope="row" colspan="3" class="text-center">
+                    Sin registros.
+                  </th>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </fieldset>
+
+      <fieldset class="border p-3 mb-3">
+        <legend class="w-auto px-1">
+          Unidades responsables de la ejecución del contrato
+        </legend>
+        <p>
+          Las unidades específicas dentro del comprador que son responsables de
+          la supervisión de la ejecución de los contratos.
+        </p>
+        <div class="row">
+          <div class="form-floating col-10 mb-5">
+            <select class="form-select" formControlName="contractingUnits">
+              <option
+                *ngIf="contractings.length === 0"
+                [disabled]="contractings.length === 0"
+              >
+                No hay registros de Actores para este proceso de contratación.
+              </option>
+              <option *ngFor="let c of contractings" [ngValue]="c">
+                {{ c?.name }}
+              </option>
+            </select>
+          </div>
+          <div class="col-2">
+            <button
+              type="button"
+              class="btn btn-danger btn-add"
+              (click)="addContractingUnits()"
+            >
+              Agregar
+            </button>
+          </div>
+        </div>
+        <div class="row">
+          <div class="table-responsive">
+            <table class="table table-hover table-striped mb-10">
+              <thead>
+                <tr>
+                  <th scope="col">ID</th>
+                  <th scope="col">Nombre</th>
+                  <th scope="col">Opciones</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr
+                  class=""
+                  *ngFor="
+                    let assists of generalForm.value.contractingUnits;
+                    index as i
+                  "
+                >
+                  <td scope="row">{{ assists.id }}</td>
+                  <td>{{ assists.name }}</td>
+                  <td>
+                    <button
+                      type="button"
+                      class="btn btn-danger btn-delete"
+                      (click)="deleteContractingUnit(i)"
+                    >
+                      Eliminar
+                    </button>
+                  </td>
+                </tr>
+                <tr *ngIf="generalForm.value.contractingUnits.length === 0">
+                  <th scope="row" colspan="3" class="text-center">
+                    Sin registros.
+                  </th>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </fieldset>
+    </form>
+
+    <div class="row">
+      <div class="col">
+        <button
+          type="button"
+          class="btn btn-danger btn-save"
+          (click)="saveForm()"
+        >
+          Guardar general
+        </button>
+      </div>
+    </div>
+
+    <!-- fin -->
+  </div>
+</div>

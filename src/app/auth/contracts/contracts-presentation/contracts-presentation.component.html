@@ -1,0 +1,70 @@
+<div class="content">
+  <div class="container">
+    <div class="row mt-3">
+      <div class="col">
+        <h3>Contratación</h3>
+        <hr />
+        <p>
+          La fase de Contratación consiste en registro del o los 'items' o
+          servicios que se requieren adquirir en el contrato de acuerdo con la
+          evaluación de las propuestas.
+        </p>
+      </div>
+    </div>
+
+    <div class="row mb-3">
+      <div class="col">
+        <button
+          type="button"
+          class="btn btn-danger btn-add"
+          (click)="addNewContract.emit()"
+        >
+          Agregar contrato
+        </button>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col">
+        <div class="table-responsive">
+          <table class="table table-striped table-hover">
+            <thead>
+              <tr>
+                <th scope="col">ID</th>
+                <th scope="col">Identificador</th>
+                <th scope="col">Título</th>
+                <th scope="col">Opciones</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let item of contractsArray; index as i">
+                <td scope="row">{{ item._id || i + 1 }}</td>
+                <td>{{ item.awardID }}</td>
+                <td>{{ item.title }}</td>
+
+                <td>
+                  <button
+                    type="button"
+                    class="btn btn-danger btn-delete"
+                    (click)="deleteContract.emit(i)"
+                  >
+                    Eliminar
+                  </button>
+                </td>
+                <!-- <td (click)="editElement(contract)"> -->
+                <!-- <td (click)="viewElement(contract)"> -->
+              </tr>
+              <tr *ngIf="contractsArray.length === 0">
+                <th scope="row" colspan="4" class="text-center">
+                  Sin registros.
+                </th>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- fin -->
+  </div>
+</div>

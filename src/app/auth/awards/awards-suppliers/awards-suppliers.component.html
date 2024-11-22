@@ -1,0 +1,101 @@
+<div class="container">
+  <div class="row">
+    <div class="col">
+      <h3>Proveedores</h3>
+      <hr />
+      <div class="row">
+        <div class="col">
+          <p>
+            Los proveedores adjudicados. Si hay diferentes proveedores
+            adjudicados para los artículos del procedimiento de contratación,
+            deberían ser separados en diferentes bloques de adjudicación.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Tabla de proveedores de la adjudicación-->
+  <div class="row">
+    <div class="col">
+      <div class="table-responsive">
+        <table class="table table-hover table-striped mb-10">
+          <thead>
+            <tr>
+              <th>ID del proveedor</th>
+              <th>Nombre del proveedor</th>
+              <th>Acciones</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let opt of suppliersArray; index as i">
+              <th scope="row">{{ opt.id }}</th>
+              <td>{{ opt.name }}</td>
+              <td>
+                <button
+                  class="btn btn-sm btn-danger btn-delete"
+                  (click)="deleteSupplier.emit(i)"
+                >
+                  Eliminar
+                </button>
+              </td>
+            </tr>
+            <tr *ngIf="suppliersArray.length === 0">
+              <th scope="row" colspan="10" class="text-center">
+                Sin registros.
+              </th>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <!--   <form [formGroup]="suppliersForm">
+
+    <div class="form-floating col-md-6 mb-5">
+      <input class="form-control" id="AwardsSuppliersId" type="text" placeholder="Identificador del Proveedor"
+        formControlName="id" />
+      <label for="AwardsSuppliersId">Indentificador del proveedor</label>
+    </div>
+    <div class="form-floating col-md-6 mb-5">
+      <input class="form-control" id="AwardsSuppliersName" type="text" placeholder="Nombre del Proveedor"
+        formControlName="name" />
+      <label for="AwardsSuppliersName">Nombre del proveedor</label>
+    </div>
+    <div class="row">
+      <div class="col-md-6 form-group d-flex justify-content-between">
+        <div class="col-2">
+          <button type="button" class="btn btn-danger btn-add" (click)="addNewSupplier()">
+            Agregar proveedor
+          </button>
+        </div>
+      </div>
+    </div>
+  </form> -->
+  <div class="row">
+    <div class="form-floating col-10 mb-5">
+      <select name="select" class="form-select" [(ngModel)]="suppliersValue">
+        <option
+          *ngIf="suppliers.length === 0"
+          [disabled]="suppliers.length === 0"
+        >
+          No hay registros de proveedores para esta adjudicación
+        </option>
+        <option *ngFor="let c of suppliers" [ngValue]="c">
+          proveedor {{ c?.name }}
+        </option>
+      </select>
+
+      <label for="AwardsSuppliersName">Seleccione proveedor</label>
+    </div>
+    <div class="col-2">
+      <button
+        type="button"
+        class="btn btn-danger btn-add"
+        (click)="addNewSupplier()"
+      >
+        Agregar proveedor
+      </button>
+    </div>
+  </div>
+</div>

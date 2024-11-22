@@ -1,0 +1,173 @@
+<div class="container">
+  <div class="row">
+    <div class="col">
+      <h3>Enmienda</h3>
+      <hr />
+      <p>
+        Una enmienda a la adjudicación es un cambio formal a los detalles de la
+        adjudicación y generalmente implica la publicación de una nueva entrega
+        o aviso de una nueva adjudicación. La justificación y descripción de los
+        cambios realizados pueden ser proveídos aquí.
+      </p>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col">
+      <div class="table-responsive-sm">
+        <table class="table table-hover table-striped mb-10">
+          <thead>
+            <tr>
+              <th scope="col">ID</th>
+              <th scope="col">Fecha</th>
+              <th scope="col">Justificación</th>
+              <th scope="col">Descripción</th>
+              <th scope="col">Liberación modificada (identificador)</th>
+              <th scope="col">Difusión de la modificación (identificador)</th>
+              <th scope="col">Opciones</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let doc of amendmentsArray; index as i">
+              <th scope="row">{{ doc.id || i + 1 }}</th>
+              <td>{{ doc.date }}</td>
+              <td>{{ doc.rationale }}</td>
+              <td>{{ doc.description }}</td>
+              <td>{{ doc.amendsReleaseID }}</td>
+              <td>{{ doc.releaseID }}</td>
+              <td>
+                <button
+                  type="button"
+                  class="btn btn-danger btn-delete"
+                  (click)="deleteAmendment.emit(i)"
+                >
+                  Eliminar
+                </button>
+              </td>
+            </tr>
+            <tr *ngIf="amendmentsArray.length === 0">
+              <th scope="row" colspan="7" class="text-center">
+                Sin registros.
+              </th>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+  <hr />
+
+  <form [formGroup]="amendmentsForm">
+    <div class="row">
+      <div class="form-floating col-6 mb-2">
+        <input
+          class="form-control"
+          id="date"
+          type="date"
+          data-sb-validations="required"
+          formControlName="date"
+        />
+        <label for="datePublished">Fecha de enmienda *</label>
+        <div class="invalid-feedback" data-sb-feedback="title:required">
+          Fecha de enmienda * es requerido.
+        </div>
+      </div>
+      <div class="form-text">La fecha de esta enmienda.</div>
+    </div>
+
+    <div class="row">
+      <div class="form-floating col-12 mb-2">
+        <textarea
+          class="form-control"
+          id="Justificación"
+          type="text"
+          placeholder="Justificación*"
+          style="height: 100px"
+          formControlName="rationale"
+        ></textarea>
+        <label for="rationale">Justificación*</label>
+        <div class="invalid-feedback" data-sb-feedback="rationale:required">
+          Justificación * es requerido.
+        </div>
+      </div>
+      <div class="form-text">Una explicación de la enmienda.</div>
+    </div>
+
+    <div class="row">
+      <div class="form-floating col-12 mb-2">
+        <textarea
+          class="form-control"
+          id="description"
+          type="text"
+          placeholder="Descripción*"
+          style="height: 100px"
+          formControlName="description"
+        ></textarea>
+        <label for="description">Descripción*</label>
+        <div class="invalid-feedback" data-sb-feedback="description:required">
+          Descripción * es requerido.
+        </div>
+      </div>
+      <div class="form-text">
+        Un texto libre o semi estructurado, describiendo los cambios hechos en
+        esta enmienda.
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="form-floating col mb-2">
+        <input
+          class="form-control"
+          id="amendsReleaseID"
+          type="text"
+          data-sb-validations="required"
+          placeholder="URL*"
+          formControlName="amendsReleaseID"
+        />
+        <label for="URL">Entrega enmendada (identificador) *</label>
+        <div class="invalid-feedback" data-sb-feedback="title:required">
+          * es requerido.
+        </div>
+      </div>
+      <div class="form-text">
+        Provee el identificador (release.id) de la entrega OCDS (de este proceso
+        de contratación) que provee los valores para este proceso de
+        contratación antes de realizada la enmienda.
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="form-floating col mb-2">
+        <input
+          class="form-control"
+          id="releaseID"
+          type="text"
+          data-sb-validations="required"
+          placeholder="URL*"
+          formControlName="releaseID"
+        />
+        <label for="URL">Entrega de enmienda (identificador) *</label>
+        <div class="invalid-feedback" data-sb-feedback="title:required">
+          * es requerido.
+        </div>
+      </div>
+      <div class="form-text">
+        Provee el identificador (release.id) de la entrega OCDS (de este proceso
+        de contratación) que provee los valores para este proceso de
+        contratación después de realizada la enmienda.
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col">
+        <button
+          type="button"
+          class="btn btn-danger btn-add"
+          (click)="addNewAmendment()"
+        >
+          Agregar modificación
+        </button>
+      </div>
+    </div>
+  </form>
+</div>

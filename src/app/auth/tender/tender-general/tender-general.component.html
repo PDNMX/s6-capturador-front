@@ -1,0 +1,866 @@
+<div class="container">
+  <div class="row">
+    <div class="col">
+      <h3>Información general</h3>
+      <hr />
+    </div>
+  </div>
+
+  <form [formGroup]="generalForm">
+    <div class="row">
+      <div class="form-floating col mb-2">
+        <input
+          class="form-control"
+          id="title"
+          type="text"
+          data-sb-validations="required"
+          placeholder="Titulo*"
+          formControlName="title"
+        />
+        <label for="title">Titulo*</label>
+        <div class="invalid-feedback" data-sb-feedback="title:required">
+          Titulo * es requerido.
+        </div>
+      </div>
+      <div class="form-text">
+        Un título para esta licitación. Éste se usará por aplicaciones como una
+        cabecera para atraer interés y ayudar a los analistas a entender la
+        naturaleza de esta contratación.
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="form-floating col-12 mb-2">
+        <textarea
+          class="form-control"
+          id="description"
+          type="text"
+          placeholder="Descripción*"
+          style="height: 100px"
+          formControlName="description"
+        ></textarea>
+        <label for="description">Descripción*</label>
+        <div class="invalid-feedback" data-sb-feedback="description:required">
+          Descripción * es requerido.
+        </div>
+      </div>
+      <div class="form-text">
+        Una descripción breve de la licitación. Esto complementa cualquier
+        información estructurada que se da utilizando la lista de artículos. Las
+        descripciones deben de ser cortas y fáciles de leer. Evite utilizar
+        MAYÚSCULAS.
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="form-floating col mb-2">
+        <select class="form-select" formControlName="status">
+          <option *ngFor="let d of tenderStatus" [ngValue]="d.code">
+            {{ d.title }}
+          </option>
+        </select>
+        <label for="">Estatus de la contratación pública</label>
+        <p class="mt-2">{{ getTenderStatusDesc(generalForm.value.status) }}</p>
+      </div>
+      <div class="form-text">
+        El estatus actual de la contratación pública, desde la lista de código cerrada
+        <a
+          href="https://standard.open-contracting.org/1.1/es/schema/codelists/#tender-status"
+          >tenderStatus</a
+        >.
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-12">
+        <label for="">Entidad contratante</label>
+      </div>
+      <div class="form-floating col mb-2">
+        <select class="form-select" formControlName="procuringEntity">
+          <option
+            *ngIf="procuringEntity.length === 0"
+            [disabled]="procuringEntity.length === 0"
+          >
+            No hay registros de Actores para este proceso de contratación.
+          </option>
+          <option *ngFor="let d of procuringEntity" [ngValue]="d">
+            {{ d.name }}
+          </option>
+        </select>
+      </div>
+      <div class="form-text">
+        La entidad que gestiona el proceso de contratación. Esta puede ser
+        distinta del comprador que paga/usa los artículos adquiridos.
+      </div>
+    </div>
+
+    <fieldset class="border p-3 mb-3" formGroupName="value">
+      <legend class="w-auto px-1">Valor máximo de contratación</legend>
+      <div class="row">
+        <div class="col">
+          <p>
+            El valor estimado de la contratación sin impuestos incluidos. En
+            caso de contrataciones abiertas, se señala el presupuesto máximo que
+            podría ejercerse en la ejecución del contrato.
+          </p>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-4 mb-2">
+          <div class="form-floating">
+            <input
+              class="form-control"
+              id="amount"
+              type="text"
+              data-sb-validations="required"
+              placeholder="ID de Organización*"
+              formControlName="amount"
+            />
+            <label for="amount">Cantidad*</label>
+            <div class="invalid-feedback" data-sb-feedback="title:required">
+              Cantidad * es requerido.
+            </div>
+          </div>
+          <div class="form-text">Monto como una cifra.</div>
+        </div>
+        <div class="col-8 mb-2">
+          <div class="form-floating">
+            <select class="form-select" formControlName="currency">
+              <label for="currency">Moneda*</label>
+              <option selected>Seleccione un moneda</option>
+              <option *ngFor="let m of currency" value="{{ m.code }}">
+                {{ m.title }}
+              </option>
+            </select>
+            <label for="currency">Moneda*</label>
+          </div>
+          <div class="form-text">
+            La moneda del monto, de la lista de código cerrada
+            <a
+              href="https://standard.open-contracting.org/1.1/es/schema/codelists/#currency"
+              >'Moneda'</a
+            >
+          </div>
+        </div>
+      </div>
+    </fieldset>
+
+    <fieldset class="border p-3 mb-3" formGroupName="minValue">
+      <legend class="w-auto px-1">Valor mínimo de contratación</legend>
+      <div class="row">
+        <div class="col">
+          <p>
+            El valor mínimo estimado de la contratación sin impuestos incluidos.
+            En caso de contrataciones abiertas, se señala el presupuesto mínimo
+            (que debería ejercerse en la ejecución del contrato).
+          </p>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-4 mb-2">
+          <div class="form-floating">
+            <input
+              class="form-control"
+              id="amount"
+              type="text"
+              data-sb-validations="required"
+              placeholder="ID de Organización*"
+              formControlName="amount"
+            />
+            <label for="amount">Cantidad*</label>
+            <div class="invalid-feedback" data-sb-feedback="title:required">
+              Cantidad * es requerido.
+            </div>
+          </div>
+          <div class="form-text">Monto como una cifra.</div>
+        </div>
+        <div class="col-8 mb-2">
+          <div class="form-floating">
+            <select class="form-select" formControlName="currency">
+              <label for="currency">Moneda*</label>
+              <option selected>Seleccione un moneda</option>
+              <option *ngFor="let m of currency" value="{{ m.code }}">
+                {{ m.title }}
+              </option>
+            </select>
+            <label for="currency">Moneda*</label>
+          </div>
+          <div class="form-text">
+            La moneda del monto, de la lista de código cerrada
+            <a
+              href="https://standard.open-contracting.org/1.1/es/schema/codelists/#currency"
+              >'Moneda'</a
+            >
+          </div>
+        </div>
+      </div>
+    </fieldset>
+
+    <div class="row">
+      <div class="col-12">
+        <label for="">Método de contratación</label>
+      </div>
+      <div class="form-floating col mb-2">
+        <select class="form-select" formControlName="procurementMethod">
+          <option *ngFor="let d of procurementMethod" [ngValue]="d.code">
+            {{ d.title }}
+          </option>
+        </select>
+        <p class="mt-2">
+          {{ getProcurementMethod(generalForm.value.procurementMethod) }}
+        </p>
+      </div>
+      <div class="form-text">
+        El método de adquisición, de la lista de código cerrada
+        <a
+          href="https://standard.open-contracting.org/1.1/es/schema/codelists/#method"
+          >method</a
+        >.
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="form-floating col-12 mb-2">
+        <textarea
+          class="form-control"
+          id="procurementMethodDetails"
+          type="text"
+          placeholder="Detalles del método de contratación*"
+          style="height: 100px"
+          formControlName="procurementMethodDetails"
+        ></textarea>
+        <label for="procurementMethodDetails"
+          >Detalles del método de contratación*</label
+        >
+        <div
+          class="invalid-feedback"
+          data-sb-feedback="procurementMethodDetails:required"
+        >
+          Detalles del método de contratación * es requerido.
+        </div>
+      </div>
+      <div class="form-text">
+        Detalles adicionales sobre el método de adquisiciones utilizado. Este
+        campo puede usarse para dar el nombre local del método de adquisición
+        particular que se utilizó.
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="form-floating col-12 mb-2">
+        <textarea
+          class="form-control"
+          id="procurementMethodRationale"
+          type="text"
+          placeholder="Justificación para el método de contratación*"
+          style="height: 100px"
+          formControlName="procurementMethodRationale"
+        ></textarea>
+        <label for="procurementMethodRationale"
+          >Justificación para el método de contratación*</label
+        >
+        <div
+          class="invalid-feedback"
+          data-sb-feedback="procurementMethodRationale:required"
+        >
+          Justificación * es requerido.
+        </div>
+      </div>
+      <div class="form-text">
+        Justificación para el método de compra elegido. Esto es especialmente
+        importante para dar una justificación en el caso de licitaciones
+        limitadas o adjudicaciones directas.
+      </div>
+    </div>
+
+    <fieldset class="border p-3 mb-3">
+      <legend class="w-auto px-1">Categoria de la contratacion</legend>
+      <p>
+        La principal categoría describiendo el objeto principal de este proceso
+        de contrataciones, de la lista de código cerrada
+        <a
+          href="https://standard.open-contracting.org/1.1/es/schema/codelists/#procurement-category"
+          >procurementCategory</a
+        >.
+      </p>
+      <div class="row">
+        <div class="col-12">
+          <label for="">Categoria principal*</label>
+        </div>
+        <div class="form-floating col mb-2">
+          <select class="form-select" formControlName="mainProcurementCategory">
+            <option
+              *ngFor="let d of mainProcurementCategory"
+              [ngValue]="d.code"
+            >
+              {{ d.title }}
+            </option>
+          </select>
+          <p class="mt-2">
+            {{
+              getMainProcurementCategory(
+                generalForm.value.mainProcurementCategory
+              )
+            }}
+          </p>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-12">
+          <label for="">Categorias adicionales*</label>
+        </div>
+        <div
+          class="col-10 mb-2"
+          [formGroup]="additionalProcurementCategoriesForm"
+        >
+          <div class="form-floating">
+            <select class="form-select" formControlName="data">
+              <option
+                *ngFor="let d of additionalProcurementCategories"
+                [ngValue]="d.code"
+              >
+                {{ d.title }}
+              </option>
+            </select>
+          </div>
+          <div class="form-text">
+            Cualquier categoría adicional que describe los objetos del proceso
+            de contrataciones, utilizando la lista de código abierta
+            <a
+              href="https://standard.open-contracting.org/1.1/es/schema/codelists/#extended-procurement-category"
+              >extendedProcurementCategory.</a
+            >
+          </div>
+        </div>
+
+        <div class="col-2">
+          <button
+            type="button"
+            class="btn btn-danger btn-add"
+            (click)="addAdditionalProcurementCategories()"
+          >
+            Agregar
+          </button>
+        </div>
+        <div class="col-12">
+          <div class="table-responsive">
+            <table class="table table-striped table-hover">
+              <thead>
+                <tr>
+                  <th scope="col">ID</th>
+                  <th scope="col">Categoria adicional</th>
+                  <th scope="col">Descripción</th>
+                  <th scope="col">Opciones</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr
+                  class=""
+                  *ngFor="
+                    let d of generalForm.value.additionalProcurementCategories;
+                    index as i
+                  "
+                >
+                  <td scope="row">{{ i + 1 }}</td>
+                  <td>
+                    {{ getAdditionalProcurementCategoriesTitle(d) }}
+                  </td>
+                  <td>{{ getAdditionalProcurementCategoriesDesc(d) }}</td>
+                  <td>
+                    <button
+                      type="button"
+                      class="btn btn-danger btn-delete"
+                      (click)="deleteAdditionalProcurementCategories(i)"
+                    >
+                      Eliminar
+                    </button>
+                  </td>
+                </tr>
+                <tr
+                  *ngIf="
+                    generalForm.value.additionalProcurementCategories.length ===
+                    0
+                  "
+                >
+                  <th scope="row" colspan="4" class="text-center">
+                    Sin registros.
+                  </th>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </fieldset>
+
+    <fieldset class="border p-3 mb-3">
+      <legend class="w-auto px-1">Criterios de adjudicación</legend>
+      <p>
+        Los criterios de adjudicación para esta compra, utilizando la lista de
+        código abierta
+        <a
+          href="https://standard.open-contracting.org/1.1/es/schema/codelists/#award-criteria"
+          >awardCriteria</a
+        >.
+      </p>
+      <div class="row">
+        <div class="col-12">
+          <label for="">Criterio de adjudicación*</label>
+        </div>
+        <div class="form-floating col mb-5">
+          <select class="form-select" formControlName="awardCriteria">
+            <option
+              *ngFor="let d of awardCriteria"
+              [ngValue]="d.code"
+              [disabled]="d.obsoleto"
+            >
+              <strong *ngIf="d.obsoleto">(obsoleto)</strong> {{ d.title }}
+            </option>
+          </select>
+          <p class="mt-2">
+            {{ getAwardCriteriaDesc(generalForm.value.awardCriteria) }}
+          </p>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="form-floating col-12 mb-2">
+          <textarea
+            class="form-control"
+            id="awardCriteriaDetails"
+            type="text"
+            placeholder="Detalles*"
+            style="height: 100px"
+            formControlName="awardCriteriaDetails"
+          ></textarea>
+          <label for="awardCriteriaDetails">Detalles*</label>
+          <div
+            class="invalid-feedback"
+            data-sb-feedback="awardCriteriaDetails:required"
+          >
+            Detalles * es requerido.
+          </div>
+        </div>
+        <div class="form-text">
+          Cualquier detalle o información adicional sobre la adjudicación o
+          criterios de selección.
+        </div>
+      </div>
+    </fieldset>
+
+    <fieldset class="border p-3 mb-3">
+      <legend class="w-auto px-1">Metodo de presentación de oferta</legend>
+      <div class="row">
+        <div class="col-12">
+          <label for="">Método de presentación*</label>
+        </div>
+        <div class="col-10 mb-2" [formGroup]="submissionMethodForm">
+          <div class="form-floating">
+            <select class="form-select" formControlName="data">
+              <option *ngFor="let d of submissionMethod" [ngValue]="d.code">
+                {{ d.title }}
+              </option>
+            </select>
+          </div>
+          <div class="form-text">
+            El método de presentación de ofertas, utilizando la lista de código
+            abierta
+            <a
+              href="https://standard.open-contracting.org/1.1/es/schema/codelists/#submission-method"
+              >submissionMethod.</a
+            >
+          </div>
+        </div>
+
+        <div class="col-2">
+          <button
+            type="button"
+            class="btn btn-danger btn-add"
+            (click)="addSubmissionMethod()"
+          >
+            Agregar
+          </button>
+        </div>
+
+        <div class="col-12">
+          <div class="table-responsive">
+            <table class="table table-striped table-hover">
+              <thead>
+                <tr>
+                  <th scope="col">ID</th>
+                  <th scope="col">Metodo</th>
+                  <th scope="col">Descripción</th>
+                  <th scope="col">Opciones</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr
+                  class=""
+                  *ngFor="
+                    let d of generalForm.value.submissionMethod;
+                    index as i
+                  "
+                >
+                  <td scope="row">{{ i + 1 }}</td>
+                  <td>
+                    {{ getSubmissionMethodTitle(d) }}
+                  </td>
+                  <td>{{ getSubmissionMethodDesc(d) }}</td>
+                  <td>
+                    <button
+                      type="button"
+                      class="btn btn-danger btn-delete"
+                      (click)="deleteSubmissionMethod(i)"
+                    >
+                      Eliminar
+                    </button>
+                  </td>
+                </tr>
+                <tr *ngIf="submissionMethodArray.length === 0">
+                  <th scope="row" colspan="4" class="text-center">
+                    Sin registros.
+                  </th>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="form-floating col-12 mb-5">
+          <textarea
+            class="form-control"
+            id="submissionMethodDetails"
+            type="text"
+            placeholder="Detalles del método de presentación*"
+            style="height: 100px"
+            formControlName="submissionMethodDetails"
+          ></textarea>
+          <label for="submissionMethodDetails">Detalles*</label>
+          <div
+            class="invalid-feedback"
+            data-sb-feedback="submissionMethodDetails:required"
+          >
+            Detalles del método de presentación * es requerido.
+          </div>
+        </div>
+      </div>
+    </fieldset>
+
+    <fieldset class="border p-3 mb-3" formGroupName="tenderPeriod">
+      <legend class="w-auto px-1">Periodo de licitación</legend>
+
+      <div class="row">
+        <div class="form-floating col-6 mb-5">
+          <input
+            class="form-control"
+            id="startDate"
+            type="date"
+            data-sb-validations="required"
+            formControlName="startDate"
+          />
+          <label for="startDate">Fecha de inicio*</label>
+          <div class="invalid-feedback" data-sb-feedback="title:required">
+            Fecha de inicio * es requerido.
+          </div>
+        </div>
+        <div class="form-floating col-6 mb-5">
+          <input
+            class="form-control"
+            id="endDate"
+            type="date"
+            data-sb-validations="required"
+            formControlName="endDate"
+          />
+          <label for="endDate">Fecha de término*</label>
+          <div class="invalid-feedback" data-sb-feedback="title:required">
+            Fecha de término * es requerido.
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="form-floating col-6 mb-5">
+          <input
+            class="form-control"
+            id="maxExtentDate"
+            type="date"
+            data-sb-validations="required"
+            formControlName="maxExtentDate"
+          />
+          <label for="maxExtentDate">Extension máxima*</label>
+          <div class="invalid-feedback" data-sb-feedback="title:required">
+            Extension máxima * es requerido.
+          </div>
+        </div>
+        <div class="form-floating col-6 mb-5">
+          <input
+            class="form-control"
+            id="durationInDays"
+            type="number"
+            data-sb-validations="required"
+            placeholder="Duración (días)*"
+            formControlName="durationInDays"
+          />
+          <label for="durationInDays">Duración (dias)*</label>
+          <div class="invalid-feedback" data-sb-feedback="title:required">
+            Duración * es requerido.
+          </div>
+        </div>
+      </div>
+    </fieldset>
+
+    <fieldset class="border p-3 mb-3" formGroupName="enquiryPeriod">
+      <legend class="w-auto px-1">Periodo de solicitudes de aclaración</legend>
+
+      <div class="row">
+        <div class="form-floating col-6 mb-5">
+          <input
+            class="form-control"
+            id="startDate"
+            type="date"
+            data-sb-validations="required"
+            formControlName="startDate"
+          />
+          <label for="startDate">Fecha de inicio*</label>
+          <div class="invalid-feedback" data-sb-feedback="title:required">
+            Fecha de inicio * es requerido.
+          </div>
+        </div>
+        <div class="form-floating col-6 mb-5">
+          <input
+            class="form-control"
+            id="endDate"
+            type="date"
+            data-sb-validations="required"
+            formControlName="endDate"
+          />
+          <label for="endDate">Fecha de término*</label>
+          <div class="invalid-feedback" data-sb-feedback="title:required">
+            Fecha de término * es requerido.
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="form-floating col-6 mb-5">
+          <input
+            class="form-control"
+            id="maxExtentDate"
+            type="date"
+            data-sb-validations="required"
+            formControlName="maxExtentDate"
+          />
+          <label for="maxExtentDate">Extension máxima*</label>
+          <div class="invalid-feedback" data-sb-feedback="title:required">
+            Extension máxima * es requerido.
+          </div>
+        </div>
+        <div class="form-floating col-6 mb-5">
+          <input
+            class="form-control"
+            id="durationInDays"
+            type="number"
+            data-sb-validations="required"
+            placeholder="Duración (días)*"
+            formControlName="durationInDays"
+          />
+          <label for="durationInDays">Duración (dias)*</label>
+          <div class="invalid-feedback" data-sb-feedback="title:required">
+            Duración * es requerido.
+          </div>
+        </div>
+      </div>
+    </fieldset>
+
+    <div class="row">
+      <div class="form-floating col mb-5">
+        <div class="form-check">
+          <input
+            class="form-check-input"
+            type="checkbox"
+            id="flexCheckDefault"
+            formControlName="hasEnquiries"
+          />
+          <label class="form-check-label" for="flexCheckDefault">
+            ¿Tiene solicitudes de aclaración?
+          </label>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="form-floating col-12 mb-5">
+        <textarea
+          class="form-control"
+          id="eligibilityCriteria"
+          type="text"
+          placeholder="Criterios de elegibilidad*"
+          style="height: 100px"
+          formControlName="eligibilityCriteria"
+        ></textarea>
+        <label for="eligibilityCriteria">Criterios de elegibilidad*</label>
+        <div
+          class="invalid-feedback"
+          data-sb-feedback="eligibilityCriteria:required"
+        >
+          Criterios de elegibilidad * es requerido.
+        </div>
+      </div>
+    </div>
+
+    <fieldset class="border p-3 mb-3" formGroupName="awardPeriod">
+      <legend class="w-auto px-1">Periodo de evaluación y adjudicación</legend>
+
+      <div class="row">
+        <div class="form-floating col-6 mb-5">
+          <input
+            class="form-control"
+            id="startDate"
+            type="date"
+            data-sb-validations="required"
+            formControlName="startDate"
+          />
+          <label for="startDate">Fecha de inicio*</label>
+          <div class="invalid-feedback" data-sb-feedback="startDate:required">
+            Fecha de inicio * es requerido.
+          </div>
+        </div>
+        <div class="form-floating col-6 mb-5">
+          <input
+            class="form-control"
+            id="endDate"
+            type="date"
+            data-sb-validations="required"
+            formControlName="endDate"
+          />
+          <label for="endDate">Fecha de termino*</label>
+          <div class="invalid-feedback" data-sb-feedback="endDate:required">
+            Fecha de termino * es requerido.
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="form-floating col-6 mb-5">
+          <input
+            class="form-control"
+            id="maxExtentDate"
+            type="date"
+            data-sb-validations="required"
+            formControlName="maxExtentDate"
+          />
+          <label for="maxExtentDate">Extension máxima*</label>
+          <div
+            class="invalid-feedback"
+            data-sb-feedback="maxExtentDate:required"
+          >
+            Extension máxima * es requerido.
+          </div>
+        </div>
+        <div class="form-floating col-6 mb-5">
+          <input
+            class="form-control"
+            id="durationInDays"
+            type="number"
+            data-sb-validations="required"
+            formControlName="durationInDays"
+          />
+          <label for="durationInDays">Duración (dias)*</label>
+          <div
+            class="invalid-feedback"
+            data-sb-feedback="durationInDays:required"
+          >
+            Duración * es requerido.
+          </div>
+        </div>
+      </div>
+    </fieldset>
+
+    <fieldset class="border p-3 mb-3" formGroupName="contractPeriod">
+      <legend class="w-auto px-1">Periodo del contrato</legend>
+
+      <div class="row">
+        <div class="form-floating col-6 mb-5">
+          <input
+            class="form-control"
+            id="startDate"
+            type="date"
+            data-sb-validations="required"
+            formControlName="startDate"
+          />
+          <label for="startDate">Fecha de inicio*</label>
+          <div class="invalid-feedback" data-sb-feedback="startDate:required">
+            Fecha de inicio * es requerido.
+          </div>
+        </div>
+        <div class="form-floating col-6 mb-5">
+          <input
+            class="form-control"
+            id="endDate"
+            type="date"
+            data-sb-validations="required"
+            formControlName="endDate"
+          />
+          <label for="endDate">Fecha de termino*</label>
+          <div class="invalid-feedback" data-sb-feedback="endDate:required">
+            Fecha de termino * es requerido.
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="form-floating col-6 mb-5">
+          <input
+            class="form-control"
+            id="maxExtentDate"
+            type="date"
+            data-sb-validations="required"
+            formControlName="maxExtentDate"
+          />
+          <label for="maxExtentDate">Extension máxima*</label>
+          <div
+            class="invalid-feedback"
+            data-sb-feedback="maxExtentDate:required"
+          >
+            Extension máxima * es requerido.
+          </div>
+        </div>
+        <div class="form-floating col-6 mb-5">
+          <input
+            class="form-control"
+            id="durationInDays"
+            type="number"
+            data-sb-validations="required"
+            formControlName="durationInDays"
+          />
+          <label for="durationInDays">Duración (dias)*</label>
+          <div
+            class="invalid-feedback"
+            data-sb-feedback="durationInDays:required"
+          >
+            Duración * es requerido.
+          </div>
+        </div>
+      </div>
+    </fieldset>
+
+    <!-- organizados  -->
+
+    <div class="row m-10">
+      <div class="col">
+        <button
+          type="button"
+          class="btn btn-danger btn-add"
+          (click)="saveForm()"
+        >
+          Guardar sección
+        </button>
+      </div>
+    </div>
+  </form>
+</div>

@@ -1,1 +1,275 @@
-<p>tender works!</p>
+<div class="content">
+  <div class="container">
+    <div class="row align-items-stretch no-gutters menu-wrap">
+      <div class="col-md-3 g-0">
+        <div class="menu-info h-100">
+          <div
+            class="nav flex-column nav-pills"
+            id="licitacion-tab"
+            role="tablist"
+            aria-orientation="vertical"
+          >
+            <h3
+              class="active text-left mb-2"
+              id="licitacion-presentacion-tab"
+              data-bs-toggle="pill"
+              data-bs-target="#licitacion-presentacion"
+              type="button"
+              role="tab"
+              aria-controls="licitacion-presentacion"
+              aria-selected="true"
+            >
+              &nbsp;&nbsp;2. Licitación
+            </h3>
+            <button
+              class="nav-link text-left"
+              id="licitacion-general-tab"
+              data-bs-toggle="pill"
+              data-bs-target="#licitacion-general"
+              type="button"
+              role="tab"
+              aria-controls="licitacion-general"
+              aria-selected="false"
+            >
+              Información General
+            </button>
+            <button
+              class="nav-link text-left"
+              id="licitacion-items-tab"
+              data-bs-toggle="pill"
+              data-bs-target="#licitacion-items"
+              type="button"
+              role="tab"
+              aria-controls="licitacion-items"
+              aria-selected="false"
+            >
+              Articulos
+            </button>
+            <button
+              class="nav-link text-left"
+              id="licitacion-meetings-tab"
+              data-bs-toggle="pill"
+              data-bs-target="#licitacion-meetings"
+              type="button"
+              role="tab"
+              aria-controls="licitacion-meetings"
+              aria-selected="false"
+            >
+              Juntas de aclaraciones
+            </button>
+            <button
+              class="nav-link text-left"
+              id="licitacion-tenderers-tab"
+              data-bs-toggle="pill"
+              data-bs-target="#licitacion-tenderers"
+              type="button"
+              role="tab"
+              aria-controls="licitacion-tenderers"
+              aria-selected="false"
+            >
+              Licitantes
+            </button>
+            <button
+              class="nav-link text-left"
+              id="licitacion-documents-tab"
+              data-bs-toggle="pill"
+              data-bs-target="#licitacion-documents"
+              type="button"
+              role="tab"
+              aria-controls="licitacion-documents"
+              aria-selected="false"
+            >
+              Documentos
+            </button>
+            <button
+              class="nav-link text-left"
+              id="licitacion-milestones-tab"
+              data-bs-toggle="pill"
+              data-bs-target="#licitacion-milestones"
+              type="button"
+              role="tab"
+              aria-controls="licitacion-milestones"
+              aria-selected="false"
+            >
+              Hitos
+            </button>
+            <button
+              class="nav-link text-left"
+              id="licitacion-amendments-tab"
+              data-bs-toggle="pill"
+              data-bs-target="#licitacion-amendments"
+              type="button"
+              role="tab"
+              aria-controls="licitacion-amendments"
+              aria-selected="false"
+            >
+              Modificaciones
+            </button>
+          </div>
+
+          <div class="d-flex flex-column">
+            <button
+              type="button"
+              class="btn btn-danger text-center p-3"
+              (click)="submit()"
+            >
+              Guardar Licitación
+            </button>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-9 g-0">
+        <div class="tab-content" id="licitacion-tabContent">
+          <div
+            class="tab-pane fade show active"
+            id="licitacion-presentacion"
+            role="tabpanel"
+            aria-labelledby="licitacion-presentacion-tab"
+            tabindex="0"
+          >
+            <div class="form h-100">
+              <!-- <div class="row imageP"></div> -->
+              <div class="row">
+                <h3>Licitación</h3>
+                <hr />
+                <p>
+                  Las actividades llevadas a cabo para celebrar un contrato.
+                </p>
+                <p>
+                  Datos sobre el proceso de licitación - invitación pública de
+                  posibles contratistas que enviarán propuestas para evaluación
+                  y seleccionar a un ganador o ganadores.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="tab-content" id="licitacion-tabContent">
+          <div
+            class="tab-pane fade"
+            id="licitacion-general"
+            role="tabpanel"
+            aria-labelledby="licitacion-general-tab"
+            tabindex="0"
+          >
+            <div class="form">
+              <app-tender-general
+                (saveGeneralData)="saveGeneralData($event)"
+              ></app-tender-general>
+            </div>
+          </div>
+        </div>
+        <div class="tab-content" id="licitacion-tabContent">
+          <div
+            class="tab-pane fade"
+            id="licitacion-items"
+            role="tabpanel"
+            aria-labelledby="licitacion-items-tab"
+            tabindex="0"
+          >
+            <div class="form">
+              <app-tender-items
+                [itemsArray]="tenderForm.value.items"
+                (addItem)="addItem($event)"
+                (deleteItem)="deleteItem($event)"
+              ></app-tender-items>
+            </div>
+          </div>
+        </div>
+        <div class="tab-content" id="licitacion-tabContent">
+          <div
+            class="tab-pane fade"
+            id="licitacion-meetings"
+            role="tabpanel"
+            aria-labelledby="licitacion-meetings-tab"
+            tabindex="0"
+          >
+            <div class="form">
+              <app-tender-meetings
+                [clarificationMeetingsArray]="
+                  tenderForm.value.clarificationMeetings
+                "
+                (addClarificationMeeting)="addClarificationMeeting($event)"
+                (deleteClarificationMeeting)="
+                  deleteClarificationMeeting($event)
+                "
+              ></app-tender-meetings>
+            </div>
+          </div>
+        </div>
+
+        <div class="tab-content" id="licitacion-tabContent">
+          <div
+            class="tab-pane fade"
+            id="licitacion-tenderers"
+            role="tabpanel"
+            aria-labelledby="licitacion-tenderers-tab"
+            tabindex="0"
+          >
+            <div class="form">
+              <app-tender-tenderers
+                [tenderersArray]="tenderForm.value.tenderers"
+                (addTenderer)="addTenderer($event)"
+                (deleteTenderer)="deleteTenderer($event)"
+              ></app-tender-tenderers>
+            </div>
+          </div>
+        </div>
+
+        <div class="tab-content" id="licitacion-tabContent">
+          <div
+            class="tab-pane fade"
+            id="licitacion-documents"
+            role="tabpanel"
+            aria-labelledby="licitacion-documents-tab"
+            tabindex="0"
+          >
+            <div class="form">
+              <app-tender-documents
+                [documentsArray]="tenderForm.value.documents"
+                (addDocument)="addDocument($event)"
+                (deleteDocument)="deleteDocument($event)"
+              ></app-tender-documents>
+            </div>
+          </div>
+        </div>
+
+        <div class="tab-content" id="licitacion-tabContent">
+          <div
+            class="tab-pane fade"
+            id="licitacion-milestones"
+            role="tabpanel"
+            aria-labelledby="licitacion-milestones-tab"
+            tabindex="0"
+          >
+            <div class="form">
+              <app-tender-milestones
+                [milestonesArray]="tenderForm.value.milestones"
+                (addMilestone)="addMilestone($event)"
+                (deleteMilestone)="deleteMilestone($event)"
+              ></app-tender-milestones>
+            </div>
+          </div>
+        </div>
+
+        <div class="tab-content" id="licitacion-tabContent">
+          <div
+            class="tab-pane fade"
+            id="licitacion-amendments"
+            role="tabpanel"
+            aria-labelledby="licitacion-amendments-tab"
+            tabindex="0"
+          >
+            <div class="form">
+              <app-tender-amendments
+                [amendmentsArray]="tenderForm.value.amendments"
+                (addAmendment)="addAmendment($event)"
+                (deleteAmendment)="deleteAmendment($event)"
+              ></app-tender-amendments>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
