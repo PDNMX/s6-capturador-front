@@ -11,6 +11,7 @@ import { PartyRole } from 'src/utils';
 })
 export class PartiesGeneralComponent implements OnInit {
   @Output() saveGeneral = new EventEmitter<any>();
+  @Output() showBeneficiaries = new EventEmitter<boolean>();
   generalForm!: FormGroup;
   additionalIdentifiersForm!: FormGroup;
 
@@ -21,6 +22,8 @@ export class PartiesGeneralComponent implements OnInit {
 
   optMemberOf: string = '';
   memberOfList: any = [];
+
+  showBeneficiariesSection: boolean = false;
 
   constructor(
     private fb: FormBuilder,
@@ -48,13 +51,29 @@ export class PartiesGeneralComponent implements OnInit {
     return this.generalForm.controls['roles'] as FormArray;
   }
 
+  private readonly allowed_roles = ['supplier', 'tenderer', 'payee', 'interestedParty'];
+
+regresarBeneficiaries(rol: string): void {
+  if (this.allowed_roles.includes(this.optRole)) {
+    this.showBeneficiaries.emit(true);
+    this.showBeneficiariesSection = true;
+    console.log('emit');
+    this.optRole = '';
+  } else {
+    this.showBeneficiaries.emit(false);
+    this.showBeneficiariesSection = false;
+    console.log('no emit'); 
+  }
+}
+
   addRole(): void {
     this.roleArray.push(this.fb.control(this.optRole));
-    this.optRole = '';
+    this.regresarBeneficiaries(this.optRole);
   }
 
   deleteRole(index: number): void {
     this.roleArray.removeAt(index);
+    this.regresarBeneficiaries(this.optRole);
   }
 
   get additionalIdentifiersArray() {

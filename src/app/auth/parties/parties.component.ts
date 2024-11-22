@@ -16,6 +16,7 @@ export class PartiesComponent implements OnInit {
   editMode: boolean = false;
 
   Parties!: FormGroup;
+  showBeneficiariesSection: boolean = false;
 
   constructor(
     private fb: FormBuilder,
@@ -29,6 +30,10 @@ export class PartiesComponent implements OnInit {
 
   get partiesArray() {
     return this.partiesForm.controls['parties'] as FormArray;
+  }
+
+  onShowBeneficiaries(show: boolean) {
+    this.showBeneficiariesSection = show;
   }
 
   deletePartie(index: number): void {
