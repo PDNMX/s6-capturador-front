@@ -86,6 +86,7 @@
                 role="tab"
                 aria-controls="parties-beneficialOwners"
                 aria-selected="false"
+                *ngIf="showBeneficiariesSection"
               >
                 Beneficiarios
               </button>
@@ -216,6 +217,7 @@
               <div class="form">
                 <app-parties-general
                   (saveGeneral)="saveGeneral($event)"
+                  (showBeneficiaries)="onShowBeneficiaries($event)"
                 ></app-parties-general>
               </div>
             </div>
@@ -276,6 +278,7 @@
               role="tabpanel"
               aria-labelledby="parties-beneficialOwners-tab"
               tabindex="0"
+              *ngIf="showBeneficiariesSection"
             >
               <div class="form">
                 <app-parties-beneficial-owners
