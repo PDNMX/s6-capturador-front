@@ -55,12 +55,13 @@
       <div class="row">
         <div class="form-floating col mb-2">
           <select class="form-select" formControlName="type">
-            <option *ngFor="let d of [1, 2, 3]" [ngValue]="d">
-              Garantia #{{ d }}
+            <option value="">Seleccione una garantía</option>
+            <option *ngFor="let guarantee of guarantees" [value]="guarantee.code">
+              {{guarantee.title}}
             </option>
           </select>
           <label for="">Forma de garantía</label>
-          <!-- <p>{{ getMilestoneTypeDesc(milestoneForm.value.type) }}</p> -->
+          <p *ngIf="guaranteesForm.value.type">{{ getGuaranteeDesc(guaranteesForm.value.type) }}</p>
         </div>
         <div class="form-floating col mb-5">
           <input
@@ -80,12 +81,13 @@
       <div class="row">
         <div class="form-floating col mb-2">
           <select class="form-select" formControlName="obligations">
-            <option *ngFor="let d of [1, 2, 3]" [ngValue]="d">
-              Obligaciones #{{ d }}
+            <option value="">Seleccione una obligación</option>
+            <option *ngFor="let guarantee of guaranteeTypes" [value]="guarantee.code">
+              {{guarantee.title}}
             </option>
           </select>
           <label for="">Obligaciones garantizadas</label>
-          <!-- <p>{{ getMilestoneTypeDesc(milestoneForm.value.type) }}</p> -->
+          <p *ngIf="guaranteesForm.value.obligations">{{ getGuaranteeTypeDesc(guaranteesForm.value.obligations) }}</p>
         </div>
       </div>
 
