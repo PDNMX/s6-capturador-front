@@ -49,7 +49,7 @@ export class AwardsGeneralComponent implements OnInit {
     });
   }
 
-/*   loadData(): void {
+  /*   loadData(): void {
     this.route.paramMap.subscribe((params: any) => {
       this.record_id = params.get('id');
     });
@@ -72,6 +72,7 @@ export class AwardsGeneralComponent implements OnInit {
 
   initForm(): void {
     this.generalForm = this.fb.group({
+      id: ['', Validators.required],
       status: ['', Validators.required],
       title: ['', Validators.required],
       description: ['', Validators.required],

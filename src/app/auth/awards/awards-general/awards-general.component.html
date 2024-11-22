@@ -8,7 +8,7 @@
 
   <form [formGroup]="generalForm">
     <div class="row">
-      <div class="form-floating col mb-5">
+      <div class="form-floating col mb-2">
         <select class="form-select" formControlName="status">
           <option *ngFor="let s of awardStatus" [ngValue]="s.code">
             {{ s.title }}
@@ -17,6 +17,22 @@
         <label for="status">Estatus de la Adjudicación</label>
         <p class="mt-2">{{ getAwardStatusDesc(generalForm.value.status) }}</p>
       </div>
+    </div>
+    <div class="row">
+      <div class="form-floating col-md-12 mb-2">
+        <input
+          class="form-control"
+          id="id"
+          type="text"
+          placeholder="Identificador de la adjudicación"
+          formControlName="id"
+        />
+        <label for="AwardsTitle">Identificador de la adjudicación</label>
+        <div class="invalid-feedback" data-sb-feedback="titulo:required">
+          Identificador de la adjudicación es requerido.
+        </div>
+      </div>
+      <div class="form-text">Identificador de la adjudicación</div>
     </div>
     <div class="row">
       <div class="form-floating col-md-12 mb-2">
@@ -32,9 +48,7 @@
           Título is required.
         </div>
       </div>
-      <div class="form-text">
-        Título de la adjudicación.
-      </div>
+      <div class="form-text">Título de la adjudicación.</div>
     </div>
     <div class="row">
       <div class="form-floating col-md-12 mb-2">
@@ -48,9 +62,7 @@
         ></textarea>
         <label for="AwardsDescription">Descripción</label>
       </div>
-      <div class="form-text">
-        Descripción de la adjudicación.
-      </div>
+      <div class="form-text">Descripción de la adjudicación.</div>
     </div>
     <div class="row">
       <div class="form-floating col mb-2">

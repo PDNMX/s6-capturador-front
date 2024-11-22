@@ -17,6 +17,8 @@ export class PartiesAdditionalContactPointsComponent implements OnInit {
   optsLanguage = Language;
   optLanguage: string = '';
 
+  mostrarSpinner = false;
+
   constructor(private fb: FormBuilder) {}
 
   get availableLanguageArray() {
@@ -57,7 +59,12 @@ export class PartiesAdditionalContactPointsComponent implements OnInit {
   }
 
   addNewConctactPoint(): void {
+    this.mostrarSpinner = true;
     this.addAdditionalContactPoints.emit(this.additionalContactPointsForm);
     this.initForm();
+    setTimeout(() => {
+      this.mostrarSpinner = false;
+      console.log('agregando al arreglo');
+    }, 1000);
   }
 }
