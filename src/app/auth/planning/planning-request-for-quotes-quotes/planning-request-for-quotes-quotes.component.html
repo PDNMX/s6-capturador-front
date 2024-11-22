@@ -243,9 +243,7 @@
           </select>
           <label for="issuingSupplier">Proveedor emisor</label>
         </div>
-        <div class="form-text">
-          El proveedor que envió una cotización.
-        </div>
+        <div class="form-text">El proveedor que envió una cotización.</div>
       </div>
 
       <div class="row">
@@ -274,7 +272,17 @@
         </button>
       </div>
     </div>
-
+    <br />
+    <div class="row">
+      <div class="col-12 spin">
+        <div *ngIf="mostrarSpinner" class="spinner-container">
+          <div class="spinner-border" role="status">
+            <span class="visually-hidden">Guardando...</span>
+          </div>
+          <p class="mt-2">Guardando...</p>
+        </div>
+      </div>
+    </div>
     <!-- fin -->
   </div>
 </div>
