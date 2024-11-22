@@ -12,7 +12,7 @@ export class PartiesBeneficialOwnersComponent implements OnInit {
   @Output() deleteBeneficialOwners = new EventEmitter<any>();
 
   beneficialOwnersForm!: FormGroup;
-
+  mostrarSpinner = false;
   constructor(private fb: FormBuilder) {}
 
   ngOnInit(): void {
@@ -41,8 +41,13 @@ export class PartiesBeneficialOwnersComponent implements OnInit {
   }
 
   addNewBeneficialOwners(): void {
+    this.mostrarSpinner = true;
     this.addBeneficialOwners.emit(this.beneficialOwnersForm);
     // console.log('beneficialOwnersForm: ', this.beneficialOwnersForm.value);
     this.initForm();
+    setTimeout(() => {
+      this.mostrarSpinner = false;
+      console.log('agregando al arreglo');
+    }, 1000);
   }
 }
