@@ -51,7 +51,7 @@ export class PartiesGeneralComponent implements OnInit {
     return this.generalForm.controls['roles'] as FormArray;
   }
 
-  private readonly allowed_roles = ['supplier', 'tenderer', 'payee', 'interestedParty'];
+  private readonly allowed_roles = ['supplier', 'tenderer'];
 
 regresarBeneficiaries(rol: string): void {
   if (this.allowed_roles.includes(this.optRole)) {

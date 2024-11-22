@@ -1,7 +1,7 @@
 const PartyRole = [
   {
     code: 'buyer',
-    title: 'Comprador',
+    title: 'Entidad o Ente público que realiza el proceso de contratación',
     description:
       'Un comprador es una entidad cuyo presupuesto se utilizará para pagar bienes, obras o servicios relacionados con un contrato.',
   },
