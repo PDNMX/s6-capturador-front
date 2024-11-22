@@ -1,13 +1,14 @@
 <div class="container">
   <div class="row">
     <div class="col">
-      <h3>Enmienda</h3>
+      <h3>Modificaciones</h3>
       <hr />
       <p>
-        Una enmienda a la adjudicación es un cambio formal a los detalles de la
-        adjudicación y generalmente implica la publicación de una nueva entrega
-        o aviso de una nueva adjudicación. La justificación y descripción de los
-        cambios realizados pueden ser proveídos aquí.
+        Una modificación a la adjudicación es un cambio formal a los detalles de
+        la adjudicación y generalmente implica la publicación de una nueva
+        entrega o aviso de una nueva adjudicación. La justificación y
+        descripción de los cambios realizados pueden ser asentados en este
+        apartado.
       </p>
     </div>
   </div>
@@ -67,12 +68,12 @@
           data-sb-validations="required"
           formControlName="date"
         />
-        <label for="datePublished">Fecha de enmienda *</label>
+        <label for="datePublished">Fecha de la modificación *</label>
         <div class="invalid-feedback" data-sb-feedback="title:required">
           Fecha de enmienda * es requerido.
         </div>
       </div>
-      <div class="form-text">La fecha de esta enmienda.</div>
+      <div class="form-text">La fecha de esta modificación.</div>
     </div>
 
     <div class="row">
@@ -90,7 +91,7 @@
           Justificación * es requerido.
         </div>
       </div>
-      <div class="form-text">Una explicación de la enmienda.</div>
+      <div class="form-text">Una explicación de la modificación.</div>
     </div>
 
     <div class="row">
@@ -110,7 +111,7 @@
       </div>
       <div class="form-text">
         Un texto libre o semi estructurado, describiendo los cambios hechos en
-        esta enmienda.
+        esta modificación.
       </div>
     </div>
 
@@ -124,7 +125,7 @@
           placeholder="URL*"
           formControlName="amendsReleaseID"
         />
-        <label for="URL">Entrega enmendada (identificador) *</label>
+        <label for="URL">Liberación modificada (identificador) *</label>
         <div class="invalid-feedback" data-sb-feedback="title:required">
           * es requerido.
         </div>
@@ -132,7 +133,7 @@
       <div class="form-text">
         Provee el identificador (release.id) de la entrega OCDS (de este proceso
         de contratación) que provee los valores para este proceso de
-        contratación antes de realizada la enmienda.
+        contratación antes de realizada la modificación.
       </div>
     </div>
 
@@ -146,7 +147,7 @@
           placeholder="URL*"
           formControlName="releaseID"
         />
-        <label for="URL">Entrega de enmienda (identificador) *</label>
+        <label for="URL">Difusión de la modificación (identificador) *</label>
         <div class="invalid-feedback" data-sb-feedback="title:required">
           * es requerido.
         </div>
@@ -154,7 +155,7 @@
       <div class="form-text">
         Provee el identificador (release.id) de la entrega OCDS (de este proceso
         de contratación) que provee los valores para este proceso de
-        contratación después de realizada la enmienda.
+        contratación después de realizada la modificación.
       </div>
     </div>
 
@@ -167,6 +168,17 @@
         >
           Agregar modificación
         </button>
+      </div>
+    </div>
+    <br />
+    <div class="row">
+      <div class="col-12 spin">
+        <div *ngIf="mostrarSpinner" class="spinner-container">
+          <div class="spinner-border" role="status">
+            <span class="visually-hidden">Guardando...</span>
+          </div>
+          <p class="mt-2">Guardando...</p>
+        </div>
       </div>
     </div>
   </form>

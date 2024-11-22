@@ -1,3 +1,5 @@
+import Guarantees from './guarantees';
+import GuaranteeTypes from './guaranteeTypes';
 import MainProcurementCategory from './mainProcurementCategory';
 import AdditionalProcurementCategories from './additionalProcurementCategories';
 import AwardCriteria from './awardCriteria';
@@ -36,4 +38,6 @@ export {
   ImplementationStatus,
   ContractStatus,
   RelatedProcesses,
+  Guarantees,
+  GuaranteeTypes
 };

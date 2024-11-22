@@ -3,24 +3,42 @@ const PartyRole = [
     code: 'buyer',
     title: 'Comprador',
     description:
-      'Un comprador es una entidad cuyo presupuesto se utilizará para pagar bienes, obras o servicios relacionados con un contrato.',
+      'Entidad o Ente público que realiza el proceso de contratación.',
   },
   {
     code: 'procuringEntity',
     title: 'Entidad contratante',
     description:
-      'La entidad administrando la compra. Esto puede ser diferente del comprador que paga, o usa, los artículos que se están comprando.',
+      'Es la dependencia o entidad encargada de realizar el procedimiento contratación y realizar los pagos correspondientes.',
+  },
+  {
+    code: 'procuringArea',
+    title: 'Área requirente',
+    description:
+      'Es el Área que solicita o utiliza la adquisición o arrendamiento de bienes o prestación del servicio u obra pública.',
+  },
+  {
+    code: 'techArea',
+    title: 'Área técnica',
+    description:
+      'Es el Área que elabora las especificaciones técnicas que se deberán incluir en el procedimiento de contratación. responde en la junta de aclaraciones y evalúa la propuesta técnica, esta también puede ser el Área requirente.',
+  },
+  {
+    code: 'contractAdmin',
+    title: 'Administrador del contrato',
+    description:
+      'Es el servidor público responsable de dar seguimiento y cumplimiento de las obligaciones del proveedor establecidas en el contrato.',
   },
   {
     code: 'supplier',
     title: 'Proveedor',
     description:
-      'Una entidad adjudicada o contratada para dar bienes, trabajos o servicios.',
+      'Es el oferente, el que hace la oferta, la propuesta del bien, servicio o recurso.',
   },
   {
     code: 'tenderer',
     title: 'Licitante',
-    description: 'Todas las entidades que hacen una oferta.',
+    description: 'Es la persona que participa en cualquier procedimiento de licitación pública o bien de invitación a cuando menos tres personas.',
   },
   {
     code: 'funder',
@@ -29,32 +47,44 @@ const PartyRole = [
       'El financiador es una entidad que provee dinero o financia este proceso de contratación.',
   },
   {
+    code: 'funder',
+    title: 'Entidad Financiera',
+    description:
+      'Entidad que proporciona el financiamiento para este procedimiento de contratación.',
+  },
+  {
     code: 'enquirer',
     title: 'Persona que solicita información',
     description:
-      'Una parte que ha realizado un pedido de información durante la fase de solicitudes de información de un proceso de contratación.',
+      'Persona física o moral que solicita información respecto a una o varias de las etapas del procedimiento de contratación.',
   },
   {
     code: 'payer',
-    title: 'Pagador',
-    description: 'Una parte hace un pago de una transacción.',
+    title: 'Emisor del pago',
+    description: 'Persona encargado por la Entidad o Institución pública de dar cumplimiento al pago de la adquisición, arrendamiento, servicio u obra contratados.',
   },
   {
     code: 'payee',
-    title: 'Beneficiario',
-    description: 'Una parte en recepción del pago de una transacción.',
+    title: 'Receptor del pago',
+    description: 'Es la persona física o jurídica que complementa la obligación de pago del suscriptor (persona que deberá de recibir el pago del bien, servicio u obra pública).',
   },
   {
     code: 'reviewBody',
     title: 'Órgano de revisión',
     description:
-      'Una parte responsable de la revisión de este proceso de adquisición. Esta parte tiene a menudo un papel en cualquier cuestionamiento hecho a la adjudicación del contrato.',
+      'Ente público responsable de dar seguimiento y cumplimiento de las obligaciones del proveedor establecidas en el contrato.',
   },
   {
     code: 'interestedParty',
     title: 'Parte interesada',
     description:
       'Una parte que ha expresado interés en el proceso de contrataciones, por ejemplo, al comprar documentos de oferta o presentar preguntas de clarificación.',
+  },
+  {
+    code: 'guarantor',
+    title: 'Institución que expide la garantía',
+    description:
+      'Institución de Fianzas o Aseguradora de Caución. Compañía también denominada fiadora que garantizará el cumplimiento de una obligación.',
   },
 ];
 

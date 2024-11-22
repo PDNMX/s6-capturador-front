@@ -61,7 +61,8 @@
         <label for="description">Descripción</label>
       </div>
       <div class="form-text">
-        Una breve descripción de texto libre de esta entrada de presupuesto.
+        La Contratación Plurianual es aquella que compromete recursos
+        presupuestales de más de un ejercicio fiscal.
       </div>
     </div>
 
@@ -440,6 +441,17 @@
         >
           Agregar desglose
         </button>
+      </div>
+    </div>
+    <br />
+    <div class="row">
+      <div class="col-12 spin">
+        <div *ngIf="mostrarSpinner" class="spinner-container">
+          <div class="spinner-border" role="status">
+            <span class="visually-hidden">Guardando...</span>
+          </div>
+          <p class="mt-2">Guardando...</p>
+        </div>
       </div>
     </div>
   </form>

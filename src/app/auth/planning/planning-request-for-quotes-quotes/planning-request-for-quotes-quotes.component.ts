@@ -20,6 +20,8 @@ export class PlanningRequestForQuotesQuotesComponent implements OnInit {
 
   issuingSupplier: any = [];
 
+  mostrarSpinner = false;
+
   constructor(
     private fb: FormBuilder,
     private route: ActivatedRoute,
@@ -39,8 +41,13 @@ export class PlanningRequestForQuotesQuotesComponent implements OnInit {
   }
 
   addNewQuotes(): void {
+    this.mostrarSpinner = true;
     this.addQuotes.emit(this.quotesForm);
     console.log('this.quotesForm: ', this.quotesForm.value);
+    setTimeout(() => {
+      this.mostrarSpinner = false;
+      console.log('agregando al arreglo');
+    }, 1000);
   }
 
   ngOnInit(): void {

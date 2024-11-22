@@ -3,6 +3,10 @@
     <div class="col">
       <h3>Beneficiarios</h3>
       <hr />
+      <p>
+        Receptor del pago: Es una persona física o moral la cual recibe un pago
+        económico derivado de un contrato (transacción).
+      </p>
     </div>
   </div>
 
@@ -286,7 +290,17 @@
         </button>
       </div>
     </div>
-
+    <br />
+    <div class="row">
+      <div class="col-12 spin">
+        <div *ngIf="mostrarSpinner" class="spinner-container">
+          <div class="spinner-border" role="status">
+            <span class="visually-hidden">Guardando...</span>
+          </div>
+          <p class="mt-2">Guardando...</p>
+        </div>
+      </div>
+    </div>
     <!-- fin -->
   </form>
 </div>

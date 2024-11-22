@@ -14,8 +14,12 @@ export class AwardsAmendmentsComponent implements OnInit {
   record_id = '';
 
   amendmentsForm!: FormGroup;
-
-  constructor(private fb: FormBuilder, private api: ApiService, private route: ActivatedRoute) {}
+  mostrarSpinner = false;
+  constructor(
+    private fb: FormBuilder,
+    private api: ApiService,
+    private route: ActivatedRoute
+  ) {}
 
   /* loadForm(data: any): void {
     data.forEach((amendment: any) => {
@@ -53,9 +57,14 @@ export class AwardsAmendmentsComponent implements OnInit {
     });
   }
 
-addNewAmendment(): void {
+  addNewAmendment(): void {
+    this.mostrarSpinner = true;
     this.addAmendment.emit(this.amendmentsForm);
     //console.log(this.amendmentsForm.value);
     this.initForm();
+    setTimeout(() => {
+      this.mostrarSpinner = false;
+      console.log('agregando al arreglo');
+    }, 1000);
   }
 }

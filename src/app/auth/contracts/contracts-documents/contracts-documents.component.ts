@@ -21,7 +21,7 @@ export class ContractsDocumentsComponent {
   language = Language;
 
   documentForm!: FormGroup;
-
+  mostrarSpinner = false;
   constructor(
     private fb: FormBuilder,
     private route: ActivatedRoute,
@@ -106,7 +106,12 @@ export class ContractsDocumentsComponent {
   }
 
   addNewDocument(): void {
+    this.mostrarSpinner = true;
     this.addDocument.emit(this.documentForm);
     this.initForm();
+    setTimeout(() => {
+      this.mostrarSpinner = false;
+      console.log('agregando al arreglo');
+    }, 1000);
   }
 }

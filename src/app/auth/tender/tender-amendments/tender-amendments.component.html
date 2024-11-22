@@ -3,6 +3,12 @@
     <div class="col">
       <h3>Modificaciones</h3>
       <hr />
+      <p>
+        Cualquier modificación a los contratos deberá formalizarse por escrito
+        por parte de las dependencias y entidades, los instrumentos legales
+        respectivos serán suscritos por el servidor público que lo haya hecho en
+        el contrato o quien lo sustituya o esté facultado para ello.
+      </p>
     </div>
   </div>
   <div class="row">
@@ -145,6 +151,17 @@
         >
           Agregar modificación
         </button>
+      </div>
+    </div>
+    <br />
+    <div class="row">
+      <div class="col-12 spin">
+        <div *ngIf="mostrarSpinner" class="spinner-container">
+          <div class="spinner-border" role="status">
+            <span class="visually-hidden">Guardando...</span>
+          </div>
+          <p class="mt-2">Guardando...</p>
+        </div>
       </div>
     </div>
   </form>

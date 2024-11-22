@@ -3,6 +3,7 @@ import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { ApiService, IPartieList } from 'src/app/services/api.service';
 import { PartyRole } from 'src/utils';
+import OrganizationSchemes from 'src/utils/organizationsSchemes';
 
 @Component({
   selector: 'app-parties-general',
@@ -11,6 +12,7 @@ import { PartyRole } from 'src/utils';
 })
 export class PartiesGeneralComponent implements OnInit {
   @Output() saveGeneral = new EventEmitter<any>();
+  @Output() showBeneficiaries = new EventEmitter<boolean>();
   generalForm!: FormGroup;
   additionalIdentifiersForm!: FormGroup;
 
@@ -21,6 +23,14 @@ export class PartiesGeneralComponent implements OnInit {
 
   optMemberOf: string = '';
   memberOfList: any = [];
+
+  showBeneficiariesSection: boolean = false;
+
+  mostrarSpinner = false;
+
+  organizationSchemes = OrganizationSchemes.filter(
+    (scheme) => !scheme.deprecated
+  );
 
   constructor(
     private fb: FormBuilder,
@@ -48,13 +58,29 @@ export class PartiesGeneralComponent implements OnInit {
     return this.generalForm.controls['roles'] as FormArray;
   }
 
+  private readonly allowed_roles = ['supplier', 'tenderer'];
+
+  regresarBeneficiaries(rol: string): void {
+    if (this.allowed_roles.includes(this.optRole)) {
+      this.showBeneficiaries.emit(true);
+      this.showBeneficiariesSection = true;
+      console.log('emit');
+      this.optRole = '';
+    } else {
+      this.showBeneficiaries.emit(false);
+      this.showBeneficiariesSection = false;
+      console.log('no emit');
+    }
+  }
+
   addRole(): void {
     this.roleArray.push(this.fb.control(this.optRole));
-    this.optRole = '';
+    this.regresarBeneficiaries(this.optRole);
   }
 
   deleteRole(index: number): void {
     this.roleArray.removeAt(index);
+    this.regresarBeneficiaries(this.optRole);
   }
 
   get additionalIdentifiersArray() {
@@ -91,6 +117,18 @@ export class PartiesGeneralComponent implements OnInit {
   ngOnInit(): void {
     this.initForm();
 
+    // Listener para el cambio de esquema
+    this.generalForm
+      .get('identifier.schema')
+      ?.valueChanges.subscribe((schemaCode) => {
+        const selectedScheme = this.organizationSchemes.find(
+          (scheme) => scheme.code === schemaCode
+        );
+        if (selectedScheme) {
+          this.generalForm.get('identifier.uri')?.setValue(selectedScheme.url);
+        }
+      });
+
     // Suscribirse a cambios en legalPersonality
     this.generalForm
       .get('identifier.legalPersonality')
@@ -114,13 +152,18 @@ export class PartiesGeneralComponent implements OnInit {
 
   initAdditionalIdentifiersForm(): void {
     this.additionalIdentifiersForm = this.fb.group({
-      schema: ['MX-RFC', [Validators.required]],
+      schema: ['', [Validators.required]],
       id: ['', [Validators.required]],
-      uri: [
-        'https://www.sat.gob.mx/cs/Satellite?blobcol=urldata&blobkey=id&blobtable=MungoBlobs&blobwhere=1705377302103&ssbinary=true',
-        [Validators.required],
-      ],
+      uri: ['', [Validators.required]],
       legalName: ['', [Validators.required]],
+    });
+
+     // Listener para el cambio de schema
+     this.additionalIdentifiersForm.get('schema')?.valueChanges.subscribe(schemaCode => {
+      const selectedScheme = this.organizationSchemes.find(scheme => scheme.code === schemaCode);
+      if (selectedScheme) {
+        this.additionalIdentifiersForm.get('uri')?.setValue(selectedScheme.url);
+      }
     });
   }
 
@@ -132,12 +175,9 @@ export class PartiesGeneralComponent implements OnInit {
       memberOf: this.fb.array([]),
       identifier: this.fb.group({
         legalPersonality: ['', Validators.required],
-        schema: ['MX-RFC', [Validators.required]],
+        schema: ['', [Validators.required]],
         id: ['', [Validators.required]],
-        uri: [
-          'https://www.sat.gob.mx/cs/Satellite?blobcol=urldata&blobkey=id&blobtable=MungoBlobs&blobwhere=1705377302103&ssbinary=true',
-          [Validators.required],
-        ],
+        uri: ['', [Validators.required]],
         legalName: ['', [Validators.required]],
         givenName: ['', [Validators.required]],
         patronymicName: ['', [Validators.required]],
@@ -153,6 +193,11 @@ export class PartiesGeneralComponent implements OnInit {
   }
 
   save(): void {
+    this.mostrarSpinner = true;
     this.saveGeneral.emit(this.generalForm);
+    setTimeout(() => {
+      this.mostrarSpinner = false;
+      console.log('agregando al arreglo');
+    }, 1000);
   }
 }

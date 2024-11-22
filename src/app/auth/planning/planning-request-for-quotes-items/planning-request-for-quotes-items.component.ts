@@ -25,6 +25,8 @@ export class PlanningRequestForQuotesItemsComponent implements OnInit {
     uri: m.uri,
   }));
 
+  mostrarSpinner = false;
+
   constructor(
     private fb: FormBuilder,
     private route: ActivatedRoute,
@@ -79,7 +81,12 @@ export class PlanningRequestForQuotesItemsComponent implements OnInit {
   }
 
   addNewItem(): void {
+    this.mostrarSpinner = true;
     this.addItem.emit(this.itemsForm);
     this.initForm();
+    setTimeout(() => {
+      this.mostrarSpinner = false;
+      console.log('agregando al arreglo');
+    }, 1000);
   }
 }

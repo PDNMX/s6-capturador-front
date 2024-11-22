@@ -17,7 +17,7 @@ export class ContractsImplementationMilestonesComponent {
   milestoneForm!: FormGroup;
 
   constructor(private fb: FormBuilder) {}
-
+  mostrarSpinner = false;
   getMilestoneTypeDesc(code: string): string {
     let desc = '';
     this.milestoneType.forEach((d) => {
@@ -55,7 +55,12 @@ export class ContractsImplementationMilestonesComponent {
   }
 
   addNewMilestone(): void {
+    this.mostrarSpinner = true;
     this.addMilestone.emit(this.milestoneForm);
     this.initForm();
+    setTimeout(() => {
+      this.mostrarSpinner = false;
+      console.log('agregando al arreglo');
+    }, 1000);
   }
 }

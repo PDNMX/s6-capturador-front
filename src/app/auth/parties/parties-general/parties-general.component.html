@@ -333,15 +333,21 @@
       <div class="row">
         <div class="col-md-4 mb-3">
           <div class="form-floating">
-            <input
-              class="form-control"
+            <select
+              class="form-select"
               id="schema"
-              type="text"
-              data-sb-validations="required"
-              placeholder="Esquema*"
               formControlName="schema"
-            />
-            <label for="schema">Esquema*</label>
+              data-sb-validations="required"
+            >
+              <option value="">Seleccione un esquema</option>
+              <option
+                *ngFor="let scheme of organizationSchemes"
+                [value]="scheme.code"
+              >
+                {{ scheme.code }}
+              </option>
+            </select>
+            <label for="schema">Esquema *</label>
             <div class="invalid-feedback" data-sb-feedback="schema:required">
               Esquema * es requerido.
             </div>
@@ -351,6 +357,7 @@
             identificador. Este valor debería tomarse del
             <a
               href="https://standard.open-contracting.org/1.1/es/schema/codelists/#organization-identifier-scheme"
+              target="_blank"
               >Esquema de Identificadores de Organizaciones</a
             >.
           </div>
@@ -393,9 +400,11 @@
           </div>
           <div class="form-text">
             Una URI para identificar a la organización, como los proveídos por
-            <a href="https://opencorporates.com/">Open Corporates</a> o algún
-            otro proveedor relevante de URIs. Este campo no debe ser utilizado
-            para especificar el sitio web de la organización.
+            <a href="https://opencorporates.com/" target="_blank"
+              >Open Corporates</a
+            >
+            o algún otro proveedor relevante de URIs. Este campo no debe ser
+            utilizado para especificar el sitio web de la organización.
           </div>
         </div>
       </div>
@@ -438,14 +447,20 @@
                     />
                   </th>
                   <th>
-                    <input
-                      class="form-control"
+                    <select
+                      class="form-select"
                       id="schem"
-                      type="text"
-                      data-sb-validations="required"
-                      placeholder="Esquema*"
                       formControlName="schema"
-                    />
+                      data-sb-validations="required"
+                    >
+                      <option value="">Seleccione un esquema</option>
+                      <option
+                        *ngFor="let scheme of organizationSchemes"
+                        [value]="scheme.code"
+                      >
+                        {{ scheme.code }}
+                      </option>
+                    </select>
                   </th>
                   <th>
                     <input
@@ -455,6 +470,7 @@
                       data-sb-validations="required"
                       placeholder="URI*"
                       formControlName="uri"
+                      readonly
                     />
                   </th>
                   <th>
@@ -532,6 +548,17 @@
         <button type="button" class="btn btn-danger btn-save" (click)="save()">
           Guardar
         </button>
+      </div>
+    </div>
+    <br />
+    <div class="row">
+      <div class="col-12 spin">
+        <div *ngIf="mostrarSpinner" class="spinner-container">
+          <div class="spinner-border" role="status">
+            <span class="visually-hidden">Guardando...</span>
+          </div>
+          <p class="mt-2">Guardando...</p>
+        </div>
       </div>
     </div>
     <!-- fin form  -->
