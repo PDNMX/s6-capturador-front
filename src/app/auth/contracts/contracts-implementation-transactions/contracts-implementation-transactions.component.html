@@ -18,8 +18,15 @@
                 <th scope="col">Método de pago</th>
                 <th scope="col">Monto</th>
                 <th scope="col">Moneda</th>
-                <th scope="col">Pagador</th>
-                <th scope="col">Beneficiario</th>
+                <th scope="col">
+                  Emisor <br />
+                  del <br />
+                  pago
+                </th>
+                <th scope="col">
+                  Receptor <br />
+                  del pago <br />
+                </th>
                 <th scope="col">Opciones</th>
               </tr>
             </thead>
@@ -130,7 +137,12 @@
               {{ p?.name }}
             </option>
           </select>
-          <label for="">Pagador</label>
+          <label for="">Emisor del pago</label>
+        </div>
+        <div class="form-text">
+          Persona encargado por la Entidad o Institución pública de dar
+          cumplimiento al pago de la adquisición, arrendamiento, servicio u obra
+          contratados.
         </div>
       </div>
 
@@ -141,7 +153,11 @@
               {{ b?.name }}
             </option>
           </select>
-          <label for="">Beneficiario</label>
+          <label for="">Receptor del pago</label>
+        </div>
+        <div class="form-text">
+          Es una persona física o moral la cual recibe un pago económico
+          derivado de un contrato (transacción).
         </div>
       </div>
 

@@ -30,6 +30,12 @@ const PartyRole = [
       'Es el servidor público responsable de dar seguimiento y cumplimiento de las obligaciones del proveedor establecidas en el contrato.',
   },
   {
+    code: 'funder',
+    title: 'Entidad financiera',
+    description:
+      ' Entidad que proporciona el financiamiento para este procedimiento de contratación.',
+  },
+  {
     code: 'supplier',
     title: 'Proveedor',
     description:
@@ -38,7 +44,8 @@ const PartyRole = [
   {
     code: 'tenderer',
     title: 'Licitante',
-    description: 'Es la persona que participa en cualquier procedimiento de licitación pública o bien de invitación a cuando menos tres personas.',
+    description:
+      'Es la persona que participa en cualquier procedimiento de licitación pública o bien de invitación a cuando menos tres personas.',
   },
   {
     code: 'funder',
@@ -61,12 +68,14 @@ const PartyRole = [
   {
     code: 'payer',
     title: 'Emisor del pago',
-    description: 'Persona encargado por la Entidad o Institución pública de dar cumplimiento al pago de la adquisición, arrendamiento, servicio u obra contratados.',
+    description:
+      'Persona encargado por la Entidad o Institución pública de dar cumplimiento al pago de la adquisición, arrendamiento, servicio u obra contratados.',
   },
   {
     code: 'payee',
     title: 'Receptor del pago',
-    description: 'Es la persona física o jurídica que complementa la obligación de pago del suscriptor (persona que deberá de recibir el pago del bien, servicio u obra pública).',
+    description:
+      'Es la persona física o jurídica que complementa la obligación de pago del suscriptor (persona que deberá de recibir el pago del bien, servicio u obra pública).',
   },
   {
     code: 'reviewBody',
