@@ -23,7 +23,7 @@ export class ImplementationMilestonesComponent {
     let desc = '';
     this.milestoneType.forEach((d) => {
       if (d.code === code) {
-        desc = d.title;
+        desc = d.description;
       }
     });
     return desc;
@@ -33,7 +33,7 @@ export class ImplementationMilestonesComponent {
     let desc = '';
     this.milestoneStatus.forEach((d) => {
       if (d.code === code) {
-        desc = d.title;
+        desc = d.description;
       }
     });
     return desc;
