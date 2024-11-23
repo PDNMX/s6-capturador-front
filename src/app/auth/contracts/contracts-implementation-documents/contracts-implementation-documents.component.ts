@@ -19,7 +19,7 @@ export class ContractsImplementationDocumentsComponent implements OnInit {
   documents = getDocumentType('award');
 
   documentsForm!: FormGroup;
-
+  mostrarSpinner = false;
   constructor(
     private fb: FormBuilder,
     private api: ApiService,
@@ -82,8 +82,13 @@ export class ContractsImplementationDocumentsComponent implements OnInit {
     });
   }
   addNewDocument(): void {
+    this.mostrarSpinner = true;
     this.addDocument.emit(this.documentsForm);
     //console.log(this.documentsForm.value);
     this.initForm();
+    setTimeout(() => {
+      this.mostrarSpinner = false;
+      console.log('agregando al arreglo');
+    }, 1000);
   }
 }

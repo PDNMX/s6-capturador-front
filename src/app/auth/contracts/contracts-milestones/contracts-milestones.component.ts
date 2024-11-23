@@ -20,7 +20,7 @@ export class ContractsMilestonesComponent {
   milestoneStatus = MilestoneStatus;
 
   milestoneForm!: FormGroup;
-
+  mostrarSpinner = false;
   constructor(
     private fb: FormBuilder,
     private route: ActivatedRoute,
@@ -85,7 +85,12 @@ export class ContractsMilestonesComponent {
   }
 
   addNewMilestone(): void {
+    this.mostrarSpinner = true;
     this.addMilestone.emit(this.milestoneForm);
     this.initForm();
+    setTimeout(() => {
+      this.mostrarSpinner = false;
+      console.log('agregando al arreglo');
+    }, 1000);
   }
 }

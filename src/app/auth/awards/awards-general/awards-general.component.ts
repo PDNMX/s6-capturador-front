@@ -21,6 +21,8 @@ export class AwardsGeneralComponent implements OnInit {
 
   generalForm!: FormGroup;
 
+  mostrarSpinner = false;
+
   constructor(
     private fb: FormBuilder,
     private api: ApiService,
@@ -99,10 +101,15 @@ export class AwardsGeneralComponent implements OnInit {
     return desc;
   }
   saveForm(): void {
+    this.mostrarSpinner = true;
     const data = {
       ...this.generalForm.value,
     };
     this.saveGeneralDataForm.emit(this.generalForm.controls);
     //console.log(data);
+    setTimeout(() => {
+      this.mostrarSpinner = false;
+      console.log('agregando al arreglo');
+    }, 1000);
   }
 }
