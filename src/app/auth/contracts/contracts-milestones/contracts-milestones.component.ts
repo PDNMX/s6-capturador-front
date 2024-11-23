@@ -30,7 +30,7 @@ export class ContractsMilestonesComponent {
   getMilestoneTypeDesc(code: string): string {
     let desc = '';
     this.milestoneType.forEach((m) => {
-      if (m.code === code) desc = m.title;
+      if (m.code === code) desc = m.description;
     });
     return desc;
   }
@@ -38,7 +38,7 @@ export class ContractsMilestonesComponent {
   getMilestoneStatusDesc(code: string): string {
     let desc = '';
     this.milestoneStatus.forEach((m) => {
-      if (m.code === code) desc = m.title;
+      if (m.code === code) desc = m.description;
     });
     return desc;
   }
