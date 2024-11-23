@@ -4,6 +4,12 @@
       <div class="col">
         <h3>Garantías</h3>
         <hr />
+        <p>
+          Es un mecanismo para asegurar que se cumpla una obligación, protege
+          los derechos de alguna de las partes en una relación comercial o
+          jurídica cuando se modifique el monto, plazo o vigencia del contrato,
+          entre otros.
+        </p>
       </div>
     </div>
     <div class="row">
@@ -56,12 +62,17 @@
         <div class="form-floating col mb-2">
           <select class="form-select" formControlName="type">
             <option value="">Seleccione una garantía</option>
-            <option *ngFor="let guarantee of guarantees" [value]="guarantee.code">
-              {{guarantee.title}}
+            <option
+              *ngFor="let guarantee of guarantees"
+              [value]="guarantee.code"
+            >
+              {{ guarantee.title }}
             </option>
           </select>
           <label for="">Forma de garantía</label>
-          <p *ngIf="guaranteesForm.value.type">{{ getGuaranteeDesc(guaranteesForm.value.type) }}</p>
+          <p *ngIf="guaranteesForm.value.type">
+            {{ getGuaranteeDesc(guaranteesForm.value.type) }}
+          </p>
         </div>
         <div class="form-floating col mb-5">
           <input
@@ -82,12 +93,17 @@
         <div class="form-floating col mb-2">
           <select class="form-select" formControlName="obligations">
             <option value="">Seleccione una obligación</option>
-            <option *ngFor="let guarantee of guaranteeTypes" [value]="guarantee.code">
-              {{guarantee.title}}
+            <option
+              *ngFor="let guarantee of guaranteeTypes"
+              [value]="guarantee.code"
+            >
+              {{ guarantee.title }}
             </option>
           </select>
           <label for="">Obligaciones garantizadas</label>
-          <p *ngIf="guaranteesForm.value.obligations">{{ getGuaranteeTypeDesc(guaranteesForm.value.obligations) }}</p>
+          <p *ngIf="guaranteesForm.value.obligations">
+            {{ getGuaranteeTypeDesc(guaranteesForm.value.obligations) }}
+          </p>
         </div>
       </div>
 

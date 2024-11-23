@@ -176,7 +176,7 @@
             {{ d.title }}
           </option>
         </select>
-        <p>
+        <p *ngIf="milestoneForm.value.status">
           {{ getMilestoneStatusDesc(milestoneForm.value.status) }}
         </p>
       </div>
