@@ -44,15 +44,15 @@
           </div>
         </div>
         <div class="form-floating col mb-3">
-          <input
-            class="form-control"
+          <select
+            class="form-select"
             id="awardID"
-            type="text"
-            data-sb-validations="required"
-            placeholder="Identificador de la adjudicación*"
             formControlName="awardID"
-          />
-          <label for="id">Identificador de la adjudicación*</label>
+            aria-label="Default select example"
+          >
+            <option *ngFor="let id of awardIds" [value]="id">{{ id }}</option>
+          </select>
+          <label for="awardID">Identificador de la adjudicación*</label>
           <div class="invalid-feedback" data-sb-feedback="awardID:required">
             Identificador de la adjudicación * es requerido.
           </div>

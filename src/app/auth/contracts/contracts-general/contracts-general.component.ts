@@ -8,6 +8,8 @@ import {
 } from '@angular/forms';
 import { ContractStatus, Currency, RelatedProcesses } from 'src/utils';
 import SurveillanceMechanismsType from 'src/utils/surveillanceMechanismsType';
+import { ActivatedRoute } from '@angular/router';
+import { ApiService } from 'src/app/services/api.service';
 
 interface StoredMechanism {
   code: string;
@@ -26,6 +28,9 @@ interface StoredRelatedProcess {
 })
 export class ContractsGeneralComponent implements OnInit {
   @Input() contractForm!: FormGroup;
+  record_id = null;
+  awardsForm: any; // Define la propiedad awardsForm
+  awardIds: string[] = []; // Array para almacenar los IDs de los awards
 
   exchangeForm!: FormGroup;
   relatedProcessesForm!: FormGroup;
@@ -42,13 +47,44 @@ export class ContractsGeneralComponent implements OnInit {
 
   mostrarSpinner = false;
 
-  constructor(private fb: FormBuilder) {}
+  constructor(
+    private fb: FormBuilder,
+    private route: ActivatedRoute,
+    private api: ApiService
+  ) {}
 
   ngOnInit(): void {
+    this.route.paramMap.subscribe((params: any) => {
+      this.record_id = params.get('id');
+      this.loadData();
+      //this.loadExistingData();
+    });
     this.initExchangeForm();
     this.initRelatedProcessesForm();
     this.initSurveillanceMechanismsControl();
     this.initRelatedProcessControl();
+  }
+
+  loadData(): void {
+    if (this.record_id) {
+      this.api.getMethod(`/awards/${this.record_id}`).subscribe({
+        next: (d: any) => {
+          const { awards, error, message } = d;
+          if (error) {
+            console.log('message: ', message);
+          } else {
+            if (Array.isArray(awards)) {
+              this.awardIds = awards.map((award: any) => award.id);
+            } else {
+              console.error('Awards is not an array:', awards);
+            }
+          }
+        },
+        error: (err) => {
+          console.error('Error loading awards:', err);
+        },
+      });
+    }
   }
 
   initSurveillanceMechanismsControl(): void {
