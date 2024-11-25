@@ -63,20 +63,6 @@
       <div class="row">
         <div class="form-floating col mb-2">
           <input
-            type="text"
-            class="form-control"
-            id="TransactionsSource"
-            placeholder="Fuente de datos"
-            formControlName="source"
-          />
-          <label for="TransactionsSource" class="form-label"
-            >Fuente de datos</label
-          >
-        </div>
-      </div>
-      <div class="row">
-        <div class="form-floating col mb-2">
-          <input
             type="date"
             class="form-control"
             id="TransacctionsDate"
@@ -87,17 +73,33 @@
             >Fecha de la transacción</label
           >
         </div>
+      </div>
+      <div class="row">
         <div class="form-floating col mb-2">
           <input
             type="text"
             class="form-control"
-            id="TransactionsPaymentMethod"
-            placeholder="Método de pago"
-            formControlName="paymentMethod"
+            id="TransactionsSource"
+            placeholder="Fuente de datos"
+            formControlName="source"
           />
-          <label for="TransactionsPaymentMethod" class="form-label"
-            >Método de pago</label
+          <label for="TransactionsSource" class="form-label"
+            >Fuente de datos</label
           >
+        </div>
+        <div class="form-floating col mb-3">
+          <select class="form-select" formControlName="paymentMethod">
+            <option
+              *ngFor="let method of paymentMethods"
+              [ngValue]="method.code"
+            >
+              {{ method.title }}
+            </option>
+          </select>
+          <label for="TransactionsPaymentMethod">Método de Pago</label>
+          <p class="mt-2">
+            {{ getPaymentMethodDesc(transactionsForm.value.paymentMethod) }}
+          </p>
         </div>
       </div>
 
