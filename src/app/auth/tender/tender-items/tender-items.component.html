@@ -98,52 +98,65 @@ data-sb-feedback="title:required"
       <div class="invalid-feedback" data-sb-feedback="description:required">
         Descripción * es requerido.
       </div>
+      <div class="form-text">
+        Una descripción de los bienes o servicios objetos del procedimiento de
+        contratación.
+      </div>
     </div>
   </div>
 
   <div class="row">
     <div class="col-12">
-      <label for="type">Clasificación</label>
-    </div>
-    <div class="form-floating col mb-2">
-      <select
-        class="form-select"
-        formControlName="classification"
-        (change)="selectChange()"
-      >
-        <option *ngFor="let d of classification" [ngValue]="d">
-          {{ d.description }}
-        </option>
-      </select>
-      <!-- <p>{{ getMilestoneTypeDesc(milestoneForm.value.type) }}</p> -->
+      <div class="form-floating col mb-2">
+        <select
+          class="form-select"
+          formControlName="classification"
+          (change)="selectChange()"
+        >
+          <option *ngFor="let d of classification" [ngValue]="d">
+            {{ d.description }}
+          </option>
+        </select>
+        <label for="type">Clasificación</label>
+        <!-- <p>{{ getMilestoneTypeDesc(milestoneForm.value.type) }}</p> -->
+      </div>
+      <div class="form-text">
+        Una clasificación consiste de al menos dos partes: un identificador para
+        la lista (esquema) del cual se obtiene la clasificación, y un
+        identificador para la categoría de la lista que se está aplicando. Es
+        útil también publicar una etiqueta de texto y/o un URI del cual los
+        usuarios pueden basarse para interpretar la clasificación.
+      </div>
     </div>
   </div>
 
   <fieldset class="border p-3 mb-3">
     <legend class="w-auto px-1">Clasificaciones adicionales</legend>
+    <hr />
+    <p>Una lista de clasificaciones adicionales para el artículo.</p>
     <div class="row">
       <div class="col-12">
-        <label for="type">Clasificaciones adicionales</label>
-      </div>
-      <div
-        class="form-floating col-10 mb-2"
-        [formGroup]="additionalClassificationsForm"
-      >
-        <select class="form-select" formControlName="data">
-          <option *ngFor="let d of classification" [ngValue]="d">
-            {{ d.description }}
-          </option>
-        </select>
-        <!-- <p>{{ getMilestoneTypeDesc(milestoneForm.value.type) }}</p> -->
-      </div>
-      <div class="col-2">
-        <button
-          type="button"
-          class="btn btn-danger btn-add"
-          (click)="addAdditionalClassifications()"
+        <div
+          class="form-floating col-10 mb-2"
+          [formGroup]="additionalClassificationsForm"
         >
-          Agregar
-        </button>
+          <select class="form-select" formControlName="data">
+            <option *ngFor="let d of classification" [ngValue]="d">
+              {{ d.description }}
+            </option>
+          </select>
+          <label for="type">Clasificaciones adicionales</label>
+          <!-- <p>{{ getMilestoneTypeDesc(milestoneForm.value.type) }}</p> -->
+        </div>
+        <div class="col-2">
+          <button
+            type="button"
+            class="btn btn-danger btn-add"
+            (click)="addAdditionalClassifications()"
+          >
+            Agregar
+          </button>
+        </div>
       </div>
     </div>
     <div class="row">
@@ -204,6 +217,7 @@ data-sb-feedback="title:required"
       <div class="invalid-feedback" data-sb-feedback="quantity:required">
         Cantidad * es requerido.
       </div>
+      <div class="form-text">El número de unidades requeridas.</div>
     </div>
   </div>
 
@@ -220,6 +234,11 @@ data-sb-feedback="title:required"
       <label for="unit">Unidad*</label>
       <div class="invalid-feedback" data-sb-feedback="unit:required">
         Unidad * es requerido.
+      </div>
+      <div class="form-text">
+        Una descripción de la unidad de medida en la cual se proporcionan los
+        bienes, servicios u obra pública (p. ej. horas, kilogramos) así como el
+        precio unitario.
       </div>
     </div>
 
@@ -238,6 +257,7 @@ data-sb-feedback="title:required"
           <div class="invalid-feedback" data-sb-feedback="amount:required">
             Monto * es requerido.
           </div>
+          <div class="form-text">Monto como número.</div>
         </div>
         <div class="form-floating col-4 mb-2">
           <input
@@ -255,12 +275,20 @@ data-sb-feedback="title:required"
         </div>
 
         <div class="form-floating col-4 mb-2">
-          <label for="type">Moneda</label>
           <select class="form-select" formControlName="currency">
             <option *ngFor="let d of currency" [ngValue]="d.code">
               {{ d.title }}
             </option>
           </select>
+          <label for="type">Moneda</label>
+          <div class="form-text">
+            La moneda del monto, tomado de la lista de códigos
+            <a
+              href="https://standard.open-contracting.org/1.1/es/schema/codelists/#currency"
+              target="_blank"
+              >'Moneda'</a
+            >.
+          </div>
           <!-- <p>{{ getMilestoneTypeDesc(milestoneForm.value.type) }}</p> -->
         </div>
       </div>

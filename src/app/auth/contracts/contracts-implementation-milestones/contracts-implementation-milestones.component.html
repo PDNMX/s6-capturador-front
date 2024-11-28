@@ -57,7 +57,7 @@
     </div>
     <form [formGroup]="milestoneForm">
       <div class="row">
-        <div class="form-floating col mb-2">
+        <div class="form-floating col mb-3">
           <input
             class="form-control"
             id="title"
@@ -70,23 +70,27 @@
           <div class="invalid-feedback" data-sb-feedback="title:required">
             Titulo * es requerido.
           </div>
+          <div class="form-text">Título del hito.</div>
         </div>
       </div>
 
       <div class="row">
-        <div class="form-floating col mb-2">
+        <div class="form-floating col mb-3">
           <select class="form-select" formControlName="type">
             <option *ngFor="let d of milestoneType" [ngValue]="d.code">
               {{ d.title }}
             </option>
           </select>
           <label for="type">Tipo de hito</label>
+          <div class="form-text">
+            La naturaleza del hito, tomado de la lista de códigos milestoneType.
+          </div>
           <p>{{ getMilestoneTypeDesc(milestoneForm.value.type) }}</p>
         </div>
       </div>
 
       <div class="row">
-        <div class="form-floating col-12 mb-5">
+        <div class="form-floating col-12 mb-3">
           <textarea
             class="form-control"
             id="description"
@@ -99,11 +103,12 @@
           <div class="invalid-feedback" data-sb-feedback="description:required">
             Descripción * es requerido.
           </div>
+          <div class="form-text">Una descripción del hito.</div>
         </div>
       </div>
 
       <div class="row">
-        <div class="form-floating col mb-2">
+        <div class="form-floating col mb-3">
           <input
             class="form-control"
             id="URL"
@@ -116,11 +121,21 @@
           <div class="invalid-feedback" data-sb-feedback="title:required">
             Codigo * es requerido.
           </div>
+          <div class="form-text">
+            Los códigos de hitos pueden utilizarse para dar seguimiento a
+            eventos específicos que tienen lugar en el proceso de contratación.
+            Por ejemplo, un código de 'Apertura de proposiciones' podría ser
+            utilizado para permitir que los participantes consideren que este
+            hito señala la fecha en que se aperturan las proposiciones. Los
+            códigos de hitos se desprenden de una lista de códigos abierta y
+            deben definirse entre los productores de los datos y las
+            aplicaciones tecnológicas que los utilicen.
+          </div>
         </div>
       </div>
 
       <div class="row">
-        <div class="form-floating col mb-2">
+        <div class="form-floating col mb-3">
           <input
             class="form-control"
             id="datePublished"
@@ -132,9 +147,10 @@
           <div class="invalid-feedback" data-sb-feedback="title:required">
             Fecha de vencimiento * es requerido.
           </div>
+          <div class="form-text">La fecha en que se debe cumplir el hito.</div>
         </div>
 
-        <div class="form-floating col mb-2">
+        <div class="form-floating col mb-3">
           <input
             class="form-control"
             id="datePublished"
@@ -146,9 +162,10 @@
           <div class="invalid-feedback" data-sb-feedback="title:required">
             Fecha de cumplimiento * es requerido.
           </div>
+          <div class="form-text">La fecha en que se cumplió el hito.</div>
         </div>
 
-        <div class="form-floating col mb-2">
+        <div class="form-floating col mb-3">
           <input
             class="form-control"
             id="dateModified"
@@ -160,18 +177,31 @@
           <div class="invalid-feedback" data-sb-feedback="title:required">
             Fecha de modificación * es requerido.
           </div>
+          <div class="form-text">
+            La fecha en que el hito fue revisado o modificado por última vez y
+            se cambió el estatus o se confirmó que continuaba siendo correcto.
+          </div>
         </div>
       </div>
       <div class="row">
         <div class="col-12">
           <label for="status"> Estatus </label>
         </div>
-        <div class="form-floating col mb-2">
+        <div class="form-floating col mb-3">
           <select class="form-select" formControlName="status">
             <option *ngFor="let d of milestoneStatus" [ngValue]="d.code">
               {{ d.title }}
             </option>
           </select>
+          <div class="form-text">
+            El estado que fue alcanzado en la fecha proporcionada en 'Fecha de
+            modificación' (dateModified), tomada de la lista de códigos
+            <a
+              href="https://standard.open-contracting.org/1.1/es/schema/codelists/#milestone-type"
+              target="_blank"
+              >milestoneStatus</a
+            >.
+          </div>
           <p>
             {{ getMilestoneStatusDesc(milestoneForm.value.status) }}
           </p>

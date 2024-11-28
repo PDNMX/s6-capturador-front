@@ -3,6 +3,20 @@
     <div class="col">
       <h3>Documentos</h3>
       <hr />
+      <p>
+        Todos los documentos y adjuntos relacionados con la licitación, incluido
+        cualquier aviso o notificación. Consulte la lista de códigos
+        <a
+          href="https://standard.open-contracting.org/1.1/es/schema/codelists/#document-type"
+          target="_blank"
+          >documentType</a
+        >
+        para obtener detalles de los posibles documentos a incluir. Comúnmente
+        los documentos incluyen los avisos oficiales de la contratación, las
+        especificaciones técnicas, los criterios de evaluación y a medida que
+        avanza el proceso de contratación, las respuestas a las solicitudes de
+        aclaración.
+      </p>
     </div>
   </div>
 
@@ -63,7 +77,7 @@
       <div class="col-12">
         <label for="">Tipo de documento</label>
       </div>
-      <div class="form-floating col mb-5">
+      <div class="form-floating col mb-0">
         <select class="form-select" formControlName="documentType">
           <option *ngFor="let d of documents" [ngValue]="d.code">
             {{ d.title }}
@@ -72,6 +86,15 @@
         <p>
           {{ getDocumentTypeDesc(documentForm.value.documentType) }}
         </p>
+        <div class="form-text">
+          Una clasificación del documento descrito, utilizando la lista de
+          códigos
+          <a
+            href="https://standard.open-contracting.org/1.1/es/schema/codelists/#document-type"
+            target="_blank"
+            >documentType</a
+          >.
+        </div>
       </div>
     </div>
 
@@ -89,7 +112,7 @@
     </div> -->
 
     <div class="row">
-      <div class="form-floating col mb-5">
+      <div class="form-floating col mb-3">
         <input
           class="form-control"
           id="title"
@@ -102,11 +125,12 @@
         <div class="invalid-feedback" data-sb-feedback="title:required">
           Titulo * es requerido.
         </div>
+        <div class="form-text">El título del documento.</div>
       </div>
     </div>
 
     <div class="row">
-      <div class="form-floating col-12 mb-5">
+      <div class="form-floating col-12 mb-3">
         <textarea
           class="form-control"
           id="description"
@@ -119,11 +143,17 @@
         <div class="invalid-feedback" data-sb-feedback="description:required">
           Descripción * es requerido.
         </div>
+        <div class="form-text">
+          Una breve descripción del documento. Se recomienda no exceder las 250
+          palabras. En el caso que el documento no esté disponible en línea, el
+          campo podrá utilizarse para describir el proceso para acceder a una
+          copia del mismo.
+        </div>
       </div>
     </div>
 
     <div class="row">
-      <div class="form-floating col mb-5">
+      <div class="form-floating col mb-3">
         <input
           class="form-control"
           id="URL"
@@ -136,11 +166,16 @@
         <div class="invalid-feedback" data-sb-feedback="title:required">
           URL * es requerido.
         </div>
+        <div class="form-text">
+          Un enlace directo al documento o archivo adjunto. El servidor que da
+          acceso a este documento debe de estar configurado para reportar
+          correctamente el tipo MIME de documento.
+        </div>
       </div>
     </div>
 
     <div class="row">
-      <div class="form-floating col-6 mb-5">
+      <div class="form-floating col-6 mb-3">
         <input
           class="form-control"
           id="datePublished"
@@ -152,8 +187,13 @@
         <div class="invalid-feedback" data-sb-feedback="title:required">
           Fecha de publicación * es requerido.
         </div>
+        <div class="form-text">
+          La fecha de publicación del documento. Esto es particularmente
+          importante para documentos relevantes desde el punto de vista legal,
+          como los avisos de licitación.
+        </div>
       </div>
-      <div class="form-floating col-6 mb-5">
+      <div class="form-floating col-6 mb-3">
         <input
           class="form-control"
           id="dateModified"
@@ -165,6 +205,9 @@
         <div class="invalid-feedback" data-sb-feedback="title:required">
           Fecha de modificación * es requerido.
         </div>
+        <div class="form-text">
+          Fecha en que se modificó por última vez el documento.
+        </div>
       </div>
     </div>
     <div class="row">
@@ -173,12 +216,23 @@
           <div class="col-12">
             <label for="format">Formato</label>
           </div>
-          <div class="form-floating col mb-5">
+          <div class="form-floating col mb-3">
             <select class="form-select" formControlName="format">
               <option *ngFor="let d of formatDocument" [ngValue]="d.template">
                 {{ d.name }}
               </option>
             </select>
+            <div class="form-text">
+              El formato del documento, utilizando la lista de códigos abierta
+              <a
+                href="https://www.iana.org/assignments/media-types/media-types.xhtml"
+                target="_blank"
+                >IANA Media Types</a
+              >
+              (vea los valores en la columna 'Template'), o utilizando el código
+              'offline/print' si el documento descrito se publica offline. Por
+              ejemplo, páginas web tienen el formato 'text/html'.
+            </div>
           </div>
         </div>
       </div>
@@ -193,6 +247,23 @@
                 {{ d.name }}
               </option>
             </select>
+            <div class="form-text">
+              Especifica el idioma del documento vinculado mediante la
+              clasificación
+              <a href="https://es.wikipedia.org/wiki/ISO_639-1" target="_blank"
+                >ISO639-1</a
+              >, o mediante una clasificación extendida de las
+              <a
+                href="https://www.w3.org/International/articles/language-tags/"
+                target="_blank"
+                >etiquetas de idioma BCP47</a
+              >. Se recomienda el uso de códigos con dos letras en minúsculas de
+              la clasificación
+              <a href="https://es.wikipedia.org/wiki/ISO_639-1" target="_blank"
+                >ISO639-1</a
+              > es recomendado a menos de que haya una necesidad de usuario clara
+              para distinguir sobre el sub-tipo de lenguaje.
+            </div>
           </div>
         </div>
       </div>

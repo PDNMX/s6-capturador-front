@@ -18,6 +18,7 @@ import PartyRole from './partyRole';
 import ImplementationStatus from './implementationStatus';
 import ContractStatus from './contractStatus';
 import RelatedProcesses from './relatedProcesses';
+import PaymentMethods from './paymentMethods';
 
 export {
   Currency,
@@ -39,5 +40,6 @@ export {
   ContractStatus,
   RelatedProcesses,
   Guarantees,
-  GuaranteeTypes
+  GuaranteeTypes,
+  PaymentMethods
 };

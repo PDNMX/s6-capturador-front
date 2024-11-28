@@ -59,7 +59,7 @@
     </div>
     <form [formGroup]="guaranteesForm">
       <div class="row">
-        <div class="form-floating col mb-2">
+        <div class="form-floating col mb-3">
           <select class="form-select" formControlName="type">
             <option value="">Seleccione una garantía</option>
             <option
@@ -69,12 +69,20 @@
               {{ guarantee.title }}
             </option>
           </select>
+          <div class="form-text">
+            Especificar la forma de garantía utilizada para este contrato,
+            obtenida de la lista de códigos
+            <a
+              href="https://github.com/contratacionesabiertas/ocds_guarantees_extension/blob/master/codelists/guaranteeType.csv" target="_blank"
+              >'Tipo de garantía'</a
+            >.
+          </div>
           <label for="">Forma de garantía</label>
           <p *ngIf="guaranteesForm.value.type">
             {{ getGuaranteeDesc(guaranteesForm.value.type) }}
           </p>
         </div>
-        <div class="form-floating col mb-5">
+        <div class="form-floating col mb-3">
           <input
             class="form-control"
             id="date"
@@ -86,11 +94,15 @@
           <div class="invalid-feedback" data-sb-feedback="date:required">
             Fecha de expedición * es requerido.
           </div>
+          <div class="form-text">
+            Fecha de la garantía. Se refiere a la fecha en que se expide la
+            garantía.
+          </div>
         </div>
       </div>
 
       <div class="row">
-        <div class="form-floating col mb-2">
+        <div class="form-floating col mb-3">
           <select class="form-select" formControlName="obligations">
             <option value="">Seleccione una obligación</option>
             <option
@@ -100,6 +112,14 @@
               {{ guarantee.title }}
             </option>
           </select>
+          <div class="form-text">
+            Especificar el tipo de obligaciones que se garantizan, obtenidas de
+            la lista de códigos
+            <a
+              href="https://github.com/contratacionesabiertas/ocds_guarantees_extension/blob/master/codelists/guaranteedObligations.csv" target="_blank"
+              >'Tipo de obligación'</a
+            >.
+          </div>
           <label for="">Obligaciones garantizadas</label>
           <p *ngIf="guaranteesForm.value.obligations">
             {{ getGuaranteeTypeDesc(guaranteesForm.value.obligations) }}
@@ -111,7 +131,7 @@
         <legend>Monto total de la garantía.</legend>
         <div class="col-12" formGroupName="value">
           <div class="row">
-            <div class="form-floating col-2 mb-2">
+            <div class="form-floating col-2 mb-3">
               <input
                 class="form-control"
                 id="amount"
@@ -124,6 +144,7 @@
               <div class="invalid-feedback" data-sb-feedback="amount:required">
                 Monto * es requerido.
               </div>
+              <div class="form-text">Monto como número.</div>
             </div>
 
             <div class="form-floating col-4 mb-2">
@@ -132,6 +153,13 @@
                   {{ d.title }}
                 </option>
               </select>
+              <div class="form-text">
+                La moneda del monto, tomado de la lista de códigos
+                <a
+                  href="https://standard.open-contracting.org/1.1/es/schema/codelists/#currency" target="_blank"
+                  >'Moneda'</a
+                >.
+              </div>
               <label for="type">Moneda</label>
             </div>
           </div>
@@ -139,7 +167,7 @@
       </fieldset>
 
       <div class="row">
-        <div class="form-floating col mb-5">
+        <div class="form-floating col mb-3">
           <select class="form-select" formControlName="guarantor">
             <option
               *ngIf="guarantor.length === 0"
@@ -151,13 +179,18 @@
               {{ c?.name }}
             </option>
           </select>
+          <div class="form-text">
+            El nombre del actor al que se hace referencia. Debe coincidir con el
+            nombre capturado en la sección de actores.
+          </div>
           <label for="guarantor">Institución que expide la garantía</label>
         </div>
       </div>
 
       <fieldset class="border p-3 mb-3" formGroupName="period">
         <legend class="w-auto px-1">Periodo de la garantía</legend>
-
+        <hr />
+        <p>Periodo durante el cuál esta garantía estará vigente.</p>
         <div class="row">
           <div class="form-floating col-6 mb-5">
             <input
@@ -171,8 +204,12 @@
             <div class="invalid-feedback" data-sb-feedback="title:required">
               Fecha de inicio * es requerido.
             </div>
+            <div class="form-text">
+              Fecha de inicio del periodo. Cuando se conozca, debe
+              proporcionarse una fecha precisa de inicio.
+            </div>
           </div>
-          <div class="form-floating col-6 mb-5">
+          <div class="form-floating col-6 mb-3">
             <input
               class="form-control"
               id="endDate"
@@ -184,11 +221,15 @@
             <div class="invalid-feedback" data-sb-feedback="title:required">
               Fecha de término * es requerido.
             </div>
+            <div class="form-text">
+              Fecha de término del periodo. Cuando se conozca, debe
+              proporcionarse una fehca precisa de término.
+            </div>
           </div>
         </div>
 
         <div class="row">
-          <div class="form-floating col-6 mb-5">
+          <div class="form-floating col-6 mb-3">
             <input
               class="form-control"
               id="maxExtentDate"
@@ -200,8 +241,13 @@
             <div class="invalid-feedback" data-sb-feedback="title:required">
               Extension máxima * es requerido.
             </div>
+            <div class="form-text">
+              El periodo no puede extenderse más allá de esta fecha. Este campo
+              es opcional y puede usarse para expresar la fecha límite de
+              extensión o renovación de este período.
+            </div>
           </div>
-          <div class="form-floating col-6 mb-5">
+          <div class="form-floating col-6 mb-3">
             <input
               class="form-control"
               id="durationInDays"
@@ -214,6 +260,7 @@
             <div class="invalid-feedback" data-sb-feedback="title:required">
               Duración * es requerido.
             </div>
+            <div class="form-text">La duración máxima de este período en días.</div>
           </div>
         </div>
       </fieldset>

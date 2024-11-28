@@ -62,12 +62,16 @@
         <div class="col-12">
           <label for="">Tipo de documento</label>
         </div>
-        <div class="form-floating col mb-5">
+        <div class="form-floating col mb-3">
           <select class="form-select" formControlName="documentType">
             <option *ngFor="let d of documents" [ngValue]="d.code">
               {{ d.title }}
             </option>
           </select>
+          <div class="form-text">
+            Una clasificación del documento descrito de acuerdo con la lista de
+            códigos documentType.
+          </div>
           <p>
             {{ getDocumentTypeDesc(documentsForm.value.documentType) }}
           </p>
@@ -75,7 +79,7 @@
       </div>
 
       <div class="row">
-        <div class="form-floating col mb-5">
+        <div class="form-floating col mb-3">
           <input
             class="form-control"
             id="title"
@@ -88,11 +92,12 @@
           <div class="invalid-feedback" data-sb-feedback="title:required">
             Titulo * es requerido.
           </div>
+          <div class="form-text">El título del documento.</div>
         </div>
       </div>
 
       <div class="row">
-        <div class="form-floating col-12 mb-5">
+        <div class="form-floating col-12 mb-3">
           <textarea
             class="form-control"
             id="description"
@@ -105,11 +110,18 @@
           <div class="invalid-feedback" data-sb-feedback="description:required">
             Descripción * es requerido.
           </div>
+          <div class="form-text">
+            Una descripción corta del documento. Se recomienda que las
+            descripciones no excedan 250 palabras. En el caso en que el
+            documento no esté accesible en línea, el campo de descripción puede
+            utilizarse para describir los arreglos necesarios para obtener una
+            copia del documento.
+          </div>
         </div>
       </div>
 
       <div class="row">
-        <div class="form-floating col mb-5">
+        <div class="form-floating col mb-3">
           <input
             class="form-control"
             id="URL"
@@ -122,11 +134,16 @@
           <div class="invalid-feedback" data-sb-feedback="title:required">
             URL * es requerido.
           </div>
+          <div class="form-text">
+            Enlace directo al documento o archivo adjunto. El servidor que da
+            acceso a este documento debe estar configurado para proporcionar
+            correctamente el tipo documento (MIME type).
+          </div>
         </div>
       </div>
 
       <div class="row">
-        <div class="form-floating col-6 mb-5">
+        <div class="form-floating col-6 mb-3">
           <input
             class="form-control"
             id="datePublished"
@@ -138,8 +155,13 @@
           <div class="invalid-feedback" data-sb-feedback="title:required">
             Fecha de publicación * es requerido.
           </div>
+          <div class="form-text">
+            La fecha de publicación del documento. Esto es particularmente
+            importante para documentos relevantes desde el punto de vista legal,
+            como las convocatorias a licitación.
+          </div>
         </div>
-        <div class="form-floating col-6 mb-5">
+        <div class="form-floating col-6 mb-3">
           <input
             class="form-control"
             id="dateModified"
@@ -151,6 +173,9 @@
           <div class="invalid-feedback" data-sb-feedback="title:required">
             Fecha de modificación * es requerido.
           </div>
+          <div class="form-text">
+            Fecha en que se modificó por última vez el documento.
+          </div>
         </div>
       </div>
       <div class="row">
@@ -159,12 +184,24 @@
             <div class="col-12">
               <label for="format">Formato</label>
             </div>
-            <div class="form-floating col mb-5">
+            <div class="form-floating col mb-3">
               <select class="form-select" formControlName="format">
                 <option *ngFor="let d of formatDocument" [ngValue]="d.template">
                   {{ d.name }}
                 </option>
               </select>
+              <div class="form-text">
+                El formato del documento tomado de la lista de códigos
+                <a
+                  href="https://www.iana.org/assignments/media-types/media-types.xhtml"
+                  target="_blank"
+                  >IANA Media Types</a
+                >, con la incorporación de un valor adicional para 'offline /
+                print', utilizado cuando ha sido incorporado un documento que no
+                ha sido publicado en línea. Utilice los valores de la columna de
+                plantilla. Los enlaces a las páginas web deben estar etiquetados
+                como "text / html".
+              </div>
             </div>
           </div>
         </div>
@@ -173,12 +210,18 @@
             <div class="col-12">
               <label for="language">Idioma</label>
             </div>
-            <div class="form-floating col mb-5">
+            <div class="form-floating col mb-3">
               <select class="form-select" formControlName="language">
                 <option *ngFor="let d of language" [ngValue]="d.code">
                   {{ d.name }}
                 </option>
               </select>
+              <div class="form-text">
+                Especifica el idioma del documento vinculado mediante la
+                clasificación <a href="https://es.wikipedia.org/wiki/ISO_639-1" target="_blank">ISO639-1</a>, o mediante una clasificación extendida de
+                las <a href="https://www.w3.org/International/articles/language-tags/" target="_blank">etiquetas de idioma BCP47</a>. Se recomienda el uso de códigos con
+                dos letras en minúsculas de la clasificación <a href="https://es.wikipedia.org/wiki/ISO_639-1" target="_blank">ISO639-1</a>.
+              </div>
             </div>
           </div>
         </div>
