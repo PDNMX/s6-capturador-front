@@ -4,9 +4,9 @@
       <h3>Articulos del contrato</h3>
       <hr />
       <p>
-        Los bienes y servicios que se van a comprar, desglosados a líneas de
-        artículos cuando sea posible. Los artículos no deben de duplicarse, y se
-        deben de especificar las cantidades.
+        Los bienes, servicios y cualquier resultado intangible de este contrato.
+        Nota: Si los artículos son los mismos que en la adjudicación, no los
+        repita.
       </p>
     </div>
   </div>
@@ -85,7 +85,7 @@ data-sb-feedback="title:required"
 
 <form [formGroup]="itemsForm">
   <div class="row">
-    <div class="form-floating col-12 mb-2">
+    <div class="form-floating col-12 mb-3">
       <textarea
         class="form-control"
         id="description"
@@ -98,6 +98,10 @@ data-sb-feedback="title:required"
       <div class="invalid-feedback" data-sb-feedback="description:required">
         Descripción * es requerido.
       </div>
+      <div class="form-text">
+        Una descripción de los bienes o servicios objetos del procedimiento de
+        contratación.
+      </div>
     </div>
   </div>
 
@@ -105,7 +109,7 @@ data-sb-feedback="title:required"
     <div class="col-12">
       <label for="type">Clasificación</label>
     </div>
-    <div class="form-floating col mb-2">
+    <div class="form-floating col mb-3">
       <select
         class="form-select"
         formControlName="classification"
@@ -115,18 +119,32 @@ data-sb-feedback="title:required"
           {{ d.description }}
         </option>
       </select>
+      <div class="form-text">
+        Una clasificación consta de al menos dos partes: una denominación para
+        la lista (esquema) del cual se extrae la clasificación, y el valor
+        (código) de la lista que se utiliza. También es útil publicar una
+        etiqueda dde texto y/o una URI que los usuarios puedan utilizar para
+        interpretar la clasificación.
+      </div>
       <!-- <p>{{ getMilestoneTypeDesc(milestoneForm.value.type) }}</p> -->
     </div>
   </div>
 
   <fieldset class="border p-3 mb-3">
     <legend class="w-auto px-1">Clasificaciones adicionales</legend>
+    <hr />
+    <p>
+      Una lista de clasificaciones adicionales para el ítem. Ver la lista de
+      códigos itemClassificationScheme para las opciones comunes a utilizar en
+      el EDCA. También se pueden utilizar códigos de un esquema de clasificación
+      interna.
+    </p>
     <div class="row">
       <div class="col-12">
         <label for="type">Clasificaciones adicionales</label>
       </div>
       <div
-        class="form-floating col-10 mb-2"
+        class="form-floating col-10 mb-3"
         [formGroup]="additionalClassificationsForm"
       >
         <select class="form-select" formControlName="data">
@@ -134,6 +152,13 @@ data-sb-feedback="title:required"
             {{ d.description }}
           </option>
         </select>
+        <div class="form-text">
+          Una clasificación consiste de al menos dos partes: un identificador
+          para la lista (esquema) del cual se obtiene la clasificación, y un
+          identificador para la categoría de la lista que se está aplicando. Es
+          útil también publicar una etiqueta de texto y/o un URI del cual los
+          usuarios pueden basarse para interpretar la clasificación.
+        </div>
         <!-- <p>{{ getMilestoneTypeDesc(milestoneForm.value.type) }}</p> -->
       </div>
       <div class="col-2">
@@ -191,7 +216,7 @@ data-sb-feedback="title:required"
   </fieldset>
 
   <div class="row">
-    <div class="form-floating col-6 mb-2">
+    <div class="form-floating col-6 mb-3">
       <input
         class="form-control"
         id="quantity"
@@ -204,11 +229,12 @@ data-sb-feedback="title:required"
       <div class="invalid-feedback" data-sb-feedback="quantity:required">
         Cantidad * es requerido.
       </div>
+      <div class="form-text">El número de unidades requeridas.</div>
     </div>
   </div>
 
   <div class="row" formGroupName="unit">
-    <div class="form-floating col-6 mb-2">
+    <div class="form-floating col-6 mb-3">
       <input
         class="form-control"
         id="unit"
@@ -221,11 +247,16 @@ data-sb-feedback="title:required"
       <div class="invalid-feedback" data-sb-feedback="unit:required">
         Unidad * es requerido.
       </div>
+      <div class="form-text">
+        Una descripción de la unidad de medida en la cual se proporcionan los
+        bienes, servicios u obra pública (p. ej. horas, kilogramos) así como el
+        precio unitario.
+      </div>
     </div>
 
     <div class="col-12" formGroupName="value">
       <div class="row">
-        <div class="form-floating col-4 mb-2">
+        <div class="form-floating col-4 mb-3">
           <input
             class="form-control"
             id="amount"
@@ -238,6 +269,7 @@ data-sb-feedback="title:required"
           <div class="invalid-feedback" data-sb-feedback="amount:required">
             Monto * es requerido.
           </div>
+          <div class="form-text">Monto como número.</div>
         </div>
         <!-- <div class="form-floating col-4 mb-2">
           <input
@@ -260,6 +292,14 @@ data-sb-feedback="title:required"
               {{ d.title }}
             </option>
           </select>
+          <div class="form-text">
+            La moneda del monto, tomado de la lista de códigos
+            <a
+              href="https://standard.open-contracting.org/1.1/es/schema/codelists/#currency"
+              target="_blank"
+              >'Moneda'</a
+            >.
+          </div>
           <label for="type">Moneda</label>
           <!-- <p>{{ getMilestoneTypeDesc(milestoneForm.value.type) }}</p> -->
         </div>

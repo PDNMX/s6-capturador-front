@@ -59,7 +59,7 @@
   <hr />
   <form [formGroup]="amendmentsForm">
     <div class="row">
-      <div class="form-floating col-6 mb-5">
+      <div class="form-floating col-6 mb-3">
         <input
           class="form-control"
           id="date"
@@ -71,11 +71,12 @@
         <div class="invalid-feedback" data-sb-feedback="title:required">
           Fecha de modificación * es requerido.
         </div>
+        <div class="form-text">La fecha de esta modificación.</div>
       </div>
     </div>
 
     <div class="row">
-      <div class="form-floating col-12 mb-5">
+      <div class="form-floating col-12 mb-3">
         <textarea
           class="form-control"
           id="Justificación"
@@ -88,11 +89,14 @@
         <div class="invalid-feedback" data-sb-feedback="rationale:required">
           Justificación * es requerido.
         </div>
+        <div class="form-text">
+          Razones por las cuales se realiza la modificación.
+        </div>
       </div>
     </div>
 
     <div class="row">
-      <div class="form-floating col-12 mb-5">
+      <div class="form-floating col-12 mb-3">
         <textarea
           class="form-control"
           id="description"
@@ -105,11 +109,15 @@
         <div class="invalid-feedback" data-sb-feedback="description:required">
           Descripción * es requerido.
         </div>
+        <div class="form-text">
+          Una descripción en texto libre, o semi-estructurada, de los cambios
+          realizados en esta modificación.
+        </div>
       </div>
     </div>
 
     <div class="row">
-      <div class="form-floating col mb-5">
+      <div class="form-floating col mb-3">
         <input
           class="form-control"
           id="amendsReleaseID"
@@ -122,11 +130,16 @@
         <div class="invalid-feedback" data-sb-feedback="title:required">
           * es requerido.
         </div>
+        <div class="form-text">
+          Se refiere al identificador (release.id) de la liberación EDCA que
+          provee los valores para este proceso de contratación ** antes ** de
+          que la modificación fuese realizada.
+        </div>
       </div>
     </div>
 
     <div class="row">
-      <div class="form-floating col mb-5">
+      <div class="form-floating col mb-3">
         <input
           class="form-control"
           id="releaseID"
@@ -138,6 +151,11 @@
         <label for="URL">Difusión de la modificación (identificador)*</label>
         <div class="invalid-feedback" data-sb-feedback="title:required">
           * es requerido.
+        </div>
+        <div class="form-text">
+          Se refiere al identificador (release.id) de la liberación EDCA que
+          provee los valores para este procedimiento de contratación ** después
+          ** de que la modificación fuese realizada.
         </div>
       </div>
     </div>

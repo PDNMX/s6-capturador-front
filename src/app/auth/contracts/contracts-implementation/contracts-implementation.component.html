@@ -24,6 +24,10 @@
             </option>
           </select>
           <label for="">Estatus de la implementación</label>
+          <div class="form-text">
+            El estado actual de la ejecución del contrato obtenido de la lista
+            de códigos <a href="https://github.com/contratacionesabiertas/ocds_implementationStatus_extension/blob/master/codelists/implementationStatus.csv" target="_blank">'Estatus de la ejecución'</a>.
+          </div>
           <p>
             {{ getImplementationStatusDesc(implementationForm.value.status) }}
           </p>
