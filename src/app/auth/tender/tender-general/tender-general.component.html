@@ -61,14 +61,15 @@
         </select>
         <label for="">Estatus de la contratación pública</label>
         <p class="mt-2">{{ getTenderStatusDesc(generalForm.value.status) }}</p>
-      </div>
-      <div class="form-text">
-        El estatus actual de la contratación pública, desde la lista de código
-        cerrada
-        <a
-          href="https://standard.open-contracting.org/1.1/es/schema/codelists/#tender-status"
-          >tenderStatus</a
-        >.
+        <div class="form-text">
+          El estatus actual de la contratación pública, desde la lista de código
+          cerrada
+          <a
+            href="https://standard.open-contracting.org/1.1/es/schema/codelists/#tender-status"
+            target="_blank"
+            >tenderStatus</a
+          >.
+        </div>
       </div>
     </div>
 
@@ -97,6 +98,7 @@
 
     <fieldset class="border p-3 mb-3" formGroupName="value">
       <legend class="w-auto px-1">Valor máximo de contratación</legend>
+      <hr />
       <div class="row">
         <div class="col">
           <p>
@@ -140,6 +142,7 @@
             La moneda del monto, de la lista de código cerrada
             <a
               href="https://standard.open-contracting.org/1.1/es/schema/codelists/#currency"
+              target="_blank"
               >'Moneda'</a
             >
           </div>
@@ -149,6 +152,7 @@
 
     <fieldset class="border p-3 mb-3" formGroupName="minValue">
       <legend class="w-auto px-1">Valor mínimo de contratación</legend>
+      <hr />
       <div class="row">
         <div class="col">
           <p>
@@ -192,6 +196,7 @@
             La moneda del monto, de la lista de código cerrada
             <a
               href="https://standard.open-contracting.org/1.1/es/schema/codelists/#currency"
+              target="_blank"
               >'Moneda'</a
             >
           </div>
@@ -217,6 +222,7 @@
         El método de adquisición, de la lista de código cerrada
         <a
           href="https://standard.open-contracting.org/1.1/es/schema/codelists/#method"
+          target="_blank"
           >method</a
         >.
       </div>
@@ -278,11 +284,13 @@
 
     <fieldset class="border p-3 mb-3">
       <legend class="w-auto px-1">Categoria de la contratacion</legend>
+      <hr />
       <p>
         La principal categoría describiendo el objeto principal de este proceso
         de contrataciones, de la lista de código cerrada
         <a
           href="https://standard.open-contracting.org/1.1/es/schema/codelists/#procurement-category"
+          target="_blank"
           >procurementCategory</a
         >.
       </p>
@@ -332,6 +340,7 @@
             de contrataciones, utilizando la lista de código abierta
             <a
               href="https://standard.open-contracting.org/1.1/es/schema/codelists/#extended-procurement-category"
+              target="_blank"
               >extendedProcurementCategory.</a
             >
           </div>
@@ -409,7 +418,8 @@
         especificaciones señalados en la convocatoria a la licitación pública
         para la integración de las propuestas técnicas y económicas
         <a
-          href="https://standard.open-contracting.org/1.1/es/schema/codelists/#award-criteria" target="_blank"
+          href="https://standard.open-contracting.org/1.1/es/schema/codelists/#award-criteria"
+          target="_blank"
           >awardCriteria</a
         >.
       </p>
@@ -460,6 +470,16 @@
 
     <fieldset class="border p-3 mb-3">
       <legend class="w-auto px-1">Metodo de presentación de oferta</legend>
+      <hr />
+      <p>
+        El método de presentación de ofertas, utilizando la lista de código
+        abierta
+        <a
+          href="https://standard.open-contracting.org/1.1/es/schema/codelists/#submission-method"
+          target="_blank"
+          >submissionMethod.</a
+        >
+      </p>
       <div class="row">
         <div class="col-12">
           <label for="">Método de presentación*</label>
@@ -471,14 +491,6 @@
                 {{ d.title }}
               </option>
             </select>
-          </div>
-          <div class="form-text">
-            El método de presentación de ofertas, utilizando la lista de código
-            abierta
-            <a
-              href="https://standard.open-contracting.org/1.1/es/schema/codelists/#submission-method"
-              >submissionMethod.</a
-            >
           </div>
         </div>
 
@@ -548,6 +560,12 @@
             formControlName="submissionMethodDetails"
           ></textarea>
           <label for="submissionMethodDetails">Detalles*</label>
+          <div class="form-text">
+            Cualquier detalle o más información sobre el método de entrega. Esto
+            puede incluir la dirección, correo electrónico o servicio en línea
+            en el cual se entregan las ofertas, y cualquier requisito especial
+            que debe de seguirse para entregarlas.
+          </div>
           <div
             class="invalid-feedback"
             data-sb-feedback="submissionMethodDetails:required"
@@ -560,7 +578,12 @@
 
     <fieldset class="border p-3 mb-3" formGroupName="tenderPeriod">
       <legend class="w-auto px-1">Periodo de licitación</legend>
-
+      <hr />
+      <p>
+        El periodo cuando la licitación está abierta para la recepción de las
+        propuestas. La fecha de final es la fecha de cierre de recepción de las
+        propuestas.
+      </p>
       <div class="row">
         <div class="form-floating col-6 mb-5">
           <input
@@ -574,6 +597,10 @@
           <div class="invalid-feedback" data-sb-feedback="title:required">
             Fecha de inicio * es requerido.
           </div>
+          <div class="form-text">
+            La fecha de inicio del período. Cuando se sabe, se debe dar una
+            fecha de inicio precisa.
+          </div>
         </div>
         <div class="form-floating col-6 mb-5">
           <input
@@ -586,6 +613,10 @@
           <label for="endDate">Fecha de término*</label>
           <div class="invalid-feedback" data-sb-feedback="title:required">
             Fecha de término * es requerido.
+          </div>
+          <div class="form-text">
+            La fecha de conclusión del período. Cuando se sabe, se debe dar una
+            fecha de conclusión precisa.
           </div>
         </div>
       </div>
@@ -603,6 +634,11 @@
           <div class="invalid-feedback" data-sb-feedback="title:required">
             Extension máxima * es requerido.
           </div>
+          <div class="form-text">
+            El período no puede extenderse después de esta fecha. Este campo
+            debe usarse para expresar la fecha máxima disponible para la
+            extensión o renovación de este período.
+          </div>
         </div>
         <div class="form-floating col-6 mb-5">
           <input
@@ -616,6 +652,9 @@
           <label for="durationInDays">Duración (dias)*</label>
           <div class="invalid-feedback" data-sb-feedback="title:required">
             Duración * es requerido.
+          </div>
+          <div class="form-text">
+            El nivel máximo de duración de este período en días.
           </div>
         </div>
       </div>
@@ -623,7 +662,16 @@
 
     <fieldset class="border p-3 mb-3" formGroupName="enquiryPeriod">
       <legend class="w-auto px-1">Periodo de solicitudes de aclaración</legend>
-
+      <hr />
+      <p>
+        El periodo durante el cual los postulantes potenciales pueden hacer
+        preguntas o solicitudes de aclaración a la entidad que gestiona el
+        proceso de contratación. Los detalles de cómo enviar solicitudes deben
+        especificarse en documentos de notificaciones adjuntos o en el campo
+        Detalles del método de presentación. Las fechas estructuradas para
+        cuando se dará respuesta a las preguntas se puede proveer usando hitos
+        de la licitación.
+      </p>
       <div class="row">
         <div class="form-floating col-6 mb-5">
           <input
@@ -633,9 +681,13 @@
             data-sb-validations="required"
             formControlName="startDate"
           />
-          <label for="startDate">Fecha de inicio*</label>
+          <label for="startDate" class="form-text">Fecha de inicio*</label>
           <div class="invalid-feedback" data-sb-feedback="title:required">
             Fecha de inicio * es requerido.
+          </div>
+          <div class="form-text">
+            La fecha de inicio del período. Cuando se sabe, se debe dar una
+            fecha de inicio precisa.
           </div>
         </div>
         <div class="form-floating col-6 mb-5">
@@ -649,6 +701,10 @@
           <label for="endDate">Fecha de término*</label>
           <div class="invalid-feedback" data-sb-feedback="title:required">
             Fecha de término * es requerido.
+          </div>
+          <div class="form-text">
+            La fecha de conclusión del período. Cuando se sabe, se debe dar una
+            fecha de conclusión precisa.
           </div>
         </div>
       </div>
@@ -666,6 +722,11 @@
           <div class="invalid-feedback" data-sb-feedback="title:required">
             Extension máxima * es requerido.
           </div>
+          <div class="form-text">
+            El período no puede extenderse después de esta fecha. Este campo
+            debe usarse para expresar la fecha máxima disponible para la
+            extensión o renovación de este período.
+          </div>
         </div>
         <div class="form-floating col-6 mb-5">
           <input
@@ -679,6 +740,9 @@
           <label for="durationInDays">Duración (dias)*</label>
           <div class="invalid-feedback" data-sb-feedback="title:required">
             Duración * es requerido.
+          </div>
+          <div class="form-text">
+            El nivel máximo de duración de este período en días.
           </div>
         </div>
       </div>
@@ -696,6 +760,12 @@
           <label class="form-check-label" for="flexCheckDefault">
             ¿Tiene solicitudes de aclaración?
           </label>
+          <div class="form-text">
+            Un campo verdadero/falso para indicar si se recibieron solicitudes
+            de aclaración durante el proceso de licitación. La información
+            estructurada sobre las preguntas que se recibieron, así como sus
+            respuestas pueden proporcionarse en la extensión 'enquiries'.
+          </div>
         </div>
       </div>
     </div>
@@ -717,12 +787,23 @@
         >
           Criterios de elegibilidad * es requerido.
         </div>
+        <div class="form-text">
+          Una descripción de los criterios de elegibilidad para proveedores
+          potenciales. Requisitos y condiciones que deben cumplir los
+          interesados para participar en el procedimiento de contratación.
+        </div>
       </div>
     </div>
 
     <fieldset class="border p-3 mb-3" formGroupName="awardPeriod">
       <legend class="w-auto px-1">Periodo de evaluación y adjudicación</legend>
-
+      <hr />
+      <p>
+        El período para tomar decisiones relacionados a la adjudicación del
+        contrato. La fecha final debe de indicar la fecha en que se debe
+        finalizar la decisión de adjudicación. La fecha de inicio puede usarse
+        para indicar el comienzo de un período de evaluación.
+      </p>
       <div class="row">
         <div class="form-floating col-6 mb-5">
           <input
@@ -736,6 +817,10 @@
           <div class="invalid-feedback" data-sb-feedback="startDate:required">
             Fecha de inicio * es requerido.
           </div>
+          <div class="form-text">
+            La fecha de inicio del período. Cuando se sabe, se debe dar una
+            fecha de inicio precisa.
+          </div>
         </div>
         <div class="form-floating col-6 mb-5">
           <input
@@ -748,6 +833,10 @@
           <label for="endDate">Fecha de termino*</label>
           <div class="invalid-feedback" data-sb-feedback="endDate:required">
             Fecha de termino * es requerido.
+          </div>
+          <div class="form-text">
+            La fecha de conclusión del período. Cuando se sabe, se debe dar una
+            fecha de conclusión precisa.
           </div>
         </div>
       </div>
@@ -768,6 +857,11 @@
           >
             Extension máxima * es requerido.
           </div>
+          <div class="form-text">
+            El período no puede extenderse después de esta fecha. Este campo
+            debe usarse para expresar la fecha máxima disponible para la
+            extensión o renovación de este período.
+          </div>
         </div>
         <div class="form-floating col-6 mb-5">
           <input
@@ -783,6 +877,9 @@
             data-sb-feedback="durationInDays:required"
           >
             Duración * es requerido.
+          </div>
+          <div class="form-text">
+            El nivel máximo de duración de este período en días.
           </div>
         </div>
       </div>
@@ -790,7 +887,12 @@
 
     <fieldset class="border p-3 mb-3" formGroupName="contractPeriod">
       <legend class="w-auto px-1">Periodo del contrato</legend>
-
+      <hr />
+      <p>
+        El periodo sobre el cual se estima el contrato o requiere que esté
+        activo. Si la licitación no especifica fechas, se puede usar el campo de
+        duración.
+      </p>
       <div class="row">
         <div class="form-floating col-6 mb-5">
           <input
@@ -804,6 +906,10 @@
           <div class="invalid-feedback" data-sb-feedback="startDate:required">
             Fecha de inicio * es requerido.
           </div>
+          <div class="form-text">
+            La fecha de inicio del período. Cuando se sabe, se debe dar una
+            fecha de inicio precisa.
+          </div>
         </div>
         <div class="form-floating col-6 mb-5">
           <input
@@ -816,6 +922,10 @@
           <label for="endDate">Fecha de termino*</label>
           <div class="invalid-feedback" data-sb-feedback="endDate:required">
             Fecha de termino * es requerido.
+          </div>
+          <div class="form-text">
+            La fecha de conclusión del período. Cuando se sabe, se debe dar una
+            fecha de conclusión precisa.
           </div>
         </div>
       </div>
@@ -836,6 +946,11 @@
           >
             Extension máxima * es requerido.
           </div>
+          <div class="form-text">
+            El período no puede extenderse después de esta fecha. Este campo
+            debe usarse para expresar la fecha máxima disponible para la
+            extensión o renovación de este período.
+          </div>
         </div>
         <div class="form-floating col-6 mb-5">
           <input
@@ -851,6 +966,9 @@
             data-sb-feedback="durationInDays:required"
           >
             Duración * es requerido.
+          </div>
+          <div class="form-text">
+            El nivel máximo de duración de este período en días.
           </div>
         </div>
       </div>

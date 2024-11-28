@@ -8,7 +8,7 @@ import {
 } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { ApiService, IPartieList } from 'src/app/services/api.service';
-import { ImplementationStatus, Currency } from 'src/utils';
+import { ImplementationStatus, Currency, PaymentMethods } from 'src/utils';
 
 @Component({
   selector: 'app-contracts-implementation-transactions',
@@ -27,6 +27,7 @@ export class ContractsImplementationTransactionsComponent implements OnInit {
   payers: Array<any> = [];
   payee: Array<any> = [];
   mostrarSpinner = false;
+  paymentMethods = PaymentMethods;
 
   constructor(
     private fb: FormBuilder,
@@ -68,6 +69,15 @@ export class ContractsImplementationTransactionsComponent implements OnInit {
       payee: [null, Validators.required],
       uri: ['', Validators.required],
     });
+  }
+
+  getPaymentMethodDesc(code: string): string {
+    let desc = '';
+    this.paymentMethods.forEach((method) => {
+      if (method.code === code) desc = method.description;
+    });
+
+    return desc;
   }
 
   addNewTransactions(): void {
