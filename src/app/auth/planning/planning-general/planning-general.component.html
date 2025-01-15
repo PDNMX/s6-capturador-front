@@ -3,6 +3,7 @@
     <div class="row">
       <div class="col">
         <h3>Información general</h3>
+
         <hr />
       </div>
     </div>
@@ -20,6 +21,10 @@
             style="height: 150px"
           ></textarea>
           <label for="rationale">Justificación *</label>
+          <app-input-validation
+            [message]="'Este es un mensaje extra'"
+            [element]="rationale"
+          ></app-input-validation>
         </div>
         <div class="form-text">
           La justificación debe responder a las preguntas de por qué y para qué
