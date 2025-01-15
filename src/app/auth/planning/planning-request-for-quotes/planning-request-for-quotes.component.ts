@@ -87,7 +87,7 @@ export class PlanningRequestForQuotesComponent implements OnInit {
         console.log('message: ', message);
       } else {
         // load forms
-        if (planning.requestForQuotes !== null) {
+        if (planning !== null && planning.requestForQuotes !== null) {
           // this.loadForm(planning.requestForQuotes);
         }
       }
