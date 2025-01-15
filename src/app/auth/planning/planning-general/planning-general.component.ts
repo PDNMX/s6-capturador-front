@@ -140,10 +140,6 @@ export class PlanningGeneralComponent implements OnInit {
   }
 
   saveForm(): void {
-    console.log(this.generalForm.get('rationale')?.errors);
-    console.log(this.rationale);
-    return;
-
     this.mostrarSpinner = true;
     this.saveGeneralData.emit(this.generalForm.controls);
     setTimeout(() => {
