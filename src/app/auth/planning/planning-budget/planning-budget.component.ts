@@ -40,7 +40,8 @@ export class PlanningBudgetComponent implements OnInit {
         console.log('message: ', message);
       } else {
         // load forms
-        if (planning.budget !== null) this.loadForm(planning.budget);
+        if (planning !== null && planning.budget !== null)
+          this.loadForm(planning.budget);
       }
     });
   }

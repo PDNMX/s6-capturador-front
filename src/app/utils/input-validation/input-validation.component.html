@@ -1,0 +1,15 @@
+<!-- <span>
+  {{ element.errors | json }}
+</span> -->
+<div *ngIf="element?.touched && element?.invalid">
+  <small *ngIf="element?.errors?.['required']" class="text-danger">
+    Este campo es obligatorio.
+  </small>
+  <small *ngIf="element?.errors?.['maxlength']" class="text-danger">
+    Se supero el maximo de caracteres posibles.
+  </small>
+  <br />
+  <small class="text-danger">
+    {{ message }}
+  </small>
+</div>

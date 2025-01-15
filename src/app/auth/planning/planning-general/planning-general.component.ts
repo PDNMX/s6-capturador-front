@@ -1,5 +1,11 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
-import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import {
+  FormArray,
+  FormBuilder,
+  FormControl,
+  FormGroup,
+  Validators,
+} from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { ApiService, IPartieList } from 'src/app/services/api.service';
 
@@ -68,12 +74,16 @@ export class PlanningGeneralComponent implements OnInit {
 
   initForm(): void {
     this.generalForm = this.fb.group({
-      rationale: ['', Validators.required],
+      rationale: ['', [Validators.required, Validators.maxLength(2)]],
       hasQuotes: [true, Validators.required],
       requestingUnits: this.fb.array([]),
       responsibleUnits: this.fb.array([]),
       contractingUnits: this.fb.array([]),
     });
+  }
+
+  get rationale() {
+    return this.generalForm.get('rationale') as FormControl;
   }
 
   initSelectForm(): void {
@@ -130,6 +140,10 @@ export class PlanningGeneralComponent implements OnInit {
   }
 
   saveForm(): void {
+    console.log(this.generalForm.get('rationale')?.errors);
+    console.log(this.rationale);
+    return;
+
     this.mostrarSpinner = true;
     this.saveGeneralData.emit(this.generalForm.controls);
     setTimeout(() => {
