@@ -6,7 +6,7 @@ import { ApiService } from 'src/app/services/api.service';
 @Component({
   selector: 'app-tender',
   templateUrl: './tender.component.html',
-  styleUrls: ['./tender.component.css'],
+  styleUrls: ['./tender.component.css']
 })
 
 export class TenderComponent implements OnInit {
