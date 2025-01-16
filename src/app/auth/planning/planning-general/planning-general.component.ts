@@ -69,7 +69,7 @@ export class PlanningGeneralComponent implements OnInit {
       });
     }
 
-    // this.loadData();
+    this.loadData();
   }
 
   initForm(): void {
@@ -117,8 +117,16 @@ export class PlanningGeneralComponent implements OnInit {
       responsibleUnits,
     });
 
+    contractingUnits.forEach((e: any) => {
+      this.contractingUnitsFormArray.push(this.fb.group(e));
+    });
+
     requestingUnits.forEach((e: any) => {
       this.requestingUnitsArray.push(this.fb.group(e));
+    });
+
+    responsibleUnits.forEach((e: any) => {
+      this.responsibleUnitsArray.push(this.fb.group(e));
     });
   }
 
