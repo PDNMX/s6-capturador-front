@@ -13,11 +13,14 @@
           class="form-control"
           id="title"
           type="text"
-          data-sb-validations="required"
+          data-sb-validations=""
           placeholder="Titulo*"
           formControlName="title"
         />
-        <label for="title">Titulo*</label>
+        <label for="title">Título *</label>
+        <app-input-validation
+          [element]="title"
+        ></app-input-validation>
         <div class="invalid-feedback" data-sb-feedback="title:required">
           Titulo * es requerido.
         </div>

@@ -1,5 +1,5 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
-import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormArray, FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { ApiService, IPartieList } from 'src/app/services/api.service';
 import {
@@ -207,6 +207,10 @@ export class TenderGeneralComponent implements OnInit {
     this.submissionMethodForm = this.fb.group({
       data: ['', [Validators.required]],
     });
+  }
+
+  get title() {
+    return this.generalForm.get('title') as FormControl;
   }
 
   saveForm(): void {
