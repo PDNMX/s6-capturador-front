@@ -11,6 +11,7 @@
       <div class="form-floating col mb-2">
         <input
           class="form-control"
+          [class.is-invalid]="title.touched && title.invalid"
           id="title"
           type="text"
           data-sb-validations=""
@@ -18,12 +19,7 @@
           formControlName="title"
         />
         <label for="title">Título *</label>
-        <app-input-validation
-          [element]="title"
-        ></app-input-validation>
-        <div class="invalid-feedback" data-sb-feedback="title:required">
-          Titulo * es requerido.
-        </div>
+        <app-input-validation [element]="title"></app-input-validation>
       </div>
       <div class="form-text">
         Un título para esta licitación. Éste se usará por aplicaciones como una
@@ -42,10 +38,8 @@
           style="height: 100px"
           formControlName="description"
         ></textarea>
-        <label for="description">Descripción*</label>
-        <div class="invalid-feedback" data-sb-feedback="description:required">
-          Descripción * es requerido.
-        </div>
+        <label for="description">Descripción *</label>
+        <app-input-validation [element]="description"></app-input-validation>
       </div>
       <div class="form-text">
         Una descripción breve de la licitación. Esto complementa cualquier
@@ -61,6 +55,12 @@
           <option *ngFor="let d of tenderStatus" [ngValue]="d.code">
             {{ d.title }}
           </option>
+          <small
+              *ngIf="status !== ''"
+              class="text-danger"
+            >
+              Debe registrar al menos una unidad administrativa requirente.
+            </small>
         </select>
         <label for="">Estatus de la contratación pública</label>
         <p class="mt-2">{{ getTenderStatusDesc(generalForm.value.status) }}</p>
@@ -119,27 +119,25 @@
               class="form-control"
               id="amount"
               type="text"
-              data-sb-validations="required"
+              data-sb-validations=""
               placeholder="ID de Organización*"
               formControlName="amount"
             />
-            <label for="amount">Cantidad*</label>
-            <div class="invalid-feedback" data-sb-feedback="title:required">
-              Cantidad * es requerido.
-            </div>
+            <label for="amount">Cantidad *</label>
+            <app-input-validation [element]="amount"></app-input-validation>
           </div>
           <div class="form-text">Monto como una cifra.</div>
         </div>
         <div class="col-8 mb-2">
           <div class="form-floating">
             <select class="form-select" formControlName="currency">
-              <label for="currency">Moneda*</label>
+              <label for="currency">Moneda *</label>
               <option selected>Seleccione un moneda</option>
               <option *ngFor="let m of currency" value="{{ m.code }}">
                 {{ m.title }}
               </option>
             </select>
-            <label for="currency">Moneda*</label>
+            <label for="currency">Moneda *</label>
           </div>
           <div class="form-text">
             La moneda del monto, de la lista de código cerrada
@@ -177,10 +175,8 @@
               placeholder="ID de Organización*"
               formControlName="amount"
             />
-            <label for="amount">Cantidad*</label>
-            <div class="invalid-feedback" data-sb-feedback="title:required">
-              Cantidad * es requerido.
-            </div>
+            <label for="amount">Cantidad *</label>
+            <app-input-validation [element]="amount_min"></app-input-validation>
           </div>
           <div class="form-text">Monto como una cifra.</div>
         </div>
@@ -193,7 +189,7 @@
                 {{ m.title }}
               </option>
             </select>
-            <label for="currency">Moneda*</label>
+            <label for="currency">Moneda *</label>
           </div>
           <div class="form-text">
             La moneda del monto, de la lista de código cerrada
@@ -242,14 +238,11 @@
           formControlName="procurementMethodDetails"
         ></textarea>
         <label for="procurementMethodDetails"
-          >Detalles del método de contratación*</label
+          >Detalles del método de contratación *</label
         >
-        <div
-          class="invalid-feedback"
-          data-sb-feedback="procurementMethodDetails:required"
-        >
-          Detalles del método de contratación * es requerido.
-        </div>
+        <app-input-validation
+          [element]="procurementMethodDetails"
+        ></app-input-validation>
       </div>
       <div class="form-text">
         Detalles adicionales sobre el método de adquisiciones utilizado. Este
@@ -269,14 +262,11 @@
           formControlName="procurementMethodRationale"
         ></textarea>
         <label for="procurementMethodRationale"
-          >Justificación para el método de contratación*</label
+          >Justificación para el método de contratación *</label
         >
-        <div
-          class="invalid-feedback"
-          data-sb-feedback="procurementMethodRationale:required"
-        >
-          Justificación * es requerido.
-        </div>
+        <app-input-validation
+          [element]="procurementMethodRationale"
+        ></app-input-validation>
       </div>
       <div class="form-text">
         Justificación para el método de compra elegido. Esto es especialmente
@@ -299,7 +289,7 @@
       </p>
       <div class="row">
         <div class="col-12">
-          <label for="">Categoria principal*</label>
+          <label for="">Categoria principal *</label>
         </div>
         <div class="form-floating col mb-2">
           <select class="form-select" formControlName="mainProcurementCategory">
@@ -322,7 +312,7 @@
 
       <div class="row">
         <div class="col-12">
-          <label for="">Categorias adicionales*</label>
+          <label for="">Categorias adicionales *</label>
         </div>
         <div
           class="col-10 mb-2"
@@ -428,7 +418,7 @@
       </p>
       <div class="row">
         <div class="col-12">
-          <label for="">Criterio de adjudicación*</label>
+          <label for="">Criterio de adjudicación *</label>
         </div>
         <div class="form-floating col mb-5">
           <select class="form-select" formControlName="awardCriteria">
@@ -456,13 +446,12 @@
             style="height: 100px"
             formControlName="awardCriteriaDetails"
           ></textarea>
-          <label for="awardCriteriaDetails">Detalles*</label>
-          <div
-            class="invalid-feedback"
-            data-sb-feedback="awardCriteriaDetails:required"
+          <label for="awardCriteriaDetails"
+            >Detalles de los criterios de adjudicación *</label
           >
-            Detalles * es requerido.
-          </div>
+          <app-input-validation
+            [element]="awardCriteriaDetails"
+          ></app-input-validation>
         </div>
         <div class="form-text">
           Cualquier detalle o información adicional sobre la adjudicación o
@@ -593,13 +582,12 @@
             class="form-control"
             id="startDate"
             type="date"
-            data-sb-validations="required"
             formControlName="startDate"
           />
-          <label for="startDate">Fecha de inicio*</label>
-          <div class="invalid-feedback" data-sb-feedback="title:required">
-            Fecha de inicio * es requerido.
-          </div>
+          <label for="startDate">Fecha de inicio *</label>
+          <app-input-validation
+            [element]="getControl('startDate')"
+          ></app-input-validation>
           <div class="form-text">
             La fecha de inicio del período. Cuando se sabe, se debe dar una
             fecha de inicio precisa.
@@ -610,13 +598,12 @@
             class="form-control"
             id="endDate"
             type="date"
-            data-sb-validations="required"
             formControlName="endDate"
           />
           <label for="endDate">Fecha de término*</label>
-          <div class="invalid-feedback" data-sb-feedback="title:required">
-            Fecha de término * es requerido.
-          </div>
+          <app-input-validation
+            [element]="getControl('endDate')"
+          ></app-input-validation>
           <div class="form-text">
             La fecha de conclusión del período. Cuando se sabe, se debe dar una
             fecha de conclusión precisa.

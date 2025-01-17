@@ -1,5 +1,13 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
-import { FormArray, FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
+import {
+  FormArray,
+  FormBuilder,
+  FormGroup,
+  Validators,
+  FormControl,
+  AbstractControl,
+  ValidationErrors,
+} from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { ApiService, IPartieList } from 'src/app/services/api.service';
 import {
@@ -154,11 +162,11 @@ export class TenderGeneralComponent implements OnInit {
       description: ['', [Validators.required]],
       procuringEntity: ['', [Validators.required]],
       value: this.fb.group({
-        amount: ['0', [Validators.required]],
+        amount: ['', [Validators.required]],
         currency: ['MXN', [Validators.required]],
       }),
       minValue: this.fb.group({
-        amount: ['0', [Validators.required]],
+        amount: ['', [Validators.required]],
         currency: ['MXN', [Validators.required]],
       }),
       procurementMethod: ['', [Validators.required]],
@@ -170,12 +178,15 @@ export class TenderGeneralComponent implements OnInit {
       awardCriteriaDetails: ['', [Validators.required]],
       submissionMethod: this.fb.array([]),
       submissionMethodDetails: ['', [Validators.required]],
-      tenderPeriod: this.fb.group({
-        startDate: ['', [Validators.required]],
-        endDate: ['', [Validators.required]],
-        maxExtentDate: ['', [Validators.required]],
-        durationInDays: [0, [Validators.required]],
-      }),
+      tenderPeriod: this.fb.group(
+        {
+          startDate: ['', [Validators.required]],
+          endDate: ['', [Validators.required]],
+          maxExtentDate: ['', [Validators.required]],
+          durationInDays: [0, [Validators.required]],
+        },
+        { validators: this.dateComparisonValidator() }
+      ),
       enquiryPeriod: this.fb.group({
         startDate: ['', [Validators.required]],
         endDate: ['', [Validators.required]],
@@ -212,7 +223,60 @@ export class TenderGeneralComponent implements OnInit {
   get title() {
     return this.generalForm.get('title') as FormControl;
   }
+  get description() {
+    return this.generalForm.get('description') as FormControl;
+  }
+  get amount() {
+    return this.generalForm.get('value')?.get('amount') as FormControl;
+  }
+  get amount_min() {
+    return this.generalForm.get('minValue')?.get('amount') as FormControl;
+  }
+  get procurementMethodDetails() {
+    return this.generalForm.get('procurementMethodDetails') as FormControl;
+  }
+  get procurementMethodRationale() {
+    return this.generalForm.get('procurementMethodRationale') as FormControl;
+  }
+  get awardCriteriaDetails() {
+    return this.generalForm.get('awardCriteriaDetails') as FormControl;
+  }
+  get tenderPeriodForm() {
+    return this.generalForm.get('tenderPeriod') as FormGroup;
+  }
+  getControl(name: string): FormControl {
+    return this.tenderPeriodForm.get(name) as FormControl;
+  }
 
+  get status() {
+    return this.generalForm.get('status')?.value;
+  }
+
+
+  // Validador para comparar fechas
+  private dateComparisonValidator(): Validators {
+    return (group: AbstractControl): ValidationErrors | null => {
+      const startDate = group.get('startDate')?.value;
+      const endDate = group.get('endDate')?.value;
+      const maxExtentDate = group.get('maxExtentDate')?.value;
+
+      if (startDate && endDate && new Date(endDate) < new Date(startDate)) {
+        group.get('endDate')?.setErrors({ dateInvalid: true });
+        return { dateInvalid: true };
+      }
+
+      if (
+        maxExtentDate &&
+        endDate &&
+        new Date(maxExtentDate) < new Date(endDate)
+      ) {
+        group.get('maxExtentDate')?.setErrors({ maxDateInvalid: true });
+        return { maxDateInvalid: true };
+      }
+
+      return null;
+    };
+  }
   saveForm(): void {
     this.mostrarSpinner = true;
     this.saveGeneralData.emit(this.generalForm.controls);
