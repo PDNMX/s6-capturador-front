@@ -157,7 +157,7 @@ export class TenderGeneralComponent implements OnInit {
 
   initForm(): void {
     this.generalForm = this.fb.group({
-      status: ['', [Validators.required]],
+      status: [null, Validators.required ],
       title: ['', [Validators.required]],
       description: ['', [Validators.required]],
       procuringEntity: ['', [Validators.required]],
@@ -226,6 +226,9 @@ export class TenderGeneralComponent implements OnInit {
   get description() {
     return this.generalForm.get('description') as FormControl;
   }
+  get status(): FormControl {
+    return this.generalForm.get('status') as FormControl;
+  }
   get amount() {
     return this.generalForm.get('value')?.get('amount') as FormControl;
   }
@@ -246,10 +249,6 @@ export class TenderGeneralComponent implements OnInit {
   }
   getControl(name: string): FormControl {
     return this.tenderPeriodForm.get(name) as FormControl;
-  }
-
-  get status() {
-    return this.generalForm.get('status')?.value;
   }
 
 
@@ -277,14 +276,27 @@ export class TenderGeneralComponent implements OnInit {
       return null;
     };
   }
+
+    enableSaveFormButton(): boolean {
+    return (
+      this.generalForm.valid
+    );
+  }
+
   saveForm(): void {
+    if (!this.enableSaveFormButton()) {
+      console.warn('El formulario no es válido.');
+      return;
+    }
+  
     this.mostrarSpinner = true;
     this.saveGeneralData.emit(this.generalForm.controls);
     setTimeout(() => {
       this.mostrarSpinner = false;
-      console.log('agregando al arreglo');
+      console.log('Formulario guardado correctamente.');
     }, 1000);
   }
+
 
   get additionalProcurementCategoriesArray() {
     return this.generalForm.controls[

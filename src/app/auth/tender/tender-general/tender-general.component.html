@@ -55,14 +55,12 @@
           <option *ngFor="let d of tenderStatus" [ngValue]="d.code">
             {{ d.title }}
           </option>
-          <small
-              *ngIf="status !== ''"
-              class="text-danger"
-            >
-              Debe registrar al menos una unidad administrativa requirente.
-            </small>
         </select>
-        <label for="">Estatus de la contratación pública</label>
+        <label for="">Estatus de la contratación pública *</label>
+        <app-input-validation
+          [element]="status"
+          [message]="'Debe seleccionar un estatus de la contratación pública'"
+        ></app-input-validation>
         <p class="mt-2">{{ getTenderStatusDesc(generalForm.value.status) }}</p>
         <div class="form-text">
           El estatus actual de la contratación pública, desde la lista de código
@@ -132,7 +130,6 @@
           <div class="form-floating">
             <select class="form-select" formControlName="currency">
               <label for="currency">Moneda *</label>
-              <option selected>Seleccione un moneda</option>
               <option *ngFor="let m of currency" value="{{ m.code }}">
                 {{ m.title }}
               </option>
@@ -184,7 +181,6 @@
           <div class="form-floating">
             <select class="form-select" formControlName="currency">
               <label for="currency">Moneda*</label>
-              <option selected>Seleccione un moneda</option>
               <option *ngFor="let m of currency" value="{{ m.code }}">
                 {{ m.title }}
               </option>
@@ -972,6 +968,7 @@
           type="button"
           class="btn btn-danger btn-add"
           (click)="saveForm()"
+          [disabled]="!enableSaveFormButton()"
         >
           Guardar sección
         </button>
