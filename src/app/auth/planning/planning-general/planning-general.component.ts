@@ -139,13 +139,24 @@ export class PlanningGeneralComponent implements OnInit {
     });
   }
 
+  enableSaveFormButton(): boolean {
+    return (
+      this.generalForm.valid &&
+      this.requestingUnitsArray.length !== 0 &&
+      this.responsibleUnitsArray.length !== 0 &&
+      this.contractingUnitsFormArray.length !== 0
+    );
+  }
+
   saveForm(): void {
-    this.mostrarSpinner = true;
-    this.saveGeneralData.emit(this.generalForm.controls);
-    setTimeout(() => {
-      this.mostrarSpinner = false;
-      console.log('agregando al arreglo');
-    }, 1000);
+    if (this.enableSaveFormButton()) {
+      this.mostrarSpinner = true;
+      this.saveGeneralData.emit(this.generalForm.controls);
+      setTimeout(() => {
+        this.mostrarSpinner = false;
+        console.log('agregando al arreglo');
+      }, 1000);
+    }
   }
 
   get contractingUnitsFormArray() {
