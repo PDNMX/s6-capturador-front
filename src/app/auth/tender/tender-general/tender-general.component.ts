@@ -222,7 +222,7 @@ export class TenderGeneralComponent implements OnInit {
     });
 
     this.submissionMethodForm = this.fb.group({
-      data: [''],
+      data: ['', [Validators.required]],
     });
   }
 
@@ -313,7 +313,7 @@ export class TenderGeneralComponent implements OnInit {
   }
 
   enableSaveFormButton(): boolean {
-    return this.generalForm.valid;
+    return (this.generalForm.valid && this.submissionMethodArray.length !== 0);
   }
 
   saveForm(): void {
