@@ -11,6 +11,9 @@
   <small *ngIf="element?.errors?.['dateInvalid']" class="text-danger">
     La fecha de término debe ser mayor a la fecha de inicio.
   </small>
+  <small *ngIf="element?.errors?.['maxDateInvalid']" class="text-danger">
+    La fecha máxima de extensión debe ser mayor a la fecha de término.
+  </small>
   <br />
   <small class="text-danger">
     {{ message }}

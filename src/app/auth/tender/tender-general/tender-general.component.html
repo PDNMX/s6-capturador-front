@@ -495,7 +495,12 @@
                 {{ d.title }}
               </option>
             </select>
-            
+            <small
+              *ngIf="submissionMethodArray.length === 0"
+              class="text-danger"
+            >
+              Debe registrar al menos un método de presentación de oferta.
+            </small>
           </div>
         </div>
 
