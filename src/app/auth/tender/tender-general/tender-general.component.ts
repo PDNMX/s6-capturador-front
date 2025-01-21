@@ -157,7 +157,7 @@ export class TenderGeneralComponent implements OnInit {
 
   initForm(): void {
     this.generalForm = this.fb.group({
-      status: [null, Validators.required ],
+      status: [null, Validators.required],
       title: ['', [Validators.required]],
       description: ['', [Validators.required]],
       procuringEntity: ['', [Validators.required]],
@@ -177,7 +177,7 @@ export class TenderGeneralComponent implements OnInit {
       awardCriteria: ['', [Validators.required]],
       awardCriteriaDetails: ['', [Validators.required]],
       submissionMethod: this.fb.array([]),
-      submissionMethodDetails: ['', [Validators.required]],
+      submissionMethodDetails: [''],
       tenderPeriod: this.fb.group(
         {
           startDate: ['', [Validators.required]],
@@ -188,35 +188,41 @@ export class TenderGeneralComponent implements OnInit {
         { validators: this.dateComparisonValidator() }
       ),
       enquiryPeriod: this.fb.group({
-        startDate: ['', [Validators.required]],
-        endDate: ['', [Validators.required]],
-        maxExtentDate: ['', [Validators.required]],
-        durationInDays: [0, [Validators.required]],
+        startDate: [''],
+        endDate: [''],
+        maxExtentDate: [''],
+        durationInDays: [0],
       }),
       hasEnquiries: [false, [Validators.required]],
-      awardPeriod: this.fb.group({
-        startDate: ['', [Validators.required]],
-        endDate: ['', [Validators.required]],
-        maxExtentDate: ['', [Validators.required]],
-        durationInDays: [0, [Validators.required]],
-      }),
-      contractPeriod: this.fb.group({
-        startDate: ['', [Validators.required]],
-        endDate: ['', [Validators.required]],
-        maxExtentDate: ['', [Validators.required]],
-        durationInDays: [0, [Validators.required]],
-      }),
+      awardPeriod: this.fb.group(
+        {
+          startDate: ['', [Validators.required]],
+          endDate: ['', [Validators.required]],
+          maxExtentDate: ['', [Validators.required]],
+          durationInDays: [0, [Validators.required]],
+        },
+        { validators: this.dateComparisonValidator() }
+      ),
+      contractPeriod: this.fb.group(
+        {
+          startDate: ['', [Validators.required]],
+          endDate: ['', [Validators.required]],
+          maxExtentDate: ['', [Validators.required]],
+          durationInDays: [0, [Validators.required]],
+        },
+        { validators: this.dateComparisonValidator() }
+      ),
 
       eligibilityCriteria: ['', [Validators.required]],
       numberOfTenderers: [0, [Validators.required]],
     });
 
     this.additionalProcurementCategoriesForm = this.fb.group({
-      data: ['', [Validators.required]],
+      data: [''],
     });
 
     this.submissionMethodForm = this.fb.group({
-      data: ['', [Validators.required]],
+      data: [''],
     });
   }
 
@@ -229,11 +235,23 @@ export class TenderGeneralComponent implements OnInit {
   get status(): FormControl {
     return this.generalForm.get('status') as FormControl;
   }
+  get procuringEntitylist(): FormControl {
+    return this.generalForm.get('procuringEntity') as FormControl;
+  }
   get amount() {
     return this.generalForm.get('value')?.get('amount') as FormControl;
   }
   get amount_min() {
     return this.generalForm.get('minValue')?.get('amount') as FormControl;
+  }
+  get MainProcurementCategory() {
+    return this.generalForm.get('mainProcurementCategory') as FormControl;
+  }
+  get awardCriteriaList() {
+    return this.generalForm.get('awardCriteria') as FormControl;
+  }
+  get procurementMethodlist(): FormControl {
+    return this.generalForm.get('procurementMethod') as FormControl;
   }
   get procurementMethodDetails() {
     return this.generalForm.get('procurementMethodDetails') as FormControl;
@@ -244,13 +262,30 @@ export class TenderGeneralComponent implements OnInit {
   get awardCriteriaDetails() {
     return this.generalForm.get('awardCriteriaDetails') as FormControl;
   }
+  get eligibilityCriteria() {
+    return this.generalForm.get('eligibilityCriteria') as FormControl;
+  }
+  /* get SubmissionMethod() {
+    return this.generalForm.get('submissionMethod') as FormControl;
+  } */
   get tenderPeriodForm() {
     return this.generalForm.get('tenderPeriod') as FormGroup;
   }
   getControl(name: string): FormControl {
     return this.tenderPeriodForm.get(name) as FormControl;
   }
-
+  get awardPeriodForm() {
+    return this.generalForm.get('awardPeriod') as FormGroup;
+  }
+  getControlAwardPeriod(name: string): FormControl {
+    return this.awardPeriodForm.get(name) as FormControl;
+  }
+  get contractPeriodForm() {
+    return this.generalForm.get('contractPeriod') as FormGroup;
+  }
+  getControlContractPeriod(name: string): FormControl {
+    return this.contractPeriodForm.get(name) as FormControl;
+  }
 
   // Validador para comparar fechas
   private dateComparisonValidator(): Validators {
@@ -277,10 +312,8 @@ export class TenderGeneralComponent implements OnInit {
     };
   }
 
-    enableSaveFormButton(): boolean {
-    return (
-      this.generalForm.valid
-    );
+  enableSaveFormButton(): boolean {
+    return this.generalForm.valid;
   }
 
   saveForm(): void {
@@ -288,7 +321,7 @@ export class TenderGeneralComponent implements OnInit {
       console.warn('El formulario no es válido.');
       return;
     }
-  
+
     this.mostrarSpinner = true;
     this.saveGeneralData.emit(this.generalForm.controls);
     setTimeout(() => {
@@ -296,7 +329,6 @@ export class TenderGeneralComponent implements OnInit {
       console.log('Formulario guardado correctamente.');
     }, 1000);
   }
-
 
   get additionalProcurementCategoriesArray() {
     return this.generalForm.controls[
