@@ -1,7 +1,7 @@
 <div class="container">
   <div class="row">
     <div class="col">
-      <h3>Licitantes</h3>
+      <h3>Licitantes *</h3>
       <hr />
       <p>Todos los actores que presenten una oferta en una licitación.</p>
     </div>
@@ -49,6 +49,9 @@
           {{ c?.name }}
         </option>
       </select>
+      <small *ngIf="tenderersArray.length === 0" class="text-danger">
+        Debe agregar uno o más licitantes.
+      </small>
       <div class="form-text">
         El nombre del actor al que se hace referencia. Debe coincidir con el
         nombre capturado en la sección de actores.

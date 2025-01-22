@@ -193,7 +193,7 @@ export class TenderGeneralComponent implements OnInit {
         maxExtentDate: [''],
         durationInDays: [0],
       }),
-      hasEnquiries: [false, [Validators.required]],
+      hasEnquiries: [true],
       awardPeriod: this.fb.group(
         {
           startDate: ['', [Validators.required]],
