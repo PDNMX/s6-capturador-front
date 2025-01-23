@@ -93,7 +93,7 @@ export class PlanningComponent implements OnInit {
       budget: this.fb.group({
         description: ['', [Validators.required]],
         value: this.fb.group({
-          amount: ['0', [Validators.required]],
+          amount: [, [Validators.required, Validators.min(1)]],
           currency: ['MXN', [Validators.required]],
         }),
         project: ['', [Validators.required]],
