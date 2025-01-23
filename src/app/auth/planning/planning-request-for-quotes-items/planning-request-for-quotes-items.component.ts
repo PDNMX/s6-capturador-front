@@ -1,5 +1,11 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import {
+  FormArray,
+  FormBuilder,
+  FormControl,
+  FormGroup,
+  Validators,
+} from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { ApiService } from 'src/app/services/api.service';
 import { Classifications, Currency } from 'src/utils';
@@ -59,17 +65,45 @@ export class PlanningRequestForQuotesItemsComponent implements OnInit {
     this.initForm();
   }
 
+  get description(): FormControl {
+    return this.itemsForm.get('description') as FormControl;
+  }
+
+  get item_classification(): FormControl {
+    return this.itemsForm.get('classification') as FormControl;
+  }
+
+  get quantity(): FormControl {
+    return this.itemsForm.get('quantity') as FormControl;
+  }
+
+  get unit(): FormGroup {
+    return this.itemsForm.get('unit') as FormGroup;
+  }
+
+  get name(): FormControl {
+    return this.unit.get('name') as FormControl;
+  }
+
+  get value(): FormControl {
+    return this.unit.get('value') as FormControl;
+  }
+
+  get amount(): FormControl {
+    return this.value.get('amount') as FormControl;
+  }
+
   initForm(): void {
     this.itemsForm = this.fb.group({
-      description: ['description', [Validators.required]],
+      description: ['', [Validators.required]],
       classification: [{}, [Validators.required]],
       additionalClassifications: this.fb.array([], [Validators.required]),
-      quantity: ['', [Validators.required]],
+      quantity: ['', [Validators.required, Validators.min(0)]],
       unit: this.fb.group({
         name: ['', [Validators.required]],
         value: this.fb.group({
-          amount: [0, [Validators.required]],
-          amountNet: [0, [Validators.required]],
+          amount: [, [Validators.required]],
+          amountNet: [, [Validators.required]],
           currency: ['MXN', [Validators.required]],
         }),
       }),

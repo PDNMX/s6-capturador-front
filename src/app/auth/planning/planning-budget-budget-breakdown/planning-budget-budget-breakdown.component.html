@@ -1,5 +1,5 @@
 <fieldset class="border p-3 mb-3">
-  <legend class="w-auto px-1">Desgloce del presupuesto</legend>
+  <legend class="w-auto px-1">Desgloce del presupuesto*</legend>
   <p>
     Un desglose detallado del presupuesto por período y/o financiadores
     participantes.
@@ -58,7 +58,8 @@
           placeholder="Description"
           formControlName="description"
         />
-        <label for="description">Descripción</label>
+        <label for="description">Descripción*</label>
+        <app-input-validation [element]="description"></app-input-validation>
       </div>
       <div class="form-text">
         La Contratación Plurianual es aquella que compromete recursos
@@ -76,8 +77,9 @@
           formControlName="uri"
         />
         <label for="BudgetBreakdownUri"
-          >Información Presupuestaria vinculada</label
+          >Información Presupuestaria vinculada*</label
         >
+        <app-input-validation [element]="uri"></app-input-validation>
       </div>
       <div class="form-text">
         Un URI que apunta directamente a una información legible por máquinas
@@ -96,7 +98,7 @@
             {{ c?.name }}
           </option>
         </select>
-        <label for="sourceParty"> Actor fuente </label>
+        <label for="sourceParty"> Actor fuente* </label>
       </div>
       <div class="form-text">
         La organización u otro actor relacionado con esta entrada de
@@ -121,6 +123,7 @@
                 formControlName="amount"
               />
               <label for="amount">Monto*</label>
+              <app-input-validation [element]="amount"></app-input-validation>
               <div class="invalid-feedback" data-sb-feedback="amount:required">
                 Monto * es requerido.
               </div>
@@ -165,6 +168,7 @@
               type="date"
               data-sb-validations="required"
               formControlName="startDate"
+              placeholder="dd-mm-yyyy"
             />
             <label for="startDate">Fecha de inicio*</label>
             <div class="invalid-feedback" data-sb-feedback="startDate:required">
@@ -304,7 +308,8 @@
               formControlName="id"
               readonly
             />
-            <label for="BudgetLinesId">ID</label>
+            <label for="BudgetLinesId">ID*</label>
+            <app-input-validation [element]="id"></app-input-validation>
           </div>
           <div class="col-md-6 form-floating mb-3">
             <input
@@ -314,7 +319,8 @@
               placeholder="Origin"
               formControlName="origin"
             />
-            <label for="BudgetLinesOrigin">Origen</label>
+            <label for="BudgetLinesOrigin">Origen*</label>
+            <app-input-validation [element]="origin"></app-input-validation>
           </div>
         </div>
       </form>
@@ -330,10 +336,10 @@
               <table class="table table-hover table-striped mb-10">
                 <thead>
                   <tr>
-                    <th scope="col">Nombre</th>
-                    <th scope="col">Descripción</th>
-                    <th scope="col">Nivel</th>
-                    <th scope="col">Código</th>
+                    <th scope="col">Nombre*</th>
+                    <th scope="col">Descripción*</th>
+                    <th scope="col">Nivel*</th>
+                    <th scope="col">Código*</th>
                     <th scope="col">Opciones</th>
                   </tr>
                   <tr [formGroup]="componentsForm">
@@ -345,6 +351,9 @@
                         placeholder="Nombre"
                         formControlName="name"
                       />
+                      <app-input-validation
+                        [element]="name"
+                      ></app-input-validation>
                     </th>
                     <th scope="col">
                       <input
@@ -354,6 +363,9 @@
                         placeholder="Descripción"
                         formControlName="description"
                       />
+                      <app-input-validation
+                        [element]="comp_description"
+                      ></app-input-validation>
                     </th>
                     <th scope="col">
                       <input
@@ -363,6 +375,9 @@
                         placeholder="Código"
                         formControlName="level"
                       />
+                      <app-input-validation
+                        [element]="level"
+                      ></app-input-validation>
                     </th>
                     <th scope="col">
                       <input
@@ -372,12 +387,16 @@
                         placeholder="Código"
                         formControlName="code"
                       />
+                      <app-input-validation
+                        [element]="code"
+                      ></app-input-validation>
                     </th>
                     <th scope="col">
                       <button
                         type="button"
                         class="btn btn-danger btn-add"
                         (click)="addComponent()"
+                        [disabled]="!componentsForm.valid"
                       >
                         Agregar
                       </button>
@@ -423,6 +442,7 @@
             type="button"
             class="btn btn-danger btn-add"
             (click)="addBudgetLines()"
+            [disabled]="!budgetLinesForm.valid"
           >
             Agregar linea presupuestaria
           </button>
@@ -438,6 +458,7 @@
           type="button"
           class="btn btn-danger btn-add"
           (click)="addNewBudgetBreakdown()"
+          [disabled]="!budgetBreakdownForm.valid"
         >
           Agregar desglose
         </button>

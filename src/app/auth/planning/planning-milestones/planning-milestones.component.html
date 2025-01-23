@@ -78,6 +78,7 @@
           formControlName="title"
         />
         <label for="title">Titulo*</label>
+        <app-input-validation [element]="title"></app-input-validation>
         <div class="invalid-feedback" data-sb-feedback="title:required">
           Titulo * es requerido.
         </div>
@@ -93,6 +94,7 @@
           </option>
         </select>
         <label for="type">Tipo de hito</label>
+        <app-input-validation [element]="type"></app-input-validation>
         <p class="mt-2">{{ getMilestoneTypeDesc(milestoneForm.value.type) }}</p>
       </div>
       <div class="form-text">
@@ -116,6 +118,7 @@
           formControlName="description"
         ></textarea>
         <label for="description">Descripción*</label>
+        <app-input-validation [element]="description"></app-input-validation>
         <div class="invalid-feedback" data-sb-feedback="description:required">
           Descripción * es requerido.
         </div>
@@ -134,6 +137,7 @@
           formControlName="code"
         />
         <label for="URL">Codigo*</label>
+        <app-input-validation [element]="code"></app-input-validation>
         <div class="invalid-feedback" data-sb-feedback="title:required">
           Codigo * es requerido.
         </div>
@@ -158,6 +162,7 @@
             formControlName="dueDate"
           />
           <label for="datePublished">Fecha de vencimiento*</label>
+          <app-input-validation [element]="dueDate"></app-input-validation>
           <div class="invalid-feedback" data-sb-feedback="title:required">
             Fecha de vencimiento * es requerido.
           </div>
@@ -175,6 +180,7 @@
             formControlName="dateMet"
           />
           <label for="datePublished">Fecha de cumplimiento*</label>
+          <app-input-validation [element]="dateMet"></app-input-validation>
           <div class="invalid-feedback" data-sb-feedback="title:required">
             Fecha de cumplimiento * es requerido.
           </div>
@@ -192,6 +198,7 @@
             formControlName="dateModified"
           />
           <label for="dateModified">Fecha de modificación*</label>
+          <app-input-validation [element]="dateModified"></app-input-validation>
           <div class="invalid-feedback" data-sb-feedback="title:required">
             Fecha de modificación * es requerido.
           </div>
@@ -211,6 +218,7 @@
           </option>
         </select>
         <label for="status">Estatus</label>
+        <app-input-validation [element]="status"></app-input-validation>
         <p class="mt-2">
           {{ getMilestoneStatusDesc(milestoneForm.value.status) }}
         </p>
@@ -232,6 +240,7 @@
           type="button"
           class="btn btn-danger btn-add"
           (click)="addNewMilestone()"
+          [disabled]="!milestoneForm.valid"
         >
           Agregar hito
         </button>

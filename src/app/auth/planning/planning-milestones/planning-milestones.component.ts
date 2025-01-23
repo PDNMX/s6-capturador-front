@@ -1,5 +1,10 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import {
+  FormBuilder,
+  FormControl,
+  FormGroup,
+  Validators,
+} from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { ApiService } from 'src/app/services/api.service';
 import { MilestoneStatus, MilestoneType } from 'src/utils';
@@ -71,6 +76,31 @@ export class PlanningMilestonesComponent implements OnInit {
   ngOnInit(): void {
     this.initForm();
     this.loadData();
+  }
+
+  get title(): FormControl {
+    return this.milestoneForm.get('title') as FormControl;
+  }
+  get type(): FormControl {
+    return this.milestoneForm.get('type') as FormControl;
+  }
+  get description(): FormControl {
+    return this.milestoneForm.get('description') as FormControl;
+  }
+  get code(): FormControl {
+    return this.milestoneForm.get('code') as FormControl;
+  }
+  get dueDate(): FormControl {
+    return this.milestoneForm.get('dueDate') as FormControl;
+  }
+  get dateMet(): FormControl {
+    return this.milestoneForm.get('dateMet') as FormControl;
+  }
+  get dateModified(): FormControl {
+    return this.milestoneForm.get('dateModified') as FormControl;
+  }
+  get status(): FormControl {
+    return this.milestoneForm.get('status') as FormControl;
   }
 
   initForm(): void {

@@ -8,6 +8,9 @@
   <small *ngIf="element?.errors?.['maxlength']" class="text-danger">
     Se supero el maximo de caracteres posibles.
   </small>
+  <small *ngIf="element?.errors?.['min']" class="text-danger">
+    Este campo es obligatorio.
+  </small>
   <small *ngIf="element?.errors?.['dateInvalid']" class="text-danger">
     La fecha de término debe ser mayor a la fecha de inicio.
   </small>
