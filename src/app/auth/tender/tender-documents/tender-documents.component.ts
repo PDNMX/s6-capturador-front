@@ -105,7 +105,9 @@ export class TenderDocumentsComponent implements OnInit {
         documentType: ['', [Validators.required]],
         title: ['', [Validators.required]],
         description: [''],
-        url: ['', [Validators.required]],
+        url: ['', [Validators.required, Validators.pattern(
+          /((https?):\/\/)?(www\.)?[a-z0-9]+(\.[a-z]{2,}){1,3}(#?\/?[a-zA-Z0-9#]+)*\/?(\?[a-zA-Z0-9-_]+=[a-zA-Z0-9-%]+&?)?$/
+        ),]],
         datePublished: ['', [Validators.required]],
         dateModified: ['', [Validators.required]],
         format: ['', [Validators.required]],
@@ -129,6 +131,12 @@ export class TenderDocumentsComponent implements OnInit {
   }
   get dateModified() {
     return this.documentForm.get('dateModified') as FormControl;
+  }
+  get format() {
+    return this.documentForm.get('format') as FormControl;
+  }
+  get languageList() {
+    return this.documentForm.get('language') as FormControl;
   }
 
   private dateComparisonValidator(): (
@@ -164,6 +172,10 @@ export class TenderDocumentsComponent implements OnInit {
 
       return null;
     };
+  }
+  
+  enableAddDocumentButton(): boolean {
+    return (this.documentForm.valid && this.documentForm.dirty);
   }
 
   addNewDocument(): void {

@@ -17,6 +17,9 @@
   <small *ngIf="element?.errors?.['dateModifiedInvalid']" class="text-danger">
     La fecha de modificación no puede ser anterior a la fecha de publicación.
   </small>
+  <small *ngIf="element?.errors?.['pattern']" class="text-danger">
+    Introduzca una dirección de internet válida.
+  </small>
   <br />
   <small class="text-danger">
     {{ message }}
