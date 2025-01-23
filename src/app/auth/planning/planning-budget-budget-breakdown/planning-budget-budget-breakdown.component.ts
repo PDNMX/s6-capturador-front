@@ -1,5 +1,11 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import {
+  FormArray,
+  FormBuilder,
+  FormControl,
+  FormGroup,
+  Validators,
+} from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { ApiService, IPartieList } from 'src/app/services/api.service';
 import { Currency } from 'src/utils';
@@ -32,6 +38,18 @@ export class PlanningBudgetBudgetBreakdownComponent implements OnInit {
 
   get componentsArray() {
     return this.budgetLinesForm.controls['components'] as FormArray;
+  }
+
+  get description(): FormControl {
+    return this.budgetBreakdownForm.get('description') as FormControl;
+  }
+
+  get uri(): FormControl {
+    return this.budgetBreakdownForm.get('uri') as FormControl;
+  }
+
+  get amount(): FormControl {
+    return this.budgetBreakdownForm.get('amount')?.get('amount') as FormControl;
   }
 
   addComponent(): void {
@@ -83,14 +101,14 @@ export class PlanningBudgetBudgetBreakdownComponent implements OnInit {
       description: ['', [Validators.required]],
       uri: ['', [Validators.required]],
       amount: this.fb.group({
-        amount: ['0', [Validators.required]],
+        amount: [, [Validators.required, Validators.min(1)]],
         currency: ['MXN', [Validators.required]],
       }),
       period: this.fb.group({
         startDate: ['', [Validators.required]],
         endDate: ['', [Validators.required]],
         maxExtentDate: ['', [Validators.required]],
-        durationInDays: [0, [Validators.required]],
+        durationInDays: [, [Validators.required]],
       }),
       budgetLines: this.fb.array([]),
       sourceParty: null,
@@ -98,6 +116,14 @@ export class PlanningBudgetBudgetBreakdownComponent implements OnInit {
 
     this.initBudgetLinesForm();
     this.initComponentsForm();
+  }
+
+  get id(): FormControl {
+    return this.budgetLinesForm.get('id') as FormControl;
+  }
+
+  get origin(): FormControl {
+    return this.budgetLinesForm.get('origin') as FormControl;
   }
 
   initBudgetLinesForm(): void {
@@ -108,6 +134,22 @@ export class PlanningBudgetBudgetBreakdownComponent implements OnInit {
     });
 
     this.initComponentsForm();
+  }
+
+  get name(): FormControl {
+    return this.componentsForm.get('name') as FormControl;
+  }
+
+  get level(): FormControl {
+    return this.componentsForm.get('level') as FormControl;
+  }
+
+  get code(): FormControl {
+    return this.componentsForm.get('code') as FormControl;
+  }
+
+  get comp_description(): FormControl {
+    return this.componentsForm.get('description') as FormControl;
   }
 
   initComponentsForm(): void {
