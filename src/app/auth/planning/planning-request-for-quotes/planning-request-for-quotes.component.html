@@ -120,6 +120,7 @@
                   formControlName="title"
                 />
                 <label for="title">Titulo*</label>
+                <app-input-validation [element]="title"></app-input-validation>
                 <div class="invalid-feedback" data-sb-feedback="title:required">
                   Titulo * es requerido.
                 </div>
@@ -140,6 +141,9 @@
                   formControlName="description"
                 ></textarea>
                 <label for="description">Descripción*</label>
+                <app-input-validation
+                  [element]="description"
+                ></app-input-validation>
                 <div
                   class="invalid-feedback"
                   data-sb-feedback="description:required"
@@ -262,7 +266,7 @@
             </fieldset>
 
             <fieldset class="border p-3 mb-3" [formGroup]="selectForm">
-              <legend class="w-auto px-1">Proveedores invitados</legend>
+              <legend class="w-auto px-1">Proveedores invitados*</legend>
               <p>
                 Una lista de los proveedores invitados a los que se les envío
                 una solicitud de cotización.
@@ -284,12 +288,21 @@
                       {{ c?.name }}
                     </option>
                   </select>
+                  <small
+                    class="text-danger"
+                    *ngIf="
+                      requestForQuotesForm.value.invitedSuppliers.length === 0
+                    "
+                  >
+                    Debe seleccionar al menos un proveedor invitado
+                  </small>
                 </div>
                 <div class="col-2">
                   <button
                     type="button"
                     class="btn btn-danger btn-add"
                     (click)="addInvitedSuppliers()"
+                    [disabled]="!requestForQuotesForm.valid"
                   >
                     Agregar
                   </button>
