@@ -1,5 +1,10 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import {
+  FormBuilder,
+  FormControl,
+  FormGroup,
+  Validators,
+} from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { ApiService } from 'src/app/services/api.service';
 import { FormatDocument, getDocumentType, Language } from 'src/utils';
@@ -91,6 +96,38 @@ export class PlanningDocumentsComponent implements OnInit {
   ngOnInit(): void {
     this.initForm();
     this.loadData();
+  }
+
+  get documentType(): FormControl {
+    return this.documentForm.get('documentType') as FormControl;
+  }
+
+  get title(): FormControl {
+    return this.documentForm.get('title') as FormControl;
+  }
+
+  get description(): FormControl {
+    return this.documentForm.get('description') as FormControl;
+  }
+
+  get url(): FormControl {
+    return this.documentForm.get('url') as FormControl;
+  }
+
+  get datePublished(): FormControl {
+    return this.documentForm.get('datePublished') as FormControl;
+  }
+
+  get dateModified(): FormControl {
+    return this.documentForm.get('dateModified') as FormControl;
+  }
+
+  get format(): FormControl {
+    return this.documentForm.get('format') as FormControl;
+  }
+
+  get doc_language(): FormControl {
+    return this.documentForm.get('language') as FormControl;
   }
 
   initForm(): void {

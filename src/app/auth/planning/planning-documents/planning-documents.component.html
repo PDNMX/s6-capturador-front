@@ -70,6 +70,7 @@
             {{ d.title }}
           </option>
         </select>
+        <app-input-validation [element]="documentType"></app-input-validation>
         <p>
           {{ getDocumentTypeDesc(documentForm.value.documentType) }}
         </p>
@@ -100,6 +101,7 @@
           formControlName="title"
         />
         <label for="title">Titulo*</label>
+        <app-input-validation [element]="title"></app-input-validation>
         <div class="invalid-feedback" data-sb-feedback="title:required">
           Titulo * es requerido.
         </div>
@@ -118,6 +120,7 @@
           formControlName="description"
         ></textarea>
         <label for="description">Descripción*</label>
+        <app-input-validation [element]="description"></app-input-validation>
         <div class="invalid-feedback" data-sb-feedback="description:required">
           Descripción * es requerido.
         </div>
@@ -141,6 +144,7 @@
           formControlName="url"
         />
         <label for="URL">URL*</label>
+        <app-input-validation [element]="url"></app-input-validation>
         <div class="invalid-feedback" data-sb-feedback="title:required">
           URL * es requerido.
         </div>
@@ -161,6 +165,9 @@
             formControlName="datePublished"
           />
           <label for="datePublished">Fecha de publicación*</label>
+          <app-input-validation
+            [element]="datePublished"
+          ></app-input-validation>
           <div class="invalid-feedback" data-sb-feedback="title:required">
             Fecha de publicación * es requerido.
           </div>
@@ -181,6 +188,7 @@
             formControlName="dateModified"
           />
           <label for="dateModified">Fecha de modificación*</label>
+          <app-input-validation [element]="dateModified"></app-input-validation>
           <div class="invalid-feedback" data-sb-feedback="title:required">
             Fecha de modificación * es requerido.
           </div>
@@ -202,6 +210,7 @@
                 {{ d.name }}
               </option>
             </select>
+            <app-input-validation [element]="format"></app-input-validation>
           </div>
           <div class="form-text">El formato del documento</div>
         </div>
@@ -217,6 +226,9 @@
                 {{ d.name }}
               </option>
             </select>
+            <app-input-validation
+              [element]="doc_language"
+            ></app-input-validation>
           </div>
           <div class="form-text">Especifica el idioma del documento.</div>
         </div>
@@ -229,6 +241,7 @@
           type="button"
           class="btn btn-danger btn-add"
           (click)="addNewDocument()"
+          [disabled]="!documentForm.valid"
         >
           Agregar documento
         </button>
