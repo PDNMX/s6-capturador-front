@@ -75,7 +75,7 @@
   <form [formGroup]="documentForm">
     <div class="row">
       <div class="col-12">
-        <label for="">Tipo de documento</label>
+        <label for="">Tipo de documento *</label>
       </div>
       <div class="form-floating col mb-0">
         <select class="form-select" formControlName="documentType">
@@ -83,6 +83,10 @@
             {{ d.title }}
           </option>
         </select>
+        <app-input-validation
+          [element]="documentType"
+          [message]="'Debe seleccionar un tipo de documento'"
+        ></app-input-validation>
         <p>
           {{ getDocumentTypeDesc(documentForm.value.documentType) }}
         </p>
@@ -121,10 +125,8 @@
           placeholder="URL*"
           formControlName="title"
         />
-        <label for="title">Titulo*</label>
-        <div class="invalid-feedback" data-sb-feedback="title:required">
-          Titulo * es requerido.
-        </div>
+        <label for="title">Titulo *</label>
+        <app-input-validation [element]="title"></app-input-validation>
         <div class="form-text">El título del documento.</div>
       </div>
     </div>
@@ -135,11 +137,11 @@
           class="form-control"
           id="description"
           type="text"
-          placeholder="Descripción*"
+          placeholder="Descripción"
           style="height: 100px"
           formControlName="description"
         ></textarea>
-        <label for="description">Descripción*</label>
+        <label for="description">Descripción</label>
         <div class="invalid-feedback" data-sb-feedback="description:required">
           Descripción * es requerido.
         </div>
@@ -158,14 +160,11 @@
           class="form-control"
           id="URL"
           type="text"
-          data-sb-validations="required"
-          placeholder="URL*"
+          placeholder="URL *"
           formControlName="url"
         />
-        <label for="URL">URL*</label>
-        <div class="invalid-feedback" data-sb-feedback="title:required">
-          URL * es requerido.
-        </div>
+        <label for="URL">URL *</label>
+        <app-input-validation [element]="url"></app-input-validation>
         <div class="form-text">
           Un enlace directo al documento o archivo adjunto. El servidor que da
           acceso a este documento debe de estar configurado para reportar
@@ -180,13 +179,10 @@
           class="form-control"
           id="datePublished"
           type="date"
-          data-sb-validations="required"
           formControlName="datePublished"
         />
-        <label for="datePublished">Fecha de publicación*</label>
-        <div class="invalid-feedback" data-sb-feedback="title:required">
-          Fecha de publicación * es requerido.
-        </div>
+        <label for="datePublished">Fecha de publicación *</label>
+        <app-input-validation [element]="datePublished"></app-input-validation>
         <div class="form-text">
           La fecha de publicación del documento. Esto es particularmente
           importante para documentos relevantes desde el punto de vista legal,
@@ -198,13 +194,10 @@
           class="form-control"
           id="dateModified"
           type="date"
-          data-sb-validations="required"
           formControlName="dateModified"
         />
-        <label for="dateModified">Fecha de modificación*</label>
-        <div class="invalid-feedback" data-sb-feedback="title:required">
-          Fecha de modificación * es requerido.
-        </div>
+        <label for="dateModified">Fecha de modificación *</label>
+        <app-input-validation [element]="dateModified"></app-input-validation>
         <div class="form-text">
           Fecha en que se modificó por última vez el documento.
         </div>
@@ -214,7 +207,7 @@
       <div class="col-6">
         <div class="row">
           <div class="col-12">
-            <label for="format">Formato</label>
+            <label for="format">Formato *</label>
           </div>
           <div class="form-floating col mb-3">
             <select class="form-select" formControlName="format">
@@ -222,6 +215,7 @@
                 {{ d.name }}
               </option>
             </select>
+            <app-input-validation [element]="format"></app-input-validation>
             <div class="form-text">
               El formato del documento, utilizando la lista de códigos abierta
               <a
@@ -239,7 +233,7 @@
       <div class="col-6">
         <div class="row">
           <div class="col-12">
-            <label for="language">Idioma</label>
+            <label for="language">Idioma *</label>
           </div>
           <div class="form-floating col mb-5">
             <select class="form-select" formControlName="language">
@@ -247,6 +241,7 @@
                 {{ d.name }}
               </option>
             </select>
+            <app-input-validation [element]="languageList"></app-input-validation>
             <div class="form-text">
               Especifica el idioma del documento vinculado mediante la
               clasificación
@@ -261,7 +256,8 @@
               la clasificación
               <a href="https://es.wikipedia.org/wiki/ISO_639-1" target="_blank"
                 >ISO639-1</a
-              > es recomendado a menos de que haya una necesidad de usuario clara
+              >
+              es recomendado a menos de que haya una necesidad de usuario clara
               para distinguir sobre el sub-tipo de lenguaje.
             </div>
           </div>
@@ -275,6 +271,7 @@
           type="button"
           class="btn btn-danger btn-add"
           (click)="addNewDocument()"
+          [disabled]="!enableAddDocumentButton()"
         >
           Agregar documento
         </button>

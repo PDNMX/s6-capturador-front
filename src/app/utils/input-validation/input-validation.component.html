@@ -17,6 +17,12 @@
   <small *ngIf="element?.errors?.['maxDateInvalid']" class="text-danger">
     La fecha máxima de extensión debe ser mayor a la fecha de término.
   </small>
+  <small *ngIf="element?.errors?.['dateModifiedInvalid']" class="text-danger">
+    La fecha de modificación no puede ser anterior a la fecha de publicación.
+  </small>
+  <small *ngIf="element?.errors?.['pattern']" class="text-danger">
+    Introduzca una dirección de internet válida.
+  </small>
   <br />
   <small class="text-danger">
     {{ message }}

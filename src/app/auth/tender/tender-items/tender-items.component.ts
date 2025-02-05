@@ -1,6 +1,6 @@
 import { map } from 'rxjs';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormArray, FormBuilder, FormGroup, Validators, FormControl, FormControlDirective } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { ApiService } from 'src/app/services/api.service';
 import { Classifications, Currency } from 'src/utils';
@@ -107,14 +107,14 @@ export class TenderItemsComponent implements OnInit {
   initForm(): void {
     this.itemsForm = this.fb.group({
       description: ['', [Validators.required]],
-      classification: [{}, [Validators.required]],
-      additionalClassifications: this.fb.array([], [Validators.required]),
+      classification: ['', [Validators.required]],
+      additionalClassifications: this.fb.array([]),
       quantity: ['', [Validators.required]],
       unit: this.fb.group({
         name: ['', [Validators.required]],
         value: this.fb.group({
-          amount: [0, [Validators.required]],
-          amountNet: [0, [Validators.required]],
+          amount: ['', [Validators.required]],
+          amountNet: ['', [Validators.required]],
           currency: ['MXN', [Validators.required]],
         }),
       }),
@@ -125,10 +125,33 @@ export class TenderItemsComponent implements OnInit {
     });
   }
 
+  get description() {
+    return this.itemsForm.get('description') as FormControl;
+  }
+  get classificationList() {
+    return this.itemsForm.get('classification') as FormControl;
+  }
+  get quantity() {
+    return this.itemsForm.get('quantity') as FormControl;
+  }
+  get name() {
+    return this.itemsForm.get('unit')?.get('name') as FormControl;
+  }
+  get amount() {
+    return this.itemsForm.get('unit')?.get('value')?.get('amount') as FormControl;
+  }
+  get amountNet() {
+    return this.itemsForm.get('unit')?.get('value')?.get('amountNet') as FormControl;
+  }
+
   selectChange(): void {
     this.itemsForm.controls['unit'].patchValue({
       name: this.itemsForm.value.classification.unit,
     });
+  }
+
+  enableAddItemButton(): boolean {
+    return this.itemsForm.valid;
   }
 
   addNewItem(): void {
