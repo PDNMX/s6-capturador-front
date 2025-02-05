@@ -20,7 +20,7 @@
             placeholder="ProjectId"
             formControlName="projectID"
           />
-          <label for="ProjectId">Identificador de proyecto</label>
+          <label for="ProjectId">Identificador de proyecto*</label>
         </div>
         <div class="form-text">
           Un identificador externo para el proyecto del que forma parte este
@@ -38,7 +38,8 @@
             placeholder="Project"
             formControlName="project"
           />
-          <label for="Project">Título del proyecto</label>
+          <label for="Project">Título del proyecto*</label>
+          <app-input-validation [element]="project"></app-input-validation>
         </div>
         <div class="form-text">
           El nombre del proyecto a través del cual el proceso de contrataciones
@@ -56,7 +57,8 @@
           placeholder="Description"
           formControlName="description"
         />
-        <label for="Description">Fuente del Presupuesto</label>
+        <label for="Description">Fuente del Presupuesto*</label>
+        <app-input-validation [element]="description"></app-input-validation>
       </div>
       <div class="form-text">
         Un texto descriptivo breve de la fuente del presupuesto. Puede usarse
@@ -72,7 +74,8 @@
           placeholder="URI"
           formControlName="uri"
         />
-        <label for="URI">Información vinculada de presupuesto</label>
+        <label for="URI">Información vinculada de presupuesto*</label>
+        <app-input-validation [element]="uri"></app-input-validation>
       </div>
       <div class="form-text">
         Una URI que apunta a un registro leíble por máquina sobre la línea (o
@@ -84,7 +87,7 @@
     </div>
 
     <fieldset class="border p-3 mb-3">
-      <legend>Valor reservado del presupuesto</legend>
+      <legend>Valor reservado del presupuesto*</legend>
       <p>
         El valor reservado en el presupuesto para este proceso de contratación.
         Un valor negativo indica ingresos anticipados al presupuesto como
@@ -103,6 +106,7 @@
                 formControlName="amount"
               />
               <label for="amount">Monto*</label>
+              <app-input-validation [element]="amount"></app-input-validation>
               <div class="invalid-feedback" data-sb-feedback="amount:required">
                 Monto * es requerido.
               </div>

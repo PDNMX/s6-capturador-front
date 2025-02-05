@@ -1,5 +1,11 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import {
+  FormArray,
+  FormBuilder,
+  FormControl,
+  FormGroup,
+  Validators,
+} from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { ApiService, IPartieList } from 'src/app/services/api.service';
 
@@ -108,6 +114,18 @@ export class PlanningRequestForQuotesComponent implements OnInit {
     }
 
     this.loadData();
+  }
+
+  get title(): FormControl {
+    return this.requestForQuotesForm.get('title') as FormControl;
+  }
+
+  get description(): FormControl {
+    return this.requestForQuotesForm.get('description') as FormControl;
+  }
+
+  get uri(): FormControl {
+    return this.requestForQuotesForm.get('uri') as FormControl;
   }
 
   initForm(): void {

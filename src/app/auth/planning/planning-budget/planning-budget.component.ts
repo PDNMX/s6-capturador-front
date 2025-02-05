@@ -1,5 +1,11 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import {
+  FormArray,
+  FormBuilder,
+  FormControl,
+  FormGroup,
+  Validators,
+} from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { ApiService } from 'src/app/services/api.service';
 import { Currency, FormatDocument, getDocumentType, Language } from 'src/utils';
@@ -20,6 +26,22 @@ export class PlanningBudgetComponent implements OnInit {
     private route: ActivatedRoute,
     private api: ApiService
   ) {}
+
+  get project(): FormControl {
+    return this.budgetForm.get('project') as FormControl;
+  }
+
+  get description(): FormControl {
+    return this.budgetForm.get('description') as FormControl;
+  }
+
+  get uri(): FormControl {
+    return this.budgetForm.get('uri') as FormControl;
+  }
+
+  get amount(): FormControl {
+    return this.budgetForm.get('value')?.get('amount') as FormControl;
+  }
 
   loadForm(data: any): void {
     this.budgetForm.patchValue({ ...data });
