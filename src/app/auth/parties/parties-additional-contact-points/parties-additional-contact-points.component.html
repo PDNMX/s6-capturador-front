@@ -85,6 +85,7 @@
         <div class="invalid-feedback" data-sb-feedback="type:required">
           Tipo de punto de contacto * es requerido.
         </div>
+        <app-input-validation [element]="type"></app-input-validation>
       </div>
       <div class="form-text">
         Especificar el tipo de punto de contacto de acuerdo con la lista de
@@ -106,6 +107,7 @@
         <div class="invalid-feedback" data-sb-feedback="name:required">
           Nombre completo * es requerido.
         </div>
+        <app-input-validation [element]="name"></app-input-validation>
       </div>
       <div class="form-text">
         El nombre de la persona de contacto, departamento o punto de contacto en
@@ -127,6 +129,7 @@
         <div class="invalid-feedback" data-sb-feedback="givenName:required">
           Nombre * es requerido.
         </div>
+        <app-input-validation [element]="givenName"></app-input-validation>
       </div>
       <div class="form-text">Nombre de la persona física.</div>
     </div>
@@ -148,6 +151,7 @@
         >
           Primer apellido * es requerido.
         </div>
+        <app-input-validation [element]="patronymicName"></app-input-validation>
       </div>
       <div class="form-text">
         Primer apellido de la persona física. Puede ser utilizado para capturar
@@ -173,6 +177,7 @@
         >
           Segundo apellido * es requerido.
         </div>
+        <app-input-validation [element]="matronymicName"></app-input-validation>
       </div>
       <div class="form-text">
         Segundo apellido de la persona física. Puede ser utilizado para el
@@ -195,6 +200,7 @@
         <div class="invalid-feedback" data-sb-feedback="email:required">
           Correo electrónico * es requerido.
         </div>
+        <app-input-validation [element]="email"></app-input-validation>
       </div>
       <div class="form-text">
         La dirección de correo del punto o persona de contacto.
@@ -215,6 +221,7 @@
         <div class="invalid-feedback" data-sb-feedback="telephone:required">
           Teléfono * es requerido.
         </div>
+        <app-input-validation [element]="telephone"></app-input-validation>
       </div>
       <div class="form-text">
         El número de teléfono del punto o persona de contacto. Este debe de
@@ -236,6 +243,7 @@
         <div class="invalid-feedback" data-sb-feedback="faxNumber:required">
           Número de fax * es requerido.
         </div>
+        <app-input-validation [element]="faxNumber"></app-input-validation>
       </div>
       <div class="form-text">
         El número de fax del punto o persona de contacto. Este debe de incluir
@@ -257,6 +265,7 @@
         <div class="invalid-feedback" data-sb-feedback="url:required">
           URL * es requerido.
         </div>
+        <app-input-validation [element]="url"></app-input-validation>
       </div>
       <div class="form-text">
         Una dirección web para el punto o persona de contacto.
@@ -279,6 +288,15 @@
                   {{ d.name }}
                 </option>
               </select>
+              <small
+                *ngIf="
+                  additionalContactPointsForm.value.availableLanguage.length ===
+                  0
+                "
+                class="text-danger"
+              >
+                Debe registrar al menos un idioma.
+              </small>
             </div>
           </div>
         </div>
@@ -345,6 +363,10 @@
           type="button"
           class="btn btn-danger btn-save"
           (click)="addNewConctactPoint()"
+          [disabled]="
+            !additionalContactPointsForm.valid ||
+            availableLanguageArray.length === 0
+          "
         >
           Guardar Punto de contacto adicional
         </button>

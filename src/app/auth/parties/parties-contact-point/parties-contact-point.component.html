@@ -38,6 +38,7 @@
         <div class="invalid-feedback" data-sb-feedback="type:required">
           Tipo de punto de contacto * es requerido.
         </div>
+        <app-input-validation [element]="type"></app-input-validation>
       </div>
       <div class="form-text">
         Especificar el tipo de punto de contacto de acuerdo con la lista de
@@ -59,6 +60,7 @@
         <div class="invalid-feedback" data-sb-feedback="name:required">
           Nombre completo * es requerido.
         </div>
+        <app-input-validation [element]="name"></app-input-validation>
       </div>
       <div class="form-text">
         El nombre de la persona de contacto, departamento o punto de contacto en
@@ -80,6 +82,7 @@
         <div class="invalid-feedback" data-sb-feedback="givenName:required">
           Nombre * es requerido.
         </div>
+        <app-input-validation [element]="givenName"></app-input-validation>
       </div>
       <div class="form-text">Nombre de la persona física.</div>
     </div>
@@ -101,6 +104,7 @@
         >
           Primer apellido * es requerido.
         </div>
+        <app-input-validation [element]="patronymicName"></app-input-validation>
       </div>
       <div class="form-text">
         Primer apellido de la persona física. Puede ser utilizado para capturar
@@ -120,6 +124,7 @@
           formControlName="matronymicName"
         />
         <label for="matronymicName">Segundo apellido*</label>
+        <app-input-validation [element]="matronymicName"></app-input-validation>
         <div
           class="invalid-feedback"
           data-sb-feedback="matronymicName:required"
@@ -148,6 +153,7 @@
         <div class="invalid-feedback" data-sb-feedback="email:required">
           Correo electrónico * es requerido.
         </div>
+        <app-input-validation [element]="email"></app-input-validation>
       </div>
       <div class="form-text">
         La dirección de correo del punto o persona de contacto.
@@ -169,6 +175,7 @@
           Teléfono * es requerido.
         </div>
       </div>
+      <app-input-validation [element]="telephone"></app-input-validation>
       <div class="form-text">
         El número de teléfono del punto o persona de contacto. Este debe de
         incluir el código de marcación internacional.
@@ -189,6 +196,7 @@
         <div class="invalid-feedback" data-sb-feedback="faxNumber:required">
           Número de fax * es requerido.
         </div>
+        <app-input-validation [element]="faxNumber"></app-input-validation>
       </div>
       <div class="form-text">
         El número de fax del punto o persona de contacto. Este debe de incluir
@@ -210,6 +218,7 @@
         <div class="invalid-feedback" data-sb-feedback="url:required">
           URL * es requerido.
         </div>
+        <app-input-validation [element]="url"></app-input-validation>
       </div>
       <div class="form-text">
         Una dirección web para el punto o persona de contacto.
@@ -217,7 +226,7 @@
     </div>
 
     <fieldset class="border p-3 mb-3">
-      <legend>Idioma(s) disponible(s)</legend>
+      <legend>Idioma(s) disponible(s)*</legend>
       <small>Una matriz de códigos de idioma (por ejemplo, en, es, uk).</small>
       <div class="row">
         <div class="col-10">
@@ -232,6 +241,12 @@
                   {{ d.name }}
                 </option>
               </select>
+              <small
+                *ngIf="contactPointForm.value.availableLanguage.length === 0"
+                class="text-danger"
+              >
+                Debe registrar al menos un idioma.
+              </small>
             </div>
           </div>
         </div>
@@ -290,7 +305,14 @@
 
     <div class="row">
       <div class="col">
-        <button type="button" class="btn btn-danger btn-save" (click)="save()">
+        <button
+          type="button"
+          class="btn btn-danger btn-save"
+          (click)="save()"
+          [disabled]="
+            !contactPointForm.valid || availableLanguageArray.length === 0
+          "
+        >
           Guardar punto de contacto
         </button>
       </div>

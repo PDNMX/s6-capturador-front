@@ -25,6 +25,7 @@
         <div class="invalid-feedback" data-sb-feedback="streetAddress:required">
           Calle y número * es requerido.
         </div>
+        <app-input-validation [element]="streetAddress"></app-input-validation>
       </div>
       <div class="form-text">
         La dirección de la calle. Por ejemplo: Viaducto Presidente Miguel Alemán
@@ -46,6 +47,7 @@
         <div class="invalid-feedback" data-sb-feedback="locality:required">
           Localidad * es requerido.
         </div>
+        <app-input-validation [element]="locality"></app-input-validation>
       </div>
       <div class="form-text">
         La localidad. Por ejemplo: Alcaldia Miguel Hidalgo
@@ -66,6 +68,7 @@
         <div class="invalid-feedback" data-sb-feedback="region:required">
           Región * es requerido.
         </div>
+        <app-input-validation [element]="region"></app-input-validation>
       </div>
       <div class="form-text">La región. Por ejemplo: Ciudad de México</div>
     </div>
@@ -84,14 +87,12 @@
         <div class="invalid-feedback" data-sb-feedback="postalCode:required">
           Código postal * es requerido.
         </div>
+        <app-input-validation [element]="postalCode"></app-input-validation>
       </div>
       <div class="form-text">El código postal. Por ejemplo: 11800</div>
     </div>
 
     <div class="row">
-      <div class="col-12">
-        <label for="countryName">País</label>
-      </div>
       <div class="form-floating col mb-5">
         <select
           class="form-select"
@@ -106,13 +107,20 @@
             {{ country.name }}
           </option>
         </select>
+        <label for="countryName">País*</label>
         <div class="form-text">El nombre del país. Por ejemplo: México.</div>
+        <app-input-validation [element]="countryName"></app-input-validation>
       </div>
     </div>
 
     <div class="row">
       <div class="col">
-        <button type="button" class="btn btn-danger btn-save" (click)="save()">
+        <button
+          type="button"
+          class="btn btn-danger btn-save"
+          (click)="save()"
+          [disabled]="!addressForm.valid"
+        >
           Guardar direccion
         </button>
       </div>

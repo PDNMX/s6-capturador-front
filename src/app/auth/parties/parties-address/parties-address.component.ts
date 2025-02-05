@@ -1,5 +1,10 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import {
+  FormBuilder,
+  FormControl,
+  FormGroup,
+  Validators,
+} from '@angular/forms';
 import Countries from 'src/utils/countries';
 
 @Component({
@@ -19,6 +24,26 @@ export class PartiesAddressComponent implements OnInit {
 
   ngOnInit(): void {
     this.initForm();
+  }
+
+  get streetAddress(): FormControl {
+    return this.addressForm.get('streetAddress') as FormControl;
+  }
+
+  get locality(): FormControl {
+    return this.addressForm.get('locality') as FormControl;
+  }
+
+  get region(): FormControl {
+    return this.addressForm.get('region') as FormControl;
+  }
+
+  get postalCode(): FormControl {
+    return this.addressForm.get('postalCode') as FormControl;
+  }
+
+  get countryName(): FormControl {
+    return this.addressForm.get('countryName') as FormControl;
   }
 
   initForm(): void {

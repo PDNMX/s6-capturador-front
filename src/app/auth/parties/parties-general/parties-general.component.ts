@@ -1,5 +1,11 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
-import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import {
+  FormArray,
+  FormBuilder,
+  FormControl,
+  FormGroup,
+  Validators,
+} from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { ApiService, IPartieList } from 'src/app/services/api.service';
 import { PartyRole } from 'src/utils';
@@ -150,6 +156,22 @@ export class PartiesGeneralComponent implements OnInit {
     }
   }
 
+  get add_schema(): FormControl {
+    return this.additionalIdentifiersForm.get('schema') as FormControl;
+  }
+
+  get add_id(): FormControl {
+    return this.additionalIdentifiersForm.get('id') as FormControl;
+  }
+
+  get add_uri(): FormControl {
+    return this.additionalIdentifiersForm.get('uri') as FormControl;
+  }
+
+  get add_legalName(): FormControl {
+    return this.additionalIdentifiersForm.get('legalName') as FormControl;
+  }
+
   initAdditionalIdentifiersForm(): void {
     this.additionalIdentifiersForm = this.fb.group({
       schema: ['', [Validators.required]],
@@ -158,13 +180,63 @@ export class PartiesGeneralComponent implements OnInit {
       legalName: ['', [Validators.required]],
     });
 
-     // Listener para el cambio de schema
-     this.additionalIdentifiersForm.get('schema')?.valueChanges.subscribe(schemaCode => {
-      const selectedScheme = this.organizationSchemes.find(scheme => scheme.code === schemaCode);
-      if (selectedScheme) {
-        this.additionalIdentifiersForm.get('uri')?.setValue(selectedScheme.url);
-      }
-    });
+    // Listener para el cambio de schema
+    this.additionalIdentifiersForm
+      .get('schema')
+      ?.valueChanges.subscribe((schemaCode) => {
+        const selectedScheme = this.organizationSchemes.find(
+          (scheme) => scheme.code === schemaCode
+        );
+        if (selectedScheme) {
+          this.additionalIdentifiersForm
+            .get('uri')
+            ?.setValue(selectedScheme.url);
+        }
+      });
+  }
+
+  get name(): FormControl {
+    return this.generalForm.get('name') as FormControl;
+  }
+
+  get position(): FormControl {
+    return this.generalForm.get('position') as FormControl;
+  }
+
+  get identifier(): FormGroup {
+    return this.generalForm.get('identifier') as FormGroup;
+  }
+
+  get legalPersonality(): FormControl {
+    return this.identifier.get('legalPersonality') as FormControl;
+  }
+
+  get schema(): FormControl {
+    return this.identifier.get('schema') as FormControl;
+  }
+
+  get id(): FormControl {
+    return this.identifier.get('id') as FormControl;
+  }
+
+  get uri(): FormControl {
+    return this.identifier.get('uri') as FormControl;
+  }
+
+  get legalName(): FormControl {
+    return this.identifier.get('legalName') as FormControl;
+  }
+
+  get givenName(): FormControl {
+    return this.identifier.get('givenName') as FormControl;
+  }
+
+  get patronymicName(): FormControl {
+    return this.identifier.get('patronymicName') as FormControl;
+  }
+
+  get matronymicName(): FormControl {
+    return this.identifier.get('matronymicName') as FormControl;
   }
 
   initForm(): void {

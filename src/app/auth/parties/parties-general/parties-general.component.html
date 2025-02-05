@@ -29,6 +29,12 @@
                   {{ d.title }}
                 </option>
               </select>
+              <small
+                *ngIf="generalForm.value.roles.length === 0"
+                class="text-danger"
+              >
+                Debe registrar al menos una parte involucrada.
+              </small>
               <p>
                 {{ getRoleByCode(optRole)?.description }}
               </p>
@@ -96,6 +102,7 @@
         <div class="invalid-feedback" data-sb-feedback="name:required">
           Nombre común * es requerido.
         </div>
+        <app-input-validation [element]="name"></app-input-validation>
       </div>
       <div class="form-text">
         Un nombre común para esta organización u otro participante en el proceso
@@ -121,6 +128,7 @@
         <div class="invalid-feedback" data-sb-feedback="position:required">
           Cargo * es requerido.
         </div>
+        <app-input-validation [element]="position"></app-input-validation>
       </div>
       <div class="form-text">
         El cargo que ocupa el actor. Puede utilizarse para definir el cargo
@@ -154,6 +162,12 @@
                   {{ d.name }}
                 </option>
               </select>
+              <small
+                *ngIf="generalForm.value.memberOf.length === 0"
+                class="text-danger"
+              >
+                Debe registrar al menos un miembro.
+              </small>
             </div>
           </div>
         </div>
@@ -227,6 +241,9 @@
             <option value="moral">Persona Moral</option>
           </select>
           <label for="legalPersonality">Personalidad jurídica*</label>
+          <app-input-validation
+            [element]="legalPersonality"
+          ></app-input-validation>
           <div
             class="invalid-feedback"
             *ngIf="generalForm.get('identifier.legalPersonality')?.errors?.['required'] && 
@@ -256,6 +273,7 @@
           <div class="invalid-feedback" data-sb-feedback="legalName:required">
             Nombre legal * es requerido.
           </div>
+          <app-input-validation [element]="legalName"></app-input-validation>
         </div>
         <div class="form-text">
           El nombre legalmente registrado de la organización.
@@ -281,6 +299,7 @@
             >
               Nombre * es requerido.
             </div>
+            <app-input-validation [element]="givenName"></app-input-validation>
           </div>
           <div class="form-text">Nombre de la persona física.</div>
         </div>
@@ -303,6 +322,9 @@
             >
               Primer apellido * es requerido.
             </div>
+            <app-input-validation
+              [element]="patronymicName"
+            ></app-input-validation>
           </div>
           <div class="form-text">Primer apellido de la persona física.</div>
         </div>
@@ -325,6 +347,9 @@
             >
               Segundo apellido * es requerido.
             </div>
+            <app-input-validation
+              [element]="matronymicName"
+            ></app-input-validation>
           </div>
           <div class="form-text">Segundo apellido de la persona física.</div>
         </div>
@@ -351,6 +376,7 @@
             <div class="invalid-feedback" data-sb-feedback="schema:required">
               Esquema * es requerido.
             </div>
+            <app-input-validation [element]="schema"></app-input-validation>
           </div>
           <div class="form-text">
             El campo esquema se usa para indicar o registrar de dónde se toma el
@@ -374,9 +400,8 @@
               formControlName="id"
             />
             <label for="id">RFC*</label>
-            <div class="invalid-feedback" data-sb-feedback="id:required">
-              RFC * es requerido.
-            </div>
+            <div data-sb-feedback="id:required">RFC * es requerido.</div>
+            <app-input-validation [element]="id"></app-input-validation>
           </div>
           <div class="form-text">
             El identificador de la organización en el esquema seleccionado.
@@ -397,6 +422,10 @@
             <div class="invalid-feedback" data-sb-feedback="uri:required">
               URI * es requerido.
             </div>
+            <app-input-validation
+              class="invalid-feedback"
+              [element]="uri"
+            ></app-input-validation>
           </div>
           <div class="form-text">
             Una URI para identificar a la organización, como los proveídos por
@@ -435,6 +464,9 @@
                       placeholder="Identificador*"
                       formControlName="id"
                     />
+                    <app-input-validation
+                      [element]="add_id"
+                    ></app-input-validation>
                   </th>
                   <th>
                     <input
@@ -445,6 +477,9 @@
                       placeholder="Nombre legal*"
                       formControlName="legalName"
                     />
+                    <app-input-validation
+                      [element]="add_legalName"
+                    ></app-input-validation>
                   </th>
                   <th>
                     <select
@@ -461,6 +496,9 @@
                         {{ scheme.code }}
                       </option>
                     </select>
+                    <app-input-validation
+                      [element]="add_schema"
+                    ></app-input-validation>
                   </th>
                   <th>
                     <input
@@ -472,12 +510,16 @@
                       formControlName="uri"
                       readonly
                     />
+                    <app-input-validation
+                      [element]="add_uri"
+                    ></app-input-validation>
                   </th>
                   <th>
                     <button
                       type="button"
                       class="btn btn-danger btn-add"
                       (click)="addAdditionalIdentifiers()"
+                      [disabled]="!additionalIdentifiersForm.valid"
                     >
                       Agregar
                     </button>
@@ -545,7 +587,12 @@
 
     <div class="row">
       <div class="col">
-        <button type="button" class="btn btn-danger btn-save" (click)="save()">
+        <button
+          type="button"
+          class="btn btn-danger btn-save"
+          (click)="save()"
+          [disabled]="!generalForm.valid"
+        >
           Guardar
         </button>
       </div>
