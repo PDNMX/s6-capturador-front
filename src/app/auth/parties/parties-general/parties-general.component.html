@@ -99,9 +99,6 @@
           formControlName="name"
         />
         <label for="name">Nombre común*</label>
-        <div class="invalid-feedback" data-sb-feedback="name:required">
-          Nombre común * es requerido.
-        </div>
         <app-input-validation [element]="name"></app-input-validation>
       </div>
       <div class="form-text">
@@ -125,9 +122,6 @@
           formControlName="position"
         />
         <label for="position">Cargo*</label>
-        <div class="invalid-feedback" data-sb-feedback="position:required">
-          Cargo * es requerido.
-        </div>
         <app-input-validation [element]="position"></app-input-validation>
       </div>
       <div class="form-text">
@@ -244,13 +238,6 @@
           <app-input-validation
             [element]="legalPersonality"
           ></app-input-validation>
-          <div
-            class="invalid-feedback"
-            *ngIf="generalForm.get('identifier.legalPersonality')?.errors?.['required'] && 
-                   generalForm.get('identifier.legalPersonality')?.touched"
-          >
-            Personalidad jurídica es requerido.
-          </div>
         </div>
 
         <div class="form-text">
@@ -270,9 +257,6 @@
             formControlName="legalName"
           />
           <label for="legalName">Nombre legal*</label>
-          <div class="invalid-feedback" data-sb-feedback="legalName:required">
-            Nombre legal * es requerido.
-          </div>
           <app-input-validation [element]="legalName"></app-input-validation>
         </div>
         <div class="form-text">
@@ -291,14 +275,6 @@
               formControlName="givenName"
             />
             <label for="givenName">Nombre*</label>
-            <div
-              class="invalid-feedback"
-              *ngIf="generalForm.get('identifier.givenName')?.errors?.['required'] && 
-                     generalForm.get('identifier.givenName')?.touched &&
-                     generalForm.get('identifier.legalPersonality')?.value === 'fisica'"
-            >
-              Nombre * es requerido.
-            </div>
             <app-input-validation [element]="givenName"></app-input-validation>
           </div>
           <div class="form-text">Nombre de la persona física.</div>
@@ -314,14 +290,6 @@
               formControlName="patronymicName"
             />
             <label for="patronymicName">Primer apellido*</label>
-            <div
-              class="invalid-feedback"
-              *ngIf="generalForm.get('identifier.patronymicName')?.errors?.['required'] && 
-                     generalForm.get('identifier.patronymicName')?.touched &&
-                     generalForm.get('identifier.legalPersonality')?.value === 'fisica'"
-            >
-              Primer apellido * es requerido.
-            </div>
             <app-input-validation
               [element]="patronymicName"
             ></app-input-validation>
@@ -339,14 +307,6 @@
               formControlName="matronymicName"
             />
             <label for="matronymicName">Segundo apellido*</label>
-            <div
-              class="invalid-feedback"
-              *ngIf="generalForm.get('identifier.matronymicName')?.errors?.['required'] && 
-                     generalForm.get('identifier.matronymicName')?.touched &&
-                     generalForm.get('identifier.legalPersonality')?.value === 'fisica'"
-            >
-              Segundo apellido * es requerido.
-            </div>
             <app-input-validation
               [element]="matronymicName"
             ></app-input-validation>
@@ -373,9 +333,6 @@
               </option>
             </select>
             <label for="schema">Esquema *</label>
-            <div class="invalid-feedback" data-sb-feedback="schema:required">
-              Esquema * es requerido.
-            </div>
             <app-input-validation [element]="schema"></app-input-validation>
           </div>
           <div class="form-text">
@@ -419,13 +376,7 @@
               formControlName="uri"
             />
             <label for="uri">URI*</label>
-            <div class="invalid-feedback" data-sb-feedback="uri:required">
-              URI * es requerido.
-            </div>
-            <app-input-validation
-              class="invalid-feedback"
-              [element]="uri"
-            ></app-input-validation>
+            <app-input-validation [element]="uri"></app-input-validation>
           </div>
           <div class="form-text">
             Una URI para identificar a la organización, como los proveídos por
