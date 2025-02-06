@@ -1,6 +1,6 @@
 import { map } from 'rxjs';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormArray, FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { ApiService, IPartieList } from 'src/app/services/api.service';
 
@@ -113,6 +113,10 @@ export class TenderMeetingsComponent implements OnInit {
     });
   }
 
+  get date() {
+    return this.meetingForm.get('date') as FormControl;
+  }
+
   addAttendess(): void {
     const opt = this.attendeesForm.value.id;
     this.attendeesArray.push(this.fb.group({ ...opt }));
@@ -129,6 +133,10 @@ export class TenderMeetingsComponent implements OnInit {
 
   deleteOfficials(index: number): void {
     this.officialsArray.removeAt(index);
+  }
+
+  enableAddClarificationMeetingButton(): boolean {
+    return this.meetingForm.valid;
   }
 
   addNewClarificationMeeting(): void {
