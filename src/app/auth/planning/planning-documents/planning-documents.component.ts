@@ -4,6 +4,8 @@ import {
   FormControl,
   FormGroup,
   Validators,
+  AbstractControl,
+  ValidationErrors,
 } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { ApiService } from 'src/app/services/api.service';
@@ -130,17 +132,53 @@ export class PlanningDocumentsComponent implements OnInit {
     return this.documentForm.get('language') as FormControl;
   }
 
+  private dateComparisonValidator(): (
+    group: AbstractControl
+  ) => ValidationErrors | null {
+    return (group: AbstractControl): ValidationErrors | null => {
+      const datePublished = group.get('datePublished')?.value;
+      const dateModifiedControl = group.get('dateModified'); // Obtén el control
+      const dateModified = dateModifiedControl?.value;
+
+      if (
+        datePublished &&
+        dateModified &&
+        new Date(dateModified) < new Date(datePublished)
+      ) {
+        const currentErrors = dateModifiedControl?.errors || {}; // Obtén los errores actuales
+        dateModifiedControl?.setErrors({
+          ...currentErrors,
+          dateModifiedInvalid: true,
+        });
+        return { dateModifiedInvalid: true };
+      }
+
+      if (dateModifiedControl?.errors) {
+        const { dateModifiedInvalid, ...otherErrors } =
+          dateModifiedControl.errors;
+        dateModifiedControl.setErrors(
+          Object.keys(otherErrors).length > 0 ? otherErrors : null
+        );
+      }
+
+      return null;
+    };
+  }
+
   initForm(): void {
-    this.documentForm = this.fb.group({
-      documentType: ['', [Validators.required]],
-      title: ['', [Validators.required]],
-      description: ['', [Validators.required]],
-      url: ['', [Validators.required]],
-      datePublished: ['', [Validators.required]],
-      dateModified: ['', [Validators.required]],
-      format: ['', [Validators.required]],
-      language: ['', [Validators.required]],
-    });
+    this.documentForm = this.fb.group(
+      {
+        documentType: ['', [Validators.required]],
+        title: ['', [Validators.required]],
+        description: ['', [Validators.required]],
+        url: ['', [Validators.required]],
+        datePublished: ['', [Validators.required]],
+        dateModified: ['', [Validators.required]],
+        format: ['', [Validators.required]],
+        language: ['', [Validators.required]],
+      },
+      { validators: this.dateComparisonValidator() }
+    );
   }
 
   addNewDocument(): void {
