@@ -5,6 +5,8 @@ import {
   Validators,
   FormArray,
   FormControl,
+  AbstractControl,
+  ValidationErrors,
 } from '@angular/forms';
 import { FormatDocument, getDocumentType, Language } from 'src/utils';
 import { ApiService } from 'src/app/services/api.service';
@@ -131,6 +133,39 @@ export class AwardsDocumentsComponent implements OnInit {
     return this.documentsForm.get('language') as FormControl;
   }
 
+  private dateComparisonValidator(): (
+        group: AbstractControl
+      ) => ValidationErrors | null {
+        return (group: AbstractControl): ValidationErrors | null => {
+          const datePublished = group.get('datePublished')?.value;
+          const dateModifiedControl = group.get('dateModified'); // Obtén el control
+          const dateModified = dateModifiedControl?.value;
+    
+          if (
+            datePublished &&
+            dateModified &&
+            new Date(dateModified) < new Date(datePublished)
+          ) {
+            const currentErrors = dateModifiedControl?.errors || {}; // Obtén los errores actuales
+            dateModifiedControl?.setErrors({
+              ...currentErrors,
+              dateModifiedInvalid: true,
+            });
+            return { dateModifiedInvalid: true };
+          }
+    
+          if (dateModifiedControl?.errors) {
+            const { dateModifiedInvalid, ...otherErrors } =
+              dateModifiedControl.errors;
+            dateModifiedControl.setErrors(
+              Object.keys(otherErrors).length > 0 ? otherErrors : null
+            );
+          }
+    
+          return null;
+        };
+      }
+
   initForm(): void {
     this.documentsForm = this.fb.group({
       documentType: ['', Validators.required],
@@ -141,7 +176,7 @@ export class AwardsDocumentsComponent implements OnInit {
       dateModified: ['', Validators.required],
       format: ['', Validators.required],
       language: ['', Validators.required],
-    });
+    }, { validators: this.dateComparisonValidator() });
   }
   addNewDocument(): void {
     this.mostrarSpinner = true;

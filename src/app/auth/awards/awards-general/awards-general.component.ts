@@ -5,6 +5,8 @@ import {
   FormControl,
   FormGroup,
   Validators,
+  AbstractControl,
+  ValidationErrors,
 } from '@angular/forms';
 import { Currency, Language, AwardStatus } from 'src/utils';
 import { ApiService } from 'src/app/services/api.service';
@@ -119,6 +121,10 @@ export class AwardsGeneralComponent implements OnInit {
     return this.generalForm.get('contractPeriod') as FormGroup;
   }
 
+  getControl(name: string): FormControl {
+    return this.contractPeriod.get(name) as FormControl;
+  }
+
   get startDate(): FormControl {
     return this.contractPeriod.get('startDate') as FormControl;
   }
@@ -134,8 +140,30 @@ export class AwardsGeneralComponent implements OnInit {
   get durationInDays(): FormControl {
     return this.contractPeriod.get('durationInDays') as FormControl;
   }
+  
+  private dateComparisonValidator(): Validators {
+    return (group: AbstractControl): ValidationErrors | null => {
+      const startDate = group.get('startDate')?.value;
+      const endDate = group.get('endDate')?.value;
+      const maxExtentDate = group.get('maxExtentDate')?.value;
 
-  // end contractPeriod
+      if (startDate && endDate && new Date(endDate) < new Date(startDate)) {
+        group.get('endDate')?.setErrors({ dateInvalid: true });
+        return { dateInvalid: true };
+      }
+
+      if (
+        maxExtentDate &&
+        endDate &&
+        new Date(maxExtentDate) < new Date(endDate)
+      ) {
+        group.get('maxExtentDate')?.setErrors({ maxDateInvalid: true });
+        return { maxDateInvalid: true };
+      }
+
+      return null;
+    };
+  }
 
   initForm(): void {
     this.generalForm = this.fb.group({
@@ -154,7 +182,7 @@ export class AwardsGeneralComponent implements OnInit {
         endDate: ['', [Validators.required]],
         maxExtentDate: ['', [Validators.required]],
         durationInDays: ['', [Validators.required]],
-      }),
+      }, { validators: this.dateComparisonValidator() }),
     });
   }
   getAwardStatusDesc(code: string): string {
