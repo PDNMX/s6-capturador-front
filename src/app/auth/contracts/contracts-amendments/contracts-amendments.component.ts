@@ -1,5 +1,10 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import {
+  FormBuilder,
+  FormControl,
+  FormGroup,
+  Validators,
+} from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { ApiService } from 'src/app/services/api.service';
 
@@ -55,9 +60,23 @@ export class ContractsAmendmentsComponent {
       date: ['', [Validators.required]],
       rationale: ['', [Validators.required]],
       description: ['', [Validators.required]],
-      amendsReleaseID: ['', [Validators.required]],
-      releaseID: ['', [Validators.required]],
+      amendsReleaseID: [''],
+      releaseID: [''],
     });
+  }
+
+  get date() {
+    return this.amendmentsForm.get('date') as FormControl;
+  }
+  get rationale() {
+    return this.amendmentsForm.get('rationale') as FormControl;
+  }
+  get description() {
+    return this.amendmentsForm.get('description') as FormControl;
+  }
+
+  enableAddAmendmentButton(): boolean {
+    return this.amendmentsForm.valid && this.amendmentsForm.dirty;
   }
 
   addNewAmendment(): void {

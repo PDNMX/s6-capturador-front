@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormArray, FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { ApiService } from 'src/app/services/api.service';
 import { ImplementationStatus } from 'src/utils';
@@ -63,6 +63,10 @@ export class ContractsImplementationComponent implements OnInit {
     this.route.paramMap.subscribe((params: any) => {
       this.record_id = params.get('id');
     });
+  }
+
+  get status() {
+    return this.implementationForm.get('status') as FormControl;
   }
 
   getImplementationStatusDesc(code: string): string {

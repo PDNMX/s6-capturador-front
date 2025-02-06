@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormArray, Validators, FormBuilder, FormGroup } from '@angular/forms';
+import { FormArray, Validators, FormBuilder, FormGroup, AbstractControl, ValidationErrors } from '@angular/forms';
 import { ApiService } from 'src/app/services/api.service';
 import { ActivatedRoute } from '@angular/router';
 
@@ -172,10 +172,10 @@ export class ContractsComponent implements OnInit {
         endDate: ['', [Validators.required]],
         maxExtentDate: ['', [Validators.required]],
         durationInDays: ['', [Validators.required]],
-      }),
+      },{ validators: this.dateComparisonValidator() }),
       value: this.fb.group({
-        amount: [0, [Validators.required]],
-        amountNet: [0, [Validators.required]],
+        amount: ["", [Validators.required]],
+        amountNet: ["", [Validators.required]],
         currency: ['MXN', [Validators.required]],
         exchangeRates: this.fb.array([]),
       }),
@@ -194,6 +194,30 @@ export class ContractsComponent implements OnInit {
       milestones: this.fb.array([]),
       amendments: this.fb.array([]),
     });
+  }
+
+  private dateComparisonValidator(): Validators {
+    return (group: AbstractControl): ValidationErrors | null => {
+      const startDate = group.get('startDate')?.value;
+      const endDate = group.get('endDate')?.value;
+      const maxExtentDate = group.get('maxExtentDate')?.value;
+
+      if (startDate && endDate && new Date(endDate) < new Date(startDate)) {
+        group.get('endDate')?.setErrors({ dateInvalid: true });
+        return { dateInvalid: true };
+      }
+
+      if (
+        maxExtentDate &&
+        endDate &&
+        new Date(maxExtentDate) < new Date(endDate)
+      ) {
+        group.get('maxExtentDate')?.setErrors({ maxDateInvalid: true });
+        return { maxDateInvalid: true };
+      }
+
+      return null;
+    };
   }
 
   saveData(): void {
