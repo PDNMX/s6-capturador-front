@@ -78,9 +78,6 @@
           formControlName="description"
         ></textarea>
         <label for="description">Descripción *</label>
-        <div class="invalid-feedback" data-sb-feedback="description:required">
-          Descripción * es requerido.
-        </div>
         <app-input-validation [element]="description"></app-input-validation>
       </div>
       <div class="form-text">
@@ -196,9 +193,6 @@
           formControlName="quantity"
         />
         <label for="quantity">Cantidad*</label>
-        <div class="invalid-feedback" data-sb-feedback="quantity:required">
-          Cantidad * es requerido.
-        </div>
         <app-input-validation [element]="quantity"></app-input-validation>
       </div>
       <div class="form-text">El número de unidades que se dan.</div>
@@ -215,9 +209,6 @@
           formControlName="name"
         />
         <label for="unit">Unidad *</label>
-        <div class="invalid-feedback" data-sb-feedback="unit:required">
-          Unidad * es requerido.
-        </div>
         <app-input-validation [element]="name"></app-input-validation>
       </div>
       <div class="form-text">
@@ -237,9 +228,6 @@
                 formControlName="amount"
               />
               <label for="amount">Monto *</label>
-              <div class="invalid-feedback" data-sb-feedback="amount:required">
-                Monto * es requerido.
-              </div>
               <app-input-validation [element]="amount"></app-input-validation>
             </div>
             <div class="form-text">Monto como una cifra.</div>

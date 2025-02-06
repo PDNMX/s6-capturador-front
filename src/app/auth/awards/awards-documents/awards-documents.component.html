@@ -90,9 +90,6 @@
         />
         <label for="title">Titulo *</label>
         <app-input-validation [element]="title"></app-input-validation>
-        <div class="invalid-feedback" data-sb-feedback="title:required">
-          Titulo * es requerido.
-        </div>
       </div>
       <div class="form-text">El título del documento.</div>
     </div>
@@ -109,9 +106,6 @@
         ></textarea>
         <label for="description">Descripción *</label>
         <app-input-validation [element]="description"></app-input-validation>
-        <div class="invalid-feedback" data-sb-feedback="description:required">
-          Descripción * es requerido.
-        </div>
       </div>
       <div class="form-text">
         Una descripción corta del documento. Se recomienda que las descripciones
@@ -131,9 +125,6 @@
         />
         <label for="URL">URL *</label>
         <app-input-validation [element]="url"></app-input-validation>
-        <div class="invalid-feedback" data-sb-feedback="title:required">
-          URL * es requerido.
-        </div>
       </div>
       <div class="form-text">
         Un enlace directo al documento o archivo adjunto. El servidor que da
@@ -155,9 +146,6 @@
           <app-input-validation
             [element]="datePublished"
           ></app-input-validation>
-          <div class="invalid-feedback" data-sb-feedback="title:required">
-            Fecha de publicación * es requerido.
-          </div>
         </div>
         <div class="form-text">
           La fecha de publicación del documento. Esto es particularmente
@@ -177,9 +165,6 @@
           />
           <label for="dateModified">Fecha de modificación *</label>
           <app-input-validation [element]="dateModified"></app-input-validation>
-          <div class="invalid-feedback" data-sb-feedback="title:required">
-            Fecha de modificación * es requerido.
-          </div>
         </div>
         <div class="form-text">
           Fecha en que se modificó por última vez el documento.

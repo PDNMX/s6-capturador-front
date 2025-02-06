@@ -69,9 +69,6 @@
           formControlName="date"
         />
         <label for="datePublished">Fecha de la modificación *</label>
-        <div class="invalid-feedback" data-sb-feedback="title:required">
-          Fecha de enmienda * es requerido.
-        </div>
         <app-input-validation [element]="date"></app-input-validation>
       </div>
       <div class="form-text">La fecha de esta modificación.</div>
@@ -88,9 +85,6 @@
           formControlName="rationale"
         ></textarea>
         <label for="rationale">Justificación*</label>
-        <div class="invalid-feedback" data-sb-feedback="rationale:required">
-          Justificación * es requerido.
-        </div>
         <app-input-validation [element]="rationale"></app-input-validation>
       </div>
       <div class="form-text">Una explicación de la modificación.</div>
@@ -107,9 +101,6 @@
           formControlName="description"
         ></textarea>
         <label for="description">Descripción*</label>
-        <div class="invalid-feedback" data-sb-feedback="description:required">
-          Descripción * es requerido.
-        </div>
         <app-input-validation [element]="description"></app-input-validation>
       </div>
       <div class="form-text">
@@ -129,9 +120,6 @@
           formControlName="amendsReleaseID"
         />
         <label for="URL">Liberación modificada (identificador) *</label>
-        <div class="invalid-feedback" data-sb-feedback="title:required">
-          * es requerido.
-        </div>
         <app-input-validation
           [element]="amendsReleaseID"
         ></app-input-validation>
@@ -154,9 +142,6 @@
           formControlName="releaseID"
         />
         <label for="URL">Difusión de la modificación (identificador) *</label>
-        <div class="invalid-feedback" data-sb-feedback="title:required">
-          * es requerido.
-        </div>
         <app-input-validation [element]="releaseID"></app-input-validation>
       </div>
       <div class="form-text">
