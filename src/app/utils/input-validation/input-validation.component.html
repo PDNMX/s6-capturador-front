@@ -23,6 +23,12 @@
   <small *ngIf="element?.errors?.['pattern']" class="text-danger">
     Introduzca una dirección de internet válida.
   </small>
+  <small *ngIf="element?.errors?.['dateMetInvalid']" class="text-danger">
+    La fecha de cumplimiento no puede ser anterior a la fecha de vencimiento.
+  </small>
+  <small *ngIf="element?.errors?.['dateModifiedInvalidMilestone']" class="text-danger">
+    La fecha de modificación no puede ser anterior a la fecha de vencimiento ni a la fecha de cumplimiento.
+  </small>
   <br />
   <small class="text-danger">
     {{ message }}

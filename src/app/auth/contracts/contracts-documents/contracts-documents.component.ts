@@ -1,5 +1,12 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import {
+  FormBuilder,
+  FormGroup,
+  Validators,
+  FormControl,
+  AbstractControl,
+  ValidationErrors,
+} from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { ApiService } from 'src/app/services/api.service';
 import { FormatDocument, getDocumentType, Language } from 'src/utils';
@@ -96,13 +103,80 @@ export class ContractsDocumentsComponent {
     this.documentForm = this.fb.group({
       documentType: ['', [Validators.required]],
       title: ['', [Validators.required]],
-      description: ['', [Validators.required]],
-      url: ['', [Validators.required]],
+      description: [''],
+      url: [
+        '',
+        [
+          Validators.required,
+          Validators.pattern(
+            /^https?:\/\/(?:[a-zA-Z0-9\-._~%!$&'()*+,;=:@]+|%[0-9A-Fa-f]{2})*(?:\/(?:[a-zA-Z0-9\-._~%!$&'()*+,;=:@]+|%[0-9A-Fa-f]{2})*)*(?:\?(?:[a-zA-Z0-9\-._~%!$&'()*+,;=:@/?]+|%[0-9A-Fa-f]{2})*)?(?:#(?:[a-zA-Z0-9\-._~%!$&'()*+,;=:@/?]+|%[0-9A-Fa-f]{2})*)?$/
+          ),
+        ],
+      ],
       datePublished: ['', [Validators.required]],
       dateModified: ['', [Validators.required]],
       format: ['', [Validators.required]],
       language: ['', [Validators.required]],
-    });
+    }, { validators: this.dateComparisonValidator() });
+  }
+
+  get documentType() {
+    return this.documentForm.get('documentType') as FormControl;
+  }
+  get title() {
+    return this.documentForm.get('title') as FormControl;
+  }
+  get url() {
+    return this.documentForm.get('url') as FormControl;
+  }
+  get datePublished() {
+    return this.documentForm.get('datePublished') as FormControl;
+  }
+  get dateModified() {
+    return this.documentForm.get('dateModified') as FormControl;
+  }
+  get format() {
+    return this.documentForm.get('format') as FormControl;
+  }
+  get languageList() {
+    return this.documentForm.get('language') as FormControl;
+  }
+
+    private dateComparisonValidator(): (
+      group: AbstractControl
+    ) => ValidationErrors | null {
+      return (group: AbstractControl): ValidationErrors | null => {
+        const datePublished = group.get('datePublished')?.value;
+        const dateModifiedControl = group.get('dateModified'); // Obtén el control
+        const dateModified = dateModifiedControl?.value;
+  
+        if (
+          datePublished &&
+          dateModified &&
+          new Date(dateModified) < new Date(datePublished)
+        ) {
+          const currentErrors = dateModifiedControl?.errors || {}; // Obtén los errores actuales
+          dateModifiedControl?.setErrors({
+            ...currentErrors,
+            dateModifiedInvalid: true,
+          });
+          return { dateModifiedInvalid: true };
+        }
+  
+        if (dateModifiedControl?.errors) {
+          const { dateModifiedInvalid, ...otherErrors } =
+            dateModifiedControl.errors;
+          dateModifiedControl.setErrors(
+            Object.keys(otherErrors).length > 0 ? otherErrors : null
+          );
+        }
+  
+        return null;
+      };
+    }
+
+  enableAddDocumentButton(): boolean {
+    return this.documentForm.valid && this.documentForm.dirty;
   }
 
   addNewDocument(): void {

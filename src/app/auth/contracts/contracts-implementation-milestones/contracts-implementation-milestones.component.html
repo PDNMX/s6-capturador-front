@@ -66,10 +66,8 @@
             placeholder="URL*"
             formControlName="title"
           />
-          <label for="title">Titulo*</label>
-          <div class="invalid-feedback" data-sb-feedback="title:required">
-            Titulo * es requerido.
-          </div>
+          <label for="title">Titulo *</label>
+          <app-input-validation [element]="title"></app-input-validation>
           <div class="form-text">Título del hito.</div>
         </div>
       </div>
@@ -81,7 +79,8 @@
               {{ d.title }}
             </option>
           </select>
-          <label for="type">Tipo de hito</label>
+          <app-input-validation [element]="type"></app-input-validation>
+          <label for="type">Tipo de hito *</label>
           <div class="form-text">
             La naturaleza del hito, tomado de la lista de códigos milestoneType.
           </div>
@@ -99,10 +98,8 @@
             style="height: 100px"
             formControlName="description"
           ></textarea>
-          <label for="description">Descripción*</label>
-          <div class="invalid-feedback" data-sb-feedback="description:required">
-            Descripción * es requerido.
-          </div>
+          <label for="description">Descripción *</label>
+          <app-input-validation [element]="description"></app-input-validation>
           <div class="form-text">Una descripción del hito.</div>
         </div>
       </div>
@@ -117,10 +114,8 @@
             placeholder="URL*"
             formControlName="code"
           />
-          <label for="URL">Codigo*</label>
-          <div class="invalid-feedback" data-sb-feedback="title:required">
-            Codigo * es requerido.
-          </div>
+          <label for="URL">Codigo *</label>
+          <app-input-validation [element]="code"></app-input-validation>
           <div class="form-text">
             Los códigos de hitos pueden utilizarse para dar seguimiento a
             eventos específicos que tienen lugar en el proceso de contratación.
@@ -143,10 +138,8 @@
             data-sb-validations="required"
             formControlName="dueDate"
           />
-          <label for="datePublished">Fecha de vencimiento*</label>
-          <div class="invalid-feedback" data-sb-feedback="title:required">
-            Fecha de vencimiento * es requerido.
-          </div>
+          <label for="datePublished">Fecha de vencimiento *</label>
+          <app-input-validation [element]="dueDate"></app-input-validation>
           <div class="form-text">La fecha en que se debe cumplir el hito.</div>
         </div>
 
@@ -158,10 +151,8 @@
             data-sb-validations="required"
             formControlName="dateMet"
           />
-          <label for="datePublished">Fecha de cumplimiento*</label>
-          <div class="invalid-feedback" data-sb-feedback="title:required">
-            Fecha de cumplimiento * es requerido.
-          </div>
+          <label for="datePublished">Fecha de cumplimiento *</label>
+          <app-input-validation [element]="dateMet"></app-input-validation>
           <div class="form-text">La fecha en que se cumplió el hito.</div>
         </div>
 
@@ -173,10 +164,8 @@
             data-sb-validations="required"
             formControlName="dateModified"
           />
-          <label for="dateModified">Fecha de modificación*</label>
-          <div class="invalid-feedback" data-sb-feedback="title:required">
-            Fecha de modificación * es requerido.
-          </div>
+          <label for="dateModified">Fecha de modificación *</label>
+          <app-input-validation [element]="dateModified"></app-input-validation>
           <div class="form-text">
             La fecha en que el hito fue revisado o modificado por última vez y
             se cambió el estatus o se confirmó que continuaba siendo correcto.
@@ -185,7 +174,7 @@
       </div>
       <div class="row">
         <div class="col-12">
-          <label for="status"> Estatus </label>
+          <label for="status"> Estatus *</label>
         </div>
         <div class="form-floating col mb-3">
           <select class="form-select" formControlName="status">
@@ -193,6 +182,7 @@
               {{ d.title }}
             </option>
           </select>
+          <app-input-validation [element]="status"></app-input-validation>
           <div class="form-text">
             El estado que fue alcanzado en la fecha proporcionada en 'Fecha de
             modificación' (dateModified), tomada de la lista de códigos
@@ -214,6 +204,7 @@
             type="button"
             class="btn btn-danger btn-add"
             (click)="addNewMilestone()"
+            [disabled]="!enableAddMilestoneButton()"
           >
             Agregar hito
           </button>

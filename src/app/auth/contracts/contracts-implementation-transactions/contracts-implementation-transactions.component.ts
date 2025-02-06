@@ -67,8 +67,35 @@ export class ContractsImplementationTransactionsComponent implements OnInit {
       }),
       payer: [null, Validators.required],
       payee: [null, Validators.required],
-      uri: ['', Validators.required],
+      uri: [
+        '',
+        [
+          Validators.required,
+          Validators.pattern(
+            /^https?:\/\/(?:[a-zA-Z0-9\-._~%!$&'()*+,;=:@]+|%[0-9A-Fa-f]{2})*(?:\/(?:[a-zA-Z0-9\-._~%!$&'()*+,;=:@]+|%[0-9A-Fa-f]{2})*)*(?:\?(?:[a-zA-Z0-9\-._~%!$&'()*+,;=:@/?]+|%[0-9A-Fa-f]{2})*)?(?:#(?:[a-zA-Z0-9\-._~%!$&'()*+,;=:@/?]+|%[0-9A-Fa-f]{2})*)?$/
+          ),
+        ],
+      ],
     });
+  }
+
+  get date() {
+    return this.transactionsForm.get('date') as FormControl;
+  }
+  get source() {
+    return this.transactionsForm.get('source') as FormControl;
+  }
+  get paymentMethod() {
+    return this.transactionsForm.get('paymentMethod') as FormControl;
+  }
+  get amount() {
+    return this.transactionsForm.get('value')?.get('amount') as FormControl;
+  }
+  get currencyTransaction() {
+    return this.transactionsForm.get('value')?.get('currency') as FormControl;
+  }
+  get uri() {
+    return this.transactionsForm.get('uri') as FormControl;
   }
 
   getPaymentMethodDesc(code: string): string {
@@ -78,6 +105,10 @@ export class ContractsImplementationTransactionsComponent implements OnInit {
     });
 
     return desc;
+  }
+
+  enableAddTransactionsButton(): boolean {
+    return this.transactionsForm.valid && this.transactionsForm.dirty;
   }
 
   addNewTransactions(): void {

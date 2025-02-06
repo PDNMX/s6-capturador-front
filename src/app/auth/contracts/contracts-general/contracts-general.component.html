@@ -28,14 +28,11 @@
             class="form-control"
             id="contractId"
             type="text"
-            data-sb-validations="required"
             placeholder="Identificador del contrato*"
             formControlName="contractId"
           />
-          <label for="contractId">Identificador del contrato*</label>
-          <div class="invalid-feedback" data-sb-feedback="contractId:required">
-            Identificador del contrato * es requerido.
-          </div>
+          <label for="contractId">Identificador del contrato *</label>
+          <app-input-validation [element]="contractId"></app-input-validation>
           <div class="form-text">
             El identificador para este contrato. Debe ser único y no debe
             cambiar en el Proceso de Contrataciones Abiertas del cual es parte
@@ -52,10 +49,8 @@
           >
             <option *ngFor="let id of awardIds" [value]="id">{{ id }}</option>
           </select>
-          <label for="awardID">Identificador de la adjudicación*</label>
-          <div class="invalid-feedback" data-sb-feedback="awardID:required">
-            Identificador de la adjudicación * es requerido.
-          </div>
+          <label for="awardID">Identificador de la adjudicación *</label>
+          <app-input-validation [element]="awardID"></app-input-validation>
           <div class="form-text">
             Identificador de la adjudicación en la cual se expide este contrato.
           </div>
@@ -68,14 +63,11 @@
             class="form-control"
             id="title"
             type="text"
-            data-sb-validations="required"
-            placeholder="Título del contrato*"
+            placeholder="Título del contrato *"
             formControlName="title"
           />
-          <label for="title">Título del contrato*</label>
-          <div class="invalid-feedback" data-sb-feedback="title:required">
-            Título del contrato * es requerido.
-          </div>
+          <label for="title">Título del contrato *</label>
+          <app-input-validation [element]="title"></app-input-validation>
           <div class="form-text">Título del contrato</div>
         </div>
       </div>
@@ -90,10 +82,8 @@
             style="height: 150px"
             formControlName="description"
           ></textarea>
-          <label for="description">Descripción*</label>
-          <div class="invalid-feedback" data-sb-feedback="description:required">
-            Descripción * es requerido.
-          </div>
+          <label for="description">Descripción *</label>
+          <app-input-validation [element]="description"></app-input-validation>
           <div class="form-text">Descripción del contrato.</div>
         </div>
       </div>
@@ -105,7 +95,8 @@
               {{ d.title }}
             </option>
           </select>
-          <label for="status"> Estatus </label>
+          <label for="status"> Estatus *</label>
+          <app-input-validation [element]="status"></app-input-validation>
           <p>
             {{ getContractStatusDesc(contractForm.value.status) }}
           </p>
@@ -121,7 +112,7 @@
       </div>
 
       <fieldset class="border p-3 mb-3" formGroupName="period">
-        <legend class="w-auto px-1">Periodo del contrato</legend>
+        <legend class="w-auto px-1">Periodo del contrato *</legend>
         <p>Las fechas de inicio y fin del contrato.</p>
         <p>
           Los eventos clave durante un proceso de contratación pueden tener una
@@ -137,13 +128,12 @@
               class="form-control"
               id="startDate"
               type="date"
-              data-sb-validations="required"
               formControlName="startDate"
             />
-            <label for="startDate">Fecha de inicio*</label>
-            <div class="invalid-feedback" data-sb-feedback="title:required">
-              Fecha de inicio * es requerido.
-            </div>
+            <label for="startDate">Fecha de inicio *</label>
+            <app-input-validation
+              [element]="getControl('startDate')"
+            ></app-input-validation>
             <div class="form-text">
               La fecha de inicio del período. Cuando se sabe, se debe dar una
               fecha de inicio precisa.
@@ -154,13 +144,12 @@
               class="form-control"
               id="endDate"
               type="date"
-              data-sb-validations="required"
               formControlName="endDate"
             />
-            <label for="endDate">Fecha de término*</label>
-            <div class="invalid-feedback" data-sb-feedback="title:required">
-              Fecha de término * es requerido.
-            </div>
+            <label for="endDate">Fecha de término *</label>
+            <app-input-validation
+              [element]="getControl('endDate')"
+            ></app-input-validation>
             <div class="form-text">
               La fecha de conclusión del período. Cuando se sabe, se debe dar
               una fecha de conclusión precisa.
@@ -177,10 +166,10 @@
               data-sb-validations="required"
               formControlName="maxExtentDate"
             />
-            <label for="maxExtentDate">Extension máxima*</label>
-            <div class="invalid-feedback" data-sb-feedback="title:required">
-              Extension máxima * es requerido.
-            </div>
+            <label for="maxExtentDate">Extension máxima *</label>
+            <app-input-validation
+              [element]="getControl('maxExtentDate')"
+            ></app-input-validation>
             <div class="form-text">
               El período no puede extenderse después de esta fecha. Este campo
               debe usarse para expresar la fecha máxima disponible para la
@@ -208,7 +197,7 @@
       </fieldset>
 
       <fieldset class="border p-3 mb-3">
-        <legend class="w-auto px-1">Valor del contrato</legend>
+        <legend class="w-auto px-1">Valor del contrato *</legend>
         <p>Un valor o monto total de este contrato</p>
         <hr />
         <div class="row" formGroupName="value">
@@ -221,10 +210,8 @@
               placeholder="Monto*"
               formControlName="amount"
             />
-            <label for="amount">Monto*</label>
-            <div class="invalid-feedback" data-sb-feedback="amount:required">
-              Monto * es requerido.
-            </div>
+            <label for="amount">Monto *</label>
+            <app-input-validation [element]="amount"></app-input-validation>
             <div class="form-text">Monto como número.</div>
           </div>
 
@@ -237,10 +224,8 @@
               placeholder="Monto sin impuestos*"
               formControlName="amountNet"
             />
-            <label for="amountNet">Monto sin impuestos*</label>
-            <div class="invalid-feedback" data-sb-feedback="amountNet:required">
-              Monto sin impuestos* es requerido.
-            </div>
+            <label for="amountNet">Monto sin impuestos *</label>
+            <app-input-validation [element]="amountNet"></app-input-validation>
             <div class="form-text">Monto sin impuestos.</div>
           </div>
 
@@ -250,7 +235,7 @@
                 {{ d.title }}
               </option>
             </select>
-            <label for="type">Moneda</label>
+            <label for="type">Moneda *</label>
             <div class="form-text">
               La moneda del monto, tomado de la lista de códigos
               <a
@@ -369,13 +354,8 @@
               data-sb-validations="required"
               formControlName="dateSigned"
             />
-            <label for="dateSigned">Fecha de firma*</label>
-            <div
-              class="invalid-feedback"
-              data-sb-feedback="dateSigned:required"
-            >
-              Fecha de firma * es requerido.
-            </div>
+            <label for="dateSigned">Fecha de firma *</label>
+            <app-input-validation [element]="dateSigned"></app-input-validation>
             <div class="form-text">
               La fecha en la que se firmó el contrato. En el caso de múltiples
               firmas, la fecha de la última firma.
@@ -606,10 +586,7 @@
               placeholder="title*"
               formControlName="title"
             />
-            <label for="title">Título del proceso relacionado *</label>
-            <div class="invalid-feedback" data-sb-feedback="title:required">
-              Titulo * es requerido.
-            </div>
+            <label for="title">Título del proceso relacionado</label>
             <div class="form-text">
               El título del proceso relacionado, cuando se hace referencia a un
               proceso de contratación abierta, este debe de ser el mismo que el
@@ -627,10 +604,8 @@
               <option value="">Seleccione un esquema</option>
               <option value="ocid">Open Contracting ID (OCID)</option>
             </select>
-            <label for="scheme">Esquema de identificaión *</label>
-            <div class="invalid-feedback" data-sb-feedback="scheme:required">
-              Esquema * es requerido.
-            </div>
+            <label for="scheme">Esquema de identificaión</label>
+
             <div class="form-text">
               El esquema de identificación usado por esta referencia de la lista
               de códigos de proceso relacionado. Cuando se referencia
@@ -651,14 +626,9 @@
               formControlName="identifier"
             />
             <label for="identifier"
-              >Identificador del proceso relacionado*</label
+              >Identificador del proceso relacionado</label
             >
-            <div
-              class="invalid-feedback"
-              data-sb-feedback="identifier:required"
-            >
-              Identificador * es requerido.
-            </div>
+
             <div class="form-text">
               El identificador del proceso relacionado. Cuando se refiere a
               información que también se publica usando OCDS, este debe ser el
@@ -675,10 +645,7 @@
               placeholder="URI*"
               formControlName="uri"
             />
-            <label for="uri">URI del procedimiento relacionado *</label>
-            <div class="invalid-feedback" data-sb-feedback="uri:required">
-              URI * es requerido.
-            </div>
+            <label for="uri">URI del procedimiento relacionado</label>
             <div class="form-text">
               Una URI que apunta a un documento legible por máquinas, liberación
               o paquete de registro que contenga el proceso relacionado

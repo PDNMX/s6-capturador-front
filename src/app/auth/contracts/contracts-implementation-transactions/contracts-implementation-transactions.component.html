@@ -72,6 +72,7 @@
           <label for="TransacctionsDate" class="form-label"
             >Fecha de la transacción</label
           >
+          <app-input-validation [element]="date"></app-input-validation>
           <div class="form-text">La fecha de la transacción.</div>
         </div>
       </div>
@@ -87,6 +88,7 @@
           <label for="TransactionsSource" class="form-label"
             >Fuente de datos</label
           >
+          <app-input-validation [element]="source"></app-input-validation>
           <div class="form-text">
             Usado para apuntar a un Fiscal Data Package, un archivo IATI o una
             fuente legible por computadora o por un humano donde los usuarios
@@ -103,6 +105,7 @@
               {{ method.title }}
             </option>
           </select>
+            <app-input-validation [element]="paymentMethod"></app-input-validation>
           <div class="form-text">
             El método de pago utilizado para realizar la transacción.
           </div>
@@ -114,7 +117,7 @@
       </div>
 
       <fieldset class="border p-3 mb-3">
-        <legend class="w-auto px-2">Valor</legend>
+        <legend class="w-auto px-2">Valor *</legend>
         <hr />
         <p>
           El valor de la transacción. Los valores financieros deben ser
@@ -129,7 +132,8 @@
               placeholder="Monto de la transacción"
               formControlName="amount"
             />
-            <label for="TransactionsValueAmount">Monto</label>
+            <label for="TransactionsValueAmount">Monto *</label>
+            <app-input-validation [element]="amount"></app-input-validation>
             <div class="form-text">Monto como número.</div>
           </div>
 
@@ -151,7 +155,8 @@
                 >'Moneda'</a
               >.
             </div>
-            <label for="TransactionsValueCurrency">Moneda</label>
+            <label for="TransactionsValueCurrency">Moneda *</label>
+            <app-input-validation [element]="currencyTransaction"></app-input-validation>
           </div>
         </div>
       </fieldset>
@@ -163,7 +168,10 @@
               {{ p?.name }}
             </option>
           </select>
-          <label for="">Emisor del pago</label>
+          <label for="">Emisor del pago *</label>
+          <small *ngIf="payers.length === 0" class="text-danger">
+            Debe registrar al menos un emisor del pago.
+          </small>
           <div class="form-text">
             Persona encargado por la Entidad o Institución pública de dar
             cumplimiento al pago de la adquisición, arrendamiento, servicio u
@@ -179,7 +187,10 @@
               {{ b?.name }}
             </option>
           </select>
-          <label for="">Receptor del pago</label>
+          <label for="">Receptor del pago *</label>
+          <small *ngIf="payee.length === 0" class="text-danger">
+            Debe registrar al menos un receptor del pago.
+          </small>
           <div class="form-text">
             Es una persona física o moral la cual recibe un pago económico
             derivado de un contrato (transacción).
@@ -196,7 +207,8 @@
             placeholder="URI"
             formControlName="uri"
           />
-          <label for="TransactionsUri">URI</label>
+          <label for="TransactionsUri">URI *</label>
+          <app-input-validation [element]="uri"></app-input-validation>
           <div class="form-text">
             Una URI apuntando directamente al registro legible por maquinas
             sobre esta transacción.
@@ -209,6 +221,7 @@
             type="button"
             class="btn btn-danger btn-add"
             (click)="addNewTransactions()"
+            [disabled]="!enableAddTransactionsButton()"
           >
             Agregar transacción
           </button>
