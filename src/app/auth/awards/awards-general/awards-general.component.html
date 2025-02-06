@@ -176,9 +176,7 @@
                 formControlName="startDate"
               />
               <label for="ContractPeriodStartDate">Fecha de inicio *</label>
-              <app-input-validation
-                [element]="startDate"
-              ></app-input-validation>
+              <app-input-validation [element]="getControl('startDate')"></app-input-validation>
             </div>
             <div class="form-text">
               La fecha de inicio del período. Cuando se sabe, se debe dar una
@@ -196,7 +194,7 @@
                 formControlName="endDate"
               />
               <label for="ContractPeriodendDate">Fecha de término *</label>
-              <app-input-validation [element]="endDate"></app-input-validation>
+              <app-input-validation [element]="getControl('endDate')"></app-input-validation>
             </div>
             <div class="form-text">
               La fecha de conclusión del período. Cuando se sabe, se debe dar
@@ -215,9 +213,7 @@
                 formControlName="maxExtentDate"
               />
               <label for="ContractPeriodMaxExtentDate">Extensión máxima *</label>
-              <app-input-validation
-                [element]="maxExtentDate"
-              ></app-input-validation>
+              <app-input-validation [element]="getControl('maxExtentDate')"></app-input-validation>
             </div>
             <div class="form-text">
               El período no puede extenderse después de esta fecha. Este campo

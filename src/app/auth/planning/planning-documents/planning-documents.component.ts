@@ -171,7 +171,15 @@ export class PlanningDocumentsComponent implements OnInit {
         documentType: ['', [Validators.required]],
         title: ['', [Validators.required]],
         description: ['', [Validators.required]],
-        url: ['', [Validators.required]],
+        url: [
+          '',
+          [
+            Validators.required,
+            Validators.pattern(
+              /^https?:\/\/(?:[a-zA-Z0-9\-._~%!$&'()*+,;=:@]+|%[0-9A-Fa-f]{2})*(?:\/(?:[a-zA-Z0-9\-._~%!$&'()*+,;=:@]+|%[0-9A-Fa-f]{2})*)*(?:\?(?:[a-zA-Z0-9\-._~%!$&'()*+,;=:@/?]+|%[0-9A-Fa-f]{2})*)?(?:#(?:[a-zA-Z0-9\-._~%!$&'()*+,;=:@/?]+|%[0-9A-Fa-f]{2})*)?$/
+            ),
+          ],
+        ],
         datePublished: ['', [Validators.required]],
         dateModified: ['', [Validators.required]],
         format: ['', [Validators.required]],
