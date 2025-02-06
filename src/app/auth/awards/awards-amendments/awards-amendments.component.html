@@ -72,6 +72,7 @@
         <div class="invalid-feedback" data-sb-feedback="title:required">
           Fecha de enmienda * es requerido.
         </div>
+        <app-input-validation [element]="date"></app-input-validation>
       </div>
       <div class="form-text">La fecha de esta modificación.</div>
     </div>
@@ -90,6 +91,7 @@
         <div class="invalid-feedback" data-sb-feedback="rationale:required">
           Justificación * es requerido.
         </div>
+        <app-input-validation [element]="rationale"></app-input-validation>
       </div>
       <div class="form-text">Una explicación de la modificación.</div>
     </div>
@@ -108,6 +110,7 @@
         <div class="invalid-feedback" data-sb-feedback="description:required">
           Descripción * es requerido.
         </div>
+        <app-input-validation [element]="description"></app-input-validation>
       </div>
       <div class="form-text">
         Un texto libre o semi estructurado, describiendo los cambios hechos en
@@ -129,6 +132,9 @@
         <div class="invalid-feedback" data-sb-feedback="title:required">
           * es requerido.
         </div>
+        <app-input-validation
+          [element]="amendsReleaseID"
+        ></app-input-validation>
       </div>
       <div class="form-text">
         Provee el identificador (release.id) de la entrega OCDS (de este proceso
@@ -151,6 +157,7 @@
         <div class="invalid-feedback" data-sb-feedback="title:required">
           * es requerido.
         </div>
+        <app-input-validation [element]="releaseID"></app-input-validation>
       </div>
       <div class="form-text">
         Provee el identificador (release.id) de la entrega OCDS (de este proceso
@@ -165,6 +172,7 @@
           type="button"
           class="btn btn-danger btn-add"
           (click)="addNewAmendment()"
+          [disabled]="!amendmentsForm.valid"
         >
           Agregar modificación
         </button>

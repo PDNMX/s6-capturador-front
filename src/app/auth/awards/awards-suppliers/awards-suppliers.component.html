@@ -81,12 +81,16 @@
         >
           No hay registros de proveedores para esta adjudicación
         </option>
+        <option></option>
         <option *ngFor="let c of suppliers" [ngValue]="c">
           proveedor {{ c?.name }}
         </option>
       </select>
 
-      <label for="AwardsSuppliersName">Seleccione proveedor</label>
+      <label for="AwardsSuppliersName">Seleccione proveedor*</label>
+      <small *ngIf="suppliersArray.length === 0" class="text-danger">
+        Debe registrar al menos un proveedor.
+      </small>
     </div>
     <div class="col-2">
       <button

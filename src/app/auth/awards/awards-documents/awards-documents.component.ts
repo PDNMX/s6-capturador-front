@@ -1,5 +1,11 @@
 import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
-import { FormBuilder, FormGroup, Validators, FormArray } from '@angular/forms';
+import {
+  FormBuilder,
+  FormGroup,
+  Validators,
+  FormArray,
+  FormControl,
+} from '@angular/forms';
 import { FormatDocument, getDocumentType, Language } from 'src/utils';
 import { ApiService } from 'src/app/services/api.service';
 import { ActivatedRoute } from '@angular/router';
@@ -16,7 +22,7 @@ export class AwardsDocumentsComponent implements OnInit {
   record_id = '';
 
   formatDocument = FormatDocument;
-  language = Language;
+  data_language = Language;
   documents = getDocumentType('award');
 
   documentsForm!: FormGroup;
@@ -59,7 +65,7 @@ export class AwardsDocumentsComponent implements OnInit {
 
   getLanguage(code: string): string {
     let desc = '';
-    this.language.forEach((d) => {
+    this.data_language.forEach((d) => {
       if (d.code === code) {
         desc = d.name;
       }
@@ -91,6 +97,38 @@ export class AwardsDocumentsComponent implements OnInit {
   ngOnInit(): void {
     this.initForm();
     //this.loadData();
+  }
+
+  get documentType(): FormControl {
+    return this.documentsForm.get('documentType') as FormControl;
+  }
+
+  get title(): FormControl {
+    return this.documentsForm.get('title') as FormControl;
+  }
+
+  get description(): FormControl {
+    return this.documentsForm.get('description') as FormControl;
+  }
+
+  get url(): FormControl {
+    return this.documentsForm.get('url') as FormControl;
+  }
+
+  get datePublished(): FormControl {
+    return this.documentsForm.get('datePublished') as FormControl;
+  }
+
+  get dateModified(): FormControl {
+    return this.documentsForm.get('dateModified') as FormControl;
+  }
+
+  get format(): FormControl {
+    return this.documentsForm.get('format') as FormControl;
+  }
+
+  get language(): FormControl {
+    return this.documentsForm.get('language') as FormControl;
   }
 
   initForm(): void {

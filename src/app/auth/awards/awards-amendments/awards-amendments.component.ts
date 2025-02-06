@@ -1,5 +1,11 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { FormBuilder, FormGroup, Validators, FormArray } from '@angular/forms';
+import {
+  FormBuilder,
+  FormGroup,
+  Validators,
+  FormArray,
+  FormControl,
+} from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { ApiService } from 'src/app/services/api.service';
 @Component({
@@ -45,6 +51,26 @@ export class AwardsAmendmentsComponent implements OnInit {
   ngOnInit(): void {
     this.initForm();
     //this.loadData();
+  }
+
+  get date(): FormControl {
+    return this.amendmentsForm.get('date') as FormControl;
+  }
+
+  get rationale(): FormControl {
+    return this.amendmentsForm.get('rationale') as FormControl;
+  }
+
+  get description(): FormControl {
+    return this.amendmentsForm.get('description') as FormControl;
+  }
+
+  get amendsReleaseID(): FormControl {
+    return this.amendmentsForm.get('amendsReleaseID') as FormControl;
+  }
+
+  get releaseID(): FormControl {
+    return this.amendmentsForm.get('releaseID') as FormControl;
   }
 
   initForm(): void {

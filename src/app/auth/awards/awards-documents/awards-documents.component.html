@@ -64,15 +64,14 @@
 
   <form [formGroup]="documentsForm">
     <div class="row">
-      <div class="col-12">
-        <label for="">Tipo de documento</label>
-      </div>
       <div class="form-floating col mb-2">
         <select class="form-select" formControlName="documentType">
           <option *ngFor="let d of documents" [ngValue]="d.code">
             {{ d.title }}
           </option>
         </select>
+        <label for="">Tipo de documento*</label>
+        <app-input-validation [element]="documentType"></app-input-validation>
         <p>
           {{ getDocumentTypeDesc(documentsForm.value.documentType) }}
         </p>
@@ -90,6 +89,7 @@
           formControlName="title"
         />
         <label for="title">Titulo *</label>
+        <app-input-validation [element]="title"></app-input-validation>
         <div class="invalid-feedback" data-sb-feedback="title:required">
           Titulo * es requerido.
         </div>
@@ -108,6 +108,7 @@
           formControlName="description"
         ></textarea>
         <label for="description">Descripción *</label>
+        <app-input-validation [element]="description"></app-input-validation>
         <div class="invalid-feedback" data-sb-feedback="description:required">
           Descripción * es requerido.
         </div>
@@ -129,6 +130,7 @@
           formControlName="url"
         />
         <label for="URL">URL *</label>
+        <app-input-validation [element]="url"></app-input-validation>
         <div class="invalid-feedback" data-sb-feedback="title:required">
           URL * es requerido.
         </div>
@@ -150,6 +152,9 @@
             formControlName="datePublished"
           />
           <label for="datePublished">Fecha de publicación *</label>
+          <app-input-validation
+            [element]="datePublished"
+          ></app-input-validation>
           <div class="invalid-feedback" data-sb-feedback="title:required">
             Fecha de publicación * es requerido.
           </div>
@@ -171,6 +176,7 @@
             formControlName="dateModified"
           />
           <label for="dateModified">Fecha de modificación *</label>
+          <app-input-validation [element]="dateModified"></app-input-validation>
           <div class="invalid-feedback" data-sb-feedback="title:required">
             Fecha de modificación * es requerido.
           </div>
@@ -183,30 +189,28 @@
     <div class="row">
       <div class="col-6">
         <div class="row">
-          <div class="col-12">
-            <label for="format">Formato</label>
-          </div>
           <div class="form-floating col mb-5">
             <select class="form-select" formControlName="format">
               <option *ngFor="let d of formatDocument" [ngValue]="d.template">
                 {{ d.name }}
               </option>
             </select>
+            <label for="format">Formato*</label>
+            <app-input-validation [element]="format"></app-input-validation>
             <div class="form-text">El formato del documento</div>
           </div>
         </div>
       </div>
       <div class="col-6">
         <div class="row">
-          <div class="col-12">
-            <label for="language">Idioma</label>
-          </div>
           <div class="form-floating col mb-5">
             <select class="form-select" formControlName="language">
-              <option *ngFor="let d of language" [ngValue]="d.code">
+              <option *ngFor="let d of data_language" [ngValue]="d.code">
                 {{ d.name }}
               </option>
             </select>
+            <label for="language">Idioma*</label>
+            <app-input-validation [element]="language"></app-input-validation>
             <div class="form-text">El lenguaje del documento</div>
           </div>
         </div>
@@ -219,6 +223,7 @@
           type="button"
           class="btn btn-danger btn-add"
           (click)="addNewDocument()"
+          [disabled]="!documentsForm.valid"
         >
           Agregar documento
         </button>
