@@ -1,5 +1,11 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { FormBuilder, FormGroup, Validators, FormArray } from '@angular/forms';
+import {
+  FormBuilder,
+  FormGroup,
+  Validators,
+  FormArray,
+  FormControl,
+} from '@angular/forms';
 import { Classifications, Currency } from 'src/utils';
 import { ApiService } from 'src/app/services/api.service';
 import { ActivatedRoute } from '@angular/router';
@@ -19,12 +25,12 @@ export class AwardsItemsComponent implements OnInit {
 
   record_id: string = '';
 
-  classification = Classifications.map((m) => ({
+  data_classification = Classifications.map((m) => ({
     id: m.id,
     description: m.description,
     uri: m.uri,
   }));
-  currency = Currency;
+  data_currency = Currency;
   mostrarSpinner = false;
   constructor(
     private fb: FormBuilder,
@@ -101,10 +107,42 @@ export class AwardsItemsComponent implements OnInit {
     //this.loadData();
   }
 
+  get description(): FormControl {
+    return this.itemsForm.get('description') as FormControl;
+  }
+
+  get classification(): FormControl {
+    return this.itemsForm.get('classification') as FormControl;
+  }
+
+  get quantity(): FormControl {
+    return this.itemsForm.get('quantity') as FormControl;
+  }
+
+  get unit(): FormGroup {
+    return this.itemsForm.get('unit') as FormGroup;
+  }
+
+  get name(): FormControl {
+    return this.unit.get('name') as FormControl;
+  }
+
+  get value(): FormGroup {
+    return this.unit.get('value') as FormGroup;
+  }
+
+  get amount(): FormControl {
+    return this.value.get('amount') as FormControl;
+  }
+
+  get currency(): FormControl {
+    return this.value.get('currency') as FormControl;
+  }
+
   initForm(): void {
     this.itemsForm = this.fb.group({
       description: ['', [Validators.required]],
-      classification: [{}, [Validators.required]],
+      classification: [null, [Validators.required]],
       additionalClassifications: this.fb.array([], [Validators.required]),
       quantity: ['', [Validators.required]],
       unit: this.fb.group({

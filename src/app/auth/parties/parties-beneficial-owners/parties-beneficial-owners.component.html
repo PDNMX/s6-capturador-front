@@ -80,10 +80,8 @@
             placeholder="Esquema*"
             formControlName="scheme"
           />
-          <label for="scheme">Esquema*</label>
-          <div class="invalid-feedback" data-sb-feedback="scheme:required">
-            Esquema * es requerido.
-          </div>
+          <label for="scheme">Esquema *</label>
+          <app-input-validation [element]="schema"></app-input-validation>
         </div>
 
         <div class="form-floating col-6 mb-5">
@@ -95,10 +93,8 @@
             placeholder="RFC*"
             formControlName="id"
           />
-          <label for="id">RFC*</label>
-          <div class="invalid-feedback" data-sb-feedback="id:required">
-            RFC * es requerido.
-          </div>
+          <label for="id">RFC *</label>
+          <app-input-validation [element]="id"></app-input-validation>
         </div>
       </div>
     </fieldset>
@@ -113,10 +109,8 @@
           placeholder="Nombre*"
           formControlName="name"
         />
-        <label for="name">Nombre*</label>
-        <div class="invalid-feedback" data-sb-feedback="name:required">
-          Nombre * es requerido.
-        </div>
+        <label for="name">Nombre *</label>
+        <app-input-validation [element]="name"></app-input-validation>
       </div>
     </div>
 
@@ -130,10 +124,8 @@
           placeholder="Nacionalidad*"
           formControlName="nationality"
         />
-        <label for="nationality">Nacionalidad*</label>
-        <div class="invalid-feedback" data-sb-feedback="nationality:required">
-          Nacionalidad * es requerido.
-        </div>
+        <label for="nationality">Nacionalidad *</label>
+        <app-input-validation [element]="nationality"></app-input-validation>
       </div>
     </div>
 
@@ -147,10 +139,8 @@
           placeholder="Correo electrónico*"
           formControlName="email"
         />
-        <label for="email">Correo electrónico*</label>
-        <div class="invalid-feedback" data-sb-feedback="email:required">
-          Correo electrónico * es requerido.
-        </div>
+        <label for="email">Correo electrónico *</label>
+        <app-input-validation [element]="email"></app-input-validation>
       </div>
     </div>
 
@@ -164,10 +154,8 @@
           placeholder="Teléfono*"
           formControlName="telephone"
         />
-        <label for="telephone">Teléfono*</label>
-        <div class="invalid-feedback" data-sb-feedback="telephone:required">
-          Teléfono * es requerido.
-        </div>
+        <label for="telephone">Teléfono *</label>
+        <app-input-validation [element]="telephone"></app-input-validation>
       </div>
     </div>
 
@@ -181,10 +169,8 @@
           placeholder="Número de fax*"
           formControlName="faxNumber"
         />
-        <label for="faxNumber">Número de fax*</label>
-        <div class="invalid-feedback" data-sb-feedback="faxNumber:required">
-          Número de fax * es requerido.
-        </div>
+        <label for="faxNumber">Número de fax *</label>
+        <app-input-validation [element]="faxNumber"></app-input-validation>
       </div>
     </div>
     <fieldset class="border p-3 mb-3" formGroupName="address">
@@ -200,13 +186,10 @@
             placeholder="Calle y número*"
             formControlName="streetAddress"
           />
-          <label for="streetAddress">Calle y número*</label>
-          <div
-            class="invalid-feedback"
-            data-sb-feedback="streetAddress:required"
-          >
-            Calle y número * es requerido.
-          </div>
+          <label for="streetAddress">Calle y número *</label>
+          <app-input-validation
+            [element]="streetAddress"
+          ></app-input-validation>
         </div>
       </div>
 
@@ -220,10 +203,8 @@
             placeholder="Localidad*"
             formControlName="locality"
           />
-          <label for="locality">Localidad*</label>
-          <div class="invalid-feedback" data-sb-feedback="locality:required">
-            Localidad * es requerido.
-          </div>
+          <label for="locality">Localidad *</label>
+          <app-input-validation [element]="locality"></app-input-validation>
         </div>
       </div>
 
@@ -237,10 +218,8 @@
             placeholder="Región*"
             formControlName="region"
           />
-          <label for="region">Región*</label>
-          <div class="invalid-feedback" data-sb-feedback="region:required">
-            Región * es requerido.
-          </div>
+          <label for="region">Región *</label>
+          <app-input-validation [element]="region"></app-input-validation>
         </div>
       </div>
 
@@ -254,10 +233,8 @@
             placeholder="Código postal*"
             formControlName="postalCode"
           />
-          <label for="postalCode">Código postal*</label>
-          <div class="invalid-feedback" data-sb-feedback="postalCode:required">
-            Código postal * es requerido.
-          </div>
+          <label for="postalCode">Código postal *</label>
+          <app-input-validation [element]="postalCode"></app-input-validation>
         </div>
       </div>
 
@@ -271,10 +248,8 @@
             placeholder="País*"
             formControlName="countryName"
           />
-          <label for="countryName">País*</label>
-          <div class="invalid-feedback" data-sb-feedback="countryName:required">
-            País * es requerido.
-          </div>
+          <label for="countryName">País *</label>
+          <app-input-validation [element]="countryName"></app-input-validation>
         </div>
       </div>
     </fieldset>
@@ -285,6 +260,7 @@
           type="button"
           class="btn btn-danger btn-add"
           (click)="addNewBeneficialOwners()"
+          [disabled]="!beneficialOwnersForm.valid"
         >
           Agregar beneficiario
         </button>

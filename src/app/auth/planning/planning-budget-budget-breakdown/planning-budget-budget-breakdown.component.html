@@ -1,5 +1,5 @@
 <fieldset class="border p-3 mb-3">
-  <legend class="w-auto px-1">Desgloce del presupuesto*</legend>
+  <legend class="w-auto px-1">Desgloce del presupuesto *</legend>
   <p>
     Un desglose detallado del presupuesto por período y/o financiadores
     participantes.
@@ -58,7 +58,7 @@
           placeholder="Description"
           formControlName="description"
         />
-        <label for="description">Descripción*</label>
+        <label for="description">Descripción *</label>
         <app-input-validation [element]="description"></app-input-validation>
       </div>
       <div class="form-text">
@@ -77,7 +77,7 @@
           formControlName="uri"
         />
         <label for="BudgetBreakdownUri"
-          >Información Presupuestaria vinculada*</label
+          >Información Presupuestaria vinculada *</label
         >
         <app-input-validation [element]="uri"></app-input-validation>
       </div>
@@ -122,7 +122,7 @@
                 placeholder="Monto*"
                 formControlName="amount"
               />
-              <label for="amount">Monto*</label>
+              <label for="amount">Monto *</label>
               <app-input-validation [element]="amount"></app-input-validation>
               <div class="invalid-feedback" data-sb-feedback="amount:required">
                 Monto * es requerido.
@@ -170,7 +170,7 @@
               formControlName="startDate"
               placeholder="dd-mm-yyyy"
             />
-            <label for="startDate">Fecha de inicio*</label>
+            <label for="startDate">Fecha de inicio *</label>
             <div class="invalid-feedback" data-sb-feedback="startDate:required">
               Fecha de inicio * es requerido.
             </div>
@@ -190,7 +190,7 @@
               data-sb-validations="required"
               formControlName="endDate"
             />
-            <label for="endDate">Fecha de término*</label>
+            <label for="endDate">Fecha de término *</label>
             <div class="invalid-feedback" data-sb-feedback="endDate:required">
               Fecha de término * es requerido.
             </div>
@@ -212,7 +212,7 @@
               data-sb-validations="required"
               formControlName="maxExtentDate"
             />
-            <label for="maxExtentDate">Extensión máxima*</label>
+            <label for="maxExtentDate">Extensión máxima *</label>
             <div
               class="invalid-feedback"
               data-sb-feedback="maxExtentDate:required"
@@ -237,7 +237,7 @@
               placeholder="Duración (días)*"
               formControlName="durationInDays"
             />
-            <label for="durationInDays">Duración (días)*</label>
+            <label for="durationInDays">Duración (días) *</label>
             <div
               class="invalid-feedback"
               data-sb-feedback="durationInDays:required"
@@ -308,7 +308,7 @@
               formControlName="id"
               readonly
             />
-            <label for="BudgetLinesId">ID*</label>
+            <label for="BudgetLinesId">ID *</label>
             <app-input-validation [element]="id"></app-input-validation>
           </div>
           <div class="col-md-6 form-floating mb-3">
@@ -319,7 +319,7 @@
               placeholder="Origin"
               formControlName="origin"
             />
-            <label for="BudgetLinesOrigin">Origen*</label>
+            <label for="BudgetLinesOrigin">Origen *</label>
             <app-input-validation [element]="origin"></app-input-validation>
           </div>
         </div>
@@ -336,10 +336,10 @@
               <table class="table table-hover table-striped mb-10">
                 <thead>
                   <tr>
-                    <th scope="col">Nombre*</th>
-                    <th scope="col">Descripción*</th>
-                    <th scope="col">Nivel*</th>
-                    <th scope="col">Código*</th>
+                    <th scope="col">Nombre *</th>
+                    <th scope="col">Descripción *</th>
+                    <th scope="col">Nivel *</th>
+                    <th scope="col">Código *</th>
                     <th scope="col">Opciones</th>
                   </tr>
                   <tr [formGroup]="componentsForm">

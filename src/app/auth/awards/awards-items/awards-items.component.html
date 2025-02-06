@@ -78,9 +78,7 @@
           formControlName="description"
         ></textarea>
         <label for="description">Descripción *</label>
-        <div class="invalid-feedback" data-sb-feedback="description:required">
-          Descripción * es requerido.
-        </div>
+        <app-input-validation [element]="description"></app-input-validation>
       </div>
       <div class="form-text">
         Una descripción de los bienes o servicios objetos del procedimiento de
@@ -89,39 +87,42 @@
     </div>
 
     <div class="row">
-      <div class="col-12">
-        <label for="type">Clasificación</label>
-      </div>
       <div class="form-floating col mb-2">
         <select
           class="form-select"
           formControlName="classification"
           (change)="selectChange()"
         >
-          <option *ngFor="let d of classification" [ngValue]="d">
+          <option *ngFor="let d of data_classification" [ngValue]="d">
             {{ d.description }}
           </option>
         </select>
+        <label for="type">Clasificación *</label>
+        <app-input-validation [element]="classification"></app-input-validation>
         <!-- <p>{{ getMilestoneTypeDesc(milestoneForm.value.type) }}</p> -->
       </div>
       <div class="form-text">La clasificación primaria para un artículo.</div>
     </div>
 
     <fieldset class="border p-3 mb-3">
-      <legend class="w-auto px-1">Clasificaciones adicionales</legend>
+      <legend class="w-auto px-1">Clasificaciones adicionales *</legend>
       <div class="row">
-        <div class="col-12">
-          <label for="type">Clasificaciones adicionales</label>
-        </div>
         <div
           class="form-floating col-10 mb-2"
           [formGroup]="additionalClassificationsForm"
         >
           <select class="form-select" formControlName="data">
-            <option *ngFor="let d of classification" [ngValue]="d">
+            <option *ngFor="let d of data_classification" [ngValue]="d">
               {{ d.description }}
             </option>
           </select>
+          <label for="type">Clasificaciones adicionales *</label>
+          <small
+            *ngIf="additionalClassificationsArray.length === 0"
+            class="text-danger"
+          >
+            Debe registrar al menos una unidad clasificación adicional.
+          </small>
           <div class="form-text">
             Una lista de clasificaciones adicionales para el artículo.
           </div>
@@ -191,10 +192,8 @@
           placeholder="Cantidad*"
           formControlName="quantity"
         />
-        <label for="quantity">Cantidad*</label>
-        <div class="invalid-feedback" data-sb-feedback="quantity:required">
-          Cantidad * es requerido.
-        </div>
+        <label for="quantity">Cantidad *</label>
+        <app-input-validation [element]="quantity"></app-input-validation>
       </div>
       <div class="form-text">El número de unidades que se dan.</div>
     </div>
@@ -210,9 +209,7 @@
           formControlName="name"
         />
         <label for="unit">Unidad *</label>
-        <div class="invalid-feedback" data-sb-feedback="unit:required">
-          Unidad * es requerido.
-        </div>
+        <app-input-validation [element]="name"></app-input-validation>
       </div>
       <div class="form-text">
         Una descripción de la unidad en la cual los suministros, servicios o
@@ -231,9 +228,7 @@
                 formControlName="amount"
               />
               <label for="amount">Monto *</label>
-              <div class="invalid-feedback" data-sb-feedback="amount:required">
-                Monto * es requerido.
-              </div>
+              <app-input-validation [element]="amount"></app-input-validation>
             </div>
             <div class="form-text">Monto como una cifra.</div>
           </div>
@@ -245,11 +240,12 @@
                 id="currency"
                 formControlName="currency"
               >
-                <option *ngFor="let d of currency" [ngValue]="d.code">
+                <option *ngFor="let d of data_currency" [ngValue]="d.code">
                   {{ d.title }}
                 </option>
               </select>
-              <label for="currency">Moneda</label>
+              <label for="currency">Moneda *</label>
+              <app-input-validation [element]="currency"></app-input-validation>
             </div>
             <div class="form-text">
               La moneda del monto, de la lista de código cerrada
@@ -268,6 +264,7 @@
             type="button"
             class="btn btn-danger btn-add"
             (click)="addNewItem()"
+            [disabled]="!itemsForm.valid"
           >
             Agregar artículo
           </button>

@@ -1,5 +1,11 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import {
+  FormArray,
+  FormBuilder,
+  FormControl,
+  FormGroup,
+  Validators,
+} from '@angular/forms';
 import { Language } from 'src/utils';
 
 @Component({
@@ -41,6 +47,46 @@ export class PartiesAdditionalContactPointsComponent implements OnInit {
 
   ngOnInit(): void {
     this.initForm();
+  }
+
+  get type(): FormControl {
+    return this.additionalContactPointsForm.get('type') as FormControl;
+  }
+
+  get name(): FormControl {
+    return this.additionalContactPointsForm.get('name') as FormControl;
+  }
+
+  get givenName(): FormControl {
+    return this.additionalContactPointsForm.get('givenName') as FormControl;
+  }
+
+  get patronymicName(): FormControl {
+    return this.additionalContactPointsForm.get(
+      'patronymicName'
+    ) as FormControl;
+  }
+
+  get matronymicName(): FormControl {
+    return this.additionalContactPointsForm.get(
+      'matronymicName'
+    ) as FormControl;
+  }
+
+  get email(): FormControl {
+    return this.additionalContactPointsForm.get('email') as FormControl;
+  }
+
+  get telephone(): FormControl {
+    return this.additionalContactPointsForm.get('telephone') as FormControl;
+  }
+
+  get faxNumber(): FormControl {
+    return this.additionalContactPointsForm.get('faxNumber') as FormControl;
+  }
+
+  get url(): FormControl {
+    return this.additionalContactPointsForm.get('url') as FormControl;
   }
 
   initForm(): void {
