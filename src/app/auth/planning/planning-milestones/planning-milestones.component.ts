@@ -4,6 +4,8 @@ import {
   FormControl,
   FormGroup,
   Validators,
+  AbstractControl,
+  ValidationErrors,
 } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { ApiService } from 'src/app/services/api.service';
@@ -103,6 +105,57 @@ export class PlanningMilestonesComponent implements OnInit {
     return this.milestoneForm.get('status') as FormControl;
   }
 
+  private dateComparisonValidator(): (group: AbstractControl) => ValidationErrors | null {
+      return (group: AbstractControl): ValidationErrors | null => {
+        const dueDate = group.get('dueDate')?.value;
+        const dateMetControl = group.get('dateMet');
+        const dateModifiedControl = group.get('dateModified');
+        const dateMet = dateMetControl?.value;
+        const dateModified = dateModifiedControl?.value;
+    
+        let hasErrors = false;
+    
+        // Validar dateMet vs dueDate
+        if (dueDate && dateMet && new Date(dateMet) < new Date(dueDate)) {
+          const currentErrors = dateMetControl?.errors || {};
+          dateMetControl?.setErrors({
+            ...currentErrors,
+            dateMetInvalid: true
+          });
+          hasErrors = true;
+        } else if (dateMetControl?.errors) {
+          const { dateMetInvalid, ...otherErrors } = dateMetControl.errors;
+          dateMetControl.setErrors(
+            Object.keys(otherErrors).length > 0 ? otherErrors : null
+          );
+        }
+    
+        // Validar dateModified vs dueDate y dateMet
+        if (dateModified) {
+          const dateModifiedTime = new Date(dateModified).getTime();
+          const dueDateTime = dueDate ? new Date(dueDate).getTime() : null;
+          const dateMetTime = dateMet ? new Date(dateMet).getTime() : null;
+    
+          if ((dueDateTime && dateModifiedTime < dueDateTime) || 
+              (dateMetTime && dateModifiedTime < dateMetTime)) {
+            const currentErrors = dateModifiedControl?.errors || {};
+            dateModifiedControl?.setErrors({
+              ...currentErrors,
+              dateModifiedInvalidMilestone: true
+            });
+            hasErrors = true;
+          } else if (dateModifiedControl?.errors) {
+            const { dateModifiedInvalidMilestone, ...otherErrors } = dateModifiedControl.errors;
+            dateModifiedControl.setErrors(
+              Object.keys(otherErrors).length > 0 ? otherErrors : null
+            );
+          }
+        }
+    
+        return hasErrors ? { dateValidation: true } : null;
+      };
+    }
+
   initForm(): void {
     this.milestoneForm = this.fb.group({
       title: ['', [Validators.required]],
@@ -113,7 +166,7 @@ export class PlanningMilestonesComponent implements OnInit {
       dateMet: ['', [Validators.required]],
       dateModified: ['', [Validators.required]],
       status: ['', [Validators.required]],
-    });
+    }, { validators: this.dateComparisonValidator() });
   }
 
   addNewMilestone(): void {

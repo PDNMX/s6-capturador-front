@@ -107,6 +107,39 @@ export class ContractsGeneralComponent implements OnInit {
     });
   }
 
+  //validaciones
+
+  get contractId() {
+    return this.contractForm.get('contractId') as FormControl;
+  }
+  get awardID() {
+    return this.contractForm.get('awardID') as FormControl;
+  }
+  get title() {
+    return this.contractForm.get('title') as FormControl;
+  }
+  get description() {
+    return this.contractForm.get('description') as FormControl;
+  }
+  get status() {
+    return this.contractForm.get('status') as FormControl;
+  }
+  get period() {
+    return this.contractForm.get('period') as FormGroup;
+  }
+  getControl(name: string): FormControl {
+    return this.period.get(name) as FormControl;
+  }
+  get amount() {
+    return this.contractForm.get('value')?.get('amount') as FormControl;
+  }
+  get amountNet() {
+    return this.contractForm.get('value')?.get('amountNet') as FormControl;
+  }
+  get dateSigned() {
+    return this.contractForm.get('dateSigned') as FormControl;
+  }
+
   getRelatedProcessesDesc(code: string): string {
     const process = this.relatedProcesses.find((p) => p.code === code);
     return process?.description || '';

@@ -23,7 +23,11 @@
               {{ s.title }}
             </option>
           </select>
-          <label for="">Estatus de la implementación</label>
+          <app-input-validation
+            [message]="'Debe seleccionar un estatus de la implementación'"
+            [element]="status"
+          ></app-input-validation>
+          <label for="">Estatus de la implementación *</label>
           <div class="form-text">
             El estado actual de la ejecución del contrato obtenido de la lista
             de códigos <a href="https://github.com/contratacionesabiertas/ocds_implementationStatus_extension/blob/master/codelists/implementationStatus.csv" target="_blank">'Estatus de la ejecución'</a>.

@@ -105,9 +105,15 @@ export class TenderDocumentsComponent implements OnInit {
         documentType: ['', [Validators.required]],
         title: ['', [Validators.required]],
         description: [''],
-        url: ['', [Validators.required, Validators.pattern(
-          /((https?):\/\/)?(www\.)?[a-z0-9]+(\.[a-z]{2,}){1,3}(#?\/?[a-zA-Z0-9#]+)*\/?(\?[a-zA-Z0-9-_]+=[a-zA-Z0-9-%]+&?)?$/
-        ),]],
+        url: [
+          '',
+          [
+            Validators.required,
+            Validators.pattern(
+              /^https?:\/\/(?:[a-zA-Z0-9\-._~%!$&'()*+,;=:@]+|%[0-9A-Fa-f]{2})*(?:\/(?:[a-zA-Z0-9\-._~%!$&'()*+,;=:@]+|%[0-9A-Fa-f]{2})*)*(?:\?(?:[a-zA-Z0-9\-._~%!$&'()*+,;=:@/?]+|%[0-9A-Fa-f]{2})*)?(?:#(?:[a-zA-Z0-9\-._~%!$&'()*+,;=:@/?]+|%[0-9A-Fa-f]{2})*)?$/
+            ),
+          ],
+        ],
         datePublished: ['', [Validators.required]],
         dateModified: ['', [Validators.required]],
         format: ['', [Validators.required]],
@@ -152,7 +158,6 @@ export class TenderDocumentsComponent implements OnInit {
         dateModified &&
         new Date(dateModified) < new Date(datePublished)
       ) {
-        // Combina el error existente con el nuevo
         const currentErrors = dateModifiedControl?.errors || {}; // Obtén los errores actuales
         dateModifiedControl?.setErrors({
           ...currentErrors,
@@ -161,7 +166,6 @@ export class TenderDocumentsComponent implements OnInit {
         return { dateModifiedInvalid: true };
       }
 
-      // Si pasa la validación personalizada, elimina SOLO el error `dateModifiedInvalid`
       if (dateModifiedControl?.errors) {
         const { dateModifiedInvalid, ...otherErrors } =
           dateModifiedControl.errors;
@@ -173,9 +177,9 @@ export class TenderDocumentsComponent implements OnInit {
       return null;
     };
   }
-  
+
   enableAddDocumentButton(): boolean {
-    return (this.documentForm.valid && this.documentForm.dirty);
+    return this.documentForm.valid && this.documentForm.dirty;
   }
 
   addNewDocument(): void {

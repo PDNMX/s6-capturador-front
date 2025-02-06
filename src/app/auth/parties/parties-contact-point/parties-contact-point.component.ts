@@ -88,7 +88,15 @@ export class PartiesContactPointComponent implements OnInit {
       email: ['', [Validators.required]],
       telephone: ['', [Validators.required]],
       faxNumber: ['', [Validators.required]],
-      url: ['', [Validators.required]],
+      url:  [
+        '',
+        [
+          Validators.required,
+          Validators.pattern(
+            /^https?:\/\/(?:[a-zA-Z0-9\-._~%!$&'()*+,;=:@]+|%[0-9A-Fa-f]{2})*(?:\/(?:[a-zA-Z0-9\-._~%!$&'()*+,;=:@]+|%[0-9A-Fa-f]{2})*)*(?:\?(?:[a-zA-Z0-9\-._~%!$&'()*+,;=:@/?]+|%[0-9A-Fa-f]{2})*)?(?:#(?:[a-zA-Z0-9\-._~%!$&'()*+,;=:@/?]+|%[0-9A-Fa-f]{2})*)?$/
+          ),
+        ],
+      ],
       availableLanguage: this.fb.array([]),
     });
   }

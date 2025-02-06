@@ -5,6 +5,8 @@ import {
   FormControl,
   FormGroup,
   Validators,
+  AbstractControl,
+  ValidationErrors,
 } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { ApiService, IPartieList } from 'src/app/services/api.service';
@@ -128,16 +130,50 @@ export class PlanningRequestForQuotesComponent implements OnInit {
     return this.requestForQuotesForm.get('uri') as FormControl;
   }
 
+  get period() {
+    return this.requestForQuotesForm.get('period') as FormGroup;
+  }
+  getControl(name: string): FormControl {
+    return this.period.get(name) as FormControl;
+  }
+
+  private dateComparisonValidator(): Validators {
+    return (group: AbstractControl): ValidationErrors | null => {
+      const startDate = group.get('startDate')?.value;
+      const endDate = group.get('endDate')?.value;
+      const maxExtentDate = group.get('maxExtentDate')?.value;
+
+      if (startDate && endDate && new Date(endDate) < new Date(startDate)) {
+        group.get('endDate')?.setErrors({ dateInvalid: true });
+        return { dateInvalid: true };
+      }
+
+      if (
+        maxExtentDate &&
+        endDate &&
+        new Date(maxExtentDate) < new Date(endDate)
+      ) {
+        group.get('maxExtentDate')?.setErrors({ maxDateInvalid: true });
+        return { maxDateInvalid: true };
+      }
+
+      return null;
+    };
+  }
+
   initForm(): void {
     this.requestForQuotesForm = this.fb.group({
       title: ['', Validators.required],
       description: ['', Validators.required],
-      period: this.fb.group({
-        startDate: ['', Validators.required],
-        endDate: ['', Validators.required],
-        maxExtentDate: ['', Validators.required],
-        durationInDays: ['', Validators.required],
-      }),
+      period: this.fb.group(
+        {
+          startDate: ['', Validators.required],
+          endDate: ['', Validators.required],
+          maxExtentDate: ['', Validators.required],
+          durationInDays: ['', Validators.required],
+        },
+        { validators: this.dateComparisonValidator() }
+      ),
       items: this.fb.array([]),
       invitedSuppliers: this.fb.array([]),
       quotes: this.fb.array([]),

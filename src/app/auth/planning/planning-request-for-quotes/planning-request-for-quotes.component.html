@@ -159,7 +159,7 @@
 
             <fieldset class="border p-3 mb-3" formGroupName="period">
               <legend class="w-auto px-1">
-                Periodo para recibir cotizaciones
+                Periodo para recibir cotizaciones *
               </legend>
               <p>
                 El periodo comprendido entre la fecha en la que se elaboró la
@@ -178,12 +178,9 @@
                       formControlName="startDate"
                     />
                     <label for="startDate">Fecha de inicio *</label>
-                    <div
-                      class="invalid-feedback"
-                      data-sb-feedback="startDate:required"
-                    >
-                      Fecha de inicio * es requerido.
-                    </div>
+                    <app-input-validation
+                      [element]="getControl('startDate')"
+                    ></app-input-validation>
                   </div>
                   <div class="form-text">
                     Fecha de inicio del periodo. Cuando se conozca, debe
@@ -201,12 +198,9 @@
                       formControlName="endDate"
                     />
                     <label for="endDate">Fecha de término *</label>
-                    <div
-                      class="invalid-feedback"
-                      data-sb-feedback="endDate:required"
-                    >
-                      Fecha de término * es requerido.
-                    </div>
+                    <app-input-validation
+                      [element]="getControl('endDate')"
+                    ></app-input-validation>
                   </div>
                   <div class="form-text">
                     Fecha de término del periodo. Cuando se conozca, debe
@@ -226,12 +220,9 @@
                       formControlName="maxExtentDate"
                     />
                     <label for="maxExtentDate">Extensión máxima *</label>
-                    <div
-                      class="invalid-feedback"
-                      data-sb-feedback="maxExtentDate:required"
-                    >
-                      Extensión máxima * es requerido.
-                    </div>
+                    <app-input-validation
+                      [element]="getControl('maxExtentDate')"
+                    ></app-input-validation>
                   </div>
                   <div class="form-text">
                     El periodo no puede extenderse más allá de esta fecha. Este
@@ -251,12 +242,9 @@
                       formControlName="durationInDays"
                     />
                     <label for="durationInDays">Duración (días) *</label>
-                    <div
-                      class="invalid-feedback"
-                      data-sb-feedback="durationInDays:required"
-                    >
-                      Duración * es requerido.
-                    </div>
+                    <app-input-validation
+                      [element]="getControl('durationInDays')"
+                    ></app-input-validation>
                   </div>
                   <div class="form-text">
                     La duración máxima de este período en días.
