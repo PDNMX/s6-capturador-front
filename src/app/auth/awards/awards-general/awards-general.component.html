@@ -14,7 +14,7 @@
             {{ s.title }}
           </option>
         </select>
-        <label for="status">Estatus de la Adjudicación*</label>
+        <label for="status">Estatus de la Adjudicación *</label>
         <app-input-validation [element]="status"></app-input-validation>
         <p class="mt-2">{{ getAwardStatusDesc(generalForm.value.status) }}</p>
       </div>
@@ -28,7 +28,7 @@
           placeholder="Identificador de la adjudicación"
           formControlName="id"
         />
-        <label for="AwardsTitle">Identificador de la adjudicación*</label>
+        <label for="AwardsTitle">Identificador de la adjudicación *</label>
 
         <app-input-validation [element]="id"></app-input-validation>
       </div>
@@ -43,7 +43,7 @@
           placeholder="Título"
           formControlName="title"
         />
-        <label for="AwardsTitle">Título*</label>
+        <label for="AwardsTitle">Título *</label>
 
         <app-input-validation [element]="title"></app-input-validation>
       </div>
@@ -59,7 +59,7 @@
           placeholder="Descripción"
           formControlName="description"
         ></textarea>
-        <label for="AwardsDescription">Descripción*</label>
+        <label for="AwardsDescription">Descripción *</label>
         <app-input-validation [element]="description"></app-input-validation>
       </div>
       <div class="form-text">Descripción de la adjudicación.</div>
@@ -74,7 +74,7 @@
           style="height: 100px"
           formControlName="rationale"
         ></textarea>
-        <label for="AwardsRationale">Justificación*</label>
+        <label for="AwardsRationale">Justificación *</label>
         <app-input-validation [element]="rationale"></app-input-validation>
       </div>
       <div class="form-text">
@@ -92,7 +92,7 @@
           placeholder="Fecha de la adjudicación"
           formControlName="date"
         />
-        <label for="AwardsDate">Fecha de la adjudicación*</label>
+        <label for="AwardsDate">Fecha de la adjudicación *</label>
         <app-input-validation [element]="date"></app-input-validation>
       </div>
       <div class="form-text">
@@ -122,7 +122,7 @@
               placeholder="Monto total de la adjudicación *"
               formControlName="amount"
             />
-            <label for="AwardsValueAmount">Monto como una cifra*</label>
+            <label for="AwardsValueAmount">Monto como una cifra *</label>
             <app-input-validation [element]="amount"></app-input-validation>
           </div>
         </div>
@@ -140,7 +140,7 @@
                 {{ m.title }}
               </option>
             </select>
-            <label for="AwardsValueCurrency">Moneda*</label>
+            <label for="AwardsValueCurrency">Moneda *</label>
             <app-input-validation [element]="currency"></app-input-validation>
           </div>
           <div class="form-text">
@@ -175,7 +175,7 @@
                 placeholder="Fecha de inicio del contrato"
                 formControlName="startDate"
               />
-              <label for="ContractPeriodStartDate">Fecha de inicio*</label>
+              <label for="ContractPeriodStartDate">Fecha de inicio *</label>
               <app-input-validation
                 [element]="startDate"
               ></app-input-validation>
@@ -195,7 +195,7 @@
                 placeholder="Fecha de la adjudicación"
                 formControlName="endDate"
               />
-              <label for="ContractPeriodendDate">Fecha de término*</label>
+              <label for="ContractPeriodendDate">Fecha de término *</label>
               <app-input-validation [element]="endDate"></app-input-validation>
             </div>
             <div class="form-text">
@@ -214,7 +214,7 @@
                 placeholder="Fecha de la adjudicación"
                 formControlName="maxExtentDate"
               />
-              <label for="ContractPeriodMaxExtentDate">Extensión máxima*</label>
+              <label for="ContractPeriodMaxExtentDate">Extensión máxima *</label>
               <app-input-validation
                 [element]="maxExtentDate"
               ></app-input-validation>
@@ -235,7 +235,7 @@
                 placeholder="Duración en dias"
                 formControlName="durationInDays"
               />
-              <label for="ContractPeriodDurationInDays">Duración (días)*</label>
+              <label for="ContractPeriodDurationInDays">Duración (días) *</label>
               <app-input-validation
                 [element]="durationInDays"
               ></app-input-validation>
