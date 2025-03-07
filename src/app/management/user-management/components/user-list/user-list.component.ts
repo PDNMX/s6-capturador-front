@@ -15,8 +15,8 @@ export class UserListComponent implements OnInit {
   selectedUserId?: number;
 
   // Catálogos de ejemplo (puedes obtenerlos del backend)
-  instituciones = ['Institución A', 'Institución B', 'Institución C'];
-  rolesDisponibles = ['Admin', 'Editor', 'Usuario'];
+  instituciones = ['Institución1', 'Institución2', 'Institución3'];
+  rolesDisponibles = ['admin', 'usuario', 'editor'];
 
   constructor(private userService: UserService, private fb: FormBuilder) {
     this.userForm = this.fb.group({
@@ -45,7 +45,7 @@ export class UserListComponent implements OnInit {
 
   openEditModal(user: User): void {
     this.isEdit = true;
-    this.selectedUserId = user.id;
+    this.selectedUserId = user._id;
     this.userForm.patchValue(user);
     this.showModal();
   }

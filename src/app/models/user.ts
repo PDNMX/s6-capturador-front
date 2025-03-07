@@ -1,5 +1,5 @@
 export interface User {
-  id?: number; // Opcional, se asignará al crear/editar
+  _id?: number; // Opcional, se asignará al crear/editar
   nombre: string;
   primerApellido: string;
   segundoApellido: string;

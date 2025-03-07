@@ -6,6 +6,7 @@
   <table class="table table-striped">
     <thead>
       <tr>
+        <!-- <th>ID</th> -->
         <th>Nombre</th>
         <th>Primer Apellido</th>
         <th>Segundo Apellido</th>
@@ -16,6 +17,7 @@
     </thead>
     <tbody>
       <tr *ngFor="let user of users">
+        <!-- <td>{{ user._id }}</td> -->
         <td>{{ user.nombre }}</td>
         <td>{{ user.primerApellido }}</td>
         <td>{{ user.segundoApellido }}</td>
@@ -28,7 +30,7 @@
           >
             Editar
           </button>
-          <button class="btn btn-danger btn-sm" (click)="deleteUser(user.id!)">
+          <button class="btn btn-danger btn-sm" (click)="deleteUser(user._id!)">
             Eliminar
           </button>
         </td>
