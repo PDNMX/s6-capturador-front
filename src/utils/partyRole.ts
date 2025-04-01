@@ -97,4 +97,12 @@ const PartyRole = [
   },
 ];
 
+export const getRoleDesc = (code: string) => {
+  return PartyRole.find((e) => e.code === code)?.description || '';
+};
+
+export const getRoleTitle = (code: string) => {
+  return PartyRole.find((e) => e.code === code)?.title || '';
+};
+
 export default PartyRole;

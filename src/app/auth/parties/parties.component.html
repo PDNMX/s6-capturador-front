@@ -158,6 +158,7 @@
                         <thead>
                           <tr>
                             <th scope="col">ID</th>
+                            <th scope="col">Roles</th>
                             <th scope="col">Nombre comun</th>
                             <th scope="col">cargo</th>
                             <th scope="col">Nombre legal</th>
@@ -176,6 +177,13 @@
                           >
                             <td scope="row">
                               {{ i + 1 }}
+                            </td>
+                            <td>
+                              <ul>
+                                <li *ngFor="let rol of item.roles">
+                                  {{ getRoleTitle(rol) }}
+                                </li>
+                              </ul>
                             </td>
                             <td>{{ item.name }}</td>
                             <td>{{ item.position }}</td>
