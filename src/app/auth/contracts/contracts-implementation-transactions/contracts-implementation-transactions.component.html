@@ -165,7 +165,7 @@
         <div class="form-floating col mb-3">
           <select class="form-select" formControlName="payer">
             <option *ngFor="let p of payers" [ngValue]="p">
-              {{ p?.name }}
+              {{ p?.legalName || p?.name }}
             </option>
           </select>
           <label for="">Emisor del pago *</label>
@@ -184,7 +184,7 @@
         <div class="form-floating col mb-3">
           <select class="form-select" formControlName="payee">
             <option *ngFor="let b of payee" [ngValue]="b">
-              {{ b?.name }}
+              {{ b?.legalName || b?.name }}
             </option>
           </select>
           <label for="">Receptor del pago *</label>

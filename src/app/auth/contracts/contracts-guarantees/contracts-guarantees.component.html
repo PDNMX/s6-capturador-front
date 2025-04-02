@@ -172,7 +172,7 @@
               No hay registros de Actores para este proceso de contratación.
             </option>
             <option *ngFor="let c of guarantor" [ngValue]="c">
-              {{ c?.name }} - ({{ getPartiesListTitle(c?.roles || []) }})
+              {{ c?.legalName || c?.name }} - ({{ getPartiesListTitle(c?.roles || []) }})
             </option>
           </select>
           <div class="form-text">
