@@ -95,7 +95,7 @@
           formControlName="sourceParty"
         >
           <option *ngFor="let c of sourceParty" [ngValue]="c">
-            {{ c?.name }}
+            {{ c?.name }} - ({{ getPartiesListTitle(c?.roles || []) }})
           </option>
         </select>
         <label for="sourceParty"> Actor fuente* </label>

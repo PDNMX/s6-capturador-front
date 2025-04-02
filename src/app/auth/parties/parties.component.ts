@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { ApiService } from 'src/app/services/api.service';
+import { getRoleTitle } from 'src/utils/partyRole';
 
 @Component({
   selector: 'app-parties',
@@ -39,6 +40,10 @@ export class PartiesComponent implements OnInit {
   deletePartie(index: number): void {
     this.partiesArray.removeAt(index);
     this.saveData();
+  }
+
+  getRoleTitle(code: string): string {
+    return getRoleTitle(code);
   }
 
   getParties(): string {

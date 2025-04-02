@@ -1,6 +1,12 @@
 import { map } from 'rxjs';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { FormArray, FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
+import {
+  FormArray,
+  FormBuilder,
+  FormGroup,
+  Validators,
+  FormControl,
+} from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { ApiService, IPartieList } from 'src/app/services/api.service';
 
@@ -30,6 +36,10 @@ export class TenderMeetingsComponent implements OnInit {
     private route: ActivatedRoute,
     private api: ApiService
   ) {}
+
+  getPartiesListTitle(roles: Array<string>): string {
+    return this.api.getPartiesListTitle(roles);
+  }
 
   get attendeesArray() {
     return this.meetingForm.controls['attendees'] as FormArray;

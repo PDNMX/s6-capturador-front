@@ -83,7 +83,7 @@
         </option>
         <option></option>
         <option *ngFor="let c of suppliers" [ngValue]="c">
-          proveedor {{ c?.name }}
+          {{ c?.name }} - ({{ getPartiesListTitle(c?.roles || []) }})
         </option>
       </select>
 

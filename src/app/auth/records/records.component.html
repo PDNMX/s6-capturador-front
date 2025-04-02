@@ -14,33 +14,31 @@
     </div>
 
     <div class="container m-2">
-      <div class="row">
-        <div *ngFor="let n of records; index as i" class="col-4 mb-4">
-          <div class="list-records">
-            <div class="card">
-              <div class="card-header">
-                <p>
-                  Proceso de compra: <br />
-                  <strong>{{ n.ocid }}</strong>
-                </p>
-                <div *ngIf="n.contracts?.length">
-                  <div *ngFor="let contract of n.contracts">
-                    <p>
-                      Número de contrato: <br />
-                      <strong>{{ contract.id }}</strong>
-                    </p>
-                  </div>
-                </div>
-              </div>
-              <div class="card-body">
-                <div class="row">
-                  <div class="col">
-                    <h3>
-                      Detalle del registro del proceso de la contratación
-                      pública
-                    </h3>
-                  </div>
-                </div>
+      <div>
+        <table class="table table-hover table-striped mb-10">
+          <thead>
+            <tr>
+              <th scope="col">Proceso de compra</th>
+              <th scope="col">Planeación</th>
+              <th scope="col">Contratación Pública</th>
+              <th scope="col">Adjudicación</th>
+              <th scope="col">Contrato</th>
+              <th scope="col">Operaciones</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let n of records; index as i">
+              <td>
+                <strong>{{ n.ocid }}</strong>
+              </td>
+              <td>
+                <ul>
+                  <li>
+                    <strong>Justificación:</strong>&nbsp;{{
+                      n.planning?.rationale || "Ejemplo de Justificación"
+                    }}
+                  </li>
+                </ul>
 
                 <fieldset *ngIf="n.buyer" class="border p-3 mb-3">
                   <legend>Comprador</legend>
@@ -48,83 +46,67 @@
                     <li><strong>Nombre:</strong>&nbsp;{{ n.buyer.name }}</li>
                   </ul>
                 </fieldset>
-
-                <fieldset class="border p-3 mb-3">
-                  <legend>Planeación</legend>
-                  <ul>
-                    <li>
-                      <strong>Justificación:</strong>&nbsp;{{
-                        n.planning?.rationale || "Ejemplo de Justificación"
-                      }}
-                    </li>
-                  </ul>
-                </fieldset>
-
-                <fieldset class="border p-3 mb-3">
-                  <legend>Contratación pública</legend>
-                  <ul>
-                    <li>
-                      <strong>Titulo:</strong>&nbsp;{{
-                        n.tender?.title || "titulo de ejemplo"
-                      }}
-                    </li>
-                    <li>
-                      <strong>Numero de licitantes:</strong>&nbsp;{{
-                        n.tender?.numberOfTenderers || randomNumber
-                      }}
-                    </li>
-                  </ul>
-                </fieldset>
-
-                <fieldset class="border p-3 mb-3">
-                  <legend>Adjudicación</legend>
-                  <ul
-                    *ngFor="
-                      let l of n.awards || [
-                        {
-                          title: 'titulo ejemplo 1',
-                          description: 'descripción de ejemplo 1'
-                        },
-                        {
-                          title: 'titulo ejemplo 2',
-                          description: 'descripción de ejemplo 2'
-                        }
-                      ]
-                    "
-                  >
-                    <li><strong>Titulo:</strong>&nbsp;{{ l.title }}</li>
-                    <li>
-                      <strong>Descripción:</strong>&nbsp;{{ l.description }}
-                    </li>
-                  </ul>
-                </fieldset>
-
-                <fieldset class="border p-3 mb-3">
-                  <legend>Contrato</legend>
-                  <ul
-                    *ngFor="
-                      let l of n.contracts || [
-                        {
-                          title: 'titulo ejemplo 1',
-                          description: 'descripción de ejemplo 1'
-                        },
-                        {
-                          title: 'titulo ejemplo 2',
-                          description: 'descripción de ejemplo 2'
-                        }
-                      ]
-                    "
-                  >
-                    <li><strong>Titulo:</strong>&nbsp;{{ l.title }}</li>
-                    <li>
-                      <strong>Descripción:</strong>&nbsp;{{ l.description }}
-                    </li>
-                  </ul>
-                </fieldset>
-
-                <br />
-              </div>
-              <div class="card-footer">
+              </td>
+              <td>
+                <ul>
+                  <li>
+                    <strong>Titulo:</strong>&nbsp;{{
+                      n.tender?.title || "titulo de ejemplo"
+                    }}
+                  </li>
+                  <li>
+                    <strong>Numero de licitantes:</strong>&nbsp;{{
+                      n.tender?.numberOfTenderers || 3
+                    }}
+                  </li>
+                </ul>
+              </td>
+              <td>
+                <ul
+                  *ngFor="
+                    let l of n.awards || [
+                      {
+                        title: 'titulo ejemplo 1',
+                        description: 'descripción de ejemplo 1'
+                      },
+                      {
+                        title: 'titulo ejemplo 2',
+                        description: 'descripción de ejemplo 2'
+                      }
+                    ]
+                  "
+                >
+                  <li><strong>Titulo:</strong>&nbsp;{{ l.title }}</li>
+                  <li>
+                    <strong>Descripción:</strong>&nbsp;{{ l.description }}
+                  </li>
+                </ul>
+              </td>
+              <td>
+                <ul
+                  *ngFor="
+                    let l of n.contracts || [
+                      {
+                        id: '123456',
+                        title: 'titulo ejemplo 1',
+                        description: 'descripción de ejemplo 1'
+                      },
+                      {
+                        id: '7890123',
+                        title: 'titulo ejemplo 2',
+                        description: 'descripción de ejemplo 2'
+                      }
+                    ]
+                  "
+                >
+                  <li><strong>Numero de contrato:</strong>&nbsp;{{ l.id }}</li>
+                  <li><strong>Titulo:</strong>&nbsp;{{ l.title }}</li>
+                  <li>
+                    <strong>Descripción:</strong>&nbsp;{{ l.description }}
+                  </li>
+                </ul>
+              </td>
+              <td>
                 <button class="btn btn-success m-2" (click)="editRecord(n._id)">
                   <i class="bi bi-pencil-square"></i> Editar
                 </button>
@@ -135,10 +117,11 @@
                 >
                   <i class="bi bi-trash3"></i> Eliminar
                 </button>
-              </div>
-            </div>
-          </div>
-        </div>
+              </td>
+            </tr>
+          </tbody>
+          <tfoot></tfoot>
+        </table>
       </div>
     </div>
   </div>

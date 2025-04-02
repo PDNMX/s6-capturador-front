@@ -54,6 +54,7 @@ export class PlanningGeneralComponent implements OnInit {
     if (this.record_id) {
       this.api.getPartiesByType(this.record_id).subscribe((d: IPartieList) => {
         this.requestings = d.data;
+        console.log('this.requestings: ', this.requestings);
       });
     }
 
@@ -70,6 +71,10 @@ export class PlanningGeneralComponent implements OnInit {
     }
 
     this.loadData();
+  }
+
+  getPartiesListTitle(roles: Array<string>): string {
+    return this.api.getPartiesListTitle(roles);
   }
 
   initForm(): void {

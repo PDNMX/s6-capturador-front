@@ -100,7 +100,7 @@
               No hay registros de Actores para este proceso de contratación.
             </option>
             <option *ngFor="let c of attendees" [ngValue]="c">
-              asistente {{ c?.name }}
+              {{ c?.name }} - ({{ getPartiesListTitle(c?.roles || []) }})
             </option>
           </select>
           <small *ngIf="attendeesArray.length === 0" class="text-danger">
@@ -170,7 +170,7 @@
               No hay registros de Actores para este proceso de contratación.
             </option>
             <option *ngFor="let c of officials" [ngValue]="c">
-              servidor publico {{ c?.name }}
+              {{ c?.name }} - ({{ getPartiesListTitle(c?.roles || []) }})
             </option>
           </select>
           <small *ngIf="officialsArray.length === 0" class="text-danger">

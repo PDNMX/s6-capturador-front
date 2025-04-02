@@ -238,7 +238,7 @@
               No hay registros de Actores para este proceso de contratación.
             </option>
             <option *ngFor="let c of issuingSupplier" [ngValue]="c">
-              {{ c?.name }}
+              {{ c?.name }} - ({{ getPartiesListTitle(c?.roles || []) }})
             </option>
           </select>
           <label for="issuingSupplier">Proveedor emisor</label>

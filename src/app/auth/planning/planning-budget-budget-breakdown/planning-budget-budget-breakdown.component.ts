@@ -38,6 +38,10 @@ export class PlanningBudgetBudgetBreakdownComponent implements OnInit {
     private api: ApiService
   ) {}
 
+  getPartiesListTitle(roles: Array<string>): string {
+    return this.api.getPartiesListTitle(roles);
+  }
+
   get componentsArray() {
     return this.budgetLinesForm.controls['components'] as FormArray;
   }

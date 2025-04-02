@@ -41,6 +41,10 @@ export class PlanningRequestForQuotesComponent implements OnInit {
     return this.requestForQuotesForm.controls['quotes'] as FormArray;
   }
 
+  getPartiesListTitle(roles: Array<string>): string {
+    return this.api.getPartiesListTitle(roles);
+  }
+
   addQuotes(opt: any) {
     this.quotesArray.push(opt);
   }

@@ -1,0 +1,140 @@
+<div class="container mt-4">
+  <h2>Lista de Usuarios</h2>
+  <button class="btn btn-success mb-3" (click)="openCreateModal()">
+    Nuevo Usuario
+  </button>
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <!-- <th>ID</th> -->
+        <th>Nombre</th>
+        <th>Primer Apellido</th>
+        <th>Segundo Apellido</th>
+        <th>Institución</th>
+        <th>Roles</th>
+        <th>Acciones</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let user of users">
+        <!-- <td>{{ user._id }}</td> -->
+        <td>{{ user.nombre }}</td>
+        <td>{{ user.primerApellido }}</td>
+        <td>{{ user.segundoApellido }}</td>
+        <td>{{ user.institucion }}</td>
+        <td>{{ user.roles.join(", ") }}</td>
+        <td>
+          <button
+            class="btn btn-primary btn-sm me-2"
+            (click)="openEditModal(user)"
+          >
+            Editar
+          </button>
+          <button class="btn btn-danger btn-sm" (click)="deleteUser(user._id!)">
+            Eliminar
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <!-- Modal para crear/editar -->
+  <div
+    class="modal fade"
+    id="userModal"
+    tabindex="-1"
+    aria-labelledby="userModalLabel"
+    aria-hidden="true"
+  >
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="userModalLabel">
+            {{ isEdit ? "Editar" : "Crear" }} Usuario
+          </h5>
+          <button
+            type="button"
+            class="btn-close"
+            (click)="closeModal()"
+            aria-label="Close"
+          ></button>
+        </div>
+        <div class="modal-body">
+          <form [formGroup]="userForm" (ngSubmit)="saveUser()">
+            <div class="mb-3">
+              <label for="nombre" class="form-label">Nombre</label>
+              <input
+                type="text"
+                class="form-control"
+                id="nombre"
+                formControlName="nombre"
+              />
+            </div>
+            <div class="mb-3">
+              <label for="primerApellido" class="form-label"
+                >Primer Apellido</label
+              >
+              <input
+                type="text"
+                class="form-control"
+                id="primerApellido"
+                formControlName="primerApellido"
+              />
+            </div>
+            <div class="mb-3">
+              <label for="segundoApellido" class="form-label"
+                >Segundo Apellido</label
+              >
+              <input
+                type="text"
+                class="form-control"
+                id="segundoApellido"
+                formControlName="segundoApellido"
+              />
+            </div>
+            <div class="mb-3">
+              <label for="institucion" class="form-label">Institución</label>
+              <select
+                class="form-select"
+                id="institucion"
+                formControlName="institucion"
+              >
+                <option value="">Selecciona una institución</option>
+                <option *ngFor="let inst of instituciones" [value]="inst">
+                  {{ inst }}
+                </option>
+              </select>
+            </div>
+            <div class="mb-3">
+              <label for="roles" class="form-label">Roles</label>
+              <select
+                multiple
+                class="form-select"
+                id="roles"
+                formControlName="roles"
+              >
+                <option *ngFor="let rol of rolesDisponibles" [value]="rol">
+                  {{ rol }}
+                </option>
+              </select>
+            </div>
+            <button
+              type="submit"
+              class="btn btn-primary"
+              [disabled]="userForm.invalid"
+            >
+              Guardar
+            </button>
+            <button
+              type="button"
+              class="btn btn-secondary ms-2"
+              (click)="closeModal()"
+            >
+              Cancelar
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

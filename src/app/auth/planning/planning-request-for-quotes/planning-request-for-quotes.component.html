@@ -273,7 +273,9 @@
                       contratación.
                     </option>
                     <option *ngFor="let c of invitedSuppliers" [ngValue]="c">
-                      {{ c?.name }}
+                      {{ c?.name }} - ({{
+                        getPartiesListTitle(c?.roles || [])
+                      }})
                     </option>
                   </select>
                   <small
