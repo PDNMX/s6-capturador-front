@@ -29,6 +29,10 @@ export class TenderTenderersComponent implements OnInit {
     private api: ApiService
   ) {}
 
+  getPartiesListTitle(roles: Array<string>): string {
+    return this.api.getPartiesListTitle(roles);
+  }
+
   loadForm(data: any): void {
     data.forEach((tenderer: any) => {
       this.addTenderer.emit({ ...tenderer });

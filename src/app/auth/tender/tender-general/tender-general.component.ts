@@ -51,6 +51,10 @@ export class TenderGeneralComponent implements OnInit {
     private api: ApiService
   ) {}
 
+  getPartiesListTitle(roles: Array<string>): string {
+    return this.api.getPartiesListTitle(roles);
+  }
+
   setSelectValue(element: string, value: any): void {
     this.generalForm.get(element)?.setValue(value);
   }
@@ -313,7 +317,7 @@ export class TenderGeneralComponent implements OnInit {
   }
 
   enableSaveFormButton(): boolean {
-    return (this.generalForm.valid && this.submissionMethodArray.length !== 0);
+    return this.generalForm.valid && this.submissionMethodArray.length !== 0;
   }
 
   saveForm(): void {

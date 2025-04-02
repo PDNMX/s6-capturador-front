@@ -28,6 +28,10 @@ export class PlanningRequestForQuotesQuotesComponent implements OnInit {
     private api: ApiService
   ) {}
 
+  getPartiesListTitle(roles: Array<string>): string {
+    return this.api.getPartiesListTitle(roles);
+  }
+
   get itemsArray() {
     return this.quotesForm.controls['items'] as FormArray;
   }

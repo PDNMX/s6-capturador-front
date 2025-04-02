@@ -28,6 +28,10 @@ export class ContractsGuaranteesComponent implements OnInit {
     private api: ApiService
   ) {}
 
+  getPartiesListTitle(roles: Array<string>): string {
+    return this.api.getPartiesListTitle(roles);
+  }
+
   addNewGuarante(): void {
     this.mostrarSpinner = true;
     this.addGuarante.emit(this.guaranteesForm);

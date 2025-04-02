@@ -4,11 +4,12 @@ import {
   HttpHeaders,
   HttpErrorResponse,
 } from '@angular/common/http';
-import { Observable, of } from 'rxjs';
+import { Observable, of, map } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
 import { AuthService } from './auth.service';
 import { Router } from '@angular/router';
+import { getRoleTitle } from 'src/utils/partyRole';
 
 export interface IPartieList {
   data: [
@@ -46,6 +47,14 @@ export class ApiService {
         headers: this.getHeaders(),
       })
       .pipe(catchError(this.handleError<IPartieList>('getPartiesByType')));
+  }
+
+  getPartiesListTitle(roles: Array<string>): string {
+    return roles.map((r: string) => this.getPartiesTitle(r)).toString();
+  }
+
+  getPartiesTitle(code: string): string {
+    return getRoleTitle(code);
   }
 
   getMethodById(id: string, endpoint: string): Observable<any> {

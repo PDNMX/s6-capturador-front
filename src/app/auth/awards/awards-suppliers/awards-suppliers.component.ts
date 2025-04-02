@@ -29,6 +29,10 @@ export class AwardsSuppliersComponent {
     private route: ActivatedRoute
   ) {}
 
+  getPartiesListTitle(roles: Array<string>): string {
+    return this.api.getPartiesListTitle(roles);
+  }
+
   loadData(): void {
     this.route.paramMap.subscribe((params: any) => {
       this.record_id = params.get('id');
