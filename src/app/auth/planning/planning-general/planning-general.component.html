@@ -78,7 +78,9 @@
                 No hay registros de Actores para este proceso de contratación.
               </option>
               <option *ngFor="let c of requestings" [ngValue]="c">
-                {{ c?.name }} - ({{ getPartiesListTitle(c?.roles || []) }})
+                {{ c?.legalName || c?.name }} - ({{
+                  getPartiesListTitle(c?.roles || [])
+                }})
               </option>
             </select>
             <small
@@ -159,7 +161,9 @@
                 No hay registros de Actores para este proceso de contratación.
               </option>
               <option *ngFor="let c of responsibles" [ngValue]="c">
-                {{ c?.name }} - ({{ getPartiesListTitle(c?.roles || []) }})
+                {{ c?.legalName || c?.name }} - ({{
+                  getPartiesListTitle(c?.roles || [])
+                }})
               </option>
             </select>
             <small
@@ -238,7 +242,9 @@
                 No hay registros de Actores para este proceso de contratación.
               </option>
               <option *ngFor="let c of contractings" [ngValue]="c">
-                {{ c?.name }} - ({{ getPartiesListTitle(c?.roles || []) }})
+                {{ c?.legalName || c?.name }} - ({{
+                  getPartiesListTitle(c?.roles || [])
+                }})
               </option>
             </select>
             <small
