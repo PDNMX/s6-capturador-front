@@ -83,7 +83,9 @@
         </option>
         <option></option>
         <option *ngFor="let c of suppliers" [ngValue]="c">
-          {{ c?.name }} - ({{ getPartiesListTitle(c?.roles || []) }})
+          {{ c?.legalName || c?.name }} - ({{
+            getPartiesListTitle(c?.roles || [])
+          }})
         </option>
       </select>
 
