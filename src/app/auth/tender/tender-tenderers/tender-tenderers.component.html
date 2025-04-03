@@ -46,7 +46,9 @@
         </option>
 
         <option *ngFor="let c of tenderers" [ngValue]="c">
-          {{ c?.name }} - ({{ getPartiesListTitle(c?.roles || []) }})
+          {{ c?.legalName || c?.name }} - ({{
+            getPartiesListTitle(c?.roles || [])
+          }})
         </option>
       </select>
       <small *ngIf="tenderersArray.length === 0" class="text-danger">

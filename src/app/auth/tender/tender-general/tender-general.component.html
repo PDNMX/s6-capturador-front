@@ -87,7 +87,9 @@
             No hay registros de Actores para este proceso de contratación.
           </option>
           <option *ngFor="let d of procuringEntity" [ngValue]="d">
-            {{ d.name }} - ({{ getPartiesListTitle(d?.roles || []) }})
+            {{ d?.legalName || d.name }} - ({{
+              getPartiesListTitle(d?.roles || [])
+            }})
           </option>
         </select>
         <app-input-validation
