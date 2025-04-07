@@ -192,12 +192,12 @@ export class TenderGeneralComponent implements OnInit {
         { validators: this.dateComparisonValidator() }
       ),
       enquiryPeriod: this.fb.group({
-        startDate: [''],
-        endDate: [''],
-        maxExtentDate: [''],
-        durationInDays: [0],
+        startDate: ['', [Validators.required]],
+        endDate: ['', [Validators.required]],
+        maxExtentDate: ['', [Validators.required]],
+        durationInDays: [0, [Validators.required]],
       }),
-      hasEnquiries: [true],
+      hasEnquiries: [null, [Validators.required]],
       awardPeriod: this.fb.group(
         {
           startDate: ['', [Validators.required]],

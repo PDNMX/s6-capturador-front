@@ -7,7 +7,6 @@
         <hr />
       </div>
     </div>
-
     <form [formGroup]="generalForm">
       <div class="row">
         <div class="form-floating col mb-2">
@@ -37,26 +36,37 @@
           realización del proyecto
         </div>
       </div>
-
+    
       <div class="row">
-        <div class="form-floating col mb-2">
+        <div class="col mb-2">
+          <label class="form-label"><strong>¿Tiene cotizaciones?</strong></label>
           <div class="form-check">
             <input
               class="form-check-input"
-              type="checkbox"
-              id="hasQuotes"
+              type="radio"
+              id="hasQuotesYes"
+              value="yes"
               formControlName="hasQuotes"
             />
-            <label class="form-check-label" for="hasQuotes">
-              ¿Tiene cotizaciones?
-            </label>
+            <label class="form-check-label" for="hasQuotesYes">Sí</label>
           </div>
-        </div>
-        <div class="form-text">
-          Campo Sí / No para indicar si hubo cotizaciones.
+          <div class="form-check">
+            <input
+              class="form-check-input"
+              type="radio"
+              id="hasQuotesNo"
+              value="no"
+              formControlName="hasQuotes"
+            />
+            <label class="form-check-label" for="hasQuotesNo">No</label>
+          </div>
+          <div class="form-text">
+            Campo Sí / No para indicar si hubo solicitudes de cotizaciones durante la planificación.
+          </div>
         </div>
       </div>
     </form>
+    
 
     <form [formGroup]="selectForm">
       <fieldset class="border p-3 mb-3">

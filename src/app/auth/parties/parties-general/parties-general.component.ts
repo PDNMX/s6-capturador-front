@@ -80,9 +80,18 @@ export class PartiesGeneralComponent implements OnInit {
   }
 
   addRole(): void {
+    const existingRoles = this.roleArray.value; // obtiene los roles actuales
+    
+    if (existingRoles.includes(this.optRole)) {
+      alert('El rol ya existe. No se puede agregar duplicado.');
+      return;
+    }
+    
     this.roleArray.push(this.fb.control(this.optRole));
     this.regresarBeneficiaries(this.optRole);
+    this.optRole = ''; 
   }
+  
 
   deleteRole(index: number): void {
     this.roleArray.removeAt(index);
