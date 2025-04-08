@@ -1,15 +1,15 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { User } from '../models/user';
-import { environment } from 'src/environments/environment';
+import { Institution } from '../models/institutions';
+import { environment } from '../../environments/environment';
 import { AuthService } from './auth.service';
 
 @Injectable({
   providedIn: 'root',
 })
-export class UserService {
-  private apiUrl = `${environment.BACKEND_API}/users`;
+export class InstitutionsService {
+  private apiUrl = `${environment.BACKEND_API}/institution`;
 
   constructor(private http: HttpClient, private auth: AuthService) {}
 
@@ -22,37 +22,42 @@ export class UserService {
       : new HttpHeaders();
   }
 
-  getUsers(): Observable<User[]> {
-    return this.http.get<User[]>(this.apiUrl, { headers: this.getHeaders() });
-  }
-
-  getUser(id: number): Observable<User> {
-    return this.http.get<User>(`${this.apiUrl}/${id}`, {
+  getInstitutions(): Observable<Institution[]> {
+    return this.http.get<Institution[]>(this.apiUrl, {
       headers: this.getHeaders(),
     });
   }
 
-  createUser(user: User): Observable<User> {
-    return this.http.post<User>(
+  getInstitution(id: number): Observable<Institution> {
+    return this.http.get<Institution>(`${this.apiUrl}/${id}`, {
+      headers: this.getHeaders(),
+    });
+  }
+
+  createInstitution(institution: Institution): Observable<Institution> {
+    return this.http.post<Institution>(
       this.apiUrl,
-      { data: user },
+      { data: institution },
       {
         headers: this.getHeaders(),
       }
     );
   }
 
-  updateUser(id: number, user: User): Observable<User> {
-    return this.http.put<User>(
+  updateInstitution(
+    id: string,
+    institution: Institution
+  ): Observable<Institution> {
+    return this.http.put<Institution>(
       `${this.apiUrl}/${id}`,
-      { data: user, query: { id } },
+      { data: institution },
       {
         headers: this.getHeaders(),
       }
     );
   }
 
-  deleteUser(id: number): Observable<void> {
+  deleteInstitution(id: string): Observable<void> {
     return this.http.delete<void>(`${this.apiUrl}/${id}`, {
       headers: this.getHeaders(),
     });
