@@ -79,8 +79,8 @@ export class PlanningGeneralComponent implements OnInit {
 
   initForm(): void {
     this.generalForm = this.fb.group({
-      rationale: ['', [Validators.required, Validators.maxLength(200)]],
-      hasQuotes: [true, Validators.required],
+      rationale: ['', [Validators.required, Validators.maxLength(200)]],      
+      hasQuotes: ['', Validators.required],
       requestingUnits: this.fb.array([]),
       responsibleUnits: this.fb.array([]),
       contractingUnits: this.fb.array([]),

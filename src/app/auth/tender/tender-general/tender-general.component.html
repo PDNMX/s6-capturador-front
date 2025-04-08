@@ -745,26 +745,37 @@
     </fieldset>
 
     <div class="row">
-      <div class="form-floating col mb-5">
-        <div class="form-check">
-          <input
-            class="form-check-input"
-            type="checkbox"
-            id="flexCheckDefault"
-            formControlName="hasEnquiries"
-          />
-          <label class="form-check-label" for="flexCheckDefault">
-            ¿Tiene solicitudes de aclaración?
-          </label>
-          <div class="form-text">
-            Un campo verdadero/falso para indicar si se recibieron solicitudes
-            de aclaración durante el proceso de licitación. La información
-            estructurada sobre las preguntas que se recibieron, así como sus
-            respuestas pueden proporcionarse en la extensión 'enquiries'.
+      <div class="col-12 mb-3">
+        <label class="form-label d-block mb-1">¿Tiene solicitudes de aclaración?</label>
+        <div class="d-flex align-items-center gap-3">
+          <div class="form-check form-check-inline">
+            <input
+              class="form-check-input"
+              type="radio"
+              id="enquiriesYes"
+              formControlName="hasEnquiries"
+              [value]="true"
+            />
+            <label class="form-check-label" for="enquiriesYes">Sí</label>
           </div>
+          <div class="form-check form-check-inline">
+            <input
+              class="form-check-input"
+              type="radio"
+              id="enquiriesNo"
+              formControlName="hasEnquiries"
+              [value]="false"
+            />
+            <label class="form-check-label" for="enquiriesNo">No</label>
+          </div>
+        </div>
+        <div class="form-text mt-1">
+          Un campo verdadero/falso para indicar si se recibieron solicitudes de aclaración durante el proceso de licitación.  
+          La información estructurada sobre las preguntas que se recibieron, así como sus respuestas pueden proporcionarse en la extensión <code>'enquiries'</code>.
         </div>
       </div>
     </div>
+    
 
     <div class="row">
       <div class="form-floating col-12 mb-5">
