@@ -6,10 +6,22 @@ const routes: Routes = [
   {
     path: '',
     component: ManagementComponent,
-    loadChildren: () =>
-      import('./user-management/user-management.module').then(
-        (m) => m.UserManagementModule
-      ),
+    children: [
+      {
+        path: 'users',
+        loadChildren: () =>
+          import('./user-management/user-management.module').then(
+            (m) => m.UserManagementModule
+          ),
+      },
+      {
+        path: 'institutions',
+        loadChildren: () =>
+          import('./institution-management/institution-management.module').then(
+            (m) => m.InstitutionManagementModule
+          ),
+      },
+    ],
   },
 ];
 
