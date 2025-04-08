@@ -9,7 +9,7 @@ import { AuthService } from './auth.service';
   providedIn: 'root',
 })
 export class UserService {
-  private apiUrl = `${environment.BACKEND_API}/users`; // URL desde variables de entorno
+  private apiUrl = `${environment.BACKEND_API}/users`;
 
   constructor(private http: HttpClient, private auth: AuthService) {}
 
