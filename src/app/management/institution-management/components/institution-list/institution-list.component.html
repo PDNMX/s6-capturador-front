@@ -1,0 +1,47 @@
+<div class="container mt-4">
+  <h2>Lista de Instituciones</h2>
+  <button class="btn btn-primary mb-3" (click)="openCreateModal()">
+    Registrar Institución
+  </button>
+
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>Nombre</th>
+        <th>Dirección</th>
+        <th>Acciones</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let institution of institutions">
+        <td>{{ institution.name }}</td>
+        <td>
+          {{ institution.address.streetAddress }},
+          {{ institution.address.locality }}, {{ institution.address.region }} ,
+          {{ institution.address.postalCode }},
+          {{ institution.address.countryName }}
+        </td>
+        <td>
+          <button
+            class="btn btn-sm btn-warning me-2"
+            (click)="openEditModal(institution)"
+          >
+            Editar
+          </button>
+          <button
+            class="btn btn-sm btn-danger"
+            (click)="deleteInstitution(institution._id!)"
+          >
+            Eliminar
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <app-institution-form
+    *ngIf="showModal"
+    [institution]="selectedInstitution"
+    (close)="closeModal()"
+  ></app-institution-form>
+</div>
