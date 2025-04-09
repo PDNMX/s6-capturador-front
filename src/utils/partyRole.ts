@@ -30,12 +30,6 @@ const PartyRole = [
       'Es el servidor público responsable de dar seguimiento y cumplimiento de las obligaciones del proveedor establecidas en el contrato.',
   },
   {
-    code: 'funder',
-    title: 'Entidad financiera',
-    description:
-      ' Entidad que proporciona el financiamiento para este procedimiento de contratación.',
-  },
-  {
     code: 'supplier',
     title: 'Proveedor',
     description:
@@ -49,13 +43,7 @@ const PartyRole = [
   },
   {
     code: 'funder',
-    title: 'Financiador',
-    description:
-      'El financiador es una entidad que provee dinero o financia este proceso de contratación.',
-  },
-  {
-    code: 'funder',
-    title: 'Entidad Financiera',
+    title: 'Entidad financiera',
     description:
       'Entidad que proporciona el financiamiento para este procedimiento de contratación.',
   },
