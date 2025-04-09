@@ -51,7 +51,7 @@
             <td>{{ item.quantity }}</td>
             <td>{{ item.unit.name }}</td>
             <td>{{ item.unit.value.amount }}</td>
-            <td>{{ item.unit.value.amountNet }}</td>
+            <td>{{ item.unit.value.netAmount }}</td>
             <td>{{ item.unit.value.currency }}</td>
             <td>
               <button
@@ -256,14 +256,14 @@ data-sb-feedback="title:required"
         <div class="form-floating col-4 mb-2">
           <input
             class="form-control"
-            id="amountNet"
+            id="netAmount"
             type="text"
             data-sb-validations="required"
             placeholder="Monto sin impuestos *"
-            formControlName="amountNet"
+            formControlName="netAmount"
           />
-          <label for="amountNet">Monto sin impuestos *</label>
-          <app-input-validation [element]="amountNet"></app-input-validation>
+          <label for="netAmount">Monto sin impuestos *</label>
+          <app-input-validation [element]="netAmount"></app-input-validation>
         </div>
 
         <div class="form-floating col-4 mb-2">

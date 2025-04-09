@@ -14,7 +14,7 @@ export interface Contract {
   };
   value: {
     amount: number;
-    amountNet: number;
+    netAmount: number;
     currency: string;
     exchangeRates: {
       rate: number;

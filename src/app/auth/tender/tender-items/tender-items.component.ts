@@ -114,7 +114,7 @@ export class TenderItemsComponent implements OnInit {
         name: ['', [Validators.required]],
         value: this.fb.group({
           amount: ['', [Validators.required]],
-          amountNet: ['', [Validators.required]],
+          netAmount: ['', [Validators.required]],
           currency: ['MXN', [Validators.required]],
         }),
       }),
@@ -140,8 +140,8 @@ export class TenderItemsComponent implements OnInit {
   get amount() {
     return this.itemsForm.get('unit')?.get('value')?.get('amount') as FormControl;
   }
-  get amountNet() {
-    return this.itemsForm.get('unit')?.get('value')?.get('amountNet') as FormControl;
+  get netAmount() {
+    return this.itemsForm.get('unit')?.get('value')?.get('netAmount') as FormControl;
   }
 
   selectChange(): void {

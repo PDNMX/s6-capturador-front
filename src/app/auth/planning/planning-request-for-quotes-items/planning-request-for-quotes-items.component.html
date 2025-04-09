@@ -52,7 +52,7 @@
                 <td>{{ item.quantity }}</td>
                 <td>{{ item.unit.name }}</td>
                 <td>{{ item.unit.value.amount }}</td>
-                <td>{{ item.unit.value.amountNet }}</td>
+                <td>{{ item.unit.value.netAmount }}</td>
                 <td>{{ item.unit.value.currency }}</td>
                 <td>
                   <button
@@ -206,12 +206,10 @@
           <div class="invalid-feedback" data-sb-feedback="quantity:required">
             Cantidad * es requerido.
           </div>
+          <div class="form-text">El número de unidades requeridas.</div>
         </div>
-        <div class="form-text">El número de unidades requeridas.</div>
-      </div>
 
-      <div class="row" formGroupName="unit">
-        <div class="form-floating col-6 mb-2">
+        <div class="form-floating col-6 mb-2" formGroupName="unit">
           <input
             class="form-control"
             id="unit"
@@ -231,10 +229,12 @@
             como el precio unitario.
           </div>
         </div>
+      </div>
 
-        <div class="col-6" formGroupName="value">
+      <div class="row" formGroupName="unit">
+        <div class="col-12" formGroupName="value">
           <div class="row">
-            <div class="col-6 mb-2">
+            <div class="col-4 mb-2">
               <div class="form-floating">
                 <input
                   class="form-control"
@@ -256,7 +256,31 @@
               <div class="form-text">Monto como número.</div>
             </div>
 
-            <div class="col-6 mb-2">
+            <div class="col-4 mb-2">
+              <div class="form-floating">
+                <input
+                  class="form-control"
+                  id="netAmount"
+                  type="number"
+                  data-sb-validations="required"
+                  placeholder="Monto*"
+                  formControlName="netAmount"
+                />
+                <label for="netAmount">Monto sin impuestos*</label>
+                <app-input-validation
+                  [element]="netAmount"
+                ></app-input-validation>
+                <div
+                  class="invalid-feedback"
+                  data-sb-feedback="netAmount:required"
+                >
+                  Monto * es requerido.
+                </div>
+              </div>
+              <div class="form-text">Monto como número.</div>
+            </div>
+
+            <div class="col-4 mb-2">
               <div class="form-floating">
                 <select class="form-select" formControlName="currency">
                   <option *ngFor="let d of currency" [ngValue]="d.code">

@@ -175,7 +175,7 @@ export class ContractsComponent implements OnInit {
       },{ validators: this.dateComparisonValidator() }),
       value: this.fb.group({
         amount: ["", [Validators.required]],
-        amountNet: ["", [Validators.required]],
+        netAmount: ["", [Validators.required]],
         currency: ['MXN', [Validators.required]],
         exchangeRates: this.fb.array([]),
       }),
