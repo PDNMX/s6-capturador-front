@@ -93,6 +93,10 @@ export class PlanningRequestForQuotesItemsComponent implements OnInit {
     return this.value.get('amount') as FormControl;
   }
 
+  get netAmount(): FormControl {
+    return this.value.get('netAmount') as FormControl;
+  }
+
   initForm(): void {
     this.itemsForm = this.fb.group({
       description: ['', [Validators.required]],
@@ -103,7 +107,7 @@ export class PlanningRequestForQuotesItemsComponent implements OnInit {
         name: ['', [Validators.required]],
         value: this.fb.group({
           amount: [, [Validators.required]],
-          amountNet: [, [Validators.required]],
+          netAmount: [, [Validators.required]],
           currency: ['MXN', [Validators.required]],
         }),
       }),

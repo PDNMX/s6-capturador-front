@@ -133,8 +133,8 @@ export class ContractsGeneralComponent implements OnInit {
   get amount() {
     return this.contractForm.get('value')?.get('amount') as FormControl;
   }
-  get amountNet() {
-    return this.contractForm.get('value')?.get('amountNet') as FormControl;
+  get netAmount() {
+    return this.contractForm.get('value')?.get('netAmount') as FormControl;
   }
   get dateSigned() {
     return this.contractForm.get('dateSigned') as FormControl;

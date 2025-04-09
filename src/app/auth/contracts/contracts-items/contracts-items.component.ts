@@ -119,7 +119,7 @@ export class ContractsItemsComponent {
         name: ['', [Validators.required]],
         value: this.fb.group({
           amount: ['', [Validators.required]],
-          // amountNet: [0, [Validators.required]],
+          // netAmount: [0, [Validators.required]],
           currency: ['MXN', [Validators.required]],
         }),
       }),
