@@ -132,6 +132,9 @@ export class PartiesGeneralComponent implements OnInit {
   ngOnInit(): void {
     this.initForm();
 
+      //  Ordenar roles alfabéticamente por título
+    this.rolesList = this.rolesList.sort((a, b) => a.title.localeCompare(b.title));
+
     // Listener para el cambio de esquema
     this.generalForm
       .get('identifier.schema')

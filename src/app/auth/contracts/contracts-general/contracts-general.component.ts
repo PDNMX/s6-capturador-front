@@ -63,7 +63,19 @@ export class ContractsGeneralComponent implements OnInit {
     this.initRelatedProcessesForm();
     this.initSurveillanceMechanismsControl();
     this.initRelatedProcessControl();
-  }
+
+   // Control booleano al form vss
+  this.contractForm.addControl('hasRelatedProcesses', new FormControl(false));
+
+  //  Suscribir el cambio de valor vss
+  this.contractForm.get('hasRelatedProcesses')?.valueChanges.subscribe((value) => {
+    if (!value) {
+      this.relatedProcessesForm.reset();
+      this.relatedProcessesArray.clear();
+    }
+  });
+}
+
 
   loadData(): void {
     if (this.record_id) {
@@ -162,6 +174,17 @@ export class ContractsGeneralComponent implements OnInit {
     const value = this.contractForm.get('value');
     return value?.get('exchangeRates') as FormArray;
   }
+
+// Función para gestionar del formulario de tasa de conversión vss
+isForeignCurrencySelected(): boolean {
+  return this.contractForm?.get('value.currency')?.value !== 'MXN';
+}
+
+// Función para gestionar del formulario de procesos relaccionados vss
+showRelatedProcessesSection(): boolean {
+  return this.contractForm?.get('hasRelatedProcesses')?.value === true;
+}
+
 
   addExchangeRates(): void {
     this.exchangeRatesArray.push(this.exchangeForm);
