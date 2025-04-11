@@ -86,6 +86,24 @@ export class TenderMilestonesComponent implements OnInit {
   }
 
   addNewMilestone(): void {
+    // función auxiliar para verificar si el formulario está completamente vacío
+    const isFormEmpty = () => {
+      const formValues = this.milestoneForm.value;
+      return Object.keys(formValues).every(key => {
+        const value = formValues[key];
+        return value === null || value === undefined || value === '';
+      });
+    };
+    if (isFormEmpty()) {
+      Swal.fire({
+        icon: 'warning',
+        title: 'Hito vacío',
+        text: 'No puede agregar un hito sin información. Llene al menos un campo.',
+        confirmButtonText: 'Aceptar',
+        confirmButtonColor: '#dc3545',
+      });
+      return;
+    }
     this.mostrarSpinner = true;
     this.addMilestone.emit(this.milestoneForm);
     this.initForm();

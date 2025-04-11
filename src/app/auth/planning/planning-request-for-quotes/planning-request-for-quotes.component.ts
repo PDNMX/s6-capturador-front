@@ -58,13 +58,30 @@ export class PlanningRequestForQuotesComponent implements OnInit {
   }
 
   addInvitedSuppliers(): void {
-    console.log(
-      'this.selectForm.value.invitedSuppliers: ',
-      this.selectForm.value.invitedSuppliers
-    );
+    if(this.invitedSuppliers.length === 0){
+      Swal.fire({
+        icon: 'info',
+        title: 'Sin proveedores',
+        text: 'No existen proveedores registrados en la sección de "Actores".',
+        confirmButtonText: 'Aceptar',
+        confirmButtonColor: '#0d6efd',
+        });
+      return;
+    }
+    if(!this.selectForm.value.invitedSuppliers){
+      Swal.fire({
+        icon: 'error',
+        title: 'Error',
+        text: 'Debe seleccionar un proveedor.',
+        confirmButtonText: 'Aceptar',
+        confirmButtonColor: '#dc3545',
+      });
+      return;
+    } 
     this.invitedSuppliersArray.push(
       this.fb.control(this.selectForm.value.invitedSuppliers)
     );
+    this.initSelectForm();
   }
 
   deleteInvitedSuppliers(index: number): void {

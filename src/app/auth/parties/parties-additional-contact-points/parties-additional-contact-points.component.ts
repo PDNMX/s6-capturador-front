@@ -35,7 +35,18 @@ export class PartiesAdditionalContactPointsComponent implements OnInit {
   }
 
   addAvailableLanguage(): void {
+    if(!this.optLanguage){
+      Swal.fire({
+        icon: 'error',
+        title: 'Error',
+        text: 'Seleccione un idioma para agregarlo.',
+        confirmButtonText: 'Aceptar',
+        confirmButtonColor: '#dc3545',
+      });
+      return;
+    } 
     this.availableLanguageArray.push(this.fb.control(this.optLanguage));
+    this.optLanguage = '';
   }
 
   deleteAvailableLanguage(index: number): void {

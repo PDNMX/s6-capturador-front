@@ -129,8 +129,29 @@ export class TenderMeetingsComponent implements OnInit {
   }
 
   addAttendess(): void {
+    if (this.attendees.length === 0) {
+      Swal.fire({
+        icon: 'info',
+        title: 'Sin asistentes',
+        text: 'No existen asistentes registrados en la sección de "Actores".',
+        confirmButtonText: 'Aceptar',
+        confirmButtonColor: '#0d6efd',
+      });
+      return;
+    }
+    if (!this.attendeesForm.value.id) { 
+      Swal.fire({
+        icon: 'error',
+        title: 'Error',
+        text: 'Debe seleccionar un asistente para agregarlo.',
+        confirmButtonText: 'Aceptar',
+        confirmButtonColor: '#dc3545',
+      });
+      return;
+    }
     const opt = this.attendeesForm.value.id;
     this.attendeesArray.push(this.fb.group({ ...opt }));
+    this.attendeesForm.reset();
   }
 
   deleteAttendess(index: number): void {
@@ -138,8 +159,29 @@ export class TenderMeetingsComponent implements OnInit {
   }
 
   addOfficials(): void {
+    if (this.officials.length === 0) {
+      Swal.fire({
+        icon: 'info',
+        title: 'Sin servidores públicos',
+        text: 'No existen servidores públicos registrados en la sección de "Actores".',
+        confirmButtonText: 'Aceptar',
+        confirmButtonColor: '#0d6efd',
+      });
+      return;
+    }
+    if (!this.officialsForm.value.id) {
+      Swal.fire({
+        icon: 'error',
+        title: 'Error',
+        text: 'Debe seleccionar un servidor público para agregarlo.',
+        confirmButtonText: 'Aceptar',
+        confirmButtonColor: '#dc3545',
+      });
+      return;
+    }
     const opt = this.officialsForm.value.id;
     this.officialsArray.push(this.fb.group({ ...opt }));
+    this.officialsForm.reset();
   }
 
   deleteOfficials(index: number): void {

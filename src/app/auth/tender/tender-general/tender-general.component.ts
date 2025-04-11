@@ -19,6 +19,7 @@ import {
   SubmissionMethod,
   TenderStatus,
 } from 'src/utils';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-tender-general',
@@ -342,7 +343,19 @@ export class TenderGeneralComponent implements OnInit {
 
   addAdditionalProcurementCategories(): void {
     const opt: string = this.additionalProcurementCategoriesForm.value.data;
+
+    if (!opt) {
+      Swal.fire({
+        icon: 'error',
+        title: 'Error',
+        text: 'Debe seleccionar una categoría para agregarla.',
+        confirmButtonText: 'Aceptar',
+        confirmButtonColor: '#dc3545',
+      });
+      return;
+    }
     this.additionalProcurementCategoriesArray.push(this.fb.control(opt));
+    this.additionalProcurementCategoriesForm.reset();
   }
 
   deleteAdditionalProcurementCategories(index: number): void {
@@ -355,7 +368,18 @@ export class TenderGeneralComponent implements OnInit {
 
   addSubmissionMethod(): void {
     const opt: string = this.submissionMethodForm.value.data;
+    if (!opt) {
+      Swal.fire({
+        icon: 'error',
+        title: 'Error',
+        text: 'Debe seleccionar un método de presentación para agregarlo.',
+        confirmButtonText: 'Aceptar',
+        confirmButtonColor: '#dc3545',
+      });
+      return;
+    }
     this.submissionMethodArray.push(this.fb.control(opt));
+    this.submissionMethodForm.reset();
   }
 
   deleteSubmissionMethod(index: number): void {

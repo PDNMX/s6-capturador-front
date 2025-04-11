@@ -62,6 +62,24 @@ export class TenderAmendmentsComponent implements OnInit {
   }
 
   addNewAmendment(): void {
+    // función auxiliar para verificar si el formulario está completamente vacío
+    const isFormEmpty = () => {
+      const formValues = this.amendmentsForm.value;
+      return Object.keys(formValues).every(key => {
+        const value = formValues[key];
+        return value === null || value === undefined || value === '';
+      });
+    };
+    if (isFormEmpty()) {      
+      Swal.fire({
+        icon: 'warning',
+        title: 'Modificación vacía',
+        text: 'No puede agregar una modificación sin información. Llene al menos un campo.',
+        confirmButtonText: 'Aceptar',
+        confirmButtonColor: '#dc3545',
+      });
+      return;
+    }   
     this.mostrarSpinner = true;
     this.addAmendment.emit(this.amendmentsForm);
     this.initForm();

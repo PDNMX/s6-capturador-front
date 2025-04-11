@@ -10,6 +10,7 @@ import { ActivatedRoute } from '@angular/router';
 import { ApiService, IPartieList } from 'src/app/services/api.service';
 
 import { Currency } from 'src/utils';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-planning-general',
@@ -79,7 +80,7 @@ export class PlanningGeneralComponent implements OnInit {
 
   initForm(): void {
     this.generalForm = this.fb.group({
-      rationale: ['', [Validators.required, Validators.maxLength(200)]],      
+      rationale: ['', [Validators.required, Validators.maxLength(200)]],
       hasQuotes: ['', Validators.required],
       requestingUnits: this.fb.array([]),
       responsibleUnits: this.fb.array([]),
@@ -177,9 +178,30 @@ export class PlanningGeneralComponent implements OnInit {
   }
 
   addContractingUnits(): void {
+    if (this.contractings.length === 0) {
+      Swal.fire({
+        icon: 'info',
+        title: 'Sin unidades administrativas contratantes',
+        text: 'No existen unidad administrativas contratantes registradas en la sección de "Actores".',
+        confirmButtonText: 'Aceptar',
+        confirmButtonColor: '#0d6efd',
+      });
+      return;
+    }
+    if (!this.selectForm.value.contractingUnits) {
+      Swal.fire({
+        icon: 'error',
+        title: 'Error',
+        text: 'Debe seleccionar una unidad administrativa contratante.',
+        confirmButtonText: 'Aceptar',
+        confirmButtonColor: '#dc3545',
+      });
+      return;
+    }
     this.contractingUnitsFormArray.push(
       this.fb.control(this.selectForm.value.contractingUnits)
     );
+    this.initSelectForm();
   }
 
   deleteContractingUnit(index: number): void {
@@ -191,6 +213,26 @@ export class PlanningGeneralComponent implements OnInit {
   }
 
   addRequestingUnit(): void {
+    if (this.requestings.length === 0) {
+      Swal.fire({
+        icon: 'info',
+        title: 'Sin unidades administrativas requirentes',
+        text: 'No existen unidades administrativas requirentes registradas en la sección de "Actores".',
+        confirmButtonText: 'Aceptar',
+        confirmButtonColor: '#0d6efd',
+      });
+      return;
+    }
+    if (!this.selectForm.value.requestingUnits) {
+      Swal.fire({
+        icon: 'error',
+        title: 'Error',
+        text: 'Debe seleccionar una unidad administrativa requirente.',
+        confirmButtonText: 'Aceptar',
+        confirmButtonColor: '#dc3545',
+      });
+      return;
+    }
     this.requestingUnitsArray.push(
       this.fb.control(this.selectForm.value.requestingUnits)
     );
@@ -205,9 +247,30 @@ export class PlanningGeneralComponent implements OnInit {
   }
 
   addResponsibleUnit(): void {
+    if (this.responsibles.length === 0) {
+      Swal.fire({
+        icon: 'info',
+        title: 'Sin unidades administrativas responsables',
+        text: 'No existen unidades administrativas responsables registradas en la sección de "Actores".',
+        confirmButtonText: 'Aceptar',
+        confirmButtonColor: '#0d6efd',
+      });
+      return;
+    }
+    if (!this.selectForm.value.responsibleUnits) {
+      Swal.fire({
+        icon: 'error',
+        title: 'Error',
+        text: 'Debe seleccionar una unidad administrativa responsable.',
+        confirmButtonText: 'Aceptar',
+        confirmButtonColor: '#dc3545',
+      });
+      return;
+    }
     this.responsibleUnitsArray.push(
       this.fb.control(this.selectForm.value.responsibleUnits)
     );
+    this.initSelectForm();
   }
   deleteResponsibleUnit(index: number): void {
     this.responsibleUnitsArray.removeAt(index);
