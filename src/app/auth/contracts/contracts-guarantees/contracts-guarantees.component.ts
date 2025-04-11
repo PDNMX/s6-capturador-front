@@ -3,6 +3,7 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { ApiService, IPartieList } from 'src/app/services/api.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-contracts-guarantees',
@@ -41,6 +42,27 @@ export class ContractsGuaranteesComponent implements OnInit {
       this.mostrarSpinner = false;
       console.log('agregando al arreglo');
     }, 1000);
+  }
+
+  confirmAndDeleteGuarante(index: number): void {
+    Swal.fire({
+      text: '¿Deseas eliminar este garantía?',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      cancelButtonText: 'Cancelar',
+      confirmButtonText: 'Sí, eliminar',
+    }).then((result) => {
+      if (result.isConfirmed) {
+        Swal.fire({
+          text: 'El registro ha sido eliminado.',
+          icon: 'success',
+          confirmButtonText: 'Aceptar',
+        });
+        this.deleteGuarante.emit(index);
+      }
+    });
   }
 
   getGuaranteeDesc(code: string): string {

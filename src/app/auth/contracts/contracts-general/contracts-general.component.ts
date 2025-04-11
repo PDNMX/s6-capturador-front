@@ -10,6 +10,7 @@ import { ContractStatus, Currency, RelatedProcesses } from 'src/utils';
 import SurveillanceMechanismsType from 'src/utils/surveillanceMechanismsType';
 import { ActivatedRoute } from '@angular/router';
 import { ApiService } from 'src/app/services/api.service';
+import Swal from 'sweetalert2';
 
 interface StoredMechanism {
   code: string;
@@ -224,6 +225,27 @@ export class ContractsGeneralComponent implements OnInit {
       this.mostrarSpinner = false;
       console.log('agregando al arreglo');
     }, 1000);
+  }
+
+  confirmAndDeleteRelatedProcesses(index: number): void {
+    Swal.fire({
+      text: '¿Deseas eliminar este proceso relacionado?',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      cancelButtonText: 'Cancelar',
+      confirmButtonText: 'Sí, eliminar',
+    }).then((result) => {
+      if (result.isConfirmed) {
+        Swal.fire({
+          text: 'El registro ha sido eliminado.',
+          icon: 'success',
+          confirmButtonText: 'Aceptar',
+        });
+        this.deleteRelatedProcesses(index);
+      }
+    });
   }
 
   deleteRelatedProcesses(index: number): void {

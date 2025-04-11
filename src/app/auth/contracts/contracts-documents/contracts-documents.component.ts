@@ -10,6 +10,7 @@ import {
 import { ActivatedRoute } from '@angular/router';
 import { ApiService } from 'src/app/services/api.service';
 import { FormatDocument, getDocumentType, Language } from 'src/utils';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-contracts-documents',
@@ -100,24 +101,27 @@ export class ContractsDocumentsComponent {
   }
 
   initForm(): void {
-    this.documentForm = this.fb.group({
-      documentType: ['', [Validators.required]],
-      title: ['', [Validators.required]],
-      description: [''],
-      url: [
-        '',
-        [
-          Validators.required,
-          Validators.pattern(
-            /^https?:\/\/(?:[a-zA-Z0-9\-._~%!$&'()*+,;=:@]+|%[0-9A-Fa-f]{2})*(?:\/(?:[a-zA-Z0-9\-._~%!$&'()*+,;=:@]+|%[0-9A-Fa-f]{2})*)*(?:\?(?:[a-zA-Z0-9\-._~%!$&'()*+,;=:@/?]+|%[0-9A-Fa-f]{2})*)?(?:#(?:[a-zA-Z0-9\-._~%!$&'()*+,;=:@/?]+|%[0-9A-Fa-f]{2})*)?$/
-          ),
+    this.documentForm = this.fb.group(
+      {
+        documentType: ['', [Validators.required]],
+        title: ['', [Validators.required]],
+        description: [''],
+        url: [
+          '',
+          [
+            Validators.required,
+            Validators.pattern(
+              /^https?:\/\/(?:[a-zA-Z0-9\-._~%!$&'()*+,;=:@]+|%[0-9A-Fa-f]{2})*(?:\/(?:[a-zA-Z0-9\-._~%!$&'()*+,;=:@]+|%[0-9A-Fa-f]{2})*)*(?:\?(?:[a-zA-Z0-9\-._~%!$&'()*+,;=:@/?]+|%[0-9A-Fa-f]{2})*)?(?:#(?:[a-zA-Z0-9\-._~%!$&'()*+,;=:@/?]+|%[0-9A-Fa-f]{2})*)?$/
+            ),
+          ],
         ],
-      ],
-      datePublished: ['', [Validators.required]],
-      dateModified: ['', [Validators.required]],
-      format: ['', [Validators.required]],
-      language: ['', [Validators.required]],
-    }, { validators: this.dateComparisonValidator() });
+        datePublished: ['', [Validators.required]],
+        dateModified: ['', [Validators.required]],
+        format: ['', [Validators.required]],
+        language: ['', [Validators.required]],
+      },
+      { validators: this.dateComparisonValidator() }
+    );
   }
 
   get documentType() {
@@ -142,38 +146,38 @@ export class ContractsDocumentsComponent {
     return this.documentForm.get('language') as FormControl;
   }
 
-    private dateComparisonValidator(): (
-      group: AbstractControl
-    ) => ValidationErrors | null {
-      return (group: AbstractControl): ValidationErrors | null => {
-        const datePublished = group.get('datePublished')?.value;
-        const dateModifiedControl = group.get('dateModified'); // Obtén el control
-        const dateModified = dateModifiedControl?.value;
-  
-        if (
-          datePublished &&
-          dateModified &&
-          new Date(dateModified) < new Date(datePublished)
-        ) {
-          const currentErrors = dateModifiedControl?.errors || {}; // Obtén los errores actuales
-          dateModifiedControl?.setErrors({
-            ...currentErrors,
-            dateModifiedInvalid: true,
-          });
-          return { dateModifiedInvalid: true };
-        }
-  
-        if (dateModifiedControl?.errors) {
-          const { dateModifiedInvalid, ...otherErrors } =
-            dateModifiedControl.errors;
-          dateModifiedControl.setErrors(
-            Object.keys(otherErrors).length > 0 ? otherErrors : null
-          );
-        }
-  
-        return null;
-      };
-    }
+  private dateComparisonValidator(): (
+    group: AbstractControl
+  ) => ValidationErrors | null {
+    return (group: AbstractControl): ValidationErrors | null => {
+      const datePublished = group.get('datePublished')?.value;
+      const dateModifiedControl = group.get('dateModified'); // Obtén el control
+      const dateModified = dateModifiedControl?.value;
+
+      if (
+        datePublished &&
+        dateModified &&
+        new Date(dateModified) < new Date(datePublished)
+      ) {
+        const currentErrors = dateModifiedControl?.errors || {}; // Obtén los errores actuales
+        dateModifiedControl?.setErrors({
+          ...currentErrors,
+          dateModifiedInvalid: true,
+        });
+        return { dateModifiedInvalid: true };
+      }
+
+      if (dateModifiedControl?.errors) {
+        const { dateModifiedInvalid, ...otherErrors } =
+          dateModifiedControl.errors;
+        dateModifiedControl.setErrors(
+          Object.keys(otherErrors).length > 0 ? otherErrors : null
+        );
+      }
+
+      return null;
+    };
+  }
 
   enableAddDocumentButton(): boolean {
     return this.documentForm.valid && this.documentForm.dirty;
@@ -187,5 +191,25 @@ export class ContractsDocumentsComponent {
       this.mostrarSpinner = false;
       console.log('agregando al arreglo');
     }, 1000);
+  }
+  confirmAndDeleteDocument(index: number): void {
+    Swal.fire({
+      text: '¿Deseas eliminar el documento?',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      cancelButtonText: 'Cancelar',
+      confirmButtonText: 'Sí, eliminar',
+    }).then((result) => {
+      if (result.isConfirmed) {
+        Swal.fire({
+          text: 'El registro ha sido eliminado.',
+          icon: 'success',
+          confirmButtonText: 'Aceptar',
+        });
+        this.deleteDocument.emit(index);
+      }
+    });
   }
 }
