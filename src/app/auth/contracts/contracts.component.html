@@ -154,7 +154,7 @@
               <app-contracts-presentation
                 [contractsArray]="contractsForm.value.contracts"
                 (addNewContract)="addNewContract()"
-                (deleteContract)="deleteContract($event)"
+                (deleteContract)="confirmAndDeleteContract($event)"
               ></app-contracts-presentation>
             </div>
           </ng-container>

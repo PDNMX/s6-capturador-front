@@ -11,6 +11,7 @@ import {
 import { ActivatedRoute } from '@angular/router';
 import { ApiService, IPartieList } from 'src/app/services/api.service';
 import { Currency } from 'src/utils';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-planning-budget-budget-breakdown',
@@ -20,7 +21,7 @@ import { Currency } from 'src/utils';
 export class PlanningBudgetBudgetBreakdownComponent implements OnInit {
   @Input() budgetBreakdownArray: Array<any> = [];
   @Output() addBudgetBreakdown = new EventEmitter<any>();
-  @Output() deleteBudgetBreakdown = new EventEmitter<any>();
+  @Output() confirmAndDeleteBudgetBreakdown = new EventEmitter<any>();
 
   currency = Currency;
   budgetBreakdownForm!: FormGroup;
@@ -114,6 +115,26 @@ export class PlanningBudgetBudgetBreakdownComponent implements OnInit {
   addBudgetLines() {
     this.budgetLinesArray.push(this.budgetLinesForm);
     this.initBudgetLinesForm();
+  }
+  confirmAndDeleteBudgetLines(index: number) {
+    Swal.fire({
+      text: '¿Deseas eliminar esta línea presupuestaria?',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      cancelButtonText: 'Cancelar',
+      confirmButtonText: 'Sí, eliminar'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        Swal.fire({
+          text: 'El registro ha sido eliminado.',
+          icon: 'success',
+          confirmButtonText: 'Aceptar',
+        })
+        this.deleteBudgetLines(index);
+      }
+    });
   }
   deleteBudgetLines(index: number) {
     this.budgetLinesArray.removeAt(index);

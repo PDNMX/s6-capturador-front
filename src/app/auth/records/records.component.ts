@@ -3,6 +3,8 @@ import { Router } from '@angular/router';
 import { catchError, map, of } from 'rxjs';
 import { ApiService } from 'src/app/services/api.service';
 
+import Swal from 'sweetalert2';
+
 @Component({
   selector: 'app-records',
   templateUrl: './records.component.html',
@@ -25,6 +27,29 @@ export class RecordsComponent implements OnInit {
   ngOnInit(): void {
     this.getAllRecords();
     localStorage.removeItem('record');
+  }
+
+  confirmAndDeleteRecord(id: string, recordName?: string): void {
+    Swal.fire({
+      title: '¿Estás seguro?',
+      text: `¿Realmente deseas eliminar ${recordName ? 'el registro "' + recordName + '"' : 'este registro'}?`,
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      cancelButtonText: 'Cancelar',
+      confirmButtonText: 'Sí, eliminar'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        Swal.fire({
+          //title: 'Eliminado!',
+          text: 'El registro ha sido eliminado.',
+          icon: 'success',
+          confirmButtonText: 'Aceptar',
+        })
+        this.deleteRecord(id);
+      }
+    });
   }
 
   deleteRecord(id: string): void {
