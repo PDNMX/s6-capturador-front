@@ -9,6 +9,7 @@ import {
 import { ActivatedRoute } from '@angular/router';
 import { ApiService } from 'src/app/services/api.service';
 import { Currency, FormatDocument, getDocumentType, Language } from 'src/utils';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-planning-budget',
@@ -78,6 +79,26 @@ export class PlanningBudgetComponent implements OnInit {
 
   addBudgetBreakdown(opt: any): void {
     this.budgetBreakdownArray.push(opt);
+  }
+  confirmAndDeleteBudgetBreakdown(index: number): void {
+    Swal.fire({
+      text: '¿Realmente deseas eliminar este desglose presupuestario?',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      cancelButtonText: 'Cancelar',
+      confirmButtonText: 'Sí, eliminar'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        Swal.fire({
+          text: 'El registro ha sido eliminado.',
+          icon: 'success',
+          confirmButtonText: 'Aceptar',
+        })
+        this.deleteBudgetBreakdown(index);    
+      }
+    });
   }
   deleteBudgetBreakdown(index: number): void {
     this.budgetBreakdownArray.removeAt(index);

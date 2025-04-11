@@ -4,6 +4,7 @@ import { FormArray, FormBuilder, FormGroup, Validators, FormControl, FormControl
 import { ActivatedRoute } from '@angular/router';
 import { ApiService } from 'src/app/services/api.service';
 import { Classifications, Currency } from 'src/utils';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-tender-items',
@@ -157,5 +158,25 @@ export class TenderItemsComponent implements OnInit {
   addNewItem(): void {
     this.addItem.emit(this.itemsForm);
     this.initForm();
+  }
+  confirmAndDeleteItem(index: number): void {
+    Swal.fire({
+      text: '¿Deseas eliminar este artículo?',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      cancelButtonText: 'Cancelar',
+      confirmButtonText: 'Sí, eliminar'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        Swal.fire({
+          text: 'El registro ha sido eliminado.',
+          icon: 'success',
+          confirmButtonText: 'Aceptar',
+        })
+        this.deleteItem.emit(index);
+      }
+    });
   }
 }

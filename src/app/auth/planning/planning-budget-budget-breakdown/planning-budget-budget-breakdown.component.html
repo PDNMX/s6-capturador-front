@@ -36,7 +36,7 @@
             <button
               type="button"
               class="btn btn-danger btn-delete"
-              (click)="deleteBudgetBreakdown.emit(i)"
+              (click)="confirmAndDeleteBudgetBreakdown.emit(i)"
             >
               Eliminar
             </button>
@@ -275,7 +275,7 @@
                     <button
                       type="button"
                       class="btn btn-danger btn-delete"
-                      (click)="deleteBudgetLines(i)"
+                      (click)="confirmAndDeleteBudgetLines(i)"
                     >
                       Eliminar
                     </button>

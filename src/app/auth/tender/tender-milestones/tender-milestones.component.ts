@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { ApiService } from 'src/app/services/api.service';
 import { MilestoneStatus, MilestoneType } from 'src/utils';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-tender-milestones',
@@ -85,6 +86,24 @@ export class TenderMilestonesComponent implements OnInit {
   }
 
   addNewMilestone(): void {
+    // función auxiliar para verificar si el formulario está completamente vacío
+    const isFormEmpty = () => {
+      const formValues = this.milestoneForm.value;
+      return Object.keys(formValues).every(key => {
+        const value = formValues[key];
+        return value === null || value === undefined || value === '';
+      });
+    };
+    if (isFormEmpty()) {
+      Swal.fire({
+        icon: 'warning',
+        title: 'Hito vacío',
+        text: 'No puede agregar un hito sin información. Llene al menos un campo.',
+        confirmButtonText: 'Aceptar',
+        confirmButtonColor: '#dc3545',
+      });
+      return;
+    }
     this.mostrarSpinner = true;
     this.addMilestone.emit(this.milestoneForm);
     this.initForm();
@@ -92,5 +111,25 @@ export class TenderMilestonesComponent implements OnInit {
       this.mostrarSpinner = false;
       console.log('agregando al arreglo');
     }, 1000);
+  }
+  confirmAndDeleteMilestone(index: number): void {
+    Swal.fire({
+      text: '¿Deseas eliminar este hito?',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      cancelButtonText: 'Cancelar',
+      confirmButtonText: 'Sí, eliminar'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        Swal.fire({
+          text: 'El registro ha sido eliminado.',
+          icon: 'success',
+          confirmButtonText: 'Aceptar',
+        })
+        this.deleteMilestone.emit(index);
+      }
+    });
   }
 }

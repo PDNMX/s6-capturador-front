@@ -112,7 +112,7 @@
                 </button>
                 <button
                   class="btn btn-danger m-2"
-                  (click)="deleteRecord(n._id)"
+                  (click)="confirmAndDeleteRecord(n._id, n.ocid)"
                   [disabled]="!n.metadata.canDelete"
                 >
                   <i class="bi bi-trash3"></i> Eliminar

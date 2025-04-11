@@ -10,6 +10,7 @@ import { ActivatedRoute } from '@angular/router';
 import { ApiService, IPartieList } from 'src/app/services/api.service';
 import { PartyRole } from 'src/utils';
 import OrganizationSchemes from 'src/utils/organizationsSchemes';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-parties-general',
@@ -53,7 +54,32 @@ export class PartiesGeneralComponent implements OnInit {
   }
 
   addMemberOf(): void {
+    // Validamos si el arreglo de actores está vacío
+    if (!this.memberOfList || this.memberOfList.length === 0) {
+      Swal.fire({
+        icon: 'info',
+        title: 'Sin Actores',
+        text: 'No existen actores registrados para este proceso de contratación.',
+        confirmButtonText: 'Aceptar',
+        confirmButtonColor: '#0d6efd',
+      });
+      return;
+    }
+
+    // Si hay actores, validamos que se haya seleccionado una
+    if (!this.optMemberOf) {
+      Swal.fire({
+        icon: 'error',
+        title: 'Error',
+        text: 'Seleccione un actor para agregarlo.',
+        confirmButtonText: 'Aceptar',
+        confirmButtonColor: '#dc3545',
+      });
+      return;
+    }
+
     this.memberOfArray.push(this.fb.control(this.optMemberOf));
+    this.optMemberOf = '';
   }
 
   deleteMemberOf(index: number): void {
@@ -80,18 +106,28 @@ export class PartiesGeneralComponent implements OnInit {
   }
 
   addRole(): void {
+    //validamos si se ha seleccionado un rol
+    if (!this.optRole) {
+      Swal.fire({
+        icon: 'error',
+        title: 'Error',
+        text: 'Seleccione un rol para agregarlo.',
+        confirmButtonText: 'Aceptar',
+        confirmButtonColor: '#dc3545',
+      });
+      return;
+    }
     const existingRoles = this.roleArray.value; // obtiene los roles actuales
-    
+
     if (existingRoles.includes(this.optRole)) {
       alert('El rol ya existe. No se puede agregar duplicado.');
       return;
     }
-    
+
     this.roleArray.push(this.fb.control(this.optRole));
     this.regresarBeneficiaries(this.optRole);
-    this.optRole = ''; 
+    this.optRole = '';
   }
-  
 
   deleteRole(index: number): void {
     this.roleArray.removeAt(index);

@@ -36,10 +36,12 @@
           realización del proyecto
         </div>
       </div>
-    
+
       <div class="row">
         <div class="col mb-2">
-          <label class="form-label"><strong>¿Tiene cotizaciones?</strong></label>
+          <label class="form-label"
+            ><strong>¿Tiene cotizaciones?</strong></label
+          >
           <div class="form-check">
             <input
               class="form-check-input"
@@ -61,12 +63,12 @@
             <label class="form-check-label" for="hasQuotesNo">No</label>
           </div>
           <div class="form-text">
-            Campo Sí / No para indicar si hubo solicitudes de cotizaciones durante la planificación.
+            Campo Sí / No para indicar si hubo solicitudes de cotizaciones
+            durante la planificación.
           </div>
         </div>
       </div>
     </form>
-    
 
     <form [formGroup]="selectForm">
       <fieldset class="border p-3 mb-3">
@@ -153,13 +155,11 @@
 
       <fieldset class="border p-3 mb-3">
         <legend class="w-auto px-1">
-          Unidades administrativas contratantes*
+          Unidades responsables de la ejecución del contrato*
         </legend>
         <p>
-          Las unidades específicas dentro del comprador o entidad adjudicadora
-          que se encargan de llevar a cabo el proceso de contratación.
-          Generalmente participan en las etapas de licitación, adjudicación y
-          contratación.
+          Las unidades específicas dentro del comprador que son responsables de
+          la supervisión de la ejecución de los contratos.
         </p>
         <div class="row">
           <div class="form-floating col-10 mb-5">
@@ -236,12 +236,15 @@
 
       <fieldset class="border p-3 mb-3">
         <legend class="w-auto px-1">
-          Unidades responsables de la ejecución del contrato*
+          Unidades administrativas contratantes*
         </legend>
         <p>
-          Las unidades específicas dentro del comprador que son responsables de
-          la supervisión de la ejecución de los contratos.
+          Las unidades específicas dentro del comprador o entidad adjudicadora
+          que se encargan de llevar a cabo el proceso de contratación.
+          Generalmente participan en las etapas de licitación, adjudicación y
+          contratación.
         </p>
+
         <div class="row">
           <div class="form-floating col-10 mb-5">
             <select class="form-select" formControlName="contractingUnits">

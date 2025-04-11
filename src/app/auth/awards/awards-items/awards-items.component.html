@@ -45,7 +45,7 @@
               <td>{{ item.unit.value.currency }}</td>
               <td>
                 <button
-                  (click)="deleteItem.emit(i)"
+                  (click)="confirmAndDeleteItem(i)"
                   class="btn btn-danger btn-delete"
                 >
                   Eliminar

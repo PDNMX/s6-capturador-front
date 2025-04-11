@@ -10,6 +10,7 @@ import {
 } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { ApiService, IPartieList } from 'src/app/services/api.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-planning-request-for-quotes',
@@ -57,13 +58,30 @@ export class PlanningRequestForQuotesComponent implements OnInit {
   }
 
   addInvitedSuppliers(): void {
-    console.log(
-      'this.selectForm.value.invitedSuppliers: ',
-      this.selectForm.value.invitedSuppliers
-    );
+    if(this.invitedSuppliers.length === 0){
+      Swal.fire({
+        icon: 'info',
+        title: 'Sin proveedores',
+        text: 'No existen proveedores registrados en la sección de "Actores".',
+        confirmButtonText: 'Aceptar',
+        confirmButtonColor: '#0d6efd',
+        });
+      return;
+    }
+    if(!this.selectForm.value.invitedSuppliers){
+      Swal.fire({
+        icon: 'error',
+        title: 'Error',
+        text: 'Debe seleccionar un proveedor.',
+        confirmButtonText: 'Aceptar',
+        confirmButtonColor: '#dc3545',
+      });
+      return;
+    } 
     this.invitedSuppliersArray.push(
       this.fb.control(this.selectForm.value.invitedSuppliers)
     );
+    this.initSelectForm();
   }
 
   deleteInvitedSuppliers(index: number): void {
@@ -202,5 +220,25 @@ export class PlanningRequestForQuotesComponent implements OnInit {
       this.mostrarSpinner = false;
       console.log('agregando al arreglo');
     }, 1000);
+  }
+  confirmAndDeleteRequestForQuotes(index: number): void {
+    Swal.fire({
+      text: '¿Realmente deseas eliminar esta solicitud de cotización?',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      cancelButtonText: 'Cancelar',
+      confirmButtonText: 'Sí, eliminar',
+    }).then((result) => {
+      if (result.isConfirmed) {
+        Swal.fire({
+          text: 'El registro ha sido eliminado.',
+          icon: 'success',
+          confirmButtonText: 'Aceptar',
+        });
+        this.deleteRequestForQuotes.emit(index);
+      }
+    });
   }
 }

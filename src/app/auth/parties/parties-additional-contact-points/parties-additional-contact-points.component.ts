@@ -7,6 +7,7 @@ import {
   Validators,
 } from '@angular/forms';
 import { Language } from 'src/utils';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-parties-additional-contact-points',
@@ -34,7 +35,18 @@ export class PartiesAdditionalContactPointsComponent implements OnInit {
   }
 
   addAvailableLanguage(): void {
+    if(!this.optLanguage){
+      Swal.fire({
+        icon: 'error',
+        title: 'Error',
+        text: 'Seleccione un idioma para agregarlo.',
+        confirmButtonText: 'Aceptar',
+        confirmButtonColor: '#dc3545',
+      });
+      return;
+    } 
     this.availableLanguageArray.push(this.fb.control(this.optLanguage));
+    this.optLanguage = '';
   }
 
   deleteAvailableLanguage(index: number): void {
@@ -120,5 +132,25 @@ export class PartiesAdditionalContactPointsComponent implements OnInit {
       this.mostrarSpinner = false;
       console.log('agregando al arreglo');
     }, 1000);
+  }
+  confirmAndDeleteConctactPoint(index: number): void {
+    Swal.fire({
+      text: '¿Deseas eliminar este punto de contacto?',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      cancelButtonText: 'Cancelar',
+      confirmButtonText: 'Sí, eliminar',
+    }).then((result) => {
+      if (result.isConfirmed) {
+        Swal.fire({
+          text: 'El registro ha sido eliminado.',
+          icon: 'success',
+          confirmButtonText: 'Aceptar',
+        });
+        this.deleteAdditionalContactPoints.emit(index);
+      }
+    });
   }
 }

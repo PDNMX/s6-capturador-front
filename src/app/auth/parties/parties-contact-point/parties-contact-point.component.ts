@@ -7,6 +7,7 @@ import {
   Validators,
 } from '@angular/forms';
 import { Language } from 'src/utils';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-parties-contact-point',
@@ -27,7 +28,18 @@ export class PartiesContactPointComponent implements OnInit {
   }
 
   addAvailableLanguage(): void {
+    if(!this.optLanguage){
+      Swal.fire({
+        icon: 'error',
+        title: 'Error',
+        text: 'Seleccione un idioma para agregarlo.',
+        confirmButtonText: 'Aceptar',
+        confirmButtonColor: '#dc3545',
+      });
+      return;
+    }
     this.availableLanguageArray.push(this.fb.control(this.optLanguage));
+    this.optLanguage = '';
   }
 
   deleteAvailableLanguage(index: number): void {
