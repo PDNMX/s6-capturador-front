@@ -65,8 +65,8 @@ export class PartiesGeneralComponent implements OnInit {
       });
       return;
     }
-
-    // Si hay actores, validamos que se haya seleccionado una
+  
+    // Validamos si se ha seleccionado un actor
     if (!this.optMemberOf) {
       Swal.fire({
         icon: 'error',
@@ -77,14 +77,31 @@ export class PartiesGeneralComponent implements OnInit {
       });
       return;
     }
-
+  
+    // Validación de duplicado
+    const yaExiste = this.memberOfArray.value.includes(this.optMemberOf);
+    if (yaExiste) {
+      Swal.fire({
+        icon: 'warning',
+        title: 'Duplicado',
+        text: 'Este actor ya fue agregado como miembro.',
+        confirmButtonText: 'Aceptar',
+        confirmButtonColor: '#ffc107',
+      });
+      return;
+    }
+  
+    // Si pasa todas las validaciones, agregar
     this.memberOfArray.push(this.fb.control(this.optMemberOf));
     this.optMemberOf = '';
   }
+  
 
   deleteMemberOf(index: number): void {
     this.memberOfArray.removeAt(index);
   }
+
+
 
   get roleArray() {
     return this.generalForm.controls['roles'] as FormArray;
@@ -120,9 +137,16 @@ export class PartiesGeneralComponent implements OnInit {
     const existingRoles = this.roleArray.value; // obtiene los roles actuales
 
     if (existingRoles.includes(this.optRole)) {
-      alert('El rol ya existe. No se puede agregar duplicado.');
+      Swal.fire({
+        icon: 'warning',
+        title: 'Rol duplicado',
+        text: 'El rol ya existe. No se puede agregar duplicado.',
+        confirmButtonText: 'Aceptar',
+        confirmButtonColor: '#ffc107' // alerta sweet vss
+      });
       return;
     }
+    
 
     this.roleArray.push(this.fb.control(this.optRole));
     this.regresarBeneficiaries(this.optRole);

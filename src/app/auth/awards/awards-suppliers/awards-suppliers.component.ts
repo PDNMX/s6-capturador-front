@@ -88,6 +88,7 @@ export class AwardsSuppliersComponent {
       });
       return;
     }
+  
     if (!this.suppliersValue) {
       Swal.fire({
         icon: 'error',
@@ -98,7 +99,22 @@ export class AwardsSuppliersComponent {
       });
       return;
     }
+    const yaExiste = this.suppliersArray.some(
+      (s: any) => s.id === this.suppliersValue.id
+    );
+  
+    if (yaExiste) {
+      Swal.fire({
+        icon: 'warning',
+        title: 'Proveedor duplicado',
+        text: 'Este proveedor ya ha sido agregado.',
+        confirmButtonText: 'Aceptar',
+        confirmButtonColor: '#ffc107',
+      });
+      return;
+    }
+  
     this.addSupplier.emit(this.suppliersValue);
-    //console.log(this.suppliersValue);
   }
+  
 }

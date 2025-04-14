@@ -88,8 +88,23 @@ export class AwardsItemsComponent implements OnInit {
 
   addAdditionalClassifications(): void {
     const data = this.additionalClassificationsForm.value.data;
-    const { id, description, unit, uri } = data;
-
+    const { id, description, uri } = data;
+  
+    const yaExiste = this.additionalClassificationsArray.value.some(
+      (item: any) => item.id === id
+    );
+  
+    if (yaExiste) {
+      Swal.fire({
+        icon: 'warning',
+        title: 'Clasificación duplicada',
+        text: 'Esta clasificación adicional ya ha sido agregada.',
+        confirmButtonText: 'Aceptar',
+        confirmButtonColor: '#ffc107',
+      });
+      return;
+    }
+  
     this.additionalClassificationsArray.push(
       this.fb.group({
         id: [id, Validators.required],
@@ -97,7 +112,10 @@ export class AwardsItemsComponent implements OnInit {
         uri: [uri, Validators.required],
       })
     );
+  
+    this.additionalClassificationsForm.reset(); // Limpiar después de agregar
   }
+  
 
   deleteAdditionalClassifications(index: number): void {
     this.additionalClassificationsArray.removeAt(index);

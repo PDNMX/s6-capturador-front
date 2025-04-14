@@ -94,6 +94,25 @@ export class TenderTenderersComponent implements OnInit {
       });
       return;
     }
+  
+    // Validación para evitar duplicados
+    const yaExiste = this.tenderersArray.some(
+      (item) => item.id === this.tenderersValue.id
+    );
+    if (yaExiste) {
+      Swal.fire({
+        icon: 'warning',
+        title: 'Duplicado',
+        text: 'Este licitante ya fue agregado.',
+        confirmButtonText: 'Aceptar',
+        confirmButtonColor: '#ffc107',
+      });
+      return;
+    }
+  
+    // Se agrega localmente y se emite
+    this.tenderersArray.push(this.tenderersValue);
     this.addTenderer.emit(this.tenderersValue);
   }
+  
 }

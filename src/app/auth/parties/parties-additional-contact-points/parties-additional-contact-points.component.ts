@@ -44,7 +44,19 @@ export class PartiesAdditionalContactPointsComponent implements OnInit {
         confirmButtonColor: '#dc3545',
       });
       return;
-    } 
+    }
+    
+    const exists = this.availableLanguageArray.value.includes(this.optLanguage);
+  if (exists) {
+    Swal.fire({
+      icon: 'warning',
+      title: 'Duplicado',
+      text: 'El idioma ya ha sido agregado.',
+      confirmButtonText: 'Aceptar',
+      confirmButtonColor: '#ffc107',
+    });
+    return;
+  }
     this.availableLanguageArray.push(this.fb.control(this.optLanguage));
     this.optLanguage = '';
   }

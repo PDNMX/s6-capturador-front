@@ -139,21 +139,39 @@ export class TenderMeetingsComponent implements OnInit {
       });
       return;
     }
-    if (!this.attendeesForm.value.id) { 
+  
+    const opt = this.attendeesForm.value.id;
+  
+    if (!opt || !opt.id) {
       Swal.fire({
         icon: 'error',
         title: 'Error',
-        text: 'Debe seleccionar un asistente para agregarlo.',
+        text: 'No se encontró el asistente seleccionado.',
         confirmButtonText: 'Aceptar',
         confirmButtonColor: '#dc3545',
       });
       return;
     }
-    const opt = this.attendeesForm.value.id;
+  
+    const yaExiste = this.attendeesArray.value.some(
+      (item: any) => item.id === opt.id
+    );
+  
+    if (yaExiste) {
+      Swal.fire({
+        icon: 'warning',
+        title: 'Asistente duplicado',
+        text: 'Este asistente ya ha sido agregado.',
+        confirmButtonText: 'Aceptar',
+        confirmButtonColor: '#ffc107',
+      });
+      return;
+    }
+  
     this.attendeesArray.push(this.fb.group({ ...opt }));
     this.attendeesForm.reset();
   }
-
+  
   deleteAttendess(index: number): void {
     this.attendeesArray.removeAt(index);
   }
@@ -179,7 +197,24 @@ export class TenderMeetingsComponent implements OnInit {
       });
       return;
     }
+  
     const opt = this.officialsForm.value.id;
+  
+    const yaExiste = this.officialsArray.value.some(
+      (item: any) => item.id === opt.id
+    );
+  
+    if (yaExiste) {
+      Swal.fire({
+        icon: 'warning',
+        title: 'Servidor público duplicado',
+        text: 'Este servidor público ya ha sido agregado.',
+        confirmButtonText: 'Aceptar',
+        confirmButtonColor: '#ffc107',
+      });
+      return;
+    }
+  
     this.officialsArray.push(this.fb.group({ ...opt }));
     this.officialsForm.reset();
   }

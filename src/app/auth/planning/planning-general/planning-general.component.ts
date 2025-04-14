@@ -188,6 +188,7 @@ export class PlanningGeneralComponent implements OnInit {
       });
       return;
     }
+  
     if (!this.selectForm.value.contractingUnits) {
       Swal.fire({
         icon: 'error',
@@ -198,20 +199,33 @@ export class PlanningGeneralComponent implements OnInit {
       });
       return;
     }
-    this.contractingUnitsFormArray.push(
-      this.fb.control(this.selectForm.value.contractingUnits)
-    );
+  
+    const nuevaUnidad = this.selectForm.value.contractingUnits;
+    const yaExiste = this.contractingUnitsFormArray.value.includes(nuevaUnidad);
+  
+    if (yaExiste) {
+      Swal.fire({
+        icon: 'warning',
+        title: 'Unidad duplicada',
+        text: 'La unidad administrativa contratante ya fue agregada.',
+        confirmButtonText: 'Aceptar',
+        confirmButtonColor: '#ffc107',
+      });
+      return;
+    }
+  
+    this.contractingUnitsFormArray.push(this.fb.control(nuevaUnidad));
     this.initSelectForm();
   }
-
+  
   deleteContractingUnit(index: number): void {
     this.contractingUnitsFormArray.removeAt(index);
   }
-
+  
   get requestingUnitsArray() {
     return this.generalForm.controls['requestingUnits'] as FormArray;
   }
-
+  
   addRequestingUnit(): void {
     if (this.requestings.length === 0) {
       Swal.fire({
@@ -223,6 +237,7 @@ export class PlanningGeneralComponent implements OnInit {
       });
       return;
     }
+  
     if (!this.selectForm.value.requestingUnits) {
       Swal.fire({
         icon: 'error',
@@ -233,19 +248,33 @@ export class PlanningGeneralComponent implements OnInit {
       });
       return;
     }
-    this.requestingUnitsArray.push(
-      this.fb.control(this.selectForm.value.requestingUnits)
-    );
+  
+    const nuevaUnidad = this.selectForm.value.requestingUnits;
+    const yaExiste = this.requestingUnitsArray.value.includes(nuevaUnidad);
+  
+    if (yaExiste) {
+      Swal.fire({
+        icon: 'warning',
+        title: 'Unidad duplicada',
+        text: 'La unidad administrativa requirente ya fue agregada.',
+        confirmButtonText: 'Aceptar',
+        confirmButtonColor: '#ffc107',
+      });
+      return;
+    }
+  
+    this.requestingUnitsArray.push(this.fb.control(nuevaUnidad));
     this.initSelectForm();
   }
+  
   deleteRequestingUnit(index: number): void {
     this.requestingUnitsArray.removeAt(index);
   }
-
+  
   get responsibleUnitsArray() {
     return this.generalForm.controls['responsibleUnits'] as FormArray;
   }
-
+  
   addResponsibleUnit(): void {
     if (this.responsibles.length === 0) {
       Swal.fire({
@@ -257,6 +286,7 @@ export class PlanningGeneralComponent implements OnInit {
       });
       return;
     }
+  
     if (!this.selectForm.value.responsibleUnits) {
       Swal.fire({
         icon: 'error',
@@ -267,11 +297,25 @@ export class PlanningGeneralComponent implements OnInit {
       });
       return;
     }
-    this.responsibleUnitsArray.push(
-      this.fb.control(this.selectForm.value.responsibleUnits)
-    );
+  
+    const nuevaUnidad = this.selectForm.value.responsibleUnits;
+    const yaExiste = this.responsibleUnitsArray.value.includes(nuevaUnidad);
+  
+    if (yaExiste) {
+      Swal.fire({
+        icon: 'warning',
+        title: 'Unidad duplicada',
+        text: 'La unidad administrativa responsable ya fue agregada.',
+        confirmButtonText: 'Aceptar',
+        confirmButtonColor: '#ffc107',
+      });
+      return;
+    }
+  
+    this.responsibleUnitsArray.push(this.fb.control(nuevaUnidad));
     this.initSelectForm();
   }
+  
   deleteResponsibleUnit(index: number): void {
     this.responsibleUnitsArray.removeAt(index);
   }
