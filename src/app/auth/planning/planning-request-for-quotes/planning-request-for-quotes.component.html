@@ -37,7 +37,7 @@
                   <button
                     type="button"
                     class="btn btn-danger btn-delete"
-                    (click)="deleteRequestForQuotes.emit(i)"
+                    (click)="confirmAndDeleteRequestForQuotes(i)"
                   >
                     Eliminar
                   </button>
@@ -292,7 +292,6 @@
                     type="button"
                     class="btn btn-danger btn-add"
                     (click)="addInvitedSuppliers()"
-                    [disabled]="!requestForQuotesForm.valid"
                   >
                     Agregar
                   </button>

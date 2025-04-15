@@ -28,13 +28,13 @@
             class="form-control"
             id="contractId"
             type="text"
-            placeholder="Identificador del contrato*"
+            placeholder="Número del contrato*"
             formControlName="contractId"
           />
-          <label for="contractId">Identificador del contrato *</label>
+          <label for="contractId">Número del contrato *</label>
           <app-input-validation [element]="contractId"></app-input-validation>
           <div class="form-text">
-            El identificador para este contrato. Debe ser único y no debe
+            El número para este contrato. Debe ser único y no debe
             cambiar en el Proceso de Contrataciones Abiertas del cual es parte
             (definido por un ocid único). Vea la guía de identificadores para
             más detalles.
@@ -246,7 +246,8 @@
             </div>
           </div>
         </div>
-        <div class="row">
+          <div class="row" *ngIf="isForeignCurrencySelected()">
+
           <div class="col">
             <div class="table-responsive">
               <table class="table table-hover table-striped">
@@ -438,7 +439,27 @@
         </div>
       </fieldset>
 
-      <fieldset class="border p-3 mb-3" [formGroup]="relatedProcessesForm">
+    <!-- checkbox para gestionar procesos relaccionados vss -->
+    <div class="row mb-3">
+      <div class="form-check col">
+        <input
+          type="checkbox"
+          id="hasRelatedProcesses"
+          class="form-check-input"
+          formControlName="hasRelatedProcesses"
+        />
+        <label class="form-check-label" for="hasRelatedProcesses">
+          ¿Existen procesos relacionados?
+        </label>
+      </div>
+    </div>
+
+    <!-- sección condicional de procesos relacionados vss -->
+    <fieldset
+      class="border p-3 mb-3"
+      *ngIf="showRelatedProcessesSection()"
+      [formGroup]="relatedProcessesForm"
+    >
         <legend>Procesos relacionados</legend>
         <p>
           Los detalles de procesos relacionados, por ejemplo, si el proceso es
@@ -486,7 +507,7 @@
                       <button
                         type="button"
                         class="btn btn-danger btn-delete"
-                        (click)="deleteRelatedProcesses(i)"
+                        (click)="confirmAndDeleteRelatedProcesses(i)"
                       >
                         Eliminar
                       </button>

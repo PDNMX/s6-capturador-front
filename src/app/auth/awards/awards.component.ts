@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, FormArray } from '@angular/forms';
 import { ApiService } from 'src/app/services/api.service';
 import { ActivatedRoute } from '@angular/router';
+import Swal from 'sweetalert2';
 @Component({
   selector: 'app-awards',
   templateUrl: './awards.component.html',
@@ -240,5 +241,25 @@ export class AwardsComponent implements OnInit {
           this.isSaving = false;
         },
       });
+  }
+  confirmAndDeleteAward(index: number): void {
+    Swal.fire({
+      text: '¿Deseas eliminar esta adjudicación?',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      cancelButtonText: 'Cancelar',
+      confirmButtonText: 'Sí, eliminar'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        Swal.fire({
+          text: 'El registro ha sido eliminado.',
+          icon: 'success',
+          confirmButtonText: 'Aceptar',
+        })
+        this.deleteAward(index);
+      }
+    });
   }
 }

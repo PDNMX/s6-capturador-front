@@ -9,6 +9,7 @@ import {
 import { ActivatedRoute } from '@angular/router';
 import { ApiService } from 'src/app/services/api.service';
 import { Classifications, Currency } from 'src/utils';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-contracts-items',
@@ -43,17 +44,35 @@ export class ContractsItemsComponent {
 
   addAdditionalClassifications(): void {
     const data = this.additionalClassificationsForm.value.data;
-    const { id, description, unit, uri } = data;
-
+    const { id, description, uri } = data;
+  
+    // Verificar si ya existe la clasificación por ID
+    const yaExiste = this.additionalClassificationsArray.value.some(
+      (item: any) => item.id === id
+    );
+  
+    if (yaExiste) {
+      Swal.fire({
+        icon: 'warning',
+        title: 'Clasificación duplicada',
+        text: 'Esta clasificación adicional ya ha sido agregada.',
+        confirmButtonText: 'Aceptar',
+        confirmButtonColor: '#ffc107',
+      });
+      return;
+    }
+  
     this.additionalClassificationsArray.push(
       this.fb.group({
         id: [id, Validators.required],
         description: [description, Validators.required],
-        // unit: [unit, Validators.required],
         uri: [uri, Validators.required],
       })
     );
+  
+    this.additionalClassificationsForm.reset();
   }
+  
 
   deleteAdditionalClassifications(index: number): void {
     this.additionalClassificationsArray.removeAt(index);
@@ -167,5 +186,25 @@ export class ContractsItemsComponent {
       this.mostrarSpinner = false;
       console.log('agregando al arreglo');
     }, 1000);
+  }
+  confirmAndDeleteItem(index: number): void {
+    Swal.fire({
+      text: '¿Deseas eliminar este artículo?',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      cancelButtonText: 'Cancelar',
+      confirmButtonText: 'Sí, eliminar',
+    }).then((result) => {
+      if (result.isConfirmed) {
+        Swal.fire({
+          text: 'El registro ha sido eliminado.',
+          icon: 'success',
+          confirmButtonText: 'Aceptar',
+        });
+        this.deleteItem.emit(index);
+      }
+    });
   }
 }

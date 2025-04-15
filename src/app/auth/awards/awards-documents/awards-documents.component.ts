@@ -11,6 +11,7 @@ import {
 import { FormatDocument, getDocumentType, Language } from 'src/utils';
 import { ApiService } from 'src/app/services/api.service';
 import { ActivatedRoute } from '@angular/router';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-awards-documents',
@@ -187,5 +188,25 @@ export class AwardsDocumentsComponent implements OnInit {
       this.mostrarSpinner = false;
       console.log('agregando al arreglo');
     }, 1000);
+  }
+  confirmAndDeleteDocument(index: number): void {
+    Swal.fire({
+      text: '¿Deseas eliminar el documento?',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      cancelButtonText: 'Cancelar',
+      confirmButtonText: 'Sí, eliminar'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        Swal.fire({
+          text: 'El registro ha sido eliminado.',
+          icon: 'success',
+          confirmButtonText: 'Aceptar',
+        })
+        this.deleteDocument.emit(index);
+      }
+    });
   }
 }

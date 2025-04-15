@@ -3,6 +3,7 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { ApiService, IPartieList } from 'src/app/services/api.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-contracts-guarantees',
@@ -33,14 +34,57 @@ export class ContractsGuaranteesComponent implements OnInit {
   }
 
   addNewGuarante(): void {
+    const nuevaGarantia = this.guaranteesForm.value;
+  
+    const yaExiste = this.guaranteesArray.some(
+      (g: any) =>
+        g.type === nuevaGarantia.type &&
+        g.obligations === nuevaGarantia.obligations &&
+        g.value.amount === nuevaGarantia.value.amount &&
+        g.guarantor === nuevaGarantia.guarantor
+    );
+  
+    if (yaExiste) {
+      Swal.fire({
+        icon: 'warning',
+        title: 'Garantía duplicada',
+        text: 'Esta garantía ya ha sido agregada.',
+        confirmButtonText: 'Aceptar',
+        confirmButtonColor: '#ffc107',
+      });
+      return;
+    }
+  
     this.mostrarSpinner = true;
     this.addGuarante.emit(this.guaranteesForm);
-    console.log('this.guaranteesForm: ', this.guaranteesForm.value);
     this.initForm();
+  
     setTimeout(() => {
       this.mostrarSpinner = false;
       console.log('agregando al arreglo');
     }, 1000);
+  }
+  
+
+  confirmAndDeleteGuarante(index: number): void {
+    Swal.fire({
+      text: '¿Deseas eliminar este garantía?',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      cancelButtonText: 'Cancelar',
+      confirmButtonText: 'Sí, eliminar',
+    }).then((result) => {
+      if (result.isConfirmed) {
+        Swal.fire({
+          text: 'El registro ha sido eliminado.',
+          icon: 'success',
+          confirmButtonText: 'Aceptar',
+        });
+        this.deleteGuarante.emit(index);
+      }
+    });
   }
 
   getGuaranteeDesc(code: string): string {

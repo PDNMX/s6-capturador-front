@@ -19,6 +19,7 @@ import {
   SubmissionMethod,
   TenderStatus,
 } from 'src/utils';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-tender-general',
@@ -342,7 +343,33 @@ export class TenderGeneralComponent implements OnInit {
 
   addAdditionalProcurementCategories(): void {
     const opt: string = this.additionalProcurementCategoriesForm.value.data;
+
+    if (!opt) {
+      Swal.fire({
+        icon: 'error',
+        title: 'Error',
+        text: 'Debe seleccionar una categoría para agregarla.',
+        confirmButtonText: 'Aceptar',
+        confirmButtonColor: '#dc3545',
+      });
+      return;
+    }
+
+    const yaExiste = this.additionalProcurementCategoriesArray.value.includes(opt);
+
+    if (yaExiste) {
+      Swal.fire({
+        icon: 'warning',
+        title: 'Categoría duplicada',
+        text: 'La categoría adicional ya fue agregada.',
+        confirmButtonText: 'Aceptar',
+        confirmButtonColor: '#ffc107',
+      });
+      return;
+    }
+
     this.additionalProcurementCategoriesArray.push(this.fb.control(opt));
+    this.additionalProcurementCategoriesForm.reset();
   }
 
   deleteAdditionalProcurementCategories(index: number): void {
@@ -355,7 +382,31 @@ export class TenderGeneralComponent implements OnInit {
 
   addSubmissionMethod(): void {
     const opt: string = this.submissionMethodForm.value.data;
+    if (!opt) {
+      Swal.fire({
+        icon: 'error',
+        title: 'Error',
+        text: 'Debe seleccionar un método de presentación para agregarlo.',
+        confirmButtonText: 'Aceptar',
+        confirmButtonColor: '#dc3545',
+      });
+      return;
+    }
+
+  const yaExiste = this.submissionMethodArray.value.includes(opt);
+
+  if (yaExiste) {
+    Swal.fire({
+      icon: 'warning',
+      title: 'Método duplicado',
+      text: 'Este método de presentación ya fue agregado.',
+      confirmButtonText: 'Aceptar',
+      confirmButtonColor: '#ffc107',
+    });
+    return;
+  }
     this.submissionMethodArray.push(this.fb.control(opt));
+    this.submissionMethodForm.reset();
   }
 
   deleteSubmissionMethod(index: number): void {

@@ -10,6 +10,7 @@ import { ActivatedRoute } from '@angular/router';
 import { ApiService, IPartieList } from 'src/app/services/api.service';
 import { PartyRole } from 'src/utils';
 import OrganizationSchemes from 'src/utils/organizationsSchemes';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-parties-general',
@@ -53,12 +54,54 @@ export class PartiesGeneralComponent implements OnInit {
   }
 
   addMemberOf(): void {
+    // Validamos si el arreglo de actores está vacío
+    if (!this.memberOfList || this.memberOfList.length === 0) {
+      Swal.fire({
+        icon: 'info',
+        title: 'Sin Actores',
+        text: 'No existen actores registrados para este proceso de contratación.',
+        confirmButtonText: 'Aceptar',
+        confirmButtonColor: '#0d6efd',
+      });
+      return;
+    }
+  
+    // Validamos si se ha seleccionado un actor
+    if (!this.optMemberOf) {
+      Swal.fire({
+        icon: 'error',
+        title: 'Error',
+        text: 'Seleccione un actor para agregarlo.',
+        confirmButtonText: 'Aceptar',
+        confirmButtonColor: '#dc3545',
+      });
+      return;
+    }
+  
+    // Validación de duplicado
+    const yaExiste = this.memberOfArray.value.includes(this.optMemberOf);
+    if (yaExiste) {
+      Swal.fire({
+        icon: 'warning',
+        title: 'Duplicado',
+        text: 'Este actor ya fue agregado como miembro.',
+        confirmButtonText: 'Aceptar',
+        confirmButtonColor: '#ffc107',
+      });
+      return;
+    }
+  
+    // Si pasa todas las validaciones, agregar
     this.memberOfArray.push(this.fb.control(this.optMemberOf));
+    this.optMemberOf = '';
   }
+  
 
   deleteMemberOf(index: number): void {
     this.memberOfArray.removeAt(index);
   }
+
+
 
   get roleArray() {
     return this.generalForm.controls['roles'] as FormArray;
@@ -80,18 +123,35 @@ export class PartiesGeneralComponent implements OnInit {
   }
 
   addRole(): void {
+    //validamos si se ha seleccionado un rol
+    if (!this.optRole) {
+      Swal.fire({
+        icon: 'error',
+        title: 'Error',
+        text: 'Seleccione un rol para agregarlo.',
+        confirmButtonText: 'Aceptar',
+        confirmButtonColor: '#dc3545',
+      });
+      return;
+    }
     const existingRoles = this.roleArray.value; // obtiene los roles actuales
-    
+
     if (existingRoles.includes(this.optRole)) {
-      alert('El rol ya existe. No se puede agregar duplicado.');
+      Swal.fire({
+        icon: 'warning',
+        title: 'Rol duplicado',
+        text: 'El rol ya existe. No se puede agregar duplicado.',
+        confirmButtonText: 'Aceptar',
+        confirmButtonColor: '#ffc107' // alerta sweet vss
+      });
       return;
     }
     
+
     this.roleArray.push(this.fb.control(this.optRole));
     this.regresarBeneficiaries(this.optRole);
-    this.optRole = ''; 
+    this.optRole = '';
   }
-  
 
   deleteRole(index: number): void {
     this.roleArray.removeAt(index);
@@ -131,6 +191,9 @@ export class PartiesGeneralComponent implements OnInit {
 
   ngOnInit(): void {
     this.initForm();
+
+      //  Ordenar roles alfabéticamente por título
+    this.rolesList = this.rolesList.sort((a, b) => a.title.localeCompare(b.title));
 
     // Listener para el cambio de esquema
     this.generalForm

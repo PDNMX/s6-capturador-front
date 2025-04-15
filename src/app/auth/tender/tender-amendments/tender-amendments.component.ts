@@ -2,6 +2,7 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { ApiService } from 'src/app/services/api.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-tender-amendments',
@@ -61,6 +62,24 @@ export class TenderAmendmentsComponent implements OnInit {
   }
 
   addNewAmendment(): void {
+    // función auxiliar para verificar si el formulario está completamente vacío
+    const isFormEmpty = () => {
+      const formValues = this.amendmentsForm.value;
+      return Object.keys(formValues).every(key => {
+        const value = formValues[key];
+        return value === null || value === undefined || value === '';
+      });
+    };
+    if (isFormEmpty()) {      
+      Swal.fire({
+        icon: 'warning',
+        title: 'Modificación vacía',
+        text: 'No puede agregar una modificación sin información. Llene al menos un campo.',
+        confirmButtonText: 'Aceptar',
+        confirmButtonColor: '#dc3545',
+      });
+      return;
+    }   
     this.mostrarSpinner = true;
     this.addAmendment.emit(this.amendmentsForm);
     this.initForm();
@@ -68,5 +87,25 @@ export class TenderAmendmentsComponent implements OnInit {
       this.mostrarSpinner = false;
       console.log('agregando al arreglo');
     }, 1000);
+  }
+  confirmAndDeleteAmendment(index: number): void {
+    Swal.fire({
+      text: '¿Deseas eliminar esta modificación?',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      cancelButtonText: 'Cancelar',
+      confirmButtonText: 'Sí, eliminar'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        Swal.fire({
+          text: 'El registro ha sido eliminado.',
+          icon: 'success',
+          confirmButtonText: 'Aceptar',
+        })
+        this.deleteAmendment.emit(index);
+      }
+    });
   }
 }

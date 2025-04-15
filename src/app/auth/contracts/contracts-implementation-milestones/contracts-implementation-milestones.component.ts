@@ -1,6 +1,7 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, FormControl, AbstractControl, ValidationErrors } from '@angular/forms';
 import { MilestoneStatus, MilestoneType } from 'src/utils';
+import Swal from 'sweetalert2';
 @Component({
   selector: 'app-contracts-implementation-milestones',
   templateUrl: './contracts-implementation-milestones.component.html',
@@ -142,5 +143,25 @@ export class ContractsImplementationMilestonesComponent {
       this.mostrarSpinner = false;
       console.log('agregando al arreglo');
     }, 1000);
+  }
+  confirmAndDeleteMilestone(index: number): void {
+    Swal.fire({
+      text: '¿Deseas eliminar este hito?',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      cancelButtonText: 'Cancelar',
+      confirmButtonText: 'Sí, eliminar',
+    }).then((result) => {
+      if (result.isConfirmed) {
+        Swal.fire({
+          text: 'El registro ha sido eliminado.',
+          icon: 'success',
+          confirmButtonText: 'Aceptar',
+        });
+        this.deleteMilestone.emit(index);
+      }
+    });
   }
 }

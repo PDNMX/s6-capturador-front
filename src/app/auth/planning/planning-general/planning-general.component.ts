@@ -10,6 +10,7 @@ import { ActivatedRoute } from '@angular/router';
 import { ApiService, IPartieList } from 'src/app/services/api.service';
 
 import { Currency } from 'src/utils';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-planning-general',
@@ -79,7 +80,7 @@ export class PlanningGeneralComponent implements OnInit {
 
   initForm(): void {
     this.generalForm = this.fb.group({
-      rationale: ['', [Validators.required, Validators.maxLength(200)]],      
+      rationale: ['', [Validators.required, Validators.maxLength(200)]],
       hasQuotes: ['', Validators.required],
       requestingUnits: this.fb.array([]),
       responsibleUnits: this.fb.array([]),
@@ -177,38 +178,144 @@ export class PlanningGeneralComponent implements OnInit {
   }
 
   addContractingUnits(): void {
-    this.contractingUnitsFormArray.push(
-      this.fb.control(this.selectForm.value.contractingUnits)
-    );
+    if (this.contractings.length === 0) {
+      Swal.fire({
+        icon: 'info',
+        title: 'Sin unidades administrativas contratantes',
+        text: 'No existen unidad administrativas contratantes registradas en la sección de "Actores".',
+        confirmButtonText: 'Aceptar',
+        confirmButtonColor: '#0d6efd',
+      });
+      return;
+    }
+  
+    if (!this.selectForm.value.contractingUnits) {
+      Swal.fire({
+        icon: 'error',
+        title: 'Error',
+        text: 'Debe seleccionar una unidad administrativa contratante.',
+        confirmButtonText: 'Aceptar',
+        confirmButtonColor: '#dc3545',
+      });
+      return;
+    }
+  
+    const nuevaUnidad = this.selectForm.value.contractingUnits;
+    const yaExiste = this.contractingUnitsFormArray.value.includes(nuevaUnidad);
+  
+    if (yaExiste) {
+      Swal.fire({
+        icon: 'warning',
+        title: 'Unidad duplicada',
+        text: 'La unidad administrativa contratante ya fue agregada.',
+        confirmButtonText: 'Aceptar',
+        confirmButtonColor: '#ffc107',
+      });
+      return;
+    }
+  
+    this.contractingUnitsFormArray.push(this.fb.control(nuevaUnidad));
+    this.initSelectForm();
   }
-
+  
   deleteContractingUnit(index: number): void {
     this.contractingUnitsFormArray.removeAt(index);
   }
-
+  
   get requestingUnitsArray() {
     return this.generalForm.controls['requestingUnits'] as FormArray;
   }
-
+  
   addRequestingUnit(): void {
-    this.requestingUnitsArray.push(
-      this.fb.control(this.selectForm.value.requestingUnits)
-    );
+    if (this.requestings.length === 0) {
+      Swal.fire({
+        icon: 'info',
+        title: 'Sin unidades administrativas requirentes',
+        text: 'No existen unidades administrativas requirentes registradas en la sección de "Actores".',
+        confirmButtonText: 'Aceptar',
+        confirmButtonColor: '#0d6efd',
+      });
+      return;
+    }
+  
+    if (!this.selectForm.value.requestingUnits) {
+      Swal.fire({
+        icon: 'error',
+        title: 'Error',
+        text: 'Debe seleccionar una unidad administrativa requirente.',
+        confirmButtonText: 'Aceptar',
+        confirmButtonColor: '#dc3545',
+      });
+      return;
+    }
+  
+    const nuevaUnidad = this.selectForm.value.requestingUnits;
+    const yaExiste = this.requestingUnitsArray.value.includes(nuevaUnidad);
+  
+    if (yaExiste) {
+      Swal.fire({
+        icon: 'warning',
+        title: 'Unidad duplicada',
+        text: 'La unidad administrativa requirente ya fue agregada.',
+        confirmButtonText: 'Aceptar',
+        confirmButtonColor: '#ffc107',
+      });
+      return;
+    }
+  
+    this.requestingUnitsArray.push(this.fb.control(nuevaUnidad));
     this.initSelectForm();
   }
+  
   deleteRequestingUnit(index: number): void {
     this.requestingUnitsArray.removeAt(index);
   }
-
+  
   get responsibleUnitsArray() {
     return this.generalForm.controls['responsibleUnits'] as FormArray;
   }
-
+  
   addResponsibleUnit(): void {
-    this.responsibleUnitsArray.push(
-      this.fb.control(this.selectForm.value.responsibleUnits)
-    );
+    if (this.responsibles.length === 0) {
+      Swal.fire({
+        icon: 'info',
+        title: 'Sin unidades administrativas responsables',
+        text: 'No existen unidades administrativas responsables registradas en la sección de "Actores".',
+        confirmButtonText: 'Aceptar',
+        confirmButtonColor: '#0d6efd',
+      });
+      return;
+    }
+  
+    if (!this.selectForm.value.responsibleUnits) {
+      Swal.fire({
+        icon: 'error',
+        title: 'Error',
+        text: 'Debe seleccionar una unidad administrativa responsable.',
+        confirmButtonText: 'Aceptar',
+        confirmButtonColor: '#dc3545',
+      });
+      return;
+    }
+  
+    const nuevaUnidad = this.selectForm.value.responsibleUnits;
+    const yaExiste = this.responsibleUnitsArray.value.includes(nuevaUnidad);
+  
+    if (yaExiste) {
+      Swal.fire({
+        icon: 'warning',
+        title: 'Unidad duplicada',
+        text: 'La unidad administrativa responsable ya fue agregada.',
+        confirmButtonText: 'Aceptar',
+        confirmButtonColor: '#ffc107',
+      });
+      return;
+    }
+  
+    this.responsibleUnitsArray.push(this.fb.control(nuevaUnidad));
+    this.initSelectForm();
   }
+  
   deleteResponsibleUnit(index: number): void {
     this.responsibleUnitsArray.removeAt(index);
   }

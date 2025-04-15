@@ -10,6 +10,7 @@ import { ContractStatus, Currency, RelatedProcesses } from 'src/utils';
 import SurveillanceMechanismsType from 'src/utils/surveillanceMechanismsType';
 import { ActivatedRoute } from '@angular/router';
 import { ApiService } from 'src/app/services/api.service';
+import Swal from 'sweetalert2';
 
 interface StoredMechanism {
   code: string;
@@ -63,8 +64,27 @@ export class ContractsGeneralComponent implements OnInit {
     this.initRelatedProcessesForm();
     this.initSurveillanceMechanismsControl();
     this.initRelatedProcessControl();
-  }
 
+   // Control booleano al form vss
+  this.contractForm.addControl('hasRelatedProcesses', new FormControl(false));
+
+  //  Suscribir el cambio de valor vss
+  this.contractForm.get('hasRelatedProcesses')?.valueChanges.subscribe((value) => {
+    if (!value) {
+      while (this.relatedProcessesArray.length > 0) {
+        this.relatedProcessesArray.removeAt(0);
+      }
+      this.relatedProcessesForm.reset();
+      this.initRelatedProcessesForm();
+    }
+  });
+  
+}
+
+// limpiar residuos del formulario
+trackByIndex(index: number, _: any): number {
+  return index;
+}
   loadData(): void {
     if (this.record_id) {
       this.api.getMethod(`/awards/${this.record_id}`).subscribe({
@@ -163,6 +183,17 @@ export class ContractsGeneralComponent implements OnInit {
     return value?.get('exchangeRates') as FormArray;
   }
 
+// Función para gestionar del formulario de tasa de conversión vss
+isForeignCurrencySelected(): boolean {
+  return this.contractForm?.get('value.currency')?.value !== 'MXN';
+}
+
+// Función para gestionar del formulario de procesos relaccionados vss
+showRelatedProcessesSection(): boolean {
+  return this.contractForm?.get('hasRelatedProcesses')?.value === true;
+}
+
+
   addExchangeRates(): void {
     this.exchangeRatesArray.push(this.exchangeForm);
     this.initExchangeForm();
@@ -177,26 +208,42 @@ export class ContractsGeneralComponent implements OnInit {
   }
 
   addSurveillanceMechanisms() {
-    if (this.surveillanceMechanismsControl.value) {
-      const selectedMechanism = this.surveillanceMechanismsType.find(
-        (type) => type.code === this.surveillanceMechanismsControl.value
+    const selectedCode = this.surveillanceMechanismsControl.value;
+  
+    if (!selectedCode) return;
+  
+    // Verificar si ya existe el mecanismo
+    const yaExiste = this.surveillanceMechanismsArray.value.includes(selectedCode);
+  
+    if (yaExiste) {
+      Swal.fire({
+        icon: 'warning',
+        title: 'Mecanismo duplicado',
+        text: 'Este mecanismo de vigilancia ya ha sido agregado.',
+        confirmButtonText: 'Aceptar',
+        confirmButtonColor: '#ffc107',
+      });
+      return;
+    }
+  
+    const selectedMechanism = this.surveillanceMechanismsType.find(
+      (type) => type.code === selectedCode
+    );
+  
+    if (selectedMechanism) {
+      this.surveillanceMechanismsArray.push(
+        this.fb.control(selectedMechanism.code)
       );
-
-      if (selectedMechanism) {
-        this.surveillanceMechanismsArray.push(
-          this.fb.control(selectedMechanism.code) // Guardamos el título en lugar del código
-        );
-
-        console.log('Array despues de agregar:', {
-          surveillanceMechanisms: this.surveillanceMechanismsArray.value,
-        });
-
-        this.surveillanceMechanismsControl.reset();
-        this.selectedMechanism = null;
-      }
+  
+      console.log('Array después de agregar:', {
+        surveillanceMechanisms: this.surveillanceMechanismsArray.value,
+      });
+  
+      this.surveillanceMechanismsControl.reset();
+      this.selectedMechanism = null;
     }
   }
-
+  
   getMechanismTitle(code: string): string {
     const mechanism = this.surveillanceMechanismsType.find(
       (type) => type.code === code
@@ -226,6 +273,27 @@ export class ContractsGeneralComponent implements OnInit {
     }, 1000);
   }
 
+  confirmAndDeleteRelatedProcesses(index: number): void {
+    Swal.fire({
+      text: '¿Deseas eliminar este proceso relacionado?',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      cancelButtonText: 'Cancelar',
+      confirmButtonText: 'Sí, eliminar',
+    }).then((result) => {
+      if (result.isConfirmed) {
+        Swal.fire({
+          text: 'El registro ha sido eliminado.',
+          icon: 'success',
+          confirmButtonText: 'Aceptar',
+        });
+        this.deleteRelatedProcesses(index);
+      }
+    });
+  }
+
   deleteRelatedProcesses(index: number): void {
     this.relatedProcessesArray.removeAt(index);
   }
@@ -235,17 +303,32 @@ export class ContractsGeneralComponent implements OnInit {
   }
 
   addRelationship(): void {
-    if (this.relatedProcessControl.value) {
-      this.relationshipArray.push(
-        this.fb.control(this.relatedProcessControl.value)
-      );
-      console.log('Relación agregada:', {
-        relationships: this.relationshipArray.value,
+    const selectedValue = this.relatedProcessControl.value;
+  
+    if (!selectedValue) return;
+  
+    // Verificar si ya está en el array
+    const yaExiste = this.relationshipArray.value.includes(selectedValue);
+  
+    if (yaExiste) {
+      Swal.fire({
+        icon: 'warning',
+        title: 'Relación duplicada',
+        text: 'Esta relación ya ha sido agregada al proceso relacionado.',
+        confirmButtonText: 'Aceptar',
+        confirmButtonColor: '#ffc107',
       });
-      this.relatedProcessControl.reset();
-      this.selectedRelatedProcess = null;
+      return;
     }
+  
+    this.relationshipArray.push(this.fb.control(selectedValue));
+    console.log('Relación agregada:', {
+      relationships: this.relationshipArray.value,
+    });
+    this.relatedProcessControl.reset();
+    this.selectedRelatedProcess = null;
   }
+  
 
   deleteRelationship(index: number): void {
     this.relationshipArray.removeAt(index);

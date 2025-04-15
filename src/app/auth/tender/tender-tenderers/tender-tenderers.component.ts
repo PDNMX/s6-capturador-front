@@ -2,6 +2,7 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { ApiService, IPartieList } from 'src/app/services/api.service';
+import Swal from 'sweetalert2';
 
 interface IPartie {
   id: number;
@@ -73,6 +74,45 @@ export class TenderTenderersComponent implements OnInit {
   }
 
   addNewTenderer(): void {
+    if(this.tenderers.length === 0){
+      Swal.fire({
+        icon: 'info',
+        title: 'Sin licitantes',
+        text: 'No existen licitantes registrados en la sección de "Actores".',
+        confirmButtonText: 'Aceptar',
+        confirmButtonColor: '#0d6efd',
+      });
+      return;
+    }
+    if (!this.tenderersValue) {
+      Swal.fire({
+        icon: 'error',
+        title: 'Error',
+        text: 'Debe seleccionar un licitante para agregarlo.',
+        confirmButtonText: 'Aceptar',
+        confirmButtonColor: '#dc3545',
+      });
+      return;
+    }
+  
+    // Validación para evitar duplicados
+    const yaExiste = this.tenderersArray.some(
+      (item) => item.id === this.tenderersValue.id
+    );
+    if (yaExiste) {
+      Swal.fire({
+        icon: 'warning',
+        title: 'Duplicado',
+        text: 'Este licitante ya fue agregado.',
+        confirmButtonText: 'Aceptar',
+        confirmButtonColor: '#ffc107',
+      });
+      return;
+    }
+  
+    // Se agrega localmente y se emite
+    this.tenderersArray.push(this.tenderersValue);
     this.addTenderer.emit(this.tenderersValue);
   }
+  
 }
