@@ -1,19 +1,295 @@
-<div class="content">
-  <div class="container">
+<!-- src/app/components/busqueda-procesos/busqueda-procesos.component.html -->
+<div class="container-fluid py-4">
+  <div class="row mb-4">
     <h2>Procesos de contratación:</h2>
-
     <hr />
-    <div class="container m-2">
-      <div class="row">
-        <div class="col">
-          <button class="btn btn-success btn-lg m-2" (click)="addRecord()">
-            <i class="bi bi-file-earmark-plus-fill"></i> Nuevo
-          </button>
+  </div>
+  <div class="row mb-4">
+    <div class="col">
+      <button class="btn btn-success btn-lg m-2" (click)="addRecord()">
+        <i class="bi bi-file-earmark-plus-fill"></i> Nuevo
+      </button>
+    </div>
+  </div>
+  <!-- Search Form -->
+  <div class="row mb-4">
+    <div class="col">
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title">Buscar Procesos de Contratación</h5>
+          <form [formGroup]="searchForm" (ngSubmit)="onSearch()">
+            <div class="row g-3">
+              <div class="col-md-4">
+                <label for="ocid" class="form-label">OCID</label>
+                <input
+                  id="ocid"
+                  type="text"
+                  class="form-control"
+                  formControlName="ocid"
+                  placeholder="Ingrese OCID"
+                />
+              </div>
+              <!-- <div class="col-md-4">
+                <label for="tenderTitle" class="form-label"
+                  >Título de Licitación</label
+                >
+                <input
+                  id="tenderTitle"
+                  type="text"
+                  class="form-control"
+                  formControlName="tenderTitle"
+                  placeholder="Ingrese título"
+                />
+              </div> -->
+              <!-- <div class="col-md-4">
+                <label for="tenderStatus" class="form-label"
+                  >Estado de Licitación</label
+                >
+                <select
+                  id="tenderStatus"
+                  class="form-select"
+                  formControlName="tenderStatus"
+                >
+                  <option value="">Todos</option>
+                  <option
+                    *ngFor="let status of tenderStatusOptions"
+                    [value]="status"
+                  >
+                    {{ status | titlecase }}
+                  </option>
+                </select>
+              </div> -->
+            </div>
+            <div class="mt-3">
+              <button type="submit" class="btn btn-primary me-2">Buscar</button>
+              <button
+                type="button"
+                class="btn btn-secondary"
+                (click)="onClear()"
+              >
+                Limpiar
+              </button>
+            </div>
+          </form>
         </div>
       </div>
     </div>
+  </div>
 
-    <div class="container m-2">
+  <!-- Pagination Controls (Top) -->
+  <div class="row mb-3">
+    <div class="col">
+      <!-- <app-pagination
+        id="top"
+        [totalRecords]="totalRecords"
+        [currentPage]="currentPage"
+        [pageSize]="pageSize"
+        [pageSizeOptions]="pageSizeOptions"
+        (pageChange)="onPageChange($event)"
+        (pageSizeChange)="onPageSizeChange($event)"
+      ></app-pagination> -->
+    </div>
+  </div>
+
+  <!-- Results Table -->
+  <div class="row">
+    <div class="col">
+      <!-- <app-procesos-table
+        [procesos]="procesos"
+        (edit)="editProceso($event)"
+        (delete)="deleteProceso($event)"
+      ></app-procesos-table> -->
+      <!-- src/app/components/procesos-table/procesos-table.component.html -->
+      <div class="table-responsive">
+        <table class="table table-striped table-hover">
+          <thead class="table-dark">
+            <tr>
+              <th>Proceso de compra</th>
+              <th>Planeación</th>
+              <th>Contratación Pública</th>
+              <th>Adjudicación</th>
+              <th>Contrato</th>
+              <th>Acciones</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let proceso of records">
+              <td>{{ proceso.ocid }}</td>
+              <!-- <td>{{ proceso.tender?.title || "N/A" }}</td> -->
+              <td>
+                <ul>
+                  <li>
+                    <strong>Justificación:</strong>&nbsp;{{
+                      proceso.planning?.rationale || "Ejemplo de Justificación"
+                    }}
+                  </li>
+                </ul>
+
+                <fieldset *ngIf="proceso.buyer" class="border p-3 mb-3">
+                  <legend>Comprador</legend>
+                  <ul>
+                    <li>
+                      <strong>Nombre:</strong>&nbsp;{{ proceso.buyer.name }}
+                    </li>
+                  </ul>
+                </fieldset>
+              </td>
+              <td>
+                <ul>
+                  <li>
+                    <strong>Titulo:</strong>&nbsp;{{
+                      proceso.tender?.title || "titulo de ejemplo"
+                    }}
+                  </li>
+                  <li>
+                    <strong>Numero de licitantes:</strong>&nbsp;{{
+                      proceso.tender?.numberOfTenderers || 3
+                    }}
+                  </li>
+                </ul>
+              </td>
+              <td>
+                <ul
+                  *ngFor="
+                    let l of proceso.awards || [
+                      {
+                        title: 'titulo ejemplo 1',
+                        description: 'descripción de ejemplo 1'
+                      },
+                      {
+                        title: 'titulo ejemplo 2',
+                        description: 'descripción de ejemplo 2'
+                      }
+                    ]
+                  "
+                >
+                  <li><strong>Titulo:</strong>&nbsp;{{ l.title }}</li>
+                  <li>
+                    <strong>Descripción:</strong>&nbsp;{{ l.description }}
+                  </li>
+                </ul>
+              </td>
+              <td>
+                <ul
+                  *ngFor="
+                    let l of proceso.contracts || [
+                      {
+                        id: '123456',
+                        title: 'titulo ejemplo 1',
+                        description: 'descripción de ejemplo 1'
+                      },
+                      {
+                        id: '7890123',
+                        title: 'titulo ejemplo 2',
+                        description: 'descripción de ejemplo 2'
+                      }
+                    ]
+                  "
+                >
+                  <li><strong>Numero de contrato:</strong>&nbsp;{{ l.id }}</li>
+                  <li><strong>Titulo:</strong>&nbsp;{{ l.title }}</li>
+                  <li>
+                    <strong>Descripción:</strong>&nbsp;{{ l.description }}
+                  </li>
+                </ul>
+              </td>
+
+              <td>
+                <button
+                  class="btn btn-lg btn-outline-primary me-2 mb-2"
+                  title="Editar"
+                  (click)="editRecord(proceso._id)"
+                >
+                  <i class="bi bi-pencil"></i>
+                </button>
+                <button
+                  class="btn btn-lg btn-outline-danger"
+                  title="Eliminar"
+                  (click)="confirmAndDeleteRecord(proceso._id, proceso.ocid)"
+                  [disabled]="!proceso.metadata.canDelete"
+                >
+                  <i class="bi bi-trash"></i>
+                </button>
+              </td>
+            </tr>
+            <tr *ngIf="records.length === 0">
+              <td colspan="7" class="text-center">
+                No se encontraron resultados
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <!-- Pagination Controls (Bottom) -->
+  <div class="row mt-3">
+    <div class="col">
+      <!-- <app-pagination
+        id="bottom"
+        [totalRecords]="totalRecords"
+        [currentPage]="currentPage"
+        [pageSize]="pageSize"
+        [pageSizeOptions]="pageSizeOptions"
+        (pageChange)="onPageChange($event)"
+        (pageSizeChange)="onPageSizeChange($event)"
+      ></app-pagination> -->
+
+      <!-- src/app/components/pagination/pagination.component.html -->
+      <div class="d-flex justify-content-between align-items-center">
+        <div>
+          <label [for]="id + '-pageSize'" class="me-2"
+            >Registros por página:</label
+          >
+          <select
+            [id]="id + '-pageSize'"
+            class="form-select d-inline-block w-auto"
+            (change)="onPageSizeChange($event)"
+            [value]="pageSize"
+          >
+            <option *ngFor="let size of pageSizeOptions" [value]="size">
+              {{ size }}
+            </option>
+          </select>
+        </div>
+        <nav [attr.aria-label]="id + '-pagination'">
+          <ul class="pagination mb-0">
+            <li class="page-item" [class.disabled]="currentPage === 1">
+              <button class="page-link" (click)="onPageChange(currentPage - 1)">
+                Anterior
+              </button>
+            </li>
+            <li
+              class="page-item"
+              *ngFor="let page of getPages()"
+              [class.active]="page === currentPage"
+            >
+              <button class="page-link" (click)="onPageChange(page)">
+                {{ page }}
+              </button>
+            </li>
+            <li
+              class="page-item"
+              [class.disabled]="currentPage === getTotalPages()"
+            >
+              <button class="page-link" (click)="onPageChange(currentPage + 1)">
+                Siguiente
+              </button>
+            </li>
+          </ul>
+        </nav>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- <div class="container"></div>
+<div class="content">
+  <div class="container">
+    <div class="container m-2"></div> -->
+
+<!-- <div class="container m-2">
       <div>
         <table class="table table-hover table-striped mb-10">
           <thead>
@@ -61,51 +337,8 @@
                   </li>
                 </ul>
               </td>
-              <td>
-                <ul
-                  *ngFor="
-                    let l of n.awards || [
-                      {
-                        title: 'titulo ejemplo 1',
-                        description: 'descripción de ejemplo 1'
-                      },
-                      {
-                        title: 'titulo ejemplo 2',
-                        description: 'descripción de ejemplo 2'
-                      }
-                    ]
-                  "
-                >
-                  <li><strong>Titulo:</strong>&nbsp;{{ l.title }}</li>
-                  <li>
-                    <strong>Descripción:</strong>&nbsp;{{ l.description }}
-                  </li>
-                </ul>
-              </td>
-              <td>
-                <ul
-                  *ngFor="
-                    let l of n.contracts || [
-                      {
-                        id: '123456',
-                        title: 'titulo ejemplo 1',
-                        description: 'descripción de ejemplo 1'
-                      },
-                      {
-                        id: '7890123',
-                        title: 'titulo ejemplo 2',
-                        description: 'descripción de ejemplo 2'
-                      }
-                    ]
-                  "
-                >
-                  <li><strong>Numero de contrato:</strong>&nbsp;{{ l.id }}</li>
-                  <li><strong>Titulo:</strong>&nbsp;{{ l.title }}</li>
-                  <li>
-                    <strong>Descripción:</strong>&nbsp;{{ l.description }}
-                  </li>
-                </ul>
-              </td>
+              <td></td>
+              <td></td>
               <td>
                 <button class="btn btn-success m-2" (click)="editRecord(n._id)">
                   <i class="bi bi-pencil-square"></i> Editar
@@ -123,6 +356,6 @@
           <tfoot></tfoot>
         </table>
       </div>
-    </div>
-  </div>
-</div>
+    </div> -->
+<!-- </div>
+</div> -->
