@@ -416,3 +416,48 @@ img.logo {
   position: relative;
   left: 27px;
 }
+
+/* agregar estilos para modal */
+
+.spinner-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin: 20px 0;
+}
+
+.btn-delete {
+  font-size: 0.85rem;
+  padding: 0.25rem 0.5rem;
+}
+
+.btn-add {
+  margin-top: 10px;
+}
+
+/* Estilos para los botones de documentos requeridos */
+.gap-3 {
+  gap: 1rem !important;
+}
+
+.btn-primary, .btn-secondary {
+  padding: 0.75rem 1.25rem;
+  font-weight: 500;
+  transition: all 0.3s ease;
+}
+
+.btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.btn-secondary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Quitamos el efecto hover que muestra la descripción */
+.btn-primary {
+  position: relative;
+}

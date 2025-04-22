@@ -9,6 +9,30 @@ const DocumentType = [
   },
   {
     category: 'basic',
+    section: 'planning',
+    code: 'areaTechnicalAnnex',
+    title: 'Anexo técnico del Área',
+    description:
+      'Documento que forma parte del procedimiento de licitación o contratación. Contiene especificaciones técnicas detalladas, requisitos y condiciones que los proveedores o prestadores de servicios deben cumplir para participar en el proceso de adquisición.',
+  },
+  {
+    category: 'basic',
+    section: 'planning',
+    code: 'marketResearch',
+    title: 'Investigación de mercado',
+    description:
+      'Procedimiento que realiza la unidad compradora antes de iniciar un proceso de contratación pública. Su objetivo es identificar las condiciones existentes en el mercado, tales como precios, proveedores disponibles, características técnicas de los bienes o servicios, tiempos de entrega, y demás elementos que permitan planear y sustentar adecuadamente la contratación.',
+  },
+  {
+    category: 'basic',
+    section: 'planning',
+    code: 'budgetAuthorization',
+    title: 'Autorización presupuestal',
+    description:
+      'Acto administrativo mediante el cual la unidad responsable del presupuesto verifica y aprueba que existan recursos económicos disponibles y suficientes para llevar a cabo una contratación pública. Este procedimiento garantiza que el gasto proyectado esté alineado con el presupuesto autorizado, conforme a la normatividad aplicable, y que se cuente con el respaldo financiero necesario antes de comprometer recursos del erario público.',
+  },
+  {
+    category: 'basic',
     section: 'tender',
     code: 'tenderNotice',
     title: 'Aviso de licitación',

@@ -11,6 +11,8 @@ import { ActivatedRoute } from '@angular/router';
 import { ApiService } from 'src/app/services/api.service';
 import { FormatDocument, getDocumentType, Language } from 'src/utils';
 import Swal from 'sweetalert2';
+import { IDocumentType } from 'src/utils/documentType';
+declare var bootstrap: any;
 
 @Component({
   selector: 'app-planning-documents',
@@ -23,13 +25,25 @@ export class PlanningDocumentsComponent implements OnInit {
   @Output() deleteDocument = new EventEmitter<any>();
 
   record_id = '';
-
   documents = getDocumentType('planning');
+  
+  // Filtrar la lista en el select
+  filteredDocuments: Array<IDocumentType> = [];
+  
+  // Mostramos los documentos requeridos
+  requiredDocuments: Array<IDocumentType> = [];
+  requiredDocumentCodes = ['areaTechnicalAnnex', 'marketResearch', 'budgetAuthorization'];
+  
   formatDocument = FormatDocument;
   language = Language;
 
   documentForm!: FormGroup;
   mostrarSpinner = false;
+  
+  // control del modal
+  documentModal: any;
+  modalTitle = 'Agregando documento';
+  showDocumentTypeSelect = false;
 
   constructor(
     private fb: FormBuilder,
@@ -73,6 +87,19 @@ export class PlanningDocumentsComponent implements OnInit {
     return desc;
   }
 
+  // Aqui filtramos lo documentos para el select, se excluyen los requeridos
+  filterDocuments() {
+    this.filteredDocuments = this.documents.filter(
+      doc => !this.requiredDocumentCodes.includes(doc.code)
+    );
+  }
+
+  initRequiredDocuments() {
+    this.requiredDocuments = this.documents.filter(
+      doc => this.requiredDocumentCodes.includes(doc.code)
+    );
+  }
+
   loadForm(data: any): void {
     data.forEach((doc: any) => {
       this.addDocument.emit(this.fb.group({ ...doc }));
@@ -99,6 +126,63 @@ export class PlanningDocumentsComponent implements OnInit {
   ngOnInit(): void {
     this.initForm();
     this.loadData();
+    this.initRequiredDocuments();
+    this.filterDocuments();
+    
+    setTimeout(() => {
+      const modalEl = document.getElementById('documentModal');
+      if (modalEl) {
+        this.documentModal = new bootstrap.Modal(modalEl);
+      }
+    }, 100);
+  }
+  
+  openModalWithDocType(docTypeCode: string) {
+    const docType = this.documents.find(doc => doc.code === docTypeCode);
+    if (docType) {
+      this.modalTitle = `Agregar documento: ${docType.title}`;
+      this.showDocumentTypeSelect = false;
+      this.documentForm.patchValue({
+        documentType: docTypeCode
+      });
+      
+      // Validamos si el modal está inicializado
+      if (!this.documentModal) {
+        const modalEl = document.getElementById('documentModal');
+        if (modalEl) {
+          this.documentModal = new bootstrap.Modal(modalEl);
+        }
+      }
+      
+      if (this.documentModal) {
+        this.documentModal.show();
+      } else {
+        console.error('El modal no pudo ser inicializado');
+      }
+    }
+  }
+
+  // Abrir modal para "Agregar otro documento"
+  openModalForOtherDocument() {
+    this.modalTitle = 'Agregar otro documento';
+    this.showDocumentTypeSelect = true;
+    this.documentForm.patchValue({
+      documentType: ''
+    });
+    
+    // Verificar si el modal está inicializado
+    if (!this.documentModal) {
+      const modalEl = document.getElementById('documentModal');
+      if (modalEl) {
+        this.documentModal = new bootstrap.Modal(modalEl);
+      }
+    }
+    
+    if (this.documentModal) {
+      this.documentModal.show();
+    } else {
+      console.error('El modal no pudo ser inicializado');
+    }
   }
 
   get documentType(): FormControl {
@@ -193,12 +277,14 @@ export class PlanningDocumentsComponent implements OnInit {
   addNewDocument(): void {
     this.mostrarSpinner = true;
     this.addDocument.emit(this.documentForm);
-    this.initForm();
     setTimeout(() => {
       this.mostrarSpinner = false;
       console.log('agregando al arreglo');
+      this.documentModal.hide();
+      this.initForm();
     }, 1000);
   }
+  
   confirmAndDeleteDocument(index: number): void {
     Swal.fire({
       text: '¿Deseas eliminar el documento?',
