@@ -58,17 +58,20 @@ export class PlanningRequestForQuotesComponent implements OnInit {
   }
 
   addInvitedSuppliers(): void {
-    if(this.invitedSuppliers.length === 0){
+    const selected = this.selectForm.value.invitedSuppliers;
+  
+    if (this.invitedSuppliers.length === 0) {
       Swal.fire({
         icon: 'info',
         title: 'Sin proveedores',
         text: 'No existen proveedores registrados en la sección de "Actores".',
         confirmButtonText: 'Aceptar',
         confirmButtonColor: '#0d6efd',
-        });
+      });
       return;
     }
-    if(!this.selectForm.value.invitedSuppliers){
+  
+    if (!selected) {
       Swal.fire({
         icon: 'error',
         title: 'Error',
@@ -77,13 +80,28 @@ export class PlanningRequestForQuotesComponent implements OnInit {
         confirmButtonColor: '#dc3545',
       });
       return;
-    } 
-    this.invitedSuppliersArray.push(
-      this.fb.control(this.selectForm.value.invitedSuppliers)
+    }
+  
+    const yaExiste = this.invitedSuppliersArray.value.some(
+      (p: any) => p?.id === selected?.id
     );
-    this.initSelectForm();
+  
+    if (yaExiste) {
+      Swal.fire({
+        icon: 'warning',
+        title: 'Duplicado',
+        text: 'Este proveedor ya ha sido agregado.',
+        confirmButtonText: 'Aceptar',
+        confirmButtonColor: '#ffc107',
+      });
+      return;
+    }
+  
+    // Si no existe, se agrega
+    this.invitedSuppliersArray.push(this.fb.control(selected));
+    this.initSelectForm(); 
   }
-
+  
   deleteInvitedSuppliers(index: number): void {
     this.invitedSuppliersArray.removeAt(index);
   }

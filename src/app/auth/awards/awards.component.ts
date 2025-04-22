@@ -123,20 +123,48 @@ export class AwardsComponent implements OnInit {
   }
 
   saveAward(): void {
-    /*  const awardData = this.awardForm.value;
-    if (!awardData.title || !awardData.description || !awardData.date) {
-      console.log('Faltan datos obligatorios');
-      this.savingMessage = 'Faltan datos obligatorios';
+    const suppliers = this.suppliersArray;
+    const items = this.itemsArray;
+    const documents = this.documentsarray;
+    const amendments = this.amendmentsarray;
+  
+    const validSuppliers = suppliers.length > 0 && suppliers.controls.every((ctrl) => ctrl.valid);
+    const validItems = items.length > 0 && items.controls.every((ctrl) => ctrl.valid);
+    const validDocuments = documents.length > 0 && documents.controls.every((ctrl) => ctrl.valid);
+    const validAmendments = amendments.length > 0 && amendments.controls.every((ctrl) => ctrl.valid);
+  
+    if (
+      !this.awardForm.valid ||
+      !validSuppliers ||
+      !validItems ||
+      !validDocuments ||
+      !validAmendments
+    ) {
+      Swal.fire({
+        icon: 'warning',
+        title: 'Formulario incompleto',
+        text: 'Por favor, asegúrate de completar todos los campos obligatorios: Proveedores, Artículos, Documentos y Modificaciones.',
+        confirmButtonText: 'Aceptar',
+        confirmButtonColor: '#ffc107',
+      });
+  
+      this.awardForm.markAllAsTouched();
+      suppliers.controls.forEach((ctrl) => ctrl.markAllAsTouched());
+      items.controls.forEach((ctrl) => ctrl.markAllAsTouched());
+      documents.controls.forEach((ctrl) => ctrl.markAllAsTouched());
+      amendments.controls.forEach((ctrl) => ctrl.markAllAsTouched());
+  
       return;
-    } */
+    }
+  
     const awards = this.awardsArray;
     awards.push(this.awardForm);
     this.saveData();
-
+  
     this.initAwardForm();
     this.editMode = false;
   }
-
+  
   cancelAward(): void {
     this.editMode = false;
     this.initAwardForm();
