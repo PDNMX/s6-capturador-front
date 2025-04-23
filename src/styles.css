@@ -417,7 +417,7 @@ img.logo {
   left: 27px;
 }
 
-/* agregar estilos para modal */
+/* agregar estilos para modal sección documentos*/
 
 .spinner-container {
   display: flex;
@@ -441,13 +441,13 @@ img.logo {
   gap: 1rem !important;
 }
 
-.btn-primary, .btn-secondary {
+.btn-primary, .btn-secondary, .btn-success {
   padding: 0.75rem 1.25rem;
   font-weight: 500;
   transition: all 0.3s ease;
 }
 
-.btn-primary:hover {
+.btn-primary:hover, .btn-success:hover {
   transform: translateY(-2px);
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
@@ -457,7 +457,12 @@ img.logo {
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
-/* Quitamos el efecto hover que muestra la descripción */
-.btn-primary {
+/* Estilo específico para documentos ya agregados */
+.btn-success {
   position: relative;
+}
+
+/* Animación suave para el cambio de estado */
+.btn {
+  transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
 }

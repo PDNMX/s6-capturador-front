@@ -18,14 +18,6 @@ const DocumentType = [
   {
     category: 'basic',
     section: 'planning',
-    code: 'marketResearch',
-    title: 'Investigación de mercado',
-    description:
-      'Procedimiento que realiza la unidad compradora antes de iniciar un proceso de contratación pública. Su objetivo es identificar las condiciones existentes en el mercado, tales como precios, proveedores disponibles, características técnicas de los bienes o servicios, tiempos de entrega, y demás elementos que permitan planear y sustentar adecuadamente la contratación.',
-  },
-  {
-    category: 'basic',
-    section: 'planning',
     code: 'budgetAuthorization',
     title: 'Autorización presupuestal',
     description:
@@ -35,10 +27,79 @@ const DocumentType = [
     category: 'basic',
     section: 'tender',
     code: 'tenderNotice',
-    title: 'Aviso de licitación',
+    title: 'Convocatoria',
     description:
       'El aviso publicado por la entidad procuradora invitando a proveedores interesados a presentar una solicitud para participar, una oferta o ambas. Esto puede ser un link a un documento descargable, una página web, o una gaceta oficial en donde se encuentra el aviso.',
   },
+  /* codigos propuestos para la sección tender */
+  {
+    category: 'basic',
+    section: 'tender',
+    code: 'requestForQuote',
+    title: 'Solicitud de Cotización',
+    description:
+      'Documento emitido por una dependencia o ente público mediante el cual se comunica formalmente a uno o varios proveedores la necesidad de adquirir determinados bienes, servicios u obras. Este documento especifica las características técnicas, cantidades requeridas, plazos de entrega y demás condiciones para que los proveedores puedan presentar sus propuestas.',
+  },
+  {
+    category: 'basic',
+    section: 'tender',
+    code: 'clarificationMeetingsCertificates',
+    title: 'Actas de juntas de Aclaraciones',
+    description:
+      'Documentos oficiales que registran de manera formal el desarrollo de las reuniones entre los licitantes y el ente público convocante, celebradas durante un procedimiento de contratación pública. En estas actas se asientan las preguntas formuladas por los participantes respecto a los requisitos, bases, especificaciones técnicas u otros aspectos del procedimiento, así como las respuestas y aclaraciones proporcionadas por el ente público.',
+  },
+  {
+    category: 'basic',
+    section: 'tender',
+    code: 'technicalOpeningCertificate',
+    title: 'Acta de Apertura Técnica',
+    description:
+      'Documento oficial elaborado por el ente público en el que se registran los hechos ocurridos durante la apertura de las propuestas técnicas presentadas por los licitantes en un procedimiento de contratación pública. Este documento detalla la fecha, hora y lugar del acto, la lista de participantes, así como un resumen del contenido de las propuestas recibidas.',
+  },
+  {
+    category: 'basic',
+    section: 'tender',
+    code: 'financialOpeningCertificate',
+    title: 'Acta de Apertura Económica',
+    description:
+      'Documento oficial elaborado por el ente público que da constancia de la apertura de las propuestas económicas presentadas por los licitantes en un procedimiento de contratación pública. En este documento se registran la fecha, hora y lugar del acto, los nombres de los participantes y los montos ofertados por cada uno.',
+  },
+  {
+    category: 'basic',
+    section: 'tender',
+    code: 'quote',
+    title: 'Cotización',
+    description:
+      'Documento emitido por un proveedor en respuesta a una solicitud realizada por un ente público, en el que se detallan los precios, condiciones comerciales, tiempos de entrega y características de los bienes, servicios u obras ofrecidos. Este documento sirve como base para comparar propuestas y tomar decisiones de contratación, y debe elaborarse conforme a los requisitos especificados por el ente público.',
+  },
+  {
+    category: 'basic',
+    section: 'tender',
+    code: 'evaluationResult',
+    title: 'Resultado de la evaluación',
+    description:
+      'Documento oficial emitido por el ente público en el que se presenta el análisis y dictamen técnico y económico de las propuestas recibidas durante un procedimiento de contratación pública. Este documento detalla los criterios utilizados para la evaluación, el cumplimiento de los requisitos por parte de los licitantes, y determina cuál(es) propuesta(s) resultaron solventes.',
+  }, 
+  //termina los codigos propuestos de la sección tender
+
+  //códigos propuestos para la sección award
+  {
+    category: 'basic',
+    section: 'award',
+    code: 'awardDecisionCertificate',
+    title: 'Acta de fallo',
+    description:
+      'Documento oficial y resolutivo en el que el ente público determina al proveedor adjudicado.',
+  },
+  {
+    category: 'basic',
+    section: 'award',
+    code: 'awardNotification',
+    title: 'Notificación de la Adjudicación',
+    description:
+      'Documento formal que el ente público emite para comunicar de manera directa al proveedor seleccionado que su propuesta ha sido aceptada y se le ha adjudicado el contrato. Este documento especifica los detalles clave de la adjudicación, como el monto del contrato, el objeto, los plazos y cualquier condición relevante para la firma del acuerdo.',
+  },
+  //termina los codigos propuestos para la sección award
   {
     category: 'basic',
     section: 'award',
@@ -117,6 +178,16 @@ const DocumentType = [
     description:
       'Una copia firmada del contrato. Considere dar una versión leíble por máquina (PDF original, Word o documentos en formato Open Document), y un documento separado para poner páginas firmadas y escaneadas cuando sea necesario.',
   },
+  //códigos propuestos para la sección contract
+  {
+    category: 'intermediate',
+    section: 'contract',
+    code: 'amendmentAgreements',
+    title: 'Convenios modificatorios',
+    description:
+      'Documentos legales que formalizan los cambios acordados entre el ente público y el proveedor o contratista respecto a las condiciones originalmente pactadas en un contrato vigente.',
+  },
+  //termina los codigos propuestos para la sección contract
   {
     category: 'intermediate',
     section: 'tender, award, contract',
@@ -168,7 +239,7 @@ const DocumentType = [
     category: 'intermediate',
     section: 'planning',
     code: 'marketStudies',
-    title: 'Estudios de mercado',
+    title: 'Investigación de mercado',
     description:
       'Es un registro del proceso sistemático de la recolección, análisis e interpretación de datos sobre un mercado (bien, producto o servicio).',
   },

@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, OnChanges, Output } from '@angular/core';
 import {
   FormBuilder,
   FormControl,
@@ -19,20 +19,21 @@ declare var bootstrap: any;
   templateUrl: './planning-documents.component.html',
   styleUrls: ['./planning-documents.component.css'],
 })
-export class PlanningDocumentsComponent implements OnInit {
+export class PlanningDocumentsComponent implements OnInit, OnChanges {
   @Input() documentsArray: Array<any> = [];
   @Output() addDocument = new EventEmitter<any>();
   @Output() deleteDocument = new EventEmitter<any>();
 
   record_id = '';
+
   documents = getDocumentType('planning');
   
-  // Filtrar la lista en el select
+  // Lista filtrada para el select (sin los requeridos)
   filteredDocuments: Array<IDocumentType> = [];
   
-  // Mostramos los documentos requeridos
+  // Documentos requeridos (mostrados como botones)
   requiredDocuments: Array<IDocumentType> = [];
-  requiredDocumentCodes = ['areaTechnicalAnnex', 'marketResearch', 'budgetAuthorization'];
+  requiredDocumentCodes = ['areaTechnicalAnnex', 'marketStudies', 'budgetAuthorization'];
   
   formatDocument = FormatDocument;
   language = Language;
@@ -40,9 +41,9 @@ export class PlanningDocumentsComponent implements OnInit {
   documentForm!: FormGroup;
   mostrarSpinner = false;
   
-  // control del modal
+  // Variables para controlar el modal
   documentModal: any;
-  modalTitle = 'Agregando documento';
+  modalTitle = 'Agregar documento';
   showDocumentTypeSelect = false;
 
   constructor(
@@ -87,13 +88,38 @@ export class PlanningDocumentsComponent implements OnInit {
     return desc;
   }
 
-  // Aqui filtramos lo documentos para el select, se excluyen los requeridos
+
+  // Verifica si un tipo de documento ya existe en el array de documentos
+  documentExists(docTypeCode: string): boolean {
+    return this.documentsArray.some(doc => doc.documentType === docTypeCode);
+  }
+
+  // Devuelve la clase CSS para el botón según si el documento ya existe
+  getButtonClass(docTypeCode: string): string {
+    return this.documentExists(docTypeCode) ? 'btn-success' : 'btn-primary';
+  }
+
+  // Devuelve el título del botón según si el documento ya existe
+  getButtonTitle(requiredDoc: IDocumentType): string {
+    return this.documentExists(requiredDoc.code) 
+      ? `${requiredDoc.title} (Ya agregado)` 
+      : requiredDoc.description;
+  }
+
+  // Agregamos método para detectar cambios en documentsArray
+  ngOnChanges(): void {
+    console.log('documentsArray cambió:', this.documentsArray);
+    // Podemos usar esto para actualizar dinámicamente el estado de los botones
+  }
+
+  // Filtra los documentos para el select (excluyendo los requeridos)
   filterDocuments() {
     this.filteredDocuments = this.documents.filter(
       doc => !this.requiredDocumentCodes.includes(doc.code)
     );
   }
 
+  // Inicializa la lista de documentos requeridos
   initRequiredDocuments() {
     this.requiredDocuments = this.documents.filter(
       doc => this.requiredDocumentCodes.includes(doc.code)
@@ -129,6 +155,7 @@ export class PlanningDocumentsComponent implements OnInit {
     this.initRequiredDocuments();
     this.filterDocuments();
     
+    // Inicializar el modal después de un pequeño retraso para asegurar que el DOM esté listo
     setTimeout(() => {
       const modalEl = document.getElementById('documentModal');
       if (modalEl) {
@@ -136,7 +163,8 @@ export class PlanningDocumentsComponent implements OnInit {
       }
     }, 100);
   }
-  
+
+  // Abrir modal con un tipo de documento específico
   openModalWithDocType(docTypeCode: string) {
     const docType = this.documents.find(doc => doc.code === docTypeCode);
     if (docType) {
@@ -282,6 +310,11 @@ export class PlanningDocumentsComponent implements OnInit {
       console.log('agregando al arreglo');
       this.documentModal.hide();
       this.initForm();
+      
+      // Detectar cambios para actualizar la UI
+      if (this.documentsArray && this.documentsArray.length > 0) {
+        console.log('Documentos actualizados:', this.documentsArray);
+      }
     }, 1000);
   }
   

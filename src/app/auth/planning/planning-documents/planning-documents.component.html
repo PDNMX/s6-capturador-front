@@ -59,18 +59,20 @@
   </div>
   <hr />
 
-  <!-- Botones que muestran los documentos requeridos -->
+  <!-- Botones para documentos requeridos -->
   <div class="row mb-4">
     <div class="col-12">
-      <h4>Los siguientes Documentos son requeridos</h4>
+      <h4>Los siguientes documentos son requeridos en esta etapa</h4>
       <div class="d-flex flex-wrap gap-3 mt-3">
         <button
           *ngFor="let requiredDoc of requiredDocuments"
           type="button"
-          class="btn btn-primary"
+          [class]="'btn ' + getButtonClass(requiredDoc.code)"
           (click)="openModalWithDocType(requiredDoc.code)"
+          title="{{ getButtonTitle(requiredDoc) }}"
         >
           {{ requiredDoc.title }}
+          <i *ngIf="documentExists(requiredDoc.code)" class="bi bi-check-circle-fill ms-2"></i>
         </button>
         <button
           type="button"
