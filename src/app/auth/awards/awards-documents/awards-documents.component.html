@@ -62,168 +62,246 @@
   </div>
   <hr />
 
-  <form [formGroup]="documentsForm">
-    <div class="row">
-      <div class="form-floating col mb-2">
-        <select class="form-select" formControlName="documentType">
-          <option *ngFor="let d of documents" [ngValue]="d.code">
-            {{ d.title }}
-          </option>
-        </select>
-        <label for="">Tipo de documento *</label>
-        <app-input-validation [element]="documentType"></app-input-validation>
-        <p>
-          {{ getDocumentTypeDesc(documentsForm.value.documentType) }}
-        </p>
-      </div>
-    </div>
-
-    <div class="row">
-      <div class="form-floating col mb-2">
-        <input
-          class="form-control"
-          id="title"
-          type="text"
-          data-sb-validations="required"
-          placeholder="URL*"
-          formControlName="title"
-        />
-        <label for="title">Titulo *</label>
-        <app-input-validation [element]="title"></app-input-validation>
-      </div>
-      <div class="form-text">El título del documento.</div>
-    </div>
-
-    <div class="row">
-      <div class="form-floating col-12 mb-2">
-        <textarea
-          class="form-control"
-          id="description"
-          type="text"
-          placeholder="Descripción*"
-          style="height: 100px"
-          formControlName="description"
-        ></textarea>
-        <label for="description">Descripción *</label>
-        <app-input-validation [element]="description"></app-input-validation>
-      </div>
-      <div class="form-text">
-        Una descripción corta del documento. Se recomienda que las descripciones
-        no excedan 250 palabras.
-      </div>
-    </div>
-
-    <div class="row">
-      <div class="form-floating col mb-2">
-        <input
-          class="form-control"
-          id="URL"
-          type="text"
-          data-sb-validations="required"
-          placeholder="URL*"
-          formControlName="url"
-        />
-        <label for="URL">URL *</label>
-        <app-input-validation [element]="url"></app-input-validation>
-      </div>
-      <div class="form-text">
-        Un enlace directo al documento o archivo adjunto. El servidor que da
-        acceso a este documento debe de estar configurado para reportar
-        correctamente el tipo MIME de documento.
-      </div>
-    </div>
-    <div class="row">
-      <div class="col-md-6 mb-2">
-        <div class="form-floating">
-          <input
-            class="form-control"
-            id="datePublished"
-            type="date"
-            data-sb-validations="required"
-            formControlName="datePublished"
-          />
-          <label for="datePublished">Fecha de publicación *</label>
-          <app-input-validation
-            [element]="datePublished"
-          ></app-input-validation>
-        </div>
-        <div class="form-text">
-          La fecha de publicación del documento. Esto es particularmente
-          importante para documentos relevantes desde el punto de vista legal,
-          como los avisos de licitación.
-        </div>
-      </div>
-
-      <div class="col-md-6 mb-2">
-        <div class="form-floating">
-          <input
-            class="form-control"
-            id="dateModified"
-            type="date"
-            data-sb-validations="required"
-            formControlName="dateModified"
-          />
-          <label for="dateModified">Fecha de modificación *</label>
-          <app-input-validation [element]="dateModified"></app-input-validation>
-        </div>
-        <div class="form-text">
-          Fecha en que se modificó por última vez el documento.
-        </div>
-      </div>
-    </div>
-    <div class="row">
-      <div class="col-6">
-        <div class="row">
-          <div class="form-floating col mb-5">
-            <select class="form-select" formControlName="format">
-              <option *ngFor="let d of formatDocument" [ngValue]="d.template">
-                {{ d.name }}
-              </option>
-            </select>
-            <label for="format">Formato *</label>
-            <app-input-validation [element]="format"></app-input-validation>
-            <div class="form-text">El formato del documento</div>
-          </div>
-        </div>
-      </div>
-      <div class="col-6">
-        <div class="row">
-          <div class="form-floating col mb-5">
-            <select class="form-select" formControlName="language">
-              <option *ngFor="let d of data_language" [ngValue]="d.code">
-                {{ d.name }}
-              </option>
-            </select>
-            <label for="language">Idioma *</label>
-            <app-input-validation [element]="language"></app-input-validation>
-            <div class="form-text">El lenguaje del documento</div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div class="row">
-      <div class="col">
+  <!-- Botones para documentos requeridos -->
+  <div class="row mb-4">
+    <div class="col-12">
+      <h4>Los siguientes documentos son requeridos en esta etapa</h4>
+      <div class="d-flex flex-wrap gap-3 mt-3">
+        <button
+          *ngFor="let requiredDoc of requiredDocuments"
+          type="button"
+          [class]="'btn ' + getButtonClass(requiredDoc.code)"
+          (click)="openModalWithDocType(requiredDoc.code)"
+          title="{{ getButtonTitle(requiredDoc) }}"
+        >
+          {{ requiredDoc.title }}
+          <i
+            *ngIf="documentExists(requiredDoc.code)"
+            class="bi bi-check-circle-fill ms-2"
+          ></i>
+        </button>
         <button
           type="button"
-          class="btn btn-danger btn-add"
-          (click)="addNewDocument()"
-          [disabled]="!documentsForm.valid"
+          class="btn btn-secondary"
+          (click)="openModalForOtherDocument()"
         >
-          Agregar documento
+          Agregar otro documento
         </button>
       </div>
     </div>
-    <br />
-    <div class="row">
-      <div class="col-12 spin">
-        <div *ngIf="mostrarSpinner" class="spinner-container">
-          <div class="spinner-border" role="status">
-            <span class="visually-hidden">Guardando...</span>
+  </div>
+</div>
+
+<!-- Modal -->
+<div
+  class="modal fade"
+  id="documentModal"
+  tabindex="-1"
+  aria-labelledby="documentModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="documentModalLabel">{{ modalTitle }}</h5>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+      <div class="modal-body">
+        <form [formGroup]="documentsForm">
+          <div class="row" *ngIf="showDocumentTypeSelect">
+            <div class="col-12">
+              <label for="">Tipo de documento *</label>
+            </div>
+            <div class="form-floating col mb-2">
+              <select class="form-select" formControlName="documentType">
+                <option *ngFor="let d of filteredDocuments" [ngValue]="d.code">
+                  {{ d.title }}
+                </option>
+              </select>
+
+              <app-input-validation
+                [element]="documentType"
+              ></app-input-validation>
+              <p>
+                {{ getDocumentTypeDesc(documentsForm.value.documentType) }}
+              </p>
+              <div class="form-text">
+                Una clasificación del documento descrito, utilizando la lista de
+                códigos
+                <a
+                  href="https://standard.open-contracting.org/1.1/es/schema/codelists/#document-type"
+                  target="_blank"
+                  >documentType</a
+                >.
+              </div>
+            </div>
           </div>
-          <p class="mt-2">Guardando...</p>
-        </div>
+
+          <div class="row">
+            <div class="form-floating col mb-2">
+              <input
+                class="form-control"
+                id="title"
+                type="text"
+                data-sb-validations="required"
+                placeholder="Title"
+                formControlName="title"
+              />
+              <label for="title">Titulo *</label>
+              <app-input-validation [element]="title"></app-input-validation>
+              <div class="form-text">El título del documento.</div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="form-floating col-12 mb-2">
+              <textarea
+                class="form-control"
+                id="description"
+                type="text"
+                placeholder="Descripción*"
+                style="height: 100px"
+                formControlName="description"
+              ></textarea>
+              <label for="description">Descripción *</label>
+              <app-input-validation
+                [element]="description"
+              ></app-input-validation>
+            </div>
+            <div class="form-text">
+              Una descripción corta del documento. Se recomienda que las
+              descripciones no excedan 250 palabras.
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="form-floating col mb-2">
+              <input
+                class="form-control"
+                id="URL"
+                type="text"
+                data-sb-validations="required"
+                placeholder="URL*"
+                formControlName="url"
+              />
+              <label for="URL">URL *</label>
+              <app-input-validation [element]="url"></app-input-validation>
+            </div>
+            <div class="form-text">
+              Un enlace directo al documento o archivo adjunto. El servidor que
+              da acceso a este documento debe de estar configurado para reportar
+              correctamente el tipo MIME de documento.
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-6 mb-2">
+              <div class="form-floating">
+                <input
+                  class="form-control"
+                  id="datePublished"
+                  type="date"
+                  data-sb-validations="required"
+                  formControlName="datePublished"
+                />
+                <label for="datePublished">Fecha de publicación *</label>
+                <app-input-validation
+                  [element]="datePublished"
+                ></app-input-validation>
+              </div>
+              <div class="form-text">
+                La fecha de publicación del documento. Esto es particularmente
+                importante para documentos relevantes desde el punto de vista
+                legal, como los avisos de licitación.
+              </div>
+            </div>
+
+            <div class="col-md-6 mb-2">
+              <div class="form-floating">
+                <input
+                  class="form-control"
+                  id="dateModified"
+                  type="date"
+                  data-sb-validations="required"
+                  formControlName="dateModified"
+                />
+                <label for="dateModified">Fecha de modificación *</label>
+                <app-input-validation
+                  [element]="dateModified"
+                ></app-input-validation>
+              </div>
+              <div class="form-text">
+                Fecha en que se modificó por última vez el documento.
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-6">
+              <div class="row">
+                <div class="form-floating col mb-5">
+                  <select class="form-select" formControlName="format">
+                    <option
+                      *ngFor="let d of formatDocument"
+                      [ngValue]="d.template"
+                    >
+                      {{ d.name }}
+                    </option>
+                  </select>
+                  <label for="format">Formato *</label>
+                  <app-input-validation
+                    [element]="format"
+                  ></app-input-validation>
+                  <div class="form-text">El formato del documento</div>
+                </div>
+              </div>
+            </div>
+            <div class="col-6">
+              <div class="row">
+                <div class="form-floating col mb-5">
+                  <select class="form-select" formControlName="language">
+                    <option *ngFor="let d of data_language" [ngValue]="d.code">
+                      {{ d.name }}
+                    </option>
+                  </select>
+                  <label for="language">Idioma *</label>
+                  <app-input-validation
+                    [element]="language"
+                  ></app-input-validation>
+                  <div class="form-text">El lenguaje del documento</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-12 spin">
+              <div *ngIf="mostrarSpinner" class="spinner-container">
+                <div class="spinner-border" role="status">
+                  <span class="visually-hidden">Guardando...</span>
+                </div>
+                <p class="mt-2">Guardando...</p>
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+          Cerrar
+        </button>
+        <button
+          type="button"
+          class="btn btn-primary"
+          (click)="addNewDocument()"
+          [disabled]="!documentsForm.valid"
+        >
+          Guardar documento
+        </button>
       </div>
     </div>
-  </form>
+  </div>
 </div>
