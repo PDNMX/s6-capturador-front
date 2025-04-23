@@ -31,7 +31,7 @@ export class AwardsDocumentsComponent implements OnInit {
   @Input() documentsArray: Array<any> = [];
   @Output() addDocument = new EventEmitter<any>();
   @Output() deleteDocument = new EventEmitter<any>();
-  record_id = '';
+  record_id = null;
 
   formatDocument = FormatDocument;
   data_language = Language;
@@ -132,7 +132,7 @@ export class AwardsDocumentsComponent implements OnInit {
     );
   }
 
-  /* loadForm(data: any): void {
+  loadForm(data: any): void {
     data.forEach((doc: any) => {
       this.addDocument.emit(this.fb.group({ ...doc }));
     });
@@ -151,7 +151,7 @@ export class AwardsDocumentsComponent implements OnInit {
         if (awards !== null) this.loadForm(awards.documents);
       }
     });
-  } */
+  }
 
   ngOnInit(): void {
     this.initForm();
@@ -165,7 +165,7 @@ export class AwardsDocumentsComponent implements OnInit {
       if (modalEl) {
         this.documentModal = new bootstrap.Modal(modalEl);
       }
-    },100);
+    }, 100);
   }
 
   get documentType(): FormControl {
@@ -274,7 +274,7 @@ export class AwardsDocumentsComponent implements OnInit {
         this.documentModal = new bootstrap.Modal(modalEl);
       }
     }
-    
+
     if (this.documentModal) {
       this.documentModal.show();
     } else {
@@ -288,7 +288,15 @@ export class AwardsDocumentsComponent implements OnInit {
         documentType: ['', Validators.required],
         title: ['', Validators.required],
         description: ['', Validators.required],
-        url: ['', Validators.required],
+        url: [
+          '',
+          [
+            Validators.required,
+            Validators.pattern(
+              /^https?:\/\/(?:[a-zA-Z0-9\-._~%!$&'()*+,;=:@]+|%[0-9A-Fa-f]{2})*(?:\/(?:[a-zA-Z0-9\-._~%!$&'()*+,;=:@]+|%[0-9A-Fa-f]{2})*)*(?:\?(?:[a-zA-Z0-9\-._~%!$&'()*+,;=:@/?]+|%[0-9A-Fa-f]{2})*)?(?:#(?:[a-zA-Z0-9\-._~%!$&'()*+,;=:@/?]+|%[0-9A-Fa-f]{2})*)?$/
+            ),
+          ],
+        ],
         datePublished: ['', Validators.required],
         dateModified: ['', Validators.required],
         format: ['', Validators.required],
