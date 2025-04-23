@@ -79,12 +79,58 @@ export class PartiesComponent implements OnInit {
   }
 
   savePartie(): void {
-    const parties = this.partiesArray;
-    parties.push(this.partieForm);
+    const general = this.partieForm;
+  
+    const address = general.get('address');
+    const contactPoint = general.get('contactPoint');
+    const additionalContactPoints = general.get('additionalContactPoints') as FormArray;
+    const beneficialOwners = general.get('beneficialOwners') as FormArray;
+  
+    const validAddress = address instanceof FormGroup && address.valid;
+    const validContact = contactPoint instanceof FormGroup && contactPoint.valid;
+  
+    const validAdditionalContacts =
+      additionalContactPoints.length > 0 &&
+      additionalContactPoints.controls.every((ctrl) => ctrl.valid);
+  
+    const validBeneficialOwners =
+      beneficialOwners.length > 0 &&
+      beneficialOwners.controls.every((ctrl) => ctrl.valid);
+  
+    if (
+      !general.valid ||
+      !validAddress ||
+      !validContact ||
+      !validAdditionalContacts ||
+      !validBeneficialOwners
+    ) {
+      Swal.fire({
+        icon: 'warning',
+        title: 'Formulario incompleto',
+        text: 'Debes completar toda la información requerida: Información general, domicilio, punto de contacto, puntos de contacto adicionales y beneficiarios.',
+        confirmButtonText: 'Aceptar',
+        confirmButtonColor: '#ffc107',
+      });
+  
+      // Marca todo como tocado para mostrar errores visuales
+      general.markAllAsTouched();
+      if (validAddress) address.markAllAsTouched();
+      if (validContact) contactPoint.markAllAsTouched();
+      additionalContactPoints.controls.forEach((ctrl) => ctrl.markAllAsTouched());
+      beneficialOwners.controls.forEach((ctrl) => ctrl.markAllAsTouched());
+  
+      return;
+    }
+  
+    // Si todo es válido
+    this.partiesArray.push(this.partieForm);
     this.initPartieForm();
     this.saveData();
     this.editMode = false;
   }
+  
+  
+  
 
   cancelPartie(): void {
     this.initPartieForm();

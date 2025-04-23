@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { ApiService } from 'src/app/services/api.service';
+import Swal from 'sweetalert2';
+
 
 @Component({
   selector: 'app-planning',
@@ -108,17 +110,49 @@ export class PlanningComponent implements OnInit {
   }
 
   submit(): void {
-    console.log(this.planningForm.value);
+    const budget = this.planningForm.get('budget') as FormGroup;
+    const documents = this.documentsArray;
+    const requestForQuotes = this.requestForQuotesArray;
+    const milestones = this.milestonesArray;
 
+    const validBudget = budget.valid;
+    const validDocuments =
+      documents.length > 0 && documents.controls.every((ctrl) => ctrl.valid);
+    const validQuotes =
+      requestForQuotes.length > 0 && requestForQuotes.controls.every((ctrl) => ctrl.valid);
+    const validMilestones =
+      milestones.length > 0 && milestones.controls.every((ctrl) => ctrl.valid);
+
+    if (
+      !this.planningForm.valid ||
+      !validBudget ||
+      !validDocuments ||
+      !validQuotes ||
+      !validMilestones
+    ) {
+      Swal.fire({
+        icon: 'warning',
+        title: 'Formulario incompleto',
+        text: 'Debes completar toda la información: Presupuesto, , Solicitudes de Cotización, Documentos e Hitos.',
+        confirmButtonText: 'Aceptar',
+        confirmButtonColor: '#ffc107',
+      });
+
+      this.planningForm.markAllAsTouched();
+      budget.markAllAsTouched();
+      documents.controls.forEach((ctrl) => ctrl.markAllAsTouched());
+      requestForQuotes.controls.forEach((ctrl) => ctrl.markAllAsTouched());
+      milestones.controls.forEach((ctrl) => ctrl.markAllAsTouched());
+
+      return;
+    }
+
+    // Todo válido, se guarda
     this.api
       .postMethod({ ...this.planningForm.value }, `/planning/${this.record_id}`)
       .subscribe((r: any) => {
-        console.log('r: ', r);
-        if (r.err) {
-          console.log('r: ', r);
-        } else {
-          console.log('r: ', r);
-        }
+        console.log('Respuesta del backend: ', r);
       });
   }
 }
+

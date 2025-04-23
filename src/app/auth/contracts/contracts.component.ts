@@ -244,19 +244,55 @@ export class ContractsComponent implements OnInit {
 
   saveData(): void {
     const formValue = this.contractForm.value;
+  
+    const validImplementation = this.implementationForm.valid;
+    const validDocuments = this.documentsArray.length > 0 && this.documentsArray.controls.every((d: any) => d.valid !== false);
+    const validItems = this.itemsArray.length > 0 && this.itemsArray.controls.every((i: any) => i.valid !== false);
+    const validGuarantees = this.guaranteesArray.length > 0 && this.guaranteesArray.controls.every((g: any) => g.valid !== false);
+    const validAmendments = this.amendmentsArray.length > 0 && this.amendmentsArray.controls.every((a: any) => a.valid !== false);
+    const validMilestones = this.milestonesArray.length > 0 && this.milestonesArray.controls.every((m: any) => m.valid !== false);
+  
+    const formCompletamenteValido = this.contractForm.valid &&
+      validImplementation &&
+      validDocuments &&
+      validItems &&
+      validGuarantees &&
+      validAmendments &&
+      validMilestones;
+  
+    if (!formCompletamenteValido) {
+      Swal.fire({
+        icon: 'warning',
+        title: 'Formulario incompleto',
+        text: 'Debes completar todos los campos requeridos: datos generales del contrato, articulos del contrato, garantías, documentos, ejecución, hitos y modificaciones.',
+        confirmButtonText: 'Aceptar',
+        confirmButtonColor: '#ffc107',
+      });
+  
+      this.contractForm.markAllAsTouched();
+      this.documentsArray.controls.forEach((ctrl: any) => ctrl.markAllAsTouched?.());
+      this.itemsArray.controls.forEach((ctrl: any) => ctrl.markAllAsTouched?.());
+      this.guaranteesArray.controls.forEach((ctrl: any) => ctrl.markAllAsTouched?.());
+      this.amendmentsArray.controls.forEach((ctrl: any) => ctrl.markAllAsTouched?.());
+      this.milestonesArray.controls.forEach((ctrl: any) => ctrl.markAllAsTouched?.());
+      this.implementationForm.markAllAsTouched();
+  
+      return;
+    }
+  
     const contractData = {
       ...formValue,
-      id: formValue.contractId, // el id es el número de contrato ingresado por el usuario
+      id: formValue.contractId,
     };
-
-    console.log('contractData: ', contractData);
+  
     this.contractsArray.push(this.fb.control(contractData));
     this.editMode = false;
     this.initContractForm();
-
+  
     this.save();
     this.loadData();
   }
+  
 
   save(): void {
     this.api
