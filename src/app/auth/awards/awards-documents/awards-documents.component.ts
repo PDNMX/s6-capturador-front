@@ -1,4 +1,11 @@
-import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
+import {
+  Component,
+  Input,
+  OnInit,
+  Output,
+  EventEmitter,
+  OnChanges,
+} from '@angular/core';
 import {
   FormBuilder,
   FormGroup,
@@ -12,6 +19,8 @@ import { FormatDocument, getDocumentType, Language } from 'src/utils';
 import { ApiService } from 'src/app/services/api.service';
 import { ActivatedRoute } from '@angular/router';
 import Swal from 'sweetalert2';
+import { IDocumentType } from 'src/utils/documentType';
+declare var bootstrap: any;
 
 @Component({
   selector: 'app-awards-documents',
@@ -28,8 +37,18 @@ export class AwardsDocumentsComponent implements OnInit {
   data_language = Language;
   documents = getDocumentType('award');
 
+  filteredDocuments: Array<IDocumentType> = [];
+
+  requiredDocuments: Array<IDocumentType> = [];
+  requiredDocumentCodes = ['awardDecisionCertificate', 'awardNotification'];
+
   documentsForm!: FormGroup;
   mostrarSpinner = false;
+
+  documentModal: any;
+  modalTitle = 'Agregar documento';
+  showDocumentTypeSelect = false;
+
   constructor(
     private fb: FormBuilder,
     private api: ApiService,
@@ -76,6 +95,43 @@ export class AwardsDocumentsComponent implements OnInit {
     return desc;
   }
 
+  // Verifica si un tipo de documento ya existe en el array de documentos
+  documentExists(docTypeCode: string): boolean {
+    return this.documentsArray.some((doc) => doc.documentType === docTypeCode);
+  }
+
+  // Devuelve la clase CSS para el botón según si el documento ya existe
+  getButtonClass(docTypeCode: string): string {
+    return this.documentExists(docTypeCode) ? 'btn-success' : 'btn-primary';
+  }
+
+  // Devuelve el título del botón según si el documento ya existe
+  getButtonTitle(requiredDoc: IDocumentType): string {
+    return this.documentExists(requiredDoc.code)
+      ? `${requiredDoc.title} (Ya agregado)`
+      : requiredDoc.description;
+  }
+
+  // Agregamos método para detectar cambios en documentsArray
+  ngOnChanges(): void {
+    console.log('documentsArray cambió:', this.documentsArray);
+    // Podemos usar esto para actualizar dinámicamente el estado de los botones
+  }
+
+  // Filtra los documentos para el select (excluyendo los requeridos)
+  filterDocuments() {
+    this.filteredDocuments = this.documents.filter(
+      (doc) => !this.requiredDocumentCodes.includes(doc.code)
+    );
+  }
+
+  // Inicializa la lista de documentos requeridos
+  initRequiredDocuments() {
+    this.requiredDocuments = this.documents.filter((doc) =>
+      this.requiredDocumentCodes.includes(doc.code)
+    );
+  }
+
   /* loadForm(data: any): void {
     data.forEach((doc: any) => {
       this.addDocument.emit(this.fb.group({ ...doc }));
@@ -100,6 +156,16 @@ export class AwardsDocumentsComponent implements OnInit {
   ngOnInit(): void {
     this.initForm();
     //this.loadData();
+    this.initRequiredDocuments();
+    this.filterDocuments();
+
+    // Inicializar el modal después de un pequeño retraso para asegurar que el DOM esté listo
+    setTimeout(() => {
+      const modalEl = document.getElementById('documentModal');
+      if (modalEl) {
+        this.documentModal = new bootstrap.Modal(modalEl);
+      }
+    },100);
   }
 
   get documentType(): FormControl {
@@ -135,49 +201,101 @@ export class AwardsDocumentsComponent implements OnInit {
   }
 
   private dateComparisonValidator(): (
-        group: AbstractControl
-      ) => ValidationErrors | null {
-        return (group: AbstractControl): ValidationErrors | null => {
-          const datePublished = group.get('datePublished')?.value;
-          const dateModifiedControl = group.get('dateModified'); // Obtén el control
-          const dateModified = dateModifiedControl?.value;
-    
-          if (
-            datePublished &&
-            dateModified &&
-            new Date(dateModified) < new Date(datePublished)
-          ) {
-            const currentErrors = dateModifiedControl?.errors || {}; // Obtén los errores actuales
-            dateModifiedControl?.setErrors({
-              ...currentErrors,
-              dateModifiedInvalid: true,
-            });
-            return { dateModifiedInvalid: true };
-          }
-    
-          if (dateModifiedControl?.errors) {
-            const { dateModifiedInvalid, ...otherErrors } =
-              dateModifiedControl.errors;
-            dateModifiedControl.setErrors(
-              Object.keys(otherErrors).length > 0 ? otherErrors : null
-            );
-          }
-    
-          return null;
-        };
+    group: AbstractControl
+  ) => ValidationErrors | null {
+    return (group: AbstractControl): ValidationErrors | null => {
+      const datePublished = group.get('datePublished')?.value;
+      const dateModifiedControl = group.get('dateModified'); // Obtén el control
+      const dateModified = dateModifiedControl?.value;
+
+      if (
+        datePublished &&
+        dateModified &&
+        new Date(dateModified) < new Date(datePublished)
+      ) {
+        const currentErrors = dateModifiedControl?.errors || {}; // Obtén los errores actuales
+        dateModifiedControl?.setErrors({
+          ...currentErrors,
+          dateModifiedInvalid: true,
+        });
+        return { dateModifiedInvalid: true };
       }
 
+      if (dateModifiedControl?.errors) {
+        const { dateModifiedInvalid, ...otherErrors } =
+          dateModifiedControl.errors;
+        dateModifiedControl.setErrors(
+          Object.keys(otherErrors).length > 0 ? otherErrors : null
+        );
+      }
+
+      return null;
+    };
+  }
+
+  //Abrir modal con un tipo de documento específico
+  openModalWithDocType(docTypeCode: string) {
+    const docType = this.documents.find((doc) => doc.code === docTypeCode);
+    if (docType) {
+      this.modalTitle = `Agregar documento: ${docType.title}`;
+      this.showDocumentTypeSelect = false;
+      this.documentsForm.patchValue({
+        documentType: docTypeCode,
+      });
+
+      // Validamos si el modal está inicializado
+      if (!this.documentModal) {
+        const modalEl = document.getElementById('documentModal');
+        if (modalEl) {
+          this.documentModal = new bootstrap.Modal(modalEl);
+        }
+      }
+
+      if (this.documentModal) {
+        this.documentModal.show();
+      } else {
+        console.error('El modal no pudo ser inicializado');
+      }
+    }
+  }
+
+  // Abrir modal para "Agregar otro documento"
+  openModalForOtherDocument() {
+    this.modalTitle = 'Agregar otro documento';
+    this.showDocumentTypeSelect = true;
+    this.documentsForm.patchValue({
+      documentType: '',
+    });
+
+    // Verificar si el modal está inicializado
+    if (!this.documentModal) {
+      const modalEl = document.getElementById('documentModal');
+      if (modalEl) {
+        this.documentModal = new bootstrap.Modal(modalEl);
+      }
+    }
+    
+    if (this.documentModal) {
+      this.documentModal.show();
+    } else {
+      console.error('El modal no pudo ser inicializado');
+    }
+  }
+
   initForm(): void {
-    this.documentsForm = this.fb.group({
-      documentType: ['', Validators.required],
-      title: ['', Validators.required],
-      description: ['', Validators.required],
-      url: ['', Validators.required],
-      datePublished: ['', Validators.required],
-      dateModified: ['', Validators.required],
-      format: ['', Validators.required],
-      language: ['', Validators.required],
-    }, { validators: this.dateComparisonValidator() });
+    this.documentsForm = this.fb.group(
+      {
+        documentType: ['', Validators.required],
+        title: ['', Validators.required],
+        description: ['', Validators.required],
+        url: ['', Validators.required],
+        datePublished: ['', Validators.required],
+        dateModified: ['', Validators.required],
+        format: ['', Validators.required],
+        language: ['', Validators.required],
+      },
+      { validators: this.dateComparisonValidator() }
+    );
   }
   addNewDocument(): void {
     this.mostrarSpinner = true;
@@ -197,14 +315,14 @@ export class AwardsDocumentsComponent implements OnInit {
       confirmButtonColor: '#3085d6',
       cancelButtonColor: '#d33',
       cancelButtonText: 'Cancelar',
-      confirmButtonText: 'Sí, eliminar'
+      confirmButtonText: 'Sí, eliminar',
     }).then((result) => {
       if (result.isConfirmed) {
         Swal.fire({
           text: 'El registro ha sido eliminado.',
           icon: 'success',
           confirmButtonText: 'Aceptar',
-        })
+        });
         this.deleteDocument.emit(index);
       }
     });
