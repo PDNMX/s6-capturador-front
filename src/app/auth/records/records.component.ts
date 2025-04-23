@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 import { catchError, map, of } from 'rxjs';
 import { ApiService } from 'src/app/services/api.service';
+import { RecordsService } from 'src/app/services/records.service';
 
 import Swal from 'sweetalert2';
 
@@ -26,7 +27,8 @@ export class RecordsComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.getAllRecords();
+    // this.getAllRecords();
+    this.loadProcesos();
     localStorage.removeItem('record');
   }
 
@@ -97,7 +99,15 @@ export class RecordsComponent implements OnInit {
 
   getPages(): number[] {
     const totalPages = this.getTotalPages();
+
+    const start = this.currentPage < 7 ? 1 : this.currentPage - 6;
+
     return Array.from({ length: totalPages }, (_, i) => i + 1);
+
+    // return Array.from(
+    //   { length: totalPages > 7 ? totalPages : 7 },
+    //   (_, i) => start + i
+    // );
   }
 
   onPageChange2(page: number): void {
@@ -108,6 +118,10 @@ export class RecordsComponent implements OnInit {
 
   onPageSizeChange(event: Event): void {
     const selectElement = event.target as HTMLSelectElement;
+    this.pageSize = +selectElement.value;
+    this.currentPage = 1;
+    this.loadProcesos();
+
     // this.pageSizeChange.emit(+selectElement.value);
   }
 
@@ -124,8 +138,8 @@ export class RecordsComponent implements OnInit {
     this.delete.emit(ocid);
   }
 
-  searchForm: FormGroup;
-  procesos: [] = [];
+  searchForm!: FormGroup;
+  procesos: any[] = [];
   totalRecords = 100;
   currentPage = 1;
   pageSize = 10;
@@ -143,12 +157,17 @@ export class RecordsComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private router: Router,
-    private api: ApiService
+    private api: ApiService,
+    private recordsAPI: RecordsService
   ) {
+    this.loadForm();
+  }
+
+  loadForm(): void {
     this.searchForm = this.fb.group({
       ocid: [''],
-      tenderTitle: [''],
-      tenderStatus: [''],
+      id_project: [''],
+      title_project: [''],
     });
   }
 
@@ -158,6 +177,21 @@ export class RecordsComponent implements OnInit {
 
   loadProcesos(): void {
     const filters = this.searchForm.value;
+    console.log('filters: ', filters);
+
+    this.recordsAPI
+      .query({
+        page: this.currentPage,
+        pageSize: this.pageSize,
+        query: filters,
+      })
+      .subscribe((r: any) => {
+        this.totalRecords = r.pagination.totalRows;
+        console.log('this.totalRecords: ', this.totalRecords);
+        console.log('this.procesos: ', this.procesos);
+        this.procesos = r.results;
+        console.log('this.procesos: ', this.procesos);
+      });
     // this.procesosService.getProcesos(filters, this.currentPage, this.pageSize).subscribe({
     //   next: (response: PagedResponse<ProcesoContratacion>) => {
     //     this.procesos = response.data;
@@ -175,7 +209,7 @@ export class RecordsComponent implements OnInit {
   }
 
   onClear(): void {
-    this.searchForm.reset();
+    this.loadForm();
     this.currentPage = 1;
     this.loadProcesos();
   }
