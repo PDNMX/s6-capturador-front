@@ -46,18 +46,45 @@ export class PlanningRequestForQuotesItemsComponent implements OnInit {
 
   addAdditionalClassifications(): void {
     const data = this.additionalClassificationsForm.value.data;
-    const { id, description, unit, uri } = data;
-
+    const { id, description, uri } = data;
+  
+    if (!data) {
+      Swal.fire({
+        icon: 'error',
+        title: 'Error',
+        text: 'Debe seleccionar una clasificación adicional.',
+        confirmButtonText: 'Aceptar',
+        confirmButtonColor: '#dc3545',
+      });
+      return;
+    }
+  
+    const yaExiste = this.additionalClassificationsArray.value.some(
+      (item: any) => item.id === id
+    );
+  
+    if (yaExiste) {
+      Swal.fire({
+        icon: 'warning',
+        title: 'Clasificación duplicada',
+        text: 'Esta clasificación adicional ya ha sido agregada.',
+        confirmButtonText: 'Aceptar',
+        confirmButtonColor: '#ffc107',
+      });
+      return;
+    }
+  
     this.additionalClassificationsArray.push(
       this.fb.group({
         id: [id, Validators.required],
         description: [description, Validators.required],
-        // unit: [unit, Validators.required],
         uri: [uri, Validators.required],
       })
     );
+  
+    this.additionalClassificationsForm.reset();
   }
-
+  
   deleteAdditionalClassifications(index: number): void {
     this.additionalClassificationsArray.removeAt(index);
   }

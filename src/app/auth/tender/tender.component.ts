@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { ApiService } from 'src/app/services/api.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-tender',
@@ -114,19 +115,61 @@ export class TenderComponent implements OnInit {
   }
 
   submit(): void {
-    // console.log(this.tenderForm.value);
-
+    const tenderers = this.tenderersArray;
+    const documents = this.documentsArray;
+    const milestones = this.milestonesArray;
+    const amendments = this.amendmentsArray;
+    const clarificationMeetings = this.clarificationMeetingsArray;
+    const items = this.itemsArray;
+  
+    const validTenderers =
+      tenderers.length > 0 && tenderers.controls.every((ctrl) => ctrl.valid);
+    const validDocuments =
+      documents.length > 0 && documents.controls.every((ctrl) => ctrl.valid);
+    const validMilestones =
+      milestones.length > 0 && milestones.controls.every((ctrl) => ctrl.valid);
+    const validAmendments =
+      amendments.length > 0 && amendments.controls.every((ctrl) => ctrl.valid);
+    const validMeetings =
+      clarificationMeetings.length > 0 &&
+      clarificationMeetings.controls.every((ctrl) => ctrl.valid);
+    const validItems =
+      items.length > 0 && items.controls.every((ctrl) => ctrl.valid);
+  
+    if (
+      !this.tenderForm.valid ||
+      !validTenderers ||
+      !validDocuments ||
+      !validMilestones ||
+      !validAmendments ||
+      !validMeetings ||
+      !validItems
+    ) {
+      Swal.fire({
+        icon: 'warning',
+        title: 'Formulario incompleto',
+        text: 'Debes completar todos los campos requeridos: Artículos, Juntas de aclaraciones, Licitantes, Documentos, Hitos y Modificaciones',
+        confirmButtonText: 'Aceptar',
+        confirmButtonColor: '#ffc107',
+      });
+  
+      this.tenderForm.markAllAsTouched();
+      tenderers.controls.forEach((ctrl) => ctrl.markAllAsTouched());
+      documents.controls.forEach((ctrl) => ctrl.markAllAsTouched());
+      milestones.controls.forEach((ctrl) => ctrl.markAllAsTouched());
+      amendments.controls.forEach((ctrl) => ctrl.markAllAsTouched());
+      clarificationMeetings.controls.forEach((ctrl) => ctrl.markAllAsTouched());
+      items.controls.forEach((ctrl) => ctrl.markAllAsTouched());
+  
+      return;
+    }
+  
+    // Todo válido, se guarda
     this.api
       .postMethod({ ...this.tenderForm.value }, `/tender/${this.record_id}`)
       .subscribe((r: any) => {
-        console.log('r: ', r);
-        if (r.err) {
-          console.log('r: ', r);
-        } else {
-          // const id = r.data._id;
-          // console.log('id: ', id);
-          // this.router.navigate([`/planning/${id}`]);
-        }
+        console.log('Respuesta del backend: ', r);
       });
   }
+  
 }
