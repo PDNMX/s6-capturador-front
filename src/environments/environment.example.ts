@@ -6,4 +6,5 @@ export const environment = {
   OAUTH_JWT_AUDIENCE: 's6',
   OAUTH_JWT_ISSUER: 'capturador',
   BACKEND_API: '',
+  MIN_TIME_RELOGIN:5
 };

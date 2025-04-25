@@ -1,0 +1,35 @@
+<form [formGroup]="AuthForm" (ngSubmit)="onSubmit()">
+  <div class="mb-3">
+    <label for="username" class="form-label">Usuario</label>
+    <input
+      type="text"
+      class="form-control"
+      id="username"
+      formControlName="username"
+      [class.is-invalid]="
+        AuthForm.get('username')?.touched && AuthForm.get('username')?.invalid
+      "
+    />
+    <div class="invalid-feedback">El usuario es requerido</div>
+  </div>
+  <div class="mb-3">
+    <label for="password" class="form-label">Contraseña</label>
+    <input
+      type="password"
+      class="form-control"
+      id="password"
+      formControlName="password"
+      [class.is-invalid]="
+        AuthForm.get('password')?.touched && AuthForm.get('password')?.invalid
+      "
+    />
+    <div class="invalid-feedback">La contraseña es requerida</div>
+  </div>
+  <button
+    type="submit"
+    class="btn btn-primary w-100"
+    [disabled]="AuthForm.invalid"
+  >
+    Reautenticar
+  </button>
+</form>

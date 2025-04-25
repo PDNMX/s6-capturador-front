@@ -35,13 +35,8 @@ export class AuthService {
       .pipe(
         map((d) => {
           const { access_token, expires_in } = d as IToken;
-          localStorage.setItem('token', access_token);
 
-          const maxTimeToken = expires_in * 1000 + Date.now();
-          localStorage.setItem(
-            'maxTimeToken',
-            JSON.stringify({ maxTimeToken })
-          );
+          this.saveToken({ access_token, expires_in });
 
           return { success: true, message: '' };
         }),
@@ -54,6 +49,18 @@ export class AuthService {
           });
         })
       );
+  }
+
+  timeToExpire(): number {
+    const objMaxTimeToken = localStorage.getItem('maxTimeToken');
+    if (objMaxTimeToken) {
+      const { maxTimeToken } = JSON.parse(objMaxTimeToken);
+      const nowTime = Date.now();
+
+      return (maxTimeToken - nowTime) / 1000 / 60;
+    }
+
+    return 0;
   }
 
   isExpiredToken(): boolean {
@@ -76,6 +83,12 @@ export class AuthService {
 
   isAuth(): boolean {
     return !!localStorage.getItem('token');
+  }
+
+  saveToken(info: { access_token: string; expires_in: number }): void {
+    const maxTimeToken = info.expires_in * 1000 + Date.now();
+    localStorage.setItem('token', info.access_token);
+    localStorage.setItem('maxTimeToken', JSON.stringify({ maxTimeToken }));
   }
 
   getToken(): string {
