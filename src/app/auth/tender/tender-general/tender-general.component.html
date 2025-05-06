@@ -104,7 +104,7 @@
     </div>
 
     <fieldset class="border p-3 mb-3" formGroupName="value">
-      <legend class="w-auto px-1">Valor máximo de contratación *</legend>
+      <legend class="w-auto px-1">Valor máximo de contratación</legend>
       <hr />
       <div class="row">
         <div class="col">
@@ -127,20 +127,20 @@
               placeholder="ID de Organización*"
               formControlName="amount"
             />
-            <label for="amount">Cantidad *</label>
-            <app-input-validation [element]="amount"></app-input-validation>
+            <label for="amount">Cantidad</label>
+            <!-- <app-input-validation [element]="amount"></app-input-validation> -->
           </div>
           <div class="form-text">Monto como una cifra.</div>
         </div>
         <div class="col-8 mb-2">
           <div class="form-floating">
             <select class="form-select" formControlName="currency">
-              <label for="currency">Moneda *</label>
+              <label for="currency">Moneda</label>
               <option *ngFor="let m of currency" value="{{ m.code }}">
                 {{ m.title }}
               </option>
             </select>
-            <label for="currency">Moneda *</label>
+            <label for="currency">Moneda</label>
           </div>
           <div class="form-text">
             La moneda del monto, de la lista de código cerrada
@@ -155,7 +155,7 @@
     </fieldset>
 
     <fieldset class="border p-3 mb-3" formGroupName="minValue">
-      <legend class="w-auto px-1">Valor mínimo de contratación *</legend>
+      <legend class="w-auto px-1">Valor mínimo de contratación</legend>
       <hr />
       <div class="row">
         <div class="col">
@@ -178,20 +178,20 @@
               placeholder="ID de Organización*"
               formControlName="amount"
             />
-            <label for="amount">Cantidad *</label>
-            <app-input-validation [element]="amount_min"></app-input-validation>
+            <label for="amount">Cantidad</label>
+            <!-- <app-input-validation [element]="amount_min"></app-input-validation> -->
           </div>
           <div class="form-text">Monto como una cifra.</div>
         </div>
         <div class="col-8 mb-2">
           <div class="form-floating">
             <select class="form-select" formControlName="currency">
-              <label for="currency">Moneda*</label>
+              <label for="currency">Moneda</label>
               <option *ngFor="let m of currency" value="{{ m.code }}">
                 {{ m.title }}
               </option>
             </select>
-            <label for="currency">Moneda *</label>
+            <label for="currency">Moneda</label>
           </div>
           <div class="form-text">
             La moneda del monto, de la lista de código cerrada
@@ -224,7 +224,7 @@
         </p>
       </div>
       <div class="form-text">
-        El método de adquisición, de la lista de código cerrada
+        Especifica el método de contratación utilizando la lista de códigos cerrada
         <a
           href="https://standard.open-contracting.org/1.1/es/schema/codelists/#method"
           target="_blank"
@@ -282,7 +282,7 @@
     </div>
 
     <fieldset class="border p-3 mb-3">
-      <legend class="w-auto px-1">Categoria de la contratación *</legend>
+      <legend class="w-auto px-1">Categoría de la contratación</legend>
       <hr />
       <p>
         La principal categoría describiendo el objeto principal de este proceso
@@ -295,7 +295,7 @@
       </p>
       <div class="row">
         <div class="col-12">
-          <label for="">Categoria principal *</label>
+          <label for="">Categoria principal de contratación</label>
         </div>
         <div class="form-floating col mb-2">
           <select class="form-select" formControlName="mainProcurementCategory">
@@ -306,10 +306,10 @@
               {{ d.title }}
             </option>
           </select>
-          <app-input-validation
+          <!-- <app-input-validation
             [element]="MainProcurementCategory"
             [message]="'Debe seleccionar una categoría principal'"
-          ></app-input-validation>
+          ></app-input-validation> -->
           <p class="mt-2">
             {{
               getMainProcurementCategory(
@@ -322,7 +322,7 @@
 
       <div class="row">
         <div class="col-12">
-          <label for="">Categorias adicionales</label>
+          <label for="">Categorias adicionales de contratación</label>
         </div>
         <div
           class="col-10 mb-2"
@@ -410,7 +410,7 @@
     </fieldset>
 
     <fieldset class="border p-3 mb-3">
-      <legend class="w-auto px-1">Criterios de adjudicación</legend>
+      <legend class="w-auto px-1">Criterios de adjudicación *</legend>
       <hr />
       <p>
         Son los elementos que servirán de guía para la valoración de las ofertas
@@ -475,7 +475,7 @@
     </fieldset>
 
     <fieldset class="border p-3 mb-3">
-      <legend class="w-auto px-1">Metodo de presentación de oferta *</legend>
+      <legend class="w-auto px-1">Metodo de presentación de oferta</legend>
       <hr />
       <p>
         El método de presentación de ofertas, utilizando la lista de código
@@ -488,7 +488,7 @@
       </p>
       <div class="row">
         <div class="col-12">
-          <label for="">Método de presentación *</label>
+          <label for="">Método de presentación</label>
         </div>
         <div class="col-10 mb-2" [formGroup]="submissionMethodForm">
           <div class="form-floating">
@@ -497,12 +497,12 @@
                 {{ d.title }}
               </option>
             </select>
-            <small
+            <!-- <small
               *ngIf="submissionMethodArray.length === 0"
               class="text-danger"
             >
               Debe registrar al menos un método de presentación de oferta.
-            </small>
+            </small> -->
           </div>
         </div>
 
@@ -571,7 +571,7 @@
             style="height: 100px"
             formControlName="submissionMethodDetails"
           ></textarea>
-          <label for="submissionMethodDetails">Detalles</label>
+          <label for="submissionMethodDetails">Detalles del método de presentación</label>
           <div class="form-text">
             Cualquier detalle o más información sobre el método de entrega. Esto
             puede incluir la dirección, correo electrónico o servicio en línea
@@ -620,7 +620,7 @@
             type="date"
             formControlName="endDate"
           />
-          <label for="endDate">Fecha de término*</label>
+          <label for="endDate">Fecha de término *</label>
           <app-input-validation
             [element]="getControl('endDate')"
           ></app-input-validation>
@@ -639,10 +639,10 @@
             type="date"
             formControlName="maxExtentDate"
           />
-          <label for="maxExtentDate">Extension máxima *</label>
-          <app-input-validation
+          <label for="maxExtentDate">Extension máxima</label>
+          <!-- <app-input-validation
             [element]="getControl('maxExtentDate')"
-          ></app-input-validation>
+          ></app-input-validation> -->
           <div class="form-text">
             El período no puede extenderse después de esta fecha. Este campo
             debe usarse para expresar la fecha máxima disponible para la
@@ -657,10 +657,10 @@
             placeholder="Duración (días) *"
             formControlName="durationInDays"
           />
-          <label for="durationInDays">Duración (dias) *</label>
-          <app-input-validation
+          <label for="durationInDays">Duración (dias)</label>
+          <!-- <app-input-validation
             [element]="getControl('durationInDays')"
-          ></app-input-validation>
+          ></app-input-validation> -->
           <div class="form-text">
             El nivel máximo de duración de este período en días.
           </div>
@@ -669,7 +669,7 @@
     </fieldset>
 
     <fieldset class="border p-3 mb-3" formGroupName="enquiryPeriod">
-      <legend class="w-auto px-1">Periodo de solicitudes de aclaración</legend>
+      <legend class="w-auto px-1">Periodo de solicitudes de aclaración *</legend>
       <hr />
       <p>
         El periodo durante el cual los postulantes potenciales pueden hacer
@@ -689,11 +689,15 @@
             data-sb-validations="required"
             formControlName="startDate"
           />
-          <label for="startDate" class="form-text">Fecha de inicio</label>
+          <label for="startDate" class="form-text">Fecha de inicio *</label>
+          <app-input-validation
+            [element]="getControlEnquiryPeriod('startDate')"
+          ></app-input-validation>
           <div class="form-text">
             La fecha de inicio del período. Cuando se sabe, se debe dar una
             fecha de inicio precisa.
           </div>
+
         </div>
         <div class="form-floating col-6 mb-5">
           <input
@@ -703,7 +707,10 @@
             data-sb-validations="required"
             formControlName="endDate"
           />
-          <label for="endDate">Fecha de término</label>
+          <label for="endDate">Fecha de término *</label>
+          <app-input-validation
+            [element]="getControlEnquiryPeriod('endDate')"
+          ></app-input-validation>
           <div class="form-text">
             La fecha de conclusión del período. Cuando se sabe, se debe dar una
             fecha de conclusión precisa.
@@ -853,10 +860,10 @@
             type="date"
             formControlName="maxExtentDate"
           />
-          <label for="maxExtentDate">Extension máxima *</label>
-          <app-input-validation
+          <label for="maxExtentDate">Extension máxima</label>
+          <!-- <app-input-validation
             [element]="getControlAwardPeriod('maxExtentDate')"
-          ></app-input-validation>
+          ></app-input-validation> -->
           <div class="form-text">
             El período no puede extenderse después de esta fecha. Este campo
             debe usarse para expresar la fecha máxima disponible para la
@@ -870,10 +877,10 @@
             type="number"
             formControlName="durationInDays"
           />
-          <label for="durationInDays">Duración (dias) *</label>
-          <app-input-validation
+          <label for="durationInDays">Duración (dias)</label>
+          <!-- <app-input-validation
             [element]="getControlAwardPeriod('durationInDays')"
-          ></app-input-validation>
+          ></app-input-validation> -->
           <div class="form-text">
             El nivel máximo de duración de este período en días.
           </div>
@@ -882,7 +889,7 @@
     </fieldset>
 
     <fieldset class="border p-3 mb-3" formGroupName="contractPeriod">
-      <legend class="w-auto px-1">Periodo del contrato *</legend>
+      <legend class="w-auto px-1">Periodo del contrato</legend>
       <hr />
       <p>
         El periodo sobre el cual se estima el contrato o requiere que esté
@@ -897,10 +904,10 @@
             type="date"
             formControlName="startDate"
           />
-          <label for="startDate">Fecha de inicio *</label>
-          <app-input-validation
+          <label for="startDate">Fecha de inicio</label>
+          <!-- <app-input-validation
             [element]="getControlContractPeriod('startDate')"
-          ></app-input-validation>
+          ></app-input-validation> -->
           <div class="form-text">
             La fecha de inicio del período. Cuando se sabe, se debe dar una
             fecha de inicio precisa.
@@ -913,10 +920,10 @@
             type="date"
             formControlName="endDate"
           />
-          <label for="endDate">Fecha de término *</label>
-          <app-input-validation
+          <label for="endDate">Fecha de término</label>
+          <!-- <app-input-validation
             [element]="getControlContractPeriod('endDate')"
-          ></app-input-validation>
+          ></app-input-validation> -->
           <div class="form-text">
             La fecha de conclusión del período. Cuando se sabe, se debe dar una
             fecha de conclusión precisa.
@@ -932,10 +939,10 @@
             type="date"
             formControlName="maxExtentDate"
           />
-          <label for="maxExtentDate">Extension máxima *</label>
-          <app-input-validation
+          <label for="maxExtentDate">Extension máxima</label>
+          <!-- <app-input-validation
             [element]="getControlContractPeriod('maxExtentDate')"
-          ></app-input-validation>
+          ></app-input-validation> -->
           <div class="form-text">
             El período no puede extenderse después de esta fecha. Este campo
             debe usarse para expresar la fecha máxima disponible para la
@@ -949,10 +956,10 @@
             type="number"
             formControlName="durationInDays"
           />
-          <label for="durationInDays">Duración (dias) *</label>
-          <app-input-validation
+          <label for="durationInDays">Duración (dias)</label>
+          <!-- <app-input-validation
             [element]="getControlContractPeriod('durationInDays')"
-          ></app-input-validation>
+          ></app-input-validation> -->
           <div class="form-text">
             El nivel máximo de duración de este período en días.
           </div>

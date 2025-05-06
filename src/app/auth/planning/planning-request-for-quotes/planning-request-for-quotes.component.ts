@@ -209,8 +209,8 @@ export class PlanningRequestForQuotesComponent implements OnInit {
         {
           startDate: ['', Validators.required],
           endDate: ['', Validators.required],
-          maxExtentDate: ['', Validators.required],
-          durationInDays: ['', Validators.required],
+          maxExtentDate: [''],
+          durationInDays: [''],
         },
         { validators: this.dateComparisonValidator() }
       ),

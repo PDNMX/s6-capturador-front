@@ -192,12 +192,15 @@ export class TenderGeneralComponent implements OnInit {
         },
         { validators: this.dateComparisonValidator() }
       ),
-      enquiryPeriod: this.fb.group({
-        startDate: ['', [Validators.required]],
-        endDate: ['', [Validators.required]],
-        maxExtentDate: ['', [Validators.required]],
-        durationInDays: [0, [Validators.required]],
-      }),
+      enquiryPeriod: this.fb.group(
+        {
+          startDate: ['', [Validators.required]],
+          endDate: ['', [Validators.required]],
+          maxExtentDate: ['', [Validators.required]],
+          durationInDays: [0, [Validators.required]],
+        },
+        { validators: this.dateComparisonValidator() }
+      ),
       hasEnquiries: [null, [Validators.required]],
       awardPeriod: this.fb.group(
         {
@@ -291,6 +294,12 @@ export class TenderGeneralComponent implements OnInit {
   getControlContractPeriod(name: string): FormControl {
     return this.contractPeriodForm.get(name) as FormControl;
   }
+  get enquiryPeriodForm() {
+    return this.generalForm.get('enquiryPeriod') as FormGroup;
+  }
+  getControlEnquiryPeriod(name: string): FormControl {
+    return this.enquiryPeriodForm.get(name) as FormControl;
+  }
 
   // Validador para comparar fechas
   private dateComparisonValidator(): Validators {
@@ -355,7 +364,8 @@ export class TenderGeneralComponent implements OnInit {
       return;
     }
 
-    const yaExiste = this.additionalProcurementCategoriesArray.value.includes(opt);
+    const yaExiste =
+      this.additionalProcurementCategoriesArray.value.includes(opt);
 
     if (yaExiste) {
       Swal.fire({
@@ -393,18 +403,18 @@ export class TenderGeneralComponent implements OnInit {
       return;
     }
 
-  const yaExiste = this.submissionMethodArray.value.includes(opt);
+    const yaExiste = this.submissionMethodArray.value.includes(opt);
 
-  if (yaExiste) {
-    Swal.fire({
-      icon: 'warning',
-      title: 'Método duplicado',
-      text: 'Este método de presentación ya fue agregado.',
-      confirmButtonText: 'Aceptar',
-      confirmButtonColor: '#ffc107',
-    });
-    return;
-  }
+    if (yaExiste) {
+      Swal.fire({
+        icon: 'warning',
+        title: 'Método duplicado',
+        text: 'Este método de presentación ya fue agregado.',
+        confirmButtonText: 'Aceptar',
+        confirmButtonColor: '#ffc107',
+      });
+      return;
+    }
     this.submissionMethodArray.push(this.fb.control(opt));
     this.submissionMethodForm.reset();
   }

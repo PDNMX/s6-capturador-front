@@ -81,8 +81,8 @@
           placeholder="Tipo de punto de contacto*"
           formControlName="type"
         />
-        <label for="type">Tipo de punto de contacto *</label>
-        <app-input-validation [element]="type"></app-input-validation>
+        <label for="type">Tipo de punto de contacto</label>
+        <!--  <app-input-validation [element]="type"></app-input-validation> -->
       </div>
       <div class="form-text">
         Especificar el tipo de punto de contacto de acuerdo con la lista de
@@ -100,8 +100,8 @@
           placeholder="Nombre completo*"
           formControlName="name"
         />
-        <label for="name">Nombre completo *</label>
-        <app-input-validation [element]="name"></app-input-validation>
+        <label for="name">Nombre completo</label>
+        <!-- <app-input-validation [element]="name"></app-input-validation> -->
       </div>
       <div class="form-text">
         El nombre de la persona de contacto, departamento o punto de contacto en
@@ -119,8 +119,8 @@
           placeholder="Nombre*"
           formControlName="givenName"
         />
-        <label for="givenName">Nombre *</label>
-        <app-input-validation [element]="givenName"></app-input-validation>
+        <label for="givenName">Nombre</label>
+        <!-- <app-input-validation [element]="givenName"></app-input-validation> -->
       </div>
       <div class="form-text">Nombre de la persona física.</div>
     </div>
@@ -135,8 +135,8 @@
           placeholder="Primer apellido*"
           formControlName="patronymicName"
         />
-        <label for="patronymicName">Primer apellido *</label>
-        <app-input-validation [element]="patronymicName"></app-input-validation>
+        <label for="patronymicName">Primer apellido</label>
+        <!-- <app-input-validation [element]="patronymicName"></app-input-validation> -->
       </div>
       <div class="form-text">
         Primer apellido de la persona física. Puede ser utilizado para capturar
@@ -155,8 +155,8 @@
           placeholder="Segundo apellido*"
           formControlName="matronymicName"
         />
-        <label for="matronymicName">Segundo apellido *</label>
-        <app-input-validation [element]="matronymicName"></app-input-validation>
+        <label for="matronymicName">Segundo apellido</label>
+        <!-- <app-input-validation [element]="matronymicName"></app-input-validation> -->
       </div>
       <div class="form-text">
         Segundo apellido de la persona física. Puede ser utilizado para el
@@ -175,8 +175,8 @@
           placeholder="Correo electrónico*"
           formControlName="email"
         />
-        <label for="email">Correo electrónico *</label>
-        <app-input-validation [element]="email"></app-input-validation>
+        <label for="email">Correo electrónico</label>
+        <!-- <app-input-validation [element]="email"></app-input-validation> -->
       </div>
       <div class="form-text">
         La dirección de correo del punto o persona de contacto.
@@ -193,8 +193,8 @@
           placeholder="Teléfono*"
           formControlName="telephone"
         />
-        <label for="telephone">Teléfono *</label>
-        <app-input-validation [element]="telephone"></app-input-validation>
+        <label for="telephone">Teléfono</label>
+        <!-- <app-input-validation [element]="telephone"></app-input-validation> -->
       </div>
       <div class="form-text">
         El número de teléfono del punto o persona de contacto. Este debe de
@@ -212,8 +212,8 @@
           placeholder="Número de fax*"
           formControlName="faxNumber"
         />
-        <label for="faxNumber">Número de fax *</label>
-        <app-input-validation [element]="faxNumber"></app-input-validation>
+        <label for="faxNumber">Número de fax</label>
+        <!-- <app-input-validation [element]="faxNumber"></app-input-validation> -->
       </div>
       <div class="form-text">
         El número de fax del punto o persona de contacto. Este debe de incluir
@@ -231,8 +231,8 @@
           placeholder="URL*"
           formControlName="url"
         />
-        <label for="url">URL *</label>
-        <app-input-validation [element]="url"></app-input-validation>
+        <label for="url">URL</label>
+        <!--  <app-input-validation [element]="url"></app-input-validation> -->
       </div>
       <div class="form-text">
         Una dirección web para el punto o persona de contacto.
@@ -255,7 +255,7 @@
                   {{ d.name }}
                 </option>
               </select>
-              <small
+              <!-- <small
                 *ngIf="
                   additionalContactPointsForm.value.availableLanguage.length ===
                   0
@@ -263,7 +263,7 @@
                 class="text-danger"
               >
                 Debe registrar al menos un idioma.
-              </small>
+              </small> -->
             </div>
           </div>
         </div>
@@ -330,10 +330,6 @@
           type="button"
           class="btn btn-danger btn-save"
           (click)="addNewConctactPoint()"
-          [disabled]="
-            !additionalContactPointsForm.valid ||
-            availableLanguageArray.length === 0
-          "
         >
           Guardar Punto de contacto adicional
         </button>
