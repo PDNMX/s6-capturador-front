@@ -9,4 +9,5 @@ import { FormControl, ValidationErrors } from '@angular/forms';
 export class InputValidationComponent {
   @Input() message: string = '';
   @Input() element!: FormControl;
+  @Input() inputType: 'url' | 'number' = 'number';
 }

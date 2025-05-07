@@ -20,8 +20,11 @@
   <small *ngIf="element?.errors?.['dateModifiedInvalid']" class="text-danger">
     La fecha de modificación no puede ser anterior a la fecha de publicación.
   </small>
-  <small *ngIf="element?.errors?.['pattern']" class="text-danger">
+  <small *ngIf="element?.errors?.['pattern'] && inputType === 'url'" class="text-danger">
     Introduzca una dirección de internet válida.
+  </small>
+  <small *ngIf="element?.errors?.['pattern'] && inputType === 'number'" class="text-danger">
+    Solo se permiten valores numéricos enteros.
   </small>
   <small *ngIf="element?.errors?.['dateMetInvalid']" class="text-danger">
     La fecha de cumplimiento no puede ser anterior a la fecha de vencimiento.

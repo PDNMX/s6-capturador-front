@@ -167,28 +167,28 @@ export class TenderGeneralComponent implements OnInit {
       description: ['', [Validators.required]],
       procuringEntity: ['', [Validators.required]],
       value: this.fb.group({
-        amount: ['', [Validators.required]],
-        currency: ['MXN', [Validators.required]],
+        amount: ['', [Validators.nullValidator]],
+        currency: ['MXN', [Validators.nullValidator]],
       }),
       minValue: this.fb.group({
-        amount: ['', [Validators.required]],
-        currency: ['MXN', [Validators.required]],
+        amount: ['', [Validators.nullValidator]],
+        currency: ['MXN', [Validators.nullValidator]],
       }),
       procurementMethod: ['', [Validators.required]],
       procurementMethodDetails: ['', [Validators.required]],
       procurementMethodRationale: ['', [Validators.required]],
-      mainProcurementCategory: ['', [Validators.required]],
+      mainProcurementCategory: ['', [Validators.nullValidator]],
       additionalProcurementCategories: this.fb.array([]),
       awardCriteria: ['', [Validators.required]],
       awardCriteriaDetails: ['', [Validators.required]],
       submissionMethod: this.fb.array([]),
-      submissionMethodDetails: [''],
+      submissionMethodDetails: ['', [Validators.nullValidator]],
       tenderPeriod: this.fb.group(
         {
           startDate: ['', [Validators.required]],
           endDate: ['', [Validators.required]],
-          maxExtentDate: ['', [Validators.required]],
-          durationInDays: [0, [Validators.required]],
+          maxExtentDate: ['', [Validators.nullValidator]],
+          durationInDays: [0, [Validators.nullValidator]],
         },
         { validators: this.dateComparisonValidator() }
       ),
@@ -196,32 +196,32 @@ export class TenderGeneralComponent implements OnInit {
         {
           startDate: ['', [Validators.required]],
           endDate: ['', [Validators.required]],
-          maxExtentDate: ['', [Validators.required]],
-          durationInDays: [0, [Validators.required]],
+          maxExtentDate: ['', [Validators.nullValidator]],
+          durationInDays: [0, [Validators.nullValidator]],
         },
         { validators: this.dateComparisonValidator() }
       ),
-      hasEnquiries: [null, [Validators.required]],
+      hasEnquiries: [null, [Validators.nullValidator]],
       awardPeriod: this.fb.group(
         {
           startDate: ['', [Validators.required]],
           endDate: ['', [Validators.required]],
-          maxExtentDate: ['', [Validators.required]],
-          durationInDays: [0, [Validators.required]],
+          maxExtentDate: ['', [Validators.nullValidator]],
+          durationInDays: [0, [Validators.nullValidator]],
         },
         { validators: this.dateComparisonValidator() }
       ),
       contractPeriod: this.fb.group(
         {
-          startDate: ['', [Validators.required]],
-          endDate: ['', [Validators.required]],
-          maxExtentDate: ['', [Validators.required]],
-          durationInDays: [0, [Validators.required]],
+          startDate: ['', [Validators.nullValidator]],
+          endDate: ['', [Validators.nullValidator]],
+          maxExtentDate: ['', [Validators.nullValidator]],
+          durationInDays: [0, [Validators.nullValidator]],
         },
         { validators: this.dateComparisonValidator() }
       ),
 
-      eligibilityCriteria: ['', [Validators.required]],
+      eligibilityCriteria: ['', [Validators.nullValidator]],
       numberOfTenderers: [0, [Validators.required]],
     });
 
@@ -230,7 +230,7 @@ export class TenderGeneralComponent implements OnInit {
     });
 
     this.submissionMethodForm = this.fb.group({
-      data: ['', [Validators.required]],
+      data: ['', [Validators.nullValidator]],
     });
   }
 
@@ -327,7 +327,7 @@ export class TenderGeneralComponent implements OnInit {
   }
 
   enableSaveFormButton(): boolean {
-    return this.generalForm.valid && this.submissionMethodArray.length !== 0;
+    return this.generalForm.valid;
   }
 
   saveForm(): void {
