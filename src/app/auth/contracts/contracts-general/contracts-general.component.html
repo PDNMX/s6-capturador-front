@@ -166,10 +166,10 @@
               data-sb-validations="required"
               formControlName="maxExtentDate"
             />
-            <label for="maxExtentDate">Extension máxima *</label>
-            <app-input-validation
+            <label for="maxExtentDate">Extension máxima</label>
+            <!-- <app-input-validation
               [element]="getControl('maxExtentDate')"
-            ></app-input-validation>
+            ></app-input-validation> -->
             <div class="form-text">
               El período no puede extenderse después de esta fecha. Este campo
               debe usarse para expresar la fecha máxima disponible para la
@@ -185,10 +185,7 @@
               placeholder="Duración (días)*"
               formControlName="durationInDays"
             />
-            <label for="durationInDays">Duración (dias)*</label>
-            <div class="invalid-feedback" data-sb-feedback="title:required">
-              Duración * es requerido.
-            </div>
+            <label for="durationInDays">Duración (dias)</label>
             <div class="form-text">
               El nivel máximo de duración de este período en días.
             </div>
@@ -224,8 +221,8 @@
               placeholder="Monto sin impuestos*"
               formControlName="netAmount"
             />
-            <label for="netAmount">Monto sin impuestos *</label>
-            <app-input-validation [element]="netAmount"></app-input-validation>
+            <label for="netAmount">Monto sin impuestos</label>
+            <!-- <app-input-validation [element]="netAmount"></app-input-validation> -->
             <div class="form-text">Monto sin impuestos.</div>
           </div>
 

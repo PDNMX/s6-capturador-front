@@ -238,10 +238,10 @@ export class TenderDocumentsComponent implements OnInit, OnChanges {
             ),
           ],
         ],
-        datePublished: ['', [Validators.required]],
-        dateModified: ['', [Validators.required]],
-        format: ['', [Validators.required]],
-        language: ['', [Validators.required]],
+        datePublished: ['', [Validators.nullValidator]],
+        dateModified: ['', [Validators.nullValidator]],
+        format: ['', [Validators.nullValidator]],
+        language: ['', [Validators.nullValidator]],
       },
       { validators: this.dateComparisonValidator() }
     );

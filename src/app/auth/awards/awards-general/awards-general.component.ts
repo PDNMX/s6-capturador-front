@@ -180,8 +180,8 @@ export class AwardsGeneralComponent implements OnInit {
       contractPeriod: this.fb.group({
         startDate: ['', [Validators.required]],
         endDate: ['', [Validators.required]],
-        maxExtentDate: ['', [Validators.required]],
-        durationInDays: ['', [Validators.required]],
+        maxExtentDate: ['', [Validators.nullValidator]],
+        durationInDays: ['', [Validators.nullValidator]],
       }, { validators: this.dateComparisonValidator() }),
     });
   }

@@ -65,8 +65,8 @@
           type="date"
                     formControlName="date"
         />
-        <label for="datePublished">Fecha de modificación *</label>
-        <app-input-validation [element]="date"></app-input-validation>
+        <label for="datePublished">Fecha de modificación</label>
+        <!-- <app-input-validation [element]="date"></app-input-validation> -->
         <div class="form-text">La fecha de esta modificación.</div>
       </div>
     </div>
@@ -81,8 +81,8 @@
           style="height: 100px"
           formControlName="rationale"
         ></textarea>
-        <label for="rationale">Justificación *</label>
-        <app-input-validation [element]="rationale"></app-input-validation>
+        <label for="rationale">Justificación</label>
+        <!-- <app-input-validation [element]="rationale"></app-input-validation> -->
         <div class="form-text">
           Razones por las cuales se realiza la modificación.
         </div>
@@ -99,8 +99,8 @@
           style="height: 100px"
           formControlName="description"
         ></textarea>
-        <label for="description">Descripción *</label>
-        <app-input-validation [element]="description"></app-input-validation>
+        <label for="description">Descripción</label>
+        <!-- <app-input-validation [element]="description"></app-input-validation> -->
         <div class="form-text">
           Una descripción en texto libre, o semi-estructurada, de los cambios
           realizados en esta modificación.
@@ -158,7 +158,6 @@
           type="button"
           class="btn btn-danger btn-add"
           (click)="addNewAmendment()"
-          [disabled]="!enableAddAmendmentButton()"
         >
           Agregar modificación
         </button>
