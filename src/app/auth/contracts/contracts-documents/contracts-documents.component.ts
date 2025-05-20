@@ -229,7 +229,7 @@ export class ContractsDocumentsComponent {
         ],
         datePublished: ['', [Validators.required]],
         dateModified: ['', [Validators.required]],
-        format: ['', [Validators.required]],
+        format: ['', [Validators.nullValidator]],
         language: ['', [Validators.required]],
       },
       { validators: this.dateComparisonValidator() }

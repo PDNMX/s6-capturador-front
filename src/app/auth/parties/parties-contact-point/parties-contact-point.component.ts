@@ -106,18 +106,17 @@ export class PartiesContactPointComponent implements OnInit {
 
   initForm(): void {
     this.contactPointForm = this.fb.group({
-      type: ['', [Validators.required]],
-      name: ['', [Validators.required]],
-      givenName: ['', [Validators.required]],
-      patronymicName: ['', [Validators.required]],
-      matronymicName: ['', [Validators.required]],
-      email: ['', [Validators.required]],
-      telephone: ['', [Validators.required]],
-      faxNumber: ['', [Validators.required]],
+      type: [''],
+      name: [''],
+      givenName: [''],
+      patronymicName: [''],
+      matronymicName: [''],
+      email: [''],
+      telephone: [''],
+      faxNumber: [''],
       url:  [
         '',
         [
-          Validators.required,
           Validators.pattern(
             /^https?:\/\/(?:[a-zA-Z0-9\-._~%!$&'()*+,;=:@]+|%[0-9A-Fa-f]{2})*(?:\/(?:[a-zA-Z0-9\-._~%!$&'()*+,;=:@]+|%[0-9A-Fa-f]{2})*)*(?:\?(?:[a-zA-Z0-9\-._~%!$&'()*+,;=:@/?]+|%[0-9A-Fa-f]{2})*)?(?:#(?:[a-zA-Z0-9\-._~%!$&'()*+,;=:@/?]+|%[0-9A-Fa-f]{2})*)?$/
           ),

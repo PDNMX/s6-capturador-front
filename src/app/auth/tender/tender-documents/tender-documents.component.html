@@ -216,7 +216,7 @@
                 formControlName="url"
               />
               <label for="URL">URL *</label>
-              <app-input-validation [element]="url"></app-input-validation>
+              <app-input-validation [element]="url" inputType="url"></app-input-validation>
               <div class="form-text">
                 Un enlace directo al documento o archivo adjunto. El servidor
                 que da acceso a este documento debe de estar configurado para
@@ -233,10 +233,10 @@
                 type="date"
                 formControlName="datePublished"
               />
-              <label for="datePublished">Fecha de publicación *</label>
-              <app-input-validation
+              <label for="datePublished">Fecha de publicación</label>
+              <!-- <app-input-validation
                 [element]="datePublished"
-              ></app-input-validation>
+              ></app-input-validation> -->
               <div class="form-text">
                 La fecha de publicación del documento. Esto es particularmente
                 importante para documentos relevantes desde el punto de vista
@@ -250,10 +250,10 @@
                 type="date"
                 formControlName="dateModified"
               />
-              <label for="dateModified">Fecha de modificación *</label>
-              <app-input-validation
+              <label for="dateModified">Fecha de modificación</label>
+              <!-- <app-input-validation
                 [element]="dateModified"
-              ></app-input-validation>
+              ></app-input-validation> -->
               <div class="form-text">
                 Fecha en que se modificó por última vez el documento.
               </div>
@@ -263,7 +263,7 @@
             <div class="col-6">
               <div class="row">
                 <div class="col-12">
-                  <label for="format">Formato *</label>
+                  <label for="format">Formato</label>
                 </div>
                 <div class="form-floating col mb-3">
                   <select class="form-select" formControlName="format">
@@ -274,9 +274,9 @@
                       {{ d.name }}
                     </option>
                   </select>
-                  <app-input-validation
+                  <!-- <app-input-validation
                     [element]="format"
-                  ></app-input-validation>
+                  ></app-input-validation> -->
                   <div class="form-text">
                     El formato del documento, utilizando la lista de códigos
                     abierta
@@ -296,7 +296,7 @@
             <div class="col-6">
               <div class="row">
                 <div class="col-12">
-                  <label for="language">Idioma *</label>
+                  <label for="language">Idioma</label>
                 </div>
                 <div class="form-floating col mb-5">
                   <select class="form-select" formControlName="language">
@@ -304,9 +304,9 @@
                       {{ d.name }}
                     </option>
                   </select>
-                  <app-input-validation
+                  <!-- <app-input-validation
                     [element]="languageList"
-                  ></app-input-validation>
+                  ></app-input-validation> -->
                   <div class="form-text">
                     Especifica el idioma del documento vinculado mediante la
                     clasificación

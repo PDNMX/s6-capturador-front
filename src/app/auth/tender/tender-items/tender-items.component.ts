@@ -1,6 +1,13 @@
 import { map } from 'rxjs';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { FormArray, FormBuilder, FormGroup, Validators, FormControl, FormControlDirective } from '@angular/forms';
+import {
+  FormArray,
+  FormBuilder,
+  FormGroup,
+  Validators,
+  FormControl,
+  FormControlDirective,
+} from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { ApiService } from 'src/app/services/api.service';
 import { Classifications, Currency } from 'src/utils';
@@ -40,7 +47,7 @@ export class TenderItemsComponent implements OnInit {
   addAdditionalClassifications(): void {
     const data = this.additionalClassificationsForm.value.data;
     const { id, description, uri } = data;
-  
+
     if (!data) {
       Swal.fire({
         icon: 'error',
@@ -51,11 +58,11 @@ export class TenderItemsComponent implements OnInit {
       });
       return;
     }
-  
+
     const yaExiste = this.additionalClassificationsArray.value.some(
       (item: any) => item.id === id
     );
-  
+
     if (yaExiste) {
       Swal.fire({
         icon: 'warning',
@@ -66,7 +73,7 @@ export class TenderItemsComponent implements OnInit {
       });
       return;
     }
-  
+
     this.additionalClassificationsArray.push(
       this.fb.group({
         id: [id, Validators.required],
@@ -74,10 +81,10 @@ export class TenderItemsComponent implements OnInit {
         uri: [uri, Validators.required],
       })
     );
-  
+
     this.additionalClassificationsForm.reset();
   }
-  
+
   deleteAdditionalClassifications(index: number): void {
     this.additionalClassificationsArray.removeAt(index);
   }
@@ -137,7 +144,7 @@ export class TenderItemsComponent implements OnInit {
       description: ['', [Validators.required]],
       classification: ['', [Validators.required]],
       additionalClassifications: this.fb.array([]),
-      quantity: ['', [Validators.required]],
+      quantity: ['', [Validators.required, Validators.pattern('^[0-9]*$')]],
       unit: this.fb.group({
         name: ['', [Validators.required]],
         value: this.fb.group({
@@ -166,10 +173,16 @@ export class TenderItemsComponent implements OnInit {
     return this.itemsForm.get('unit')?.get('name') as FormControl;
   }
   get amount() {
-    return this.itemsForm.get('unit')?.get('value')?.get('amount') as FormControl;
+    return this.itemsForm
+      .get('unit')
+      ?.get('value')
+      ?.get('amount') as FormControl;
   }
   get netAmount() {
-    return this.itemsForm.get('unit')?.get('value')?.get('netAmount') as FormControl;
+    return this.itemsForm
+      .get('unit')
+      ?.get('value')
+      ?.get('netAmount') as FormControl;
   }
 
   selectChange(): void {
@@ -194,14 +207,14 @@ export class TenderItemsComponent implements OnInit {
       confirmButtonColor: '#3085d6',
       cancelButtonColor: '#d33',
       cancelButtonText: 'Cancelar',
-      confirmButtonText: 'Sí, eliminar'
+      confirmButtonText: 'Sí, eliminar',
     }).then((result) => {
       if (result.isConfirmed) {
         Swal.fire({
           text: 'El registro ha sido eliminado.',
           icon: 'success',
           confirmButtonText: 'Aceptar',
-        })
+        });
         this.deleteItem.emit(index);
       }
     });

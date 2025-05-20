@@ -79,15 +79,15 @@
           placeholder="ID de Organización*"
           formControlName="date"
         />
-        <label for="amount">Fecha de la junta de aclaraciones *</label>
-        <app-input-validation [element]="date"></app-input-validation>
+        <label for="amount">Fecha de la junta de aclaraciones</label>
+        <!-- <app-input-validation [element]="date"></app-input-validation> -->
         <div class="form-text">
           La fecha en que se realizó esta junta de aclaraciones.
         </div>
       </div>
     </div>
     <fieldset class="border p-3 mb-3">
-      <legend class="w-auto px-1">Asistentes *</legend>
+      <legend class="w-auto px-1">Asistentes</legend>
       <hr />
       <p>Asistentes a la junta de aclaraciones</p>
       <div class="row">
@@ -105,9 +105,9 @@
               }})
             </option>
           </select>
-          <small *ngIf="attendeesArray.length === 0" class="text-danger">
+         <!-- <small *ngIf="attendeesArray.length === 0" class="text-danger">
             Debe agregar al menos un asistente.
-          </small>
+          </small> -->
           <div class="form-text">Nombre del actor</div>
         </div>
         <div class="col-2">
@@ -159,7 +159,7 @@
     </fieldset>
 
     <fieldset class="border p-3 mb-3">
-      <legend class="w-auto px-1">Servidores públicos *</legend>
+      <legend class="w-auto px-1">Servidores públicos</legend>
       <hr />
       <p>Servidores públicos asistentes a la junta de aclaraciones.</p>
       <div class="row">
@@ -177,9 +177,9 @@
               }})
             </option>
           </select>
-          <small *ngIf="officialsArray.length === 0" class="text-danger">
+          <!-- <small *ngIf="officialsArray.length === 0" class="text-danger">
             Debe agregar al menos un servidor público.
-          </small>
+          </small> -->
           <div class="form-text">Nombre del actor.</div>
         </div>
         <div class="col-2">
@@ -235,7 +235,6 @@
           type="button"
           class="btn btn-danger btn-add"
           (click)="addNewClarificationMeeting()"
-          [disabled]="!enableAddClarificationMeetingButton()"
         >
           Agregar junta de aclaración
         </button>

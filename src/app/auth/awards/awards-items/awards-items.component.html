@@ -103,7 +103,7 @@
     </div>
 
     <fieldset class="border p-3 mb-3">
-      <legend class="w-auto px-1">Clasificaciones adicionales *</legend>
+      <legend class="w-auto px-1">Clasificaciones adicionales</legend>
       <div class="row">
         <div
           class="form-floating col-10 mb-2"
@@ -114,13 +114,13 @@
               {{ d.description }}
             </option>
           </select>
-          <label for="type">Clasificaciones adicionales *</label>
-          <small
+          <label for="type">Clasificaciones adicionales</label>
+          <!-- <small
             *ngIf="additionalClassificationsArray.length === 0"
             class="text-danger"
           >
             Debe registrar al menos una unidad clasificación adicional.
-          </small>
+          </small> -->
           <div class="form-text">
             Una lista de clasificaciones adicionales para el artículo.
           </div>

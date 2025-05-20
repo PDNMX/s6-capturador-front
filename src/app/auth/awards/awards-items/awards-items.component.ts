@@ -107,9 +107,9 @@ export class AwardsItemsComponent implements OnInit {
   
     this.additionalClassificationsArray.push(
       this.fb.group({
-        id: [id, Validators.required],
-        description: [description, Validators.required],
-        uri: [uri, Validators.required],
+        id: [id, Validators.nullValidator],
+        description: [description, Validators.nullValidator],
+        uri: [uri, Validators.nullValidator],
       })
     );
   
@@ -162,13 +162,13 @@ export class AwardsItemsComponent implements OnInit {
     this.itemsForm = this.fb.group({
       description: ['', [Validators.required]],
       classification: [null, [Validators.required]],
-      additionalClassifications: this.fb.array([], [Validators.required]),
+      additionalClassifications: this.fb.array([], [Validators.nullValidator]),
       quantity: ['', [Validators.required]],
       unit: this.fb.group({
         name: ['', [Validators.required]],
         value: this.fb.group({
           amount: ['', [Validators.required]],
-          currency: ['', [Validators.required]],
+          currency: ['MXN', [Validators.required]],
         }),
       }),
     });

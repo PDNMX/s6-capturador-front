@@ -219,10 +219,10 @@
                       data-sb-validations="required"
                       formControlName="maxExtentDate"
                     />
-                    <label for="maxExtentDate">Extensión máxima *</label>
-                    <app-input-validation
+                    <label for="maxExtentDate">Extensión máxima</label>
+                    <!-- <app-input-validation
                       [element]="getControl('maxExtentDate')"
-                    ></app-input-validation>
+                    ></app-input-validation> -->
                   </div>
                   <div class="form-text">
                     El periodo no puede extenderse más allá de esta fecha. Este
@@ -241,10 +241,10 @@
                       placeholder="Duración (días)*"
                       formControlName="durationInDays"
                     />
-                    <label for="durationInDays">Duración (días) *</label>
-                    <app-input-validation
+                    <label for="durationInDays">Duración (días)</label>
+                    <!-- <app-input-validation
                       [element]="getControl('durationInDays')"
-                    ></app-input-validation>
+                    ></app-input-validation> -->
                   </div>
                   <div class="form-text">
                     La duración máxima de este período en días.
@@ -278,14 +278,14 @@
                       }})
                     </option>
                   </select>
-                  <small
+                  <!-- <small
                     class="text-danger"
                     *ngIf="
                       requestForQuotesForm.value.invitedSuppliers.length === 0
                     "
                   >
                     Debe seleccionar al menos un proveedor invitado
-                  </small>
+                  </small> -->
                 </div>
                 <div class="col-2">
                   <button

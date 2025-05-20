@@ -212,8 +212,8 @@
                 placeholder="Fecha de la adjudicación"
                 formControlName="maxExtentDate"
               />
-              <label for="ContractPeriodMaxExtentDate">Extensión máxima *</label>
-              <app-input-validation [element]="getControl('maxExtentDate')"></app-input-validation>
+              <label for="ContractPeriodMaxExtentDate">Extensión máxima</label>
+              <!-- <app-input-validation [element]="getControl('maxExtentDate')"></app-input-validation> -->
             </div>
             <div class="form-text">
               El período no puede extenderse después de esta fecha. Este campo
@@ -231,10 +231,10 @@
                 placeholder="Duración en dias"
                 formControlName="durationInDays"
               />
-              <label for="ContractPeriodDurationInDays">Duración (días) *</label>
-              <app-input-validation
+              <label for="ContractPeriodDurationInDays">Duración (días)</label>
+              <!-- <app-input-validation
                 [element]="durationInDays"
-              ></app-input-validation>
+              ></app-input-validation> -->
             </div>
             <div class="form-text">
               El nivel máximo de duración de este período en días.

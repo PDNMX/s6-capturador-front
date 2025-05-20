@@ -314,14 +314,14 @@ export class PartiesGeneralComponent implements OnInit {
   initForm(): void {
     this.generalForm = this.fb.group({
       name: ['', [Validators.required]],
-      position: ['', [Validators.required]],
+      position: [''],
       roles: this.fb.array([]),
       memberOf: this.fb.array([]),
       identifier: this.fb.group({
         legalPersonality: ['', Validators.required],
         schema: ['', [Validators.required]],
         id: ['', [Validators.required]],
-        uri: ['', [Validators.required]],
+        uri: [''],
         legalName: ['', [Validators.required]],
         givenName: ['', [Validators.required]],
         patronymicName: ['', [Validators.required]],

@@ -121,8 +121,8 @@
           placeholder="Cargo*"
           formControlName="position"
         />
-        <label for="position">Cargo *</label>
-        <app-input-validation [element]="position"></app-input-validation>
+        <label for="position">Cargo</label>
+        <!-- <app-input-validation [element]="position"></app-input-validation> -->
       </div>
       <div class="form-text">
         El cargo que ocupa el actor. Puede utilizarse para definir el cargo
@@ -369,8 +369,8 @@
               placeholder="URI*"
               formControlName="uri"
             />
-            <label for="uri">URI *</label>
-            <app-input-validation [element]="uri"></app-input-validation>
+            <label for="uri">URI</label>
+           <!--  <app-input-validation [element]="uri"></app-input-validation> -->
           </div>
           <div class="form-text">
             Una URI para identificar a la organización, como los proveídos por
@@ -406,12 +406,9 @@
                       id="id"
                       type="text"
                       data-sb-validations="required"
-                      placeholder="Identificador*"
+                      placeholder="Identificador"
                       formControlName="id"
                     />
-                    <app-input-validation
-                      [element]="add_id"
-                    ></app-input-validation>
                   </th>
                   <th>
                     <input
@@ -419,12 +416,9 @@
                       id="legalName"
                       type="text"
                       data-sb-validations="required"
-                      placeholder="Nombre legal*"
+                      placeholder="Nombre legal"
                       formControlName="legalName"
                     />
-                    <app-input-validation
-                      [element]="add_legalName"
-                    ></app-input-validation>
                   </th>
                   <th>
                     <select
@@ -441,9 +435,6 @@
                         {{ scheme.code }}
                       </option>
                     </select>
-                    <app-input-validation
-                      [element]="add_schema"
-                    ></app-input-validation>
                   </th>
                   <th>
                     <input
@@ -451,13 +442,10 @@
                       id="uri"
                       type="text"
                       data-sb-validations="required"
-                      placeholder="URI*"
+                      placeholder="URI"
                       formControlName="uri"
                       readonly
                     />
-                    <app-input-validation
-                      [element]="add_uri"
-                    ></app-input-validation>
                   </th>
                   <th>
                     <button

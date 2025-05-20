@@ -157,7 +157,7 @@
     </fieldset>
 
     <fieldset class="border p-3 mb-3" formGroupName="period">
-      <legend class="w-auto px-1">Periodo de presupuesto *</legend>
+      <legend class="w-auto px-1">Periodo de presupuesto</legend>
 
       <div class="row">
         <div class="col-md-6 mb-3">
@@ -170,10 +170,10 @@
               formControlName="startDate"
               placeholder="dd-mm-yyyy"
             />
-            <label for="startDate">Fecha de inicio *</label>
-            <app-input-validation
+            <label for="startDate">Fecha de inicio</label>
+            <!-- <app-input-validation
               [element]="getControl('startDate')"
-            ></app-input-validation>
+            ></app-input-validation> -->
           </div>
           <div class="form-text">
             Fecha de inicio del periodo. Cuando se conozca, debe proporcionarse
@@ -190,10 +190,10 @@
               data-sb-validations="required"
               formControlName="endDate"
             />
-            <label for="endDate">Fecha de término *</label>
-            <app-input-validation
+            <label for="endDate">Fecha de término</label>
+            <!-- <app-input-validation
               [element]="getControl('endDate')"
-            ></app-input-validation>
+            ></app-input-validation> -->
           </div>
           <div class="form-text">
             Fecha de término del periodo. Cuando se conozca, debe proporcionarse
@@ -212,10 +212,10 @@
               data-sb-validations="required"
               formControlName="maxExtentDate"
             />
-            <label for="maxExtentDate">Extensión máxima *</label>
-            <app-input-validation
+            <label for="maxExtentDate">Extensión máxima</label>
+            <!-- <app-input-validation
               [element]="getControl('maxExtentDate')"
-            ></app-input-validation>
+            ></app-input-validation> -->
           </div>
           <div class="form-text">
             El periodo no puede extenderse más allá de esta fecha. Este campo es
@@ -234,10 +234,10 @@
               placeholder="Duración (días)*"
               formControlName="durationInDays"
             />
-            <label for="durationInDays">Duración (días) *</label>
-            <app-input-validation
+            <label for="durationInDays">Duración (días)</label>
+            <!-- <app-input-validation
               [element]="getControl('durationInDays')"
-            ></app-input-validation>
+            ></app-input-validation> -->
           </div>
           <div class="form-text">
             La duración máxima de este período en días.
@@ -302,8 +302,8 @@
               formControlName="id"
               readonly
             />
-            <label for="BudgetLinesId">ID *</label>
-            <app-input-validation [element]="id"></app-input-validation>
+            <label for="BudgetLinesId">ID</label>
+            <!-- <app-input-validation [element]="id"></app-input-validation> -->
           </div>
           <div class="col-md-6 form-floating mb-3">
             <input
@@ -313,8 +313,8 @@
               placeholder="Origin"
               formControlName="origin"
             />
-            <label for="BudgetLinesOrigin">Origen *</label>
-            <app-input-validation [element]="origin"></app-input-validation>
+            <label for="BudgetLinesOrigin">Origen</label>
+            <!-- <app-input-validation [element]="origin"></app-input-validation> -->
           </div>
         </div>
       </form>
@@ -330,10 +330,10 @@
               <table class="table table-hover table-striped mb-10">
                 <thead>
                   <tr>
-                    <th scope="col">Nombre *</th>
-                    <th scope="col">Descripción *</th>
-                    <th scope="col">Nivel *</th>
-                    <th scope="col">Código *</th>
+                    <th scope="col">Nombre</th>
+                    <th scope="col">Descripción</th>
+                    <th scope="col">Nivel</th>
+                    <th scope="col">Código</th>
                     <th scope="col">Opciones</th>
                   </tr>
                   <tr [formGroup]="componentsForm">
@@ -345,9 +345,9 @@
                         placeholder="Nombre"
                         formControlName="name"
                       />
-                      <app-input-validation
+                      <!-- <app-input-validation
                         [element]="name"
-                      ></app-input-validation>
+                      ></app-input-validation> -->
                     </th>
                     <th scope="col">
                       <input
@@ -357,9 +357,9 @@
                         placeholder="Descripción"
                         formControlName="description"
                       />
-                      <app-input-validation
+                      <!-- <app-input-validation
                         [element]="comp_description"
-                      ></app-input-validation>
+                      ></app-input-validation> -->
                     </th>
                     <th scope="col">
                       <input
@@ -369,9 +369,9 @@
                         placeholder="Código"
                         formControlName="level"
                       />
-                      <app-input-validation
+                      <!-- <app-input-validation
                         [element]="level"
-                      ></app-input-validation>
+                      ></app-input-validation> -->
                     </th>
                     <th scope="col">
                       <input
@@ -381,16 +381,15 @@
                         placeholder="Código"
                         formControlName="code"
                       />
-                      <app-input-validation
+                      <!-- <app-input-validation
                         [element]="code"
-                      ></app-input-validation>
+                      ></app-input-validation> -->
                     </th>
                     <th scope="col">
                       <button
                         type="button"
                         class="btn btn-danger btn-add"
                         (click)="addComponent()"
-                        [disabled]="!componentsForm.valid"
                       >
                         Agregar
                       </button>
@@ -436,7 +435,6 @@
             type="button"
             class="btn btn-danger btn-add"
             (click)="addBudgetLines()"
-            [disabled]="!budgetLinesForm.valid"
           >
             Agregar linea presupuestaria
           </button>
