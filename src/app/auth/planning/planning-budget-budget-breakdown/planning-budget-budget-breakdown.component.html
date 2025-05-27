@@ -95,7 +95,9 @@
           formControlName="sourceParty"
         >
           <option *ngFor="let c of sourceParty" [ngValue]="c">
-            {{ c?.legalName || c?.name }} - ({{ getPartiesListTitle(c?.roles || []) }})
+            {{ c?.legalName || c?.name }} - ({{
+              getPartiesListTitle(c?.roles || [])
+            }})
           </option>
         </select>
         <label for="sourceParty"> Actor fuente* </label>
@@ -107,9 +109,12 @@
     </div>
 
     <fieldset class="border p-3 mb-3">
-      <legend class="w-auto px-1">
-        Valor de la línea de pedido del presupuesto
-      </legend>
+      <legend class="w-auto px-1">Valor del desgloce</legend>
+      <p>
+        Suficiencia Presupuestal autorizada para la Contratación Pública. Este
+        dato se toma de la Orden de servicio donde se solicita la autorización
+        de la Suficiencia Presupuestal para el proyecto.
+      </p>
       <div class="col-12" formGroupName="amount">
         <div class="row">
           <div class="col-md-6 mb-2">
@@ -157,8 +162,12 @@
     </fieldset>
 
     <fieldset class="border p-3 mb-3" formGroupName="period">
-      <legend class="w-auto px-1">Periodo de presupuesto</legend>
-
+      <legend class="w-auto px-1">Periodo del desgloce</legend>
+      <p>
+        Periodo de vigencia del presupuesto aprobado, este dato puede tormarse
+        de la Orden de servicio donde se solicita la autorización de la
+        Suficiencia Presupuestal para el proyecto.
+      </p>
       <div class="row">
         <div class="col-md-6 mb-3">
           <div class="form-floating">

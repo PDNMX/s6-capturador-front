@@ -31,13 +31,13 @@
             placeholder="Número del contrato*"
             formControlName="contractId"
           />
-          <label for="contractId">Número del contrato *</label>
+          <label for="contractId"
+            >Número de contrato asignado por el área *</label
+          >
           <app-input-validation [element]="contractId"></app-input-validation>
           <div class="form-text">
-            El número para este contrato. Debe ser único y no debe
-            cambiar en el Proceso de Contrataciones Abiertas del cual es parte
-            (definido por un ocid único). Vea la guía de identificadores para
-            más detalles.
+            Número asignado a la Contratación Pública, por el area reponsable de
+            elaborarlo.
           </div>
         </div>
         <div class="form-floating col mb-3">
@@ -243,8 +243,7 @@
             </div>
           </div>
         </div>
-          <div class="row" *ngIf="isForeignCurrencySelected()">
-
+        <div class="row" *ngIf="isForeignCurrencySelected()">
           <div class="col">
             <div class="table-responsive">
               <table class="table table-hover table-striped">
@@ -436,27 +435,27 @@
         </div>
       </fieldset>
 
-    <!-- checkbox para gestionar procesos relaccionados vss -->
-    <div class="row mb-3">
-      <div class="form-check col">
-        <input
-          type="checkbox"
-          id="hasRelatedProcesses"
-          class="form-check-input"
-          formControlName="hasRelatedProcesses"
-        />
-        <label class="form-check-label" for="hasRelatedProcesses">
-          ¿Existen procesos relacionados?
-        </label>
+      <!-- checkbox para gestionar procesos relaccionados vss -->
+      <div class="row mb-3">
+        <div class="form-check col">
+          <input
+            type="checkbox"
+            id="hasRelatedProcesses"
+            class="form-check-input"
+            formControlName="hasRelatedProcesses"
+          />
+          <label class="form-check-label" for="hasRelatedProcesses">
+            ¿Existen procesos relacionados?
+          </label>
+        </div>
       </div>
-    </div>
 
-    <!-- sección condicional de procesos relacionados vss -->
-    <fieldset
-      class="border p-3 mb-3"
-      *ngIf="showRelatedProcessesSection()"
-      [formGroup]="relatedProcessesForm"
-    >
+      <!-- sección condicional de procesos relacionados vss -->
+      <fieldset
+        class="border p-3 mb-3"
+        *ngIf="showRelatedProcessesSection()"
+        [formGroup]="relatedProcessesForm"
+      >
         <legend>Procesos relacionados</legend>
         <p>
           Los detalles de procesos relacionados, por ejemplo, si el proceso es

@@ -23,9 +23,8 @@
           <label for="ProjectId">Identificador de proyecto *</label>
         </div>
         <div class="form-text">
-          Un identificador externo para el proyecto del que forma parte este
-          proceso de contratación o a través del cual está financiado (si
-          aplica).
+          Número asignado por Compranet/Plataforma, al registrar la Contratación
+          Pública
         </div>
       </div>
 
@@ -42,8 +41,8 @@
           <app-input-validation [element]="project"></app-input-validation>
         </div>
         <div class="form-text">
-          El nombre del proyecto a través del cual el proceso de contrataciones
-          está financiado (si aplica).
+          Nombre del proyecto de la contratación pública, el cual, puede ser
+          tomado del anexo técnico emitido por el Área requirente.
         </div>
       </div>
     </div>
@@ -89,9 +88,10 @@
     <fieldset class="border p-3 mb-3">
       <legend>Valor reservado del presupuesto *</legend>
       <p>
-        El valor reservado en el presupuesto para este proceso de contratación.
-        Un valor negativo indica ingresos anticipados al presupuesto como
-        resultado de este proceso de contratación, en lugar de gastos.
+        Monto del presupuesto aprobado para este proceso de contratación
+        pública, este dato puede tormarse de la orden de servicio donde se
+        solicita la autorización de la Suficiencia Presupuestal para el
+        proyecto.
       </p>
       <div class="col-12" formGroupName="value">
         <div class="row">
@@ -142,7 +142,9 @@
     <app-planning-budget-budget-breakdown
       [budgetBreakdownArray]="budgetForm.value.budgetBreakdown"
       (addBudgetBreakdown)="addBudgetBreakdown($event)"
-      (confirmAndDeleteBudgetBreakdown)="confirmAndDeleteBudgetBreakdown($event)"
+      (confirmAndDeleteBudgetBreakdown)="
+        confirmAndDeleteBudgetBreakdown($event)
+      "
     ></app-planning-budget-budget-breakdown>
   </form>
 </div>

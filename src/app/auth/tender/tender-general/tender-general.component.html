@@ -22,9 +22,9 @@
         <app-input-validation [element]="title"></app-input-validation>
       </div>
       <div class="form-text">
-        Un título para esta contratación pública. Éste se usará por aplicaciones como una
-        cabecera para atraer interés y ayudar a los analistas a entender la
-        naturaleza de esta contratación.
+        Un título para esta contratación pública. Éste se usará por aplicaciones
+        como una cabecera para atraer interés y ayudar a los analistas a
+        entender la naturaleza de esta contratación.
       </div>
     </div>
 
@@ -42,10 +42,10 @@
         <app-input-validation [element]="description"></app-input-validation>
       </div>
       <div class="form-text">
-        Una descripción breve de la contratación pública. Esto complementa cualquier
-        información estructurada que se da utilizando la lista de artículos. Las
-        descripciones deben de ser cortas y fáciles de leer. Evite utilizar
-        MAYÚSCULAS.
+        Una descripción breve de la contratación pública. Esto complementa
+        cualquier información estructurada que se da utilizando la lista de
+        artículos. Las descripciones deben de ser cortas y fáciles de leer.
+        Evite utilizar MAYÚSCULAS.
       </div>
     </div>
 
@@ -104,14 +104,15 @@
     </div>
 
     <fieldset class="border p-3 mb-3" formGroupName="value">
-      <legend class="w-auto px-1">Valor máximo de contratación</legend>
+      <legend class="w-auto px-1">Valor de la licitación</legend>
       <hr />
       <div class="row">
         <div class="col">
           <p>
-            El valor estimado de la contratación sin impuestos incluidos. En
-            caso de contrataciones abiertas, se señala el presupuesto máximo que
-            podría ejercerse en la ejecución del contrato.
+            Monto asignado sin impuestos para este proceso de Contratación
+            Pública. Se obtiene de la Orden de servicio (documento donde se
+            autoriza la suficiencia presupuestal para la elaboración de este
+            proceso de contratación).
           </p>
         </div>
       </div>
@@ -224,7 +225,8 @@
         </p>
       </div>
       <div class="form-text">
-        Especifica el método de contratación utilizando la lista de códigos cerrada
+        Especifica el método de contratación utilizando la lista de códigos
+        cerrada
         <a
           href="https://standard.open-contracting.org/1.1/es/schema/codelists/#method"
           target="_blank"
@@ -571,7 +573,9 @@
             style="height: 100px"
             formControlName="submissionMethodDetails"
           ></textarea>
-          <label for="submissionMethodDetails">Detalles del método de presentación</label>
+          <label for="submissionMethodDetails"
+            >Detalles del método de presentación</label
+          >
           <div class="form-text">
             Cualquier detalle o más información sobre el método de entrega. Esto
             puede incluir la dirección, correo electrónico o servicio en línea
@@ -592,9 +596,9 @@
       <legend class="w-auto px-1">Periodo de la contratación pública *</legend>
       <hr />
       <p>
-        El periodo cuando la contratación pública está abierta para la recepción de las
-        propuestas. La fecha de final es la fecha de cierre de recepción de las
-        propuestas.
+        El periodo cuando la contratación pública está abierta para la recepción
+        de las propuestas. La fecha de final es la fecha de cierre de recepción
+        de las propuestas.
       </p>
       <div class="row">
         <div class="form-floating col-6 mb-5">
@@ -669,7 +673,9 @@
     </fieldset>
 
     <fieldset class="border p-3 mb-3" formGroupName="enquiryPeriod">
-      <legend class="w-auto px-1">Periodo de solicitudes de aclaración *</legend>
+      <legend class="w-auto px-1">
+        Periodo de solicitudes de aclaración *
+      </legend>
       <hr />
       <p>
         El periodo durante el cual los postulantes potenciales pueden hacer
@@ -697,7 +703,6 @@
             La fecha de inicio del período. Cuando se sabe, se debe dar una
             fecha de inicio precisa.
           </div>
-
         </div>
         <div class="form-floating col-6 mb-5">
           <input
@@ -753,7 +758,9 @@
 
     <div class="row">
       <div class="col-12 mb-3">
-        <label class="form-label d-block mb-1">¿Tiene solicitudes de aclaración?</label>
+        <label class="form-label d-block mb-1"
+          >¿Tiene solicitudes de aclaración?</label
+        >
         <div class="d-flex align-items-center gap-3">
           <div class="form-check form-check-inline">
             <input
@@ -777,12 +784,14 @@
           </div>
         </div>
         <div class="form-text mt-1">
-          Un campo verdadero/falso para indicar si se recibieron solicitudes de aclaración durante el proceso de la contratación pública.  
-          La información estructurada sobre las preguntas que se recibieron, así como sus respuestas pueden proporcionarse en la extensión <code>'enquiries'</code>.
+          Un campo verdadero/falso para indicar si se recibieron solicitudes de
+          aclaración durante el proceso de la contratación pública. La
+          información estructurada sobre las preguntas que se recibieron, así
+          como sus respuestas pueden proporcionarse en la extensión
+          <code>'enquiries'</code>.
         </div>
       </div>
     </div>
-    
 
     <div class="row">
       <div class="form-floating col-12 mb-5">
@@ -893,8 +902,8 @@
       <hr />
       <p>
         El periodo sobre el cual se estima el contrato o requiere que esté
-        activo. Si la contratación pública no especifica fechas, se puede usar el campo de
-        duración.
+        activo. Si la contratación pública no especifica fechas, se puede usar
+        el campo de duración.
       </p>
       <div class="row">
         <div class="form-floating col-6 mb-5">
