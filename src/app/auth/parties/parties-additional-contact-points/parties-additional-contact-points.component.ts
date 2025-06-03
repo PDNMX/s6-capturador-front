@@ -35,7 +35,7 @@ export class PartiesAdditionalContactPointsComponent implements OnInit {
   }
 
   addAvailableLanguage(): void {
-    if(!this.optLanguage){
+    if (!this.optLanguage) {
       Swal.fire({
         icon: 'error',
         title: 'Error',
@@ -45,18 +45,18 @@ export class PartiesAdditionalContactPointsComponent implements OnInit {
       });
       return;
     }
-    
+
     const exists = this.availableLanguageArray.value.includes(this.optLanguage);
-  if (exists) {
-    Swal.fire({
-      icon: 'warning',
-      title: 'Duplicado',
-      text: 'El idioma ya ha sido agregado.',
-      confirmButtonText: 'Aceptar',
-      confirmButtonColor: '#ffc107',
-    });
-    return;
-  }
+    if (exists) {
+      Swal.fire({
+        icon: 'warning',
+        title: 'Duplicado',
+        text: 'El idioma ya ha sido agregado.',
+        confirmButtonText: 'Aceptar',
+        confirmButtonColor: '#ffc107',
+      });
+      return;
+    }
     this.availableLanguageArray.push(this.fb.control(this.optLanguage));
     this.optLanguage = '';
   }
@@ -115,18 +115,17 @@ export class PartiesAdditionalContactPointsComponent implements OnInit {
 
   initForm(): void {
     this.additionalContactPointsForm = this.fb.group({
-      type: ['', [Validators.required]],
-      name: ['', [Validators.required]],
-      givenName: ['', [Validators.required]],
-      patronymicName: ['', [Validators.required]],
-      matronymicName: ['', [Validators.required]],
-      email: ['', [Validators.required]],
-      telephone: ['', [Validators.required]],
-      faxNumber: ['', [Validators.required]],
-      url:  [
+      type: [''],
+      name: [''],
+      givenName: [''],
+      patronymicName: [''],
+      matronymicName: [''],
+      email: [''],
+      telephone: [''],
+      faxNumber: [''],
+      url: [
         '',
         [
-          Validators.required,
           Validators.pattern(
             /^https?:\/\/(?:[a-zA-Z0-9\-._~%!$&'()*+,;=:@]+|%[0-9A-Fa-f]{2})*(?:\/(?:[a-zA-Z0-9\-._~%!$&'()*+,;=:@]+|%[0-9A-Fa-f]{2})*)*(?:\?(?:[a-zA-Z0-9\-._~%!$&'()*+,;=:@/?]+|%[0-9A-Fa-f]{2})*)?(?:#(?:[a-zA-Z0-9\-._~%!$&'()*+,;=:@/?]+|%[0-9A-Fa-f]{2})*)?$/
           ),
