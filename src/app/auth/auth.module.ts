@@ -54,6 +54,8 @@ import { ContractsAmendmentsComponent } from './contracts/contracts-amendments/c
 import { ContractsItemsComponent } from './contracts/contracts-items/contracts-items.component';
 import { ContractsPresentationComponent } from './contracts/contracts-presentation/contracts-presentation.component';
 import { UtilsModule } from '../utils/utils.module';
+import { PartiesGeneralDynamicComponent } from './parties/parties-general-dynamic/parties-general-dynamic.component';
+import { AdditionalIdentifiersSectionComponent } from './parties/additional-identifiers-section/additional-identifiers-section.component';
 
 @NgModule({
   declarations: [
@@ -106,6 +108,8 @@ import { UtilsModule } from '../utils/utils.module';
     ContractsAmendmentsComponent,
     ContractsItemsComponent,
     ContractsPresentationComponent,
+    PartiesGeneralDynamicComponent,
+    AdditionalIdentifiersSectionComponent,
   ],
   imports: [
     CommonModule,
