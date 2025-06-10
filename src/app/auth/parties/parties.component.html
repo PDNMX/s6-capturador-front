@@ -15,32 +15,51 @@
       </div>
     </div>
 
-    <!-- Selección de Actores con Cards -->
+    <!-- Selección de Actores con Collapse Simple -->
     <div class="row mb-4">
       <div class="col">
         <h4>Seleccionar Tipo de Actor</h4>
-        <div class="row">
-          <div 
-            class="col-md-4 col-lg-3 mb-3" 
-            *ngFor="let role of rolesList"
+        <div class="d-flex flex-wrap gap-2 mb-3">
+          <button 
+            class="btn btn-outline-primary" 
+            type="button" 
+            data-bs-toggle="collapse" 
+            [attr.data-bs-target]="'#collapse' + i" 
+            [attr.aria-expanded]="false" 
+            [attr.aria-controls]="'collapse' + i"
+            *ngFor="let role of rolesList; let i = index"
           >
-            <div 
-              class="card h-100 actor-card" 
-              (click)="openActorModal(role.code)"
-              style="cursor: pointer; transition: all 0.3s ease;"
-              [ngClass]="{'border-primary': false}"
-            >
-              <div class="card-header bg-primary text-white">
-                <h6 class="card-title mb-0">{{ role.title }}</h6>
-              </div>
-              <div class="card-body d-flex flex-column">
-                <p class="card-text small flex-grow-1">{{ role.description }}</p>
-                <button 
-                  type="button" 
-                  class="btn btn-outline-primary btn-sm mt-auto"
-                >
-                  <i class="fas fa-plus me-1"></i>Agregar
-                </button>
+            {{ role.title }}
+          </button>
+        </div>
+        
+        <!-- Grupo de accordion para que solo uno esté abierto -->
+        <div class="accordion" id="actorsAccordion">
+          <!-- Contenido colapsable para cada actor -->
+          <div 
+            *ngFor="let role of rolesList; let i = index"
+            class="collapse" 
+            [id]="'collapse' + i"
+            data-bs-parent="#actorsAccordion"
+          >
+            <div class="card card-body mb-3 actor-collapse-card">
+              <div class="row align-items-center">
+                <div class="col-md-8">
+                  <h6 class="text-primary mb-2">
+                    <i class="fas fa-user me-2"></i>{{ role.title }}
+                    <span class="badge bg-secondary ms-2">{{ role.code }}</span>
+                  </h6>
+                  <p class="text-muted mb-0">{{ role.description }}</p>
+                </div>
+                <div class="col-md-4 text-end">
+                  <button 
+                    type="button" 
+                    class="btn btn-primary"
+                    (click)="openActorModal(role.code)"
+                  >
+                    <i class="fas fa-plus me-2"></i>Agregar {{ role.title }}
+                  </button>
+                </div>
               </div>
             </div>
           </div>
@@ -273,38 +292,3 @@
     </div>
   </div>
 </div>
-
-<style>
-.actor-card:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-}
-
-.actor-card:hover .card-header {
-  background-color: #0056b3 !important;
-}
-
-.nav-tabs .nav-link {
-  color: #495057;
-  border: 1px solid transparent;
-}
-
-.nav-tabs .nav-link:hover {
-  border-color: #e9ecef #e9ecef #dee2e6;
-  color: #0056b3;
-}
-
-.nav-tabs .nav-link.active {
-  color: #495057;
-  background-color: #fff;
-  border-color: #dee2e6 #dee2e6 #fff;
-}
-
-.modal-xl {
-  max-width: 1200px;
-}
-
-.btn-delete {
-  font-size: 0.875rem;
-}
-</style>

@@ -77,12 +77,12 @@ const PartyRole = [
     description:
       'Una parte que ha expresado interés en el proceso de contrataciones, por ejemplo, al comprar documentos de oferta o presentar preguntas de clarificación.',
   },
-  {
+/*   {
     code: 'guarantor',
     title: 'Institución que expide la garantía',
     description:
       'Institución de Fianzas o Aseguradora de Caución. Compañía también denominada fiadora que garantizará el cumplimiento de una obligación.',
-  },
+  }, */
 ];
 
 export const getRoleDesc = (code: string) => {

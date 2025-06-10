@@ -466,3 +466,85 @@ img.logo {
 .btn {
   transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
 }
+
+/* ===== ESTILOS PARA COMPONENTE DE ACTORES ===== */
+
+/* Estilos para botones de actores */
+.btn-outline-primary:hover {
+  transform: translateY(-1px);
+  transition: all 0.2s ease;
+}
+
+/* Estilos para las cards colapsables de actores */
+.actor-collapse-card {
+  border: 1px solid #dee2e6;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  transition: all 0.3s ease;
+}
+
+.actor-collapse-card:hover {
+  box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+}
+
+.actor-collapse-card .card-body {
+  padding: 1.5rem;
+}
+
+/* Badge personalizado para actores */
+.actor-collapse-card .badge {
+  font-size: 0.75em;
+  padding: 0.35em 0.65em;
+}
+
+/* Estilos para la modal de actores */
+.modal-xl {
+  max-width: 1200px;
+}
+
+.nav-tabs .nav-link {
+  color: #495057;
+  border: 1px solid transparent;
+}
+
+.nav-tabs .nav-link:hover {
+  border-color: #e9ecef #e9ecef #dee2e6;
+  color: #0056b3;
+}
+
+.nav-tabs .nav-link.active {
+  color: #495057;
+  background-color: #fff;
+  border-color: #dee2e6 #dee2e6 #fff;
+}
+
+.btn-delete {
+  font-size: 0.875rem;
+}
+
+/* Responsive para botones de actores */
+@media (max-width: 768px) {
+  .d-flex.flex-wrap {
+    flex-direction: column;
+  }
+  
+  .d-flex.flex-wrap .btn-outline-primary {
+    margin-bottom: 0.5rem;
+    width: 100%;
+  }
+  
+  .actor-collapse-card .card-body .row {
+    flex-direction: column;
+  }
+  
+  .actor-collapse-card .card-body .col-md-4 {
+    margin-top: 1rem;
+    text-align: center;
+  }
+}
+
+/* Efecto para gaps entre botones */
+.gap-2 {
+  gap: 0.5rem !important;
+}
+
+/* ===== FIN ESTILOS ACTORES ===== */
