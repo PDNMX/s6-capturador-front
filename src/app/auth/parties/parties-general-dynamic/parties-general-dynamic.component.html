@@ -41,40 +41,43 @@
 
       <!-- Selector de roles adicionales (condicional) -->
       <div class="row" *ngIf="showAdditionalRoleSelector">
-        <div class="col-10">
-          <div class="row">
-            <div class="form-floating col mb-2">
-              <select
-                class="form-select"
-                [(ngModel)]="optRole"
-                [ngModelOptions]="{ standalone: true }"
-              >
-                <option value="">Seleccionar rol adicional</option>
-                <option *ngFor="let d of rolesList" [ngValue]="d.code">
-                  {{ d.title }}
-                </option>
-              </select>
-              <p *ngIf="optRole">
-                {{ getRoleByCode(optRole)?.description }}
-              </p>
-            </div>
+        <div class="col-12 mb-3">
+          <div class="form-floating">
+            <select
+              class="form-select"
+              [(ngModel)]="optRole"
+              [ngModelOptions]="{ standalone: true }"
+            >
+              <option value="">Seleccionar rol adicional</option>
+              <option *ngFor="let d of getAvailableRoles()" [ngValue]="d.code">
+                {{ d.title }}
+              </option>
+            </select>
+            <label>Seleccionar rol adicional</label>
+          </div>
+          <div class="form-text mt-2" *ngIf="optRole">
+            <strong>Descripción:</strong> {{ getRoleByCode(optRole)?.description }}
           </div>
         </div>
-        <div class="col-2">
-          <button
-            type="button"
-            class="btn btn-primary btn-add me-2"
-            (click)="addRole()"
-          >
-            Agregar
-          </button>
-          <button
-            type="button"
-            class="btn btn-secondary"
-            (click)="toggleAdditionalRoleSelector()"
-          >
-            Cancelar
-          </button>
+        
+        <div class="col-12">
+          <div class="d-flex gap-3">
+            <button
+              type="button"
+              class="btn btn-primary"
+              (click)="addRole()"
+              [disabled]="!optRole"
+            >
+              <i class="fas fa-plus me-2"></i>Agregar Rol
+            </button>
+            <button
+              type="button"
+              class="btn btn-secondary"
+              (click)="toggleAdditionalRoleSelector()"
+            >
+              <i class="fas fa-times me-2"></i>Cancelar
+            </button>
+          </div>
         </div>
       </div>
 

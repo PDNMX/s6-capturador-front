@@ -108,6 +108,40 @@ export class PartiesGeneralDynamicComponent implements OnInit, OnChanges {
     }
   }
 
+  // Obtener roles disponibles filtrados según el tab activo y excluyendo roles ya seleccionados
+  getAvailableRoles(): any[] {
+    const existingRoles = this.roleArray.value;
+    
+    // Determinar qué lista usar según el tipo de actor principal
+    let availableRoles: any[] = [];
+    
+    if (this.isInternalActor(this.selectedActor)) {
+      // Si es actor interno, mostrar solo roles internos
+      availableRoles = this.rolesList.filter(role => 
+        this.isInternalActor(role.code)
+      );
+    } else {
+      // Si es actor externo, mostrar solo roles externos
+      availableRoles = this.rolesList.filter(role => 
+        !this.isInternalActor(role.code)
+      );
+    }
+    
+    // Filtrar roles que ya están seleccionados
+    return availableRoles.filter(role => 
+      !existingRoles.includes(role.code)
+    );
+  }
+
+  // Verificar si un rol es interno
+  private isInternalActor(roleCode: string): boolean {
+    const internalCodes = [
+      'buyer', 'procuringEntity', 'procuringArea', 
+      'techArea', 'contractAdmin', 'payer', 'reviewBody'
+    ];
+    return internalCodes.includes(roleCode);
+  }
+
   // Configurar validaciones según campos visibles
   private setupConditionalValidations(): void {
     // Limpiar validaciones existentes
@@ -250,9 +284,40 @@ export class PartiesGeneralDynamicComponent implements OnInit, OnChanges {
       return;
     }
 
+    // Verificar que el rol corresponda al tipo de actor
+    const isSelectedActorInternal = this.isInternalActor(this.selectedActor);
+    const isNewRoleInternal = this.isInternalActor(this.optRole);
+    
+    if (isSelectedActorInternal !== isNewRoleInternal) {
+      const actorType = isSelectedActorInternal ? 'interno' : 'externo';
+      const roleType = isNewRoleInternal ? 'interno' : 'externo';
+      
+      Swal.fire({
+        icon: 'warning',
+        title: 'Tipo de rol incompatible',
+        text: `No puedes agregar un rol ${roleType} a un actor ${actorType}.`,
+        confirmButtonText: 'Aceptar',
+        confirmButtonColor: '#ffc107'
+      });
+      return;
+    }
+
     this.roleArray.push(this.fb.control(this.optRole));
     this.optRole = '';
-    this.showAdditionalRoleSelector = false;
+    
+    // Cerrar el selector si no hay más roles disponibles
+    if (this.getAvailableRoles().length === 0) {
+      this.showAdditionalRoleSelector = false;
+      Swal.fire({
+        icon: 'success',
+        title: 'Rol agregado',
+        text: 'No hay más roles disponibles para este tipo de actor.',
+        confirmButtonText: 'Aceptar',
+        confirmButtonColor: '#28a745',
+        timer: 2000,
+        timerProgressBar: true
+      });
+    }
   }
 
   deleteRole(index: number): void {

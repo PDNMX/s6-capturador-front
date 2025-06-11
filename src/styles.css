@@ -470,9 +470,179 @@ img.logo {
 /* ===== ESTILOS PARA COMPONENTE DE ACTORES ===== */
 
 /* Estilos para botones de actores */
-.btn-outline-primary:hover {
+.btn-outline-primary:hover, .btn-outline-success:hover {
   transform: translateY(-1px);
   transition: all 0.2s ease;
+}
+
+/* Estilos para el selector de roles adicionales en modal */
+.d-flex.gap-3 {
+  gap: 1rem !important;
+}
+
+.d-flex.gap-3 .btn {
+  padding: 0.75rem 1.5rem;
+  font-weight: 500;
+  min-width: 120px;
+}
+
+.form-floating {
+  margin-bottom: 0.5rem;
+}
+
+.form-text {
+  font-size: 0.875rem;
+  color: #6c757d;
+  font-style: italic;
+}
+
+/* Estilos para botones de filtro de tabla - Versión separada */
+.filter-btn {
+  font-weight: 500;
+  padding: 0.75rem 1.5rem;
+  border-radius: 0.375rem !important;
+  transition: all 0.2s ease;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.filter-btn:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+}
+
+.filter-btn:active {
+  transform: translateY(0);
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.filter-btn.btn-primary,
+.filter-btn.btn-success {
+  border: none;
+}
+
+.filter-btn.btn-outline-primary,
+.filter-btn.btn-outline-success {
+  background-color: transparent;
+  border: 1px solid;
+}
+
+.filter-btn.btn-outline-primary:hover {
+  background-color: #0d6efd;
+  color: white;
+  border-color: #0d6efd;
+}
+
+.filter-btn.btn-outline-success:hover {
+  background-color: #198754;
+  color: white;
+  border-color: #198754;
+}
+
+/* Gap entre botones */
+.d-flex.gap-2 > .filter-btn {
+  margin-right: 0;
+}
+
+/* Responsive para botones de filtro */
+@media (max-width: 768px) {
+  .d-flex.gap-2 {
+    flex-direction: column;
+    gap: 0.5rem !important;
+  }
+  
+  .filter-btn {
+    width: 100%;
+    text-align: center;
+  }
+}
+
+/* Estilos para las tabs de actores */
+.nav-tabs .nav-link {
+  color: #495057;
+  border: 1px solid transparent;
+  font-weight: 500;
+}
+
+.nav-tabs .nav-link:hover {
+  border-color: #e9ecef #e9ecef #dee2e6;
+  color: #0056b3;
+}
+
+.nav-tabs .nav-link.active {
+  color: #495057;
+  background-color: #fff;
+  border-color: #dee2e6 #dee2e6 #fff;
+  font-weight: 600;
+}
+
+/* Estilos para alertas informativas - SIN transiciones */
+.alert {
+  border-left: 4px solid;
+  border-radius: 0.375rem;
+  font-size: 0.9rem;
+  /* Removido cualquier transition */
+}
+
+.alert-info {
+  border-left-color: #0dcaf0;
+  background-color: #f0f9ff;
+}
+
+.alert-warning {
+  border-left-color: #ffc107;
+  background-color: #fffbf0;
+}
+
+/* Estilos para el título de la tabla - SIN animaciones */
+h5 {
+  margin-bottom: 1rem;
+  font-weight: 600;
+  /* Removido cualquier transition */
+}
+
+/* Estilos para las tablas - SIN efectos de transición */
+.table {
+  margin-bottom: 0;
+  /* Removido cualquier transition o animation */
+}
+
+.table thead th {
+  background-color: #f8f9fa;
+  border-bottom: 2px solid #dee2e6;
+  font-weight: 600;
+  font-size: 0.875rem;
+}
+
+.table tbody tr:hover {
+  background-color: #f8f9fa;
+  /* Mantener solo el hover sin transición */
+}
+
+.table tbody tr {
+  /* Asegurar que no hay transiciones en las filas */
+  transition: none !important;
+}
+
+/* Badges en las tablas - SIN animaciones */
+.table .badge {
+  font-size: 0.7rem;
+  margin-bottom: 0.2rem;
+  transition: none !important;
+}
+
+.table ul {
+  list-style: none;
+  padding-left: 0;
+}
+
+.table ul li {
+  margin-bottom: 0.2rem;
+}
+
+/* Mensaje de tablas vacías */
+.table .text-muted {
+  font-style: italic;
+  color: #6c757d !important;
 }
 
 /* Estilos para las cards colapsables de actores */
@@ -480,10 +650,20 @@ img.logo {
   border: 1px solid #dee2e6;
   box-shadow: 0 2px 4px rgba(0,0,0,0.1);
   transition: all 0.3s ease;
+  border-left: 4px solid transparent;
 }
 
 .actor-collapse-card:hover {
   box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+}
+
+/* Borde izquierdo para diferenciar actores internos/externos */
+.actor-collapse-card:has(.text-primary) {
+  border-left-color: #0d6efd;
+}
+
+.actor-collapse-card:has(.text-success) {
+  border-left-color: #198754;
 }
 
 .actor-collapse-card .card-body {
@@ -501,24 +681,54 @@ img.logo {
   max-width: 1200px;
 }
 
-.nav-tabs .nav-link {
-  color: #495057;
-  border: 1px solid transparent;
-}
-
-.nav-tabs .nav-link:hover {
-  border-color: #e9ecef #e9ecef #dee2e6;
-  color: #0056b3;
-}
-
-.nav-tabs .nav-link.active {
-  color: #495057;
-  background-color: #fff;
-  border-color: #dee2e6 #dee2e6 #fff;
-}
-
 .btn-delete {
   font-size: 0.875rem;
+}
+
+/* Iconos específicos para tipos de actores */
+.fas.fa-user-tie {
+  color: #0d6efd;
+}
+
+.fas.fa-handshake {
+  color: #198754;
+}
+
+.fas.fa-building {
+  color: #0d6efd;
+}
+
+.fas.fa-users {
+  color: #198754;
+}
+
+/* Badges con colores diferenciados */
+.badge.bg-info {
+  background-color: #0dcaf0 !important;
+}
+
+.badge.bg-warning {
+  background-color: #ffc107 !important;
+  color: #000 !important;
+}
+
+.badge.bg-primary {
+  background-color: #0d6efd !important;
+}
+
+.badge.bg-success {
+  background-color: #198754 !important;
+}
+
+/* Elementos que NO deben tener transiciones para evitar rebote */
+.table-responsive,
+.table-responsive *,
+.alert,
+.alert *,
+h5,
+.btn-group .btn {
+  transition: none !important;
+  animation: none !important;
 }
 
 /* Responsive para botones de actores */
@@ -527,7 +737,8 @@ img.logo {
     flex-direction: column;
   }
   
-  .d-flex.flex-wrap .btn-outline-primary {
+  .d-flex.flex-wrap .btn-outline-primary,
+  .d-flex.flex-wrap .btn-outline-success {
     margin-bottom: 0.5rem;
     width: 100%;
   }
@@ -540,11 +751,49 @@ img.logo {
     margin-top: 1rem;
     text-align: center;
   }
+
+  /* Tabs responsive */
+  .nav-tabs .nav-link {
+    font-size: 0.875rem;
+    padding: 0.75rem 1rem;
+  }
+  
+  .nav-tabs .badge {
+    font-size: 0.65em;
+  }
+
+  /* Botones de filtro responsive */
+  .d-flex.gap-2 {
+    flex-direction: column;
+    gap: 0.5rem !important;
+  }
+  
+  .filter-btn {
+    width: 100%;
+    text-align: center;
+    font-size: 0.875rem;
+  }
+
+  /* Tablas responsive */
+  .table-responsive {
+    font-size: 0.875rem;
+  }
+  
+  .table th, .table td {
+    padding: 0.5rem;
+  }
+
+  /* Botones en modal responsive */
+  .d-flex.gap-3 {
+    flex-direction: column;
+  }
+  
+  .d-flex.gap-3 .btn {
+    width: 100%;
+  }
 }
 
 /* Efecto para gaps entre botones */
 .gap-2 {
   gap: 0.5rem !important;
 }
-
-/* ===== FIN ESTILOS ACTORES ===== */

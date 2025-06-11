@@ -25,6 +25,145 @@ export class PartiesComponent implements OnInit {
   fieldVisibility: any = {};
   showAdditionalIdentifiersSection: boolean = false;
   editMode: boolean = false; // Variable para controlar cuándo mostrar componentes hijos
+  activeTableTab: 'internal' | 'external' = 'internal'; // Tab activo para filtrar tabla
+
+  // Clasificación de actores internos y externos
+  private internalActorCodes = [
+    'buyer',           // Comprador
+    'procuringEntity', // Entidad contratante
+    'procuringArea',   // Área requirente
+    'techArea',        // Área técnica
+    'contractAdmin',   // Administrador del contrato
+    'payer',           // Emisor del pago
+    'reviewBody'       // Órgano de revisión
+  ];
+
+  private externalActorCodes = [
+    'supplier',        // Proveedor
+    'tenderer',        // Licitante
+    'funder',          // Entidad financiera
+    'enquirer',        // Persona que solicita información
+    'payee',           // Receptor del pago
+    'interestedParty', // Parte interesada
+    'guarantor'        // Institución que expide la garantía
+  ];
+
+  // Getters para las listas filtradas
+  get internalActors() {
+    return this.rolesList.filter(role => this.internalActorCodes.includes(role.code));
+  }
+
+  get externalActors() {
+    return this.rolesList.filter(role => this.externalActorCodes.includes(role.code));
+  }
+
+  // Método para verificar si un actor es interno
+  isInternalActor(actorCode: string): boolean {
+    return this.internalActorCodes.includes(actorCode);
+  }
+
+  // Método para obtener el índice global del actor (para IDs únicos)
+  getActorIndex(actorCode: string): number {
+    return this.rolesList.findIndex(role => role.code === actorCode);
+  }
+
+  // Método para filtrar actores registrados por tipo
+  getFilteredParties(type: 'internal' | 'external'): any[] {
+    if (!this.partiesForm.value.parties) {
+      return [];
+    }
+
+    return this.partiesForm.value.parties.filter((party: any) => {
+      if (!party.roles || !Array.isArray(party.roles)) {
+        return false;
+      }
+
+      // Verificar si algún rol del actor pertenece al tipo solicitado
+      return party.roles.some((role: string) => {
+        if (type === 'internal') {
+          return this.internalActorCodes.includes(role);
+        } else {
+          return this.externalActorCodes.includes(role);
+        }
+      });
+    });
+  }
+
+  // Método para obtener el índice original del actor en el array completo
+  getOriginalIndex(item: any): number {
+    const allParties = this.partiesForm.value.parties;
+    return allParties.findIndex((party: any) => 
+      party.name === item.name && 
+      party.identifier?.id === item.identifier?.id &&
+      JSON.stringify(party.roles) === JSON.stringify(item.roles)
+    );
+  }
+
+  // Método para cambiar el tab activo de la tabla
+  setActiveTableTab(tab: 'internal' | 'external'): void {
+    this.activeTableTab = tab;
+    // Cerrar cualquier collapse abierto al cambiar de tab
+    this.closeAllCollapses();
+  }
+
+  // Método para cerrar todos los collapses abiertos
+  private closeAllCollapses(): void {
+    try {
+      // Método 1: Usando Bootstrap JS
+      const collapseElements = document.querySelectorAll('.collapse.show');
+      
+      collapseElements.forEach((element) => {
+        const collapseInstance = (window as any).bootstrap?.Collapse?.getInstance(element);
+        if (collapseInstance) {
+          collapseInstance.hide();
+        }
+      });
+
+      // Método 2: Fallback - cerrar manualmente después de un pequeño delay
+      setTimeout(() => {
+        const stillOpenElements = document.querySelectorAll('.collapse.show');
+        stillOpenElements.forEach((element) => {
+          element.classList.remove('show');
+          element.classList.add('collapse');
+          // Resetear aria-expanded en los botones asociados
+          const buttonId = element.getAttribute('aria-labelledby');
+          if (buttonId) {
+            const button = document.getElementById(buttonId);
+            if (button) {
+              button.setAttribute('aria-expanded', 'false');
+              button.classList.add('collapsed');
+            }
+          }
+        });
+      }, 100);
+
+    } catch (error) {
+      console.warn('Error cerrando collapses:', error);
+      // Método 3: Fallback final - forzar cierre
+      const allCollapses = document.querySelectorAll('.collapse');
+      allCollapses.forEach((element) => {
+        element.classList.remove('show');
+        element.classList.add('collapse');
+      });
+    }
+  }
+
+  // Método para obtener los actores filtrados según el tab activo
+  getCurrentFilteredParties(): any[] {
+    return this.getFilteredParties(this.activeTableTab);
+  }
+
+  // Método para verificar si un actor tiene roles mixtos (interno y externo)
+  hasMultipleActorTypes(party: any): boolean {
+    if (!party.roles || !Array.isArray(party.roles)) {
+      return false;
+    }
+
+    const hasInternal = party.roles.some((role: string) => this.internalActorCodes.includes(role));
+    const hasExternal = party.roles.some((role: string) => this.externalActorCodes.includes(role));
+    
+    return hasInternal && hasExternal;
+  }
 
   // Matriz de visibilidad de campos según el actor
   private actorFieldMatrix: { [key: string]: { [key: string]: boolean } } = {
@@ -114,7 +253,7 @@ export class PartiesComponent implements OnInit {
       uri: true,
       additionalIdentifiers: true,
       address: true,
-      additionalContactPoints: false, // CAMBIADO: buyer no debe tener puntos de contacto adicionales
+      additionalContactPoints: false, // buyer no debe tener puntos de contacto adicionales
       beneficialOwners: false,
       details: true
     },
@@ -169,7 +308,7 @@ export class PartiesComponent implements OnInit {
       additionalIdentifiers: true,
       address: true,
       additionalContactPoints: true,
-      beneficialOwners: true,
+      beneficialOwners: false,
       details: true
     },
     reviewBody: {
@@ -241,7 +380,7 @@ export class PartiesComponent implements OnInit {
       additionalIdentifiers: true,
       address: true,
       additionalContactPoints: true,
-      beneficialOwners: true,
+      beneficialOwners: false,
       details: true
     },
     payee: {
@@ -259,7 +398,7 @@ export class PartiesComponent implements OnInit {
       additionalIdentifiers: true,
       address: true,
       additionalContactPoints: true,
-      beneficialOwners: false,
+      beneficialOwners: true,
       details: true
     }
   };
@@ -277,6 +416,31 @@ export class PartiesComponent implements OnInit {
 
     this.initForm();
     this.loadData();
+    
+    // Agregar listener para cambios de tab que cierre collapses
+    this.setupTabChangeListeners();
+  }
+
+  // Configurar listeners para cambios de tab
+  private setupTabChangeListeners(): void {
+    // Esperar a que el DOM esté listo
+    setTimeout(() => {
+      // Listener para tabs de actores internos/externos
+      const internalTab = document.getElementById('internal-tab');
+      const externalTab = document.getElementById('external-tab');
+      
+      if (internalTab) {
+        internalTab.addEventListener('shown.bs.tab', () => {
+          this.closeAllCollapses();
+        });
+      }
+      
+      if (externalTab) {
+        externalTab.addEventListener('shown.bs.tab', () => {
+          this.closeAllCollapses();
+        });
+      }
+    }, 500);
   }
 
   // Abrir modal para actor específico

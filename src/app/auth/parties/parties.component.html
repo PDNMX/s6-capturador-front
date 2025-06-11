@@ -15,46 +15,157 @@
       </div>
     </div>
 
-    <!-- Selección de Actores con Collapse Simple -->
+    <!-- Selección de Actores con Tabs para Internos/Externos -->
     <div class="row mb-4">
       <div class="col">
-        <h4>Seleccionar Tipo de Actor</h4>
-        <div class="d-flex flex-wrap gap-2 mb-3">
-          <button 
-            class="btn btn-outline-primary" 
-            type="button" 
-            data-bs-toggle="collapse" 
-            [attr.data-bs-target]="'#collapse' + i" 
-            [attr.aria-expanded]="false" 
-            [attr.aria-controls]="'collapse' + i"
-            *ngFor="let role of rolesList; let i = index"
+        <h4>Seleccionar tipo de actor a registrar</h4>
+
+        <!-- Tabs para separar actores internos y externos -->
+        <ul class="nav nav-tabs mb-3" id="actorTypeTab" role="tablist">
+          <li class="nav-item" role="presentation">
+            <button
+              class="nav-link active"
+              id="internal-tab"
+              data-bs-toggle="tab"
+              data-bs-target="#internal-actors"
+              type="button"
+              role="tab"
+              aria-controls="internal-actors"
+              aria-selected="true"
+            >
+              <i class="fas fa-building me-2"></i>Actores del sector público
+            </button>
+          </li>
+          <li class="nav-item" role="presentation">
+            <button
+              class="nav-link"
+              id="external-tab"
+              data-bs-toggle="tab"
+              data-bs-target="#external-actors"
+              type="button"
+              role="tab"
+              aria-controls="external-actors"
+              aria-selected="false"
+            >
+              <i class="fas fa-users me-2"></i>Actores externos al sector
+              público
+            </button>
+          </li>
+        </ul>
+
+        <!-- Contenido de las tabs -->
+        <div class="tab-content" id="actorTypeTabContent">
+          <!-- Tab de Actores Internos -->
+          <div
+            class="tab-pane fade show active"
+            id="internal-actors"
+            role="tabpanel"
+            aria-labelledby="internal-tab"
           >
-            {{ role.title }}
-          </button>
+            <div class="alert alert-info" role="alert">
+              <i class="fas fa-info-circle me-2"></i>
+              <strong>Actores internos:</strong> Personal y áreas del sector
+              público involucradas en el proceso de contratación.
+            </div>
+
+            <div class="d-flex flex-wrap gap-2 mb-3">
+              <button
+                class="btn btn-outline-primary"
+                type="button"
+                data-bs-toggle="collapse"
+                [attr.data-bs-target]="'#collapse' + getActorIndex(role.code)"
+                [attr.aria-expanded]="false"
+                [attr.aria-controls]="'collapse' + getActorIndex(role.code)"
+                *ngFor="let role of internalActors"
+              >
+                <i class="fas fa-user-tie me-2"></i>{{ role.title }}
+              </button>
+            </div>
+          </div>
+
+          <!-- Tab de Actores Externos -->
+          <div
+            class="tab-pane fade"
+            id="external-actors"
+            role="tabpanel"
+            aria-labelledby="external-tab"
+          >
+            <div class="alert alert-warning" role="alert">
+              <i class="fas fa-exclamation-triangle me-2"></i>
+              <strong>Actores externos:</strong> Terceros, proveedores e
+              instituciones externas al sector público.
+            </div>
+
+            <div class="d-flex flex-wrap gap-2 mb-3">
+              <button
+                class="btn btn-outline-success"
+                type="button"
+                data-bs-toggle="collapse"
+                [attr.data-bs-target]="'#collapse' + getActorIndex(role.code)"
+                [attr.aria-expanded]="false"
+                [attr.aria-controls]="'collapse' + getActorIndex(role.code)"
+                *ngFor="let role of externalActors"
+              >
+                <i class="fas fa-handshake me-2"></i>{{ role.title }}
+              </button>
+            </div>
+          </div>
         </div>
-        
-        <!-- Grupo de accordion para que solo uno esté abierto -->
+
+        <!-- Grupo de accordion para que solo uno esté abierto (común para ambos tabs) -->
         <div class="accordion" id="actorsAccordion">
           <!-- Contenido colapsable para cada actor -->
-          <div 
+          <div
             *ngFor="let role of rolesList; let i = index"
-            class="collapse" 
+            class="collapse"
             [id]="'collapse' + i"
             data-bs-parent="#actorsAccordion"
           >
             <div class="card card-body mb-3 actor-collapse-card">
               <div class="row align-items-center">
                 <div class="col-md-8">
-                  <h6 class="text-primary mb-2">
-                    <i class="fas fa-user me-2"></i>{{ role.title }}
-                    <span class="badge bg-secondary ms-2">{{ role.code }}</span>
+                  <h6
+                    class="mb-2"
+                    [ngClass]="
+                      isInternalActor(role.code)
+                        ? 'text-primary'
+                        : 'text-success'
+                    "
+                  >
+                    <i
+                      [class]="
+                        isInternalActor(role.code)
+                          ? 'fas fa-user-tie me-2'
+                          : 'fas fa-handshake me-2'
+                      "
+                    ></i>
+                    {{ role.title }}
+                    <span
+                      class="badge ms-2"
+                      [ngClass]="
+                        isInternalActor(role.code) ? 'bg-primary' : 'bg-success'
+                      "
+                    >
+                      {{ role.code }}
+                    </span>
+                    <span
+                      class="badge ms-1"
+                      [ngClass]="
+                        isInternalActor(role.code) ? 'bg-info' : 'bg-warning'
+                      "
+                    >
+                      {{ isInternalActor(role.code) ? "Interno" : "Externo" }}
+                    </span>
                   </h6>
                   <p class="text-muted mb-0">{{ role.description }}</p>
                 </div>
                 <div class="col-md-4 text-end">
-                  <button 
-                    type="button" 
-                    class="btn btn-primary"
+                  <button
+                    type="button"
+                    class="btn"
+                    [ngClass]="
+                      isInternalActor(role.code) ? 'btn-primary' : 'btn-success'
+                    "
                     (click)="openActorModal(role.code)"
                   >
                     <i class="fas fa-plus me-2"></i>Agregar {{ role.title }}
@@ -67,9 +178,79 @@
       </div>
     </div>
 
-    <!-- Tabla de Actores Existentes -->
+    <!-- Tabla de Actores Existentes (única, filtrada por tab activo) -->
     <div class="row">
       <div class="col">
+        <h5>
+          <span *ngIf="activeTableTab === 'internal'">
+            <i class="fas fa-building me-2 text-primary"></i>Actores del sector
+            público registrados
+            <span class="badge bg-primary ms-2">{{
+              getFilteredParties("internal").length
+            }}</span>
+          </span>
+          <span *ngIf="activeTableTab === 'external'">
+            <i class="fas fa-users me-2 text-success"></i>Actores externos al
+            sector público registrados
+            <span class="badge bg-success ms-2">{{
+              getFilteredParties("external").length
+            }}</span>
+          </span>
+        </h5>
+        <div class="d-flex gap-2 mb-3" role="group">
+          <button
+            type="button"
+            class="btn filter-btn"
+            [ngClass]="
+              activeTableTab === 'internal'
+                ? 'btn-primary'
+                : 'btn-outline-primary'
+            "
+            (click)="setActiveTableTab('internal')"
+          >
+            <i class="fas fa-building me-2"></i>Ver tabla
+          </button>
+          <button
+            type="button"
+            class="btn filter-btn"
+            [ngClass]="
+              activeTableTab === 'external'
+                ? 'btn-success'
+                : 'btn-outline-success'
+            "
+            (click)="setActiveTableTab('external')"
+          >
+            <i class="fas fa-users me-2"></i>Ver tabla
+          </button>
+        </div>
+        <div
+          class="alert alert-info"
+          role="alert"
+          *ngIf="
+            activeTableTab === 'internal' &&
+            getFilteredParties('internal').length > 0
+          "
+        >
+          <i class="fas fa-info-circle me-2"></i>
+          Mostrando
+          <strong>{{ getFilteredParties("internal").length }}</strong> actor(es)
+          interno(s) del sector público
+        </div>
+
+        <div
+          class="alert alert-warning"
+          role="alert"
+          *ngIf="
+            activeTableTab === 'external' &&
+            getFilteredParties('external').length > 0
+          "
+        >
+          <i class="fas fa-exclamation-triangle me-2"></i>
+          Mostrando
+          <strong>{{ getFilteredParties("external").length }}</strong> actor(es)
+          externo(s) (terceros)
+        </div>
+
         <div class="table-responsive">
           <table class="table table-striped table-hover">
             <thead>
@@ -86,12 +267,19 @@
               </tr>
             </thead>
             <tbody>
-              <tr *ngFor="let item of partiesForm.value.parties; index as i">
+              <tr *ngFor="let item of getCurrentFilteredParties(); index as i">
                 <td scope="row">{{ i + 1 }}</td>
                 <td>
-                  <ul>
+                  <ul class="mb-0">
                     <li *ngFor="let rol of item.roles">
-                      {{ getRoleTitle(rol) }}
+                      <span
+                        class="badge me-1"
+                        [ngClass]="
+                          isInternalActor(rol) ? 'bg-primary' : 'bg-success'
+                        "
+                      >
+                        {{ getRoleTitle(rol) }}
+                      </span>
                     </li>
                   </ul>
                 </td>
@@ -105,15 +293,21 @@
                   <button
                     type="button"
                     class="btn btn-danger btn-delete btn-sm"
-                    (click)="confirmAndDeletePartie(i)"
+                    (click)="confirmAndDeletePartie(getOriginalIndex(item))"
                   >
                     Eliminar
                   </button>
                 </td>
               </tr>
-              <tr *ngIf="partiesForm.value.parties.length === 0">
-                <th scope="row" colspan="9" class="text-center">
-                  Sin registros.
+              <tr *ngIf="getCurrentFilteredParties().length === 0">
+                <th scope="row" colspan="9" class="text-center text-muted">
+                  <i class="fas fa-inbox me-2"></i>
+                  <span *ngIf="activeTableTab === 'internal'"
+                    >No hay actores internos registrados.</span
+                  >
+                  <span *ngIf="activeTableTab === 'external'"
+                    >No hay actores externos registrados.</span
+                  >
                 </th>
               </tr>
             </tbody>
@@ -125,7 +319,13 @@
 </div>
 
 <!-- Modal Dinámica para Actor -->
-<div class="modal fade" id="actorModal" tabindex="-1" aria-labelledby="actorModalLabel" aria-hidden="true">
+<div
+  class="modal fade"
+  id="actorModal"
+  tabindex="-1"
+  aria-labelledby="actorModalLabel"
+  aria-hidden="true"
+>
   <div class="modal-dialog modal-xl">
     <div class="modal-content">
       <div class="modal-header">
@@ -133,77 +333,94 @@
           <i class="fas fa-user me-2"></i>
           {{ selectedActorTitle }}
         </h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
       </div>
-      
+
       <div class="modal-body">
         <div class="container-fluid">
           <!-- Navegación por pestañas -->
           <ul class="nav nav-tabs" id="actorTabs" role="tablist">
             <!-- Información General (siempre visible) -->
             <li class="nav-item" role="presentation">
-              <button 
-                class="nav-link active" 
-                id="general-tab" 
-                data-bs-toggle="tab" 
-                data-bs-target="#general" 
-                type="button" 
+              <button
+                class="nav-link active"
+                id="general-tab"
+                data-bs-toggle="tab"
+                data-bs-target="#general"
+                type="button"
                 role="tab"
               >
                 Información General
               </button>
             </li>
-            
+
             <!-- Domicilio (condicional) -->
-            <li class="nav-item" role="presentation" *ngIf="shouldShowField('address')">
-              <button 
-                class="nav-link" 
-                id="address-tab" 
-                data-bs-toggle="tab" 
-                data-bs-target="#address" 
-                type="button" 
+            <li
+              class="nav-item"
+              role="presentation"
+              *ngIf="shouldShowField('address')"
+            >
+              <button
+                class="nav-link"
+                id="address-tab"
+                data-bs-toggle="tab"
+                data-bs-target="#address"
+                type="button"
                 role="tab"
               >
                 Domicilio
               </button>
             </li>
-            
+
             <!-- Puntos de Contacto Adicionales (condicional) -->
-            <li class="nav-item" role="presentation" *ngIf="shouldShowField('additionalContactPoints')">
-              <button 
-                class="nav-link" 
-                id="additional-contacts-tab" 
-                data-bs-toggle="tab" 
-                data-bs-target="#additional-contacts" 
-                type="button" 
+            <li
+              class="nav-item"
+              role="presentation"
+              *ngIf="shouldShowField('additionalContactPoints')"
+            >
+              <button
+                class="nav-link"
+                id="additional-contacts-tab"
+                data-bs-toggle="tab"
+                data-bs-target="#additional-contacts"
+                type="button"
                 role="tab"
               >
                 Puntos de Contacto Adicionales
               </button>
             </li>
-            
+
             <!-- Beneficiarios (solo para supplier y tenderer) -->
-            <li class="nav-item" role="presentation" *ngIf="shouldShowField('beneficialOwners')">
-              <button 
-                class="nav-link" 
-                id="beneficiaries-tab" 
-                data-bs-toggle="tab" 
-                data-bs-target="#beneficiaries" 
-                type="button" 
+            <li
+              class="nav-item"
+              role="presentation"
+              *ngIf="shouldShowField('beneficialOwners')"
+            >
+              <button
+                class="nav-link"
+                id="beneficiaries-tab"
+                data-bs-toggle="tab"
+                data-bs-target="#beneficiaries"
+                type="button"
                 role="tab"
               >
                 Beneficiarios
               </button>
             </li>
-            
+
             <!-- Identificadores Adicionales (siempre disponible) -->
             <li class="nav-item" role="presentation">
-              <button 
-                class="nav-link" 
-                id="additional-identifiers-tab" 
-                data-bs-toggle="tab" 
-                data-bs-target="#additional-identifiers" 
-                type="button" 
+              <button
+                class="nav-link"
+                id="additional-identifiers-tab"
+                data-bs-toggle="tab"
+                data-bs-target="#additional-identifiers"
+                type="button"
                 role="tab"
               >
                 Identificadores Adicionales
@@ -221,56 +438,93 @@
                 (saveGeneral)="saveGeneral($event)"
               ></app-parties-general-dynamic>
             </div>
-            
+
             <!-- Domicilio -->
-            <div class="tab-pane fade" id="address" role="tabpanel" *ngIf="shouldShowField('address')">
+            <div
+              class="tab-pane fade"
+              id="address"
+              role="tabpanel"
+              *ngIf="shouldShowField('address')"
+            >
               <app-parties-address
                 (saveAddress)="saveAddress($event)"
               ></app-parties-address>
             </div>
-            
+
             <!-- Puntos de Contacto Adicionales -->
-            <div class="tab-pane fade" id="additional-contacts" role="tabpanel" *ngIf="shouldShowField('additionalContactPoints')">
+            <div
+              class="tab-pane fade"
+              id="additional-contacts"
+              role="tabpanel"
+              *ngIf="shouldShowField('additionalContactPoints')"
+            >
               <app-parties-additional-contact-points
-                [additionalContactPointsArray]="partieForm.value.additionalContactPoints || []"
-                (addAdditionalContactPoints)="addAdditionalContactPoints($event)"
-                (deleteAdditionalContactPoints)="deleteAdditionalContactPoints($event)"
+                [additionalContactPointsArray]="
+                  partieForm.value.additionalContactPoints || []
+                "
+                (addAdditionalContactPoints)="
+                  addAdditionalContactPoints($event)
+                "
+                (deleteAdditionalContactPoints)="
+                  deleteAdditionalContactPoints($event)
+                "
               ></app-parties-additional-contact-points>
             </div>
-            
+
             <!-- Beneficiarios -->
-            <div class="tab-pane fade" id="beneficiaries" role="tabpanel" *ngIf="shouldShowField('beneficialOwners')">
+            <div
+              class="tab-pane fade"
+              id="beneficiaries"
+              role="tabpanel"
+              *ngIf="shouldShowField('beneficialOwners')"
+            >
               <app-parties-beneficial-owners
-                [beneficialOwnersArray]="partieForm.value.beneficialOwners || []"
+                [beneficialOwnersArray]="
+                  partieForm.value.beneficialOwners || []
+                "
                 (addBeneficialOwners)="addBeneficialOwners($event)"
                 (deleteBeneficialOwners)="deleteBeneficialOwners($event)"
               ></app-parties-beneficial-owners>
             </div>
-            
+
             <!-- Identificadores Adicionales -->
-            <div class="tab-pane fade" id="additional-identifiers" role="tabpanel">
+            <div
+              class="tab-pane fade"
+              id="additional-identifiers"
+              role="tabpanel"
+            >
               <div class="container">
                 <div class="row">
                   <div class="col">
                     <h4>Identificadores Adicionales</h4>
                     <p class="text-muted">
-                      Puede agregar identificadores adicionales para este actor según sea necesario.
+                      Puede agregar identificadores adicionales para este actor
+                      según sea necesario.
                     </p>
-                    <button 
-                      type="button" 
+                    <button
+                      type="button"
                       class="btn btn-primary"
-                      (click)="showAdditionalIdentifiersSection = !showAdditionalIdentifiersSection"
+                      (click)="
+                        showAdditionalIdentifiersSection =
+                          !showAdditionalIdentifiersSection
+                      "
                     >
                       <i class="fas fa-plus me-2"></i>
                       Agregar Identificadores Adicionales
                     </button>
-                    
+
                     <!-- Sección de identificadores adicionales (mostrar/ocultar) -->
                     <div *ngIf="showAdditionalIdentifiersSection" class="mt-3">
                       <app-additional-identifiers-section
-                        [additionalIdentifiersArray]="partieForm.value.additionalIdentifiers || []"
-                        (addAdditionalIdentifier)="addAdditionalIdentifier($event)"
-                        (deleteAdditionalIdentifier)="deleteAdditionalIdentifier($event)"
+                        [additionalIdentifiersArray]="
+                          partieForm.value.additionalIdentifiers || []
+                        "
+                        (addAdditionalIdentifier)="
+                          addAdditionalIdentifier($event)
+                        "
+                        (deleteAdditionalIdentifier)="
+                          deleteAdditionalIdentifier($event)
+                        "
                       ></app-additional-identifiers-section>
                     </div>
                   </div>
@@ -280,7 +534,7 @@
           </div>
         </div>
       </div>
-      
+
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
           <i class="fas fa-times me-2"></i>Cancelar
