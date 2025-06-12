@@ -25,7 +25,9 @@ export class PartiesComponent implements OnInit {
   fieldVisibility: any = {};
   showAdditionalIdentifiersSection: boolean = false;
   editMode: boolean = false; // Variable para controlar cuándo mostrar componentes hijos
-  activeTableTab: 'internal' | 'external' = 'internal'; // Tab activo para filtrar tabla
+  
+  // Nueva variable para el actor seleccionado para mostrar la tabla
+  selectedActorForTable: any = null;
 
   // Clasificación de actores internos y externos
   private internalActorCodes = [
@@ -67,7 +69,35 @@ export class PartiesComponent implements OnInit {
     return this.rolesList.findIndex(role => role.code === actorCode);
   }
 
-  // Método para filtrar actores registrados por tipo
+  // NUEVO: Método para seleccionar un actor específico y mostrar su tabla
+  selectActor(actorCode: string): void {
+    const actor = this.rolesList.find(role => role.code === actorCode);
+    if (actor) {
+      this.selectedActorForTable = actor;
+    }
+  }
+
+  // NUEVO: Método para limpiar la selección de actor
+  clearSelectedActor(): void {
+    this.selectedActorForTable = null;
+  }
+
+  // NUEVO: Método para obtener actores por rol específico
+  getPartiesByRole(roleCode: string): any[] {
+    if (!this.partiesForm.value.parties) {
+      return [];
+    }
+
+    return this.partiesForm.value.parties.filter((party: any) => {
+      if (!party.roles || !Array.isArray(party.roles)) {
+        return false;
+      }
+      // Verificar si el actor tiene el rol específico
+      return party.roles.includes(roleCode);
+    });
+  }
+
+  // Método para filtrar actores registrados por tipo (mantenido para el resumen)
   getFilteredParties(type: 'internal' | 'external'): any[] {
     if (!this.partiesForm.value.parties) {
       return [];
@@ -99,60 +129,6 @@ export class PartiesComponent implements OnInit {
     );
   }
 
-  // Método para cambiar el tab activo de la tabla
-  setActiveTableTab(tab: 'internal' | 'external'): void {
-    this.activeTableTab = tab;
-    // Cerrar cualquier collapse abierto al cambiar de tab
-    this.closeAllCollapses();
-  }
-
-  // Método para cerrar todos los collapses abiertos
-  private closeAllCollapses(): void {
-    try {
-      // Método 1: Usando Bootstrap JS
-      const collapseElements = document.querySelectorAll('.collapse.show');
-      
-      collapseElements.forEach((element) => {
-        const collapseInstance = (window as any).bootstrap?.Collapse?.getInstance(element);
-        if (collapseInstance) {
-          collapseInstance.hide();
-        }
-      });
-
-      // Método 2: Fallback - cerrar manualmente después de un pequeño delay
-      setTimeout(() => {
-        const stillOpenElements = document.querySelectorAll('.collapse.show');
-        stillOpenElements.forEach((element) => {
-          element.classList.remove('show');
-          element.classList.add('collapse');
-          // Resetear aria-expanded en los botones asociados
-          const buttonId = element.getAttribute('aria-labelledby');
-          if (buttonId) {
-            const button = document.getElementById(buttonId);
-            if (button) {
-              button.setAttribute('aria-expanded', 'false');
-              button.classList.add('collapsed');
-            }
-          }
-        });
-      }, 100);
-
-    } catch (error) {
-      console.warn('Error cerrando collapses:', error);
-      // Método 3: Fallback final - forzar cierre
-      const allCollapses = document.querySelectorAll('.collapse');
-      allCollapses.forEach((element) => {
-        element.classList.remove('show');
-        element.classList.add('collapse');
-      });
-    }
-  }
-
-  // Método para obtener los actores filtrados según el tab activo
-  getCurrentFilteredParties(): any[] {
-    return this.getFilteredParties(this.activeTableTab);
-  }
-
   // Método para verificar si un actor tiene roles mixtos (interno y externo)
   hasMultipleActorTypes(party: any): boolean {
     if (!party.roles || !Array.isArray(party.roles)) {
@@ -181,6 +157,7 @@ export class PartiesComponent implements OnInit {
       uri: true,
       additionalIdentifiers: true,
       address: true,
+      contactPoint: true,
       additionalContactPoints: true,
       beneficialOwners: false,
       details: true
@@ -199,6 +176,7 @@ export class PartiesComponent implements OnInit {
       uri: true,
       additionalIdentifiers: true,
       address: true,
+      contactPoint: true,
       additionalContactPoints: true,
       beneficialOwners: false,
       details: true
@@ -217,6 +195,7 @@ export class PartiesComponent implements OnInit {
       uri: true,
       additionalIdentifiers: true,
       address: true,
+      contactPoint: true,
       additionalContactPoints: true,
       beneficialOwners: false,
       details: true
@@ -235,6 +214,7 @@ export class PartiesComponent implements OnInit {
       uri: true,
       additionalIdentifiers: true,
       address: true,
+      contactPoint: true,
       additionalContactPoints: true,
       beneficialOwners: false,
       details: true
@@ -271,6 +251,7 @@ export class PartiesComponent implements OnInit {
       uri: true,
       additionalIdentifiers: true,
       address: true,
+      contactPoint: true,
       additionalContactPoints: true,
       beneficialOwners: false,
       details: true
@@ -289,6 +270,7 @@ export class PartiesComponent implements OnInit {
       uri: true,
       additionalIdentifiers: true,
       address: true,
+      contactPoint: true,
       additionalContactPoints: true,
       beneficialOwners: false,
       details: true
@@ -307,6 +289,7 @@ export class PartiesComponent implements OnInit {
       uri: true,
       additionalIdentifiers: true,
       address: true,
+      contactPoint: true,
       additionalContactPoints: true,
       beneficialOwners: false,
       details: true
@@ -325,6 +308,7 @@ export class PartiesComponent implements OnInit {
       uri: true,
       additionalIdentifiers: true,
       address: true,
+      contactPoint: true,
       additionalContactPoints: true,
       beneficialOwners: false,
       details: true
@@ -361,6 +345,7 @@ export class PartiesComponent implements OnInit {
       uri: true,
       additionalIdentifiers: true,
       address: true,
+      contactPoint: true,
       additionalContactPoints: true,
       beneficialOwners: false,
       details: true
@@ -379,6 +364,7 @@ export class PartiesComponent implements OnInit {
       uri: true,
       additionalIdentifiers: true,
       address: true,
+      contactPoint: true,
       additionalContactPoints: true,
       beneficialOwners: false,
       details: true
@@ -397,8 +383,28 @@ export class PartiesComponent implements OnInit {
       uri: true,
       additionalIdentifiers: true,
       address: true,
+      contactPoint: true,
       additionalContactPoints: true,
       beneficialOwners: true,
+      details: true
+    },
+    guarantor: {
+      roles: true,
+      name: true,
+      identifier: true,
+      legalPersonality: true,
+      schema: true,
+      id: true,
+      legalName: true,
+      givenName: true,
+      patronymicName: true,
+      matronymicName: true,
+      uri: true,
+      additionalIdentifiers: true,
+      address: true,
+      contactPoint: true,
+      additionalContactPoints: true,
+      beneficialOwners: false,
       details: true
     }
   };
@@ -416,31 +422,6 @@ export class PartiesComponent implements OnInit {
 
     this.initForm();
     this.loadData();
-    
-    // Agregar listener para cambios de tab que cierre collapses
-    this.setupTabChangeListeners();
-  }
-
-  // Configurar listeners para cambios de tab
-  private setupTabChangeListeners(): void {
-    // Esperar a que el DOM esté listo
-    setTimeout(() => {
-      // Listener para tabs de actores internos/externos
-      const internalTab = document.getElementById('internal-tab');
-      const externalTab = document.getElementById('external-tab');
-      
-      if (internalTab) {
-        internalTab.addEventListener('shown.bs.tab', () => {
-          this.closeAllCollapses();
-        });
-      }
-      
-      if (externalTab) {
-        externalTab.addEventListener('shown.bs.tab', () => {
-          this.closeAllCollapses();
-        });
-      }
-    }, 500);
   }
 
   // Abrir modal para actor específico
@@ -805,6 +786,15 @@ export class PartiesComponent implements OnInit {
       }),
     });
   }
+
+  saveContactPoint(contactPoint: FormGroup): void {
+  this.partieForm = this.fb.group({
+    ...this.partieForm.controls,
+    contactPoint: this.fb.group({
+      ...contactPoint.controls,
+    }),
+  });
+}
 
   get additionalContactPointsArray() {
     return this.partieForm.controls['additionalContactPoints'] as FormArray;
