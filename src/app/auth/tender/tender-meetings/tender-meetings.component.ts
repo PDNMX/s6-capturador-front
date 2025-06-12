@@ -110,17 +110,17 @@ export class TenderMeetingsComponent implements OnInit {
 
   initForm() {
     this.meetingForm = this.fb.group({
-      date: ['', [Validators.required]],
-      attendees: this.fb.array([], [Validators.required]),
-      officials: this.fb.array([], [Validators.required]),
+      date: [''],
+      attendees: this.fb.array([]),
+      officials: this.fb.array([]),
     });
 
     this.attendeesForm = this.fb.group({
-      id: [null, [Validators.required]],
+      id: [null],
     });
 
     this.officialsForm = this.fb.group({
-      id: [null, [Validators.required]],
+      id: [null],
     });
   }
 

@@ -167,28 +167,28 @@ export class TenderGeneralComponent implements OnInit {
       description: ['', [Validators.required]],
       procuringEntity: ['', [Validators.required]],
       value: this.fb.group({
-        amount: ['', [Validators.nullValidator]],
-        currency: ['MXN', [Validators.nullValidator]],
+        amount: [null],
+        currency: ['MXN'],
       }),
       minValue: this.fb.group({
-        amount: ['', [Validators.nullValidator]],
-        currency: ['MXN', [Validators.nullValidator]],
+        amount: [null],
+        currency: ['MXN'],
       }),
       procurementMethod: ['', [Validators.required]],
       procurementMethodDetails: ['', [Validators.required]],
       procurementMethodRationale: ['', [Validators.required]],
-      mainProcurementCategory: ['', [Validators.nullValidator]],
+      mainProcurementCategory: [null],
       additionalProcurementCategories: this.fb.array([]),
       awardCriteria: ['', [Validators.required]],
       awardCriteriaDetails: ['', [Validators.required]],
       submissionMethod: this.fb.array([]),
-      submissionMethodDetails: ['', [Validators.nullValidator]],
+      submissionMethodDetails: [null],
       tenderPeriod: this.fb.group(
         {
           startDate: ['', [Validators.required]],
           endDate: ['', [Validators.required]],
-          maxExtentDate: ['', [Validators.nullValidator]],
-          durationInDays: [0, [Validators.nullValidator]],
+          maxExtentDate: [null],
+          durationInDays: [0],
         },
         { validators: this.dateComparisonValidator() }
       ),
@@ -196,8 +196,8 @@ export class TenderGeneralComponent implements OnInit {
         {
           startDate: ['', [Validators.required]],
           endDate: ['', [Validators.required]],
-          maxExtentDate: ['', [Validators.nullValidator]],
-          durationInDays: [0, [Validators.nullValidator]],
+          maxExtentDate: [null],
+          durationInDays: [0],
         },
         { validators: this.dateComparisonValidator() }
       ),
@@ -206,22 +206,22 @@ export class TenderGeneralComponent implements OnInit {
         {
           startDate: ['', [Validators.required]],
           endDate: ['', [Validators.required]],
-          maxExtentDate: ['', [Validators.nullValidator]],
-          durationInDays: [0, [Validators.nullValidator]],
+          maxExtentDate: [null],
+          durationInDays: [0],
         },
         { validators: this.dateComparisonValidator() }
       ),
       contractPeriod: this.fb.group(
         {
-          startDate: ['', [Validators.nullValidator]],
-          endDate: ['', [Validators.nullValidator]],
-          maxExtentDate: ['', [Validators.nullValidator]],
-          durationInDays: [0, [Validators.nullValidator]],
+          startDate: [null],
+          endDate: [null],
+          maxExtentDate: [null],
+          durationInDays: [0],
         },
         { validators: this.dateComparisonValidator() }
       ),
 
-      eligibilityCriteria: ['', [Validators.nullValidator]],
+      eligibilityCriteria: [null],
       numberOfTenderers: [0, [Validators.required]],
     });
 
@@ -495,4 +495,5 @@ export class TenderGeneralComponent implements OnInit {
 
     return dec;
   }
+  
 }
