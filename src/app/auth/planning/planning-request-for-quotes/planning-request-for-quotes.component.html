@@ -119,11 +119,8 @@
                   placeholder="Titulo*"
                   formControlName="title"
                 />
-                <label for="title">Titulo *</label>
+                <label for="title">Título de solicitud de cotizaciones *</label>
                 <app-input-validation [element]="title"></app-input-validation>
-                <div class="invalid-feedback" data-sb-feedback="title:required">
-                  Titulo * es requerido.
-                </div>
               </div>
               <div class="form-text">
                 El título de la solicitud de cotización.
@@ -140,7 +137,7 @@
                   style="height: 100px"
                   formControlName="description"
                 ></textarea>
-                <label for="description">Descripción *</label>
+                <label for="description">Descripción de solicitud de cotizaciones *</label>
                 <app-input-validation
                   [element]="description"
                 ></app-input-validation>
@@ -177,7 +174,7 @@
                       data-sb-validations="required"
                       formControlName="startDate"
                     />
-                    <label for="startDate">Fecha de inicio *</label>
+                    <label for="startDate">Fecha inicial del periodo para recibir cotizaciones *</label>
                     <app-input-validation
                       [element]="getControl('startDate')"
                     ></app-input-validation>
@@ -197,7 +194,7 @@
                       data-sb-validations="required"
                       formControlName="endDate"
                     />
-                    <label for="endDate">Fecha de término *</label>
+                    <label for="endDate">Fecha final del periodo para recibir cotizaciones *</label>
                     <app-input-validation
                       [element]="getControl('endDate')"
                     ></app-input-validation>
@@ -219,7 +216,7 @@
                       data-sb-validations="required"
                       formControlName="maxExtentDate"
                     />
-                    <label for="maxExtentDate">Extensión máxima</label>
+                    <label for="maxExtentDate">Fecha límite del periodo para recibir cotizaciones</label>
                     <!-- <app-input-validation
                       [element]="getControl('maxExtentDate')"
                     ></app-input-validation> -->

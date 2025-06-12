@@ -775,7 +775,7 @@ export class PartiesComponent implements OnInit {
       this.partieForm.setControl(key, general.get(key) as any);
     });
     
-    console.log('Datos guardados en información general:', this.partieForm.value);
+    //console.log('Datos guardados en información general:', this.partieForm.value);
   }
 
   saveAddress(address: FormGroup): void {

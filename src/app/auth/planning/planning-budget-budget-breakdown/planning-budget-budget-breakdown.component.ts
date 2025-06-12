@@ -156,17 +156,17 @@ export class PlanningBudgetBudgetBreakdownComponent implements OnInit {
 
   initForm(): void {
     this.budgetBreakdownForm = this.fb.group({
-      description: ['', [Validators.required]],
-      uri: ['', [Validators.required]],
+      description: [null],
+      uri: [null],
       amount: this.fb.group({
-        amount: [, [Validators.required, Validators.min(1)]],
-        currency: ['MXN', [Validators.required]],
+        amount: [null],
+        currency: ['MXN'],
       }),
       period: this.fb.group({
-        startDate: [''],
-        endDate: [''],
-        maxExtentDate: [''],
-        durationInDays: [''],
+        startDate: [null],
+        endDate: [null],
+        maxExtentDate: [null],
+        durationInDays: [null],
       }, { validators: this.dateComparisonValidator() }),
       budgetLines: this.fb.array([]),
       sourceParty: null,
