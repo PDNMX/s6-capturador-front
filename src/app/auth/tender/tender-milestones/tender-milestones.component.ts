@@ -74,14 +74,14 @@ export class TenderMilestonesComponent implements OnInit {
 
   initForm(): void {
     this.milestoneForm = this.fb.group({
-      title: ['', [Validators.required]],
-      type: ['', [Validators.required]],
-      description: ['', [Validators.required]],
-      code: ['', [Validators.required]],
-      dueDate: ['', [Validators.required]],
-      dateMet: ['', [Validators.required]],
-      dateModified: ['', [Validators.required]],
-      status: ['', [Validators.required]],
+      title: [null],
+      type: [null],
+      description: [null],
+      code: [null],
+      dueDate: [null],
+      dateMet: [null],
+      dateModified: [null],
+      status: [null],
     });
   }
 

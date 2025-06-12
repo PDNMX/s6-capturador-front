@@ -18,7 +18,7 @@
           placeholder="Titulo*"
           formControlName="title"
         />
-        <label for="title">Título *</label>
+        <label for="title">Título de la contratación pública *</label>
         <app-input-validation [element]="title"></app-input-validation>
       </div>
       <div class="form-text">
@@ -38,7 +38,7 @@
           style="height: 100px"
           formControlName="description"
         ></textarea>
-        <label for="description">Descripción *</label>
+        <label for="description">Descripción de la contratación pública *</label>
         <app-input-validation [element]="description"></app-input-validation>
       </div>
       <div class="form-text">
@@ -56,15 +56,14 @@
             {{ d.title }}
           </option>
         </select>
-        <label for="">Estatus de la contratación pública *</label>
+        <label for="">Estado de la contratación pública *</label>
         <app-input-validation
           [element]="status"
           [message]="'Debe seleccionar un estatus de la contratación pública'"
         ></app-input-validation>
         <p class="mt-2">{{ getTenderStatusDesc(generalForm.value.status) }}</p>
         <div class="form-text">
-          El estatus actual de la contratación pública, desde la lista de código
-          cerrada
+          El estado actual de la contratación pública, desde la lista de código cerrada tenderStatus.
           <a
             href="https://standard.open-contracting.org/1.1/es/schema/codelists/#tender-status"
             target="_blank"
@@ -104,7 +103,7 @@
     </div>
 
     <fieldset class="border p-3 mb-3" formGroupName="value">
-      <legend class="w-auto px-1">Valor de la licitación</legend>
+      <legend class="w-auto px-1">Valor de la contratación pública</legend>
       <hr />
       <div class="row">
         <div class="col">
@@ -128,7 +127,7 @@
               placeholder="ID de Organización*"
               formControlName="amount"
             />
-            <label for="amount">Cantidad</label>
+            <label for="amount">Monto de la contratación pública</label>
             <!-- <app-input-validation [element]="amount"></app-input-validation> -->
           </div>
           <div class="form-text">Monto como una cifra.</div>
@@ -141,7 +140,7 @@
                 {{ m.title }}
               </option>
             </select>
-            <label for="currency">Moneda</label>
+            <label for="currency">Moneda de la contratación pública</label>
           </div>
           <div class="form-text">
             La moneda del monto, de la lista de código cerrada
@@ -156,7 +155,7 @@
     </fieldset>
 
     <fieldset class="border p-3 mb-3" formGroupName="minValue">
-      <legend class="w-auto px-1">Valor mínimo de contratación</legend>
+      <legend class="w-auto px-1">Valor mínimo de la contratación pública</legend>
       <hr />
       <div class="row">
         <div class="col">
@@ -179,7 +178,7 @@
               placeholder="ID de Organización*"
               formControlName="amount"
             />
-            <label for="amount">Cantidad</label>
+            <label for="amount">Monto del valor mínimo</label>
             <!-- <app-input-validation [element]="amount_min"></app-input-validation> -->
           </div>
           <div class="form-text">Monto como una cifra.</div>
@@ -192,7 +191,7 @@
                 {{ m.title }}
               </option>
             </select>
-            <label for="currency">Moneda</label>
+            <label for="currency">Moneda del valor mínimo</label>
           </div>
           <div class="form-text">
             La moneda del monto, de la lista de código cerrada
@@ -608,7 +607,7 @@
             type="date"
             formControlName="startDate"
           />
-          <label for="startDate">Fecha de inicio *</label>
+          <label for="startDate">Fecha inicial del periodo de la contratación pública *</label>
           <app-input-validation
             [element]="getControl('startDate')"
           ></app-input-validation>
@@ -624,7 +623,7 @@
             type="date"
             formControlName="endDate"
           />
-          <label for="endDate">Fecha de término *</label>
+          <label for="endDate">Fecha final del periodo de la contratación pública *</label>
           <app-input-validation
             [element]="getControl('endDate')"
           ></app-input-validation>
@@ -695,7 +694,7 @@
             data-sb-validations="required"
             formControlName="startDate"
           />
-          <label for="startDate" class="form-text">Fecha de inicio *</label>
+          <label for="startDate" class="form-text">Fecha inicial del periodo de solicitudes de aclaración *</label>
           <app-input-validation
             [element]="getControlEnquiryPeriod('startDate')"
           ></app-input-validation>
@@ -712,7 +711,7 @@
             data-sb-validations="required"
             formControlName="endDate"
           />
-          <label for="endDate">Fecha de término *</label>
+          <label for="endDate">Fecha final del periodo de solicitudes de aclaración *</label>
           <app-input-validation
             [element]="getControlEnquiryPeriod('endDate')"
           ></app-input-validation>
@@ -834,7 +833,7 @@
             type="date"
             formControlName="startDate"
           />
-          <label for="startDate">Fecha de inicio *</label>
+          <label for="startDate">Fecha inicial del periodo de evaluación y adjudicación *</label>
           <app-input-validation
             [element]="getControlAwardPeriod('startDate')"
           ></app-input-validation>
@@ -850,7 +849,7 @@
             type="date"
             formControlName="endDate"
           />
-          <label for="endDate">Fecha de termino *</label>
+          <label for="endDate">Fecha final del periodo de evaluación y adjudicación *</label>
           <app-input-validation
             [element]="getControlAwardPeriod('endDate')"
           ></app-input-validation>
@@ -869,7 +868,7 @@
             type="date"
             formControlName="maxExtentDate"
           />
-          <label for="maxExtentDate">Extension máxima</label>
+          <label for="maxExtentDate">Fecha límite del periodo de evaluacón y adjudicación</label>
           <!-- <app-input-validation
             [element]="getControlAwardPeriod('maxExtentDate')"
           ></app-input-validation> -->
@@ -913,7 +912,7 @@
             type="date"
             formControlName="startDate"
           />
-          <label for="startDate">Fecha de inicio</label>
+          <label for="startDate">Fecha inicial del contrato</label>
           <!-- <app-input-validation
             [element]="getControlContractPeriod('startDate')"
           ></app-input-validation> -->
@@ -929,7 +928,7 @@
             type="date"
             formControlName="endDate"
           />
-          <label for="endDate">Fecha de término</label>
+          <label for="endDate">Fecha final del contrato</label>
           <!-- <app-input-validation
             [element]="getControlContractPeriod('endDate')"
           ></app-input-validation> -->
@@ -948,7 +947,7 @@
             type="date"
             formControlName="maxExtentDate"
           />
-          <label for="maxExtentDate">Extension máxima</label>
+          <label for="maxExtentDate">Fecha límite del periodo del contrato</label>
           <!-- <app-input-validation
             [element]="getControlContractPeriod('maxExtentDate')"
           ></app-input-validation> -->

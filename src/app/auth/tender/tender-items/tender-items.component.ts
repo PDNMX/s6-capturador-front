@@ -76,9 +76,9 @@ export class TenderItemsComponent implements OnInit {
 
     this.additionalClassificationsArray.push(
       this.fb.group({
-        id: [id, Validators.required],
-        description: [description, Validators.required],
-        uri: [uri, Validators.required],
+        id: [id],
+        description: [description],
+        uri: [uri],
       })
     );
 
@@ -149,14 +149,14 @@ export class TenderItemsComponent implements OnInit {
         name: ['', [Validators.required]],
         value: this.fb.group({
           amount: ['', [Validators.required]],
-          netAmount: ['', [Validators.required]],
+          netAmount: [null],
           currency: ['MXN', [Validators.required]],
         }),
       }),
     });
 
     this.additionalClassificationsForm = this.fb.group({
-      data: [null, [Validators.required]],
+      data: [null],
     });
   }
 
