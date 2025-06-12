@@ -1,5 +1,5 @@
 <fieldset class="border p-3 mb-3">
-  <legend class="w-auto px-1">Desglose del presupuesto *</legend>
+  <legend class="w-auto px-1">Desglose presupuestario</legend>
   <p>
     Un desglose detallado del presupuesto por período y/o financiadores
     participantes.
@@ -58,12 +58,11 @@
           placeholder="Description"
           formControlName="description"
         />
-        <label for="description">Descripción *</label>
-        <app-input-validation [element]="description"></app-input-validation>
+        <label for="description">Descripción del desglose</label>
+        <!-- <app-input-validation [element]="description"></app-input-validation> -->
       </div>
       <div class="form-text">
-        La Contratación Plurianual es aquella que compromete recursos
-        presupuestales de más de un ejercicio fiscal.
+        Una breve descripción de texto libre de esta entrada de presupuesto.
       </div>
     </div>
 
@@ -77,9 +76,9 @@
           formControlName="uri"
         />
         <label for="BudgetBreakdownUri"
-          >Información Presupuestaria vinculada *</label
+          >URI de información vinculada de presupuesto</label
         >
-        <app-input-validation [element]="uri"></app-input-validation>
+        <!-- <app-input-validation [element]="uri"></app-input-validation> -->
       </div>
       <div class="form-text">
         Un URI que apunta directamente a una información legible por máquinas
@@ -100,7 +99,7 @@
             }})
           </option>
         </select>
-        <label for="sourceParty"> Actor fuente* </label>
+        <label for="sourceParty"> Actor fuente</label>
       </div>
       <div class="form-text">
         La organización u otro actor relacionado con esta entrada de
@@ -109,7 +108,7 @@
     </div>
 
     <fieldset class="border p-3 mb-3">
-      <legend class="w-auto px-1">Valor del desgloce</legend>
+      <legend class="w-auto px-1">Valor del desglose</legend>
       <p>
         Suficiencia Presupuestal autorizada para la Contratación Pública. Este
         dato se toma de la Orden de servicio donde se solicita la autorización
@@ -127,11 +126,7 @@
                 placeholder="Monto*"
                 formControlName="amount"
               />
-              <label for="amount">Monto *</label>
-              <app-input-validation [element]="amount"></app-input-validation>
-              <div class="invalid-feedback" data-sb-feedback="amount:required">
-                Monto * es requerido.
-              </div>
+              <label for="amount">Monto</label>
             </div>
             <div class="form-text">Monto como una cifra</div>
           </div>
@@ -162,7 +157,7 @@
     </fieldset>
 
     <fieldset class="border p-3 mb-3" formGroupName="period">
-      <legend class="w-auto px-1">Periodo del desgloce</legend>
+      <legend class="w-auto px-1">Periodo del desglose</legend>
       <p>
         Periodo de vigencia del presupuesto aprobado, este dato puede tormarse
         de la Orden de servicio donde se solicita la autorización de la
@@ -179,7 +174,7 @@
               formControlName="startDate"
               placeholder="dd-mm-yyyy"
             />
-            <label for="startDate">Fecha de inicio</label>
+            <label for="startDate">Fecha de inicial del periodo del desglose</label>
             <!-- <app-input-validation
               [element]="getControl('startDate')"
             ></app-input-validation> -->
@@ -199,10 +194,10 @@
               data-sb-validations="required"
               formControlName="endDate"
             />
-            <label for="endDate">Fecha de término</label>
-            <!-- <app-input-validation
+            <label for="endDate">Fecha final del periodo del desglose</label>
+            <app-input-validation
               [element]="getControl('endDate')"
-            ></app-input-validation> -->
+            ></app-input-validation>
           </div>
           <div class="form-text">
             Fecha de término del periodo. Cuando se conozca, debe proporcionarse
@@ -222,9 +217,9 @@
               formControlName="maxExtentDate"
             />
             <label for="maxExtentDate">Extensión máxima</label>
-            <!-- <app-input-validation
+            <app-input-validation
               [element]="getControl('maxExtentDate')"
-            ></app-input-validation> -->
+            ></app-input-validation>
           </div>
           <div class="form-text">
             El periodo no puede extenderse más allá de esta fecha. Este campo es
@@ -256,7 +251,7 @@
     </fieldset>
 
     <fieldset class="border p-3 mb-3">
-      <legend class="w-auto px-1">Líneas presupuestarias</legend>
+      <legend class="w-auto px-1">Líneas presupuestarias o partidas presupuestarias</legend>
       <p>Una lista de las líneas presupuestarias de este actor fuente.</p>
       <div class="row">
         <div class="col-12">
@@ -311,7 +306,7 @@
               formControlName="id"
               readonly
             />
-            <label for="BudgetLinesId">ID</label>
+            <label for="BudgetLinesId">Identificador de las partidas presupuestarias</label>
             <!-- <app-input-validation [element]="id"></app-input-validation> -->
           </div>
           <div class="col-md-6 form-floating mb-3">
@@ -322,13 +317,13 @@
               placeholder="Origin"
               formControlName="origin"
             />
-            <label for="BudgetLinesOrigin">Origen</label>
+            <label for="BudgetLinesOrigin">Origen de las partidas</label>
             <!-- <app-input-validation [element]="origin"></app-input-validation> -->
           </div>
         </div>
       </form>
       <fieldset class="border p-3 mb-3">
-        <legend class="w-auto px-1">Componentes</legend>
+        <legend class="w-auto px-1">Componentes de las partidas</legend>
         <p>
           Una lista de los componentes que constituyen el identificador para
           esta línea presupuestaria.
@@ -351,7 +346,7 @@
                         type="text"
                         class="form-control"
                         id="BudgetComponentsName"
-                        placeholder="Nombre"
+                        placeholder="Nombre del componente"
                         formControlName="name"
                       />
                       <!-- <app-input-validation
@@ -363,7 +358,7 @@
                         type="text"
                         class="form-control"
                         id="description"
-                        placeholder="Descripción"
+                        placeholder="Descripción del componente"
                         formControlName="description"
                       />
                       <!-- <app-input-validation
@@ -375,7 +370,7 @@
                         type="text"
                         class="form-control"
                         id="level"
-                        placeholder="Código"
+                        placeholder="Nivel del componente"
                         formControlName="level"
                       />
                       <!-- <app-input-validation
@@ -387,7 +382,7 @@
                         type="text"
                         class="form-control"
                         id="BudgetComponentsCode"
-                        placeholder="Código"
+                        placeholder="Código del componente"
                         formControlName="code"
                       />
                       <!-- <app-input-validation

@@ -21,6 +21,7 @@
             formControlName="projectID"
           />
           <label for="ProjectId">Identificador de proyecto *</label>
+          <app-input-validation [element]="projectID"></app-input-validation>
         </div>
         <div class="form-text">
           Número asignado por Compranet/Plataforma, al registrar la Contratación
@@ -56,7 +57,7 @@
           placeholder="Description"
           formControlName="description"
         />
-        <label for="Description">Fuente del Presupuesto *</label>
+        <label for="Description">Descripción de la fuente del presupuesto *</label>
         <app-input-validation [element]="description"></app-input-validation>
       </div>
       <div class="form-text">
@@ -73,7 +74,7 @@
           placeholder="URI"
           formControlName="uri"
         />
-        <label for="URI">Información vinculada de presupuesto *</label>
+        <label for="URI">URI de información vinculada de presupuesto *</label>
         <app-input-validation [element]="uri"></app-input-validation>
       </div>
       <div class="form-text">
@@ -125,7 +126,7 @@
                   {{ d.title }}
                 </option>
               </select>
-              <label for="currency">Moneda</label>
+              <label for="currency">Moneda *</label>
             </div>
             <div class="form-text">
               La moneda del monto, de la lista de código cerrada

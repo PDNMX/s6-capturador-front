@@ -32,6 +32,10 @@ export class PlanningBudgetComponent implements OnInit {
     return this.budgetForm.get('project') as FormControl;
   }
 
+  get projectID(): FormControl {
+    return this.budgetForm.get('projectID') as FormControl;
+  }
+
   get description(): FormControl {
     return this.budgetForm.get('description') as FormControl;
   }

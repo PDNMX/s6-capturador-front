@@ -129,7 +129,7 @@ export class PlanningRequestForQuotesItemsComponent implements OnInit {
     this.itemsForm = this.fb.group({
       description: ['', [Validators.required]],
       classification: [{}, [Validators.required]],
-      additionalClassifications: this.fb.array([], [Validators.required]),
+      additionalClassifications: this.fb.array([]),
       quantity: ['', [Validators.required, Validators.min(0)]],
       unit: this.fb.group({
         name: ['', [Validators.required]],
@@ -142,7 +142,7 @@ export class PlanningRequestForQuotesItemsComponent implements OnInit {
     });
 
     this.additionalClassificationsForm = this.fb.group({
-      data: [null, [Validators.required]],
+      data: [null],
     });
   }
 

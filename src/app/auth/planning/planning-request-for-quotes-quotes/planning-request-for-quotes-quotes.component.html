@@ -1,4 +1,3 @@
-
 <div class="content">
   <div class="container">
     <div class="row">
@@ -68,10 +67,7 @@
             style="height: 100px"
             formControlName="description"
           ></textarea>
-          <label for="description">Descripción *</label>
-          <div class="invalid-feedback" data-sb-feedback="description:required">
-            Descripción * es requerido.
-          </div>
+          <label for="description">Descripción</label>
         </div>
         <div class="form-text">
           Una descripción de los bienes, servicios u obras públicas a ser
@@ -89,10 +85,7 @@
               data-sb-validations="required"
               formControlName="date"
             />
-            <label for="date">Fecha de la cotización *</label>
-            <div class="invalid-feedback" data-sb-feedback="date:required">
-              Fecha de la cotización * es requerido.
-            </div>
+            <label for="date">Fecha de la cotización</label>
           </div>
           <div class="form-text">
             La fecha de la cotización. Se refiere a la fecha en la que se
@@ -110,13 +103,7 @@
                   data-sb-validations="required"
                   formControlName="amount"
                 />
-                <label for="amount">Cantidad *</label>
-                <div
-                  class="invalid-feedback"
-                  data-sb-feedback="amount:required"
-                >
-                  Cantidad * es requerido.
-                </div>
+                <label for="amount">Cantidad</label>
               </div>
               <div class="form-text">Monto como número.</div>
             </div>
@@ -128,7 +115,7 @@
                     {{ m.title }}
                   </option>
                 </select>
-                <label for="currency">Moneda *</label>
+                <label for="currency">Moneda</label>
               </div>
               <div class="form-text">
                 La moneda del monto, de la lista de código cerrada
@@ -175,9 +162,9 @@
                 formControlName="endDate"
               />
               <label for="endDate">Fecha de término</label>
-              <div class="invalid-feedback" data-sb-feedback="title:required">
-                Fecha de término * es requerido.
-              </div>
+              <app-input-validation
+                [element]="getControl('endDate')"
+              ></app-input-validation>
             </div>
             <div class="form-text">
               Fecha de término del periodo. Cuando se conozca, debe
@@ -197,9 +184,9 @@
                 formControlName="maxExtentDate"
               />
               <label for="maxExtentDate">Extension máxima</label>
-              <div class="invalid-feedback" data-sb-feedback="title:required">
-                Extension máxima * es requerido.
-              </div>
+              <app-input-validation
+                [element]="getControl('maxExtentDate')"
+              ></app-input-validation>
             </div>
             <div class="form-text">
               El periodo no puede extenderse más allá de esta fecha. Este campo
@@ -218,9 +205,6 @@
                 formControlName="durationInDays"
               />
               <label for="durationInDays">Duración (dias)</label>
-              <div class="invalid-feedback" data-sb-feedback="title:required">
-                Duración * es requerido.
-              </div>
             </div>
             <div class="form-text">
               La duración máxima de este período en días.
