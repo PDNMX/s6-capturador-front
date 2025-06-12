@@ -163,10 +163,10 @@ export class PlanningBudgetBudgetBreakdownComponent implements OnInit {
         currency: ['MXN', [Validators.required]],
       }),
       period: this.fb.group({
-        startDate: ['', [Validators.required]],
-        endDate: ['', [Validators.required]],
-        maxExtentDate: ['', [Validators.required]],
-        durationInDays: [, [Validators.required]],
+        startDate: [''],
+        endDate: [''],
+        maxExtentDate: [''],
+        durationInDays: [''],
       }, { validators: this.dateComparisonValidator() }),
       budgetLines: this.fb.array([]),
       sourceParty: null,
@@ -186,8 +186,8 @@ export class PlanningBudgetBudgetBreakdownComponent implements OnInit {
 
   initBudgetLinesForm(): void {
     this.budgetLinesForm = this.fb.group({
-      id: ['', [Validators.required]],
-      origin: ['', [Validators.required]],
+      id: [''],
+      origin: [''],
       components: this.fb.array([]),
     });
 
@@ -212,10 +212,10 @@ export class PlanningBudgetBudgetBreakdownComponent implements OnInit {
 
   initComponentsForm(): void {
     this.componentsForm = this.fb.group({
-      name: ['', [Validators.required]],
-      level: ['', [Validators.required]],
-      code: ['', [Validators.required]],
-      description: ['', [Validators.required]],
+      name: [''],
+      level: [''],
+      code: [''],
+      description: [''],
     });
   }
 
