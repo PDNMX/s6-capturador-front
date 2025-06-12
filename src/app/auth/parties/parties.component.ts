@@ -423,20 +423,15 @@ export class PartiesComponent implements OnInit {
     this.initForm();
     this.loadData();
   }
-
-  // Abrir modal para actor específico
   openActorModal(actorCode: string): void {
     this.selectedActor = actorCode;
     this.selectedActorTitle = this.getRoleTitle(actorCode);
     this.fieldVisibility = this.actorFieldMatrix[actorCode] || {};
     
-    // IMPORTANTE: Reiniciar completamente el formulario para que sea independiente
     this.initPartieForm();
     
-    // Resetear estado de secciones adicionales
     this.showAdditionalIdentifiersSection = false;
     
-    // Habilitar modo edición para mostrar componentes hijos
     this.editMode = true;
     
     // Abrir modal
@@ -509,13 +504,12 @@ export class PartiesComponent implements OnInit {
     console.log('Validando formulario:', this.partieForm.value);
     console.log('Campos visibles:', this.fieldVisibility);
 
-    // 1. VALIDAR INFORMACIÓN GENERAL 
     const generalErrors = this.validateGeneralSection();
     if (generalErrors.length > 0) {
       errors.push('• Información general: ' + generalErrors.join(', '));
     }
 
-    // 2. VALIDAR ADDRESS (si es visible)
+    // VALIDAR ADDRESS (si es visible)
     if (this.shouldShowField('address')) {
       const addressErrors = this.validateAddressSection();
       if (addressErrors.length > 0) {
@@ -523,7 +517,7 @@ export class PartiesComponent implements OnInit {
       }
     }
 
-    // 3. VALIDAR BENEFICIARIOS (solo si la sección está habilitada)
+    // VALIDAR BENEFICIARIOS (solo si la sección está habilitada)
     if (this.shouldShowField('beneficialOwners')) {
       const beneficiaryErrors = this.validateBeneficiariesSection();
       if (beneficiaryErrors.length > 0) {

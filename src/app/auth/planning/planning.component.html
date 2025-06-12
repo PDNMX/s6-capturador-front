@@ -166,6 +166,7 @@
           >
             <div class="form">
               <app-planning-request-for-quotes
+                #planningRequestForQuotesComponent
                 [requestForQuotesArray]="planningForm.value.requestForQuotes"
                 (addRequestForQuotes)="addRequestForQuotes($event)"
                 (deleteRequestForQuotes)="deleteRequestForQuotes($event)"

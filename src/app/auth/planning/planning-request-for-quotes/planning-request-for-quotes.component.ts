@@ -217,7 +217,7 @@ export class PlanningRequestForQuotesComponent implements OnInit {
       items: this.fb.array([]),
       invitedSuppliers: this.fb.array([]),
       quotes: this.fb.array([]),
-      uri: ['', Validators.required],
+      uri: [''],
     });
 
     this.initSelectForm();
@@ -259,4 +259,19 @@ export class PlanningRequestForQuotesComponent implements OnInit {
       }
     });
   }
+
+enableSaveFormButton(): boolean {
+  return (
+    this.requestForQuotesForm.valid &&
+    this.requestForQuotesForm.value.items?.length > 0 &&
+    this.requestForQuotesForm.value.invitedSuppliers?.length > 0
+  );
+}
+
+hasCurrentData(): boolean {
+  const form = this.requestForQuotesForm.value;
+  return !!(form.title || form.description || 
+           form.items?.length > 0 || 
+           form.invitedSuppliers?.length > 0);
+}
 }

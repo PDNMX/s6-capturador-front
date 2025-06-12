@@ -137,7 +137,9 @@
                   style="height: 100px"
                   formControlName="description"
                 ></textarea>
-                <label for="description">Descripción de solicitud de cotizaciones *</label>
+                <label for="description"
+                  >Descripción de solicitud de cotizaciones *</label
+                >
                 <app-input-validation
                   [element]="description"
                 ></app-input-validation>
@@ -174,7 +176,10 @@
                       data-sb-validations="required"
                       formControlName="startDate"
                     />
-                    <label for="startDate">Fecha inicial del periodo para recibir cotizaciones *</label>
+                    <label for="startDate"
+                      >Fecha inicial del periodo para recibir cotizaciones
+                      *</label
+                    >
                     <app-input-validation
                       [element]="getControl('startDate')"
                     ></app-input-validation>
@@ -194,7 +199,10 @@
                       data-sb-validations="required"
                       formControlName="endDate"
                     />
-                    <label for="endDate">Fecha final del periodo para recibir cotizaciones *</label>
+                    <label for="endDate"
+                      >Fecha final del periodo para recibir cotizaciones
+                      *</label
+                    >
                     <app-input-validation
                       [element]="getControl('endDate')"
                     ></app-input-validation>
@@ -216,7 +224,9 @@
                       data-sb-validations="required"
                       formControlName="maxExtentDate"
                     />
-                    <label for="maxExtentDate">Fecha límite del periodo para recibir cotizaciones</label>
+                    <label for="maxExtentDate"
+                      >Fecha límite del periodo para recibir cotizaciones</label
+                    >
                     <!-- <app-input-validation
                       [element]="getControl('maxExtentDate')"
                     ></app-input-validation> -->
@@ -347,6 +357,7 @@
                   type="button"
                   class="btn btn-danger btn-add"
                   (click)="addNewRequestForQuotes()"
+                  [disabled]="!enableSaveFormButton()"
                 >
                   Agregar solicitud
                 </button>

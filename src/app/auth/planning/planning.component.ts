@@ -4,6 +4,7 @@ import { ActivatedRoute } from '@angular/router';
 import { ApiService } from 'src/app/services/api.service';
 import { PlanningGeneralComponent } from './planning-general/planning-general.component';
 import { PlanningDocumentsComponent } from './planning-documents/planning-documents.component';
+import { PlanningRequestForQuotesComponent } from './planning-request-for-quotes/planning-request-for-quotes.component';
 import Swal from 'sweetalert2';
 
 @Component({
@@ -14,6 +15,7 @@ import Swal from 'sweetalert2';
 export class PlanningComponent implements OnInit {
   @ViewChild(PlanningGeneralComponent) planningGeneralComponent!: PlanningGeneralComponent;
   @ViewChild(PlanningDocumentsComponent) planningDocumentsComponent!: PlanningDocumentsComponent;
+  @ViewChild(PlanningRequestForQuotesComponent) planningRequestForQuotesComponent!: PlanningRequestForQuotesComponent;
   
   record_id = null;
   planningForm!: FormGroup;
@@ -212,35 +214,56 @@ export class PlanningComponent implements OnInit {
    * Valida las solicitudes de cotización de manera integral
    */
   private areRequestForQuotesValid(): boolean {
+    // Verificar si hay al menos una solicitud en el FormArray
     const requestForQuotes = this.requestForQuotesArray;
-    
-    // Debe haber al menos una solicitud de cotización
     if (requestForQuotes.length === 0) {
-      console.log('❌ No hay solicitudes de cotización');
+      //console.log('No hay solicitudes de cotización en el FormArray');
       return false;
     }
     
-    // Cada solicitud debe ser válida
+    // Verificar que cada solicitud en el FormArray sea válida
     const allRequestsValid = requestForQuotes.controls.every((ctrl: any) => {
       const isValid = ctrl.valid;
       if (!isValid) {
-        console.log('❌ Solicitud de cotización inválida:', ctrl.errors);
+        //console.log('Solicitud de cotización inválida en FormArray:', ctrl.errors);
       }
       return isValid;
     });
     
     if (!allRequestsValid) {
+      //console.log('Algunas solicitudes en el FormArray no son válidas');
       return false;
     }
     
-    // Verificar que cada solicitud tenga al menos un item (artículo)
+    // Verificar que cada solicitud tenga al menos un artículo
     const allHaveItems = requestForQuotes.value.every((request: any, index: number) => {
       const hasItems = request.items && request.items.length > 0;
       if (!hasItems) {
-        console.log(`❌ La solicitud de cotización ${index + 1} no tiene artículos`);
+        //console.log(`La solicitud de cotización ${index + 1} no tiene artículos`);
       }
       return hasItems;
     });
+    
+    // También validar el formulario actual del componente (si existe)
+    if (this.planningRequestForQuotesComponent) {
+      const currentFormValid = this.planningRequestForQuotesComponent.requestForQuotesForm.valid;
+      const currentFormHasItems = this.planningRequestForQuotesComponent.requestForQuotesForm.value.items?.length > 0;
+      const currentFormHasSuppliers = this.planningRequestForQuotesComponent.requestForQuotesForm.value.invitedSuppliers?.length > 0;
+      
+      console.log('Estado del formulario actual de solicitudes:');
+      console.log('Formulario válido:', currentFormValid);
+      console.log('iene artículos:', currentFormHasItems);
+      console.log('Tiene proveedores invitados:', currentFormHasSuppliers);
+      
+      // Si el formulario actual tiene datos pero no está completo, es inválido
+      const hasCurrentData = this.planningRequestForQuotesComponent.requestForQuotesForm.value.title || 
+                             this.planningRequestForQuotesComponent.requestForQuotesForm.value.description;
+      
+      if (hasCurrentData && (!currentFormValid || !currentFormHasItems || !currentFormHasSuppliers)) {
+        console.log('El formulario actual de solicitudes tiene datos pero está incompleto');
+        return false;
+      }
+    }
     
     return allHaveItems;
   }
@@ -275,23 +298,26 @@ export class PlanningComponent implements OnInit {
    * Método principal de validación y envío
    */
   submit(): void {
-    console.log('=== INICIANDO VALIDACIÓN COMPLETA ===');
+/*     console.log('=== INICIANDO VALIDACIÓN COMPLETA ===');
     console.log('Estado del formulario principal:', this.planningForm.valid);
     console.log('Estructura del formulario:');
     console.log('- Documents array length:', this.documentsArray.length);
     console.log('- Request for quotes array length:', this.requestForQuotesArray.length);
-    console.log('- Budget valid:', this.budgetForm.valid);
+    console.log('- Budget valid:', this.budgetForm.valid); */
     
     // Verificar que los ViewChild estén disponibles
     if (!this.planningGeneralComponent) {
-      console.warn('⚠️ PlanningGeneralComponent no está disponible');
+      console.warn('PlanningGeneralComponent no está disponible');
     }
     if (!this.planningDocumentsComponent) {
-      console.warn('⚠️ PlanningDocumentsComponent no está disponible');
+      console.warn('PlanningDocumentsComponent no está disponible');
+    }
+    if (!this.planningRequestForQuotesComponent) {
+      console.warn('PlanningRequestForQuotesComponent no está disponible');
     }
     
     const sectionsStatus = this.validateAllSections();
-    console.log('📋 Estado de validación detallado:', sectionsStatus);
+    //console.log('Estado de validación detallado:', sectionsStatus);
     
     if (!sectionsStatus.isValid) {
       const missingSectionsText = sectionsStatus.missingSections.join(', ');
@@ -308,13 +334,13 @@ export class PlanningComponent implements OnInit {
       // Marcar como touched solo las secciones inválidas
       this.markInvalidSectionsAsTouched(sectionsStatus);
       
-      console.log('❌ Validación fallida. Secciones faltantes:', missingSectionsText);
+      //console.log('Validación fallida. Secciones faltantes:', missingSectionsText);
       return;
     }
 
     // Todo válido, proceder con el guardado
-    console.log('✅ TODAS LAS VALIDACIONES PASARON');
-    console.log('Datos a enviar:', this.planningForm.value);
+  /*   console.log('TODAS LAS VALIDACIONES PASARON');
+    console.log('Datos a enviar:', this.planningForm.value); */
     
     this.api
       .postMethod({ ...this.planningForm.value }, `/planning/${this.record_id}`)

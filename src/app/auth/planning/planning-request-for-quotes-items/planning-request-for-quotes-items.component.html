@@ -99,7 +99,7 @@
 
       <div class="row">
         <div class="col-12">
-          <label for="type">Clasificación</label>
+          <label for="type">Clasificación *</label>
         </div>
         <div class="form-floating col mb-2">
           <select class="form-select" formControlName="classification">
@@ -308,6 +308,7 @@
             type="button"
             class="btn btn-danger btn-add"
             (click)="addNewItem()"
+            [disabled]="!itemsForm.valid"
           >
             Agregar artículo
           </button>
