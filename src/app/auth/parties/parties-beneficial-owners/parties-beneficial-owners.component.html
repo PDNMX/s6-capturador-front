@@ -1,7 +1,7 @@
 <div class="container">
   <div class="row">
     <div class="col">
-      <h3>Beneficiarios</h3>
+      <h3>Beneficiarios finales o controladores</h3>
       <hr />
       <p>
         Receptor del pago: Es una persona física o moral la cual recibe un pago
@@ -69,9 +69,11 @@
 
   <form [formGroup]="beneficialOwnersForm">
     <fieldset class="border p-3 mb-3" formGroupName="identifier">
-      <legend class="w-auto px-1">Identificador</legend>
+      <legend class="w-auto px-1">
+        Identificador fiscal o tributario del beneficiario final o controlador
+      </legend>
       <div class="row">
-        <div class="form-floating col-6 mb-5">
+        <div class="form-floating col-6 mb-3">
           <input
             class="form-control"
             id="scheme"
@@ -80,11 +82,15 @@
             placeholder="Esquema*"
             formControlName="scheme"
           />
-          <label for="scheme">Esquema *</label>
+          <label for="scheme"
+            >Esquema del identificador fiscal o tributario del beneficiario
+            final o controlador *</label
+          >
+          <div class="form-text">Tipo de documento de identificación.</div>
           <app-input-validation [element]="schema"></app-input-validation>
         </div>
 
-        <div class="form-floating col-6 mb-5">
+        <div class="form-floating col-6 mb-3">
           <input
             class="form-control"
             id="id"
@@ -94,13 +100,17 @@
             formControlName="id"
           />
           <label for="id">RFC *</label>
+          <div class="form-text">
+            El identificador fiscal o tributario del beneficiario final o
+            controlador.
+          </div>
           <app-input-validation [element]="id"></app-input-validation>
         </div>
       </div>
     </fieldset>
 
     <div class="row">
-      <div class="form-floating col mb-5">
+      <div class="form-floating col mb-3">
         <input
           class="form-control"
           id="name"
@@ -110,12 +120,13 @@
           formControlName="name"
         />
         <label for="name">Nombre *</label>
+        <div class="form-text">El nombre completo del beneficiario final.</div>
         <app-input-validation [element]="name"></app-input-validation>
       </div>
     </div>
 
     <div class="row">
-      <div class="form-floating col mb-5">
+      <div class="form-floating col mb-3">
         <input
           class="form-control"
           id="nationality"
@@ -125,12 +136,15 @@
           formControlName="nationality"
         />
         <label for="nationality">Nacionalidad *</label>
+        <div class="form-text">
+          La nacionalidad del beneficiario final o controlador.
+        </div>
         <app-input-validation [element]="nationality"></app-input-validation>
       </div>
     </div>
 
     <div class="row">
-      <div class="form-floating col mb-5">
+      <div class="form-floating col mb-3">
         <input
           class="form-control"
           id="email"
@@ -140,12 +154,15 @@
           formControlName="email"
         />
         <label for="email">Correo electrónico *</label>
+        <div class="form-text">
+          Dirección de correo electrónico válida para contacto
+        </div>
         <app-input-validation [element]="email"></app-input-validation>
       </div>
     </div>
 
     <div class="row">
-      <div class="form-floating col mb-5">
+      <div class="form-floating col mb-3">
         <input
           class="form-control"
           id="telephone"
@@ -155,12 +172,15 @@
           formControlName="telephone"
         />
         <label for="telephone">Teléfono *</label>
+        <div class="form-text">
+          Número telefónico con código de área (ej: 55-1234-5678)
+        </div>
         <app-input-validation [element]="telephone"></app-input-validation>
       </div>
     </div>
 
     <div class="row">
-      <div class="form-floating col mb-5">
+      <div class="form-floating col mb-3">
         <input
           class="form-control"
           id="faxNumber"
@@ -170,14 +190,20 @@
           formControlName="faxNumber"
         />
         <label for="faxNumber">Número de fax *</label>
+        <div class="form-text">
+          Número de fax (opcional, incluir código de área)
+        </div>
         <app-input-validation [element]="faxNumber"></app-input-validation>
       </div>
     </div>
     <fieldset class="border p-3 mb-3" formGroupName="address">
       <legend class="w-auto px-1">Domicilio</legend>
-
+      <p>
+        Esta sección corresponde al domicilio del beneficiario final o
+        controlador
+      </p>
       <div class="row">
-        <div class="form-floating col mb-5">
+        <div class="form-floating col mb-3">
           <input
             class="form-control"
             id="streetAddress"
@@ -187,6 +213,9 @@
             formControlName="streetAddress"
           />
           <label for="streetAddress">Calle y número *</label>
+          <div class="form-text">
+            Calle y número del domicilio del beneficiario final o controlador.
+          </div>
           <app-input-validation
             [element]="streetAddress"
           ></app-input-validation>
@@ -194,7 +223,7 @@
       </div>
 
       <div class="row">
-        <div class="form-floating col mb-5">
+        <div class="form-floating col mb-3">
           <input
             class="form-control"
             id="locality"
@@ -204,12 +233,15 @@
             formControlName="locality"
           />
           <label for="locality">Localidad *</label>
+          <div class="form-text">
+            Nombre de la ciudad o municipio donde reside.
+          </div>
           <app-input-validation [element]="locality"></app-input-validation>
         </div>
       </div>
 
       <div class="row">
-        <div class="form-floating col mb-5">
+        <div class="form-floating col mb-3">
           <input
             class="form-control"
             id="region"
@@ -219,12 +251,16 @@
             formControlName="region"
           />
           <label for="region">Región *</label>
+          <div class="form-text">
+            Estado de la República Mexicana (ej: Ciudad de México, Jalisco,
+            Nuevo León).
+          </div>
           <app-input-validation [element]="region"></app-input-validation>
         </div>
       </div>
 
       <div class="row">
-        <div class="form-floating col mb-5">
+        <div class="form-floating col mb-3">
           <input
             class="form-control"
             id="postalCode"
@@ -234,12 +270,15 @@
             formControlName="postalCode"
           />
           <label for="postalCode">Código postal *</label>
+          <div class="form-text">
+            El código postal correspondiente a este domicilio.
+          </div>
           <app-input-validation [element]="postalCode"></app-input-validation>
         </div>
       </div>
 
       <div class="row">
-        <div class="form-floating col mb-5">
+        <div class="form-floating col mb-3">
           <input
             class="form-control"
             id="countryName"
@@ -249,6 +288,7 @@
             formControlName="countryName"
           />
           <label for="countryName">País *</label>
+          <div class="form-text">Nombre del país del domicilio.</div>
           <app-input-validation [element]="countryName"></app-input-validation>
         </div>
       </div>
