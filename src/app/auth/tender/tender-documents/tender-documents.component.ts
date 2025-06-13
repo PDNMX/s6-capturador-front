@@ -47,8 +47,7 @@ export class TenderDocumentsComponent implements OnInit, OnChanges {
     'technicalOpeningCertificate',
     'financialOpeningCertificate',
     'quote',
-    'evaluationResult',
-    'contractGuarantees'
+    'evaluationResult'
   ];
 
   documentForm!: FormGroup;

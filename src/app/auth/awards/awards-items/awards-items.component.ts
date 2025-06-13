@@ -107,9 +107,9 @@ export class AwardsItemsComponent implements OnInit {
   
     this.additionalClassificationsArray.push(
       this.fb.group({
-        id: [id, Validators.nullValidator],
-        description: [description, Validators.nullValidator],
-        uri: [uri, Validators.nullValidator],
+        id: [id],
+        description: [description],
+        uri: [uri],
       })
     );
   
@@ -162,7 +162,7 @@ export class AwardsItemsComponent implements OnInit {
     this.itemsForm = this.fb.group({
       description: ['', [Validators.required]],
       classification: [null, [Validators.required]],
-      additionalClassifications: this.fb.array([], [Validators.nullValidator]),
+      additionalClassifications: this.fb.array([]),
       quantity: ['', [Validators.required]],
       unit: this.fb.group({
         name: ['', [Validators.required]],
@@ -174,7 +174,7 @@ export class AwardsItemsComponent implements OnInit {
     });
 
     this.additionalClassificationsForm = this.fb.group({
-      data: [null, [Validators.required]],
+      data: [null],
     });
   }
   selectChange(): void {

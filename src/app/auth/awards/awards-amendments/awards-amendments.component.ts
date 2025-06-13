@@ -79,8 +79,8 @@ export class AwardsAmendmentsComponent implements OnInit {
       date: ['', Validators.required],
       rationale: ['', Validators.required],
       description: ['', Validators.required],
-      amendsReleaseID: ['', Validators.nullValidator],
-      releaseID: ['', Validators.nullValidator],
+      amendsReleaseID: [null],
+      releaseID: [null],
     });
   }
 
