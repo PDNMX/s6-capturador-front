@@ -37,13 +37,13 @@ export class PartiesComponent implements OnInit {
     'techArea',        // Área técnica
     'contractAdmin',   // Administrador del contrato
     'payer',           // Emisor del pago
-    'reviewBody'       // Órgano de revisión
+    'reviewBody',       // Órgano de revisión
+    'funder'          // Entidad financiera
   ];
 
   private externalActorCodes = [
     'supplier',        // Proveedor
     'tenderer',        // Licitante
-    'funder',          // Entidad financiera
     'enquirer',        // Persona que solicita información
     'payee',           // Receptor del pago
     'interestedParty', // Parte interesada

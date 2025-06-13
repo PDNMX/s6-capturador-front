@@ -175,13 +175,13 @@ export class AwardsGeneralComponent implements OnInit {
       date: ['', [Validators.required]],
       value: this.fb.group({
         amount: ['', [Validators.required]],
-        currency: ['', [Validators.required]],
+        currency: ['MXN', [Validators.required]],
       }),
       contractPeriod: this.fb.group({
         startDate: ['', [Validators.required]],
         endDate: ['', [Validators.required]],
-        maxExtentDate: ['', [Validators.nullValidator]],
-        durationInDays: ['', [Validators.nullValidator]],
+        maxExtentDate: [null],
+        durationInDays: [null],
       }, { validators: this.dateComparisonValidator() }),
     });
   }

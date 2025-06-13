@@ -116,22 +116,19 @@ export class TenderComponent implements OnInit {
     this.tenderForm = this.fb.group({
       tenderers: this.fb.array([], [Validators.required]),
       documents: this.fb.array([], [Validators.required]),
-      milestones: this.fb.array([]), // Sin validación requerida
-      amendments: this.fb.array([]), // Sin validación requerida
-      clarificationMeetings: this.fb.array([]), // Sin validación requerida
+      milestones: this.fb.array([]),
+      amendments: this.fb.array([]),
+      clarificationMeetings: this.fb.array([]),
       items: this.fb.array([], [Validators.required]),
     });
   }
 
-  /**
-   * Valida solo las secciones que son obligatorias
-   */
   validateRequiredSections(): { isValid: boolean; errors: string[] } {
     const errors: string[] = [];
     this.sectionsWithErrors = {};
 
-    // Validar Información General (campos del formulario principal)
-    const generalFields = ['title', 'description', 'budget', 'status']; // Ajusta según tus campos
+    // Validamos Información General
+    const generalFields = ['title', 'description', 'budget', 'status'];
     const hasGeneralData = generalFields.some(field => 
       this.tenderForm.get(field) && this.tenderForm.get(field)?.value
     );
@@ -165,17 +162,12 @@ export class TenderComponent implements OnInit {
       this.sectionsWithErrors['documents'] = true;
     }
 
-    // NO validamos: Juntas de aclaraciones, Hitos, Modificaciones (son opcionales)
-
     return {
       isValid: errors.length === 0,
       errors
     };
   }
 
-  /**
-   * Limpia el error de una sección específica
-   */
   clearSectionError(section: string): void {
     if (this.sectionsWithErrors[section]) {
       delete this.sectionsWithErrors[section];
@@ -216,6 +208,7 @@ export class TenderComponent implements OnInit {
         icon: 'warning',
         title: 'Formulario incompleto',
         html: htmlContent,
+        footer: 'Revisa cada pestaña y asegúrate de completar todos los campos obligatorios.',
         confirmButtonText: 'Aceptar',
         confirmButtonColor: '#ffc107',
       });

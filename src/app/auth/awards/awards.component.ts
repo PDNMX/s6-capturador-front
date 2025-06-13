@@ -4,6 +4,7 @@ import { FormBuilder, FormGroup, Validators, FormArray } from '@angular/forms';
 import { ApiService } from 'src/app/services/api.service';
 import { ActivatedRoute } from '@angular/router';
 import Swal from 'sweetalert2';
+
 @Component({
   selector: 'app-awards',
   templateUrl: './awards.component.html',
@@ -18,25 +19,10 @@ export class AwardsComponent implements OnInit {
 
   isSaving: boolean = false;
   savingMessage: string = '';
-  /*   data: any;
-  data1: any;
-  savingMessage: string = '';
-  recordId: string = '';
 
-  //Almacenar los datos temporalmente para cada sección
-
-  tempAwards: any = {
-    suppliers: [],
-    items: [],
-    documents: [],
-    amendments: [],
-  };
-
-  awards: FormGroup = new FormGroup({});
-  suppliers: FormGroup = new FormGroup({});
-  items: FormGroup = new FormGroup({});
-  documents: FormGroup = new FormGroup({});
-  amendments: FormGroup = new FormGroup({}); */
+  // Propiedades para manejar errores de validación
+  validationErrors: string[] = [];
+  sectionsWithErrors: { [key: string]: boolean } = {};
 
   constructor(
     private fb: FormBuilder,
@@ -64,19 +50,15 @@ export class AwardsComponent implements OnInit {
 
   get suppliersArray() {
     return this.awardForm.controls['suppliers'] as FormArray;
-    //return this.awardForm.get('suppliers') as FormArray;
   }
 
   addSupplier(opt: any): void {
     this.suppliersArray.push(this.fb.group({ ...opt }));
-    /* const suppliersArray = this.awardForm.get('suppliers') as FormArray;
-    suppliersArray.push(this.fb.group(newSupplier)); */
+    this.clearSectionError('suppliers');
   }
 
   deleteSupplier(index: number): void {
     this.suppliersArray.removeAt(index);
-    /*  const suppliersArray = this.awardForm.get('suppliers') as FormArray;
-    suppliersArray.removeAt(index); */
   }
 
   saveGeneralDataForm(data: any): void {
@@ -84,6 +66,7 @@ export class AwardsComponent implements OnInit {
       ...this.awardForm.controls,
       ...data,
     });
+    this.clearSectionError('general');
   }
 
   get itemsArray() {
@@ -92,6 +75,7 @@ export class AwardsComponent implements OnInit {
 
   addItem(opt: any): void {
     this.itemsArray.push(opt);
+    this.clearSectionError('items');
   }
 
   deleteItem(index: number): void {
@@ -104,6 +88,7 @@ export class AwardsComponent implements OnInit {
 
   addDocument(opt: any): void {
     this.documentsarray.push(opt);
+    this.clearSectionError('documents');
   }
 
   deleteDocument(index: number): void {
@@ -116,51 +101,156 @@ export class AwardsComponent implements OnInit {
 
   addAmendment(opt: any): void {
     this.amendmentsarray.push(opt);
+    this.clearSectionError('amendments');
   }
 
   deleteAmendment(index: number): void {
     this.amendmentsarray.removeAt(index);
   }
 
-  saveAward(): void {
+  validateRequiredSections(): { isValid: boolean; errors: string[] } {
+    const errors: string[] = [];
+    this.sectionsWithErrors = {};
+
+    // Validar Información General - verificar los campos específicos del formulario
+    const requiredGeneralFields = ['id', 'status', 'title', 'description', 'rationale', 'date'];
+    const hasGeneralData = requiredGeneralFields.every(field => {
+      const control = this.awardForm.get(field);
+      return control && control.value && control.value.toString().trim() !== '';
+    });
+
+    // Verificar también los campos anidados (value y contractPeriod)
+    const valueGroup = this.awardForm.get('value');
+    const hasValueData = valueGroup && 
+      valueGroup.get('amount')?.value && 
+      valueGroup.get('currency')?.value;
+
+    const contractPeriodGroup = this.awardForm.get('contractPeriod');
+    const hasContractPeriodData = contractPeriodGroup && 
+      contractPeriodGroup.get('startDate')?.value && 
+      contractPeriodGroup.get('endDate')?.value;
+    
+    if (!hasGeneralData || !hasValueData || !hasContractPeriodData) {
+      errors.push('Información General');
+      this.sectionsWithErrors['general'] = true;
+    }
+
     const suppliers = this.suppliersArray;
-    const items = this.itemsArray;
-    const documents = this.documentsarray;
-    const amendments = this.amendmentsarray;
-  
     const validSuppliers = suppliers.length > 0 && suppliers.controls.every((ctrl) => ctrl.valid);
+    if (!validSuppliers) {
+      errors.push('Proveedores');
+      this.sectionsWithErrors['suppliers'] = true;
+    }
+
+    const items = this.itemsArray;
     const validItems = items.length > 0 && items.controls.every((ctrl) => ctrl.valid);
+    if (!validItems) {
+      errors.push('Artículos');
+      this.sectionsWithErrors['items'] = true;
+    }
+
+    const documents = this.documentsarray;
     const validDocuments = documents.length > 0 && documents.controls.every((ctrl) => ctrl.valid);
+    if (!validDocuments) {
+      errors.push('Documentos');
+      this.sectionsWithErrors['documents'] = true;
+    }
+
+    const amendments = this.amendmentsarray;
     const validAmendments = amendments.length > 0 && amendments.controls.every((ctrl) => ctrl.valid);
-  
-    if (
-      !this.awardForm.valid ||
-      !validSuppliers ||
-      !validItems ||
-      !validDocuments ||
-      !validAmendments
-    ) {
+    if (!validAmendments) {
+      errors.push('Modificaciones');
+      this.sectionsWithErrors['amendments'] = true;
+    }
+
+    return {
+      isValid: errors.length === 0,
+      errors
+    };
+  }
+
+  clearSectionError(section: string): void {
+    if (this.sectionsWithErrors[section]) {
+      delete this.sectionsWithErrors[section];
+      this.validationErrors = this.validationErrors.filter(error => {
+        const sectionNames: { [key: string]: string } = {
+          'general': 'Información General',
+          'suppliers': 'Proveedores',
+          'items': 'Artículos',
+          'documents': 'Documentos',
+          'amendments': 'Modificaciones'
+        };
+        return error !== sectionNames[section];
+      });
+    }
+  }
+
+  saveAward(): void {
+    // Limpiar errores previos
+    this.validationErrors = [];
+    this.sectionsWithErrors = {};
+
+    // Validar todas las secciones requeridas
+    const validation = this.validateRequiredSections();
+
+    if (!validation.isValid) {
+      this.validationErrors = validation.errors;
+
+      // Crear lista HTML para SweetAlert2
+      const errorsList = validation.errors.map(error => `• ${error}`).join('<br>');
+      
+      const htmlContent = `
+        <div style="text-align: left;">
+          <strong style="color: #dc3545;">Secciones pendientes:</strong><br><br>
+          <div style="color: #dc3545;">${errorsList}</div>
+        </div>
+      `;
+
       Swal.fire({
         icon: 'warning',
         title: 'Formulario incompleto',
-        text: 'Por favor, asegúrate de completar todos los campos obligatorios: Proveedores, Artículos, Documentos y Modificaciones.',
+        html: htmlContent,
         confirmButtonText: 'Aceptar',
         confirmButtonColor: '#ffc107',
       });
-  
-      this.awardForm.markAllAsTouched();
-      suppliers.controls.forEach((ctrl) => ctrl.markAllAsTouched());
-      items.controls.forEach((ctrl) => ctrl.markAllAsTouched());
-      documents.controls.forEach((ctrl) => ctrl.markAllAsTouched());
-      amendments.controls.forEach((ctrl) => ctrl.markAllAsTouched());
-  
+
+      // Marcar como touched solo las secciones con errores
+      if (this.sectionsWithErrors['general']) {
+        this.awardForm.markAllAsTouched();
+      }
+      if (this.sectionsWithErrors['suppliers']) {
+        this.suppliersArray.controls.forEach((ctrl) => ctrl.markAllAsTouched());
+      }
+      if (this.sectionsWithErrors['items']) {
+        this.itemsArray.controls.forEach((ctrl) => ctrl.markAllAsTouched());
+      }
+      if (this.sectionsWithErrors['documents']) {
+        this.documentsarray.controls.forEach((ctrl) => ctrl.markAllAsTouched());
+      }
+      if (this.sectionsWithErrors['amendments']) {
+        this.amendmentsarray.controls.forEach((ctrl) => ctrl.markAllAsTouched());
+      }
+
       return;
     }
-  
+
+    // Todo válido, proceder con el guardado
     const awards = this.awardsArray;
     awards.push(this.awardForm);
     this.saveData();
-  
+
+    // Mostrar mensaje de éxito
+    Swal.fire({
+      icon: 'success',
+      title: '¡Éxito!',
+      text: 'La adjudicación se ha guardado correctamente',
+      confirmButtonText: 'Aceptar',
+      confirmButtonColor: '#28a745',
+    });
+
+    // Limpiar errores y resetear formulario
+    this.validationErrors = [];
+    this.sectionsWithErrors = {};
     this.initAwardForm();
     this.editMode = false;
   }
@@ -168,6 +258,9 @@ export class AwardsComponent implements OnInit {
   cancelAward(): void {
     this.editMode = false;
     this.initAwardForm();
+    // Limpiar errores al cancelar
+    this.validationErrors = [];
+    this.sectionsWithErrors = {};
   }
 
   loadData(): void {
@@ -198,7 +291,6 @@ export class AwardsComponent implements OnInit {
   ngOnInit(): void {
     this.route.paramMap.subscribe((params: any) => {
       this.record_id = params.get('id');
-      //this.loadExistingData();
     });
 
     this.initForm();
@@ -207,12 +299,21 @@ export class AwardsComponent implements OnInit {
 
   initAwardForm(): void {
     this.awardForm = this.fb.group({
+      id: ['', Validators.required],
+      status: ['', Validators.required],
       title: ['', Validators.required],
       description: ['', Validators.required],
-      date: [''],
+      rationale: ['', Validators.required],
+      date: ['', Validators.required],
       value: this.fb.group({
-        amount: [''],
-        currency: [''],
+        amount: ['', Validators.required],
+        currency: ['MXN', [Validators.required]],
+      }),
+      contractPeriod: this.fb.group({
+        startDate: ['', Validators.required],
+        endDate: ['', Validators.required],
+        maxExtentDate: [null],
+        durationInDays: [null],
       }),
       suppliers: this.fb.array([], [Validators.required]),
       items: this.fb.array([], [Validators.required]),
@@ -227,7 +328,7 @@ export class AwardsComponent implements OnInit {
     });
     this.initAwardForm();
   }
-  //Metodo del mensaje guardando
+
   showSavingMessage() {
     this.isSaving = true;
     this.savingMessage = 'Guardando adjudicación...';
@@ -255,6 +356,13 @@ export class AwardsComponent implements OnInit {
           if (r.error) {
             console.error('Error:', r.message);
             this.savingMessage = 'Error: ' + r.message;
+            Swal.fire({
+              icon: 'error',
+              title: 'Error',
+              text: r.message,
+              confirmButtonText: 'Aceptar',
+              confirmButtonColor: '#dc3545',
+            });
           } else {
             this.loadData(); // Recargar los datos después de guardar
             this.savingMessage = 'Datos guardados con éxito';
@@ -262,14 +370,21 @@ export class AwardsComponent implements OnInit {
         },
         error: (err) => {
           console.error('Error HTTP:', err);
-          this.savingMessage =
-            'Error de conexión. Por favor, intente de nuevo.';
+          this.savingMessage = 'Error de conexión. Por favor, intente de nuevo.';
+          Swal.fire({
+            icon: 'error',
+            title: 'Error de conexión',
+            text: 'Por favor, intente de nuevo.',
+            confirmButtonText: 'Aceptar',
+            confirmButtonColor: '#dc3545',
+          });
         },
         complete: () => {
           this.isSaving = false;
         },
       });
   }
+
   confirmAndDeleteAward(index: number): void {
     Swal.fire({
       text: '¿Deseas eliminar esta adjudicación?',
