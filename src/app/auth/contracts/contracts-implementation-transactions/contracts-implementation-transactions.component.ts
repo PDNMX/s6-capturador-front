@@ -10,6 +10,7 @@ import { ActivatedRoute } from '@angular/router';
 import { ApiService, IPartieList } from 'src/app/services/api.service';
 import { ImplementationStatus, Currency, PaymentMethods } from 'src/utils';
 import Swal from 'sweetalert2';
+
 @Component({
   selector: 'app-contracts-implementation-transactions',
   templateUrl: './contracts-implementation-transactions.component.html',
@@ -56,6 +57,7 @@ export class ContractsImplementationTransactionsComponent implements OnInit {
 
     this.initForm();
   }
+
   initForm(): void {
     this.transactionsForm = this.fb.group({
       source: ['', Validators.required],
@@ -65,12 +67,11 @@ export class ContractsImplementationTransactionsComponent implements OnInit {
         amount: ['', Validators.required],
         currency: ['', Validators.required],
       }),
-      payer: [null, Validators.required],
-      payee: [null, Validators.required],
+      payer: [[], Validators.required],
+      payee: [[], Validators.required],
       uri: [
-        '',
+        null,
         [
-          Validators.required,
           Validators.pattern(
             /^https?:\/\/(?:[a-zA-Z0-9\-._~%!$&'()*+,;=:@]+|%[0-9A-Fa-f]{2})*(?:\/(?:[a-zA-Z0-9\-._~%!$&'()*+,;=:@]+|%[0-9A-Fa-f]{2})*)*(?:\?(?:[a-zA-Z0-9\-._~%!$&'()*+,;=:@/?]+|%[0-9A-Fa-f]{2})*)?(?:#(?:[a-zA-Z0-9\-._~%!$&'()*+,;=:@/?]+|%[0-9A-Fa-f]{2})*)?$/
           ),
@@ -98,6 +99,11 @@ export class ContractsImplementationTransactionsComponent implements OnInit {
     return this.transactionsForm.get('uri') as FormControl;
   }
 
+  // Método agregado para obtener títulos de roles
+  getPartiesListTitle(roles: Array<string>): string {
+    return this.api.getPartiesListTitle(roles);
+  }
+
   getPaymentMethodDesc(code: string): string {
     let desc = '';
     this.paymentMethods.forEach((method) => {
@@ -112,6 +118,64 @@ export class ContractsImplementationTransactionsComponent implements OnInit {
   }
 
   addNewTransactions(): void {
+    // Validaciones agregadas similares al componente de suppliers
+    if (this.payers.length === 0) {
+      Swal.fire({
+        icon: 'info',
+        title: 'Sin emisores de pago',
+        text: 'No existen emisores de pago registrados en la sección de "Actores".',
+        confirmButtonText: 'Aceptar',
+        confirmButtonColor: '#0d6efd',
+      });
+      return;
+    }
+
+    if (this.payee.length === 0) {
+      Swal.fire({
+        icon: 'info',
+        title: 'Sin receptores de pago',
+        text: 'No existen receptores de pago registrados en la sección de "Actores".',
+        confirmButtonText: 'Aceptar',
+        confirmButtonColor: '#0d6efd',
+      });
+      return;
+    }
+
+    if (this.transactionsForm.invalid) {
+      Swal.fire({
+        icon: 'error',
+        title: 'Error',
+        text: 'Debe completar todos los campos requeridos.',
+        confirmButtonText: 'Aceptar',
+        confirmButtonColor: '#dc3545',
+      });
+      return;
+    }
+
+    // Validar que se haya seleccionado un payer
+    if (!this.transactionsForm.get('payer')?.value || this.transactionsForm.get('payer')?.value.length === 0) {
+      Swal.fire({
+        icon: 'error',
+        title: 'Error',
+        text: 'Debe seleccionar un emisor del pago.',
+        confirmButtonText: 'Aceptar',
+        confirmButtonColor: '#dc3545',
+      });
+      return;
+    }
+
+    // Validar que se haya seleccionado un payee
+    if (!this.transactionsForm.get('payee')?.value || this.transactionsForm.get('payee')?.value.length === 0) {
+      Swal.fire({
+        icon: 'error',
+        title: 'Error',
+        text: 'Debe seleccionar un receptor del pago.',
+        confirmButtonText: 'Aceptar',
+        confirmButtonColor: '#dc3545',
+      });
+      return;
+    }
+
     this.mostrarSpinner = true;
     this.addTransaction.emit(this.transactionsForm);
     console.log(this.transactionsForm.value);
@@ -121,6 +185,7 @@ export class ContractsImplementationTransactionsComponent implements OnInit {
       console.log('agregando al arreglo');
     }, 1000);
   }
+
   confirmAndDeleteTransaction(index: number): void {
     Swal.fire({
       text: '¿Deseas eliminar esta transacción?',

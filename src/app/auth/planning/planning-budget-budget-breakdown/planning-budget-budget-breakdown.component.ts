@@ -124,14 +124,14 @@ export class PlanningBudgetBudgetBreakdownComponent implements OnInit {
       confirmButtonColor: '#3085d6',
       cancelButtonColor: '#d33',
       cancelButtonText: 'Cancelar',
-      confirmButtonText: 'Sí, eliminar'
+      confirmButtonText: 'Sí, eliminar',
     }).then((result) => {
       if (result.isConfirmed) {
         Swal.fire({
           text: 'El registro ha sido eliminado.',
           icon: 'success',
           confirmButtonText: 'Aceptar',
-        })
+        });
         this.deleteBudgetLines(index);
       }
     });
@@ -157,17 +157,27 @@ export class PlanningBudgetBudgetBreakdownComponent implements OnInit {
   initForm(): void {
     this.budgetBreakdownForm = this.fb.group({
       description: [null],
-      uri: [null],
+      uri: [
+        null,
+        [
+          Validators.pattern(
+            /^https?:\/\/(?:[a-zA-Z0-9\-._~%!$&'()*+,;=:@]+|%[0-9A-Fa-f]{2})*(?:\/(?:[a-zA-Z0-9\-._~%!$&'()*+,;=:@]+|%[0-9A-Fa-f]{2})*)*(?:\?(?:[a-zA-Z0-9\-._~%!$&'()*+,;=:@/?]+|%[0-9A-Fa-f]{2})*)?(?:#(?:[a-zA-Z0-9\-._~%!$&'()*+,;=:@/?]+|%[0-9A-Fa-f]{2})*)?$/
+          ),
+        ],
+      ],
       amount: this.fb.group({
         amount: [null],
         currency: ['MXN'],
       }),
-      period: this.fb.group({
-        startDate: [null],
-        endDate: [null],
-        maxExtentDate: [null],
-        durationInDays: [null],
-      }, { validators: this.dateComparisonValidator() }),
+      period: this.fb.group(
+        {
+          startDate: [null],
+          endDate: [null],
+          maxExtentDate: [null],
+          durationInDays: [null],
+        },
+        { validators: this.dateComparisonValidator() }
+      ),
       budgetLines: this.fb.array([]),
       sourceParty: null,
     });

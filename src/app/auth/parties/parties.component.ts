@@ -25,38 +25,42 @@ export class PartiesComponent implements OnInit {
   fieldVisibility: any = {};
   showAdditionalIdentifiersSection: boolean = false;
   editMode: boolean = false; // Variable para controlar cuándo mostrar componentes hijos
-  
+
   // Nueva variable para el actor seleccionado para mostrar la tabla
   selectedActorForTable: any = null;
 
   // Clasificación de actores internos y externos
   private internalActorCodes = [
-    'buyer',           // Comprador
+    'buyer', // Comprador
     'procuringEntity', // Entidad contratante
-    'procuringArea',   // Área requirente
-    'techArea',        // Área técnica
-    'contractAdmin',   // Administrador del contrato
-    'payer',           // Emisor del pago
-    'reviewBody',       // Órgano de revisión
-    'funder'          // Entidad financiera
+    'procuringArea', // Área requirente
+    'techArea', // Área técnica
+    'contractAdmin', // Administrador del contrato
+    'payer', // Emisor del pago
+    'reviewBody', // Órgano de revisión
+    'funder', // Entidad financiera
   ];
 
   private externalActorCodes = [
-    'supplier',        // Proveedor
-    'tenderer',        // Licitante
-    'enquirer',        // Persona que solicita información
-    'payee',           // Receptor del pago
+    'supplier', // Proveedor
+    'tenderer', // Licitante
+    'enquirer', // Persona que solicita información
+    'payee', // Receptor del pago
     'interestedParty', // Parte interesada
-    'guarantor'        // Institución que expide la garantía
+    'guarantor', // Institución que expide la garantía
   ];
 
   // Getters para las listas filtradas
   get internalActors() {
-    return this.rolesList.filter(role => this.internalActorCodes.includes(role.code));
+    return this.rolesList.filter((role) =>
+      this.internalActorCodes.includes(role.code)
+    );
   }
 
   get externalActors() {
-    return this.rolesList.filter(role => this.externalActorCodes.includes(role.code));
+    return this.rolesList.filter((role) =>
+      this.externalActorCodes.includes(role.code)
+    );
   }
 
   // Método para verificar si un actor es interno
@@ -66,12 +70,12 @@ export class PartiesComponent implements OnInit {
 
   // Método para obtener el índice global del actor (para IDs únicos)
   getActorIndex(actorCode: string): number {
-    return this.rolesList.findIndex(role => role.code === actorCode);
+    return this.rolesList.findIndex((role) => role.code === actorCode);
   }
 
   // NUEVO: Método para seleccionar un actor específico y mostrar su tabla
   selectActor(actorCode: string): void {
-    const actor = this.rolesList.find(role => role.code === actorCode);
+    const actor = this.rolesList.find((role) => role.code === actorCode);
     if (actor) {
       this.selectedActorForTable = actor;
     }
@@ -122,10 +126,11 @@ export class PartiesComponent implements OnInit {
   // Método para obtener el índice original del actor en el array completo
   getOriginalIndex(item: any): number {
     const allParties = this.partiesForm.value.parties;
-    return allParties.findIndex((party: any) => 
-      party.name === item.name && 
-      party.identifier?.id === item.identifier?.id &&
-      JSON.stringify(party.roles) === JSON.stringify(item.roles)
+    return allParties.findIndex(
+      (party: any) =>
+        party.name === item.name &&
+        party.identifier?.id === item.identifier?.id &&
+        JSON.stringify(party.roles) === JSON.stringify(item.roles)
     );
   }
 
@@ -135,9 +140,13 @@ export class PartiesComponent implements OnInit {
       return false;
     }
 
-    const hasInternal = party.roles.some((role: string) => this.internalActorCodes.includes(role));
-    const hasExternal = party.roles.some((role: string) => this.externalActorCodes.includes(role));
-    
+    const hasInternal = party.roles.some((role: string) =>
+      this.internalActorCodes.includes(role)
+    );
+    const hasExternal = party.roles.some((role: string) =>
+      this.externalActorCodes.includes(role)
+    );
+
     return hasInternal && hasExternal;
   }
 
@@ -160,7 +169,7 @@ export class PartiesComponent implements OnInit {
       contactPoint: true,
       additionalContactPoints: true,
       beneficialOwners: false,
-      details: true
+      details: true,
     },
     procuringArea: {
       roles: true,
@@ -179,7 +188,7 @@ export class PartiesComponent implements OnInit {
       contactPoint: true,
       additionalContactPoints: true,
       beneficialOwners: false,
-      details: true
+      details: true,
     },
     techArea: {
       roles: true,
@@ -198,7 +207,7 @@ export class PartiesComponent implements OnInit {
       contactPoint: true,
       additionalContactPoints: true,
       beneficialOwners: false,
-      details: true
+      details: true,
     },
     contractAdmin: {
       roles: true,
@@ -217,7 +226,7 @@ export class PartiesComponent implements OnInit {
       contactPoint: true,
       additionalContactPoints: true,
       beneficialOwners: false,
-      details: true
+      details: true,
     },
     buyer: {
       roles: true,
@@ -235,7 +244,7 @@ export class PartiesComponent implements OnInit {
       address: true,
       additionalContactPoints: false, // buyer no debe tener puntos de contacto adicionales
       beneficialOwners: false,
-      details: true
+      details: true,
     },
     payer: {
       roles: true,
@@ -254,7 +263,7 @@ export class PartiesComponent implements OnInit {
       contactPoint: true,
       additionalContactPoints: true,
       beneficialOwners: false,
-      details: true
+      details: true,
     },
     funder: {
       roles: true,
@@ -273,7 +282,7 @@ export class PartiesComponent implements OnInit {
       contactPoint: true,
       additionalContactPoints: true,
       beneficialOwners: false,
-      details: true
+      details: true,
     },
     tenderer: {
       roles: true,
@@ -292,7 +301,7 @@ export class PartiesComponent implements OnInit {
       contactPoint: true,
       additionalContactPoints: true,
       beneficialOwners: false,
-      details: true
+      details: true,
     },
     reviewBody: {
       roles: true,
@@ -311,7 +320,7 @@ export class PartiesComponent implements OnInit {
       contactPoint: true,
       additionalContactPoints: true,
       beneficialOwners: false,
-      details: true
+      details: true,
     },
     interestedParty: {
       roles: true,
@@ -329,7 +338,7 @@ export class PartiesComponent implements OnInit {
       address: true,
       additionalContactPoints: true,
       beneficialOwners: false,
-      details: true
+      details: true,
     },
     enquirer: {
       roles: true,
@@ -348,7 +357,7 @@ export class PartiesComponent implements OnInit {
       contactPoint: true,
       additionalContactPoints: true,
       beneficialOwners: false,
-      details: true
+      details: true,
     },
     supplier: {
       roles: true,
@@ -367,7 +376,7 @@ export class PartiesComponent implements OnInit {
       contactPoint: true,
       additionalContactPoints: true,
       beneficialOwners: false,
-      details: true
+      details: true,
     },
     payee: {
       roles: true,
@@ -386,7 +395,7 @@ export class PartiesComponent implements OnInit {
       contactPoint: true,
       additionalContactPoints: true,
       beneficialOwners: true,
-      details: true
+      details: true,
     },
     guarantor: {
       roles: true,
@@ -405,8 +414,8 @@ export class PartiesComponent implements OnInit {
       contactPoint: true,
       additionalContactPoints: true,
       beneficialOwners: false,
-      details: true
-    }
+      details: true,
+    },
   };
 
   constructor(
@@ -427,18 +436,18 @@ export class PartiesComponent implements OnInit {
     this.selectedActor = actorCode;
     this.selectedActorTitle = this.getRoleTitle(actorCode);
     this.fieldVisibility = this.actorFieldMatrix[actorCode] || {};
-    
+
     this.initPartieForm();
-    
+
     this.showAdditionalIdentifiersSection = false;
-    
+
     this.editMode = true;
-    
+
     // Abrir modal
     const modalElement = document.getElementById('actorModal');
     const modal = new bootstrap.Modal(modalElement);
     modal.show();
-    
+
     // Listener para cuando se cierre la modal
     modalElement?.addEventListener('hidden.bs.modal', () => {
       this.editMode = false;
@@ -449,27 +458,39 @@ export class PartiesComponent implements OnInit {
     });
   }
 
-  // Verificar si se debe mostrar un campo
   shouldShowField(fieldName: string): boolean {
     return this.fieldVisibility[fieldName] === true;
   }
 
-  // Guardar actor completo
   saveActor(): void {
     // Primero marcar todos los formularios como tocados
     this.partieForm.markAllAsTouched();
-    
+
     // Validar todas las secciones
     const validation = this.validateActorForm();
-    
+
     console.log('Validación resultado:', validation);
     console.log('Datos del formulario:', this.partieForm.value);
-    
+
     if (!validation.isValid) {
+      // Crear lista HTML para SweetAlert2
+      const errorsList = validation.errors
+        .map((error) => `• ${error}`)
+        .join('<br>');
+
+      const htmlContent = `
+      <div style="text-align: left;">
+        <strong style="color: #dc3545;">Secciones pendientes:</strong><br><br>
+        <div style="color: #dc3545;">${errorsList}</div>
+      </div>
+    `;
+
       Swal.fire({
         icon: 'warning',
         title: 'Formulario incompleto',
-        html: `Debes completar la información requerida:<br><br>${validation.errors.join('<br>')}`,
+        footer:
+          'Revisa cada pestaña y asegúrate de completar todos los campos obligatorios.',
+        html: htmlContent,
         confirmButtonText: 'Aceptar',
         confirmButtonColor: '#ffc107',
       });
@@ -479,15 +500,15 @@ export class PartiesComponent implements OnInit {
     // Agregar el actor al array
     this.partiesArray.push(this.partieForm);
     this.saveData();
-    
+
     // Cerrar modal
     const modalElement = document.getElementById('actorModal');
     const modal = bootstrap.Modal.getInstance(modalElement);
     modal.hide();
-    
+
     // Reiniciar formulario
     this.initPartieForm();
-    
+
     Swal.fire({
       icon: 'success',
       title: 'Actor guardado',
@@ -529,7 +550,7 @@ export class PartiesComponent implements OnInit {
 
     return {
       isValid: errors.length === 0,
-      errors: errors
+      errors: errors,
     };
   }
 
@@ -567,16 +588,30 @@ export class PartiesComponent implements OnInit {
     return errors;
   }
 
-  // VALIDAR IDENTIFIER
   private validateIdentifierSection(identifier: FormGroup): string[] {
     const errors: string[] = [];
 
-    // Campos requeridos según visibilidad
     const requiredFields = [
-      { field: 'legalPersonality', label: 'Personalidad jurídica', visible: this.shouldShowField('legalPersonality') },
-      { field: 'schema', label: 'Esquema', visible: this.shouldShowField('schema') },
-      { field: 'id', label: 'Identificador', visible: this.shouldShowField('id') },
-      { field: 'legalName', label: 'Nombre legal', visible: this.shouldShowField('legalName') }
+      {
+        field: 'legalPersonality',
+        label: 'Personalidad jurídica',
+        visible: this.shouldShowField('legalPersonality'),
+      },
+      {
+        field: 'schema',
+        label: 'Esquema',
+        visible: this.shouldShowField('schema'),
+      },
+      {
+        field: 'id',
+        label: 'Identificador',
+        visible: this.shouldShowField('id'),
+      },
+      {
+        field: 'legalName',
+        label: 'Nombre legal',
+        visible: this.shouldShowField('legalName'),
+      },
     ];
 
     requiredFields.forEach(({ field, label, visible }) => {
@@ -588,13 +623,24 @@ export class PartiesComponent implements OnInit {
       }
     });
 
-    // Campos requeridos solo para persona física y si son visibles
     const legalPersonality = identifier.get('legalPersonality')?.value;
     if (legalPersonality === 'fisica') {
       const personFields = [
-        { field: 'givenName', label: 'Nombre de pila', visible: this.shouldShowField('givenName') },
-        { field: 'patronymicName', label: 'Primer apellido', visible: this.shouldShowField('patronymicName') },
-        { field: 'matronymicName', label: 'Segundo apellido', visible: this.shouldShowField('matronymicName') }
+        {
+          field: 'givenName',
+          label: 'Nombre de pila',
+          visible: this.shouldShowField('givenName'),
+        },
+        {
+          field: 'patronymicName',
+          label: 'Primer apellido',
+          visible: this.shouldShowField('patronymicName'),
+        },
+        {
+          field: 'matronymicName',
+          label: 'Segundo apellido',
+          visible: this.shouldShowField('matronymicName'),
+        },
       ];
 
       personFields.forEach(({ field, label, visible }) => {
@@ -609,24 +655,18 @@ export class PartiesComponent implements OnInit {
 
     return errors;
   }
-
-  // VALIDAR ADDRESS
   private validateAddressSection(): string[] {
     const errors: string[] = [];
     const address = this.partieForm.get('address') as FormGroup;
-
-    // Si no existe el FormGroup de address, es requerido
     if (!address) {
       return ['Debe completar la información de domicilio'];
     }
-
-    // Campos requeridos en address
     const requiredAddressFields = [
       { field: 'streetAddress', label: 'Dirección' },
       { field: 'locality', label: 'Localidad' },
       { field: 'region', label: 'Región' },
       { field: 'postalCode', label: 'Código postal' },
-      { field: 'countryName', label: 'País' }
+      { field: 'countryName', label: 'País' },
     ];
 
     requiredAddressFields.forEach(({ field, label }) => {
@@ -642,17 +682,24 @@ export class PartiesComponent implements OnInit {
   // VALIDAR BENEFICIARIOS
   private validateBeneficiariesSection(): string[] {
     const errors: string[] = [];
-    const beneficialOwners = this.partieForm.get('beneficialOwners') as FormArray;
+    const beneficialOwners = this.partieForm.get(
+      'beneficialOwners'
+    ) as FormArray;
 
     // Si la sección está habilitada, debe tener al menos un beneficiario
     if (!beneficialOwners || beneficialOwners.length === 0) {
-      return ['Debe agregar al menos un beneficiario para los roles supplier o tenderer'];
+      return [
+        'Debe agregar al menos un beneficiario para los roles supplier o tenderer',
+      ];
     }
 
     // Validar cada beneficiario
     beneficialOwners.controls.forEach((control, index) => {
       if (control instanceof FormGroup) {
-        const beneficiaryErrors = this.validateSingleBeneficiary(control, index + 1);
+        const beneficiaryErrors = this.validateSingleBeneficiary(
+          control,
+          index + 1
+        );
         if (beneficiaryErrors.length > 0) {
           errors.push(...beneficiaryErrors);
         }
@@ -662,17 +709,17 @@ export class PartiesComponent implements OnInit {
     return errors;
   }
 
-  // VALIDAR UN SOLO BENEFICIARIO
-  private validateSingleBeneficiary(beneficiary: FormGroup, beneficiaryNumber: number): string[] {
+  private validateSingleBeneficiary(
+    beneficiary: FormGroup,
+    beneficiaryNumber: number
+  ): string[] {
     const errors: string[] = [];
-
-    // Campos básicos requeridos en beneficial owners
     const basicFields = [
       { field: 'name', label: 'Nombre' },
       { field: 'nationality', label: 'Nacionalidad' },
       { field: 'email', label: 'Email' },
       { field: 'telephone', label: 'Teléfono' },
-      { field: 'faxNumber', label: 'Fax' }
+      { field: 'faxNumber', label: 'Fax' },
     ];
 
     const basicErrors: string[] = [];
@@ -683,14 +730,13 @@ export class PartiesComponent implements OnInit {
       }
     });
 
-    // Validar identifier del beneficiario
     const identifier = beneficiary.get('identifier') as FormGroup;
     if (!identifier) {
       basicErrors.push('Identificador');
     } else {
       const scheme = identifier.get('scheme')?.value;
       const id = identifier.get('id')?.value;
-      
+
       if (!scheme || scheme.toString().trim() === '') {
         basicErrors.push('Esquema del identificador');
       }
@@ -698,8 +744,6 @@ export class PartiesComponent implements OnInit {
         basicErrors.push('ID del identificador');
       }
     }
-
-    // Validar address del beneficiario
     const address = beneficiary.get('address') as FormGroup;
     if (!address) {
       basicErrors.push('Dirección');
@@ -709,7 +753,7 @@ export class PartiesComponent implements OnInit {
         { field: 'locality', label: 'Localidad' },
         { field: 'region', label: 'Región' },
         { field: 'postalCode', label: 'Código postal' },
-        { field: 'countryName', label: 'País' }
+        { field: 'countryName', label: 'País' },
       ];
 
       addressFields.forEach(({ field, label }) => {
@@ -721,7 +765,11 @@ export class PartiesComponent implements OnInit {
     }
 
     if (basicErrors.length > 0) {
-      errors.push(`Beneficiario ${beneficiaryNumber} incompleto: ${basicErrors.join(', ')}`);
+      errors.push(
+        `Beneficiario ${beneficiaryNumber} incompleto: ${basicErrors.join(
+          ', '
+        )}`
+      );
     }
 
     return errors;
@@ -740,7 +788,7 @@ export class PartiesComponent implements OnInit {
       confirmButtonColor: '#3085d6',
       cancelButtonColor: '#d33',
       cancelButtonText: 'Cancelar',
-      confirmButtonText: 'Sí, eliminar'
+      confirmButtonText: 'Sí, eliminar',
     }).then((result) => {
       if (result.isConfirmed) {
         Swal.fire({
@@ -765,10 +813,10 @@ export class PartiesComponent implements OnInit {
   // Event handlers para componentes hijos
   saveGeneral(general: FormGroup): void {
     // Actualizar el formulario padre con los datos del componente hijo
-    Object.keys(general.controls).forEach(key => {
+    Object.keys(general.controls).forEach((key) => {
       this.partieForm.setControl(key, general.get(key) as any);
     });
-    
+
     //console.log('Datos guardados en información general:', this.partieForm.value);
   }
 
@@ -782,13 +830,13 @@ export class PartiesComponent implements OnInit {
   }
 
   saveContactPoint(contactPoint: FormGroup): void {
-  this.partieForm = this.fb.group({
-    ...this.partieForm.controls,
-    contactPoint: this.fb.group({
-      ...contactPoint.controls,
-    }),
-  });
-}
+    this.partieForm = this.fb.group({
+      ...this.partieForm.controls,
+      contactPoint: this.fb.group({
+        ...contactPoint.controls,
+      }),
+    });
+  }
 
   get additionalContactPointsArray() {
     return this.partieForm.controls['additionalContactPoints'] as FormArray;
@@ -816,12 +864,16 @@ export class PartiesComponent implements OnInit {
 
   // Métodos para identificadores adicionales
   addAdditionalIdentifier(identifier: any): void {
-    const additionalIdentifiersArray = this.partieForm.controls['additionalIdentifiers'] as FormArray;
+    const additionalIdentifiersArray = this.partieForm.controls[
+      'additionalIdentifiers'
+    ] as FormArray;
     additionalIdentifiersArray.push(identifier);
   }
 
   deleteAdditionalIdentifier(index: number): void {
-    const additionalIdentifiersArray = this.partieForm.controls['additionalIdentifiers'] as FormArray;
+    const additionalIdentifiersArray = this.partieForm.controls[
+      'additionalIdentifiers'
+    ] as FormArray;
     additionalIdentifiersArray.removeAt(index);
   }
 

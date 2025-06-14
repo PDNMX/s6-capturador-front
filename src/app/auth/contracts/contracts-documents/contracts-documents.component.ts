@@ -217,7 +217,7 @@ export class ContractsDocumentsComponent {
       {
         documentType: ['', [Validators.required]],
         title: ['', [Validators.required]],
-        description: [''],
+        description: ['', [Validators.required]],
         url: [
           '',
           [
@@ -229,7 +229,7 @@ export class ContractsDocumentsComponent {
         ],
         datePublished: ['', [Validators.required]],
         dateModified: ['', [Validators.required]],
-        format: ['', [Validators.nullValidator]],
+        format: [null],
         language: ['', [Validators.required]],
       },
       { validators: this.dateComparisonValidator() }
@@ -244,6 +244,9 @@ export class ContractsDocumentsComponent {
   }
   get url() {
     return this.documentForm.get('url') as FormControl;
+  }
+  get description() {
+    return this.documentForm.get('description') as FormControl;
   }
   get datePublished() {
     return this.documentForm.get('datePublished') as FormControl;

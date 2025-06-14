@@ -84,10 +84,10 @@ export class ContractsImplementationDocumentsComponent implements OnInit {
           ),
         ],
       ],
-      datePublished: ['', Validators.nullValidator],
-      dateModified: ['', Validators.nullValidator],
-      format: ['', Validators.nullValidator],
-      language: ['', Validators.nullValidator],
+      datePublished: [null],
+      dateModified: [null],
+      format: [null],
+      language: [null],
     }, { validators: this.dateComparisonValidator() });
   }
 
