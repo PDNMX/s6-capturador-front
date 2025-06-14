@@ -13,12 +13,17 @@ import Swal from 'sweetalert2';
   styleUrls: ['./planning.component.css'],
 })
 export class PlanningComponent implements OnInit {
-  @ViewChild(PlanningGeneralComponent) planningGeneralComponent!: PlanningGeneralComponent;
-  @ViewChild(PlanningDocumentsComponent) planningDocumentsComponent!: PlanningDocumentsComponent;
-  @ViewChild(PlanningRequestForQuotesComponent) planningRequestForQuotesComponent!: PlanningRequestForQuotesComponent;
-  
+  @ViewChild(PlanningGeneralComponent)
+  planningGeneralComponent!: PlanningGeneralComponent;
+  @ViewChild(PlanningDocumentsComponent)
+  planningDocumentsComponent!: PlanningDocumentsComponent;
+  @ViewChild(PlanningRequestForQuotesComponent)
+  planningRequestForQuotesComponent!: PlanningRequestForQuotesComponent;
+
   record_id = null;
   planningForm!: FormGroup;
+  validationErrors: string[] = [];
+  sectionsWithErrors: { [key: string]: boolean } = {};
 
   constructor(
     private fb: FormBuilder,
@@ -33,11 +38,11 @@ export class PlanningComponent implements OnInit {
   get budgetArray() {
     return this.planningForm.controls['budget'] as FormArray;
   }
-  
+
   addBudget(opt: any): void {
     this.budgetArray.push(opt);
   }
-  
+
   deleteBudget(index: number): void {
     this.budgetArray.removeAt(index);
   }
@@ -45,11 +50,11 @@ export class PlanningComponent implements OnInit {
   get documentsArray() {
     return this.planningForm.controls['documents'] as FormArray;
   }
-  
+
   addDocument(opt: any): void {
     this.documentsArray.push(opt);
   }
-  
+
   deleteDocument(index: number): void {
     this.documentsArray.removeAt(index);
   }
@@ -57,11 +62,11 @@ export class PlanningComponent implements OnInit {
   get requestForQuotesArray() {
     return this.planningForm.controls['requestForQuotes'] as FormArray;
   }
-  
+
   addRequestForQuotes(opt: any): void {
     this.requestForQuotesArray.push(opt);
   }
-  
+
   deleteRequestForQuotes(index: number): void {
     this.requestForQuotesArray.removeAt(index);
   }
@@ -69,11 +74,11 @@ export class PlanningComponent implements OnInit {
   get itemsArray() {
     return this.planningForm.controls['items'] as FormArray;
   }
-  
+
   addItems(opt: any): void {
     this.itemsArray.push(opt);
   }
-  
+
   deleteItems(index: number): void {
     this.itemsArray.removeAt(index);
   }
@@ -81,34 +86,31 @@ export class PlanningComponent implements OnInit {
   get milestonesArray() {
     return this.planningForm.controls['milestones'] as FormArray;
   }
-  
+
   addMilestones(opt: any): void {
     this.milestonesArray.push(opt);
   }
-  
+
   deleteMilestones(index: number): void {
     this.milestonesArray.removeAt(index);
   }
 
   saveGeneralData(opt: any): void {
-    // SOLUCION CORREGIDA: Evitar destruir el FormGroup
-    Object.keys(opt).forEach(key => {
+    Object.keys(opt).forEach((key) => {
       const control = opt[key];
       const existingControl = this.planningForm.get(key);
-      
+
       if (existingControl) {
-        // Si el control ya existe, actualizar su valor sin perder validaciones
         existingControl.setValue(control.value);
-        // Mantener el estado de validación
         if (control.invalid) {
           existingControl.setErrors(control.errors);
         }
       } else {
-        // Solo agregar nuevos controles si no existen
+        // agregar nuevos controles si no existen
         this.planningForm.addControl(key, control);
       }
     });
-    
+
     console.log('✅ Datos generales guardados sin destruir validaciones');
   }
 
@@ -131,7 +133,15 @@ export class PlanningComponent implements OnInit {
         }),
         project: ['', [Validators.required]],
         projectID: ['', [Validators.required]],
-        uri: ['', [Validators.required]],
+        uri: [
+          '',
+          [
+            Validators.required,
+            Validators.pattern(
+              /^https?:\/\/(?:[a-zA-Z0-9\-._~%!$&'()*+,;=:@]+|%[0-9A-Fa-f]{2})*(?:\/(?:[a-zA-Z0-9\-._~%!$&'()*+,;=:@]+|%[0-9A-Fa-f]{2})*)*(?:\?(?:[a-zA-Z0-9\-._~%!$&'()*+,;=:@/?]+|%[0-9A-Fa-f]{2})*)?(?:#(?:[a-zA-Z0-9\-._~%!$&'()*+,;=:@/?]+|%[0-9A-Fa-f]{2})*)?$/
+            ),
+          ],
+        ],
         budgetBreakdown: this.fb.array([]),
       }),
       documents: this.fb.array([]),
@@ -140,88 +150,79 @@ export class PlanningComponent implements OnInit {
     });
   }
 
-  /**
-   * Valida todas las secciones y retorna el estado de validación
-   */
-  private validateAllSections(): { isValid: boolean; missingSections: string[] } {
+  //Valida todas las secciones y retorna el estado de validación
+
+  private validateAllSections(): {
+    isValid: boolean;
+    missingSections: string[];
+  } {
     const missingSections: string[] = [];
-    
-    // Validar Información General
+
     if (!this.isGeneralInfoValid()) {
       missingSections.push('Información General');
     }
-    
-    // Validar Presupuesto
+
     const budget = this.planningForm.get('budget') as FormGroup;
     if (!budget.valid) {
       missingSections.push('Presupuesto');
     }
-    
-    // Validar Documentos - verificar documentos requeridos específicos
+
     if (!this.areRequiredDocumentsValid()) {
       missingSections.push('Documentos');
     }
-    
-    // Validar Solicitudes de Cotización (obligatorio con items)
+
     if (!this.areRequestForQuotesValid()) {
       missingSections.push('Solicitudes de Cotización');
     }
-    
-    // Hitos/Milestones NO es obligatorio según tu especificación
-    
+
     return {
       isValid: missingSections.length === 0,
-      missingSections
+      missingSections,
     };
   }
 
-  /**
-   * Valida la información general usando el método del componente hijo
-   */
   private isGeneralInfoValid(): boolean {
     if (!this.planningGeneralComponent) {
       console.warn('PlanningGeneralComponent no está disponible');
       return false;
     }
-    
+
     return this.planningGeneralComponent.enableSaveFormButton();
   }
 
-  /**
-   * Valida que los documentos requeridos estén presentes y sean válidos
-   */
   private areRequiredDocumentsValid(): boolean {
     if (!this.planningDocumentsComponent) {
       console.warn('PlanningDocumentsComponent no está disponible');
       return false;
     }
 
-    const requiredDocumentCodes = ['areaTechnicalAnnex', 'marketStudies', 'budgetAuthorization'];
+    const requiredDocumentCodes = [
+      'areaTechnicalAnnex',
+      'marketStudies',
+      'budgetAuthorization',
+    ];
     const documentsArray = this.documentsArray.value;
-    
+
     // Verificar que todos los documentos requeridos estén presentes
-    const hasAllRequiredDocs = requiredDocumentCodes.every(requiredCode => 
+    const hasAllRequiredDocs = requiredDocumentCodes.every((requiredCode) =>
       documentsArray.some((doc: any) => doc.documentType === requiredCode)
     );
-    
-    // Verificar que todos los documentos en el array sean válidos
-    const allDocsValid = this.documentsArray.controls.every((ctrl: any) => ctrl.valid);
-    
+
+    // Verificar que todos los documentos en el arreglo sean válidos
+    const allDocsValid = this.documentsArray.controls.every(
+      (ctrl: any) => ctrl.valid
+    );
+
     return hasAllRequiredDocs && allDocsValid;
   }
 
-  /**
-   * Valida las solicitudes de cotización de manera integral
-   */
   private areRequestForQuotesValid(): boolean {
-    // Verificar si hay al menos una solicitud en el FormArray
     const requestForQuotes = this.requestForQuotesArray;
     if (requestForQuotes.length === 0) {
       //console.log('No hay solicitudes de cotización en el FormArray');
       return false;
     }
-    
-    // Verificar que cada solicitud en el FormArray sea válida
+
     const allRequestsValid = requestForQuotes.controls.every((ctrl: any) => {
       const isValid = ctrl.valid;
       if (!isValid) {
@@ -229,49 +230,63 @@ export class PlanningComponent implements OnInit {
       }
       return isValid;
     });
-    
+
     if (!allRequestsValid) {
       //console.log('Algunas solicitudes en el FormArray no son válidas');
       return false;
     }
-    
-    // Verificar que cada solicitud tenga al menos un artículo
-    const allHaveItems = requestForQuotes.value.every((request: any, index: number) => {
-      const hasItems = request.items && request.items.length > 0;
-      if (!hasItems) {
-        //console.log(`La solicitud de cotización ${index + 1} no tiene artículos`);
+
+    const allHaveItems = requestForQuotes.value.every(
+      (request: any, index: number) => {
+        const hasItems = request.items && request.items.length > 0;
+        if (!hasItems) {
+          //console.log(`La solicitud de cotización ${index + 1} no tiene artículos`);
+        }
+        return hasItems;
       }
-      return hasItems;
-    });
-    
-    // También validar el formulario actual del componente (si existe)
+    );
+
     if (this.planningRequestForQuotesComponent) {
-      const currentFormValid = this.planningRequestForQuotesComponent.requestForQuotesForm.valid;
-      const currentFormHasItems = this.planningRequestForQuotesComponent.requestForQuotesForm.value.items?.length > 0;
-      const currentFormHasSuppliers = this.planningRequestForQuotesComponent.requestForQuotesForm.value.invitedSuppliers?.length > 0;
-      
-      console.log('Estado del formulario actual de solicitudes:');
+      const currentFormValid =
+        this.planningRequestForQuotesComponent.requestForQuotesForm.valid;
+      const currentFormHasItems =
+        this.planningRequestForQuotesComponent.requestForQuotesForm.value.items
+          ?.length > 0;
+      const currentFormHasSuppliers =
+        this.planningRequestForQuotesComponent.requestForQuotesForm.value
+          .invitedSuppliers?.length > 0;
+
+      /*       console.log('Estado del formulario actual de solicitudes:');
       console.log('Formulario válido:', currentFormValid);
       console.log('iene artículos:', currentFormHasItems);
-      console.log('Tiene proveedores invitados:', currentFormHasSuppliers);
-      
-      // Si el formulario actual tiene datos pero no está completo, es inválido
-      const hasCurrentData = this.planningRequestForQuotesComponent.requestForQuotesForm.value.title || 
-                             this.planningRequestForQuotesComponent.requestForQuotesForm.value.description;
-      
-      if (hasCurrentData && (!currentFormValid || !currentFormHasItems || !currentFormHasSuppliers)) {
-        console.log('El formulario actual de solicitudes tiene datos pero está incompleto');
+      console.log('Tiene proveedores invitados:', currentFormHasSuppliers); */
+
+      const hasCurrentData =
+        this.planningRequestForQuotesComponent.requestForQuotesForm.value
+          .title ||
+        this.planningRequestForQuotesComponent.requestForQuotesForm.value
+          .description;
+
+      if (
+        hasCurrentData &&
+        (!currentFormValid || !currentFormHasItems || !currentFormHasSuppliers)
+      ) {
+        console.log(
+          'El formulario actual de solicitudes tiene datos pero está incompleto'
+        );
         return false;
       }
     }
-    
+
     return allHaveItems;
   }
 
   /**
    * Marca como touched solo las secciones que están inválidas
    */
-  private markInvalidSectionsAsTouched(sectionsStatus: { missingSections: string[] }): void {
+  private markInvalidSectionsAsTouched(sectionsStatus: {
+    missingSections: string[];
+  }): void {
     // Marcar como touched solo las secciones inválidas
     if (sectionsStatus.missingSections.includes('Información General')) {
       if (this.planningGeneralComponent?.generalForm) {
@@ -285,7 +300,9 @@ export class PlanningComponent implements OnInit {
     }
 
     if (sectionsStatus.missingSections.includes('Documentos')) {
-      this.documentsArray.controls.forEach((ctrl: any) => ctrl.markAllAsTouched());
+      this.documentsArray.controls.forEach((ctrl: any) =>
+        ctrl.markAllAsTouched()
+      );
     }
 
     if (sectionsStatus.missingSections.includes('Solicitudes de Cotización')) {
@@ -294,17 +311,21 @@ export class PlanningComponent implements OnInit {
     }
   }
 
-  /**
-   * Método principal de validación y envío
-   */
   submit(): void {
-/*     console.log('=== INICIANDO VALIDACIÓN COMPLETA ===');
+    // Limpiar errores previos (agregar estas propiedades a la clase si no existen)
+    // this.validationErrors = [];
+    // this.sectionsWithErrors = {};
+
+    console.log('Validación completa');
     console.log('Estado del formulario principal:', this.planningForm.valid);
     console.log('Estructura del formulario:');
     console.log('- Documents array length:', this.documentsArray.length);
-    console.log('- Request for quotes array length:', this.requestForQuotesArray.length);
-    console.log('- Budget valid:', this.budgetForm.valid); */
-    
+    console.log(
+      '- Request for quotes array length:',
+      this.requestForQuotesArray.length
+    );
+    console.log('- Budget valid:', this.budgetForm.valid);
+
     // Verificar que los ViewChild estén disponibles
     if (!this.planningGeneralComponent) {
       console.warn('PlanningGeneralComponent no está disponible');
@@ -315,39 +336,51 @@ export class PlanningComponent implements OnInit {
     if (!this.planningRequestForQuotesComponent) {
       console.warn('PlanningRequestForQuotesComponent no está disponible');
     }
-    
+
     const sectionsStatus = this.validateAllSections();
-    //console.log('Estado de validación detallado:', sectionsStatus);
-    
+    console.log('Estado de validación detallado:', sectionsStatus);
+
     if (!sectionsStatus.isValid) {
-      const missingSectionsText = sectionsStatus.missingSections.join(', ');
-      
+      // Crear lista HTML para SweetAlert2
+      const errorsList = sectionsStatus.missingSections
+        .map((section) => `• ${section}`)
+        .join('<br>');
+
+      const htmlContent = `
+      <div style="text-align: left;">
+        <strong style="color: #dc3545;">Secciones pendientes:</strong><br><br>
+        <div style="color: #dc3545;">${errorsList}</div>
+      </div>
+    `;
+
       Swal.fire({
         icon: 'warning',
         title: 'Formulario incompleto',
-        text: `Debes completar las siguientes secciones: ${missingSectionsText}`,
-        footer: 'Revisa cada pestaña y asegúrate de completar todos los campos obligatorios.',
+        footer:
+          'Revisa cada pestaña y asegúrate de completar todos los campos obligatorios.',
+        html: htmlContent,
         confirmButtonText: 'Aceptar',
         confirmButtonColor: '#ffc107',
       });
 
-      // Marcar como touched solo las secciones inválidas
       this.markInvalidSectionsAsTouched(sectionsStatus);
-      
-      //console.log('Validación fallida. Secciones faltantes:', missingSectionsText);
+
+      console.log(
+        'Validación fallida. Secciones faltantes:',
+        sectionsStatus.missingSections.join(', ')
+      );
       return;
     }
 
-    // Todo válido, proceder con el guardado
-  /*   console.log('TODAS LAS VALIDACIONES PASARON');
-    console.log('Datos a enviar:', this.planningForm.value); */
-    
+    console.log('TODAS LAS VALIDACIONES PASARON');
+    console.log('Datos a enviar:', this.planningForm.value);
+
     this.api
       .postMethod({ ...this.planningForm.value }, `/planning/${this.record_id}`)
       .subscribe(
         (r: any) => {
           console.log('✅ Respuesta del backend exitosa:', r);
-          
+
           Swal.fire({
             icon: 'success',
             title: 'Guardado exitoso',
@@ -355,7 +388,7 @@ export class PlanningComponent implements OnInit {
             confirmButtonText: 'Aceptar',
             confirmButtonColor: '#28a745',
           });
-        }, 
+        },
         (error: any) => {
           console.error('❌ Error al guardar:', error);
           Swal.fire({

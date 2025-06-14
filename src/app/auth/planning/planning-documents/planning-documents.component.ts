@@ -293,9 +293,9 @@ export class PlanningDocumentsComponent implements OnInit, OnChanges {
             ),
           ],
         ],
-        datePublished: [''],
-        dateModified: [''],
-        format: [''],
+        datePublished: [null],
+        dateModified: [null],
+        format: [null],
         language: ['', [Validators.required]],
       },
       { validators: this.dateComparisonValidator() }

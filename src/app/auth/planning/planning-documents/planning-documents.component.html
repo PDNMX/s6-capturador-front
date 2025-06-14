@@ -168,7 +168,7 @@
                 formControlName="url"
               />
               <label for="URL">URL *</label>
-              <app-input-validation [element]="url"></app-input-validation>
+              <app-input-validation [element]="url" inputType="url"></app-input-validation>
               <div class="invalid-feedback" data-sb-feedback="title:required">
                 URL * es requerido.
               </div>
@@ -188,10 +188,7 @@
                   data-sb-validations="required"
                   formControlName="datePublished"
                 />
-                <label for="datePublished">Fecha de publicación *</label>
-                <app-input-validation
-                  [element]="datePublished"
-                ></app-input-validation>
+                <label for="datePublished">Fecha de publicación</label>
                 <div class="invalid-feedback" data-sb-feedback="title:required">
                   Fecha de publicación * es requerido.
                 </div>
@@ -211,11 +208,8 @@
                   data-sb-validations="required"
                   formControlName="dateModified"
                 />
-                <label for="dateModified">Fecha de modificación *</label>
+                <label for="dateModified">Fecha de modificación</label>
                 <app-input-validation [element]="dateModified"></app-input-validation>
-                <div class="invalid-feedback" data-sb-feedback="title:required">
-                  Fecha de modificación * es requerido.
-                </div>
               </div>
               <div class="form-text">
                 Fecha en que se modificó por última vez el documento.
@@ -234,7 +228,6 @@
                       {{ d.name }}
                     </option>
                   </select>
-                  <app-input-validation [element]="format"></app-input-validation>
                 </div>
                 <div class="form-text">El formato del documento</div>
               </div>
@@ -242,7 +235,7 @@
             <div class="col-6">
               <div class="row">
                 <div class="col-12">
-                  <label for="language">Idioma</label>
+                  <label for="language">Idioma *</label>
                 </div>
                 <div class="form-floating col mb-2">
                   <select class="form-select" formControlName="language">
