@@ -81,7 +81,7 @@
           style="height: 100px"
           formControlName="rationale"
         ></textarea>
-        <label for="rationale">Justificación</label>
+        <label for="rationale">Justificación/explicación de la modificación</label>
         <!-- <app-input-validation [element]="rationale"></app-input-validation> -->
         <div class="form-text">
           Razones por las cuales se realiza la modificación.
@@ -99,7 +99,7 @@
           style="height: 100px"
           formControlName="description"
         ></textarea>
-        <label for="description">Descripción</label>
+        <label for="description">Descripción de la modificación</label>
         <!-- <app-input-validation [element]="description"></app-input-validation> -->
         <div class="form-text">
           Una descripción en texto libre, o semi-estructurada, de los cambios
@@ -118,10 +118,7 @@
           placeholder="URL*"
           formControlName="amendsReleaseID"
         />
-        <label for="URL">Liberación modificada (identificador)</label>
-        <div class="invalid-feedback" data-sb-feedback="title:required">
-          * es requerido.
-        </div>
+        <label for="URL">Identificador de la publicación del proceso de contratación antes de la modificación en el contrato</label>
         <div class="form-text">
           Se refiere al identificador (release.id) de la liberación EDCA que
           provee los valores para este proceso de contratación ** antes ** de
@@ -140,10 +137,7 @@
           placeholder="URL*"
           formControlName="releaseID"
         />
-        <label for="URL">Difusión de la modificación (identificador)</label>
-        <div class="invalid-feedback" data-sb-feedback="title:required">
-          * es requerido.
-        </div>
+        <label for="URL">Identificador de la publicación del proceso de contratación de la modificación en el contrato</label>
         <div class="form-text">
           Se refiere al identificador (release.id) de la liberación EDCA que
           provee los valores para este procedimiento de contratación ** después

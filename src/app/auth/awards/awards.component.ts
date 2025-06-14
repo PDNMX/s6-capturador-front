@@ -209,6 +209,7 @@ export class AwardsComponent implements OnInit {
       Swal.fire({
         icon: 'warning',
         title: 'Formulario incompleto',
+        footer: 'Revisa cada pestaña y asegúrate de completar todos los campos obligatorios.',
         html: htmlContent,
         confirmButtonText: 'Aceptar',
         confirmButtonColor: '#ffc107',

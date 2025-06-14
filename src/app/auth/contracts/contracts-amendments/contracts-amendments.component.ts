@@ -58,11 +58,11 @@ export class ContractsAmendmentsComponent {
 
   initForm(): void {
     this.amendmentsForm = this.fb.group({
-      date: ['', [Validators.required]],
-      rationale: ['', [Validators.required]],
-      description: ['', [Validators.required]],
-      amendsReleaseID: [''],
-      releaseID: [''],
+      date: [null],
+      rationale: [null],
+      description: [null],
+      amendsReleaseID: [null],
+      releaseID: [null],
     });
   }
 

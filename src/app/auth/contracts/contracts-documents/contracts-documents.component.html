@@ -179,7 +179,8 @@
                 style="height: 100px"
                 formControlName="description"
               ></textarea>
-              <label for="description">Descripción</label>
+              <label for="description">Descripción *</label>
+              <app-input-validation [element]="description"></app-input-validation>
               <div class="form-text">
                 Una breve descripción del documento. Se recomienda no exceder
                 las 250 palabras. En el caso que el documento no esté disponible

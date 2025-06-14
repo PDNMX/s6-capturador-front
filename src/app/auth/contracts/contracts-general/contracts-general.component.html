@@ -82,7 +82,7 @@
             style="height: 150px"
             formControlName="description"
           ></textarea>
-          <label for="description">Descripción *</label>
+          <label for="description">Descripción del contrato *</label>
           <app-input-validation [element]="description"></app-input-validation>
           <div class="form-text">Descripción del contrato.</div>
         </div>
@@ -95,7 +95,7 @@
               {{ d.title }}
             </option>
           </select>
-          <label for="status"> Estatus *</label>
+          <label for="status"> Estado del contrato *</label>
           <app-input-validation [element]="status"></app-input-validation>
           <p>
             {{ getContractStatusDesc(contractForm.value.status) }}
@@ -130,7 +130,9 @@
               type="date"
               formControlName="startDate"
             />
-            <label for="startDate">Fecha de inicio *</label>
+            <label for="startDate"
+              >Fecha inicial del periodo del contrato *</label
+            >
             <app-input-validation
               [element]="getControl('startDate')"
             ></app-input-validation>
@@ -146,7 +148,7 @@
               type="date"
               formControlName="endDate"
             />
-            <label for="endDate">Fecha de término *</label>
+            <label for="endDate">Fecha final del periodo del contrato *</label>
             <app-input-validation
               [element]="getControl('endDate')"
             ></app-input-validation>
@@ -166,10 +168,10 @@
               data-sb-validations="required"
               formControlName="maxExtentDate"
             />
-            <label for="maxExtentDate">Extension máxima</label>
-            <!-- <app-input-validation
+            <label for="maxExtentDate">Extensión máxima</label>
+            <app-input-validation
               [element]="getControl('maxExtentDate')"
-            ></app-input-validation> -->
+            ></app-input-validation>
             <div class="form-text">
               El período no puede extenderse después de esta fecha. Este campo
               debe usarse para expresar la fecha máxima disponible para la
@@ -232,7 +234,7 @@
                 {{ d.title }}
               </option>
             </select>
-            <label for="type">Moneda *</label>
+            <label for="currency">Moneda *</label>
             <div class="form-text">
               La moneda del monto, tomado de la lista de códigos
               <a
@@ -694,6 +696,30 @@
           </div>
         </div>
       </fieldset>
+
+      <div class="row m-10">
+        <div class="col">
+          <button
+            type="button"
+            class="btn btn-danger btn-add"
+            (click)="saveGeneralForm()"
+            [disabled]="!enableSaveButton()"
+          >
+            Guardar datos generales
+          </button>
+        </div>
+      </div>
+      <br />
+      <div class="row">
+        <div class="col-12 spin">
+          <div *ngIf="mostrarSpinner" class="spinner-container">
+            <div class="spinner-border" role="status">
+              <span class="visually-hidden">Guardando...</span>
+            </div>
+            <p class="mt-2">Guardando...</p>
+          </div>
+        </div>
+      </div>
 
       <!-- fin form -->
     </form>

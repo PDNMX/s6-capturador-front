@@ -145,7 +145,7 @@ export class ContractsItemsComponent {
     });
 
     this.additionalClassificationsForm = this.fb.group({
-      data: [null, [Validators.required]],
+      data: [null],
     });
   }
 

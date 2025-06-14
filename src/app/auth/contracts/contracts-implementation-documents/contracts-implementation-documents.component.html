@@ -88,7 +88,7 @@
             placeholder="URL*"
             formControlName="title"
           />
-          <label for="title">Titulo *</label>
+          <label for="title">Título del documento *</label>
           <app-input-validation [element]="title"></app-input-validation>
           <div class="form-text">El título del documento.</div>
         </div>
@@ -125,7 +125,7 @@
             placeholder="URL*"
             formControlName="url"
           />
-          <label for="URL">URL *</label>
+          <label for="URL">URL (enlace al documento) *</label>
           <app-input-validation [element]="url"></app-input-validation>
           <div class="form-text">
             Enlace directo al documento o archivo adjunto. El servidor que da
@@ -200,7 +200,7 @@
         <div class="col-6">
           <div class="row">
             <div class="col-12">
-              <label for="language">Idioma</label>
+              <label for="language">Idioma del documento</label>
             </div>
             <div class="form-floating col mb-3">
               <select class="form-select" formControlName="language">

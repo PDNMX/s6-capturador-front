@@ -78,7 +78,7 @@
               >'Tipo de garantía'</a
             >.
           </div>
-          <label for="">Forma de garantía</label>
+          <label for="">Tipo de garantía</label>
           <p *ngIf="guaranteesForm.value.type">
             {{ getGuaranteeDesc(guaranteesForm.value.type) }}
           </p>
@@ -119,7 +119,7 @@
               >'Tipo de obligación'</a
             >.
           </div>
-          <label for="">Obligaciones garantizadas</label>
+          <label for="">Obligación de las garantías</label>
           <p *ngIf="guaranteesForm.value.obligations">
             {{ getGuaranteeTypeDesc(guaranteesForm.value.obligations) }}
           </p>
@@ -179,7 +179,7 @@
             El nombre del actor al que se hace referencia. Debe coincidir con el
             nombre capturado en la sección de actores.
           </div>
-          <label for="guarantor">Institución que expide la garantía</label>
+          <label for="guarantor">Nombre de institución garante</label>
         </div>
       </div>
 
@@ -195,7 +195,7 @@
               type="date"
               formControlName="startDate"
             />
-            <label for="startDate">Fecha de inicio</label>
+            <label for="startDate">Fecha inicial del periodo de garantía</label>
             <div class="form-text">
               Fecha de inicio del periodo. Cuando se conozca, debe
               proporcionarse una fecha precisa de inicio.
@@ -208,7 +208,7 @@
               type="date"
               formControlName="endDate"
             />
-            <label for="endDate">Fecha de término</label>
+            <label for="endDate">Fecha final del periodo de garantía</label>
             <div class="form-text">
               Fecha de término del periodo. Cuando se conozca, debe
               proporcionarse una fehca precisa de término.

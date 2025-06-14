@@ -37,8 +37,8 @@
                 <td>{{ transaction.paymentMethod }}</td>
                 <td>{{ transaction.value.amount }}</td>
                 <td>{{ transaction.value.currency }}</td>
-                <td>{{ transaction.payer?.name }}</td>
-                <td>{{ transaction.payee?.name }}</td>
+                <td>{{ transaction.payer?.name || transaction.payer?.legalName }}</td>
+                <td>{{ transaction.payee?.name || transaction.payee?.legalName }}</td>
                 <td>
                   <button
                     type="button"
@@ -70,7 +70,7 @@
             formControlName="date"
           />
           <label for="TransacctionsDate" class="form-label"
-            >Fecha de la transacción</label
+            >Fecha de la transacción *</label
           >
           <app-input-validation [element]="date"></app-input-validation>
           <div class="form-text">La fecha de la transacción.</div>
@@ -86,7 +86,7 @@
             formControlName="source"
           />
           <label for="TransactionsSource" class="form-label"
-            >Fuente de datos</label
+            >Fuente de los datos *</label
           >
           <app-input-validation [element]="source"></app-input-validation>
           <div class="form-text">
@@ -109,7 +109,7 @@
           <div class="form-text">
             El método de pago utilizado para realizar la transacción.
           </div>
-          <label for="TransactionsPaymentMethod">Método de Pago</label>
+          <label for="TransactionsPaymentMethod">Método de Pago *</label>
           <p class="mt-2">
             {{ getPaymentMethodDesc(transactionsForm.value.paymentMethod) }}
           </p>
@@ -164,13 +164,20 @@
       <div class="row">
         <div class="form-floating col mb-3">
           <select class="form-select" formControlName="payer">
+            <option
+              *ngIf="payers.length === 0"
+              [disabled]="payers.length === 0"
+            >
+              No hay registros de emisores de pago
+            </option>
+            <option></option>
             <option *ngFor="let p of payers" [ngValue]="p">
-              {{ p?.legalName || p?.name }}
+              {{ p?.legalName || p?.name }} - ({{ getPartiesListTitle(p?.roles || []) }})
             </option>
           </select>
-          <label for="">Emisor del pago *</label>
+          <label for="">Nombre del emisor del pago *</label>
           <small *ngIf="payers.length === 0" class="text-danger">
-            Debe registrar al menos un emisor del pago.
+            Debe registrar al menos un emisor del pago en la sección de "Actores".
           </small>
           <div class="form-text">
             Persona encargado por la Entidad o Institución pública de dar
@@ -183,13 +190,20 @@
       <div class="row">
         <div class="form-floating col mb-3">
           <select class="form-select" formControlName="payee">
+            <option
+              *ngIf="payee.length === 0"
+              [disabled]="payee.length === 0"
+            >
+              No hay registros de receptores de pago
+            </option>
+            <option></option>
             <option *ngFor="let b of payee" [ngValue]="b">
-              {{ b?.legalName || b?.name }}
+              {{ b?.legalName || b?.name }} - ({{ getPartiesListTitle(b?.roles || []) }})
             </option>
           </select>
-          <label for="">Receptor del pago *</label>
+          <label for="">Nombre del receptor del pago *</label>
           <small *ngIf="payee.length === 0" class="text-danger">
-            Debe registrar al menos un receptor del pago.
+            Debe registrar al menos un receptor del pago en la sección de "Actores".
           </small>
           <div class="form-text">
             Es una persona física o moral la cual recibe un pago económico
@@ -207,8 +221,8 @@
             placeholder="URI"
             formControlName="uri"
           />
-          <label for="TransactionsUri">URI *</label>
-          <app-input-validation [element]="uri"></app-input-validation>
+          <label for="TransactionsUri">URI</label>
+          <!-- <app-input-validation [element]="uri"></app-input-validation> -->
           <div class="form-text">
             Una URI apuntando directamente al registro legible por maquinas
             sobre esta transacción.

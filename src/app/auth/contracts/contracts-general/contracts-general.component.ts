@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
 import {
   FormArray,
   FormBuilder,
@@ -29,9 +29,11 @@ interface StoredRelatedProcess {
 })
 export class ContractsGeneralComponent implements OnInit {
   @Input() contractForm!: FormGroup;
+  @Output() saveGeneralDataForm = new EventEmitter<any>();
+
   record_id = null;
-  awardsForm: any; // Define la propiedad awardsForm
-  awardIds: string[] = []; // Array para almacenar los IDs de los awards
+  awardsForm: any;
+  awardIds: string[] = [];
 
   exchangeForm!: FormGroup;
   relatedProcessesForm!: FormGroup;
@@ -58,33 +60,31 @@ export class ContractsGeneralComponent implements OnInit {
     this.route.paramMap.subscribe((params: any) => {
       this.record_id = params.get('id');
       this.loadData();
-      //this.loadExistingData();
     });
     this.initExchangeForm();
     this.initRelatedProcessesForm();
     this.initSurveillanceMechanismsControl();
     this.initRelatedProcessControl();
 
-   // Control booleano al form vss
-  this.contractForm.addControl('hasRelatedProcesses', new FormControl(false));
+    this.contractForm.addControl('hasRelatedProcesses', new FormControl(false));
 
-  //  Suscribir el cambio de valor vss
-  this.contractForm.get('hasRelatedProcesses')?.valueChanges.subscribe((value) => {
-    if (!value) {
-      while (this.relatedProcessesArray.length > 0) {
-        this.relatedProcessesArray.removeAt(0);
-      }
-      this.relatedProcessesForm.reset();
-      this.initRelatedProcessesForm();
-    }
-  });
-  
-}
+    this.contractForm
+      .get('hasRelatedProcesses')
+      ?.valueChanges.subscribe((value) => {
+        if (!value) {
+          while (this.relatedProcessesArray.length > 0) {
+            this.relatedProcessesArray.removeAt(0);
+          }
+          this.relatedProcessesForm.reset();
+          this.initRelatedProcessesForm();
+        }
+      });
+  }
 
-// limpiar residuos del formulario
-trackByIndex(index: number, _: any): number {
-  return index;
-}
+  trackByIndex(index: number, _: any): number {
+    return index;
+  }
+
   loadData(): void {
     if (this.record_id) {
       this.api.getMethod(`/awards/${this.record_id}`).subscribe({
@@ -107,6 +107,47 @@ trackByIndex(index: number, _: any): number {
     }
   }
 
+  saveGeneralForm(): void {
+    this.mostrarSpinner = true;
+
+    // Emitir los controls como lo hace awards-general
+    this.saveGeneralDataForm.emit(this.contractForm.controls);
+
+    setTimeout(() => {
+      this.mostrarSpinner = false;
+      console.log('Datos generales guardados');
+    }, 1000);
+  }
+
+  enableSaveButton(): boolean {
+    const requiredFields = [
+      'contractId',
+      'awardID',
+      'title',
+      'description',
+      'status',
+      'dateSigned',
+    ];
+    const hasRequiredData = requiredFields.every((field) => {
+      const control = this.contractForm.get(field);
+      return control && control.value && control.value.toString().trim() !== '';
+    });
+
+    const periodGroup = this.contractForm.get('period');
+    const hasPeriodData =
+      periodGroup &&
+      periodGroup.get('startDate')?.value &&
+      periodGroup.get('endDate')?.value;
+
+    const valueGroup = this.contractForm.get('value');
+    const hasValueData =
+      valueGroup &&
+      valueGroup.get('amount')?.value &&
+      valueGroup.get('currency')?.value;
+
+    return hasRequiredData && hasPeriodData && hasValueData;
+  }
+
   initSurveillanceMechanismsControl(): void {
     this.surveillanceMechanismsControl.valueChanges.subscribe((value) => {
       if (value) {
@@ -126,8 +167,6 @@ trackByIndex(index: number, _: any): number {
       }
     });
   }
-
-  //validaciones
 
   get contractId() {
     return this.contractForm.get('contractId') as FormControl;
@@ -183,16 +222,13 @@ trackByIndex(index: number, _: any): number {
     return value?.get('exchangeRates') as FormArray;
   }
 
-// Función para gestionar del formulario de tasa de conversión vss
-isForeignCurrencySelected(): boolean {
-  return this.contractForm?.get('value.currency')?.value !== 'MXN';
-}
+  isForeignCurrencySelected(): boolean {
+    return this.contractForm?.get('value.currency')?.value !== 'MXN';
+  }
 
-// Función para gestionar del formulario de procesos relaccionados vss
-showRelatedProcessesSection(): boolean {
-  return this.contractForm?.get('hasRelatedProcesses')?.value === true;
-}
-
+  showRelatedProcessesSection(): boolean {
+    return this.contractForm?.get('hasRelatedProcesses')?.value === true;
+  }
 
   addExchangeRates(): void {
     this.exchangeRatesArray.push(this.exchangeForm);
@@ -209,12 +245,12 @@ showRelatedProcessesSection(): boolean {
 
   addSurveillanceMechanisms() {
     const selectedCode = this.surveillanceMechanismsControl.value;
-  
+
     if (!selectedCode) return;
-  
-    // Verificar si ya existe el mecanismo
-    const yaExiste = this.surveillanceMechanismsArray.value.includes(selectedCode);
-  
+
+    const yaExiste =
+      this.surveillanceMechanismsArray.value.includes(selectedCode);
+
     if (yaExiste) {
       Swal.fire({
         icon: 'warning',
@@ -225,25 +261,25 @@ showRelatedProcessesSection(): boolean {
       });
       return;
     }
-  
+
     const selectedMechanism = this.surveillanceMechanismsType.find(
       (type) => type.code === selectedCode
     );
-  
+
     if (selectedMechanism) {
       this.surveillanceMechanismsArray.push(
         this.fb.control(selectedMechanism.code)
       );
-  
+
       console.log('Array después de agregar:', {
         surveillanceMechanisms: this.surveillanceMechanismsArray.value,
       });
-  
+
       this.surveillanceMechanismsControl.reset();
       this.selectedMechanism = null;
     }
   }
-  
+
   getMechanismTitle(code: string): string {
     const mechanism = this.surveillanceMechanismsType.find(
       (type) => type.code === code
@@ -304,12 +340,11 @@ showRelatedProcessesSection(): boolean {
 
   addRelationship(): void {
     const selectedValue = this.relatedProcessControl.value;
-  
+
     if (!selectedValue) return;
-  
-    // Verificar si ya está en el array
+
     const yaExiste = this.relationshipArray.value.includes(selectedValue);
-  
+
     if (yaExiste) {
       Swal.fire({
         icon: 'warning',
@@ -320,7 +355,7 @@ showRelatedProcessesSection(): boolean {
       });
       return;
     }
-  
+
     this.relationshipArray.push(this.fb.control(selectedValue));
     console.log('Relación agregada:', {
       relationships: this.relationshipArray.value,
@@ -328,7 +363,6 @@ showRelatedProcessesSection(): boolean {
     this.relatedProcessControl.reset();
     this.selectedRelatedProcess = null;
   }
-  
 
   deleteRelationship(index: number): void {
     this.relationshipArray.removeAt(index);
@@ -336,21 +370,21 @@ showRelatedProcessesSection(): boolean {
 
   initExchangeForm(): void {
     this.exchangeForm = this.fb.group({
-      rate: ['', [Validators.required]],
-      currency: ['MXN', [Validators.required]],
-      date: ['', [Validators.required]],
-      source: ['', [Validators.required]],
+      rate: [null],
+      currency: ['MXN'],
+      date: [null],
+      source: [null],
     });
   }
 
   initRelatedProcessesForm(): void {
     this.relatedProcessesForm = this.fb.group({
-      id: ['', [Validators.required]],
+      id: [null],
       relationship: this.fb.array([]),
-      title: ['', [Validators.required]],
-      scheme: ['', [Validators.required]],
-      identifier: ['', [Validators.required]],
-      uri: ['', [Validators.required]],
+      title: [null],
+      scheme: [null],
+      identifier: [null],
+      uri: [null],
     });
   }
 }
