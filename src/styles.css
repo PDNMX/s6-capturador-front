@@ -718,7 +718,7 @@ h5 {
 
 /* Estilos para las tablas - SIN efectos de transición */
 .table {
-  margin-bottom: 0;
+  margin-bottom: 1.5rem; /* Un poco más de espacio */
   transition: none !important;
   animation: none !important;
 }
