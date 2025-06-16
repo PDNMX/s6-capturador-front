@@ -6,7 +6,7 @@ import {
   FormGroup,
   Validators,
 } from '@angular/forms';
-import { Language } from 'src/utils';
+import { Language, ContactPoint } from 'src/utils';
 import Swal from 'sweetalert2';
 
 @Component({
@@ -23,8 +23,8 @@ export class PartiesAdditionalContactPointsComponent implements OnInit {
 
   optsLanguage = Language;
   optLanguage: string = '';
-
   mostrarSpinner = false;
+  contactPoint = ContactPoint;
 
   constructor(private fb: FormBuilder) {}
 
@@ -67,6 +67,14 @@ export class PartiesAdditionalContactPointsComponent implements OnInit {
 
   getLanguageData(code: string): any {
     return this.optsLanguage.find((e) => e.code === code);
+  }
+
+  getContactPointDesc(code: string): string {
+    let desc = '';
+    ContactPoint.forEach((contact) => {
+      if (contact.code === code) desc = contact.description;
+    });
+    return desc;
   }
 
   ngOnInit(): void {

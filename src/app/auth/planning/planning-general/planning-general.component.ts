@@ -80,8 +80,8 @@ export class PlanningGeneralComponent implements OnInit {
 
   initForm(): void {
     this.generalForm = this.fb.group({
-      rationale: ['', [Validators.required, Validators.maxLength(200)]],
-      hasQuotes: ['', Validators.required],
+      rationale: [null, [Validators.required, Validators.maxLength(200)]],
+      hasQuotes: ['', [Validators.required]],
       requestingUnits: this.fb.array([]),
       responsibleUnits: this.fb.array([]),
       contractingUnits: this.fb.array([]),
@@ -90,6 +90,9 @@ export class PlanningGeneralComponent implements OnInit {
 
   get rationale() {
     return this.generalForm.get('rationale') as FormControl;
+  }
+  get hasQuotes() {
+    return this.generalForm.get('hasQuotes') as FormControl;
   }
 
   initSelectForm(): void {
@@ -163,13 +166,39 @@ export class PlanningGeneralComponent implements OnInit {
   }
 
   saveForm(): void {
+    this.generalForm.markAllAsTouched();
+    if (this.generalForm.invalid) {
+      const htmlContent = `
+      <p>Hay campos obligatorios sin llenar.</p>
+      <ul style="text-align: left;">
+        <li>Revisa los campos marcados en rojo.</li>
+        <li>Los mensajes de error están debajo de cada campo.</li>
+      </ul>
+    `;
+
+      Swal.fire({
+        icon: 'warning',
+        title: 'Formulario incompleto',
+        html: htmlContent,
+        footer:
+          'Revisa cada campo obligatorio y asegúrate de completar la información.',
+        confirmButtonText: 'Aceptar',
+        confirmButtonColor: '#ffc107',
+      });
+
+      return;
+    }
     if (this.enableSaveFormButton()) {
-      this.mostrarSpinner = true;
-      this.saveGeneralData.emit(this.generalForm.controls);
-      setTimeout(() => {
-        this.mostrarSpinner = false;
-        console.log('agregando al arreglo');
-      }, 1000);
+      this.saveGeneralData.emit(this.generalForm);
+      Swal.fire({
+        icon: 'success',
+        title: 'Información guardada',
+        text: 'La información general ha sido guardada exitosamente.',
+        confirmButtonText: 'Aceptar',
+        confirmButtonColor: '#28a745',
+        timer: 2000,
+        timerProgressBar: true,
+      });
     }
   }
 
@@ -188,7 +217,7 @@ export class PlanningGeneralComponent implements OnInit {
       });
       return;
     }
-  
+
     if (!this.selectForm.value.contractingUnits) {
       Swal.fire({
         icon: 'error',
@@ -199,10 +228,10 @@ export class PlanningGeneralComponent implements OnInit {
       });
       return;
     }
-  
+
     const nuevaUnidad = this.selectForm.value.contractingUnits;
     const yaExiste = this.contractingUnitsFormArray.value.includes(nuevaUnidad);
-  
+
     if (yaExiste) {
       Swal.fire({
         icon: 'warning',
@@ -213,19 +242,19 @@ export class PlanningGeneralComponent implements OnInit {
       });
       return;
     }
-  
+
     this.contractingUnitsFormArray.push(this.fb.control(nuevaUnidad));
     this.initSelectForm();
   }
-  
+
   deleteContractingUnit(index: number): void {
     this.contractingUnitsFormArray.removeAt(index);
   }
-  
+
   get requestingUnitsArray() {
     return this.generalForm.controls['requestingUnits'] as FormArray;
   }
-  
+
   addRequestingUnit(): void {
     if (this.requestings.length === 0) {
       Swal.fire({
@@ -237,7 +266,7 @@ export class PlanningGeneralComponent implements OnInit {
       });
       return;
     }
-  
+
     if (!this.selectForm.value.requestingUnits) {
       Swal.fire({
         icon: 'error',
@@ -248,10 +277,10 @@ export class PlanningGeneralComponent implements OnInit {
       });
       return;
     }
-  
+
     const nuevaUnidad = this.selectForm.value.requestingUnits;
     const yaExiste = this.requestingUnitsArray.value.includes(nuevaUnidad);
-  
+
     if (yaExiste) {
       Swal.fire({
         icon: 'warning',
@@ -262,19 +291,19 @@ export class PlanningGeneralComponent implements OnInit {
       });
       return;
     }
-  
+
     this.requestingUnitsArray.push(this.fb.control(nuevaUnidad));
     this.initSelectForm();
   }
-  
+
   deleteRequestingUnit(index: number): void {
     this.requestingUnitsArray.removeAt(index);
   }
-  
+
   get responsibleUnitsArray() {
     return this.generalForm.controls['responsibleUnits'] as FormArray;
   }
-  
+
   addResponsibleUnit(): void {
     if (this.responsibles.length === 0) {
       Swal.fire({
@@ -286,7 +315,7 @@ export class PlanningGeneralComponent implements OnInit {
       });
       return;
     }
-  
+
     if (!this.selectForm.value.responsibleUnits) {
       Swal.fire({
         icon: 'error',
@@ -297,10 +326,10 @@ export class PlanningGeneralComponent implements OnInit {
       });
       return;
     }
-  
+
     const nuevaUnidad = this.selectForm.value.responsibleUnits;
     const yaExiste = this.responsibleUnitsArray.value.includes(nuevaUnidad);
-  
+
     if (yaExiste) {
       Swal.fire({
         icon: 'warning',
@@ -311,11 +340,11 @@ export class PlanningGeneralComponent implements OnInit {
       });
       return;
     }
-  
+
     this.responsibleUnitsArray.push(this.fb.control(nuevaUnidad));
     this.initSelectForm();
   }
-  
+
   deleteResponsibleUnit(index: number): void {
     this.responsibleUnitsArray.removeAt(index);
   }
