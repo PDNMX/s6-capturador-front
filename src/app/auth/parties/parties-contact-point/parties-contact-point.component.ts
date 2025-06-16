@@ -6,7 +6,7 @@ import {
   FormGroup,
   Validators,
 } from '@angular/forms';
-import { Language } from 'src/utils';
+import { Language, ContactPoint } from 'src/utils';
 import Swal from 'sweetalert2';
 
 @Component({
@@ -21,6 +21,8 @@ export class PartiesContactPointComponent implements OnInit {
   optsLanguage = Language;
   optLanguage: string = '';
   mostrarSpinner = false;
+  contactPoint = ContactPoint;
+
   constructor(private fb: FormBuilder) {}
 
   get availableLanguageArray() {
@@ -28,7 +30,7 @@ export class PartiesContactPointComponent implements OnInit {
   }
 
   addAvailableLanguage(): void {
-    if(!this.optLanguage){
+    if (!this.optLanguage) {
       Swal.fire({
         icon: 'error',
         title: 'Error',
@@ -40,17 +42,16 @@ export class PartiesContactPointComponent implements OnInit {
     }
 
     const exists = this.availableLanguageArray.value.includes(this.optLanguage);
-  if (exists) {
-    Swal.fire({
-      icon: 'warning',
-      title: 'Duplicado',
-      text: 'El idioma ya ha sido agregado.',
-      confirmButtonText: 'Aceptar',
-      confirmButtonColor: '#ffc107',
-    });
-    return;
-  }
-
+    if (exists) {
+      Swal.fire({
+        icon: 'warning',
+        title: 'Duplicado',
+        text: 'El idioma ya ha sido agregado.',
+        confirmButtonText: 'Aceptar',
+        confirmButtonColor: '#ffc107',
+      });
+      return;
+    }
 
     this.availableLanguageArray.push(this.fb.control(this.optLanguage));
     this.optLanguage = '';
@@ -62,6 +63,14 @@ export class PartiesContactPointComponent implements OnInit {
 
   getLanguageData(code: string): any {
     return this.optsLanguage.find((e) => e.code === code);
+  }
+
+  getContactPointDesc(code: string): string {
+    let desc = '';
+    ContactPoint.forEach((contact) => {
+      if (contact.code === code) desc = contact.description;
+    });
+    return desc;
   }
 
   ngOnInit(): void {
@@ -114,7 +123,7 @@ export class PartiesContactPointComponent implements OnInit {
       email: [''],
       telephone: [''],
       faxNumber: [''],
-      url:  [
+      url: [
         '',
         [
           Validators.pattern(

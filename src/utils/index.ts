@@ -19,6 +19,7 @@ import ImplementationStatus from './implementationStatus';
 import ContractStatus from './contractStatus';
 import RelatedProcesses from './relatedProcesses';
 import PaymentMethods from './paymentMethods';
+import ContactPoint from './contactPoint';
 
 export {
   Currency,
@@ -41,5 +42,6 @@ export {
   RelatedProcesses,
   Guarantees,
   GuaranteeTypes,
-  PaymentMethods
+  PaymentMethods,
+  ContactPoint,
 };

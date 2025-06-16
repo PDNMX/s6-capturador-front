@@ -40,7 +40,7 @@
       <div class="row">
         <div class="col mb-2">
           <label class="form-label"
-            ><strong>¿Tiene cotizaciones?</strong></label
+            ><strong>¿Tiene cotizaciones? *</strong></label
           >
           <div class="form-check">
             <input
@@ -66,6 +66,10 @@
             Campo Sí / No para indicar si hubo solicitudes de cotizaciones
             durante la planificación.
           </div>
+          <app-input-validation
+            [message]="'Debe seleccionar si hubo solicitudes de cotizaciones'"
+            [element]="hasQuotes"
+          ></app-input-validation>
         </div>
       </div>
     </form>
@@ -326,14 +330,13 @@
           type="button"
           class="btn btn-danger btn-save"
           (click)="saveForm()"
-          [disabled]="!enableSaveFormButton()"
         >
           Guardar general
         </button>
       </div>
     </div>
     <br />
-    <div class="row">
+    <!-- <div class="row">
       <div class="col-12 spin">
         <div *ngIf="mostrarSpinner" class="spinner-container">
           <div class="spinner-border" role="status">
@@ -342,7 +345,7 @@
           <p class="mt-2">Guardando...</p>
         </div>
       </div>
-    </div>
+    </div> -->
     <!-- fin -->
   </div>
 </div>

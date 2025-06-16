@@ -73,20 +73,26 @@
   <form [formGroup]="additionalContactPointsForm">
     <div class="row">
       <div class="form-floating col mb-2">
-        <input
-          class="form-control"
-          id="type"
-          type="text"
-          data-sb-validations="required"
-          placeholder="Tipo de punto de contacto*"
-          formControlName="type"
-        />
+        <select class="form-select" formControlName="type">
+          <option value="" disabled>
+            Seleccionar tipo de punto de contacto
+          </option>
+          <option *ngFor="let cp of contactPoint" [ngValue]="cp.code">
+            {{ cp.title }}
+          </option>
+        </select>
         <label for="type">Tipo de punto de contacto</label>
-        <!--  <app-input-validation [element]="type"></app-input-validation> -->
+        <!-- <app-input-validation [element]="type"></app-input-validation> -->
+        <p class="mt-2">{{ getContactPointDesc(additionalContactPointsForm.value.type) }}</p>
       </div>
-      <div class="form-text">
+      <div class="form-text" id="typeHelp">
         Especificar el tipo de punto de contacto de acuerdo con la lista de
-        códigos 'Tipo de punto de contacto'.
+        códigos
+        <a
+          href="https://github.com/contratacionesabiertas/ocds_contactPointType_extension/blob/master/codelists/contactPointType.csv"
+          target="_blank"
+          >'Punto de contacto'</a
+        >
       </div>
     </div>
 
