@@ -9,6 +9,6 @@ export interface User {
   nombre: string;
   primerApellido: string;
   segundoApellido: string;
-  institucion: string; // ID o nombre, dependiendo del catálogo
+  institution: string; // ID o nombre, dependiendo del catálogo
   roles: string[]; // Arreglo de roles asignados
 }

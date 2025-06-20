@@ -24,7 +24,7 @@
         <td>{{ user.nombre }}</td>
         <td>{{ user.primerApellido }}</td>
         <td>{{ user.segundoApellido }}</td>
-        <td>{{ getInstitutionName(user.institucion) }}</td>
+        <td>{{ getInstitutionName(user.institution) }}</td>
         <td>{{ getRolesString(user.scope) }}</td>
         <td>
           <button
@@ -101,11 +101,11 @@
               />
             </div>
             <div class="mb-3">
-              <label for="institucion" class="form-label">Institución</label>
+              <label for="institution" class="form-label">Institución</label>
               <select
                 class="form-select"
-                id="institucion"
-                formControlName="institucion"
+                id="institution"
+                formControlName="institution"
               >
                 <option value="">Selecciona una institución</option>
                 <option *ngFor="let inst of institutions" [value]="inst._id">

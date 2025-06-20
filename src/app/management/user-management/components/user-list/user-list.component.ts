@@ -32,7 +32,7 @@ export class UserListComponent implements OnInit {
       nombre: ['', Validators.required],
       primerApellido: ['', Validators.required],
       segundoApellido: ['', Validators.required],
-      institucion: ['', Validators.required],
+      institution: ['', Validators.required],
     });
   }
 
