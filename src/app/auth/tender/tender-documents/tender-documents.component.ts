@@ -118,7 +118,7 @@ export class TenderDocumentsComponent implements OnInit, OnChanges {
 
   // Agregamos método para detectar cambios en documentsArray
   ngOnChanges(): void {
-    console.log('documentsArray cambió:', this.documentsArray);
+    // console.log('documentsArray cambió:', this.documentsArray);
     // Podemos usar esto para actualizar dinámicamente el estado de los botones
   }
 
@@ -164,7 +164,7 @@ export class TenderDocumentsComponent implements OnInit, OnChanges {
     this.loadData();
     this.initRequiredDocuments();
     this.filterDocuments();
-    
+
     setTimeout(() => {
       const modalEl = document.getElementById('documentModal');
       if (modalEl) {
