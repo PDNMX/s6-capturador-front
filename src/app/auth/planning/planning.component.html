@@ -137,11 +137,10 @@
             role="tabpanel"
             aria-labelledby="v-pills-general-tab"
           >
-            <div class="form">
-              <app-planning-general
-                (saveGeneralData)="saveGeneralData($event)"
-              ></app-planning-general>
-            </div>
+            <app-planning-general
+              #planningGeneralComponent
+              (saveGeneralData)="saveGeneralData($event)"
+            ></app-planning-general>
           </div>
         </div>
 
@@ -167,6 +166,7 @@
           >
             <div class="form">
               <app-planning-request-for-quotes
+                #planningRequestForQuotesComponent
                 [requestForQuotesArray]="planningForm.value.requestForQuotes"
                 (addRequestForQuotes)="addRequestForQuotes($event)"
                 (deleteRequestForQuotes)="deleteRequestForQuotes($event)"
@@ -184,6 +184,7 @@
             aria-labelledby="v-pills-documento-tab"
           >
             <app-planning-documents
+              #planningDocumentsComponent
               [documentsArray]="planningForm.value.documents"
               (addDocument)="addDocument($event)"
               (deleteDocument)="deleteDocument($event)"

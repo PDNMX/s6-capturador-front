@@ -1,9 +1,16 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
-import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import {
+  FormArray,
+  FormBuilder,
+  FormControl,
+  FormGroup,
+  Validators,
+} from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { ApiService, IPartieList } from 'src/app/services/api.service';
 import { PartyRole } from 'src/utils';
 import OrganizationSchemes from 'src/utils/organizationsSchemes';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-parties-general',
@@ -47,12 +54,54 @@ export class PartiesGeneralComponent implements OnInit {
   }
 
   addMemberOf(): void {
+    // Validamos si el arreglo de actores está vacío
+    if (!this.memberOfList || this.memberOfList.length === 0) {
+      Swal.fire({
+        icon: 'info',
+        title: 'Sin Actores',
+        text: 'No existen actores registrados para este proceso de contratación.',
+        confirmButtonText: 'Aceptar',
+        confirmButtonColor: '#0d6efd',
+      });
+      return;
+    }
+  
+    // Validamos si se ha seleccionado un actor
+    if (!this.optMemberOf) {
+      Swal.fire({
+        icon: 'error',
+        title: 'Error',
+        text: 'Seleccione un actor para agregarlo.',
+        confirmButtonText: 'Aceptar',
+        confirmButtonColor: '#dc3545',
+      });
+      return;
+    }
+  
+    // Validación de duplicado
+    const yaExiste = this.memberOfArray.value.includes(this.optMemberOf);
+    if (yaExiste) {
+      Swal.fire({
+        icon: 'warning',
+        title: 'Duplicado',
+        text: 'Este actor ya fue agregado como miembro.',
+        confirmButtonText: 'Aceptar',
+        confirmButtonColor: '#ffc107',
+      });
+      return;
+    }
+  
+    // Si pasa todas las validaciones, agregar
     this.memberOfArray.push(this.fb.control(this.optMemberOf));
+    this.optMemberOf = '';
   }
+  
 
   deleteMemberOf(index: number): void {
     this.memberOfArray.removeAt(index);
   }
+
+
 
   get roleArray() {
     return this.generalForm.controls['roles'] as FormArray;
@@ -74,8 +123,34 @@ export class PartiesGeneralComponent implements OnInit {
   }
 
   addRole(): void {
+    //validamos si se ha seleccionado un rol
+    if (!this.optRole) {
+      Swal.fire({
+        icon: 'error',
+        title: 'Error',
+        text: 'Seleccione un rol para agregarlo.',
+        confirmButtonText: 'Aceptar',
+        confirmButtonColor: '#dc3545',
+      });
+      return;
+    }
+    const existingRoles = this.roleArray.value; // obtiene los roles actuales
+
+    if (existingRoles.includes(this.optRole)) {
+      Swal.fire({
+        icon: 'warning',
+        title: 'Rol duplicado',
+        text: 'El rol ya existe. No se puede agregar duplicado.',
+        confirmButtonText: 'Aceptar',
+        confirmButtonColor: '#ffc107' // alerta sweet vss
+      });
+      return;
+    }
+    
+
     this.roleArray.push(this.fb.control(this.optRole));
     this.regresarBeneficiaries(this.optRole);
+    this.optRole = '';
   }
 
   deleteRole(index: number): void {
@@ -117,6 +192,9 @@ export class PartiesGeneralComponent implements OnInit {
   ngOnInit(): void {
     this.initForm();
 
+      //  Ordenar roles alfabéticamente por título
+    this.rolesList = this.rolesList.sort((a, b) => a.title.localeCompare(b.title));
+
     // Listener para el cambio de esquema
     this.generalForm
       .get('identifier.schema')
@@ -150,6 +228,22 @@ export class PartiesGeneralComponent implements OnInit {
     }
   }
 
+  get add_schema(): FormControl {
+    return this.additionalIdentifiersForm.get('schema') as FormControl;
+  }
+
+  get add_id(): FormControl {
+    return this.additionalIdentifiersForm.get('id') as FormControl;
+  }
+
+  get add_uri(): FormControl {
+    return this.additionalIdentifiersForm.get('uri') as FormControl;
+  }
+
+  get add_legalName(): FormControl {
+    return this.additionalIdentifiersForm.get('legalName') as FormControl;
+  }
+
   initAdditionalIdentifiersForm(): void {
     this.additionalIdentifiersForm = this.fb.group({
       schema: ['', [Validators.required]],
@@ -158,26 +252,76 @@ export class PartiesGeneralComponent implements OnInit {
       legalName: ['', [Validators.required]],
     });
 
-     // Listener para el cambio de schema
-     this.additionalIdentifiersForm.get('schema')?.valueChanges.subscribe(schemaCode => {
-      const selectedScheme = this.organizationSchemes.find(scheme => scheme.code === schemaCode);
-      if (selectedScheme) {
-        this.additionalIdentifiersForm.get('uri')?.setValue(selectedScheme.url);
-      }
-    });
+    // Listener para el cambio de schema
+    this.additionalIdentifiersForm
+      .get('schema')
+      ?.valueChanges.subscribe((schemaCode) => {
+        const selectedScheme = this.organizationSchemes.find(
+          (scheme) => scheme.code === schemaCode
+        );
+        if (selectedScheme) {
+          this.additionalIdentifiersForm
+            .get('uri')
+            ?.setValue(selectedScheme.url);
+        }
+      });
+  }
+
+  get name(): FormControl {
+    return this.generalForm.get('name') as FormControl;
+  }
+
+  get position(): FormControl {
+    return this.generalForm.get('position') as FormControl;
+  }
+
+  get identifier(): FormGroup {
+    return this.generalForm.get('identifier') as FormGroup;
+  }
+
+  get legalPersonality(): FormControl {
+    return this.identifier.get('legalPersonality') as FormControl;
+  }
+
+  get schema(): FormControl {
+    return this.identifier.get('schema') as FormControl;
+  }
+
+  get id(): FormControl {
+    return this.identifier.get('id') as FormControl;
+  }
+
+  get uri(): FormControl {
+    return this.identifier.get('uri') as FormControl;
+  }
+
+  get legalName(): FormControl {
+    return this.identifier.get('legalName') as FormControl;
+  }
+
+  get givenName(): FormControl {
+    return this.identifier.get('givenName') as FormControl;
+  }
+
+  get patronymicName(): FormControl {
+    return this.identifier.get('patronymicName') as FormControl;
+  }
+
+  get matronymicName(): FormControl {
+    return this.identifier.get('matronymicName') as FormControl;
   }
 
   initForm(): void {
     this.generalForm = this.fb.group({
       name: ['', [Validators.required]],
-      position: ['', [Validators.required]],
+      position: [''],
       roles: this.fb.array([]),
       memberOf: this.fb.array([]),
       identifier: this.fb.group({
         legalPersonality: ['', Validators.required],
         schema: ['', [Validators.required]],
         id: ['', [Validators.required]],
-        uri: ['', [Validators.required]],
+        uri: [''],
         legalName: ['', [Validators.required]],
         givenName: ['', [Validators.required]],
         patronymicName: ['', [Validators.required]],

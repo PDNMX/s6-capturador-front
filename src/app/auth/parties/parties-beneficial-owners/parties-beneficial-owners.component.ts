@@ -1,5 +1,10 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import {
+  FormBuilder,
+  FormControl,
+  FormGroup,
+  Validators,
+} from '@angular/forms';
 
 @Component({
   selector: 'app-parties-beneficial-owners',
@@ -17,6 +22,62 @@ export class PartiesBeneficialOwnersComponent implements OnInit {
 
   ngOnInit(): void {
     this.initForm();
+  }
+
+  get name(): FormControl {
+    return this.beneficialOwnersForm.get('name') as FormControl;
+  }
+
+  get identifier(): FormGroup {
+    return this.beneficialOwnersForm.get('identifier') as FormGroup;
+  }
+
+  get schema(): FormControl {
+    return this.identifier.get('schema') as FormControl;
+  }
+
+  get id(): FormControl {
+    return this.identifier.get('id') as FormControl;
+  }
+
+  get nationality(): FormControl {
+    return this.beneficialOwnersForm.get('nationality') as FormControl;
+  }
+
+  get email(): FormControl {
+    return this.beneficialOwnersForm.get('email') as FormControl;
+  }
+
+  get telephone(): FormControl {
+    return this.beneficialOwnersForm.get('telephone') as FormControl;
+  }
+
+  get faxNumber(): FormControl {
+    return this.beneficialOwnersForm.get('faxNumber') as FormControl;
+  }
+
+  get address(): FormGroup {
+    return this.beneficialOwnersForm.get('address') as FormGroup;
+  }
+
+  get streetAddress(): FormControl {
+    return this.address.get('streetAddress') as FormControl;
+  }
+
+  get locality(): FormControl {
+    return this.address.get('locality') as FormControl;
+  }
+
+  get region(): FormControl {
+    return this.address.get('region') as FormControl;
+  }
+
+  get postalCode(): FormControl {
+    return this.address.get('postalCode') as FormControl;
+  }
+
+  get countryName(): FormControl {
+    return this.address.get('countryName') as FormControl;
   }
 
   initForm(): void {

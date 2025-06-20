@@ -1,6 +1,13 @@
 import { AwardsSuppliersComponent } from './../awards-suppliers/awards-suppliers.component';
 import { Component, OnInit, EventEmitter, Output } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import {
+  FormBuilder,
+  FormControl,
+  FormGroup,
+  Validators,
+  AbstractControl,
+  ValidationErrors,
+} from '@angular/forms';
 import { Currency, Language, AwardStatus } from 'src/utils';
 import { ApiService } from 'src/app/services/api.service';
 import { ActivatedRoute } from '@angular/router';
@@ -15,7 +22,7 @@ export class AwardsGeneralComponent implements OnInit {
 
   record_id: string = '';
 
-  currency = Currency;
+  data_currency = Currency;
   language = Language;
   awardStatus = AwardStatus;
 
@@ -72,24 +79,110 @@ export class AwardsGeneralComponent implements OnInit {
     //this.loadData();
   }
 
+  get id(): FormControl {
+    return this.generalForm.get('id') as FormControl;
+  }
+
+  get status(): FormControl {
+    return this.generalForm.get('status') as FormControl;
+  }
+
+  get title(): FormControl {
+    return this.generalForm.get('title') as FormControl;
+  }
+
+  get description(): FormControl {
+    return this.generalForm.get('description') as FormControl;
+  }
+
+  get rationale(): FormControl {
+    return this.generalForm.get('rationale') as FormControl;
+  }
+
+  get date(): FormControl {
+    return this.generalForm.get('date') as FormControl;
+  }
+
+  get value(): FormGroup {
+    return this.generalForm.get('value') as FormGroup;
+  }
+
+  get amount(): FormControl {
+    return this.value.get('amount') as FormControl;
+  }
+
+  get currency(): FormControl {
+    return this.value.get('currency') as FormControl;
+  }
+
+  // end value
+
+  get contractPeriod(): FormGroup {
+    return this.generalForm.get('contractPeriod') as FormGroup;
+  }
+
+  getControl(name: string): FormControl {
+    return this.contractPeriod.get(name) as FormControl;
+  }
+
+  get startDate(): FormControl {
+    return this.contractPeriod.get('startDate') as FormControl;
+  }
+
+  get endDate(): FormControl {
+    return this.contractPeriod.get('endDate') as FormControl;
+  }
+
+  get maxExtentDate(): FormControl {
+    return this.contractPeriod.get('maxExtentDate') as FormControl;
+  }
+
+  get durationInDays(): FormControl {
+    return this.contractPeriod.get('durationInDays') as FormControl;
+  }
+  
+  private dateComparisonValidator(): Validators {
+    return (group: AbstractControl): ValidationErrors | null => {
+      const startDate = group.get('startDate')?.value;
+      const endDate = group.get('endDate')?.value;
+      const maxExtentDate = group.get('maxExtentDate')?.value;
+
+      if (startDate && endDate && new Date(endDate) < new Date(startDate)) {
+        group.get('endDate')?.setErrors({ dateInvalid: true });
+        return { dateInvalid: true };
+      }
+
+      if (
+        maxExtentDate &&
+        endDate &&
+        new Date(maxExtentDate) < new Date(endDate)
+      ) {
+        group.get('maxExtentDate')?.setErrors({ maxDateInvalid: true });
+        return { maxDateInvalid: true };
+      }
+
+      return null;
+    };
+  }
+
   initForm(): void {
     this.generalForm = this.fb.group({
-      id: ['', Validators.required],
-      status: ['', Validators.required],
-      title: ['', Validators.required],
-      description: ['', Validators.required],
-      rationale: ['', Validators.required],
-      date: ['', Validators.required],
+      id: ['', [Validators.required]],
+      status: ['', [Validators.required]],
+      title: ['', [Validators.required]],
+      description: ['', [Validators.required]],
+      rationale: ['', [Validators.required]],
+      date: ['', [Validators.required]],
       value: this.fb.group({
-        amount: ['', Validators.required],
-        currency: ['', Validators.required],
+        amount: ['', [Validators.required]],
+        currency: ['MXN', [Validators.required]],
       }),
       contractPeriod: this.fb.group({
-        startDate: ['', Validators.required],
-        endDate: ['', Validators.required],
-        maxExtentDate: ['', Validators.required],
-        durationInDays: ['', Validators.required],
-      }),
+        startDate: ['', [Validators.required]],
+        endDate: ['', [Validators.required]],
+        maxExtentDate: [null],
+        durationInDays: [null],
+      }, { validators: this.dateComparisonValidator() }),
     });
   }
   getAwardStatusDesc(code: string): string {

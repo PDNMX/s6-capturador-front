@@ -1,0 +1,33 @@
+<div class="row justify-content-center">
+  <div class="col-2 col-offset-1">
+    <div class="list-group" id="list-tab" role="tablist">
+      <a
+        class="list-group-item list-group-item-action"
+        [class.active]="checkPath('users')"
+        id="list-users-list"
+        data-bs-toggle="list"
+        href="#list-users"
+        role="tab"
+        aria-controls="list-users"
+        routerLink="users"
+        >Usuarios</a
+      >
+      <a
+        class="list-group-item list-group-item-action"
+        [class.active]="checkPath('institutions')"
+        id="list-institutions-list"
+        data-bs-toggle="list"
+        href="#list-institutions"
+        role="tab"
+        aria-controls="list-institutions"
+        routerLink="institutions"
+        >Instituciones</a
+      >
+    </div>
+  </div>
+  <div class="col-8">
+    <div class="tab-content" id="nav-tabContent">
+      <router-outlet></router-outlet>
+    </div>
+  </div>
+</div>

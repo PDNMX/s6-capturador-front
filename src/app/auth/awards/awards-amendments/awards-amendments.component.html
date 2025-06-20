@@ -40,7 +40,7 @@
                 <button
                   type="button"
                   class="btn btn-danger btn-delete"
-                  (click)="deleteAmendment.emit(i)"
+                  (click)="confirmAndDeleteAmendment(i)"
                 >
                   Eliminar
                 </button>
@@ -69,9 +69,7 @@
           formControlName="date"
         />
         <label for="datePublished">Fecha de la modificación *</label>
-        <div class="invalid-feedback" data-sb-feedback="title:required">
-          Fecha de enmienda * es requerido.
-        </div>
+        <app-input-validation [element]="date"></app-input-validation>
       </div>
       <div class="form-text">La fecha de esta modificación.</div>
     </div>
@@ -86,10 +84,8 @@
           style="height: 100px"
           formControlName="rationale"
         ></textarea>
-        <label for="rationale">Justificación*</label>
-        <div class="invalid-feedback" data-sb-feedback="rationale:required">
-          Justificación * es requerido.
-        </div>
+        <label for="rationale">Justificación *</label>
+        <app-input-validation [element]="rationale"></app-input-validation>
       </div>
       <div class="form-text">Una explicación de la modificación.</div>
     </div>
@@ -104,10 +100,8 @@
           style="height: 100px"
           formControlName="description"
         ></textarea>
-        <label for="description">Descripción*</label>
-        <div class="invalid-feedback" data-sb-feedback="description:required">
-          Descripción * es requerido.
-        </div>
+        <label for="description">Descripción *</label>
+        <app-input-validation [element]="description"></app-input-validation>
       </div>
       <div class="form-text">
         Un texto libre o semi estructurado, describiendo los cambios hechos en
@@ -125,10 +119,10 @@
           placeholder="URL*"
           formControlName="amendsReleaseID"
         />
-        <label for="URL">Liberación modificada (identificador) *</label>
-        <div class="invalid-feedback" data-sb-feedback="title:required">
-          * es requerido.
-        </div>
+        <label for="URL">Liberación modificada (identificador)</label>
+        <!-- <app-input-validation
+          [element]="amendsReleaseID"
+        ></app-input-validation> -->
       </div>
       <div class="form-text">
         Provee el identificador (release.id) de la entrega OCDS (de este proceso
@@ -147,10 +141,8 @@
           placeholder="URL*"
           formControlName="releaseID"
         />
-        <label for="URL">Difusión de la modificación (identificador) *</label>
-        <div class="invalid-feedback" data-sb-feedback="title:required">
-          * es requerido.
-        </div>
+        <label for="URL">Difusión de la modificación (identificador)</label>
+        <!-- <app-input-validation [element]="releaseID"></app-input-validation> -->
       </div>
       <div class="form-text">
         Provee el identificador (release.id) de la entrega OCDS (de este proceso
@@ -165,6 +157,7 @@
           type="button"
           class="btn btn-danger btn-add"
           (click)="addNewAmendment()"
+          [disabled]="!amendmentsForm.valid"
         >
           Agregar modificación
         </button>

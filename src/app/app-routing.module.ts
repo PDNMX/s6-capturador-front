@@ -18,9 +18,16 @@ const routes: Routes = [
     loadChildren: () =>
       import('./unauth/unauth.module').then((module) => module.UnauthModule),
   },
+  {
+    path: 'management',
+    component: LayoutsComponent,
+    loadChildren: () =>
+      import('./management/management.module').then((m) => m.ManagementModule),
+  },
 
   // { path: '404', component: NotFoundComponent },
   { path: '', redirectTo: 'login', pathMatch: 'full' },
+
   // { path: '**', redirectTo: '404' },
 ];
 

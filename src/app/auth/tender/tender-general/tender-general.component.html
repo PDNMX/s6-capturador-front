@@ -11,21 +11,20 @@
       <div class="form-floating col mb-2">
         <input
           class="form-control"
+          [class.is-invalid]="title.touched && title.invalid"
           id="title"
           type="text"
-          data-sb-validations="required"
+          data-sb-validations=""
           placeholder="Titulo*"
           formControlName="title"
         />
-        <label for="title">Titulo*</label>
-        <div class="invalid-feedback" data-sb-feedback="title:required">
-          Titulo * es requerido.
-        </div>
+        <label for="title">Título de la contratación pública *</label>
+        <app-input-validation [element]="title"></app-input-validation>
       </div>
       <div class="form-text">
-        Un título para esta licitación. Éste se usará por aplicaciones como una
-        cabecera para atraer interés y ayudar a los analistas a entender la
-        naturaleza de esta contratación.
+        Un título para esta contratación pública. Éste se usará por aplicaciones
+        como una cabecera para atraer interés y ayudar a los analistas a
+        entender la naturaleza de esta contratación.
       </div>
     </div>
 
@@ -39,16 +38,14 @@
           style="height: 100px"
           formControlName="description"
         ></textarea>
-        <label for="description">Descripción*</label>
-        <div class="invalid-feedback" data-sb-feedback="description:required">
-          Descripción * es requerido.
-        </div>
+        <label for="description">Descripción de la contratación pública *</label>
+        <app-input-validation [element]="description"></app-input-validation>
       </div>
       <div class="form-text">
-        Una descripción breve de la licitación. Esto complementa cualquier
-        información estructurada que se da utilizando la lista de artículos. Las
-        descripciones deben de ser cortas y fáciles de leer. Evite utilizar
-        MAYÚSCULAS.
+        Una descripción breve de la contratación pública. Esto complementa
+        cualquier información estructurada que se da utilizando la lista de
+        artículos. Las descripciones deben de ser cortas y fáciles de leer.
+        Evite utilizar MAYÚSCULAS.
       </div>
     </div>
 
@@ -59,11 +56,14 @@
             {{ d.title }}
           </option>
         </select>
-        <label for="">Estatus de la contratación pública</label>
+        <label for="">Estado de la contratación pública *</label>
+        <app-input-validation
+          [element]="status"
+          [message]="'Debe seleccionar un estatus de la contratación pública'"
+        ></app-input-validation>
         <p class="mt-2">{{ getTenderStatusDesc(generalForm.value.status) }}</p>
         <div class="form-text">
-          El estatus actual de la contratación pública, desde la lista de código
-          cerrada
+          El estado actual de la contratación pública, desde la lista de código cerrada tenderStatus.
           <a
             href="https://standard.open-contracting.org/1.1/es/schema/codelists/#tender-status"
             target="_blank"
@@ -75,7 +75,7 @@
 
     <div class="row">
       <div class="col-12">
-        <label for="">Entidad contratante</label>
+        <label for="">Entidad contratante *</label>
       </div>
       <div class="form-floating col mb-2">
         <select class="form-select" formControlName="procuringEntity">
@@ -86,9 +86,15 @@
             No hay registros de Actores para este proceso de contratación.
           </option>
           <option *ngFor="let d of procuringEntity" [ngValue]="d">
-            {{ d.name }}
+            {{ d?.legalName || d.name }} - ({{
+              getPartiesListTitle(d?.roles || [])
+            }})
           </option>
         </select>
+        <app-input-validation
+          [element]="procuringEntitylist"
+          [message]="'Debe seleccionar una entidad contratante'"
+        ></app-input-validation>
       </div>
       <div class="form-text">
         La entidad que gestiona el proceso de contratación. Esta puede ser
@@ -97,14 +103,15 @@
     </div>
 
     <fieldset class="border p-3 mb-3" formGroupName="value">
-      <legend class="w-auto px-1">Valor máximo de contratación</legend>
+      <legend class="w-auto px-1">Valor de la contratación pública</legend>
       <hr />
       <div class="row">
         <div class="col">
           <p>
-            El valor estimado de la contratación sin impuestos incluidos. En
-            caso de contrataciones abiertas, se señala el presupuesto máximo que
-            podría ejercerse en la ejecución del contrato.
+            Monto asignado sin impuestos para este proceso de Contratación
+            Pública. Se obtiene de la Orden de servicio (documento donde se
+            autoriza la suficiencia presupuestal para la elaboración de este
+            proceso de contratación).
           </p>
         </div>
       </div>
@@ -116,27 +123,24 @@
               class="form-control"
               id="amount"
               type="text"
-              data-sb-validations="required"
+              data-sb-validations=""
               placeholder="ID de Organización*"
               formControlName="amount"
             />
-            <label for="amount">Cantidad*</label>
-            <div class="invalid-feedback" data-sb-feedback="title:required">
-              Cantidad * es requerido.
-            </div>
+            <label for="amount">Monto de la contratación pública</label>
+            <!-- <app-input-validation [element]="amount"></app-input-validation> -->
           </div>
           <div class="form-text">Monto como una cifra.</div>
         </div>
         <div class="col-8 mb-2">
           <div class="form-floating">
             <select class="form-select" formControlName="currency">
-              <label for="currency">Moneda*</label>
-              <option selected>Seleccione un moneda</option>
+              <label for="currency">Moneda</label>
               <option *ngFor="let m of currency" value="{{ m.code }}">
                 {{ m.title }}
               </option>
             </select>
-            <label for="currency">Moneda*</label>
+            <label for="currency">Moneda de la contratación pública</label>
           </div>
           <div class="form-text">
             La moneda del monto, de la lista de código cerrada
@@ -151,7 +155,7 @@
     </fieldset>
 
     <fieldset class="border p-3 mb-3" formGroupName="minValue">
-      <legend class="w-auto px-1">Valor mínimo de contratación</legend>
+      <legend class="w-auto px-1">Valor mínimo de la contratación pública</legend>
       <hr />
       <div class="row">
         <div class="col">
@@ -174,23 +178,20 @@
               placeholder="ID de Organización*"
               formControlName="amount"
             />
-            <label for="amount">Cantidad*</label>
-            <div class="invalid-feedback" data-sb-feedback="title:required">
-              Cantidad * es requerido.
-            </div>
+            <label for="amount">Monto del valor mínimo</label>
+            <!-- <app-input-validation [element]="amount_min"></app-input-validation> -->
           </div>
           <div class="form-text">Monto como una cifra.</div>
         </div>
         <div class="col-8 mb-2">
           <div class="form-floating">
             <select class="form-select" formControlName="currency">
-              <label for="currency">Moneda*</label>
-              <option selected>Seleccione un moneda</option>
+              <label for="currency">Moneda</label>
               <option *ngFor="let m of currency" value="{{ m.code }}">
                 {{ m.title }}
               </option>
             </select>
-            <label for="currency">Moneda*</label>
+            <label for="currency">Moneda del valor mínimo</label>
           </div>
           <div class="form-text">
             La moneda del monto, de la lista de código cerrada
@@ -206,7 +207,7 @@
 
     <div class="row">
       <div class="col-12">
-        <label for="">Método de contratación</label>
+        <label for="">Método de contratación *</label>
       </div>
       <div class="form-floating col mb-2">
         <select class="form-select" formControlName="procurementMethod">
@@ -214,12 +215,17 @@
             {{ d.title }}
           </option>
         </select>
+        <app-input-validation
+          [element]="procurementMethodlist"
+          [message]="'Debe seleccionar al menos un método de contratación'"
+        ></app-input-validation>
         <p class="mt-2">
           {{ getProcurementMethod(generalForm.value.procurementMethod) }}
         </p>
       </div>
       <div class="form-text">
-        El método de adquisición, de la lista de código cerrada
+        Especifica el método de contratación utilizando la lista de códigos
+        cerrada
         <a
           href="https://standard.open-contracting.org/1.1/es/schema/codelists/#method"
           target="_blank"
@@ -239,14 +245,11 @@
           formControlName="procurementMethodDetails"
         ></textarea>
         <label for="procurementMethodDetails"
-          >Detalles del método de contratación*</label
+          >Detalles del método de contratación *</label
         >
-        <div
-          class="invalid-feedback"
-          data-sb-feedback="procurementMethodDetails:required"
-        >
-          Detalles del método de contratación * es requerido.
-        </div>
+        <app-input-validation
+          [element]="procurementMethodDetails"
+        ></app-input-validation>
       </div>
       <div class="form-text">
         Detalles adicionales sobre el método de adquisiciones utilizado. Este
@@ -266,14 +269,11 @@
           formControlName="procurementMethodRationale"
         ></textarea>
         <label for="procurementMethodRationale"
-          >Justificación para el método de contratación*</label
+          >Justificación para el método de contratación *</label
         >
-        <div
-          class="invalid-feedback"
-          data-sb-feedback="procurementMethodRationale:required"
-        >
-          Justificación * es requerido.
-        </div>
+        <app-input-validation
+          [element]="procurementMethodRationale"
+        ></app-input-validation>
       </div>
       <div class="form-text">
         Justificación para el método de compra elegido. Esto es especialmente
@@ -283,7 +283,7 @@
     </div>
 
     <fieldset class="border p-3 mb-3">
-      <legend class="w-auto px-1">Categoria de la contratacion</legend>
+      <legend class="w-auto px-1">Categoría de la contratación</legend>
       <hr />
       <p>
         La principal categoría describiendo el objeto principal de este proceso
@@ -296,7 +296,7 @@
       </p>
       <div class="row">
         <div class="col-12">
-          <label for="">Categoria principal*</label>
+          <label for="">Categoria principal de contratación</label>
         </div>
         <div class="form-floating col mb-2">
           <select class="form-select" formControlName="mainProcurementCategory">
@@ -307,6 +307,10 @@
               {{ d.title }}
             </option>
           </select>
+          <!-- <app-input-validation
+            [element]="MainProcurementCategory"
+            [message]="'Debe seleccionar una categoría principal'"
+          ></app-input-validation> -->
           <p class="mt-2">
             {{
               getMainProcurementCategory(
@@ -319,7 +323,7 @@
 
       <div class="row">
         <div class="col-12">
-          <label for="">Categorias adicionales*</label>
+          <label for="">Categorias adicionales de contratación</label>
         </div>
         <div
           class="col-10 mb-2"
@@ -407,7 +411,7 @@
     </fieldset>
 
     <fieldset class="border p-3 mb-3">
-      <legend class="w-auto px-1">Criterios de adjudicación</legend>
+      <legend class="w-auto px-1">Criterios de adjudicación *</legend>
       <hr />
       <p>
         Son los elementos que servirán de guía para la valoración de las ofertas
@@ -415,7 +419,7 @@
         cuál, de entre las ofertas presentadas, resulta ser la mejor y por tanto
         la propuesta para adjudicación. Los criterios para evaluar la solvencia
         de las proposiciones deberán guardar relación con los requisitos y
-        especificaciones señalados en la convocatoria a la licitación pública
+        especificaciones señalados en la convocatoria a la contratación pública
         para la integración de las propuestas técnicas y económicas
         <a
           href="https://standard.open-contracting.org/1.1/es/schema/codelists/#award-criteria"
@@ -425,7 +429,7 @@
       </p>
       <div class="row">
         <div class="col-12">
-          <label for="">Criterio de adjudicación*</label>
+          <label for="">Criterios de adjudicación *</label>
         </div>
         <div class="form-floating col mb-5">
           <select class="form-select" formControlName="awardCriteria">
@@ -437,6 +441,10 @@
               <strong *ngIf="d.obsoleto">(obsoleto)</strong> {{ d.title }}
             </option>
           </select>
+          <app-input-validation
+            [element]="awardCriteriaList"
+            [message]="'Debe seleccionar un criterio de adjudicación'"
+          ></app-input-validation>
           <p class="mt-2">
             {{ getAwardCriteriaDesc(generalForm.value.awardCriteria) }}
           </p>
@@ -453,13 +461,12 @@
             style="height: 100px"
             formControlName="awardCriteriaDetails"
           ></textarea>
-          <label for="awardCriteriaDetails">Detalles*</label>
-          <div
-            class="invalid-feedback"
-            data-sb-feedback="awardCriteriaDetails:required"
+          <label for="awardCriteriaDetails"
+            >Detalles de los criterios de adjudicación *</label
           >
-            Detalles * es requerido.
-          </div>
+          <app-input-validation
+            [element]="awardCriteriaDetails"
+          ></app-input-validation>
         </div>
         <div class="form-text">
           Cualquier detalle o información adicional sobre la adjudicación o
@@ -482,7 +489,7 @@
       </p>
       <div class="row">
         <div class="col-12">
-          <label for="">Método de presentación*</label>
+          <label for="">Método de presentación</label>
         </div>
         <div class="col-10 mb-2" [formGroup]="submissionMethodForm">
           <div class="form-floating">
@@ -491,6 +498,12 @@
                 {{ d.title }}
               </option>
             </select>
+            <!-- <small
+              *ngIf="submissionMethodArray.length === 0"
+              class="text-danger"
+            >
+              Debe registrar al menos un método de presentación de oferta.
+            </small> -->
           </div>
         </div>
 
@@ -559,7 +572,9 @@
             style="height: 100px"
             formControlName="submissionMethodDetails"
           ></textarea>
-          <label for="submissionMethodDetails">Detalles*</label>
+          <label for="submissionMethodDetails"
+            >Detalles del método de presentación</label
+          >
           <div class="form-text">
             Cualquier detalle o más información sobre el método de entrega. Esto
             puede incluir la dirección, correo electrónico o servicio en línea
@@ -577,12 +592,12 @@
     </fieldset>
 
     <fieldset class="border p-3 mb-3" formGroupName="tenderPeriod">
-      <legend class="w-auto px-1">Periodo de licitación</legend>
+      <legend class="w-auto px-1">Periodo de la contratación pública *</legend>
       <hr />
       <p>
-        El periodo cuando la licitación está abierta para la recepción de las
-        propuestas. La fecha de final es la fecha de cierre de recepción de las
-        propuestas.
+        El periodo cuando la contratación pública está abierta para la recepción
+        de las propuestas. La fecha de final es la fecha de cierre de recepción
+        de las propuestas.
       </p>
       <div class="row">
         <div class="form-floating col-6 mb-5">
@@ -590,13 +605,12 @@
             class="form-control"
             id="startDate"
             type="date"
-            data-sb-validations="required"
             formControlName="startDate"
           />
-          <label for="startDate">Fecha de inicio*</label>
-          <div class="invalid-feedback" data-sb-feedback="title:required">
-            Fecha de inicio * es requerido.
-          </div>
+          <label for="startDate">Fecha inicial del periodo de la contratación pública *</label>
+          <app-input-validation
+            [element]="getControl('startDate')"
+          ></app-input-validation>
           <div class="form-text">
             La fecha de inicio del período. Cuando se sabe, se debe dar una
             fecha de inicio precisa.
@@ -607,13 +621,12 @@
             class="form-control"
             id="endDate"
             type="date"
-            data-sb-validations="required"
             formControlName="endDate"
           />
-          <label for="endDate">Fecha de término*</label>
-          <div class="invalid-feedback" data-sb-feedback="title:required">
-            Fecha de término * es requerido.
-          </div>
+          <label for="endDate">Fecha final del periodo de la contratación pública *</label>
+          <app-input-validation
+            [element]="getControl('endDate')"
+          ></app-input-validation>
           <div class="form-text">
             La fecha de conclusión del período. Cuando se sabe, se debe dar una
             fecha de conclusión precisa.
@@ -627,13 +640,12 @@
             class="form-control"
             id="maxExtentDate"
             type="date"
-            data-sb-validations="required"
             formControlName="maxExtentDate"
           />
-          <label for="maxExtentDate">Extension máxima*</label>
-          <div class="invalid-feedback" data-sb-feedback="title:required">
-            Extension máxima * es requerido.
-          </div>
+          <label for="maxExtentDate">Extension máxima</label>
+          <!-- <app-input-validation
+            [element]="getControl('maxExtentDate')"
+          ></app-input-validation> -->
           <div class="form-text">
             El período no puede extenderse después de esta fecha. Este campo
             debe usarse para expresar la fecha máxima disponible para la
@@ -645,14 +657,13 @@
             class="form-control"
             id="durationInDays"
             type="number"
-            data-sb-validations="required"
-            placeholder="Duración (días)*"
+            placeholder="Duración (días) *"
             formControlName="durationInDays"
           />
-          <label for="durationInDays">Duración (dias)*</label>
-          <div class="invalid-feedback" data-sb-feedback="title:required">
-            Duración * es requerido.
-          </div>
+          <label for="durationInDays">Duración (dias)</label>
+          <!-- <app-input-validation
+            [element]="getControl('durationInDays')"
+          ></app-input-validation> -->
           <div class="form-text">
             El nivel máximo de duración de este período en días.
           </div>
@@ -661,7 +672,9 @@
     </fieldset>
 
     <fieldset class="border p-3 mb-3" formGroupName="enquiryPeriod">
-      <legend class="w-auto px-1">Periodo de solicitudes de aclaración</legend>
+      <legend class="w-auto px-1">
+        Periodo de solicitudes de aclaración *
+      </legend>
       <hr />
       <p>
         El periodo durante el cual los postulantes potenciales pueden hacer
@@ -670,7 +683,7 @@
         especificarse en documentos de notificaciones adjuntos o en el campo
         Detalles del método de presentación. Las fechas estructuradas para
         cuando se dará respuesta a las preguntas se puede proveer usando hitos
-        de la licitación.
+        de la contratación pública.
       </p>
       <div class="row">
         <div class="form-floating col-6 mb-5">
@@ -681,10 +694,10 @@
             data-sb-validations="required"
             formControlName="startDate"
           />
-          <label for="startDate" class="form-text">Fecha de inicio*</label>
-          <div class="invalid-feedback" data-sb-feedback="title:required">
-            Fecha de inicio * es requerido.
-          </div>
+          <label for="startDate" class="form-text">Fecha inicial del periodo de solicitudes de aclaración *</label>
+          <app-input-validation
+            [element]="getControlEnquiryPeriod('startDate')"
+          ></app-input-validation>
           <div class="form-text">
             La fecha de inicio del período. Cuando se sabe, se debe dar una
             fecha de inicio precisa.
@@ -698,10 +711,10 @@
             data-sb-validations="required"
             formControlName="endDate"
           />
-          <label for="endDate">Fecha de término*</label>
-          <div class="invalid-feedback" data-sb-feedback="title:required">
-            Fecha de término * es requerido.
-          </div>
+          <label for="endDate">Fecha final del periodo de solicitudes de aclaración *</label>
+          <app-input-validation
+            [element]="getControlEnquiryPeriod('endDate')"
+          ></app-input-validation>
           <div class="form-text">
             La fecha de conclusión del período. Cuando se sabe, se debe dar una
             fecha de conclusión precisa.
@@ -718,10 +731,7 @@
             data-sb-validations="required"
             formControlName="maxExtentDate"
           />
-          <label for="maxExtentDate">Extension máxima*</label>
-          <div class="invalid-feedback" data-sb-feedback="title:required">
-            Extension máxima * es requerido.
-          </div>
+          <label for="maxExtentDate">Extension máxima</label>
           <div class="form-text">
             El período no puede extenderse después de esta fecha. Este campo
             debe usarse para expresar la fecha máxima disponible para la
@@ -737,10 +747,7 @@
             placeholder="Duración (días)*"
             formControlName="durationInDays"
           />
-          <label for="durationInDays">Duración (dias)*</label>
-          <div class="invalid-feedback" data-sb-feedback="title:required">
-            Duración * es requerido.
-          </div>
+          <label for="durationInDays">Duración (dias)</label>
           <div class="form-text">
             El nivel máximo de duración de este período en días.
           </div>
@@ -749,23 +756,38 @@
     </fieldset>
 
     <div class="row">
-      <div class="form-floating col mb-5">
-        <div class="form-check">
-          <input
-            class="form-check-input"
-            type="checkbox"
-            id="flexCheckDefault"
-            formControlName="hasEnquiries"
-          />
-          <label class="form-check-label" for="flexCheckDefault">
-            ¿Tiene solicitudes de aclaración?
-          </label>
-          <div class="form-text">
-            Un campo verdadero/falso para indicar si se recibieron solicitudes
-            de aclaración durante el proceso de licitación. La información
-            estructurada sobre las preguntas que se recibieron, así como sus
-            respuestas pueden proporcionarse en la extensión 'enquiries'.
+      <div class="col-12 mb-3">
+        <label class="form-label d-block mb-1"
+          >¿Tiene solicitudes de aclaración?</label
+        >
+        <div class="d-flex align-items-center gap-3">
+          <div class="form-check form-check-inline">
+            <input
+              class="form-check-input"
+              type="radio"
+              id="enquiriesYes"
+              formControlName="hasEnquiries"
+              [value]="true"
+            />
+            <label class="form-check-label" for="enquiriesYes">Sí</label>
           </div>
+          <div class="form-check form-check-inline">
+            <input
+              class="form-check-input"
+              type="radio"
+              id="enquiriesNo"
+              formControlName="hasEnquiries"
+              [value]="false"
+            />
+            <label class="form-check-label" for="enquiriesNo">No</label>
+          </div>
+        </div>
+        <div class="form-text mt-1">
+          Un campo verdadero/falso para indicar si se recibieron solicitudes de
+          aclaración durante el proceso de la contratación pública. La
+          información estructurada sobre las preguntas que se recibieron, así
+          como sus respuestas pueden proporcionarse en la extensión
+          <code>'enquiries'</code>.
         </div>
       </div>
     </div>
@@ -780,13 +802,10 @@
           style="height: 100px"
           formControlName="eligibilityCriteria"
         ></textarea>
-        <label for="eligibilityCriteria">Criterios de elegibilidad*</label>
-        <div
-          class="invalid-feedback"
-          data-sb-feedback="eligibilityCriteria:required"
-        >
-          Criterios de elegibilidad * es requerido.
-        </div>
+        <label for="eligibilityCriteria">Criterios de elegibilidad</label>
+        <!-- <app-input-validation
+          [element]="eligibilityCriteria"
+        ></app-input-validation> -->
         <div class="form-text">
           Una descripción de los criterios de elegibilidad para proveedores
           potenciales. Requisitos y condiciones que deben cumplir los
@@ -796,7 +815,9 @@
     </div>
 
     <fieldset class="border p-3 mb-3" formGroupName="awardPeriod">
-      <legend class="w-auto px-1">Periodo de evaluación y adjudicación</legend>
+      <legend class="w-auto px-1">
+        Periodo de evaluación y adjudicación *
+      </legend>
       <hr />
       <p>
         El período para tomar decisiones relacionados a la adjudicación del
@@ -810,13 +831,12 @@
             class="form-control"
             id="startDate"
             type="date"
-            data-sb-validations="required"
             formControlName="startDate"
           />
-          <label for="startDate">Fecha de inicio*</label>
-          <div class="invalid-feedback" data-sb-feedback="startDate:required">
-            Fecha de inicio * es requerido.
-          </div>
+          <label for="startDate">Fecha inicial del periodo de evaluación y adjudicación *</label>
+          <app-input-validation
+            [element]="getControlAwardPeriod('startDate')"
+          ></app-input-validation>
           <div class="form-text">
             La fecha de inicio del período. Cuando se sabe, se debe dar una
             fecha de inicio precisa.
@@ -827,13 +847,12 @@
             class="form-control"
             id="endDate"
             type="date"
-            data-sb-validations="required"
             formControlName="endDate"
           />
-          <label for="endDate">Fecha de termino*</label>
-          <div class="invalid-feedback" data-sb-feedback="endDate:required">
-            Fecha de termino * es requerido.
-          </div>
+          <label for="endDate">Fecha final del periodo de evaluación y adjudicación *</label>
+          <app-input-validation
+            [element]="getControlAwardPeriod('endDate')"
+          ></app-input-validation>
           <div class="form-text">
             La fecha de conclusión del período. Cuando se sabe, se debe dar una
             fecha de conclusión precisa.
@@ -847,16 +866,12 @@
             class="form-control"
             id="maxExtentDate"
             type="date"
-            data-sb-validations="required"
             formControlName="maxExtentDate"
           />
-          <label for="maxExtentDate">Extension máxima*</label>
-          <div
-            class="invalid-feedback"
-            data-sb-feedback="maxExtentDate:required"
-          >
-            Extension máxima * es requerido.
-          </div>
+          <label for="maxExtentDate">Fecha límite del periodo de evaluacón y adjudicación</label>
+          <!-- <app-input-validation
+            [element]="getControlAwardPeriod('maxExtentDate')"
+          ></app-input-validation> -->
           <div class="form-text">
             El período no puede extenderse después de esta fecha. Este campo
             debe usarse para expresar la fecha máxima disponible para la
@@ -868,16 +883,12 @@
             class="form-control"
             id="durationInDays"
             type="number"
-            data-sb-validations="required"
             formControlName="durationInDays"
           />
-          <label for="durationInDays">Duración (dias)*</label>
-          <div
-            class="invalid-feedback"
-            data-sb-feedback="durationInDays:required"
-          >
-            Duración * es requerido.
-          </div>
+          <label for="durationInDays">Duración (dias)</label>
+          <!-- <app-input-validation
+            [element]="getControlAwardPeriod('durationInDays')"
+          ></app-input-validation> -->
           <div class="form-text">
             El nivel máximo de duración de este período en días.
           </div>
@@ -890,8 +901,8 @@
       <hr />
       <p>
         El periodo sobre el cual se estima el contrato o requiere que esté
-        activo. Si la licitación no especifica fechas, se puede usar el campo de
-        duración.
+        activo. Si la contratación pública no especifica fechas, se puede usar
+        el campo de duración.
       </p>
       <div class="row">
         <div class="form-floating col-6 mb-5">
@@ -899,13 +910,12 @@
             class="form-control"
             id="startDate"
             type="date"
-            data-sb-validations="required"
             formControlName="startDate"
           />
-          <label for="startDate">Fecha de inicio*</label>
-          <div class="invalid-feedback" data-sb-feedback="startDate:required">
-            Fecha de inicio * es requerido.
-          </div>
+          <label for="startDate">Fecha inicial del contrato</label>
+          <!-- <app-input-validation
+            [element]="getControlContractPeriod('startDate')"
+          ></app-input-validation> -->
           <div class="form-text">
             La fecha de inicio del período. Cuando se sabe, se debe dar una
             fecha de inicio precisa.
@@ -916,13 +926,12 @@
             class="form-control"
             id="endDate"
             type="date"
-            data-sb-validations="required"
             formControlName="endDate"
           />
-          <label for="endDate">Fecha de termino*</label>
-          <div class="invalid-feedback" data-sb-feedback="endDate:required">
-            Fecha de termino * es requerido.
-          </div>
+          <label for="endDate">Fecha final del contrato</label>
+          <!-- <app-input-validation
+            [element]="getControlContractPeriod('endDate')"
+          ></app-input-validation> -->
           <div class="form-text">
             La fecha de conclusión del período. Cuando se sabe, se debe dar una
             fecha de conclusión precisa.
@@ -936,16 +945,12 @@
             class="form-control"
             id="maxExtentDate"
             type="date"
-            data-sb-validations="required"
             formControlName="maxExtentDate"
           />
-          <label for="maxExtentDate">Extension máxima*</label>
-          <div
-            class="invalid-feedback"
-            data-sb-feedback="maxExtentDate:required"
-          >
-            Extension máxima * es requerido.
-          </div>
+          <label for="maxExtentDate">Fecha límite del periodo del contrato</label>
+          <!-- <app-input-validation
+            [element]="getControlContractPeriod('maxExtentDate')"
+          ></app-input-validation> -->
           <div class="form-text">
             El período no puede extenderse después de esta fecha. Este campo
             debe usarse para expresar la fecha máxima disponible para la
@@ -957,16 +962,12 @@
             class="form-control"
             id="durationInDays"
             type="number"
-            data-sb-validations="required"
             formControlName="durationInDays"
           />
-          <label for="durationInDays">Duración (dias)*</label>
-          <div
-            class="invalid-feedback"
-            data-sb-feedback="durationInDays:required"
-          >
-            Duración * es requerido.
-          </div>
+          <label for="durationInDays">Duración (dias)</label>
+          <!-- <app-input-validation
+            [element]="getControlContractPeriod('durationInDays')"
+          ></app-input-validation> -->
           <div class="form-text">
             El nivel máximo de duración de este período en días.
           </div>
@@ -982,6 +983,7 @@
           type="button"
           class="btn btn-danger btn-add"
           (click)="saveForm()"
+          [disabled]="!enableSaveFormButton()"
         >
           Guardar sección
         </button>

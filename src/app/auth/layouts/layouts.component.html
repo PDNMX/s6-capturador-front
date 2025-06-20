@@ -1,127 +1,96 @@
-<!-- app.component.html -->
 <div class="d-flex flex-column min-vh-100">
-  <!-- Header Section -->
-  <header class="bg-s6 text-white py-0 sticky-top">
-    <div class="container py-2">
-      <div class="d-flex justify-content-between align-items-center">
-        <img
-          class="logo"
-          src="../../../assets/logo_pdn-transparente.svg"
-          alt="PDN"
-        />
-        <h5 class="mb-0">
-          Herramienta de captura del Sistema de información pública de
-          contrataciones (S6)
-        </h5>
-        <nav>
-          <ul class="nav">
-            <li class="nav-item">
-              <a
-                class="nav-link text-white"
-                [routerLink]="'/'"
-                [routerLinkActive]="'active'"
-                >Inicio</a
-              >
-            </li>
-            <li class="nav-item">
-              <a
-                class="nav-link text-white"
-                [style]="{ cursor: 'pointer' }"
-                (click)="logout()"
-                >Cerrar Sesión</a
-              >
-            </li>
-            <!-- <li class="nav-item" *ngIf="showMenuRecord">
-              <a
-                class="nav-link text-white"
-                [routerLink]="'parties/' + contractID"
-                [routerLinkActive]="'active'"
-                ><i class="bi bi-people-fill"></i> Actores</a
-              >
-            </li> -->
-            <!--<li class="nav-item">
-              <a class="nav-link text-white" href="#">About</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link text-white" href="#">Contact</a>
-            </li>-->
-          </ul>
-        </nav>
+  <!-- Header -->
+  <!-- <app-header></app-header> -->
+  <header>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light bg-s6 p-4">
+      <div class="container-fluid">
+        <!-- Columna 1: Logo -->
+        <div class="col-4">
+          <img
+            class="logo"
+            src="../../../assets/logo_pdn-transparente.svg"
+            alt="PDN"
+          />
+          <a class="navbar-brand mx-2 text-white" routerLink="/"
+            >S6 - Contrataciones
+          </a>
+        </div>
+
+        <!-- Columna 2: Centro (puede estar vacío o con búsqueda futura) -->
+        <div class="col-4 text-center">
+          <span class="navbar-text text-white">
+            <h5 class="mb-0">
+              Herramienta de captura del Sistema de información pública de
+              contrataciones (S6)
+            </h5></span
+          >
+        </div>
+
+        <!-- Columna 3: Usuario y acciones -->
+        <div class="col-4 d-flex justify-content-end align-items-center">
+          <span class="navbar-text me-3 text-white">
+            <strong> Bienvenido, {{ username }} </strong>
+          </span>
+          <div class="dropdown text-white">
+            <button
+              class="btn btn-outline-secondary dropdown-toggle"
+              type="button"
+              id="userMenu"
+              data-bs-toggle="dropdown"
+              aria-expanded="false"
+            >
+              <i class="bi bi-person-circle"></i>
+            </button>
+            <ul
+              class="dropdown-menu dropdown-menu-end"
+              aria-labelledby="userMenu"
+            >
+              <li><a class="dropdown-item" href="#">Inicio</a></li>
+              <li *ngIf="roles.includes('admin')">
+                <a class="dropdown-item" href="/management">Administracion</a>
+              </li>
+              <li>
+                <a class="dropdown-item" href="#" (click)="logout()"
+                  >Cerrar Sesión</a
+                >
+              </li>
+            </ul>
+          </div>
+        </div>
       </div>
-    </div>
+    </nav>
     <app-menu-superior *ngIf="showMenuRecord"></app-menu-superior>
   </header>
 
-  <!-- Content Section -->
-  <main class="flex-grow-1 my-3">
-    <div class="container">
+  <!-- Contenido principal -->
+  <main class="flex-grow-1">
+    <div class="container-fluid py-4">
       <router-outlet></router-outlet>
     </div>
   </main>
 
-  <!-- Footer Section -->
-  <footer class="bg-s6-footer py-1 mt-0">
-    <div class="container text-center">
+  <!-- Footer -->
+  <!-- <app-footer></app-footer> -->
+  <footer class="bg-light py-3">
+    <div class="container">
       <div class="row">
-        <div class="col-md-4 mb-0 mb-md-0">
-          <h5>Acerca de la PDN</h5>
-          <p class="mb-0 mt-0">Conoce más acerca de nosotros.</p>
-        </div>
-        <div class="col-md-4 mb-0 mb-md-0">
-          <h5>Contacto</h5>
-          <p class="mb-0 mt-0">{{ "Correo: pdn@sesna.gob.mx" }}</p>
-        </div>
-        <div class="col-md-4 mb-0 mb-md-0">
-          <h5>Síguenos en nuestras redes</h5>
-          <a href="#" class="me-3">
-            <i class="fab fa-facebook-f"></i>
-          </a>
-          <a href="#" class="me-3">
-            <i class="fab fa-twitter"></i>
-          </a>
-          <a href="#" class="me-3">
-            <i class="fab fa-instagram"></i>
-          </a>
-        </div>
-      </div>
-      <div class="row">
-        <div class="col-12">
-          <p class="mb-0">&copy; 2024 Plataforma Digital Nacional.</p>
+        <div class="col-12 text-center">
+          <p class="mb-0">
+            &copy; 2025 S6 - Contrataciones. Todos los derechos reservados.
+          </p>
+          <ul class="list-inline mb-0">
+            <li class="list-inline-item">
+              <a href="#" class="text-muted">Términos</a>
+            </li>
+            <li class="list-inline-item">
+              <a href="#" class="text-muted">Privacidad</a>
+            </li>
+            <li class="list-inline-item">
+              <a href="#" class="text-muted">Contacto</a>
+            </li>
+          </ul>
         </div>
       </div>
     </div>
   </footer>
 </div>
-
-<footer class="bg-dark text-white p-3 ">
-  <div class="container text-center">
-    <div class="row">
-      <div class="col-md-4 mb-3 mb-md-0">
-        <h5>About Us</h5>
-        <p>Learn more about our company and team.</p>
-      </div>
-      <div class="col-md-4 mb-3 mb-md-0">
-        <h5>Contact</h5>
-        <p>Email: info@example.com</p>
-        <p>Phone: +123 456 7890</p>
-      </div>
-      <div class="col-md-4 mb-3 mb-md-0">
-        <h5>Follow Us</h5>
-        <a href="#" class="text-white me-3">
-          <i class="fab fa-facebook-f"></i>
-        </a>
-        <a href="#" class="text-white me-3">
-          <i class="fab fa-twitter"></i>
-        </a>
-        <a href="#" class="text-white me-3">
-          <i class="fab fa-instagram"></i>
-        </a>
-      </div>
-    </div>
-    <div class="row mt-3">
-      <div class="col-12">
-        <p class="mb-0">&copy; 2024 Your Company. All rights reserved.</p>
-      </div>
-    </div>
-  </div>
-</footer>

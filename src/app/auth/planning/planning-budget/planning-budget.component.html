@@ -11,7 +11,7 @@
   </div>
   <form [formGroup]="budgetForm" class="mb-5">
     <div class="row">
-      <div class="col-md-4 mb-2">
+      <div class="col-md-12 mb-2">
         <div class="form-floating">
           <input
             type="text"
@@ -20,16 +20,16 @@
             placeholder="ProjectId"
             formControlName="projectID"
           />
-          <label for="ProjectId">Identificador de proyecto</label>
+          <label for="ProjectId">Identificador de proyecto *</label>
+          <app-input-validation [element]="projectID"></app-input-validation>
         </div>
         <div class="form-text">
-          Un identificador externo para el proyecto del que forma parte este
-          proceso de contratación o a través del cual está financiado (si
-          aplica).
+          Número asignado por Compranet/Plataforma, al registrar la Contratación
+          Pública
         </div>
       </div>
 
-      <div class="col-md-8 mb-2">
+      <div class="col-md-12 mb-2">
         <div class="form-floating">
           <input
             type="text"
@@ -38,11 +38,12 @@
             placeholder="Project"
             formControlName="project"
           />
-          <label for="Project">Título del proyecto</label>
+          <label for="Project">Título del proyecto *</label>
+          <app-input-validation [element]="project"></app-input-validation>
         </div>
         <div class="form-text">
-          El nombre del proyecto a través del cual el proceso de contrataciones
-          está financiado (si aplica).
+          Nombre del proyecto de la contratación pública, el cual, puede ser
+          tomado del anexo técnico emitido por el Área requirente.
         </div>
       </div>
     </div>
@@ -56,7 +57,8 @@
           placeholder="Description"
           formControlName="description"
         />
-        <label for="Description">Fuente del Presupuesto</label>
+        <label for="Description">Descripción de la fuente del presupuesto *</label>
+        <app-input-validation [element]="description"></app-input-validation>
       </div>
       <div class="form-text">
         Un texto descriptivo breve de la fuente del presupuesto. Puede usarse
@@ -72,7 +74,8 @@
           placeholder="URI"
           formControlName="uri"
         />
-        <label for="URI">Información vinculada de presupuesto</label>
+        <label for="URI">URI de información vinculada de presupuesto *</label>
+        <app-input-validation [element]="uri" inputType="url"></app-input-validation>
       </div>
       <div class="form-text">
         Una URI que apunta a un registro leíble por máquina sobre la línea (o
@@ -84,11 +87,12 @@
     </div>
 
     <fieldset class="border p-3 mb-3">
-      <legend>Valor reservado del presupuesto</legend>
+      <legend>Valor reservado del presupuesto *</legend>
       <p>
-        El valor reservado en el presupuesto para este proceso de contratación.
-        Un valor negativo indica ingresos anticipados al presupuesto como
-        resultado de este proceso de contratación, en lugar de gastos.
+        Monto del presupuesto aprobado para este proceso de contratación
+        pública, este dato puede tormarse de la orden de servicio donde se
+        solicita la autorización de la Suficiencia Presupuestal para el
+        proyecto.
       </p>
       <div class="col-12" formGroupName="value">
         <div class="row">
@@ -102,7 +106,8 @@
                 placeholder="Monto*"
                 formControlName="amount"
               />
-              <label for="amount">Monto*</label>
+              <label for="amount">Monto *</label>
+              <app-input-validation [element]="amount"></app-input-validation>
               <div class="invalid-feedback" data-sb-feedback="amount:required">
                 Monto * es requerido.
               </div>
@@ -121,7 +126,7 @@
                   {{ d.title }}
                 </option>
               </select>
-              <label for="currency">Moneda</label>
+              <label for="currency">Moneda *</label>
             </div>
             <div class="form-text">
               La moneda del monto, de la lista de código cerrada
@@ -138,7 +143,9 @@
     <app-planning-budget-budget-breakdown
       [budgetBreakdownArray]="budgetForm.value.budgetBreakdown"
       (addBudgetBreakdown)="addBudgetBreakdown($event)"
-      (deleteBudgetBreakdown)="deleteBudgetBreakdown($event)"
+      (confirmAndDeleteBudgetBreakdown)="
+        confirmAndDeleteBudgetBreakdown($event)
+      "
     ></app-planning-budget-budget-breakdown>
   </form>
 </div>

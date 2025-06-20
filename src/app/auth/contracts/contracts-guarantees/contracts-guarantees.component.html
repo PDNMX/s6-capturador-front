@@ -41,7 +41,7 @@
                   <button
                     type="button"
                     class="btn btn-danger btn-delete"
-                    (click)="deleteGuarante.emit(i)"
+                    (click)="confirmAndDeleteGuarante(i)"
                   >
                     Eliminar
                   </button>
@@ -73,11 +73,12 @@
             Especificar la forma de garantía utilizada para este contrato,
             obtenida de la lista de códigos
             <a
-              href="https://github.com/contratacionesabiertas/ocds_guarantees_extension/blob/master/codelists/guaranteeType.csv" target="_blank"
+              href="https://github.com/contratacionesabiertas/ocds_guarantees_extension/blob/master/codelists/guaranteeType.csv"
+              target="_blank"
               >'Tipo de garantía'</a
             >.
           </div>
-          <label for="">Forma de garantía</label>
+          <label for="">Tipo de garantía</label>
           <p *ngIf="guaranteesForm.value.type">
             {{ getGuaranteeDesc(guaranteesForm.value.type) }}
           </p>
@@ -90,10 +91,7 @@
             data-sb-validations="required"
             formControlName="date"
           />
-          <label for="date">Fecha de expedición*</label>
-          <div class="invalid-feedback" data-sb-feedback="date:required">
-            Fecha de expedición * es requerido.
-          </div>
+          <label for="date">Fecha de expedición</label>
           <div class="form-text">
             Fecha de la garantía. Se refiere a la fecha en que se expide la
             garantía.
@@ -116,11 +114,12 @@
             Especificar el tipo de obligaciones que se garantizan, obtenidas de
             la lista de códigos
             <a
-              href="https://github.com/contratacionesabiertas/ocds_guarantees_extension/blob/master/codelists/guaranteedObligations.csv" target="_blank"
+              href="https://github.com/contratacionesabiertas/ocds_guarantees_extension/blob/master/codelists/guaranteedObligations.csv"
+              target="_blank"
               >'Tipo de obligación'</a
             >.
           </div>
-          <label for="">Obligaciones garantizadas</label>
+          <label for="">Obligación de las garantías</label>
           <p *ngIf="guaranteesForm.value.obligations">
             {{ getGuaranteeTypeDesc(guaranteesForm.value.obligations) }}
           </p>
@@ -136,14 +135,10 @@
                 class="form-control"
                 id="amount"
                 type="text"
-                data-sb-validations="required"
                 placeholder="Monto*"
                 formControlName="amount"
               />
-              <label for="amount">Monto*</label>
-              <div class="invalid-feedback" data-sb-feedback="amount:required">
-                Monto * es requerido.
-              </div>
+              <label for="amount">Monto</label>
               <div class="form-text">Monto como número.</div>
             </div>
 
@@ -156,7 +151,8 @@
               <div class="form-text">
                 La moneda del monto, tomado de la lista de códigos
                 <a
-                  href="https://standard.open-contracting.org/1.1/es/schema/codelists/#currency" target="_blank"
+                  href="https://standard.open-contracting.org/1.1/es/schema/codelists/#currency"
+                  target="_blank"
                   >'Moneda'</a
                 >.
               </div>
@@ -176,14 +172,14 @@
               No hay registros de Actores para este proceso de contratación.
             </option>
             <option *ngFor="let c of guarantor" [ngValue]="c">
-              {{ c?.name }}
+              {{ c?.legalName || c?.name }} - ({{ getPartiesListTitle(c?.roles || []) }})
             </option>
           </select>
           <div class="form-text">
             El nombre del actor al que se hace referencia. Debe coincidir con el
             nombre capturado en la sección de actores.
           </div>
-          <label for="guarantor">Institución que expide la garantía</label>
+          <label for="guarantor">Nombre de institución garante</label>
         </div>
       </div>
 
@@ -197,13 +193,9 @@
               class="form-control"
               id="startDate"
               type="date"
-              data-sb-validations="required"
               formControlName="startDate"
             />
-            <label for="startDate">Fecha de inicio*</label>
-            <div class="invalid-feedback" data-sb-feedback="title:required">
-              Fecha de inicio * es requerido.
-            </div>
+            <label for="startDate">Fecha inicial del periodo de garantía</label>
             <div class="form-text">
               Fecha de inicio del periodo. Cuando se conozca, debe
               proporcionarse una fecha precisa de inicio.
@@ -214,13 +206,9 @@
               class="form-control"
               id="endDate"
               type="date"
-              data-sb-validations="required"
               formControlName="endDate"
             />
-            <label for="endDate">Fecha de término*</label>
-            <div class="invalid-feedback" data-sb-feedback="title:required">
-              Fecha de término * es requerido.
-            </div>
+            <label for="endDate">Fecha final del periodo de garantía</label>
             <div class="form-text">
               Fecha de término del periodo. Cuando se conozca, debe
               proporcionarse una fehca precisa de término.
@@ -234,13 +222,9 @@
               class="form-control"
               id="maxExtentDate"
               type="date"
-              data-sb-validations="required"
               formControlName="maxExtentDate"
             />
-            <label for="maxExtentDate">Extension máxima*</label>
-            <div class="invalid-feedback" data-sb-feedback="title:required">
-              Extension máxima * es requerido.
-            </div>
+            <label for="maxExtentDate">Extension máxima</label>
             <div class="form-text">
               El periodo no puede extenderse más allá de esta fecha. Este campo
               es opcional y puede usarse para expresar la fecha límite de
@@ -252,15 +236,13 @@
               class="form-control"
               id="durationInDays"
               type="number"
-              data-sb-validations="required"
               placeholder="Duración (días)*"
               formControlName="durationInDays"
             />
-            <label for="durationInDays">Duración (dias)*</label>
-            <div class="invalid-feedback" data-sb-feedback="title:required">
-              Duración * es requerido.
+            <label for="durationInDays">Duración (dias)</label>
+            <div class="form-text">
+              La duración máxima de este período en días.
             </div>
-            <div class="form-text">La duración máxima de este período en días.</div>
           </div>
         </div>
       </fieldset>

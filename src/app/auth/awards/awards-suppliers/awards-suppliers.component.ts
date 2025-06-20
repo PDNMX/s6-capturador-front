@@ -2,6 +2,7 @@ import { Component, EventEmitter, Output, Input } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 import { ApiService, IPartieList } from 'src/app/services/api.service';
 import { ActivatedRoute } from '@angular/router';
+import Swal from 'sweetalert2';
 
 interface IPartie {
   id: number;
@@ -28,6 +29,10 @@ export class AwardsSuppliersComponent {
     private api: ApiService,
     private route: ActivatedRoute
   ) {}
+
+  getPartiesListTitle(roles: Array<string>): string {
+    return this.api.getPartiesListTitle(roles);
+  }
 
   loadData(): void {
     this.route.paramMap.subscribe((params: any) => {
@@ -73,7 +78,43 @@ export class AwardsSuppliersComponent {
   }
 
   addNewSupplier(): void {
+    if (this.suppliers.length === 0) {
+      Swal.fire({
+        icon: 'info',
+        title: 'Sin proveedores',
+        text: 'No existen proveedores registrados en la sección de "Actores".',
+        confirmButtonText: 'Aceptar',
+        confirmButtonColor: '#0d6efd',
+      });
+      return;
+    }
+  
+    if (!this.suppliersValue) {
+      Swal.fire({
+        icon: 'error',
+        title: 'Error',
+        text: 'Debe seleccionar un proveedor para agregarlo.',
+        confirmButtonText: 'Aceptar',
+        confirmButtonColor: '#dc3545',
+      });
+      return;
+    }
+    const yaExiste = this.suppliersArray.some(
+      (s: any) => s.id === this.suppliersValue.id
+    );
+  
+    if (yaExiste) {
+      Swal.fire({
+        icon: 'warning',
+        title: 'Proveedor duplicado',
+        text: 'Este proveedor ya ha sido agregado.',
+        confirmButtonText: 'Aceptar',
+        confirmButtonColor: '#ffc107',
+      });
+      return;
+    }
+  
     this.addSupplier.emit(this.suppliersValue);
-    //console.log(this.suppliersValue);
   }
+  
 }

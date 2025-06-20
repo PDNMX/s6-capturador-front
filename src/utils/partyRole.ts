@@ -30,12 +30,6 @@ const PartyRole = [
       'Es el servidor público responsable de dar seguimiento y cumplimiento de las obligaciones del proveedor establecidas en el contrato.',
   },
   {
-    code: 'funder',
-    title: 'Entidad financiera',
-    description:
-      ' Entidad que proporciona el financiamiento para este procedimiento de contratación.',
-  },
-  {
     code: 'supplier',
     title: 'Proveedor',
     description:
@@ -49,13 +43,7 @@ const PartyRole = [
   },
   {
     code: 'funder',
-    title: 'Financiador',
-    description:
-      'El financiador es una entidad que provee dinero o financia este proceso de contratación.',
-  },
-  {
-    code: 'funder',
-    title: 'Entidad Financiera',
+    title: 'Entidad financiera',
     description:
       'Entidad que proporciona el financiamiento para este procedimiento de contratación.',
   },
@@ -89,12 +77,20 @@ const PartyRole = [
     description:
       'Una parte que ha expresado interés en el proceso de contrataciones, por ejemplo, al comprar documentos de oferta o presentar preguntas de clarificación.',
   },
-  {
+/*   {
     code: 'guarantor',
     title: 'Institución que expide la garantía',
     description:
       'Institución de Fianzas o Aseguradora de Caución. Compañía también denominada fiadora que garantizará el cumplimiento de una obligación.',
-  },
+  }, */
 ];
+
+export const getRoleDesc = (code: string) => {
+  return PartyRole.find((e) => e.code === code)?.description || '';
+};
+
+export const getRoleTitle = (code: string) => {
+  return PartyRole.find((e) => e.code === code)?.title || '';
+};
 
 export default PartyRole;

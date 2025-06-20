@@ -14,7 +14,8 @@
             {{ s.title }}
           </option>
         </select>
-        <label for="status">Estatus de la Adjudicación</label>
+        <label for="status">Estado de la Adjudicación *</label>
+        <app-input-validation [element]="status"></app-input-validation>
         <p class="mt-2">{{ getAwardStatusDesc(generalForm.value.status) }}</p>
       </div>
     </div>
@@ -27,10 +28,9 @@
           placeholder="Identificador de la adjudicación"
           formControlName="id"
         />
-        <label for="AwardsTitle">Identificador de la adjudicación</label>
-        <div class="invalid-feedback" data-sb-feedback="titulo:required">
-          Identificador de la adjudicación es requerido.
-        </div>
+        <label for="AwardsTitle">Identificador de la adjudicación *</label>
+
+        <app-input-validation [element]="id"></app-input-validation>
       </div>
       <div class="form-text">Identificador de la adjudicación</div>
     </div>
@@ -43,10 +43,9 @@
           placeholder="Título"
           formControlName="title"
         />
-        <label for="AwardsTitle">Título</label>
-        <div class="invalid-feedback" data-sb-feedback="titulo:required">
-          Título is required.
-        </div>
+        <label for="AwardsTitle">Título de la adjudicación *</label>
+
+        <app-input-validation [element]="title"></app-input-validation>
       </div>
       <div class="form-text">Título de la adjudicación.</div>
     </div>
@@ -60,7 +59,8 @@
           placeholder="Descripción"
           formControlName="description"
         ></textarea>
-        <label for="AwardsDescription">Descripción</label>
+        <label for="AwardsDescription">Descripción de la adjudicación *</label>
+        <app-input-validation [element]="description"></app-input-validation>
       </div>
       <div class="form-text">Descripción de la adjudicación.</div>
     </div>
@@ -74,7 +74,8 @@
           style="height: 100px"
           formControlName="rationale"
         ></textarea>
-        <label for="AwardsRationale">Justificación</label>
+        <label for="AwardsRationale">Justificación *</label>
+        <app-input-validation [element]="rationale"></app-input-validation>
       </div>
       <div class="form-text">
         Una breve descripción de las razones por las cuales se justifica la
@@ -91,7 +92,8 @@
           placeholder="Fecha de la adjudicación"
           formControlName="date"
         />
-        <label for="AwardsDate">Fecha de la adjudicación</label>
+        <label for="AwardsDate">Fecha de la adjudicación *</label>
+        <app-input-validation [element]="date"></app-input-validation>
       </div>
       <div class="form-text">
         La fecha de la adjudicación del contrato. Usualmente es la fecha en que
@@ -100,7 +102,7 @@
     </div>
     <!-- fieldset value -->
     <fieldset class="border p-3 mb-3" formGroupName="value">
-      <legend class="w-auto px-2">Valor</legend>
+      <legend class="w-auto px-2">Valor de la adjudicación</legend>
       <div class="row">
         <div class="col">
           <p>
@@ -120,7 +122,9 @@
               placeholder="Monto total de la adjudicación *"
               formControlName="amount"
             />
-            <label for="AwardsValueAmount">Monto como una cifra *</label>
+            <label for="AwardsValueAmount">Monto de la adjudicación *</label>
+            <div class="form-text">Monto como número.</div>
+            <app-input-validation [element]="amount"></app-input-validation>
           </div>
         </div>
         <div class="col-md-6 mb-2">
@@ -130,14 +134,12 @@
               id="AwardsValueCurrency"
               formControlName="currency"
             >
-              <option value="" selected>
-                -- Seleccione el tipo de moneda --
-              </option>
-              <option *ngFor="let m of currency" value="{{ m.code }}">
+              <option *ngFor="let m of data_currency" value="{{ m.code }}">
                 {{ m.title }}
               </option>
             </select>
-            <label for="AwardsValueCurrency">Moneda</label>
+            <label for="AwardsValueCurrency">Moneda de la adjudicación *</label>
+            <app-input-validation [element]="currency"></app-input-validation>
           </div>
           <div class="form-text">
             La moneda del monto, de la lista de código cerrada
@@ -171,7 +173,12 @@
                 placeholder="Fecha de inicio del contrato"
                 formControlName="startDate"
               />
-              <label for="ContractPeriodStartDate">Fecha de inicio</label>
+              <label for="ContractPeriodStartDate"
+                >Fecha inicial del periodo del contrato *</label
+              >
+              <app-input-validation
+                [element]="getControl('startDate')"
+              ></app-input-validation>
             </div>
             <div class="form-text">
               La fecha de inicio del período. Cuando se sabe, se debe dar una
@@ -188,7 +195,12 @@
                 placeholder="Fecha de la adjudicación"
                 formControlName="endDate"
               />
-              <label for="ContractPeriodendDate">Fecha de término</label>
+              <label for="ContractPeriodendDate"
+                >Fecha final del periodo del contrato *</label
+              >
+              <app-input-validation
+                [element]="getControl('endDate')"
+              ></app-input-validation>
             </div>
             <div class="form-text">
               La fecha de conclusión del período. Cuando se sabe, se debe dar
@@ -207,6 +219,9 @@
                 formControlName="maxExtentDate"
               />
               <label for="ContractPeriodMaxExtentDate">Extensión máxima</label>
+              <app-input-validation
+                [element]="getControl('maxExtentDate')"
+              ></app-input-validation>
             </div>
             <div class="form-text">
               El período no puede extenderse después de esta fecha. Este campo
@@ -225,6 +240,9 @@
                 formControlName="durationInDays"
               />
               <label for="ContractPeriodDurationInDays">Duración (días)</label>
+              <!-- <app-input-validation
+                [element]="durationInDays"
+              ></app-input-validation> -->
             </div>
             <div class="form-text">
               El nivel máximo de duración de este período en días.
@@ -240,6 +258,7 @@
           type="button"
           class="btn btn-danger btn-add"
           (click)="saveForm()"
+          [disabled]="!generalForm.valid"
         >
           Guardar sección
         </button>

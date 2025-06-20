@@ -1,9 +1,17 @@
 import { map } from 'rxjs';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import {
+  FormArray,
+  FormBuilder,
+  FormGroup,
+  Validators,
+  FormControl,
+  FormControlDirective,
+} from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { ApiService } from 'src/app/services/api.service';
 import { Classifications, Currency } from 'src/utils';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-tender-items',
@@ -38,16 +46,43 @@ export class TenderItemsComponent implements OnInit {
 
   addAdditionalClassifications(): void {
     const data = this.additionalClassificationsForm.value.data;
-    const { id, description, unit, uri } = data;
+    const { id, description, uri } = data;
+
+    if (!data) {
+      Swal.fire({
+        icon: 'error',
+        title: 'Error',
+        text: 'Debe seleccionar una clasificación adicional para agregarla.',
+        confirmButtonText: 'Aceptar',
+        confirmButtonColor: '#dc3545',
+      });
+      return;
+    }
+
+    const yaExiste = this.additionalClassificationsArray.value.some(
+      (item: any) => item.id === id
+    );
+
+    if (yaExiste) {
+      Swal.fire({
+        icon: 'warning',
+        title: 'Clasificación duplicada',
+        text: 'Esta clasificación adicional ya ha sido agregada.',
+        confirmButtonText: 'Aceptar',
+        confirmButtonColor: '#ffc107',
+      });
+      return;
+    }
 
     this.additionalClassificationsArray.push(
       this.fb.group({
-        id: [id, Validators.required],
-        description: [description, Validators.required],
-        // unit: [unit, Validators.required],
-        uri: [uri, Validators.required],
+        id: [id],
+        description: [description],
+        uri: [uri],
       })
     );
+
+    this.additionalClassificationsForm.reset();
   }
 
   deleteAdditionalClassifications(index: number): void {
@@ -107,22 +142,47 @@ export class TenderItemsComponent implements OnInit {
   initForm(): void {
     this.itemsForm = this.fb.group({
       description: ['', [Validators.required]],
-      classification: [{}, [Validators.required]],
-      additionalClassifications: this.fb.array([], [Validators.required]),
-      quantity: ['', [Validators.required]],
+      classification: ['', [Validators.required]],
+      additionalClassifications: this.fb.array([]),
+      quantity: ['', [Validators.required, Validators.pattern('^[0-9]*$')]],
       unit: this.fb.group({
         name: ['', [Validators.required]],
         value: this.fb.group({
-          amount: [0, [Validators.required]],
-          amountNet: [0, [Validators.required]],
+          amount: ['', [Validators.required]],
+          netAmount: [null],
           currency: ['MXN', [Validators.required]],
         }),
       }),
     });
 
     this.additionalClassificationsForm = this.fb.group({
-      data: [null, [Validators.required]],
+      data: [null],
     });
+  }
+
+  get description() {
+    return this.itemsForm.get('description') as FormControl;
+  }
+  get classificationList() {
+    return this.itemsForm.get('classification') as FormControl;
+  }
+  get quantity() {
+    return this.itemsForm.get('quantity') as FormControl;
+  }
+  get name() {
+    return this.itemsForm.get('unit')?.get('name') as FormControl;
+  }
+  get amount() {
+    return this.itemsForm
+      .get('unit')
+      ?.get('value')
+      ?.get('amount') as FormControl;
+  }
+  get netAmount() {
+    return this.itemsForm
+      .get('unit')
+      ?.get('value')
+      ?.get('netAmount') as FormControl;
   }
 
   selectChange(): void {
@@ -131,8 +191,32 @@ export class TenderItemsComponent implements OnInit {
     });
   }
 
+  enableAddItemButton(): boolean {
+    return this.itemsForm.valid;
+  }
+
   addNewItem(): void {
     this.addItem.emit(this.itemsForm);
     this.initForm();
+  }
+  confirmAndDeleteItem(index: number): void {
+    Swal.fire({
+      text: '¿Deseas eliminar este artículo?',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      cancelButtonText: 'Cancelar',
+      confirmButtonText: 'Sí, eliminar',
+    }).then((result) => {
+      if (result.isConfirmed) {
+        Swal.fire({
+          text: 'El registro ha sido eliminado.',
+          icon: 'success',
+          confirmButtonText: 'Aceptar',
+        });
+        this.deleteItem.emit(index);
+      }
+    });
   }
 }

@@ -1,8 +1,15 @@
 import { map } from 'rxjs';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import {
+  FormArray,
+  FormBuilder,
+  FormGroup,
+  Validators,
+  FormControl,
+} from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { ApiService, IPartieList } from 'src/app/services/api.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-tender-meetings',
@@ -30,6 +37,10 @@ export class TenderMeetingsComponent implements OnInit {
     private route: ActivatedRoute,
     private api: ApiService
   ) {}
+
+  getPartiesListTitle(roles: Array<string>): string {
+    return this.api.getPartiesListTitle(roles);
+  }
 
   get attendeesArray() {
     return this.meetingForm.controls['attendees'] as FormArray;
@@ -99,36 +110,121 @@ export class TenderMeetingsComponent implements OnInit {
 
   initForm() {
     this.meetingForm = this.fb.group({
-      date: ['', [Validators.required]],
-      attendees: this.fb.array([], [Validators.required]),
-      officials: this.fb.array([], [Validators.required]),
+      date: [''],
+      attendees: this.fb.array([]),
+      officials: this.fb.array([]),
     });
 
     this.attendeesForm = this.fb.group({
-      id: [null, [Validators.required]],
+      id: [null],
     });
 
     this.officialsForm = this.fb.group({
-      id: [null, [Validators.required]],
+      id: [null],
     });
   }
 
-  addAttendess(): void {
-    const opt = this.attendeesForm.value.id;
-    this.attendeesArray.push(this.fb.group({ ...opt }));
+  get date() {
+    return this.meetingForm.get('date') as FormControl;
   }
 
+  addAttendess(): void {
+    if (this.attendees.length === 0) {
+      Swal.fire({
+        icon: 'info',
+        title: 'Sin asistentes',
+        text: 'No existen asistentes registrados en la sección de "Actores".',
+        confirmButtonText: 'Aceptar',
+        confirmButtonColor: '#0d6efd',
+      });
+      return;
+    }
+  
+    const opt = this.attendeesForm.value.id;
+  
+    if (!opt || !opt.id) {
+      Swal.fire({
+        icon: 'error',
+        title: 'Error',
+        text: 'No se encontró el asistente seleccionado.',
+        confirmButtonText: 'Aceptar',
+        confirmButtonColor: '#dc3545',
+      });
+      return;
+    }
+  
+    const yaExiste = this.attendeesArray.value.some(
+      (item: any) => item.id === opt.id
+    );
+  
+    if (yaExiste) {
+      Swal.fire({
+        icon: 'warning',
+        title: 'Asistente duplicado',
+        text: 'Este asistente ya ha sido agregado.',
+        confirmButtonText: 'Aceptar',
+        confirmButtonColor: '#ffc107',
+      });
+      return;
+    }
+  
+    this.attendeesArray.push(this.fb.group({ ...opt }));
+    this.attendeesForm.reset();
+  }
+  
   deleteAttendess(index: number): void {
     this.attendeesArray.removeAt(index);
   }
 
   addOfficials(): void {
+    if (this.officials.length === 0) {
+      Swal.fire({
+        icon: 'info',
+        title: 'Sin servidores públicos',
+        text: 'No existen servidores públicos registrados en la sección de "Actores".',
+        confirmButtonText: 'Aceptar',
+        confirmButtonColor: '#0d6efd',
+      });
+      return;
+    }
+    if (!this.officialsForm.value.id) {
+      Swal.fire({
+        icon: 'error',
+        title: 'Error',
+        text: 'Debe seleccionar un servidor público para agregarlo.',
+        confirmButtonText: 'Aceptar',
+        confirmButtonColor: '#dc3545',
+      });
+      return;
+    }
+  
     const opt = this.officialsForm.value.id;
+  
+    const yaExiste = this.officialsArray.value.some(
+      (item: any) => item.id === opt.id
+    );
+  
+    if (yaExiste) {
+      Swal.fire({
+        icon: 'warning',
+        title: 'Servidor público duplicado',
+        text: 'Este servidor público ya ha sido agregado.',
+        confirmButtonText: 'Aceptar',
+        confirmButtonColor: '#ffc107',
+      });
+      return;
+    }
+  
     this.officialsArray.push(this.fb.group({ ...opt }));
+    this.officialsForm.reset();
   }
 
   deleteOfficials(index: number): void {
     this.officialsArray.removeAt(index);
+  }
+
+  enableAddClarificationMeetingButton(): boolean {
+    return this.meetingForm.valid;
   }
 
   addNewClarificationMeeting(): void {
@@ -139,5 +235,25 @@ export class TenderMeetingsComponent implements OnInit {
       this.mostrarSpinner = false;
       console.log('agregando al arreglo');
     }, 1000);
+  }
+  confirmAndDeleteClarificationMeeting(index: number): void {
+    Swal.fire({
+      text: '¿Deseas eliminar este evento?',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      cancelButtonText: 'Cancelar',
+      confirmButtonText: 'Sí, eliminar'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        Swal.fire({
+          text: 'El registro ha sido eliminado.',
+          icon: 'success',
+          confirmButtonText: 'Aceptar',
+        })
+        this.deleteClarificationMeeting.emit(index);
+      }
+    });
   }
 }

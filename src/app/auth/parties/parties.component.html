@@ -1,298 +1,514 @@
 <div class="content">
   <div class="container">
-    <div class="row align-items-stretch no-gutters menu-wrap">
-      <div class="col-md-3 g-0">
-        <div class="menu-info h-100">
-          <div
-            class="nav flex-column nav-pills"
-            id="parties-tab"
-            role="tablist"
-            aria-orientation="vertical"
-          >
-            <h3
-              class="text-left mb-2"
-              id="parties-presentacion-tab"
-              data-bs-toggle="pill"
-              data-bs-target="#parties-presentacion"
+    <div class="row">
+      <div class="col">
+        <h3>Actores</h3>
+        <hr />
+        <p>
+          <b>Actores:</b> Son las partes involucradas en el proceso de
+          contratación, como son: el comprador, la Entidad contratante, la
+          Entidad financiera, el Área requirente, el Área técnica, el
+          Administrador del contrato, el Proveedor, el Licitante, el Emisor del
+          pago, la Persona que solicita información, el Receptor del pago, el
+          Órgano de revisión y la Institución que expide la garantía.
+        </p>
+      </div>
+    </div>
+
+    <!-- Selección de Actores - Sin tabs, todo en una sección -->
+    <div class="row mb-4">
+      <div class="col">
+        <h4>Seleccionar el actor a registrar</h4>
+
+        <div class="mb-4">
+          <div class="d-flex flex-wrap gap-2 mb-3">
+            <!-- Botones de actores internos -->
+            <button
+              class="btn position-relative"
+              [ngClass]="
+                selectedActorForTable?.code === role.code
+                  ? 'btn-primary'
+                  : 'btn-outline-primary'
+              "
               type="button"
-              role="tab"
-              aria-controls="parties-presentacion"
-              aria-selected="true"
+              (click)="selectActor(role.code)"
+              *ngFor="let role of internalActors"
             >
-              &nbsp;&nbsp;Actores
-            </h3>
-
-            <ng-container *ngIf="editMode">
-              <button
-                class="nav-link text-left"
-                [class.active]="!editMode"
-                [class.show]="!editMode"
-                id="parties-general-tab"
-                data-bs-toggle="pill"
-                data-bs-target="#parties-general"
-                type="button"
-                role="tab"
-                aria-controls="parties-general"
-                aria-selected="false"
+              <i class="fas fa-user-tie me-2"></i>{{ role.title }}
+              <span
+                class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-secondary"
+                *ngIf="getPartiesByRole(role.code).length > 0"
               >
-                Información general
-              </button>
+                {{ getPartiesByRole(role.code).length }}
+                <span class="visually-hidden">actores registrados</span>
+              </span>
+            </button>
 
-              <button
-                class="nav-link text-left"
-                id="parties-address-tab"
-                data-bs-toggle="pill"
-                data-bs-target="#parties-address"
-                type="button"
-                role="tab"
-                aria-controls="parties-address"
-                aria-selected="false"
+            <!-- Botones de actores externos -->
+            <button
+              class="btn position-relative"
+              [ngClass]="
+                selectedActorForTable?.code === role.code
+                  ? 'btn-success'
+                  : 'btn-outline-success'
+              "
+              type="button"
+              (click)="selectActor(role.code)"
+              *ngFor="let role of externalActors"
+            >
+              <i class="fas fa-handshake me-2"></i>{{ role.title }}
+              <span
+                class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-secondary"
+                *ngIf="getPartiesByRole(role.code).length > 0"
               >
-                Domicilio
-              </button>
+                {{ getPartiesByRole(role.code).length }}
+                <span class="visually-hidden">actores registrados</span>
+              </span>
+            </button>
+          </div>
 
-              <button
-                class="nav-link text-left"
-                id="parties-contactPoint-tab"
-                data-bs-toggle="pill"
-                data-bs-target="#parties-contactPoint"
-                type="button"
-                role="tab"
-                aria-controls="parties-contactPoint"
-                aria-selected="false"
+          <!-- Información y tabla del actor seleccionado en la misma sección -->
+          <div *ngIf="selectedActorForTable" class="mt-4">
+            <!-- Información del actor seleccionado -->
+            <div
+              class="alert"
+              [ngClass]="
+                isInternalActor(selectedActorForTable.code)
+                  ? 'alert-primary'
+                  : 'alert-success'
+              "
+              role="alert"
+            >
+              <div class="d-flex justify-content-between align-items-center">
+                <div>
+                  <h6 class="alert-heading mb-2">
+                    <i
+                      [class]="
+                        isInternalActor(selectedActorForTable.code)
+                          ? 'fas fa-user-tie me-2'
+                          : 'fas fa-handshake me-2'
+                      "
+                    ></i>
+                    {{ selectedActorForTable.title }}
+                    <span
+                      class="badge ms-2"
+                      [ngClass]="
+                        isInternalActor(selectedActorForTable.code)
+                          ? 'bg-primary'
+                          : 'bg-success'
+                      "
+                    >
+                      {{ selectedActorForTable.code }}
+                    </span>
+                    <span
+                      class="badge ms-1"
+                      [ngClass]="
+                        isInternalActor(selectedActorForTable.code)
+                          ? 'bg-info'
+                          : 'bg-warning'
+                      "
+                    >
+                      {{
+                        isInternalActor(selectedActorForTable.code)
+                          ? "Interno"
+                          : "Externo"
+                      }}
+                    </span>
+                  </h6>
+                  <p class="mb-0">{{ selectedActorForTable.description }}</p>
+                </div>
+                <div>
+                  <button
+                    type="button"
+                    class="btn"
+                    [ngClass]="
+                      isInternalActor(selectedActorForTable.code)
+                        ? 'btn-primary'
+                        : 'btn-success'
+                    "
+                    (click)="openActorModal(selectedActorForTable.code)"
+                  >
+                    <i class="fas fa-plus me-2"></i>Agregar
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <!-- Tabla del actor seleccionado -->
+            <div class="mt-3">
+              <h5 class="mb-3">
+                <i
+                  [class]="
+                    isInternalActor(selectedActorForTable.code)
+                      ? 'fas fa-building me-2 text-primary'
+                      : 'fas fa-users me-2 text-success'
+                  "
+                ></i>
+                {{ selectedActorForTable.title }} registrados
+              </h5>
+
+              <div
+                class="alert"
+                [ngClass]="
+                  isInternalActor(selectedActorForTable.code)
+                    ? 'alert-info'
+                    : 'alert-warning'
+                "
+                role="alert"
+                *ngIf="getPartiesByRole(selectedActorForTable.code).length > 0"
               >
-                Punto de contacto
-              </button>
-
-              <button
-                class="nav-link text-left"
-                id="parties-additionalContactPoints-tab"
-                data-bs-toggle="pill"
-                data-bs-target="#parties-additionalContactPoints"
-                type="button"
-                role="tab"
-                aria-controls="parties-additionalContactPoints"
-                aria-selected="false"
-              >
-                Puntos de contacto adicionales
-              </button>
-
-              <button
-                class="nav-link text-left"
-                id="parties-beneficialOwners-tab"
-                data-bs-toggle="pill"
-                data-bs-target="#parties-beneficialOwners"
-                type="button"
-                role="tab"
-                aria-controls="parties-beneficialOwners"
-                aria-selected="false"
-                *ngIf="showBeneficiariesSection"
-              >
-                Beneficiarios
-              </button>
-
-              <div class="d-flex flex-column mb-3">
-                <button
-                  type="button"
-                  class="btn btn-danger text-center p-3"
-                  (click)="savePartie()"
-                >
-                  Guardar Actor
-                </button>
+                <i
+                  [class]="
+                    isInternalActor(selectedActorForTable.code)
+                      ? 'fas fa-info-circle me-2'
+                      : 'fas fa-exclamation-triangle me-2'
+                  "
+                ></i>
+                Mostrando
+                <strong>{{
+                  getPartiesByRole(selectedActorForTable.code).length
+                }}</strong>
+                {{ selectedActorForTable.title.toLowerCase() }}(s) registrado(s)
               </div>
 
-              <div class="d-flex flex-column">
-                <button
-                  type="button"
-                  class="btn btn-success btn-add text-center p-3"
-                  (click)="cancelPartie()"
-                >
-                  Cancelar
-                </button>
+              <div class="table-responsive">
+                <table class="table table-striped table-hover">
+                  <thead>
+                    <tr>
+                      <th scope="col">ID</th>
+                      <th scope="col">Roles</th>
+                      <th scope="col">Nombre común</th>
+                      <th scope="col">Cargo</th>
+                      <th scope="col">Nombre legal</th>
+                      <th scope="col">Nombre</th>
+                      <th scope="col">Primer apellido</th>
+                      <th scope="col">Segundo apellido</th>
+                      <th scope="col">Opciones</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr
+                      *ngFor="
+                        let item of getPartiesByRole(
+                          selectedActorForTable.code
+                        );
+                        index as i
+                      "
+                    >
+                      <td scope="row">{{ i + 1 }}</td>
+                      <td>
+                        <ul class="mb-0">
+                          <li *ngFor="let rol of item.roles">
+                            <span
+                              class="badge me-1"
+                              [ngClass]="
+                                isInternalActor(rol)
+                                  ? 'bg-primary'
+                                  : 'bg-success'
+                              "
+                            >
+                              {{ getRoleTitle(rol) }}
+                            </span>
+                          </li>
+                        </ul>
+                      </td>
+                      <td>{{ item.name }}</td>
+                      <td>{{ item.position }}</td>
+                      <td>{{ item.identifier?.legalName }}</td>
+                      <td>{{ item.identifier?.givenName }}</td>
+                      <td>{{ item.identifier?.patronymicName }}</td>
+                      <td>{{ item.identifier?.matronymicName }}</td>
+                      <td>
+                        <button
+                          type="button"
+                          class="btn btn-danger btn-delete btn-sm"
+                          (click)="
+                            confirmAndDeletePartie(getOriginalIndex(item))
+                          "
+                        >
+                          Eliminar
+                        </button>
+                      </td>
+                    </tr>
+                    <tr
+                      *ngIf="
+                        getPartiesByRole(selectedActorForTable.code).length ===
+                        0
+                      "
+                    >
+                      <th
+                        scope="row"
+                        colspan="9"
+                        class="text-center text-muted"
+                      >
+                        <i class="fas fa-inbox me-2"></i>
+                        No existen registros para este actor.
+                      </th>
+                    </tr>
+                  </tbody>
+                </table>
               </div>
-            </ng-container>
+            </div>
           </div>
         </div>
       </div>
-      <!-- secciones  -->
-      <div class="col-md-9 g-0">
-        <div class="tab-content" id="parties-tabContent">
-          <ng-container *ngIf="!editMode">
-            <div
-              class="tab-pane fade show active"
-              id="parties-presentacion"
-              role="tabpanel"
-              aria-labelledby="parties-presentacion-tab"
-              tabindex="0"
+    </div>
+  </div>
+</div>
+
+<!-- Modal Dinámica para Actor -->
+<div
+  class="modal fade"
+  id="actorModal"
+  tabindex="-1"
+  aria-labelledby="actorModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog modal-xl">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="actorModalLabel">
+          <i class="fas fa-user me-2"></i>
+          {{ selectedActorTitle }}
+        </h5>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+
+      <div class="modal-body">
+        <div class="container-fluid">
+          <!-- Navegación por pestañas -->
+          <ul class="nav nav-tabs" id="actorTabs" role="tablist">
+            <!-- Información General (siempre visible) -->
+            <li class="nav-item" role="presentation">
+              <button
+                class="nav-link active"
+                id="general-tab"
+                data-bs-toggle="tab"
+                data-bs-target="#general"
+                type="button"
+                role="tab"
+              >
+                Información General
+              </button>
+            </li>
+
+            <!-- Domicilio (condicional) -->
+            <li
+              class="nav-item"
+              role="presentation"
+              *ngIf="shouldShowField('address')"
             >
-              <div class="form h-100">
-                <!-- <div class="row imageP"></div> -->
-                <div class="row">
-                  <h3>Actores</h3>
-                  <hr />
-                  <p>
-                    <b>Actores:</b> Son las partes involucradas en el proceso de
-                    contratación, como son: el comprador, la Entidad
-                    contratante, la Entidad financiera, el Área requirente, el
-                    Área técnica, el Administrador del contrato, el Proveedor,
-                    el Licitante, el Emisor del pago, la Persona que solicita
-                    información, el Receptor del pago, el Órgano de revisión y
-                    la Institución que expide la garantía.
-                  </p>
-                </div>
+              <button
+                class="nav-link"
+                id="address-tab"
+                data-bs-toggle="tab"
+                data-bs-target="#address"
+                type="button"
+                role="tab"
+              >
+                Domicilio
+              </button>
+            </li>
+
+            <li
+              class="nav-item"
+              role="presentation"
+              *ngIf="shouldShowField('contactPoint')"
+            >
+              <button
+                class="nav-link"
+                id="contact-point-tab"
+                data-bs-toggle="tab"
+                data-bs-target="#contact-point"
+                type="button"
+                role="tab"
+              >
+                Punto de Contacto
+              </button>
+            </li>
+
+            <!-- Puntos de Contacto Adicionales (condicional) -->
+            <li
+              class="nav-item"
+              role="presentation"
+              *ngIf="shouldShowField('additionalContactPoints')"
+            >
+              <button
+                class="nav-link"
+                id="additional-contacts-tab"
+                data-bs-toggle="tab"
+                data-bs-target="#additional-contacts"
+                type="button"
+                role="tab"
+              >
+                Puntos de Contacto Adicionales
+              </button>
+            </li>
+
+            <!-- Beneficiarios (solo para supplier y tenderer) -->
+            <li
+              class="nav-item"
+              role="presentation"
+              *ngIf="shouldShowField('beneficialOwners')"
+            >
+              <button
+                class="nav-link"
+                id="beneficiaries-tab"
+                data-bs-toggle="tab"
+                data-bs-target="#beneficiaries"
+                type="button"
+                role="tab"
+              >
+                Beneficiarios
+              </button>
+            </li>
+
+            <!-- Identificadores Adicionales (siempre disponible) -->
+            <li class="nav-item" role="presentation">
+              <button
+                class="nav-link"
+                id="additional-identifiers-tab"
+                data-bs-toggle="tab"
+                data-bs-target="#additional-identifiers"
+                type="button"
+                role="tab"
+              >
+                Identificadores Adicionales
+              </button>
+            </li>
+          </ul>
+
+          <!-- Contenido de las pestañas -->
+          <div class="tab-content mt-3" id="actorTabsContent">
+            <!-- Información General -->
+            <div class="tab-pane fade show active" id="general" role="tabpanel">
+              <app-parties-general-dynamic
+                [selectedActor]="selectedActor"
+                [fieldVisibility]="fieldVisibility"
+                (saveGeneral)="saveGeneral($event)"
+              ></app-parties-general-dynamic>
+            </div>
+
+            <!-- Domicilio -->
+            <div
+              class="tab-pane fade"
+              id="address"
+              role="tabpanel"
+              *ngIf="shouldShowField('address')"
+            >
+              <app-parties-address
+                (saveAddress)="saveAddress($event)"
+              ></app-parties-address>
+            </div>
+
+            <div
+              class="tab-pane fade"
+              id="contact-point"
+              role="tabpanel"
+              *ngIf="shouldShowField('contactPoint')"
+            >
+              <app-parties-contact-point
+                *ngIf="editMode"
+                (saveContactPoint)="saveContactPoint($event)"
+              ></app-parties-contact-point>
+            </div>
+
+            <!-- Puntos de Contacto Adicionales -->
+            <div
+              class="tab-pane fade"
+              id="additional-contacts"
+              role="tabpanel"
+              *ngIf="shouldShowField('additionalContactPoints')"
+            >
+              <app-parties-additional-contact-points
+                [additionalContactPointsArray]="
+                  partieForm.value.additionalContactPoints || []
+                "
+                (addAdditionalContactPoints)="
+                  addAdditionalContactPoints($event)
+                "
+                (deleteAdditionalContactPoints)="
+                  deleteAdditionalContactPoints($event)
+                "
+              ></app-parties-additional-contact-points>
+            </div>
+
+            <!-- Beneficiarios -->
+            <div
+              class="tab-pane fade"
+              id="beneficiaries"
+              role="tabpanel"
+              *ngIf="shouldShowField('beneficialOwners')"
+            >
+              <app-parties-beneficial-owners
+                [beneficialOwnersArray]="
+                  partieForm.value.beneficialOwners || []
+                "
+                (addBeneficialOwners)="addBeneficialOwners($event)"
+                (deleteBeneficialOwners)="deleteBeneficialOwners($event)"
+              ></app-parties-beneficial-owners>
+            </div>
+
+            <!-- Identificadores Adicionales -->
+            <div
+              class="tab-pane fade"
+              id="additional-identifiers"
+              role="tabpanel"
+            >
+              <div class="container">
                 <div class="row">
                   <div class="col">
+                    <h4>Identificadores Adicionales</h4>
+                    <p class="text-muted">
+                      Puede agregar identificadores adicionales para este actor
+                      según sea necesario.
+                    </p>
                     <button
                       type="button"
-                      class="btn btn-danger btn-add"
-                      (click)="newPartie()"
+                      class="btn btn-primary"
+                      (click)="
+                        showAdditionalIdentifiersSection =
+                          !showAdditionalIdentifiersSection
+                      "
                     >
-                      Agregar actor
+                      <i class="fas fa-plus me-2"></i>
+                      Agregar Identificadores Adicionales
                     </button>
-                  </div>
-                </div>
-                <div class="row">
-                  <div class="col">
-                    <div class="table-responsive">
-                      <table class="table table-striped table-hover">
-                        <thead>
-                          <tr>
-                            <th scope="col">ID</th>
-                            <th scope="col">Nombre comun</th>
-                            <th scope="col">cargo</th>
-                            <th scope="col">Nombre legal</th>
-                            <th scope="col">Nombre</th>
-                            <th scope="col">Primer apellido</th>
-                            <th scope="col">Segundo apellido</th>
-                            <th scope="col">opciones</th>
-                          </tr>
-                        </thead>
-                        <tbody>
-                          <tr
-                            *ngFor="
-                              let item of partiesForm.value.parties;
-                              index as i
-                            "
-                          >
-                            <td scope="row">
-                              {{ i + 1 }}
-                            </td>
-                            <td>{{ item.name }}</td>
-                            <td>{{ item.position }}</td>
-                            <td>{{ item.identifier?.legalName }}</td>
-                            <td>{{ item.identifier?.givenName }}</td>
-                            <td>{{ item.identifier?.patronymicName }}</td>
-                            <td>{{ item.identifier?.matronymicName }}</td>
-                            <td>
-                              <button
-                                type="button"
-                                class="btn btn-danger btn-delete"
-                                (click)="deletePartie(i)"
-                              >
-                                Eliminar
-                              </button>
-                            </td>
-                          </tr>
-                          <tr *ngIf="partiesForm.value.parties.length === 0">
-                            <th scope="row" colspan="8" class="text-center">
-                              Sin registros.
-                            </th>
-                          </tr>
-                        </tbody>
-                      </table>
+
+                    <!-- Sección de identificadores adicionales (mostrar/ocultar) -->
+                    <div *ngIf="showAdditionalIdentifiersSection" class="mt-3">
+                      <app-additional-identifiers-section
+                        [additionalIdentifiersArray]="
+                          partieForm.value.additionalIdentifiers || []
+                        "
+                        (addAdditionalIdentifier)="
+                          addAdditionalIdentifier($event)
+                        "
+                        (deleteAdditionalIdentifier)="
+                          deleteAdditionalIdentifier($event)
+                        "
+                      ></app-additional-identifiers-section>
                     </div>
                   </div>
                 </div>
               </div>
             </div>
-          </ng-container>
-
-          <ng-container *ngIf="editMode">
-            <div
-              class="tab-pane fade show active"
-              id="parties-general"
-              role="tabpanel"
-              aria-labelledby="parties-general-tab"
-              tabindex="0"
-            >
-              <div class="form">
-                <app-parties-general
-                  (saveGeneral)="saveGeneral($event)"
-                  (showBeneficiaries)="onShowBeneficiaries($event)"
-                ></app-parties-general>
-              </div>
-            </div>
-
-            <div
-              class="tab-pane fade"
-              id="parties-address"
-              role="tabpanel"
-              aria-labelledby="parties-address-tab"
-              tabindex="0"
-            >
-              <div class="form">
-                <app-parties-address
-                  (saveAddress)="saveAddress($event)"
-                ></app-parties-address>
-              </div>
-            </div>
-
-            <div
-              class="tab-pane fade"
-              id="parties-contactPoint"
-              role="tabpanel"
-              aria-labelledby="parties-contactPoint-tab"
-              tabindex="0"
-            >
-              <div class="form">
-                <app-parties-contact-point
-                  (saveContactPoint)="saveContactPoint($event)"
-                ></app-parties-contact-point>
-              </div>
-            </div>
-
-            <div
-              class="tab-pane fade"
-              id="parties-additionalContactPoints"
-              role="tabpanel"
-              aria-labelledby="parties-additionalContactPoints-tab"
-              tabindex="0"
-            >
-              <div class="form">
-                <app-parties-additional-contact-points
-                  [additionalContactPointsArray]="
-                    partieForm.value.additionalContactPoints
-                  "
-                  (addAdditionalContactPoints)="
-                    addAdditionalContactPoints($event)
-                  "
-                  (deleteAdditionalContactPoints)="
-                    deleteAdditionalContactPoints($event)
-                  "
-                ></app-parties-additional-contact-points>
-              </div>
-            </div>
-
-            <div
-              class="tab-pane fade"
-              id="parties-beneficialOwners"
-              role="tabpanel"
-              aria-labelledby="parties-beneficialOwners-tab"
-              tabindex="0"
-              *ngIf="showBeneficiariesSection"
-            >
-              <div class="form">
-                <app-parties-beneficial-owners
-                  [beneficialOwnersArray]="partieForm.value.beneficialOwners"
-                  (addBeneficialOwners)="addBeneficialOwners($event)"
-                  (deleteBeneficialOwners)="deleteBeneficialOwners($event)"
-                ></app-parties-beneficial-owners>
-              </div>
-            </div>
-
-            <!-- fin -->
-          </ng-container>
+          </div>
         </div>
+      </div>
+
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+          <i class="fas fa-times me-2"></i>Cancelar
+        </button>
+        <button type="button" class="btn btn-success" (click)="saveActor()">
+          <i class="fas fa-save me-2"></i>Guardar Actor
+        </button>
       </div>
     </div>
   </div>

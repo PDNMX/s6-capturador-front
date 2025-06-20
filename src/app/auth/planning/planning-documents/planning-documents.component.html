@@ -41,7 +41,7 @@
                 <button
                   type="button"
                   class="btn btn-danger btn-delete"
-                  (click)="deleteDocument.emit(i)"
+                  (click)="confirmAndDeleteDocument(i)"
                 >
                   Eliminar
                 </button>
@@ -59,191 +59,222 @@
   </div>
   <hr />
 
-  <form [formGroup]="documentForm">
-    <div class="row">
-      <div class="col-12">
-        <label for="">Tipo de documento</label>
-      </div>
-      <div class="form-floating col mb-5">
-        <select class="form-select" formControlName="documentType">
-          <option *ngFor="let d of documents" [ngValue]="d.code">
-            {{ d.title }}
-          </option>
-        </select>
-        <p>
-          {{ getDocumentTypeDesc(documentForm.value.documentType) }}
-        </p>
-      </div>
-    </div>
-
-    <!-- <div class="row">
-        <div class="form-floating col mb-5">
-          <select class="form-select" formControlName="documentType">
-            <option selected>Seleccione un tipo de documento</option>
-            <option *ngFor="let d of documents" [ngValue]="d.code">
-              {{ d.title }}
-            </option>
-          </select>
-          <br />
-          <p>{{ documentForm.value.documentType.description }}</p>
-        </div>
-      </div> -->
-
-    <div class="row">
-      <div class="form-floating col mb-2">
-        <input
-          class="form-control"
-          id="title"
-          type="text"
-          data-sb-validations="required"
-          placeholder="title"
-          formControlName="title"
-        />
-        <label for="title">Titulo*</label>
-        <div class="invalid-feedback" data-sb-feedback="title:required">
-          Titulo * es requerido.
-        </div>
-      </div>
-      <div class="form-text">El título del documento.</div>
-    </div>
-
-    <div class="row">
-      <div class="form-floating col-12 mb-2">
-        <textarea
-          class="form-control"
-          id="description"
-          type="text"
-          placeholder="Descripción*"
-          style="height: 100px"
-          formControlName="description"
-        ></textarea>
-        <label for="description">Descripción*</label>
-        <div class="invalid-feedback" data-sb-feedback="description:required">
-          Descripción * es requerido.
-        </div>
-      </div>
-      <div class="form-text">
-        Una breve descripción del documento. Se recomienda no exceder las 250
-        palabras. En el caso que el documento no esté disponible en línea, el
-        campo podrá utilizarse para describir el proceso para acceder a una
-        copia del mismo.
-      </div>
-    </div>
-
-    <div class="row">
-      <div class="form-floating col mb-2">
-        <input
-          class="form-control"
-          id="URL"
-          type="text"
-          data-sb-validations="required"
-          placeholder="URL*"
-          formControlName="url"
-        />
-        <label for="URL">URL*</label>
-        <div class="invalid-feedback" data-sb-feedback="title:required">
-          URL * es requerido.
-        </div>
-      </div>
-      <div class="form-text">
-        Enlace directo al documento o archivo adjunto.
-      </div>
-    </div>
-
-    <div class="row">
-      <div class="col-6 mb-2">
-        <div class="form-floating">
-          <input
-            class="form-control"
-            id="datePublished"
-            type="date"
-            data-sb-validations="required"
-            formControlName="datePublished"
-          />
-          <label for="datePublished">Fecha de publicación*</label>
-          <div class="invalid-feedback" data-sb-feedback="title:required">
-            Fecha de publicación * es requerido.
-          </div>
-        </div>
-        <div class="form-text">
-          La fecha de publicación del documento. Esto es particularmente
-          importante para documentos relevantes desde el punto de vista legal,
-          como las convocatorias a licitación.
-        </div>
-      </div>
-      <div class="col-6 mb-2">
-        <div class="form-floating">
-          <input
-            class="form-control"
-            id="dateModified"
-            type="date"
-            data-sb-validations="required"
-            formControlName="dateModified"
-          />
-          <label for="dateModified">Fecha de modificación*</label>
-          <div class="invalid-feedback" data-sb-feedback="title:required">
-            Fecha de modificación * es requerido.
-          </div>
-        </div>
-        <div class="form-text">
-          Fecha en que se modificó por última vez el documento.
-        </div>
-      </div>
-    </div>
-    <div class="row">
-      <div class="col-6">
-        <div class="row">
-          <div class="col-12">
-            <label for="format">Formato</label>
-          </div>
-          <div class="form-floating col mb-2">
-            <select class="form-select" formControlName="format">
-              <option *ngFor="let d of formatDocument" [ngValue]="d.template">
-                {{ d.name }}
-              </option>
-            </select>
-          </div>
-          <div class="form-text">El formato del documento</div>
-        </div>
-      </div>
-      <div class="col-6">
-        <div class="row">
-          <div class="col-12">
-            <label for="language">Idioma</label>
-          </div>
-          <div class="form-floating col mb-2">
-            <select class="form-select" formControlName="language">
-              <option *ngFor="let d of language" [ngValue]="d.code">
-                {{ d.name }}
-              </option>
-            </select>
-          </div>
-          <div class="form-text">Especifica el idioma del documento.</div>
-        </div>
-      </div>
-    </div>
-
-    <div class="row">
-      <div class="col">
+  <!-- Botones para documentos requeridos -->
+  <div class="row mb-4">
+    <div class="col-12">
+      <h4>Los siguientes documentos son requeridos en esta etapa</h4>
+      <div class="d-flex flex-wrap gap-3 mt-3">
+        <button
+          *ngFor="let requiredDoc of requiredDocuments"
+          type="button"
+          [class]="'btn ' + getButtonClass(requiredDoc.code)"
+          (click)="openModalWithDocType(requiredDoc.code)"
+          title="{{ getButtonTitle(requiredDoc) }}"
+        >
+          {{ requiredDoc.title }}
+          <i *ngIf="documentExists(requiredDoc.code)" class="bi bi-check-circle-fill ms-2"></i>
+        </button>
         <button
           type="button"
-          class="btn btn-danger btn-add"
-          (click)="addNewDocument()"
+          class="btn btn-secondary"
+          (click)="openModalForOtherDocument()"
         >
-          Agregar documento
+          Agregar otro documento
         </button>
       </div>
     </div>
-    <br />
-    <div class="row">
-      <div class="col-12 spin">
-        <div *ngIf="mostrarSpinner" class="spinner-container">
-          <div class="spinner-border" role="status">
-            <span class="visually-hidden">Guardando...</span>
+  </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="documentModal" tabindex="-1" aria-labelledby="documentModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="documentModalLabel">{{ modalTitle }}</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form [formGroup]="documentForm">
+          <!-- Select de tipo de documento - solo será visible al seleccionar otro documento -->
+          <div class="row" *ngIf="showDocumentTypeSelect">
+            <div class="col-12">
+              <label for="">Tipo de documento</label>
+            </div>
+            <div class="form-floating col mb-5">
+              <select class="form-select" formControlName="documentType">
+                <option *ngFor="let d of filteredDocuments" [ngValue]="d.code">
+                  {{ d.title }}
+                </option>
+              </select>
+              <app-input-validation [element]="documentType"></app-input-validation>
+              <p>
+                {{ getDocumentTypeDesc(documentForm.value.documentType) }}
+              </p>
+            </div>
           </div>
-          <p class="mt-2">Guardando...</p>
-        </div>
+
+          <div class="row">
+            <div class="form-floating col mb-2">
+              <input
+                class="form-control"
+                id="title"
+                type="text"
+                data-sb-validations="required"
+                placeholder="title"
+                formControlName="title"
+              />
+              <label for="title">Titulo *</label>
+              <app-input-validation [element]="title"></app-input-validation>
+              <div class="invalid-feedback" data-sb-feedback="title:required">
+                Titulo * es requerido.
+              </div>
+            </div>
+            <div class="form-text">El título del documento.</div>
+          </div>
+
+          <div class="row">
+            <div class="form-floating col-12 mb-2">
+              <textarea
+                class="form-control"
+                id="description"
+                type="text"
+                placeholder="Descripción*"
+                style="height: 100px"
+                formControlName="description"
+              ></textarea>
+              <label for="description">Descripción *</label>
+              <app-input-validation [element]="description"></app-input-validation>
+              <div class="invalid-feedback" data-sb-feedback="description:required">
+                Descripción * es requerido.
+              </div>
+            </div>
+            <div class="form-text">
+              Una breve descripción del documento. Se recomienda no exceder las 250
+              palabras. En el caso que el documento no esté disponible en línea, el
+              campo podrá utilizarse para describir el proceso para acceder a una
+              copia del mismo.
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="form-floating col mb-2">
+              <input
+                class="form-control"
+                id="URL"
+                type="text"
+                data-sb-validations="required"
+                placeholder="URL*"
+                formControlName="url"
+              />
+              <label for="URL">URL *</label>
+              <app-input-validation [element]="url" inputType="url"></app-input-validation>
+              <div class="invalid-feedback" data-sb-feedback="title:required">
+                URL * es requerido.
+              </div>
+            </div>
+            <div class="form-text">
+              Enlace directo al documento o archivo adjunto.
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-6 mb-2">
+              <div class="form-floating">
+                <input
+                  class="form-control"
+                  id="datePublished"
+                  type="date"
+                  data-sb-validations="required"
+                  formControlName="datePublished"
+                />
+                <label for="datePublished">Fecha de publicación</label>
+                <div class="invalid-feedback" data-sb-feedback="title:required">
+                  Fecha de publicación * es requerido.
+                </div>
+              </div>
+              <div class="form-text">
+                La fecha de publicación del documento. Esto es particularmente
+                importante para documentos relevantes desde el punto de vista legal,
+                como las convocatorias a licitación.
+              </div>
+            </div>
+            <div class="col-6 mb-2">
+              <div class="form-floating">
+                <input
+                  class="form-control"
+                  id="dateModified"
+                  type="date"
+                  data-sb-validations="required"
+                  formControlName="dateModified"
+                />
+                <label for="dateModified">Fecha de modificación</label>
+                <app-input-validation [element]="dateModified"></app-input-validation>
+              </div>
+              <div class="form-text">
+                Fecha en que se modificó por última vez el documento.
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-6">
+              <div class="row">
+                <div class="col-12">
+                  <label for="format">Formato</label>
+                </div>
+                <div class="form-floating col mb-2">
+                  <select class="form-select" formControlName="format">
+                    <option *ngFor="let d of formatDocument" [ngValue]="d.template">
+                      {{ d.name }}
+                    </option>
+                  </select>
+                </div>
+                <div class="form-text">El formato del documento</div>
+              </div>
+            </div>
+            <div class="col-6">
+              <div class="row">
+                <div class="col-12">
+                  <label for="language">Idioma *</label>
+                </div>
+                <div class="form-floating col mb-2">
+                  <select class="form-select" formControlName="language">
+                    <option *ngFor="let d of language" [ngValue]="d.code">
+                      {{ d.name }}
+                    </option>
+                  </select>
+                  <app-input-validation
+                    [element]="doc_language"
+                  ></app-input-validation>
+                </div>
+                <div class="form-text">Especifica el idioma del documento.</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-12 spin">
+              <div *ngIf="mostrarSpinner" class="spinner-container">
+                <div class="spinner-border" role="status">
+                  <span class="visually-hidden">Guardando...</span>
+                </div>
+                <p class="mt-2">Guardando...</p>
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+        <button 
+          type="button" 
+          class="btn btn-primary" 
+          (click)="addNewDocument()" 
+          [disabled]="!documentForm.valid"
+        >
+          Guardar documento
+        </button>
       </div>
     </div>
-  </form>
+  </div>
 </div>

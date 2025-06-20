@@ -1,8 +1,9 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators, AbstractControl, ValidationErrors } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { ApiService } from 'src/app/services/api.service';
 import { MilestoneStatus, MilestoneType } from 'src/utils';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-contracts-milestones',
@@ -81,7 +82,87 @@ export class ContractsMilestonesComponent {
       dateMet: ['', [Validators.required]],
       dateModified: ['', [Validators.required]],
       status: ['', [Validators.required]],
-    });
+    }, { validators: this.dateComparisonValidator() });
+  }
+
+  get title() {
+    return this.milestoneForm.get('title') as FormControl;
+  }
+  get type() {
+    return this.milestoneForm.get('type') as FormControl;
+  }
+  get description() {
+    return this.milestoneForm.get('description') as FormControl;
+  }
+  get code() {
+    return this.milestoneForm.get('code') as FormControl;
+  }
+  get dueDate() {
+    return this.milestoneForm.get('dueDate') as FormControl;
+  }
+  get dateMet() {
+    return this.milestoneForm.get('dateMet') as FormControl;
+  }
+  get dateModified() {
+    return this.milestoneForm.get('dateModified') as FormControl;
+  }
+  get status() {
+    return this.milestoneForm.get('status') as FormControl;
+  }
+
+  private dateComparisonValidator(): (group: AbstractControl) => ValidationErrors | null {
+    return (group: AbstractControl): ValidationErrors | null => {
+      const dueDate = group.get('dueDate')?.value;
+      const dateMetControl = group.get('dateMet');
+      const dateModifiedControl = group.get('dateModified');
+      const dateMet = dateMetControl?.value;
+      const dateModified = dateModifiedControl?.value;
+  
+      let hasErrors = false;
+  
+      // Validar dateMet vs dueDate
+      if (dueDate && dateMet && new Date(dateMet) < new Date(dueDate)) {
+        const currentErrors = dateMetControl?.errors || {};
+        dateMetControl?.setErrors({
+          ...currentErrors,
+          dateMetInvalid: true
+        });
+        hasErrors = true;
+      } else if (dateMetControl?.errors) {
+        const { dateMetInvalid, ...otherErrors } = dateMetControl.errors;
+        dateMetControl.setErrors(
+          Object.keys(otherErrors).length > 0 ? otherErrors : null
+        );
+      }
+  
+      // Validar dateModified vs dueDate y dateMet
+      if (dateModified) {
+        const dateModifiedTime = new Date(dateModified).getTime();
+        const dueDateTime = dueDate ? new Date(dueDate).getTime() : null;
+        const dateMetTime = dateMet ? new Date(dateMet).getTime() : null;
+  
+        if ((dueDateTime && dateModifiedTime < dueDateTime) || 
+            (dateMetTime && dateModifiedTime < dateMetTime)) {
+          const currentErrors = dateModifiedControl?.errors || {};
+          dateModifiedControl?.setErrors({
+            ...currentErrors,
+            dateModifiedInvalidMilestone: true
+          });
+          hasErrors = true;
+        } else if (dateModifiedControl?.errors) {
+          const { dateModifiedInvalidMilestone, ...otherErrors } = dateModifiedControl.errors;
+          dateModifiedControl.setErrors(
+            Object.keys(otherErrors).length > 0 ? otherErrors : null
+          );
+        }
+      }
+  
+      return hasErrors ? { dateValidation: true } : null;
+    };
+  }
+
+  enableAddMilestoneButton(): boolean {
+    return this.milestoneForm.valid && this.milestoneForm.dirty;
   }
 
   addNewMilestone(): void {
@@ -92,5 +173,25 @@ export class ContractsMilestonesComponent {
       this.mostrarSpinner = false;
       console.log('agregando al arreglo');
     }, 1000);
+  }
+  confirmAndDeleteMilestone(index: number): void {
+    Swal.fire({
+      text: '¿Deseas eliminar este hito?',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      cancelButtonText: 'Cancelar',
+      confirmButtonText: 'Sí, eliminar',
+    }).then((result) => {
+      if (result.isConfirmed) {
+        Swal.fire({
+          text: 'El registro ha sido eliminado.',
+          icon: 'success',
+          confirmButtonText: 'Aceptar',
+        });
+        this.deleteMilestone.emit(index);
+      }
+    });
   }
 }

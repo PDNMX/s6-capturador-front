@@ -1,0 +1,39 @@
+<!-- <span>
+  {{ element.errors | json }}
+</span> -->
+<div *ngIf="element?.touched && element?.invalid">
+  <small *ngIf="element?.errors?.['required']" class="text-danger">
+    Este campo es obligatorio.
+  </small>
+  <small *ngIf="element?.errors?.['maxlength']" class="text-danger">
+    Se supero el maximo de caracteres posibles.
+  </small>
+  <small *ngIf="element?.errors?.['min']" class="text-danger">
+    Este campo es obligatorio.
+  </small>
+  <small *ngIf="element?.errors?.['dateInvalid']" class="text-danger">
+    La fecha de término debe ser posterior a la fecha de inicio.
+  </small>
+  <small *ngIf="element?.errors?.['maxDateInvalid']" class="text-danger">
+    La fecha máxima de extensión debe ser posterior a la fecha de término.
+  </small>
+  <small *ngIf="element?.errors?.['dateModifiedInvalid']" class="text-danger">
+    La fecha de modificación no puede ser anterior a la fecha de publicación.
+  </small>
+  <small *ngIf="element?.errors?.['pattern'] && inputType === 'url'" class="text-danger">
+    Introduzca una dirección de internet válida.
+  </small>
+  <small *ngIf="element?.errors?.['pattern'] && inputType === 'number'" class="text-danger">
+    Solo se permiten valores numéricos enteros.
+  </small>
+  <small *ngIf="element?.errors?.['dateMetInvalid']" class="text-danger">
+    La fecha de cumplimiento no puede ser anterior a la fecha de vencimiento.
+  </small>
+  <small *ngIf="element?.errors?.['dateModifiedInvalidMilestone']" class="text-danger">
+    La fecha de modificación no puede ser anterior a la fecha de vencimiento ni a la fecha de cumplimiento.
+  </small>
+  <br />
+  <small class="text-danger">
+    {{ message }}
+  </small>
+</div>

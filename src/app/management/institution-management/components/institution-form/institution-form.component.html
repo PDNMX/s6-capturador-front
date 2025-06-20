@@ -1,0 +1,87 @@
+<div
+  class="modal fade show d-block"
+  tabindex="-1"
+  style="background: rgba(0, 0, 0, 0.5)"
+>
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">
+          {{ institution ? "Editar" : "Registrar" }} Institución
+        </h5>
+        <button type="button" class="btn-close" (click)="closeModal()"></button>
+      </div>
+      <div class="modal-body">
+        <form [formGroup]="institutionForm" (ngSubmit)="save()">
+          <div class="mb-3">
+            <label for="name" class="form-label">Nombre</label>
+            <input
+              type="text"
+              class="form-control"
+              id="name"
+              formControlName="name"
+            />
+          </div>
+          <div class="mb-3">
+            <label for="streetAddress" class="form-label">Calle</label>
+            <input
+              type="text"
+              class="form-control"
+              id="streetAddress"
+              formControlName="streetAddress"
+            />
+          </div>
+          <div class="mb-3">
+            <label for="locality" class="form-label">Localidad</label>
+            <input
+              type="text"
+              class="form-control"
+              id="locality"
+              formControlName="locality"
+            />
+          </div>
+          <div class="mb-3">
+            <label for="region" class="form-label">Región</label>
+            <input
+              type="text"
+              class="form-control"
+              id="region"
+              formControlName="region"
+            />
+          </div>
+          <div class="mb-3">
+            <label for="postalCode" class="form-label">Código Postal</label>
+            <input
+              type="text"
+              class="form-control"
+              id="postalCode"
+              formControlName="postalCode"
+            />
+          </div>
+          <div class="mb-3">
+            <label for="countryName" class="form-label">País</label>
+            <input
+              type="text"
+              class="form-control"
+              id="countryName"
+              formControlName="countryName"
+            />
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" (click)="closeModal()">
+          Cancelar
+        </button>
+        <button
+          type="button"
+          class="btn btn-primary"
+          (click)="save()"
+          [disabled]="institutionForm.invalid"
+        >
+          Guardar
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

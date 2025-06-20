@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 import { filter } from 'rxjs';
 import { AuthService } from 'src/app/services/auth.service';
+import { UserService } from 'src/app/services/user.service';
 
 @Component({
   selector: 'app-layouts',
@@ -11,14 +12,21 @@ import { AuthService } from 'src/app/services/auth.service';
 export class LayoutsComponent implements OnInit {
   showMenuRecord: boolean = false;
   contractID: string | null = '';
+  username: string = '';
+  roles: string[] = [];
 
   constructor(private auth: AuthService, private router: Router) {}
 
   ngOnInit(): void {
+    this.roles = this.auth.getRoles();
+    this.username = this.auth.getUsername();
+
     this.router.events
       .pipe(filter((event) => event instanceof NavigationEnd))
       .subscribe(() => {
-        if (this.router.url === '/') {
+        console.log('this.router.url: ', this.router.url);
+
+        if (this.router.url === '/' || this.router.url.includes('management')) {
           this.showMenuRecord = false;
         } else {
           this.showMenuRecord = true;

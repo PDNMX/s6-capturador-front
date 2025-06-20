@@ -1,7 +1,7 @@
 <div class="container">
   <div class="row">
     <div class="col">
-      <h3>Articulos del contrato</h3>
+      <h3>Articulos del contrato *</h3>
       <hr />
       <p>
         Los bienes, servicios y cualquier resultado intangible de este contrato.
@@ -51,12 +51,12 @@
             <td>{{ item.quantity }}</td>
             <td>{{ item.unit.name }}</td>
             <td>{{ item.unit.value.amount }}</td>
-            <!-- <td>{{ item.unit.value.amountNet }}</td> -->
+            <!-- <td>{{ item.unit.value.netAmount }}</td> -->
             <td>{{ item.unit.value.currency }}</td>
             <td>
               <button
                 class="btn btn-danger btn-delete"
-                (click)="deleteItem.emit(i)"
+                (click)="confirmAndDeleteItem(i)"
               >
                 Eliminar
               </button>
@@ -94,10 +94,8 @@ data-sb-feedback="title:required"
         style="height: 100px"
         formControlName="description"
       ></textarea>
-      <label for="description">Descripción*</label>
-      <div class="invalid-feedback" data-sb-feedback="description:required">
-        Descripción * es requerido.
-      </div>
+      <label for="description">Descripción *</label>
+      <app-input-validation [element]="description"></app-input-validation>
       <div class="form-text">
         Una descripción de los bienes o servicios objetos del procedimiento de
         contratación.
@@ -107,7 +105,7 @@ data-sb-feedback="title:required"
 
   <div class="row">
     <div class="col-12">
-      <label for="type">Clasificación</label>
+      <label for="type">Clasificación *</label>
     </div>
     <div class="form-floating col mb-3">
       <select
@@ -119,6 +117,10 @@ data-sb-feedback="title:required"
           {{ d.description }}
         </option>
       </select>
+      <app-input-validation
+        [message]="'Debe seleccionar una clasificación'"
+        [element]="classificationList"
+      ></app-input-validation>
       <div class="form-text">
         Una clasificación consta de al menos dos partes: una denominación para
         la lista (esquema) del cual se extrae la clasificación, y el valor
@@ -134,7 +136,7 @@ data-sb-feedback="title:required"
     <legend class="w-auto px-1">Clasificaciones adicionales</legend>
     <hr />
     <p>
-      Una lista de clasificaciones adicionales para el ítem. Ver la lista de
+      Una lista de clasificaciones adicionales para el Articulo. Ver la lista de
       códigos itemClassificationScheme para las opciones comunes a utilizar en
       el EDCA. También se pueden utilizar códigos de un esquema de clasificación
       interna.
@@ -221,14 +223,11 @@ data-sb-feedback="title:required"
         class="form-control"
         id="quantity"
         type="text"
-        data-sb-validations="required"
         placeholder="Cantidad*"
         formControlName="quantity"
       />
-      <label for="quantity">Cantidad*</label>
-      <div class="invalid-feedback" data-sb-feedback="quantity:required">
-        Cantidad * es requerido.
-      </div>
+      <label for="quantity">Cantidad *</label>
+      <app-input-validation [element]="quantity"></app-input-validation>
       <div class="form-text">El número de unidades requeridas.</div>
     </div>
   </div>
@@ -239,14 +238,11 @@ data-sb-feedback="title:required"
         class="form-control"
         id="unit"
         type="text"
-        data-sb-validations="required"
         placeholder="Unidad*"
         formControlName="name"
       />
-      <label for="unit">Unidad*</label>
-      <div class="invalid-feedback" data-sb-feedback="unit:required">
-        Unidad * es requerido.
-      </div>
+      <label for="unit">Unidad *</label>
+      <app-input-validation [element]="name"></app-input-validation>
       <div class="form-text">
         Una descripción de la unidad de medida en la cual se proporcionan los
         bienes, servicios u obra pública (p. ej. horas, kilogramos) así como el
@@ -261,27 +257,24 @@ data-sb-feedback="title:required"
             class="form-control"
             id="amount"
             type="text"
-            data-sb-validations="required"
             placeholder="Monto*"
             formControlName="amount"
           />
-          <label for="amount">Monto*</label>
-          <div class="invalid-feedback" data-sb-feedback="amount:required">
-            Monto * es requerido.
-          </div>
+          <label for="amount">Monto *</label>
+          <app-input-validation [element]="amount"></app-input-validation>
           <div class="form-text">Monto como número.</div>
         </div>
         <!-- <div class="form-floating col-4 mb-2">
           <input
             class="form-control"
-            id="amountNet"
+            id="netAmount"
             type="text"
             data-sb-validations="required"
             placeholder="Monto sin impuestos*"
-            formControlName="amountNet"
+            formControlName="netAmount"
           />
-          <label for="amountNet">Monto sin impuestos*</label>
-          <div class="invalid-feedback" data-sb-feedback="amountNet:required">
+          <label for="netAmount">Monto sin impuestos*</label>
+          <div class="invalid-feedback" data-sb-feedback="netAmount:required">
             Monto sin impuestos * es requerido.
           </div>
         </div> -->
@@ -313,6 +306,7 @@ data-sb-feedback="title:required"
         type="button"
         class="btn btn-danger btn-add"
         (click)="addNewItem()"
+        [disabled]="!enableAddItemButton()"
       >
         Agregar artículo
       </button>

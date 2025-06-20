@@ -29,6 +29,12 @@
                   {{ d.title }}
                 </option>
               </select>
+              <small
+                *ngIf="generalForm.value.roles.length === 0"
+                class="text-danger"
+              >
+                Debe registrar al menos una parte involucrada.
+              </small>
               <p>
                 {{ getRoleByCode(optRole)?.description }}
               </p>
@@ -92,10 +98,8 @@
           placeholder="Nombre común*"
           formControlName="name"
         />
-        <label for="name">Nombre común*</label>
-        <div class="invalid-feedback" data-sb-feedback="name:required">
-          Nombre común * es requerido.
-        </div>
+        <label for="name">Nombre común *</label>
+        <app-input-validation [element]="name"></app-input-validation>
       </div>
       <div class="form-text">
         Un nombre común para esta organización u otro participante en el proceso
@@ -117,10 +121,8 @@
           placeholder="Cargo*"
           formControlName="position"
         />
-        <label for="position">Cargo*</label>
-        <div class="invalid-feedback" data-sb-feedback="position:required">
-          Cargo * es requerido.
-        </div>
+        <label for="position">Cargo</label>
+        <!-- <app-input-validation [element]="position"></app-input-validation> -->
       </div>
       <div class="form-text">
         El cargo que ocupa el actor. Puede utilizarse para definir el cargo
@@ -226,14 +228,10 @@
             <option value="fisica">Persona Física</option>
             <option value="moral">Persona Moral</option>
           </select>
-          <label for="legalPersonality">Personalidad jurídica*</label>
-          <div
-            class="invalid-feedback"
-            *ngIf="generalForm.get('identifier.legalPersonality')?.errors?.['required'] && 
-                   generalForm.get('identifier.legalPersonality')?.touched"
-          >
-            Personalidad jurídica es requerido.
-          </div>
+          <label for="legalPersonality">Personalidad jurídica *</label>
+          <app-input-validation
+            [element]="legalPersonality"
+          ></app-input-validation>
         </div>
 
         <div class="form-text">
@@ -252,10 +250,8 @@
             placeholder="Nombre legal*"
             formControlName="legalName"
           />
-          <label for="legalName">Nombre legal*</label>
-          <div class="invalid-feedback" data-sb-feedback="legalName:required">
-            Nombre legal * es requerido.
-          </div>
+          <label for="legalName">Nombre legal *</label>
+          <app-input-validation [element]="legalName"></app-input-validation>
         </div>
         <div class="form-text">
           El nombre legalmente registrado de la organización.
@@ -272,15 +268,8 @@
               placeholder="Nombre*"
               formControlName="givenName"
             />
-            <label for="givenName">Nombre*</label>
-            <div
-              class="invalid-feedback"
-              *ngIf="generalForm.get('identifier.givenName')?.errors?.['required'] && 
-                     generalForm.get('identifier.givenName')?.touched &&
-                     generalForm.get('identifier.legalPersonality')?.value === 'fisica'"
-            >
-              Nombre * es requerido.
-            </div>
+            <label for="givenName">Nombre *</label>
+            <app-input-validation [element]="givenName"></app-input-validation>
           </div>
           <div class="form-text">Nombre de la persona física.</div>
         </div>
@@ -294,15 +283,10 @@
               placeholder="Primer apellido*"
               formControlName="patronymicName"
             />
-            <label for="patronymicName">Primer apellido*</label>
-            <div
-              class="invalid-feedback"
-              *ngIf="generalForm.get('identifier.patronymicName')?.errors?.['required'] && 
-                     generalForm.get('identifier.patronymicName')?.touched &&
-                     generalForm.get('identifier.legalPersonality')?.value === 'fisica'"
-            >
-              Primer apellido * es requerido.
-            </div>
+            <label for="patronymicName">Primer apellido *</label>
+            <app-input-validation
+              [element]="patronymicName"
+            ></app-input-validation>
           </div>
           <div class="form-text">Primer apellido de la persona física.</div>
         </div>
@@ -316,15 +300,10 @@
               placeholder="Segundo apellido*"
               formControlName="matronymicName"
             />
-            <label for="matronymicName">Segundo apellido*</label>
-            <div
-              class="invalid-feedback"
-              *ngIf="generalForm.get('identifier.matronymicName')?.errors?.['required'] && 
-                     generalForm.get('identifier.matronymicName')?.touched &&
-                     generalForm.get('identifier.legalPersonality')?.value === 'fisica'"
-            >
-              Segundo apellido * es requerido.
-            </div>
+            <label for="matronymicName">Segundo apellido *</label>
+            <app-input-validation
+              [element]="matronymicName"
+            ></app-input-validation>
           </div>
           <div class="form-text">Segundo apellido de la persona física.</div>
         </div>
@@ -348,9 +327,7 @@
               </option>
             </select>
             <label for="schema">Esquema *</label>
-            <div class="invalid-feedback" data-sb-feedback="schema:required">
-              Esquema * es requerido.
-            </div>
+            <app-input-validation [element]="schema"></app-input-validation>
           </div>
           <div class="form-text">
             El campo esquema se usa para indicar o registrar de dónde se toma el
@@ -373,10 +350,9 @@
               placeholder="RFC*"
               formControlName="id"
             />
-            <label for="id">RFC*</label>
-            <div class="invalid-feedback" data-sb-feedback="id:required">
-              RFC * es requerido.
-            </div>
+            <label for="id">RFC *</label>
+            <div data-sb-feedback="id:required">RFC * es requerido.</div>
+            <app-input-validation [element]="id"></app-input-validation>
           </div>
           <div class="form-text">
             El identificador de la organización en el esquema seleccionado.
@@ -393,10 +369,8 @@
               placeholder="URI*"
               formControlName="uri"
             />
-            <label for="uri">URI*</label>
-            <div class="invalid-feedback" data-sb-feedback="uri:required">
-              URI * es requerido.
-            </div>
+            <label for="uri">URI</label>
+           <!--  <app-input-validation [element]="uri"></app-input-validation> -->
           </div>
           <div class="form-text">
             Una URI para identificar a la organización, como los proveídos por
@@ -432,7 +406,7 @@
                       id="id"
                       type="text"
                       data-sb-validations="required"
-                      placeholder="Identificador*"
+                      placeholder="Identificador"
                       formControlName="id"
                     />
                   </th>
@@ -442,7 +416,7 @@
                       id="legalName"
                       type="text"
                       data-sb-validations="required"
-                      placeholder="Nombre legal*"
+                      placeholder="Nombre legal"
                       formControlName="legalName"
                     />
                   </th>
@@ -468,7 +442,7 @@
                       id="uri"
                       type="text"
                       data-sb-validations="required"
-                      placeholder="URI*"
+                      placeholder="URI"
                       formControlName="uri"
                       readonly
                     />
@@ -478,6 +452,7 @@
                       type="button"
                       class="btn btn-danger btn-add"
                       (click)="addAdditionalIdentifiers()"
+                      [disabled]="!additionalIdentifiersForm.valid"
                     >
                       Agregar
                     </button>
@@ -545,7 +520,12 @@
 
     <div class="row">
       <div class="col">
-        <button type="button" class="btn btn-danger btn-save" (click)="save()">
+        <button
+          type="button"
+          class="btn btn-danger btn-save"
+          (click)="save()"
+          [disabled]="!generalForm.valid"
+        >
           Guardar
         </button>
       </div>

@@ -1,8 +1,9 @@
 import { Currency } from 'src/utils';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormArray, FormBuilder, FormGroup, Validators, AbstractControl, ValidationErrors, FormControl } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { ApiService, IPartieList } from 'src/app/services/api.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-planning-request-for-quotes-quotes',
@@ -28,6 +29,10 @@ export class PlanningRequestForQuotesQuotesComponent implements OnInit {
     private api: ApiService
   ) {}
 
+  getPartiesListTitle(roles: Array<string>): string {
+    return this.api.getPartiesListTitle(roles);
+  }
+
   get itemsArray() {
     return this.quotesForm.controls['items'] as FormArray;
   }
@@ -39,6 +44,36 @@ export class PlanningRequestForQuotesQuotesComponent implements OnInit {
   deleteItem(index: number): void {
     this.itemsArray.removeAt(index);
   }
+  get period() {
+    return this.quotesForm.get('period') as FormGroup;
+  }
+  getControl(name: string): FormControl {
+    return this.period.get(name) as FormControl;
+  }
+
+    private dateComparisonValidator(): Validators {
+      return (group: AbstractControl): ValidationErrors | null => {
+        const startDate = group.get('startDate')?.value;
+        const endDate = group.get('endDate')?.value;
+        const maxExtentDate = group.get('maxExtentDate')?.value;
+  
+        if (startDate && endDate && new Date(endDate) < new Date(startDate)) {
+          group.get('endDate')?.setErrors({ dateInvalid: true });
+          return { dateInvalid: true };
+        }
+  
+        if (
+          maxExtentDate &&
+          endDate &&
+          new Date(maxExtentDate) < new Date(endDate)
+        ) {
+          group.get('maxExtentDate')?.setErrors({ maxDateInvalid: true });
+          return { maxDateInvalid: true };
+        }
+  
+        return null;
+      };
+    }
 
   addNewQuotes(): void {
     this.mostrarSpinner = true;
@@ -48,6 +83,27 @@ export class PlanningRequestForQuotesQuotesComponent implements OnInit {
       this.mostrarSpinner = false;
       console.log('agregando al arreglo');
     }, 1000);
+  }
+
+  confirmAndDeleteQuotes(index: number): void {
+    Swal.fire({
+      text: '¿Deseas eliminar esta cotización?',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      cancelButtonText: 'Cancelar',
+      confirmButtonText: 'Sí, eliminar'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        Swal.fire({
+          text: 'El registro ha sido eliminado.',
+          icon: 'success',
+          confirmButtonText: 'Aceptar',
+        })
+        this.deleteQuotes.emit(index);
+      }
+    });
   }
 
   ngOnInit(): void {
@@ -66,21 +122,21 @@ export class PlanningRequestForQuotesQuotesComponent implements OnInit {
 
   initForm(): void {
     this.quotesForm = this.fb.group({
-      id: ['', [Validators.required]],
-      description: [null, [Validators.required]],
-      date: [null, [Validators.required]],
+      id: [null],
+      description: [null],
+      date: [null],
       items: this.fb.array([]),
       value: this.fb.group({
-        amount: [0, [Validators.required]],
-        currency: ['MXN', [Validators.required]],
+        amount: [0],
+        currency: ['MXN'],
       }),
       period: this.fb.group({
-        startDate: [null, [Validators.required]],
-        endDate: [null, [Validators.required]],
-        maxExtentDate: [null, [Validators.required]],
-        durationInDays: [null, [Validators.required]],
-      }),
-      issuingSupplier: [null, [Validators.required]],
+        startDate: [null],
+        endDate: [null],
+        maxExtentDate: [null],
+        durationInDays: [null],
+      }, { validators: this.dateComparisonValidator() }),
+      issuingSupplier: [null],
     });
   }
 }

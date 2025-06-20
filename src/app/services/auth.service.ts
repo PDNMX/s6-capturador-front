@@ -1,5 +1,6 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { jwtDecode } from 'jwt-decode';
 import { catchError, map, of } from 'rxjs';
 import { environment } from 'src/environments/environment';
 
@@ -7,6 +8,11 @@ interface IToken {
   access_token: string;
   expires_in: number;
   token_type: string;
+}
+
+interface IDataToken {
+  scope: string[];
+  username: string;
 }
 
 @Injectable({
@@ -35,13 +41,8 @@ export class AuthService {
       .pipe(
         map((d) => {
           const { access_token, expires_in } = d as IToken;
-          localStorage.setItem('token', access_token);
 
-          const maxTimeToken = expires_in * 1000 + Date.now();
-          localStorage.setItem(
-            'maxTimeToken',
-            JSON.stringify({ maxTimeToken })
-          );
+          this.saveToken({ access_token, expires_in });
 
           return { success: true, message: '' };
         }),
@@ -54,6 +55,18 @@ export class AuthService {
           });
         })
       );
+  }
+
+  timeToExpire(): number {
+    const objMaxTimeToken = localStorage.getItem('maxTimeToken');
+    if (objMaxTimeToken) {
+      const { maxTimeToken } = JSON.parse(objMaxTimeToken);
+      const nowTime = Date.now();
+
+      return (maxTimeToken - nowTime) / 1000 / 60;
+    }
+
+    return 0;
   }
 
   isExpiredToken(): boolean {
@@ -78,9 +91,28 @@ export class AuthService {
     return !!localStorage.getItem('token');
   }
 
+  saveToken(info: { access_token: string; expires_in: number }): void {
+    const maxTimeToken = info.expires_in * 1000 + Date.now();
+    localStorage.setItem('token', info.access_token);
+    localStorage.setItem('maxTimeToken', JSON.stringify({ maxTimeToken }));
+  }
+
   getToken(): string {
     const token = localStorage.getItem('token');
     return token ? token : '';
+  }
+
+  getRoles(): string[] {
+    const dataToken: IDataToken = jwtDecode(this.getToken());
+    const roles = dataToken.scope.filter((d: string) => d !== 'read');
+    // console.log('roles: ', roles);
+    return roles;
+  }
+
+  getUsername(): string {
+    const { username }: IDataToken = jwtDecode(this.getToken());
+    // console.log('username: ', username);
+    return username;
   }
 
   logout(): void {

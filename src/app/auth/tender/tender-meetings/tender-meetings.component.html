@@ -51,7 +51,7 @@
                 <button
                   type="button"
                   class="btn btn-danger btn-delete"
-                  (click)="deleteClarificationMeeting.emit(i)"
+                  (click)="confirmAndDeleteClarificationMeeting(i)"
                 >
                   Eliminar
                 </button>
@@ -79,10 +79,8 @@
           placeholder="ID de Organización*"
           formControlName="date"
         />
-        <label for="amount">Fecha de la junta de aclaraciones *</label>
-        <div class="invalid-feedback" data-sb-feedback="title:required">
-          Fecha de la junta de aclaraciones * es requerido.
-        </div>
+        <label for="amount">Fecha de la junta de aclaraciones</label>
+        <!-- <app-input-validation [element]="date"></app-input-validation> -->
         <div class="form-text">
           La fecha en que se realizó esta junta de aclaraciones.
         </div>
@@ -102,9 +100,14 @@
               No hay registros de Actores para este proceso de contratación.
             </option>
             <option *ngFor="let c of attendees" [ngValue]="c">
-              asistente {{ c?.name }}
+              {{ c?.legalName || c?.name }} - ({{
+                getPartiesListTitle(c?.roles || [])
+              }})
             </option>
           </select>
+         <!-- <small *ngIf="attendeesArray.length === 0" class="text-danger">
+            Debe agregar al menos un asistente.
+          </small> -->
           <div class="form-text">Nombre del actor</div>
         </div>
         <div class="col-2">
@@ -156,7 +159,7 @@
     </fieldset>
 
     <fieldset class="border p-3 mb-3">
-      <legend class="w-auto px-1">Servidores publicos</legend>
+      <legend class="w-auto px-1">Servidores públicos</legend>
       <hr />
       <p>Servidores públicos asistentes a la junta de aclaraciones.</p>
       <div class="row">
@@ -169,9 +172,14 @@
               No hay registros de Actores para este proceso de contratación.
             </option>
             <option *ngFor="let c of officials" [ngValue]="c">
-              servidor publico {{ c?.name }}
+              {{ c?.legalName || c?.name }} - ({{
+                getPartiesListTitle(c?.roles || [])
+              }})
             </option>
           </select>
+          <!-- <small *ngIf="officialsArray.length === 0" class="text-danger">
+            Debe agregar al menos un servidor público.
+          </small> -->
           <div class="form-text">Nombre del actor.</div>
         </div>
         <div class="col-2">

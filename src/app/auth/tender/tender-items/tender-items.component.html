@@ -51,12 +51,12 @@
             <td>{{ item.quantity }}</td>
             <td>{{ item.unit.name }}</td>
             <td>{{ item.unit.value.amount }}</td>
-            <td>{{ item.unit.value.amountNet }}</td>
+            <td>{{ item.unit.value.netAmount }}</td>
             <td>{{ item.unit.value.currency }}</td>
             <td>
               <button
                 class="btn btn-danger btn-delete"
-                (click)="deleteItem.emit(i)"
+                (click)="confirmAndDeleteItem(i)"
               >
                 Eliminar
               </button>
@@ -94,10 +94,8 @@ data-sb-feedback="title:required"
         style="height: 100px"
         formControlName="description"
       ></textarea>
-      <label for="description">Descripción*</label>
-      <div class="invalid-feedback" data-sb-feedback="description:required">
-        Descripción * es requerido.
-      </div>
+      <label for="description">Descripción *</label>
+      <app-input-validation [element]="description"></app-input-validation>
       <div class="form-text">
         Una descripción de los bienes o servicios objetos del procedimiento de
         contratación.
@@ -117,7 +115,11 @@ data-sb-feedback="title:required"
             {{ d.description }}
           </option>
         </select>
-        <label for="type">Clasificación</label>
+        <label for="type">Clasificación *</label>
+        <app-input-validation
+          [message]="'Debe seleccionar una clasificación'"
+          [element]="classificationList"
+        ></app-input-validation>
         <!-- <p>{{ getMilestoneTypeDesc(milestoneForm.value.type) }}</p> -->
       </div>
       <div class="form-text">
@@ -209,14 +211,11 @@ data-sb-feedback="title:required"
         class="form-control"
         id="quantity"
         type="text"
-        data-sb-validations="required"
         placeholder="Cantidad*"
         formControlName="quantity"
       />
-      <label for="quantity">Cantidad*</label>
-      <div class="invalid-feedback" data-sb-feedback="quantity:required">
-        Cantidad * es requerido.
-      </div>
+      <label for="quantity">Cantidad *</label>
+      <app-input-validation [element]="quantity" inputType="number"></app-input-validation>
       <div class="form-text">El número de unidades requeridas.</div>
     </div>
   </div>
@@ -227,14 +226,11 @@ data-sb-feedback="title:required"
         class="form-control"
         id="unit"
         type="text"
-        data-sb-validations="required"
-        placeholder="Unidad*"
+        placeholder="Unidad *"
         formControlName="name"
       />
-      <label for="unit">Unidad*</label>
-      <div class="invalid-feedback" data-sb-feedback="unit:required">
-        Unidad * es requerido.
-      </div>
+      <label for="unit">Unidad *</label>
+      <app-input-validation [element]="name"></app-input-validation>
       <div class="form-text">
         Una descripción de la unidad de medida en la cual se proporcionan los
         bienes, servicios u obra pública (p. ej. horas, kilogramos) así como el
@@ -250,28 +246,24 @@ data-sb-feedback="title:required"
             id="amount"
             type="text"
             data-sb-validations="required"
-            placeholder="Monto*"
+            placeholder="Monto *"
             formControlName="amount"
           />
-          <label for="amount">Monto*</label>
-          <div class="invalid-feedback" data-sb-feedback="amount:required">
-            Monto * es requerido.
-          </div>
+          <label for="amount">Monto *</label>
+          <app-input-validation [element]="amount"></app-input-validation>
           <div class="form-text">Monto como número.</div>
         </div>
         <div class="form-floating col-4 mb-2">
           <input
             class="form-control"
-            id="amountNet"
+            id="netAmount"
             type="text"
             data-sb-validations="required"
-            placeholder="Monto sin impuestos*"
-            formControlName="amountNet"
+            placeholder="Monto sin impuestos *"
+            formControlName="netAmount"
           />
-          <label for="amountNet">Monto sin impuestos*</label>
-          <div class="invalid-feedback" data-sb-feedback="amountNet:required">
-            Monto sin impuestos * es requerido.
-          </div>
+          <label for="netAmount">Monto sin impuestos *</label>
+          <app-input-validation [element]="netAmount"></app-input-validation>
         </div>
 
         <div class="form-floating col-4 mb-2">
@@ -301,6 +293,7 @@ data-sb-feedback="title:required"
         type="button"
         class="btn btn-danger btn-add"
         (click)="addNewItem()"
+        [disabled]="!enableAddItemButton()"
       >
         Agregar artículo
       </button>

@@ -4,8 +4,8 @@
       <div class="col">
         <h3>Solicitudes de Cotizaciones</h3>
         <p>
-          Una lista de las solicitudes de cotizaciones realizadas para elaborar
-          el estudio de mercado.
+          Solicitud de información sobre precios de productos o servicios a un
+          posible proveedor.
         </p>
         <hr />
       </div>
@@ -37,7 +37,7 @@
                   <button
                     type="button"
                     class="btn btn-danger btn-delete"
-                    (click)="deleteRequestForQuotes.emit(i)"
+                    (click)="confirmAndDeleteRequestForQuotes(i)"
                   >
                     Eliminar
                   </button>
@@ -81,7 +81,7 @@
           aria-controls="items-tab-pane"
           aria-selected="false"
         >
-          Ítems a ser cotizados
+          Artículos a ser cotizados
         </button>
       </li>
       <li class="nav-item" role="presentation">
@@ -119,10 +119,8 @@
                   placeholder="Titulo*"
                   formControlName="title"
                 />
-                <label for="title">Titulo*</label>
-                <div class="invalid-feedback" data-sb-feedback="title:required">
-                  Titulo * es requerido.
-                </div>
+                <label for="title">Título de solicitud de cotizaciones *</label>
+                <app-input-validation [element]="title"></app-input-validation>
               </div>
               <div class="form-text">
                 El título de la solicitud de cotización.
@@ -139,7 +137,12 @@
                   style="height: 100px"
                   formControlName="description"
                 ></textarea>
-                <label for="description">Descripción*</label>
+                <label for="description"
+                  >Descripción de solicitud de cotizaciones *</label
+                >
+                <app-input-validation
+                  [element]="description"
+                ></app-input-validation>
                 <div
                   class="invalid-feedback"
                   data-sb-feedback="description:required"
@@ -155,7 +158,7 @@
 
             <fieldset class="border p-3 mb-3" formGroupName="period">
               <legend class="w-auto px-1">
-                Periodo para recibir cotizaciones
+                Periodo para recibir cotizaciones *
               </legend>
               <p>
                 El periodo comprendido entre la fecha en la que se elaboró la
@@ -173,13 +176,13 @@
                       data-sb-validations="required"
                       formControlName="startDate"
                     />
-                    <label for="startDate">Fecha de inicio*</label>
-                    <div
-                      class="invalid-feedback"
-                      data-sb-feedback="startDate:required"
+                    <label for="startDate"
+                      >Fecha inicial del periodo para recibir cotizaciones
+                      *</label
                     >
-                      Fecha de inicio * es requerido.
-                    </div>
+                    <app-input-validation
+                      [element]="getControl('startDate')"
+                    ></app-input-validation>
                   </div>
                   <div class="form-text">
                     Fecha de inicio del periodo. Cuando se conozca, debe
@@ -196,13 +199,13 @@
                       data-sb-validations="required"
                       formControlName="endDate"
                     />
-                    <label for="endDate">Fecha de término*</label>
-                    <div
-                      class="invalid-feedback"
-                      data-sb-feedback="endDate:required"
+                    <label for="endDate"
+                      >Fecha final del periodo para recibir cotizaciones
+                      *</label
                     >
-                      Fecha de término * es requerido.
-                    </div>
+                    <app-input-validation
+                      [element]="getControl('endDate')"
+                    ></app-input-validation>
                   </div>
                   <div class="form-text">
                     Fecha de término del periodo. Cuando se conozca, debe
@@ -221,13 +224,12 @@
                       data-sb-validations="required"
                       formControlName="maxExtentDate"
                     />
-                    <label for="maxExtentDate">Extensión máxima*</label>
-                    <div
-                      class="invalid-feedback"
-                      data-sb-feedback="maxExtentDate:required"
+                    <label for="maxExtentDate"
+                      >Fecha límite del periodo para recibir cotizaciones</label
                     >
-                      Extensión máxima * es requerido.
-                    </div>
+                    <!-- <app-input-validation
+                      [element]="getControl('maxExtentDate')"
+                    ></app-input-validation> -->
                   </div>
                   <div class="form-text">
                     El periodo no puede extenderse más allá de esta fecha. Este
@@ -246,13 +248,10 @@
                       placeholder="Duración (días)*"
                       formControlName="durationInDays"
                     />
-                    <label for="durationInDays">Duración (días)*</label>
-                    <div
-                      class="invalid-feedback"
-                      data-sb-feedback="durationInDays:required"
-                    >
-                      Duración * es requerido.
-                    </div>
+                    <label for="durationInDays">Duración (días)</label>
+                    <!-- <app-input-validation
+                      [element]="getControl('durationInDays')"
+                    ></app-input-validation> -->
                   </div>
                   <div class="form-text">
                     La duración máxima de este período en días.
@@ -262,7 +261,7 @@
             </fieldset>
 
             <fieldset class="border p-3 mb-3" [formGroup]="selectForm">
-              <legend class="w-auto px-1">Proveedores invitados</legend>
+              <legend class="w-auto px-1">Proveedores invitados *</legend>
               <p>
                 Una lista de los proveedores invitados a los que se les envío
                 una solicitud de cotización.
@@ -281,9 +280,19 @@
                       contratación.
                     </option>
                     <option *ngFor="let c of invitedSuppliers" [ngValue]="c">
-                      {{ c?.name }}
+                      {{ c?.legalName || c?.name }} - ({{
+                        getPartiesListTitle(c?.roles || [])
+                      }})
                     </option>
                   </select>
+                  <!-- <small
+                    class="text-danger"
+                    *ngIf="
+                      requestForQuotesForm.value.invitedSuppliers.length === 0
+                    "
+                  >
+                    Debe seleccionar al menos un proveedor invitado
+                  </small> -->
                 </div>
                 <div class="col-2">
                   <button
@@ -348,6 +357,7 @@
                   type="button"
                   class="btn btn-danger btn-add"
                   (click)="addNewRequestForQuotes()"
+                  [disabled]="!enableSaveFormButton()"
                 >
                   Agregar solicitud
                 </button>

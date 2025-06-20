@@ -39,7 +39,7 @@
                 <button
                   type="button"
                   class="btn btn-danger btn-delete"
-                  (click)="deleteAmendment.emit(i)"
+                  (click)="confirmAndDeleteAmendment(i)"
                 >
                   Eliminar
                 </button>
@@ -63,13 +63,10 @@
           class="form-control"
           id="date"
           type="date"
-          data-sb-validations="required"
-          formControlName="date"
+                    formControlName="date"
         />
-        <label for="datePublished">Fecha de modificación*</label>
-        <div class="invalid-feedback" data-sb-feedback="title:required">
-          Fecha de modificación * es requerido.
-        </div>
+        <label for="datePublished">Fecha de modificación</label>
+        <!-- <app-input-validation [element]="date"></app-input-validation> -->
         <div class="form-text">La fecha de esta modificación.</div>
       </div>
     </div>
@@ -84,10 +81,8 @@
           style="height: 100px"
           formControlName="rationale"
         ></textarea>
-        <label for="rationale">Justificación*</label>
-        <div class="invalid-feedback" data-sb-feedback="rationale:required">
-          Justificación * es requerido.
-        </div>
+        <label for="rationale">Justificación/explicación de la modificación</label>
+        <!-- <app-input-validation [element]="rationale"></app-input-validation> -->
         <div class="form-text">
           Razones por las cuales se realiza la modificación.
         </div>
@@ -104,10 +99,8 @@
           style="height: 100px"
           formControlName="description"
         ></textarea>
-        <label for="description">Descripción*</label>
-        <div class="invalid-feedback" data-sb-feedback="description:required">
-          Descripción * es requerido.
-        </div>
+        <label for="description">Descripción de la modificación</label>
+        <!-- <app-input-validation [element]="description"></app-input-validation> -->
         <div class="form-text">
           Una descripción en texto libre, o semi-estructurada, de los cambios
           realizados en esta modificación.
@@ -125,10 +118,7 @@
           placeholder="URL*"
           formControlName="amendsReleaseID"
         />
-        <label for="URL">Liberación modificada (identificador)*</label>
-        <div class="invalid-feedback" data-sb-feedback="title:required">
-          * es requerido.
-        </div>
+        <label for="URL">Identificador de la publicación del proceso de contratación antes de la modificación en el contrato</label>
         <div class="form-text">
           Se refiere al identificador (release.id) de la liberación EDCA que
           provee los valores para este proceso de contratación ** antes ** de
@@ -147,10 +137,7 @@
           placeholder="URL*"
           formControlName="releaseID"
         />
-        <label for="URL">Difusión de la modificación (identificador)*</label>
-        <div class="invalid-feedback" data-sb-feedback="title:required">
-          * es requerido.
-        </div>
+        <label for="URL">Identificador de la publicación del proceso de contratación de la modificación en el contrato</label>
         <div class="form-text">
           Se refiere al identificador (release.id) de la liberación EDCA que
           provee los valores para este procedimiento de contratación ** después

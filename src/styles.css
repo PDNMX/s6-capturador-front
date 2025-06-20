@@ -305,7 +305,7 @@ img.logo {
 }
 
 .icon-S6 {
-  background-image: url(./assets/icons/icon-s6.svg);
+  background-image: url(/assets/icons/icon-s6.svg);
   filter: invert(100%) sepia(100%) saturate(0%) hue-rotate(8deg)
     brightness(101%) contrast(104%);
 }
@@ -317,12 +317,12 @@ img.logo {
 }
 
 .icon-PDN {
-  background-image: url(./assets/logoPDN-2024.svg);
+  background-image: url(/assets/logoPDN-2024.svg);
   height: 25px;
   margin-top: 20px;
 }
 .login-S6 {
-  background-image: url(./assets/imgs/loginS6.svg);
+  background-image: url(/assets/imgs/loginS6.svg);
   background-repeat: no-repeat;
   /* background-attachment: fixed; */
   background-position: center center;
@@ -415,4 +415,534 @@ img.logo {
   color: #43a5cc;
   position: relative;
   left: 27px;
+}
+
+/* agregar estilos para modal sección documentos*/
+
+.spinner-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin: 20px 0;
+}
+
+.btn-delete {
+  font-size: 0.85rem;
+  padding: 0.25rem 0.5rem;
+}
+
+.btn-add {
+  margin-top: 10px;
+}
+
+/* Estilos para los botones de documentos requeridos */
+.gap-3 {
+  gap: 1rem !important;
+}
+
+.btn-primary, .btn-secondary, .btn-success {
+  padding: 0.75rem 1.25rem;
+  font-weight: 500;
+  transition: all 0.3s ease;
+}
+
+.btn-primary:hover, .btn-success:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.btn-secondary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Estilo específico para documentos ya agregados */
+.btn-success {
+  position: relative;
+}
+
+/* Animación suave para el cambio de estado */
+.btn {
+  transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* ===== ESTILOS PARA COMPONENTE DE ACTORES ===== */
+
+/* Estilos para botones de actores - SIN cambio de tamaño */
+.btn-outline-primary, .btn-outline-success {
+  /* Mantener padding fijo para evitar cambios de tamaño */
+  padding: 0.75rem 1.5rem;
+  font-weight: 500;
+  min-height: 44px; /* Altura mínima fija */
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 0.375rem;
+  transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+  /* Removido transform y box-shadow del hover */
+}
+
+/* Estilos específicos para botones primarios */
+.btn-outline-primary:hover {
+  background-color: #0d6efd;
+  color: white;
+  border-color: #0d6efd;
+}
+
+.btn-outline-success:hover {
+  background-color: #198754;
+  color: white;
+  border-color: #198754;
+}
+
+/* Estados activos - mantener mismo tamaño */
+.btn-primary, .btn-success {
+  padding: 0.75rem 1.5rem;
+  font-weight: 500;
+  min-height: 44px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 0.375rem;
+}
+
+/* Badge DENTRO del botón - inline con el texto */
+.btn .badge {
+  font-size: 0.75em;
+  padding: 0.25em 0.5em;
+  margin-left: 0.5rem;
+  background-color: rgba(255, 255, 255, 0.2) !important;
+  color: inherit !important;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: 12px !important;
+  font-weight: 600;
+  line-height: 1;
+  min-width: 20px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Badge para botones outline (no seleccionados) */
+.btn-outline-primary .badge,
+.btn-outline-success .badge {
+  background-color: rgba(13, 110, 253, 0.2) !important; /* Aumentado de 0.1 a 0.2 */
+  color: #000000 !important;
+  border: 1px solid rgba(13, 110, 253, 0.5) !important; /* Aumentado de 0.3 a 0.5 */
+  font-weight: 700; /* Más bold para mejor legibilidad */
+}
+
+.btn-outline-success .badge {
+  background-color: rgba(25, 135, 84, 0.2) !important; /* Aumentado de 0.1 a 0.2 */
+  color: #000000 !important;
+  border: 1px solid rgba(25, 135, 84, 0.5) !important; /* Aumentado de 0.3 a 0.5 */
+  font-weight: 700; /* Más bold para mejor legibilidad */
+}
+
+/* Badge para botones activos (seleccionados) */
+.btn-primary .badge,
+.btn-success .badge {
+  background-color: rgba(255, 255, 255, 0.25) !important;
+  color: white !important;
+  border-color: rgba(255, 255, 255, 0.4);
+}
+
+/* Hover effects para badges */
+.btn-outline-primary:hover .badge {
+  background-color: rgba(255, 255, 255, 0.25) !important;
+  color: white !important;
+  border-color: rgba(255, 255, 255, 0.4);
+}
+
+.btn-outline-success:hover .badge {
+  background-color: rgba(255, 255, 255, 0.25) !important;
+  color: white !important;
+  border-color: rgba(255, 255, 255, 0.4);
+}
+
+/* Remover estilos de posicionamiento absoluto */
+.btn .position-absolute {
+  position: static !important;
+  top: auto !important;
+  right: auto !important;
+  transform: none !important;
+}
+
+/* Estilos para el selector de roles adicionales en modal */
+.d-flex.gap-3 {
+  gap: 1rem !important;
+}
+
+.d-flex.gap-3 .btn {
+  padding: 0.75rem 1.5rem;
+  font-weight: 500;
+  min-width: 120px;
+  min-height: 44px;
+}
+
+.form-floating {
+  margin-bottom: 0.5rem;
+}
+
+.form-text {
+  font-size: 0.875rem;
+  color: #6c757d;
+  font-style: italic;
+}
+
+/* Estilos para botones de filtro de tabla - SIN transformaciones */
+.filter-btn {
+  font-weight: 500;
+  padding: 0.75rem 1.5rem;
+  border-radius: 0.375rem !important;
+  min-height: 44px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+  /* Removido box-shadow y transform */
+}
+
+.filter-btn.btn-primary,
+.filter-btn.btn-success {
+  border: none;
+}
+
+.filter-btn.btn-outline-primary,
+.filter-btn.btn-outline-success {
+  background-color: transparent;
+  border: 1px solid;
+}
+
+.filter-btn.btn-outline-primary:hover {
+  background-color: #0d6efd;
+  color: white;
+  border-color: #0d6efd;
+}
+
+.filter-btn.btn-outline-success:hover {
+  background-color: #198754;
+  color: white;
+  border-color: #198754;
+}
+
+/* Gap entre botones - estructura flex mejorada */
+.d-flex.gap-2 {
+  gap: 0.5rem !important;
+  align-items: center; /* Alineación vertical */
+}
+
+.d-flex.gap-2 > .filter-btn,
+.d-flex.gap-2 > .btn {
+  margin-right: 0;
+  flex-shrink: 0; /* Evitar que se contraigan */
+}
+
+/* Responsive para botones de filtro */
+@media (max-width: 768px) {
+  .d-flex.gap-2 {
+    flex-direction: column;
+    gap: 0.5rem !important;
+    align-items: stretch; /* Estirar en móvil */
+  }
+  
+  .filter-btn,
+  .btn-outline-primary,
+  .btn-outline-success {
+    width: 100%;
+    text-align: center;
+    justify-content: center;
+  }
+}
+
+/* Estilos para las tabs de actores */
+.nav-tabs .nav-link {
+  color: #495057;
+  border: 1px solid transparent;
+  font-weight: 500;
+  padding: 0.75rem 1rem;
+  min-height: 44px;
+  display: flex;
+  align-items: center;
+}
+
+.nav-tabs .nav-link:hover {
+  border-color: #e9ecef #e9ecef #dee2e6;
+  color: #0056b3;
+}
+
+.nav-tabs .nav-link.active {
+  color: #495057;
+  background-color: #fff;
+  border-color: #dee2e6 #dee2e6 #fff;
+  font-weight: 600;
+}
+
+/* Estilos para alertas informativas - SIN transiciones */
+.alert {
+  border-left: 4px solid;
+  border-radius: 0.375rem;
+  font-size: 0.9rem;
+  transition: none !important;
+  animation: none !important;
+}
+
+.alert-info {
+  border-left-color: #0dcaf0;
+  background-color: #f0f9ff;
+}
+
+.alert-warning {
+  border-left-color: #ffc107;
+  background-color: #fffbf0;
+}
+
+.alert-primary {
+  border-left-color: #0d6efd;
+  background-color: #f0f4ff;
+}
+
+.alert-success {
+  border-left-color: #198754;
+  background-color: #f0fff4;
+}
+
+/* Estilos para el título de la tabla - SIN animaciones */
+h5 {
+  margin-bottom: 1rem;
+  font-weight: 600;
+  transition: none !important;
+  animation: none !important;
+}
+
+/* Estilos para las tablas - SIN efectos de transición */
+.table {
+  margin-bottom: 1.5rem; /* Un poco más de espacio */
+  transition: none !important;
+  animation: none !important;
+}
+
+.table thead th {
+  background-color: #f8f9fa;
+  border-bottom: 2px solid #dee2e6;
+  font-weight: 600;
+  font-size: 0.875rem;
+}
+
+.table tbody tr:hover {
+  background-color: #f8f9fa;
+  transition: none !important;
+}
+
+.table tbody tr {
+  transition: none !important;
+  animation: none !important;
+}
+
+/* Badges en las tablas - SIN animaciones */
+.table .badge {
+  font-size: 0.7rem;
+  margin-bottom: 0.2rem;
+  transition: none !important;
+  animation: none !important;
+}
+
+.table ul {
+  list-style: none;
+  padding-left: 0;
+}
+
+.table ul li {
+  margin-bottom: 0.2rem;
+}
+
+/* Mensaje de tablas vacías */
+.table .text-muted {
+  font-style: italic;
+  color: #6c757d !important;
+}
+
+/* Estilos para las cards colapsables de actores */
+.actor-collapse-card {
+  border: 1px solid #dee2e6;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  transition: box-shadow 0.3s ease; /* Solo box-shadow, no transform */
+  border-left: 4px solid transparent;
+}
+
+.actor-collapse-card:hover {
+  box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+  /* Removido transform */
+}
+
+/* Borde izquierdo para diferenciar actores internos/externos */
+.actor-collapse-card:has(.text-primary) {
+  border-left-color: #0d6efd;
+}
+
+.actor-collapse-card:has(.text-success) {
+  border-left-color: #198754;
+}
+
+.actor-collapse-card .card-body {
+  padding: 1.5rem;
+}
+
+/* Badge personalizado para actores */
+.actor-collapse-card .badge {
+  font-size: 0.75em;
+  padding: 0.35em 0.65em;
+  transition: none !important;
+}
+
+/* Estilos para la modal de actores */
+.modal-xl {
+  max-width: 1200px;
+}
+
+.btn-delete {
+  font-size: 0.875rem;
+  padding: 0.375rem 0.75rem;
+  min-height: auto;
+}
+
+/* Iconos específicos para tipos de actores */
+.fas.fa-user-tie {
+  color: #0d6efd;
+}
+
+.fas.fa-handshake {
+  color: #198754;
+}
+
+.fas.fa-building {
+  color: #0d6efd;
+}
+
+.fas.fa-users {
+  color: #198754;
+}
+
+/* Badges con colores diferenciados */
+.badge.bg-info {
+  background-color: #0dcaf0 !important;
+}
+
+.badge.bg-warning {
+  background-color: #ffc107 !important;
+  color: #000 !important;
+}
+
+.badge.bg-primary {
+  background-color: #0d6efd !important;
+}
+
+.badge.bg-success {
+  background-color: #198754 !important;
+}
+
+.badge.bg-secondary {
+  background-color: #a3b3c1 !important;
+}
+
+/* Elementos que NO deben tener transiciones para evitar rebote */
+.table-responsive,
+.table-responsive *,
+.alert,
+.alert *,
+h5,
+.btn-group .btn,
+.position-absolute {
+  transition: none !important;
+  animation: none !important;
+  transform: none !important;
+}
+
+/* Contenedor flex para botones - evitar desplazamientos */
+.d-flex.flex-wrap {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start; /* Alineación superior */
+  gap: 0.5rem;
+}
+
+.d-flex.flex-wrap .btn {
+  flex-shrink: 0; /* No contraer botones */
+  margin: 0; /* Sin márgenes adicionales */
+}
+
+/* Responsive para botones de actores */
+@media (max-width: 768px) {
+  .d-flex.flex-wrap {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  
+  .d-flex.flex-wrap .btn-outline-primary,
+  .d-flex.flex-wrap .btn-outline-success,
+  .d-flex.flex-wrap .btn-primary,
+  .d-flex.flex-wrap .btn-success {
+    margin-bottom: 0.5rem;
+    width: 100%;
+    justify-content: center;
+    position: relative; /* Asegurar posición relativa en móvil */
+  }
+  
+  /* Badge responsive en móvil */
+  .btn .badge {
+    font-size: 0.7em;
+    margin-left: 0.25rem;
+    padding: 0.2em 0.4em;
+    min-width: 18px;
+  }
+  
+  .actor-collapse-card .card-body .row {
+    flex-direction: column;
+  }
+  
+  .actor-collapse-card .card-body .col-md-4 {
+    margin-top: 1rem;
+    text-align: center;
+  }
+
+  /* Tabs responsive */
+  .nav-tabs .nav-link {
+    font-size: 0.875rem;
+    padding: 0.75rem 1rem;
+  }
+  
+  .nav-tabs .badge {
+    font-size: 0.65em;
+  }
+
+  /* Tablas responsive */
+  .table-responsive {
+    font-size: 0.875rem;
+  }
+  
+  .table th, .table td {
+    padding: 0.5rem;
+  }
+
+  /* Botones en modal responsive */
+  .d-flex.gap-3 {
+    flex-direction: column;
+  }
+  
+  .d-flex.gap-3 .btn {
+    width: 100%;
+  }
+}
+
+/* Reglas específicas para evitar movimiento de botones */
+.btn, .btn:hover, .btn:focus, .btn:active {
+  /* Asegurar que todos los botones mantengan su tamaño */
+  box-sizing: border-box;
+  transform: none !important;
+}
+
+/* Efecto para gaps entre botones */
+.gap-2 {
+  gap: 0.5rem !important;
 }
