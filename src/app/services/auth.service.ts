@@ -1,5 +1,6 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { jwtDecode } from 'jwt-decode';
 import { catchError, map, of } from 'rxjs';
 import { environment } from 'src/environments/environment';
 
@@ -7,6 +8,11 @@ interface IToken {
   access_token: string;
   expires_in: number;
   token_type: string;
+}
+
+interface IDataToken {
+  scope: string[];
+  username: string;
 }
 
 @Injectable({
@@ -94,6 +100,19 @@ export class AuthService {
   getToken(): string {
     const token = localStorage.getItem('token');
     return token ? token : '';
+  }
+
+  getRoles(): string[] {
+    const dataToken: IDataToken = jwtDecode(this.getToken());
+    const roles = dataToken.scope.filter((d: string) => d !== 'read');
+    // console.log('roles: ', roles);
+    return roles;
+  }
+
+  getUsername(): string {
+    const { username }: IDataToken = jwtDecode(this.getToken());
+    // console.log('username: ', username);
+    return username;
   }
 
   logout(): void {

@@ -29,7 +29,7 @@
         <!-- Columna 3: Usuario y acciones -->
         <div class="col-4 d-flex justify-content-end align-items-center">
           <span class="navbar-text me-3 text-white">
-            <strong> Bienvenido, username </strong>
+            <strong> Bienvenido, {{ username }} </strong>
           </span>
           <div class="dropdown text-white">
             <button
@@ -46,6 +46,9 @@
               aria-labelledby="userMenu"
             >
               <li><a class="dropdown-item" href="#">Inicio</a></li>
+              <li *ngIf="roles.includes('admin')">
+                <a class="dropdown-item" href="/management">Administracion</a>
+              </li>
               <li>
                 <a class="dropdown-item" href="#" (click)="logout()"
                   >Cerrar Sesión</a

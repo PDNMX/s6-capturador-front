@@ -40,9 +40,9 @@ export class AuthInterceptor implements HttpInterceptor {
     const timeToExpire = this.auth.timeToExpire();
     const minTimeToExpireToken = environment.MIN_TIME_RELOGIN || 5;
     const isExpiredToken = timeToExpire < minTimeToExpireToken;
-    console.log('timeToExpire: ', timeToExpire);
-    console.log('isExpiredToken: ', isExpiredToken);
-    console.log('this.isReauthenticating: ', this.isReauthenticating);
+    // console.log('timeToExpire: ', timeToExpire);
+    // console.log('isExpiredToken: ', isExpiredToken);
+    // console.log('this.isReauthenticating: ', this.isReauthenticating);
 
     if (isAuth) {
       if (isExpiredToken && !this.isReauthenticating) {
@@ -51,7 +51,7 @@ export class AuthInterceptor implements HttpInterceptor {
 
         return from(this.handleNearingTokenExpired()).pipe(
           switchMap((newToken) => {
-            console.log('newToken: ', newToken);
+            // console.log('newToken: ', newToken);
 
             if (newToken) {
               const newRequest = request.clone({
@@ -151,7 +151,7 @@ export class AuthInterceptor implements HttpInterceptor {
       return null;
     }
 
-    console.log('this.auth.getToken', this.auth.getToken);
+    // console.log('this.auth.getToken', this.auth.getToken);
     return this.auth.getToken();
   }
 
