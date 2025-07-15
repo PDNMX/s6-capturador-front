@@ -535,7 +535,7 @@ export class PartiesGeneralDynamicComponent implements OnInit, OnChanges {
           this.shouldShowField('givenName') &&
           !this.givenName.value?.trim()
         ) {
-          errors.push('• Nombre de pila es requerido');
+          errors.push('• Nombre es requerido');
         }
 
         if (
