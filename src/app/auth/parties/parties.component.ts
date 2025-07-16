@@ -716,7 +716,7 @@ export class PartiesComponent implements OnInit {
     const errors: string[] = [];
     const basicFields = [
       { field: 'name', label: 'Nombre' },
-      { field: 'nationality', label: 'Nacionalidad' },
+      { field: 'nationalities', label: 'Nacionalidades' },
       { field: 'email', label: 'Email' },
       { field: 'telephone', label: 'Teléfono' },
       { field: 'faxNumber', label: 'Fax' },
