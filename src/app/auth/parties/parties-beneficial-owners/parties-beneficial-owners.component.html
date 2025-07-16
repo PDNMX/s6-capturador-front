@@ -19,11 +19,11 @@
               <th scope="col">ID</th>
               <th scope="col">Nombre</th>
               <th scope="col">Identificador</th>
-              <th scope="col">Nacionalidad</th>
-              <th scope="col">Correo electronico</th>
+              <th scope="col">Nacionalidades</th>
+              <th scope="col">Correo electrónico</th>
               <th scope="col">Numero de Fax</th>
-              <th scope="col">Telefono</th>
-              <th scope="col">Direccion</th>
+              <th scope="col">Teléfono</th>
+              <th scope="col">Dirección</th>
               <th scope="col">opciones</th>
             </tr>
           </thead>
@@ -32,7 +32,7 @@
               <td scope="row">{{ i + 1 }}</td>
               <td>{{ item.name }}</td>
               <td>{{ item.identifier.scheme }}-{{ item.identifier.id }}</td>
-              <td>{{ item.nationality }}</td>
+              <td>{{ item.nationalities }}</td>
               <td>{{ item.email }}</td>
               <td>{{ item.faxNumber }}</td>
               <td>{{ item.telephone }}</td>
@@ -125,21 +125,52 @@
       </div>
     </div>
 
-    <div class="row">
-      <div class="form-floating col mb-3">
-        <input
-          class="form-control"
-          id="nationality"
-          type="text"
-          data-sb-validations="required"
-          placeholder="Nacionalidad*"
-          formControlName="nationality"
-        />
-        <label for="nationality">Nacionalidad *</label>
-        <div class="form-text">
-          La nacionalidad del beneficiario final o controlador.
+    <div formArrayName="nationalities" class="row mb-3">
+      <div
+        *ngFor="let nationalityCtrl of nationalities.controls; let i = index"
+        class="col-12 mb-2 d-flex align-items-center"
+      >
+        <div class="form-floating flex-grow-1 me-2">
+          <select
+            class="form-select"
+            [formControlName]="i"
+            [id]="'nationality-' + i"
+            (change)="validateNationalitySelection($event, i)"
+          >
+            <option value="" disabled>
+              Seleccione el país de la nacionalidad *
+            </option>
+            <option *ngFor="let country of countries" [value]="country.code">
+              {{ country.name }}
+            </option>
+          </select>
+          <div class="form-text">
+            Nacionalidad o nacionalidades del beneficiario final.
+          </div>
+          <app-input-validation
+            message="La nacionalidad es requerida."
+          ></app-input-validation>
+          <label [for]="'nationality-' + i">Nacionalidad {{ i + 1 }}</label>
         </div>
-        <app-input-validation [element]="nationality"></app-input-validation>
+        <button
+          type="button"
+          class="btn btn-outline-danger"
+          (click)="removeNationality(i)"
+          [disabled]="nationalities.length === 1"
+          title="Eliminar"
+        >
+          &times;
+        </button>
+      </div>
+
+      <div class="col-12">
+        <button
+          type="button"
+          class="btn btn-outline-primary"
+          (click)="addNationality()"
+        >
+          + Agregar otra nacionalidad
+        </button>
       </div>
     </div>
 
@@ -171,7 +202,7 @@
           placeholder="Teléfono*"
           formControlName="telephone"
         />
-        <label for="telephone">Teléfono *</label>
+        <label for="telephone">Teléfono</label>
         <div class="form-text">
           Número telefónico con código de área (ej: 55-1234-5678)
         </div>
@@ -189,7 +220,7 @@
           placeholder="Número de fax*"
           formControlName="faxNumber"
         />
-        <label for="faxNumber">Número de fax *</label>
+        <label for="faxNumber">Número de fax</label>
         <div class="form-text">
           Número de fax (opcional, incluir código de área)
         </div>
@@ -300,7 +331,6 @@
           type="button"
           class="btn btn-danger btn-add"
           (click)="addNewBeneficialOwners()"
-          [disabled]="!beneficialOwnersForm.valid"
         >
           Agregar beneficiario
         </button>

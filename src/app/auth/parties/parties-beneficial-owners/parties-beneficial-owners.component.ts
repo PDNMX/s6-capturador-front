@@ -4,7 +4,10 @@ import {
   FormControl,
   FormGroup,
   Validators,
+  FormArray,
 } from '@angular/forms';
+import Contries from 'src/utils/countries';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-parties-beneficial-owners',
@@ -18,6 +21,7 @@ export class PartiesBeneficialOwnersComponent implements OnInit {
 
   beneficialOwnersForm!: FormGroup;
   mostrarSpinner = false;
+  countries = Contries;
   constructor(private fb: FormBuilder) {}
 
   ngOnInit(): void {
@@ -38,10 +42,6 @@ export class PartiesBeneficialOwnersComponent implements OnInit {
 
   get id(): FormControl {
     return this.identifier.get('id') as FormControl;
-  }
-
-  get nationality(): FormControl {
-    return this.beneficialOwnersForm.get('nationality') as FormControl;
   }
 
   get email(): FormControl {
@@ -80,6 +80,10 @@ export class PartiesBeneficialOwnersComponent implements OnInit {
     return this.address.get('countryName') as FormControl;
   }
 
+  get nationalities(): FormArray {
+    return this.beneficialOwnersForm.get('nationalities') as FormArray;
+  }
+
   initForm(): void {
     this.beneficialOwnersForm = this.fb.group({
       name: ['', [Validators.required]],
@@ -87,10 +91,18 @@ export class PartiesBeneficialOwnersComponent implements OnInit {
         scheme: ['MX-RFC', [Validators.required]],
         id: ['', [Validators.required]],
       }),
-      nationality: ['', [Validators.required]],
+      nationalities: this.fb.array(
+        [
+          this.fb.control('', [
+            Validators.required,
+            Validators.pattern('^[A-Z]{2}$'),
+          ]),
+        ],
+        Validators.required
+      ),
       email: ['', [Validators.required]],
-      telephone: ['', [Validators.required]],
-      faxNumber: ['', [Validators.required]],
+      telephone: [null],
+      faxNumber: [null],
       address: this.fb.group({
         streetAddress: ['', [Validators.required]],
         locality: ['', [Validators.required]],
@@ -101,14 +113,118 @@ export class PartiesBeneficialOwnersComponent implements OnInit {
     });
   }
 
+  addNationality(): void {
+    this.nationalities.push(this.fb.control(''));
+  }
+
+  removeNationality(index: number): void {
+    this.nationalities.removeAt(index);
+  }
+
+  validateNationalitySelection(event: Event, index: number): void {
+    const target = event.target as HTMLSelectElement;
+    const selectedCode = target.value;
+
+    const existingIndex = this.nationalities.value.findIndex(
+      (code: string, i: number) => code === selectedCode && i !== index
+    );
+
+    if (existingIndex !== -1) {
+      Swal.fire({
+        icon: 'warning',
+        title: 'Nacionalidad duplicada',
+        text: 'Esta nacionalidad ya ha sido seleccionada. Por favor, elija una diferente.',
+        confirmButtonText: 'Aceptar',
+        confirmButtonColor: '#ffc107',
+      });
+
+      target.value = '';
+      this.nationalities.at(index).setValue('');
+      return;
+    }
+
+    this.nationalities.at(index).setValue(selectedCode);
+  }
+
+  // Método adicional para validar antes de agregar/guardar
+  validateEmptyNationalities(): boolean {
+    const emptyNationalities = this.nationalities.value.filter(
+      (code: string) => !code || code.trim() === ''
+    );
+
+    if (emptyNationalities.length > 0) {
+      Swal.fire({
+        icon: 'warning',
+        title: 'Nacionalidades incompletas',
+        text: 'Todas las nacionalidades deben tener un país seleccionado. Por favor, complete o elimine las nacionalidades vacías.',
+        confirmButtonText: 'Aceptar',
+        confirmButtonColor: '#ffc107',
+      });
+      return false;
+    }
+
+    return true;
+  }
+
   addNewBeneficialOwners(): void {
-    this.mostrarSpinner = true;
+    this.beneficialOwnersForm.markAllAsTouched();
+
+    // Validar nacionalidades vacías
+    if (!this.validateEmptyNationalities()) {
+      return;
+    }
+
+    if (!this.isFormValid()) {
+      const errors = this.getValidationErrors();
+
+      // Crear lista HTML para SweetAlert2
+      const errorsList = errors.map((error) => `${error}`).join('<br>');
+      const htmlContent = `
+    <p>Hay campos obligatorios sin llenar en la dirección.</p>
+    <ul style="text-align: left;">
+      <li>Revisa los campos marcados en rojo.</li>
+      <li>Los mensajes de error están debajo de cada campo.</li>
+    </ul>
+  `;
+
+      Swal.fire({
+        icon: 'warning',
+        title: 'Formulario incompleto',
+        html: htmlContent,
+        footer: 'Completa todos los campos requeridos antes de continuar.',
+        confirmButtonText: 'Aceptar',
+        confirmButtonColor: '#ffc107',
+      });
+
+      return;
+    }
+
     this.addBeneficialOwners.emit(this.beneficialOwnersForm);
-    // console.log('beneficialOwnersForm: ', this.beneficialOwnersForm.value);
-    this.initForm();
-    setTimeout(() => {
-      this.mostrarSpinner = false;
-      console.log('agregando al arreglo');
-    }, 1000);
+    Swal.fire({
+      icon: 'success',
+      title: 'Beneficiarios agregados',
+      text: 'Los beneficiarios se han agregado exitosamente.',
+      confirmButtonText: 'Aceptar',
+      confirmButtonColor: '#28a745',
+      timer: 2000,
+      timerProgressBar: true,
+    });
+  }
+
+  private getValidationErrors(): string[] {
+    const errors: string[] = [];
+
+    if (this.nationalities.length === 0) {
+      errors.push('• Debe agregar al menos una nacionalidad');
+    }
+
+    return errors;
+  }
+
+  private isFormValid(): boolean {
+    if (this.nationalities.length === 0 || this.beneficialOwnersForm.invalid) {
+      return false;
+    }
+    return true;
   }
 }
